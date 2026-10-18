@@ -65,7 +65,7 @@ struct Ar {
     void v(CombatantSpec& c) { v(c.species); v(c.level); v(c.xp); v(c.moves); v(c.ownedId); v(c.hpFrac); v(c.item); v(c.owner); v(c.abilitySlot); v(c.nature); }
     void v(SideSetup& s) { v(s.team); v(s.cpu); v(s.level); v(s.earnXp); v(s.label); v(s.team_); v(s.input); v(s.tag); }
     void v(BattleSetup& s) {
-        v(s.side); v(s.twoPlayer); v(s.autoAim); v(s.trainerBattle); v(s.screenShake); v(s.damageNumbers); v(s.arena); v(s.catchable); v(s.night); v(s.daylight); v(s.weather); v(s.venue); v(s.season);
+        v(s.side); v(s.twoPlayer); v(s.autoAim); v(s.trainerBattle); v(s.screenShake); v(s.damageNumbers); v(s.arena); v(s.catchable); v(s.night); v(s.daylight); v(s.weather); v(s.venue); v(s.season); v(s.practice);
     }
     void v(StatusState& s) {
         v(s.major); v(s.majorT); v(s.tickT); v(s.paraT); v(s.paraStunT); v(s.toxicN); v(s.confuseT); v(s.confuseAngle);
@@ -88,7 +88,7 @@ struct Ar {
         std::string item = f.item ? f.item->name : std::string();
         v(item);
         if (!writing) f.item = FindItem(item);
-        v(f.focusUsed); v(f.leftAcc); v(f.sentOut); v(f.startLevel); v(f.startSpecies); v(f.xpGained); v(f.kos);
+        v(f.focusUsed); v(f.leftAcc); v(f.sentOut); v(f.dmgDealt); v(f.dmgTaken); v(f.hurtT); v(f.hitFresh); v(f.startLevel); v(f.startSpecies); v(f.xpGained); v(f.kos);
         v(f.learnedNow); v(f.pendingLearn); v(f.evolvedNames);
         v(f.ab); v(f.abSlot); v(f.nature); v(f.abSpd); v(f.abAtk); v(f.abDef); v(f.abT); v(f.sinceAct); v(f.flashFire); v(f.snackUsed); v(f.pinchShown);
         v(f.onIce); v(f.slid); v(f.slide); v(f.safeT); v(f.mistT); v(f.chantT); v(f.followT);
@@ -96,7 +96,7 @@ struct Ar {
     }
     void v(Side& s) {
         v(s.team); v(s.active); v(s.teamId); v(s.input); v(s.target); v(s.tag); v(s.damageDealt); v(s.cpu); v(s.earnXp);
-        v(s.level); v(s.label); v(s.swapCd); v(s.swapTo); v(s.sendT); v(s.lastPos); v(s.ai);
+        v(s.level); v(s.label); v(s.swapCd); v(s.swapTo); v(s.manualT); v(s.dummy); v(s.sendT); v(s.lastPos); v(s.ai);
     }
     void v(Obstacle& o) {
         v(o.kind); v(o.pos); v(o.radius); v(o.height); v(o.alive); v(o.burnT); v(o.fallT); v(o.fallDir); v(o.respawnT);

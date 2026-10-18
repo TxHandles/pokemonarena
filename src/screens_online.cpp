@@ -28,14 +28,14 @@ extern bool gAutoNetInput;
 
 namespace {
 
-constexpr uint32_t PROTOCOL = 6;   // 5: dodge and jump, 6: swap back
+constexpr uint32_t PROTOCOL = 7;   // 5: dodge and jump, 6: swap back, 7: target switching
 constexpr float TICK = 1.0f / 60.0f;
 constexpr int INPUT_DELAY = 2;    // ticks: our own presses take effect this much later (33 ms)
 constexpr int MAX_AHEAD = 15;     // ticks we may run ahead of what the partner has confirmed
 
 enum Msg : uint8_t {
     M_HELLO = 1, M_PROFILE, M_COOP, M_READY, M_GO, M_PICKS, M_CANCEL, M_BATTLE, M_INPUT, M_HASH,
-    M_RESYNC_REQ, M_RESYNC, M_CATCH, M_LEAVE_BATTLE, M_ACTIVITY, M_BYE, M_TRADE, M_TRADE_GO, M_CURSOR, M_FOSSIL
+    M_RESYNC_REQ, M_RESYNC, M_CATCH, M_LEAVE_BATTLE, M_ACTIVITY, M_BYE, M_TRADE, M_TRADE_GO, M_CURSOR, M_FOSSIL, M_PICKVIEW, M_CATCHSEL, M_THROW
 };
 
 // ---- message packing
@@ -83,6 +83,7 @@ void PackInput(W& w, const PlayerInput& in) {
     bits |= in.jump ? 64 : 0;
     bits |= in.swapPrev ? 128 : 0;
     w.u8(bits);
+    w.u8(in.target == 0 ? 0 : (in.target > 0 ? 1 : 2));
 }
 PlayerInput UnpackInput(R& r) {
     PlayerInput in;
@@ -94,10 +95,12 @@ PlayerInput UnpackInput(R& r) {
     in.dodge = (bits & 32) != 0;
     in.jump = (bits & 64) != 0;
     in.swapPrev = (bits & 128) != 0;
+    int tg = r.u8();
+    in.target = tg == 1 ? 1 : (tg == 2 ? -1 : 0);
     return in;
 }
 bool SameInput(const PlayerInput& a, const PlayerInput& b) {
-    if (a.move.x != b.move.x || a.move.y != b.move.y || a.swap != b.swap || a.dodge != b.dodge || a.jump != b.jump || a.swapPrev != b.swapPrev) return false;
+    if (a.move.x != b.move.x || a.move.y != b.move.y || a.swap != b.swap || a.dodge != b.dodge || a.jump != b.jump || a.swapPrev != b.swapPrev || a.target != b.target) return false;
     for (int i = 0; i < 4; i++) if (a.attack[i] != b.attack[i]) return false;
     return true;
 }
@@ -172,9 +175,13 @@ const char* ActivityName(Screen s) {
         case Screen::Map: return "looking at the map";
         case Screen::Select: return "choosing their team";
         case Screen::Battle: return "in battle";
-        case Screen::StoryResults: case Screen::Evolve: case Screen::LearnMove: case Screen::Reward:
+        case Screen::StoryResults: case Screen::BattleStats: case Screen::Evolve: case Screen::LearnMove: case Screen::Reward:
         case Screen::Fossil: case Screen::Gift: case Screen::Revive: return "after the battle";
         case Screen::Slots: return "at the Game Corner";
+        case Screen::Practice: return "in the practice arena";
+        case Screen::StageIntro: return "getting ready for the battle";
+        case Screen::Settings: case Screen::Controls: return "in the settings";
+        case Screen::CoopStarter: return "choosing a starter";
         case Screen::Catch: return "catching";
         case Screen::Trade: return "at the trade machine";
         case Screen::Pokedex: return "reading their Pokedex";
@@ -187,6 +194,8 @@ const char* ActivityName(Screen s) {
 void BeginOnlineBattle(Game& g) {
     OnlineSession& o = g.on;
     o.inBattle = true;
+    o.partnerThrows.clear();
+    o.partnerCatchSel = 0;
     gLocalInput = o.me;
     o.tick = o.confirmed = 0;
     o.confirmedState = g.battle;
@@ -203,6 +212,8 @@ void BeginOnlineBattle(Game& g) {
     o.stallT = 0;
     g.paused = false;
     g.screen = Screen::Battle;
+    // The guest's battle arrives as saved state: build the arena look (gym stands, crowd) here too
+    if (IsWindowReady()) SetBattleArena(g.battle.Setup().arena, g.battle.GetField());
 }
 
 PlayerInput InputFor(OnlineSession& o, int who, int t, bool remember) {
@@ -289,7 +300,11 @@ void OnlineTradeUpdate(Game& g) {
 }
 
 void OnlineSendCatch(int poolPick) { W(M_CATCH).i32(poolPick).Send(); }
+void OnlineSendThrow(int species, int level, bool ok, int shakes, bool fled) {
+    W(M_THROW).i32(species).i32(level).u8(ok).u8((uint8_t)shakes).u8(fled).Send();
+}
 void OnlineSendFossil(const std::string& choice) { W(M_FOSSIL).str(choice).Send(); }
+void OnlineSendCursor(int sel) { W(M_CURSOR).u8((uint8_t)sel).Send(); }
 
 void OnlineSetReady(Game& g, int kind) {
     if (!g.on.active || g.on.myReady == kind) return;
@@ -346,7 +361,10 @@ static void HostMaybeGo(Game& g) {
     g.rareSpecies = rareSpecies;
     o.myReady = o.partnerReady = 0;
     o.picksSent = o.partnerPicksIn = false;
-    BeginTeamSelect(g);
+    o.partnerPickView.clear();
+    o.partnerSelCursor = -1;
+    if (kind == 1) g.screen = Screen::StageIntro;   // the trainer / gym intro first, like offline
+    else BeginTeamSelect(g);
 }
 
 static void HostMaybeStartBattle(Game& g) {
@@ -436,7 +454,8 @@ void OnlinePoll(Game& g) {
                     o.myReady = o.partnerReady = 0;
                     g.rareSpecies = -1;
                     Toast(g, "Connected to " + g.coopP[Other(g)].name + "!");
-                    EnterStoryHub(g);
+                    if (CoopNeedsStarter(g)) { g.coopStarterSel[0] = g.coopStarterSel[1] = 0; g.screen = Screen::CoopStarter; }
+                    else EnterStoryHub(g);
                 }
             } break;
             case M_PROFILE: {
@@ -447,6 +466,13 @@ void OnlinePoll(Game& g) {
             case M_ACTIVITY: o.partnerActivity = r.str(); break;
             case M_CURSOR: o.partnerCursor = r.u8(); break;
             case M_FOSSIL: o.partnerFossil = r.str(); break;
+            case M_PICKVIEW: {   // the partner's team so far, while they pick
+                int n = r.u8();
+                std::vector<int> v;
+                for (int i = 0; i < n && r.ok; i++) v.push_back(r.u8());
+                int cur = r.u8();
+                if (r.ok) { o.partnerPickView = v; o.partnerSelCursor = cur == 255 ? -1 : cur; }
+            } break;
             case M_GO: {
                 int kind = r.u8();
                 g.stageIdx = r.i32();
@@ -455,8 +481,11 @@ void OnlinePoll(Game& g) {
                 g.mode = kind == 1 ? Mode::CoopStory : Mode::CoopTraining;
                 o.myReady = o.partnerReady = 0;
                 o.picksSent = o.partnerPicksIn = false;
+                o.partnerPickView.clear();
+                o.partnerSelCursor = -1;
                 if (g.coopActive >= 0) EnterStoryHub(g);  // close the shop etc. first
-                BeginTeamSelect(g);
+                if (kind == 1) g.screen = Screen::StageIntro;   // the trainer / gym intro first
+                else BeginTeamSelect(g);
             } break;
             case M_PICKS: {
                 int n = r.i32();
@@ -467,7 +496,7 @@ void OnlinePoll(Game& g) {
                 o.partnerPicksIn = true;
             } break;
             case M_CANCEL:
-                if (g.screen == Screen::Select) { EnterStoryHub(g); Toast(g, g.coopP[Other(g)].name + " went back to the hub."); }
+                if (g.screen == Screen::Select || g.screen == Screen::StageIntro) { EnterStoryHub(g); Toast(g, g.coopP[Other(g)].name + " went back to the hub."); }
                 o.partnerPicksIn = false;
                 break;
             case M_BATTLE: {
@@ -517,6 +546,16 @@ void OnlinePoll(Game& g) {
                 }
             } break;
             case M_CATCH: o.partnerCatch.push_back(r.i32()); break;
+            case M_CATCHSEL: o.partnerCatchSel = r.u8(); break;
+            case M_THROW: {
+                OnlineSession::Throw t;
+                t.species = r.i32();
+                t.level = r.i32();
+                t.ok = r.u8() != 0;
+                t.shakes = r.u8();
+                t.fled = r.u8() != 0;
+                if (r.ok) o.partnerThrows.push_back(t);
+            } break;
             case M_TRADE: {
                 bool here = r.u8() != 0;
                 int offer = r.i32();
@@ -567,10 +606,31 @@ void OnlinePoll(Game& g) {
         W(M_ACTIVITY).str(ActivityName(g.screen)).Send();
         if (g.screen != Screen::CoopHub && o.myReady != 0 && g.screen != Screen::Select) OnlineSetReady(g, 0);
     }
+    // Our highlighted creature in the catch draft, so the partner can watch us choose.
+    if (g.screen == Screen::Catch && g.catchWho == o.me && g.catchPhase == 0) {
+        static int lastSel = -1;
+        if (g.catchSel != lastSel) { lastSel = g.catchSel; W(M_CATCHSEL).u8((uint8_t)std::min(255, g.catchSel)).Send(); }
+    }
     // Our highlighted hub item, so the partner sees where we are.
     if (g.screen == Screen::CoopHub && g.hubSel != lastCursor) {
         lastCursor = g.hubSel;
         W(M_CURSOR).u8((uint8_t)g.hubSel).Send();
+    }
+    // Team select: our picks so far and where our cursor is, so the partner can plan around them.
+    if (g.screen == Screen::Select) {
+        static std::string lastView;
+        std::string view;
+        for (int i : g.picks[o.me]) view += (char)(i + 1);
+        view += '|';
+        view += (char)(g.cursor[o.me] + 1);
+        if (view != lastView) {
+            lastView = view;
+            W w(M_PICKVIEW);
+            w.u8((uint8_t)g.picks[o.me].size());
+            for (int i : g.picks[o.me]) w.u8((uint8_t)i);
+            w.u8((uint8_t)std::min(254, g.cursor[o.me]));
+            w.Send();
+        }
     }
     // Team select: send our picks once locked in.
     if (g.screen == Screen::Select && g.ready[o.me] && !o.picksSent) {
@@ -608,6 +668,7 @@ bool OnlineBattleUpdate(Game& g, float dt) {
     o.pending.dodge = o.pending.dodge || li.dodge;
     o.pending.jump = o.pending.jump || li.jump;
     o.pending.swapPrev = o.pending.swapPrev || li.swapPrev;
+    if (li.target) o.pending.target = li.target;
 
     // Leaving (the battle doesn't pause online).
     if (li.pause || IsKeyPressed(KEY_ESCAPE)) { o.leaveAsk = !o.leaveAsk; PlaySfx(Sfx::MenuMove); }
@@ -700,22 +761,27 @@ void UpdateNetMenu(Game& g) {
     int n = (int)g.profiles.size();
     if (o.page == 0) {
         PlayerInput in = MenuInput();
-        const int N = 4;
+        const int N = 5;
         if (in.up) { o.sel = (o.sel + N - 1) % N; PlaySfx(Sfx::MenuMove); }
         if (in.down) { o.sel = (o.sel + 1) % N; PlaySfx(Sfx::MenuMove); }
-        if (o.sel == 0 && n > 0) {
-            if (in.left) { o.profSel = (o.profSel + n - 1) % n; PlaySfx(Sfx::MenuMove); }
-            if (in.right) { o.profSel = (o.profSel + 1) % n; PlaySfx(Sfx::MenuMove); }
+        if (o.sel == 0) {   // the profiles, then "+ New trainer"
+            if (in.left) { o.profSel = (o.profSel + n) % (n + 1); PlaySfx(Sfx::MenuMove); }
+            if (in.right) { o.profSel = (o.profSel + 1) % (n + 1); PlaySfx(Sfx::MenuMove); }
         }
         if (in.back) { GoTitle(g); return; }
         if (!in.confirm) return;
-        if (o.sel == 3) { GoTitle(g); return; }
-        if (o.sel == 0) return;
-        if (n == 0) { Toast(g, "Make a Story Mode profile first."); return; }
-        if (!LoadProfile(g.profiles[o.profSel], o.mine) || o.mine.mons.empty()) {
-            Toast(g, "That profile has no creatures yet - pick a starter in Story Mode first.");
+        if (o.sel == 4) { GoTitle(g); return; }
+        if (o.sel == 3) { g.settingsSel = 0; g.settingsBack = Screen::NetMenu; g.screen = Screen::Settings; PlaySfx(Sfx::MenuOk); return; }
+        if (o.sel == 0 || o.profSel >= n) {   // make a new trainer: type a name (the starter is picked together once connected)
+            if (o.profSel < n) return;
+            g.netNewTrainer = true;
+            g.nameBuf.clear();
+            while (GetCharPressed()) {}
+            g.screen = Screen::NameEntry;
+            PlaySfx(Sfx::MenuOk);
             return;
         }
+        if (!LoadProfile(g.profiles[o.profSel], o.mine)) { Toast(g, "Could not load that profile."); return; }
         std::string err;
         bool host = o.sel == 1;
         if (!net::Open(host, net::DEFAULT_PORT, err)) { o.err = err; Toast(g, err); return; }
@@ -749,9 +815,9 @@ void DrawNetMenu(const Game& g) {
     DrawTextCentered("Play Co-op Story with a friend on another computer. Each of you uses your own profile.", VW / 2, 46, 10, UI_TEXT, false);
     if (o.page == 0) {
         int n = (int)g.profiles.size();
-        std::string prof = n ? "Your profile:  < " + g.profiles[o.profSel] + " >" : "No profiles yet - make one in Story Mode";
-        const char* items[4] = {prof.c_str(), "Host a game", "Join a game", "Back"};
-        for (int i = 0; i < 4; i++) DrawMenuItem(items[i], VW / 2, 80 + i * 30, 20, o.sel == i);
+        std::string prof = o.profSel < n ? "Your trainer:  < " + g.profiles[o.profSel] + " >" : "Your trainer:  < + New trainer >";
+        const char* items[5] = {prof.c_str(), "Host a game", "Join a game", "Settings", "Back"};
+        for (int i = 0; i < 5; i++) DrawMenuItem(items[i], VW / 2, 74 + i * 26, 20, o.sel == i);
         DrawPanel(60, 210, 520, 110, UI_PANEL, UI_BORDER);
         int y = 218;
         auto line = [&](const char* t, Color c) { DrawText(t, 72, y, 10, c); y += 13; };

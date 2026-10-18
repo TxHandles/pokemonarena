@@ -13,7 +13,7 @@ enum class Screen {
     ProfileSelect, NameEntry, Starter, StoryHub, MyCreatures, StageIntro,
     RosterPick, Select, Battle, Results,
     StoryResults, Evolve, LearnMove, Reward, Catch, Heal, Map, Shop, DoublesMenu,
-    CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots
+    CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice
 };
 
 enum class Mode { Quick, TwoPlayer, Watch, Story, Training, Doubles, CoopStory, CoopTraining };
@@ -58,6 +58,8 @@ struct OnlineSession {
     // Team select
     bool picksSent = false, partnerPicksIn = false;
     std::vector<int> partnerPicks;
+    std::vector<int> partnerPickView;    // the partner's picks so far (shown while they choose)
+    int partnerSelCursor = -1;           // the partner's highlighted creature in team select
     // Battle
     bool inBattle = false;
     int tick = 0, confirmed = 0;
@@ -79,6 +81,10 @@ struct OnlineSession {
     int partnerOffer = -1;
     std::string partnerOfferMon;      // the offered creature, as save-file text
     std::string partnerFossil;        // the fossil the partner picked first (co-op fossil choice)
+    // Watching the partner's catch: their highlighted creature and their throws
+    int partnerCatchSel = 0;
+    struct Throw { int species, level; bool ok; int shakes; bool fled; };
+    std::deque<Throw> partnerThrows;
 };
 
 struct Game {
@@ -177,10 +183,15 @@ struct Game {
     bool returnToParty = false;   // after a stone evolution, go back to Party & Box
     bool returnToShop = false;    // after the Move Relearner, go back to the shop
     bool tmPick = false;          // Party & Box: choosing a TM to teach
+    bool moveOrder = false;       // Party & Box: rearranging which button uses which move
+    int moveOrdSel = 0, moveGrab = -1;
     bool showBoard = false;       // co-op hub: the leaderboard is open
     // Gifts (fossil revivals, Eevee): shown one at a time after a battle; the Pokemon is already added
     struct Gift { int who; int species; std::string text; std::string item; };   // item: an item gift (Old Amber) instead
     std::vector<Gift> giftQueue;
+    // After-battle stats (damage dealt, damage taken, KOs) for everyone who fought
+    struct StatRow { int team = 0, who = 0, species = -1, level = 1, dealt = 0, taken = 0, kos = 0; bool fainted = false; std::string tag; };
+    std::vector<StatRow> statRows;
     int fossilSel = 0;            // pick screen: which of the two
     int pickKind = 0;             // pick screen: 0 Mt. Moon fossils, 1 Fighting Dojo prize
     float reviveT = -1;           // Cinnabar Lab: revival animation time (-1 = waiting for Enter)
@@ -202,6 +213,14 @@ struct Game {
     int coopWho = 0;              // hub: whose Shop / Healing Center / Party & Box
     int coopPick[2] = {0, 0};     // co-op setup: profile index each player is on
     bool coopReady[2] = {false, false};
+    bool coopNew[2] = {false, false};      // starting a brand-new trainer for this player
+    std::string coopName[2];               // their names while typing
+    int coopNameWho = 0;                   // whose name is being typed (local co-op)
+    int coopStarterSel[2] = {0, 0};        // co-op starter picks
+    bool netNewTrainer = false;            // online menu: typing a new trainer's name
+    Screen settingsBack = Screen::Title;   // where Settings returns to
+    Screen practiceBack = Screen::StoryHub; // the hub the practice arena was opened from
+    float practicePeak = 0;                 // practice: total damage dealt to the dummies
     OnlineSession on;
     // Pokedex
     int dexSel = 0, dexScroll = 0, dexWho = 0;
@@ -244,6 +263,12 @@ void UpdateLearnMove(Game& g);       void DrawLearnMove(const Game& g);
 void UpdateFossil(Game& g);          void DrawFossil(const Game& g);
 void UpdateGift(Game& g);            void DrawGift(const Game& g);
 void UpdateRevive(Game& g);          void DrawRevive(const Game& g);
+void UpdateCoopSetup(Game& g);       void DrawCoopSetup(const Game& g);
+void UpdateBattleStats(Game& g);     void DrawBattleStats(const Game& g);
+void UpdateCoopStarter(Game& g);     void DrawCoopStarter(const Game& g);
+void CoopBeginJourney(Game& g);      // both profiles chosen and have a starter: open the co-op save, go to the hub
+bool CoopNeedsStarter(const Game& g); // someone in the co-op session has no Pokemon yet
+void OnlineSendCursor(int sel);
 void UpdateSlots(Game& g);           void DrawSlots(const Game& g);
 bool GameCornerOpen(const Game& g);                          // the story has reached Celadon
 void UpdateGameCorner(Game& g, const struct PlayerInput& in);  // the shop's Game Corner tab
@@ -283,6 +308,7 @@ void OnlineSetReady(Game& g, int kind);
 void OnlineLeave(Game& g, const std::string& why);
 bool OnlineMine(const Game& g, int who);       // offline: always; online: only my own player
 void OnlineSendCatch(int poolPick);
+void OnlineSendThrow(int species, int level, bool ok, int shakes, bool fled);   // so the partner watches our throw
 void OnlineCancelSelect(Game& g);
 
 // Flow helpers
@@ -291,6 +317,9 @@ void StartQuickFlow(Game& g, Mode m);       // Quick / TwoPlayer / Watch
 void BeginTeamSelect(Game& g);              // after rosters are chosen
 void StartBattleFromSelect(Game& g);
 void EnterStoryHub(Game& g);
+void StartPractice(Game& g);                 // the practice arena (dummies), from either story hub
+void UpdatePractice(Game& g, float dt);
+void DrawPractice(const Game& g);
 void ProcessStoryBattleEnd(Game& g);        // XP, levels, queues
 void AdvanceStoryQueues(Game& g);           // catch -> evolve -> learn -> reward -> hub
 void OpenHealingCenter(Game& g);

@@ -3,7 +3,7 @@
 #include "battle.h"
 
 // Rebindable actions.
-enum class Act { Up, Down, Left, Right, Move1, Move2, Move3, Move4, Swap, Pause, Dodge, Jump, SwapPrev, Count };
+enum class Act { Up, Down, Left, Right, Move1, Move2, Move3, Move4, Swap, Pause, Dodge, Jump, SwapPrev, Target, Count };
 constexpr int ACT_COUNT = (int)Act::Count;
 
 // Keyboard layouts: one player alone, or the two halves of a shared keyboard.
@@ -33,6 +33,9 @@ void LoadSettings();          // settings.txt next to the game (defaults if miss
 void SaveSettings();
 void ResetKeys(int layout);
 void ResetPad(int player);
+// The default bindings, which menus always use (so rebinding battle controls never locks you out of menus).
+const int* DefaultKeys(int layout, Act a);   // two keys
+int DefaultPadButton(Act a);
 void ApplyAudioSettings();
 
 const char* ActName(Act a);

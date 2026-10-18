@@ -48,7 +48,7 @@ void UpdateTitle(Game& g) {
         case 4: StartQuickFlow(g, Mode::TwoPlayer); break;
         case 5: g.doublesSel = 0; g.screen = Screen::DoublesMenu; break;
         case 6: StartQuickFlow(g, Mode::Watch); break;
-        case 7: g.settingsSel = 0; g.screen = Screen::Settings; break;
+        case 7: g.settingsSel = 0; g.settingsBack = Screen::Title; g.screen = Screen::Settings; break;
         case 8: g.quit = true; break;
     }
 }
@@ -114,7 +114,7 @@ void UpdateSettings(Game& g) {
     Settings& c = Cfg();
     if (in.up) { g.settingsSel = (g.settingsSel + SET_N - 1) % SET_N; PlaySfx(Sfx::MenuMove); }
     if (in.down) { g.settingsSel = (g.settingsSel + 1) % SET_N; PlaySfx(Sfx::MenuMove); }
-    if (in.back) { SaveSettings(); PlaySfx(Sfx::MenuBack); g.screen = Screen::Title; return; }
+    if (in.back) { SaveSettings(); PlaySfx(Sfx::MenuBack); g.screen = g.settingsBack; g.settingsBack = Screen::Title; return; }
     int step = in.left ? -1 : ((in.right || in.confirm) ? 1 : 0);
     if (!step) return;
     bool changed = true;
@@ -135,7 +135,7 @@ void UpdateSettings(Game& g) {
             break;
         default:
             changed = false;
-            if (in.confirm) { SaveSettings(); g.screen = Screen::Title; }
+            if (in.confirm) { SaveSettings(); g.screen = g.settingsBack; g.settingsBack = Screen::Title; }
             break;
     }
     if (changed) {
@@ -252,9 +252,9 @@ void DrawControls(const Game& g) {
     DrawText(padTab ? "Button" : "Key", x + 150, y0 - 2, 10, UI_DIM);
     if (!padTab) DrawText("Alternate", x + 250, y0 - 2, 10, UI_DIM);
     for (int a = 0; a < ACT_COUNT; a++) {
-        int y = y0 + 10 + a * 18;
+        int y = y0 + 10 + a * 16;
         bool rowSel = g.ctrlRow == a + 1;
-        DrawPanel(x, y, w, 16, rowSel ? UI_PANEL_LIGHT : UI_PANEL, rowSel ? UI_GOLD : Color{70, 64, 92, 255});
+        DrawPanel(x, y, w, 15, rowSel ? UI_PANEL_LIGHT : UI_PANEL, rowSel ? UI_GOLD : Color{70, 64, 92, 255});
         DrawText(ActName((Act)a), x + 10, y + 3, 10, rowSel ? UI_GOLD : UI_TEXT);
         int cols = padTab ? 1 : 2;
         for (int col = 0; col < cols; col++) {
@@ -281,7 +281,7 @@ void DrawControls(const Game& g) {
             }
         }
     }
-    int ry = y0 + 10 + ACT_COUNT * 18 + 4;
+    int ry = y0 + 10 + ACT_COUNT * 16 + 4;
     DrawMenuItem("Reset this page to defaults", VW / 2, ry, 10, g.ctrlRow == ACT_COUNT + 1);
     DrawMenuItem("Back", VW / 2, ry + 16, 10, g.ctrlRow == ACT_COUNT + 2);
     DrawText(g.capturing ? "Esc cancels   Backspace clears the binding"

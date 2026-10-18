@@ -38,6 +38,19 @@ PlayerInput gAutoPad;          // autotest: scripted battle input for player 1
 bool gAutoPadOn = false;
 #endif
 
+namespace {
+// Menus use the default keys / buttons, whatever the battle controls are bound to.
+bool MenuKeyPressed(int layout, Act a) {
+    if (layout < 0) return false;
+    const int* k = DefaultKeys(layout, a);
+    return (k[0] && IsKeyPressed(k[0])) || (k[1] && IsKeyPressed(k[1]));
+}
+bool MenuPadPressed(int p, Act a) {
+    int b = DefaultPadButton(a);
+    return b && IsGamepadAvailable(p) && IsGamepadButtonPressed(p, b);
+}
+} // namespace
+
 PlayerInput ReadInput(int p, bool twoPlayer) {
 #ifdef ARENA_AUTOTEST
     if (gAutoPadOn && p == 0) return gAutoPad;
@@ -56,13 +69,14 @@ PlayerInput ReadInput(int p, bool twoPlayer) {
     in.pause = KeyPressed(lay, Act::Pause);
     in.dodge = KeyPressed(lay, Act::Dodge);
     in.swapPrev = KeyPressed(lay, Act::SwapPrev);
+    if (KeyPressed(lay, Act::Target)) in.target = 1;
     in.jump = KeyPressed(lay, Act::Jump);
-    in.confirm = KeyPressed(lay, Act::Move1);
-    in.back = KeyPressed(lay, Act::Move2);
-    in.up = KeyPressed(lay, Act::Up);
-    in.down = KeyPressed(lay, Act::Down);
-    in.left = KeyPressed(lay, Act::Left);
-    in.right = KeyPressed(lay, Act::Right);
+    in.confirm = MenuKeyPressed(lay, Act::Move1);
+    in.back = MenuKeyPressed(lay, Act::Move2);
+    in.up = MenuKeyPressed(lay, Act::Up);
+    in.down = MenuKeyPressed(lay, Act::Down);
+    in.left = MenuKeyPressed(lay, Act::Left);
+    in.right = MenuKeyPressed(lay, Act::Right);
     bool anyKey = x != 0 || y != 0 || in.confirm || in.swap || in.swapPrev || in.dodge || in.jump || in.attack[1] || in.attack[2] || in.attack[3];
     if (anyKey) gUsedPad[p] = false;
 
@@ -84,13 +98,22 @@ PlayerInput ReadInput(int p, bool twoPlayer) {
         if (PadPressed(p, Act::Pause)) in.pause = true;
         if (PadPressed(p, Act::Dodge)) { in.dodge = true; any = true; }
         if (PadPressed(p, Act::SwapPrev)) { in.swapPrev = true; any = true; }
+        if (PadPressed(p, Act::Target)) { in.target = 1; any = true; }
+        {   // flick the right stick left / right (or up / down) to switch targets
+            static float prevR[2] = {0, 0};
+            float rx = GetGamepadAxisMovement(p, GAMEPAD_AXIS_RIGHT_X), ry = GetGamepadAxisMovement(p, GAMEPAD_AXIS_RIGHT_Y);
+            float r = std::fabs(rx) > std::fabs(ry) ? rx : ry;
+            if (r > 0.6f && prevR[p] <= 0.6f) { in.target = 1; any = true; }
+            if (r < -0.6f && prevR[p] >= -0.6f) { in.target = -1; any = true; }
+            prevR[p] = r;
+        }
         if (PadPressed(p, Act::Jump)) { in.jump = true; any = true; }
-        if (PadPressed(p, Act::Move1)) in.confirm = true;
-        if (PadPressed(p, Act::Move2)) in.back = true;
-        if (PadPressed(p, Act::Up)) in.up = true;
-        if (PadPressed(p, Act::Down)) in.down = true;
-        if (PadPressed(p, Act::Left)) in.left = true;
-        if (PadPressed(p, Act::Right)) in.right = true;
+        if (MenuPadPressed(p, Act::Move1)) { in.confirm = true; any = true; }
+        if (MenuPadPressed(p, Act::Move2)) { in.back = true; any = true; }
+        if (MenuPadPressed(p, Act::Up)) in.up = true;
+        if (MenuPadPressed(p, Act::Down)) in.down = true;
+        if (MenuPadPressed(p, Act::Left)) in.left = true;
+        if (MenuPadPressed(p, Act::Right)) in.right = true;
 
         Vector2 prev = gPrevStick[p];
         if (ay < -0.6f && prev.y >= -0.6f) in.up = true;
@@ -148,5 +171,12 @@ const char* SwapKeyLabel(int player, bool twoPlayer) { return Label(player, twoP
 const char* DodgeKeyLabel(int player, bool twoPlayer) { return Label(player, twoPlayer, Act::Dodge); }
 const char* JumpKeyLabel(int player, bool twoPlayer) { return Label(player, twoPlayer, Act::Jump); }
 const char* SwapPrevKeyLabel(int player, bool twoPlayer) { return Label(player, twoPlayer, Act::SwapPrev); }
-const char* ConfirmLabel(int player, bool twoPlayer) { return Label(player, twoPlayer, Act::Move1); }
-const char* BackLabel(int player, bool twoPlayer) { return Label(player, twoPlayer, Act::Move2); }
+const char* TargetKeyLabel(int player, bool twoPlayer) { return Label(player, twoPlayer, Act::Target); }
+static const char* MenuLabel(int player, bool twoPlayer, Act a) {   // menus use the default bindings
+    if (gUsedPad[player] && IsGamepadAvailable(player)) return PadButtonName(DefaultPadButton(a));
+    int lay = Layout(player, twoPlayer);
+    if (lay < 0) return PadButtonName(DefaultPadButton(a));
+    return KeyName(DefaultKeys(lay, a)[0]);
+}
+const char* ConfirmLabel(int player, bool twoPlayer) { return MenuLabel(player, twoPlayer, Act::Move1); }
+const char* BackLabel(int player, bool twoPlayer) { return MenuLabel(player, twoPlayer, Act::Move2); }

@@ -85,6 +85,15 @@ void DrawStoryMap(const Profile& p, int x, int y, int w, int h, float t, bool to
             DrawCircleV(c, 14 * sc + 6, Color{100, 170, 86, 255});
         }
     }
+    if (IsNight(p.clock)) {   // night: a deep blue wash, with the towns' lights still on
+        DrawRectangle((int)ox, (int)oy, (int)(gW * sc), (int)(gH * sc), Color{8, 12, 44, 105});
+        for (const auto& tw : Story().towns) {
+            Vector2 c = P(tw.x, tw.y);
+            float flick = 0.75f + 0.25f * std::sin(t * 2.3f + tw.x * 0.13f);
+            DrawCircleV(c, 10 * sc + 4, Fade(Color{255, 210, 120, 255}, 0.16f * flick));
+            DrawCircleV(c, 4 * sc + 2, Fade(Color{255, 225, 150, 255}, 0.28f * flick));
+        }
+    }
     RectLines((int)ox - 1, (int)oy - 1, (int)(gW * sc) + 2, (int)(gH * sc) + 2, UI_BORDER);
 
     const auto& stages = Story().stages;

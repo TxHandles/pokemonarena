@@ -96,6 +96,10 @@ int main() {
             case Screen::Gift: UpdateGift(g); break;
             case Screen::Revive: UpdateRevive(g); break;
             case Screen::Slots: UpdateSlots(g); break;
+            case Screen::CoopSetup: UpdateCoopSetup(g); break;
+            case Screen::BattleStats: UpdateBattleStats(g); break;
+            case Screen::Practice: UpdatePractice(g, dt); break;
+            case Screen::CoopStarter: UpdateCoopStarter(g); break;
             case Screen::Reward: UpdateReward(g); break;
             case Screen::Catch: UpdateCatch(g, dt); break;
             case Screen::Heal: UpdateHeal(g); break;
@@ -133,6 +137,10 @@ int main() {
             case Screen::Gift: DrawGift(g); break;
             case Screen::Revive: DrawRevive(g); break;
             case Screen::Slots: DrawSlots(g); break;
+            case Screen::CoopSetup: DrawCoopSetup(g); break;
+            case Screen::BattleStats: DrawBattleStats(g); break;
+            case Screen::Practice: DrawPractice(g); break;
+            case Screen::CoopStarter: DrawCoopStarter(g); break;
             case Screen::Reward: DrawReward(g); break;
             case Screen::Catch: DrawCatch(g); break;
             case Screen::Heal: DrawHeal(g); break;

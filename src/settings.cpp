@@ -11,7 +11,7 @@ namespace {
 
 Settings gCfg;
 
-const char* kActKeys[ACT_COUNT] = {"up", "down", "left", "right", "move1", "move2", "move3", "move4", "swap", "pause", "dodge", "jump", "swap_back"};
+const char* kActKeys[ACT_COUNT] = {"up", "down", "left", "right", "move1", "move2", "move3", "move4", "swap", "pause", "dodge", "jump", "swap_back", "target"};
 const char* kLayoutKeys[LAYOUT_COUNT] = {"solo", "p1", "p2"};
 
 std::string Path() { return DataDir() + "settings.txt"; }
@@ -44,6 +44,7 @@ void ResetKeys(int layout) {
         set(Act::Dodge, KEY_SPACE, KEY_LEFT_SHIFT);
         set(Act::Jump, KEY_E, KEY_O);
         set(Act::SwapPrev, KEY_Y, KEY_Z);
+        set(Act::Target, KEY_TAB, KEY_R);
     } else if (layout == LAYOUT_P1) {
         set(Act::Up, KEY_W);
         set(Act::Down, KEY_S);
@@ -58,6 +59,7 @@ void ResetKeys(int layout) {
         set(Act::Dodge, KEY_E, KEY_LEFT_SHIFT);
         set(Act::Jump, KEY_R);
         set(Act::SwapPrev, KEY_Z);
+        set(Act::Target, KEY_TAB, KEY_C);
     } else {
         set(Act::Up, KEY_UP);
         set(Act::Down, KEY_DOWN);
@@ -72,6 +74,7 @@ void ResetKeys(int layout) {
         set(Act::Dodge, KEY_KP_5, KEY_L);
         set(Act::Jump, KEY_KP_6, KEY_APOSTROPHE);
         set(Act::SwapPrev, KEY_KP_DECIMAL, KEY_RIGHT_BRACKET);
+        set(Act::Target, KEY_KP_7, KEY_BACKSLASH);
     }
 }
 
@@ -90,6 +93,33 @@ void ResetPad(int p) {
     b[(int)Act::Dodge] = GAMEPAD_BUTTON_LEFT_TRIGGER_1;   // LB / L1
     b[(int)Act::Jump] = GAMEPAD_BUTTON_RIGHT_TRIGGER_1;   // RB / R1
     b[(int)Act::SwapPrev] = GAMEPAD_BUTTON_LEFT_TRIGGER_2; // LT: swap back through the party (RT swaps forward)
+    b[(int)Act::Target] = GAMEPAD_BUTTON_RIGHT_THUMB;      // R3 (flicking the right stick also switches targets)
+}
+
+const int* DefaultKeys(int layout, Act a) {
+    static int table[LAYOUT_COUNT][ACT_COUNT][2];
+    static bool built = false;
+    if (!built) {
+        Settings keep = gCfg;
+        for (int l = 0; l < LAYOUT_COUNT; l++) ResetKeys(l);
+        std::memcpy(table, gCfg.keys, sizeof table);
+        gCfg = keep;
+        built = true;
+    }
+    return table[layout < 0 ? 0 : layout][(int)a];
+}
+
+int DefaultPadButton(Act a) {
+    static int table[ACT_COUNT];
+    static bool built = false;
+    if (!built) {
+        Settings keep = gCfg;
+        ResetPad(0);
+        std::memcpy(table, gCfg.pad[0], sizeof table);
+        gCfg = keep;
+        built = true;
+    }
+    return table[(int)a];
 }
 
 void LoadSettings() {
@@ -162,8 +192,10 @@ void LoadSettings() {
                         for (int nc = 0; nc < 2; nc++)
                             if (gCfg.keys[l][a][c] && gCfg.keys[l][a][c] == gCfg.keys[l][n][nc]) gCfg.keys[l][n][nc] = 0;
     }
-    if (version < 4) {   // Swap (back) arrived: an older binding on the same button / key keeps it
-        int n = (int)Act::SwapPrev;
+    for (int newAct = (int)Act::SwapPrev; newAct <= (int)Act::Target; newAct++) {
+        if ((newAct == (int)Act::SwapPrev && version >= 4) || (newAct == (int)Act::Target && version >= 5)) continue;
+        // A new action: an older binding on the same button / key keeps it
+        int n = newAct;
         for (int p = 0; p < 2; p++)
             for (int a = 0; a < n; a++)
                 if (gCfg.pad[p][a] == gCfg.pad[p][n]) gCfg.pad[p][n] = 0;
@@ -176,7 +208,7 @@ void LoadSettings() {
 }
 
 void SaveSettings() {
-    std::string o = "# Arena Clash settings (written by the game; edit in the Settings menu)\nsettings_version = 4\n";
+    std::string o = "# Arena Clash settings (written by the game; edit in the Settings menu)\nsettings_version = 5\n";
     char buf[128];
     std::snprintf(buf, sizeof buf, "fullscreen = %d\nshow_fps = %d\n", gCfg.fullscreen, gCfg.showFps); o += buf;
     std::snprintf(buf, sizeof buf, "master_volume = %d\neffects_volume = %d\n", gCfg.masterVolume, gCfg.sfxVolume); o += buf;
@@ -198,7 +230,7 @@ void SaveSettings() {
 void ApplyAudioSettings() { SetSfxVolume(gCfg.masterVolume / 100.0f, gCfg.sfxVolume / 100.0f); }
 
 const char* ActName(Act a) {
-    const char* n[ACT_COUNT] = {"Up", "Down", "Left", "Right", "Move 1", "Move 2", "Move 3", "Move 4", "Swap (next)", "Pause", "Dodge", "Jump", "Swap (back)"};
+    const char* n[ACT_COUNT] = {"Up", "Down", "Left", "Right", "Move 1", "Move 2", "Move 3", "Move 4", "Swap (next)", "Pause", "Dodge", "Jump", "Swap (back)", "Next target"};
     return n[(int)a];
 }
 

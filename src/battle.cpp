@@ -285,20 +285,43 @@ void Battle::PickTarget(int s, float dt) {
         if (Targetable(k) && sides[k].Cur().followT > 0) { sd.target = k; return; }
     bool curOk = sd.target >= 0 && sd.target < N() && Foes(s, sd.target) && Targetable(sd.target);
     if (sd.cpu) {
-        // Every so often, pick the foe that's best to hit: weak to us, low on HP, close.
+        Fighter& me = sd.Cur();
+        int lv = std::max(0, std::min(2, (int)sd.level));
+        // Got hit by someone it isn't aiming at (especially from behind)? Turn on them.
+        if (me.hitFresh) {
+            me.hitFresh = false;
+            int att = me.lastHitBy;
+            if (att >= 0 && att < N() && att != sd.target && Foes(s, att) && Targetable(att)) {
+                bool behind = Dot(f.aim, SafeNorm(sides[att].Cur().pos - f.pos, f.aim)) < 0.2f;
+                const float base[3] = {0.3f, 0.6f, 0.85f};
+                if (Chance(base[lv] + (behind ? 0.2f : 0.0f))) { sd.target = att; sd.ai.targetT = 2.0f; return; }
+            }
+        }
+        // Every so often, pick the foe that's best to hit.
         sd.ai.targetT -= dt;
         if (curOk && sd.ai.targetT > 0) return;
-        sd.ai.targetT = 2.5f;
+        const float every[3] = {3.5f, 2.5f, 1.6f};
+        sd.ai.targetT = every[lv];
         int best = -1;
         float bs = -1e9f;
         for (int k : foes) {
             if (!Targetable(k)) continue;
             const Fighter& e = sides[k].Cur();
-            float sc = BestEff(f, e) * 30 - (e.hp / std::max(1.0f, (float)e.maxHp)) * 40 - Dist(f.pos, e.pos) * 0.1f + Frand(0, 15);
+            float hpf = e.hp / std::max(1.0f, (float)e.maxHp);
+            float sc = BestEff(f, e) * 30 - hpf * 40 - Dist(f.pos, e.pos) * 0.1f + Frand(0, 15);
+            if (hpf < 0.35f) sc += 25 + 20 * lv;                        // close to fainting: finish it off
+            if (k == f.lastHitBy && f.hurtT < 3) sc += 20;              // whoever has been hitting us
+            if (k == sd.target) sc += 6;                                 // a little stickiness
+            for (int a = 0; a < N(); a++)                                 // spread out unless going for the kill
+                if (a != s && !Foes(s, a) && sides[a].cpu && sides[a].target == k && hpf > 0.4f) sc -= 18;
             if (sc > bs) { bs = sc; best = k; }
         }
         sd.target = best >= 0 ? best : (curOk ? sd.target : foes[0]);
         return;
+    }
+    if (sd.manualT > 0) {   // the player chose this target: keep it for a while
+        sd.manualT -= dt;
+        if (curOk) return;
     }
     // A player re-targets by moving toward a foe.
     if (f.moving || !curOk) {
@@ -315,6 +338,21 @@ void Battle::PickTarget(int s, float dt) {
         if (best >= 0 && (!curOk || !f.moving || bd > 0.7f)) sd.target = best;
     }
     if (sd.target < 0 || sd.target >= N() || !Foes(s, sd.target)) sd.target = foes[0];
+}
+
+void Battle::CycleTarget(int s, int dir) {
+    Side& sd = sides[s];
+    std::vector<int> live;
+    for (int k : FoeSlots(s)) if (Targetable(k)) live.push_back(k);
+    if (live.size() < 2) return;
+    int i = 0;
+    for (int k = 0; k < (int)live.size(); k++) if (live[k] == sd.target) i = k;
+    i = ((i + (dir < 0 ? -1 : 1)) % (int)live.size() + (int)live.size()) % (int)live.size();
+    sd.target = live[i];
+    sd.manualT = 5.0f;
+    const Fighter& t = sides[sd.target].Cur();
+    AddText(t.pos, "Target!", TeamColor(sd.teamId), 34);
+    PlaySfx(Sfx::MenuMove);
 }
 
 int Battle::PartnerWithBench(int s) const {
@@ -378,6 +416,7 @@ void Battle::Start(const BattleSetup& su) {
         sd.teamId = ss.team_ >= 0 ? ss.team_ : std::min(si, 1);
         sd.input = ss.cpu ? -1 : (ss.input >= 0 ? ss.input : std::min(si, 1));
         sd.tag = ss.tag;
+        sd.dummy = ss.dummy;
         for (const CombatantSpec& c : ss.team) {
             Fighter f;
             f.owner = c.owner;
@@ -479,7 +518,7 @@ void Battle::Update(float dt, const PlayerInput in[2]) {
 
     // Stalemate breaker: if nobody loses HP for 30 s (e.g. two creatures that can't hurt each
     // other), or the battle passes 200 s, sudden death starts: everyone on the field loses HP.
-    if (canAct) {
+    if (canAct && !setup.practice) {
         float sum = 0;
         for (const auto& sd : sides)
             for (const auto& f : sd.team) sum += std::max(0.0f, f.hp);
@@ -500,6 +539,8 @@ void Battle::Update(float dt, const PlayerInput in[2]) {
 
     static const PlayerInput none{};
     for (int s = 0; s < N(); s++) {
+        int pi = sides[s].input;
+        if (!sides[s].cpu && pi >= 0 && pi < 2 && in[pi].target != 0) CycleTarget(s, in[pi].target);
         PickTarget(s, dt);
         int ii = sides[s].input;
         UpdateSide(s, dt, ii >= 0 && ii < 2 ? in[ii] : none, canAct);
@@ -620,6 +661,7 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
     f.chantT = std::max(0.0f, f.chantT - dt);
     f.followT = std::max(0.0f, f.followT - dt);
     f.dodgeCd = std::max(0.0f, f.dodgeCd - dt);
+    f.hurtT = std::min(99.0f, f.hurtT + dt);
     f.counterT = std::max(0.0f, f.counterT - dt);
     f.endureT = std::max(0.0f, f.endureT - dt);
     f.rechargeT = std::max(0.0f, f.rechargeT - dt);
@@ -701,7 +743,7 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
     }
 
     Intent it;
-    if (canAct && !gVfxDemo) it = sd.cpu ? ThinkAI(s, dt) : HumanIntent(in);
+    if (canAct && !gVfxDemo && !sd.dummy) it = sd.cpu ? ThinkAI(s, dt) : HumanIntent(in);
     int os = sd.target;
 
     // Underground / in the sky: travel to the target, then erupt.
@@ -1697,7 +1739,7 @@ float Battle::ApplyHit(const HitSpec& h, int ts, Vector2 dir) {
         return 0;
     }
 
-    float dmg = 0;
+    float dmg = 0, landed = 0;   // landed: HP actually lost (no overkill)
     if (h.ohko) {  // one-hit KO moves
         if (Chance(0.3f) && h.attLevel >= t.level) {
             dmg = t.hp;
@@ -1712,6 +1754,8 @@ float Battle::ApplyHit(const HitSpec& h, int ts, Vector2 dir) {
         dmg = h.fixedDmg > 0 ? h.fixedDmg * 2.5f : (h.fixedDmg == -1 ? h.attLevel * 2.5f : std::max(1.0f, std::floor(t.hp / 2)));
         if (h.falseSwipe && t.hp > 1) dmg = std::min(dmg, t.hp - 1);
         dmg = std::round(dmg);
+        landed = std::min(dmg, std::max(0.0f, t.hp));
+        t.dmgTaken += landed;
         t.hp -= dmg;
         t.flash = 0.14f;
         if (!h.light) {
@@ -1740,6 +1784,8 @@ float Battle::ApplyHit(const HitSpec& h, int ts, Vector2 dir) {
         if (h.brine && t.hp < t.maxHp * 0.5f) itemMul *= 2;
         dmg = std::max(1.0f, std::round(raw * stab * eff * itemMul * (crit ? 1.5f : 1.0f) * Frand(0.9f, 1.0f) * h.lvlMul));
         if (h.falseSwipe && t.hp > 1) dmg = std::min(dmg, t.hp - 1);
+        landed = std::min(dmg, std::max(0.0f, t.hp));
+        t.dmgTaken += landed;
         t.hp -= dmg;
         t.flash = 0.14f;
 
@@ -1807,6 +1853,7 @@ float Battle::ApplyHit(const HitSpec& h, int ts, Vector2 dir) {
     if (h.side >= 0 && h.side < N() && dmg > 0) {
         t.lastHitBy = h.side;
         sides[h.side].damageDealt += dmg;
+        if (Foes(h.side, ts)) { sides[h.side].Cur().dmgDealt += landed; t.hurtT = 0; t.hitFresh = true; }
     }
     if (t.hp <= 0) Faint(ts, h.side >= 0 ? h.side : AnyFoe(ts));
     else CheckWeakened(ts);
@@ -1895,7 +1942,10 @@ void Battle::DirectDamage(int s, float amount, Color c, int creditSide, bool dir
     if (f.state != FState::Active || f.hp <= 0) return;
     if (!direct && AbOf(f) == Ab::MagicGuard) return;
     float a = std::max(1.0f, std::round(amount));
+    a = std::min(a, std::max(0.0f, f.hp));
     f.hp -= a;
+    f.dmgTaken += a;
+    if (creditSide >= 0 && creditSide < N() && Foes(creditSide, s)) sides[creditSide].Cur().dmgDealt += a;
     if (f.hp < 1 && f.endureT > 0) f.hp = 1;
     if (setup.damageNumbers) AddText(f.pos, std::to_string((int)a), c, 20);
     if (f.hp <= 0) Faint(s, creditSide);
@@ -1975,7 +2025,44 @@ void Battle::Confetti(int n) {
     }
 }
 
+// Practice dummies: a different type each time one is "knocked out", so every matchup can be tried.
+static const char* kDummyCycle[] = {"Snorlax", "Geodude", "Squirtle", "Bulbasaur", "Charmander", "Pikachu", "Gastly",
+                                    "Pidgey", "Machop", "Abra", "Dratini", "Jynx", "Onix", "Nidoking"};
+
+void Battle::PracticeNextDummy(int s, bool announce) {
+    Fighter& t = sides[s].Cur();
+    int n = (int)(sizeof(kDummyCycle) / sizeof(kDummyCycle[0]));
+    int cur = -1;
+    for (int i = 0; i < n; i++) if (SpeciesIndex(kDummyCycle[i]) == t.species) cur = i;
+    int ni = SpeciesIndex(kDummyCycle[(cur + 1 + n) % n]);
+    if (ni >= 0) { t.species = ni; t.sp = &AllSpecies()[ni]; t.startSpecies = ni; }
+    t.st = StatusState();
+    t.RecalcHp(false);
+    t.displayHp = t.hp;
+    if (announce) AddText(t.pos, "Next dummy: " + t.sp->name, UI_GOLD, 44);
+}
+
+void Battle::PracticeCycleDummies() {
+    for (int s = 0; s < N(); s++) if (sides[s].dummy) PracticeNextDummy(s, true);
+}
+
 void Battle::Faint(int s, int credit) {
+    if (setup.practice) {   // nobody faints in practice: patch up (a dummy turns into the next type)
+        Fighter& t = sides[s].Cur();
+        if (credit >= 0 && credit < N() && Foes(s, credit)) sides[credit].Cur().kos++;
+        if (sides[s].dummy) {
+            FaintVfx(t.pos, t.sp->type1);
+            PlaySfx(Sfx::Faint);
+            AddText(t.pos, t.sp->name + " is down!", UI_GOLD, 44);
+            PracticeNextDummy(s, true);
+        } else {
+            t.st = StatusState();
+            t.RecalcHp(false);
+            t.displayHp = t.hp;
+            AddText(t.pos, "Knocked out - patched up!", UI_GOLD, 44);
+        }
+        return;
+    }
     if (setup.arena != ArenaKind::Stadium) { Confetti(45); hype = 1; }   // the gym crowd goes wild
     Fighter& t = sides[s].Cur();
     if (t.state == FState::Fainting || t.state == FState::Fainted) return;
@@ -2001,8 +2088,11 @@ void Battle::CreditKo(int s, int credit) {
     const Fighter& t = sides[s].Cur();
     Fighter& k = sides[credit].Cur();
     if (k.hp > 0 && (k.state == FState::Active || k.state == FState::Entering)) { k.kos++; AbKo(credit); }
-    // Everyone on the winning team who is earning XP gets the full share (co-op shares XP).
-    int xp = KoXp(*t.sp, t.level, setup.trainerBattle);
+    // The active Pokemon of everyone earning XP on that team gets it (co-op: 60% each, since two
+    // players face about twice as many foes).
+    int earners = 0;
+    for (int c = 0; c < N(); c++) earners += sides[c].teamId == sides[credit].teamId && sides[c].earnXp;
+    int xp = (int)std::lround(KoXp(*t.sp, t.level, setup.trainerBattle) * (earners > 1 ? 0.6f : 1.0f));
     for (int c = 0; c < N(); c++) {
         if (sides[c].teamId != sides[credit].teamId || !sides[c].earnXp) continue;
         Fighter& r = sides[c].Cur();
@@ -3297,14 +3387,16 @@ void Battle::DrawHud() const {
             bool mine = gLocalInput < 0 || sd.input == gLocalInput;
             int pl = gLocalInput >= 0 ? 0 : std::max(0, sd.input);
             bool tp = gLocalInput >= 0 ? false : setup.twoPlayer;
-            char db[40], jb[32];
+            char db[40], jb[64];
             if (f.dodgeCd > 0) std::snprintf(db, sizeof db, "dodge %.1fs", f.dodgeCd);
             else if (mine) std::snprintf(db, sizeof db, "[%s] dodge", DodgeKeyLabel(pl, tp));
             else std::snprintf(db, sizeof db, "dodge ready");
-            if (mine) std::snprintf(jb, sizeof jb, "[%s] jump", JumpKeyLabel(pl, tp));
+            if (mine && IsDoubles()) std::snprintf(jb, sizeof jb, "[%s] jump  [%s] target", JumpKeyLabel(pl, tp), TargetKeyLabel(pl, tp));
+            else if (mine) std::snprintf(jb, sizeof jb, "[%s] jump", JumpKeyLabel(pl, tp));
             else jb[0] = 0;
             int dw = TextW(db, 10), jw = *jb ? TextW(jb, 10) + 10 : 0;
             int tw = dw + jw + 10, tx0 = mx + mw - tw;
+            if (IsDoubles()) tx0 -= TextW(sd.tag.empty() ? sd.label.c_str() : sd.tag.c_str(), 10) + 10;   // room for the P1 / P2 tag
             DrawRectangle(tx0, my - 12, tw, 12, Fade(UI_INK, 0.85f));
             DrawRectangle(tx0, my - 12, tw, 1, tc);
             if (f.dodgeCd > 0) {   // fills back up

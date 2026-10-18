@@ -11,12 +11,14 @@
 #    say     = their line before the battle
 #    team    = creature names, "random", or "random <Type>" (comma separated).
 #              The team is used as written (1-6 creatures).
-#    level   = CPU levels relative to your team's average (e.g. -2, 0, +3)
+#    lv      = the level this battle is built for (like the games: Brock ~13, Giovanni ~48).
+#              Your team's level only nudges it a little (-2 .. +3). Without lv, 'level' below is used.
+#    level   = CPU levels relative to your team's average (e.g. -2, 0, +3), only used without lv
 #    cpu     = easy / normal / hard
-#    reward  = yes / no   (win: choose a new creature)
+#    reward  = (no longer used: new Pokemon come from training battles in the wild)
 #    arena   = stadium, rock, water, electric, grass, poison, psychic, fire, ground
 #    badge   = badge won here (makes it a gym: no catching, big coin prize)
-#    catch   = yes / no   (after a win, try to catch one of their creatures;
+#    catch   = (no longer used: a trainer's Pokemon can't be caught;
 #              default yes for trainers, no for gyms)
 #    coins   = coins for winning (default: worked out from the level)
 #    map     = x, y   where the stage sits on the map image (in image pixels)
@@ -64,6 +66,7 @@ trainer = Rival Blue
 say = Wait! I'll take you on - let's check out our Pokemon!
 team = rival
 level = 0
+lv = 5
 cpu = easy
 catch = no
 rival = yes
@@ -75,6 +78,7 @@ trainer = Youngster Ty
 say = I just caught this one! Let's battle!
 team = random
 level = -2
+lv = 4
 cpu = easy
 
 [stage]
@@ -84,6 +88,7 @@ trainer = Rival Blue
 say = Heading to the League? Hah! Let me show you how strong my team got!
 team = Pidgey +1, rival
 level = 0
+lv = 8
 cpu = easy
 catch = no
 rival = yes
@@ -95,6 +100,7 @@ trainer = Bug Catcher Rick
 say = Bugs are the best, and I'll prove it!
 team = random Bug, random Grass
 level = -2
+lv = 8
 cpu = easy
 
 [stage]
@@ -104,6 +110,7 @@ trainer = Camper Liam
 say = I trained in Brock's shadow. Let me show you!
 team = random Rock, random Ground
 level = -1
+lv = 10
 cpu = easy
 
 [stage]
@@ -113,6 +120,7 @@ trainer = Leader Brock
 say = My rock-hard will cannot be broken! The pillars here stop any shot - if you can't break them.
 team = random Rock, random Ground
 level = 1
+lv = 13
 cpu = normal
 arena = rock
 badge = Boulder
@@ -125,6 +133,7 @@ trainer = Hiker Dale
 say = Down here in the dark you have to be tough!
 team = random Ground, random Rock, random Fighting
 level = -1
+lv = 12
 cpu = easy
 
 [stage]
@@ -134,6 +143,7 @@ trainer = Rival Blue
 say = Yo! You're still struggling along back here? I'll show you how it's done.
 team = Pidgeotto +1, Abra -2, Rattata -2, rival +1
 level = 0
+lv = 16
 cpu = normal
 catch = no
 rival = yes
@@ -145,6 +155,7 @@ trainer = Lass Mia
 say = Nobody crosses this bridge without a battle!
 team = random, random
 level = 0
+lv = 15
 cpu = normal
 
 [stage]
@@ -154,6 +165,7 @@ trainer = Swimmer Kai
 say = Ready to get soaked?
 team = random Water, random Ice
 level = 0
+lv = 16
 cpu = normal
 
 [stage]
@@ -163,6 +175,7 @@ trainer = Leader Misty
 say = My pool is my stage! Water types fly through it - everyone else sinks.
 team = random Water, random Water, random Ice
 level = 1
+lv = 19
 cpu = normal
 arena = water
 badge = Cascade
@@ -175,6 +188,7 @@ trainer = Engineer Volt
 say = Careful, I'm fully charged!
 team = random Electric, random Steel
 level = 0
+lv = 18
 cpu = normal
 
 [stage]
@@ -184,6 +198,7 @@ trainer = Sailor Bruno
 say = Sailors don't back down from a fight!
 team = random Water, random Fighting, random
 level = 0
+lv = 19
 cpu = normal
 
 [stage]
@@ -193,6 +208,7 @@ trainer = Rival Blue
 say = Bonjour! You were on the ship too? Time to see how far you've come!
 team = Pidgeotto -1, Raticate -3, Kadabra -2, rival +1
 level = 0
+lv = 18
 cpu = normal
 catch = no
 rival = yes
@@ -204,6 +220,7 @@ trainer = Hiker Rocco
 say = Ground beats Electric, everyone knows that. Let's warm you up!
 team = random Ground, random Ground
 level = 0
+lv = 20
 cpu = normal
 
 [stage]
@@ -213,6 +230,7 @@ trainer = Lt. Surge
 say = Hey kid! My tesla coils fry anyone who gets close - except my Electric troops, they love it!
 team = random Electric, random Electric, random Steel
 level = 2
+lv = 23
 cpu = normal
 arena = electric
 badge = Thunder
@@ -225,6 +243,7 @@ trainer = Picnicker Jo
 say = It's so dark in here... let's battle to pass the time!
 team = random, random, random
 level = 0
+lv = 23
 cpu = normal
 
 [stage]
@@ -234,6 +253,7 @@ trainer = Gambler Sid
 say = I'll bet my coins on this one!
 team = random Dark, random Normal, random
 level = 0
+lv = 24
 cpu = normal
 
 [stage]
@@ -243,6 +263,7 @@ trainer = Beauty Rosa
 say = My flowers bloom brightest in battle.
 team = random Grass, random Fairy, random Bug
 level = 1
+lv = 25
 cpu = normal
 
 [stage]
@@ -252,6 +273,7 @@ trainer = Leader Erika
 say = Welcome to my greenhouse. Mind the trees... and please don't set them on fire.
 team = random Grass, random Grass, random Poison
 level = 2
+lv = 28
 cpu = normal
 arena = grass
 badge = Rainbow
@@ -264,6 +286,7 @@ trainer = Wild Snorlax
 say = A huge sleeping Pokemon blocks the road! A Biker's horn blares... and it wakes up grumpy!
 team = Snorlax +3
 level = 0
+lv = 28
 cpu = hard
 catch = no
 reward = no
@@ -276,6 +299,7 @@ trainer = Biker Rex
 say = Outta my way, slowpoke!
 team = random Poison, random Dark, random
 level = 1
+lv = 29
 cpu = normal
 
 [stage]
@@ -285,6 +309,7 @@ trainer = Ranger Ana
 say = The wild ones here are tougher than you think.
 team = random, random, random, random
 level = 1
+lv = 30
 cpu = normal
 
 [stage]
@@ -294,6 +319,7 @@ trainer = Bird Keeper Chester
 say = My birds ride the sea breeze. Can yours keep up?
 team = random Flying, random Flying, random Normal
 level = 1
+lv = 31
 cpu = normal
 
 [stage]
@@ -303,6 +329,7 @@ trainer = Leader Koga
 say = Fwahaha! My swamp shrinks the field - the spikes and pools only spare my poison.
 team = random Poison, random Poison, random Bug, random Dark
 level = 2
+lv = 37
 cpu = hard
 arena = poison
 badge = Soul
@@ -315,6 +342,7 @@ trainer = Scientist Mel
 say = My research says you won't win.
 team = random Steel, random Electric, random Psychic
 level = 1
+lv = 33
 cpu = normal
 
 [stage]
@@ -324,6 +352,7 @@ trainer = Rival Blue
 say = What are you doing here? Your Pokemon don't look dead - I can make them faint, though!
 team = Pidgeotto, rival_trio1 -1, Kadabra -3, rival +1
 level = 1
+lv = 33
 cpu = normal
 catch = no
 rival = yes
@@ -335,6 +364,7 @@ trainer = Medium Ivy
 say = The spirits are restless tonight...
 team = random Ghost, random Ghost, random Psychic
 level = 1
+lv = 33
 cpu = normal
 
 [stage]
@@ -344,6 +374,7 @@ trainer = Wild Snorlax
 say = Another sleeping giant blocks Route 12! You play Mr. Fuji's Poke Flute... it wakes up hungry!
 team = Snorlax +4
 level = 0
+lv = 32
 cpu = hard
 catch = no
 reward = no
@@ -356,6 +387,7 @@ trainer = Psychic Tyron
 say = I saw this battle in a vision. You lose.
 team = random Psychic, random Psychic, random Fairy, random
 level = 2
+lv = 37
 cpu = hard
 
 [stage]
@@ -365,6 +397,7 @@ trainer = Karate Master Koichi
 say = Hwaa! The Fighting Dojo's prize goes to whoever can beat me - if you can!
 team = random Fighting, Primeape, random Fighting, Machoke +1
 level = 2
+lv = 37
 cpu = hard
 venue = dojo
 catch = no
@@ -377,6 +410,7 @@ trainer = Rival Blue
 say = You again? I'm not letting you through - my Pokemon are at their best!
 team = Pidgeot -1, rival_trio1, Alakazam -2, rival_trio2 -1, rival +2
 level = 1
+lv = 38
 cpu = hard
 catch = no
 rival = yes
@@ -388,6 +422,7 @@ trainer = Leader Sabrina
 say = Up is down here. My portals move as they please - and so will you.
 team = random Psychic, random Psychic, random Ghost, random Fairy
 level = 3
+lv = 41
 cpu = hard
 arena = psychic
 badge = Marsh
@@ -400,6 +435,7 @@ trainer = Skier Lena
 say = It's freezing in here! Let's warm up with a battle.
 team = random Ice, random Water, random Ice, random
 level = 2
+lv = 40
 cpu = normal
 
 [stage]
@@ -409,6 +445,7 @@ trainer = Burglar Vic
 say = Heh, you didn't see me here.
 team = random Fire, random Poison, random Dark, random
 level = 2
+lv = 41
 cpu = hard
 
 [stage]
@@ -418,6 +455,7 @@ trainer = Firebreather Ash
 say = Feel the heat!
 team = random Fire, random Fire, random Rock, random Ground
 level = 2
+lv = 42
 cpu = hard
 
 [stage]
@@ -427,6 +465,7 @@ trainer = Leader Blaine
 say = Hah! Welcome to my volcano! Watch the lava - it bites back!
 team = random Fire, random Fire, random Fire, random Rock, random Ground
 level = 3
+lv = 45
 cpu = hard
 arena = fire
 badge = Volcano
@@ -439,6 +478,7 @@ trainer = Rocket Grunt Jessie
 say = Prepare for trouble! The boss doesn't want visitors.
 team = random Poison, random Dark, random Normal, random
 level = 2
+lv = 43
 cpu = hard
 
 [stage]
@@ -448,6 +488,7 @@ trainer = Rocket Grunt James
 say = Make it double! You won't get any closer.
 team = random Poison, random Dark, random Grass, random
 level = 2
+lv = 44
 cpu = hard
 
 [stage]
@@ -457,6 +498,7 @@ trainer = Rocket Admin Archer
 say = You've come far. This is where it ends.
 team = random Dark, random Ground, random Steel, random Poison, random
 level = 3
+lv = 45
 cpu = hard
 
 [stage]
@@ -466,6 +508,7 @@ trainer = Boss Giovanni
 say = So you've found my lair. My cannons fire every ten seconds. Let's see you dodge them.
 team = random Ground, random Ground, random Rock, random Dark, random Steel, random Poison
 level = 4
+lv = 48
 cpu = hard
 arena = ground
 badge = Earth
@@ -478,6 +521,7 @@ trainer = Rival Blue
 say = So you got all eight badges? Smell ya later - after I beat you!
 team = Pidgeot, Rhyhorn -1, rival_trio1, rival_trio2, Alakazam, rival +3
 level = 3
+lv = 52
 cpu = hard
 catch = no
 rival = yes

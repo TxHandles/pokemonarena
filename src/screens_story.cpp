@@ -165,6 +165,7 @@ Profile ProgressView(const Game& g) {
     v.wins = g.coopSave.wins;
     v.losses = g.coopSave.losses;
     v.trainingWins = g.coopSave.trainingWins;
+    v.clock = g.coopSave.clock;   // the map darkens at night
     for (const auto& m : Prof(g, 0).mons) if (!m.boxed) v.mons.push_back(m);
     return v;
 }
@@ -290,7 +291,7 @@ void UpdateNameEntry(Game& g) {
             g.nameBuf += (char)c;
     }
     if (IsKeyPressed(KEY_BACKSPACE) && !g.nameBuf.empty()) g.nameBuf.pop_back();
-    if (IsKeyPressed(KEY_ESCAPE)) { g.screen = Screen::ProfileSelect; return; }
+    if (IsKeyPressed(KEY_ESCAPE)) { g.screen = g.netNewTrainer ? Screen::NetMenu : Screen::ProfileSelect; g.netNewTrainer = false; return; }
     bool ok = IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_KP_ENTER);
     // Gamepad users: A on an empty name picks a default.
     if (IsGamepadAvailable(0) && IsGamepadButtonPressed(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN)) {
@@ -306,6 +307,14 @@ void UpdateNameEntry(Game& g) {
     g.profile.bag["Poke Ball"] = START_BALLS;
     SaveOrWarn(g);
     PlaySfx(Sfx::MenuOk);
+    if (g.netNewTrainer) {   // online co-op: back to the online menu with the new trainer chosen
+        g.netNewTrainer = false;
+        g.profiles = ListProfiles();
+        for (int i = 0; i < (int)g.profiles.size(); i++) if (g.profiles[i] == g.profile.name) g.on.profSel = i;
+        g.screen = Screen::NetMenu;
+        Toast(g, "You'll pick your starter together once you're connected.");
+        return;
+    }
     g.starterSel = 0;
     g.screen = Screen::Starter;
 }
@@ -380,7 +389,7 @@ bool NextTrainingIsRare(const Profile& p) { return NextTrainingIsRare(p.training
 
 void UpdateStoryHub(Game& g) {
     PlayerInput in = MenuInput();
-    const int N = 9;
+    const int N = 11;
     if (in.up) { g.hubSel = (g.hubSel + N - 1) % N; PlaySfx(Sfx::MenuMove); }
     if (in.down) { g.hubSel = (g.hubSel + 1) % N; PlaySfx(Sfx::MenuMove); }
     if (g.hubSel == 1 && (in.left || in.right)) { CycleTrainArea(g, in.left ? -1 : 1); SaveOrWarn(g); return; }
@@ -433,6 +442,7 @@ void UpdateStoryHub(Game& g) {
             g.actMenu = false;
             g.swapFrom = -1;
             g.stonePick = false;
+            g.moveOrder = false;
             g.boxTab = 0;
             g.screen = Screen::MyCreatures;
             break;
@@ -442,6 +452,14 @@ void UpdateStoryHub(Game& g) {
         case 7:
             StoryTimeStep(g, true);
             SaveOrWarn(g);
+            break;
+        case 8:
+            StartPractice(g);
+            break;
+        case 9:
+            g.settingsSel = 0;
+            g.settingsBack = Screen::StoryHub;
+            g.screen = Screen::Settings;
             break;
         default:
             SaveOrWarn(g);
@@ -481,7 +499,7 @@ void DrawStoryHub(const Game& g) {
     for (const auto& m : p.mons) hurt += m.hp < 0.999f ? 1 : 0;
     int dexCaught = 0;
     for (const auto& sp : AllSpecies()) if (sp.dex > 0 && sp.custom && DexHasCaught(p, sp.name)) dexCaught++;
-    std::string items[9] = {
+    std::string items[11] = {
         done ? "Rematch the last gym" : "Story battle",
         (rare ? "RARE in " : "Training: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
         "Map",
@@ -490,29 +508,31 @@ void DrawStoryHub(const Game& g) {
         "Party & Box",
         TextFormat("Pokedex (%d caught)", dexCaught),
         IsNight(p.clock) ? "Wait until morning" : "Wait until night",
+        "Practice arena",
+        "Settings",
         "Save and quit",
     };
-    for (int i = 0; i < 9; i++) {
-        int y = 26 + i * 19;
+    for (int i = 0; i < 11; i++) {
+        int y = 26 + i * 17;
         bool sel = g.hubSel == i;
-        DrawPanel(rx, y, rw, 17, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
+        DrawPanel(rx, y, rw, 15, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
         Color c = sel ? UI_GOLD : UI_TEXT;
         if (i == 1 && rare) c = Color{255, 150, 230, 255};
-        DrawText(items[i].c_str(), rx + 8, y + 4, 10, c);
+        DrawText(items[i].c_str(), rx + 8, y + 3, 10, c);
     }
     DrawTimePanel(p.clock, 402, 30);
 
     // Team
-    int ty = 26 + 9 * 19 + 4;
+    int ty = 26 + 11 * 17 + 3;
     std::vector<const OwnedMon*> party;
     for (const auto& m : p.mons) if (!m.boxed) party.push_back(&m);
     DrawText(TextFormat("Party (%d/%d)", (int)party.size(), PARTY_SIZE), rx, ty, 10, UI_DIM);
     for (int i = 0; i < (int)party.size(); i++) {
         const OwnedMon& m = *party[i];
         int idx = MonSpecies(m);
-        int y = ty + 12 + i * 20;
-        DrawPanel(rx, y, rw, 18);
-        if (idx >= 0) DrawSpeciesFit(idx, VIEW_FRONT, rx + 11, y + 17, 16, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
+        int y = ty + 12 + i * 18;
+        DrawPanel(rx, y, rw, 17);
+        if (idx >= 0) DrawSpeciesFit(idx, VIEW_FRONT, rx + 11, y + 16, 15, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
         DrawText(m.species.c_str(), rx + 24, y + 4, 10, m.hp > 0 ? UI_TEXT : UI_DIM);
         DrawText(TextFormat("Lv%d", m.level), rx + 112, y + 4, 10, UI_GOLD);
         DrawHpBar(rx + 140, y + 7, 50, 3, m.hp);
@@ -576,7 +596,7 @@ void DrawMap(const Game& g) {
 
 void UpdateStageIntro(Game& g) {
     PlayerInput in = MenuInput();
-    if (in.back) { PlaySfx(Sfx::MenuBack); EnterStoryHub(g); return; }
+    if (in.back) { PlaySfx(Sfx::MenuBack); if (g.on.active) OnlineCancelSelect(g); EnterStoryHub(g); return; }
     if (in.confirm) { PlaySfx(Sfx::MenuOk); g.mode = g.coop ? Mode::CoopStory : Mode::Story; BeginTeamSelect(g); }
 }
 
@@ -670,6 +690,7 @@ void DrawStageIntro(const Game& g) {
     }
     if (st.IsGym()) DrawTextCentered(TextFormat("Win the %s Badge!", st.badge.c_str()), VW / 2, 276, 10, BadgeColor(st.badge), false);
     else if (st.Catchable()) DrawTextCentered("Weaken their creatures (don't knock them out) for a chance to catch one.", VW / 2, 252, 10, UI_DIM, false);
+    else if (!st.snorlax) DrawTextCentered("A trainer's Pokemon can't be caught - find new ones in training battles.", VW / 2, 252, 10, UI_DIM, false);
     DrawTextCentered("Enter: choose your team     Esc: back", VW / 2, 300, 10, UI_DIM, false);
 }
 
@@ -766,7 +787,7 @@ std::vector<int> TabList(const Profile& p, int tab) {
     return v;
 }
 
-enum Act { ACT_ITEM, ACT_UP, ACT_DEPOSIT, ACT_WITHDRAW, ACT_SWAP, ACT_STONE, ACT_TM, ACT_CANCEL };
+enum Act { ACT_ITEM, ACT_UP, ACT_DEPOSIT, ACT_WITHDRAW, ACT_SWAP, ACT_STONE, ACT_TM, ACT_MOVES, ACT_CANCEL };
 
 std::vector<std::pair<int, std::string>> ActOptions(const Game& g) {
     std::vector<std::pair<int, std::string>> o;
@@ -783,6 +804,7 @@ std::vector<std::pair<int, std::string>> ActOptions(const Game& g) {
         else o.push_back({ACT_SWAP, "Swap with a party member"});
         o.push_back({ACT_ITEM, m.item.empty() ? "Give a held item" : "Change held item"});
     }
+    if (m.moves.size() > 1) o.push_back({ACT_MOVES, "Rearrange moves (buttons)"});
     if (!UsableStones(p, m).empty()) o.push_back({ACT_STONE, "Use an evolution stone"});
     { int n = (int)UsableTMs(p, m).size(); if (n > 0) o.push_back({ACT_TM, TextFormat("Use a TM (%d it can learn)", n)}); }
     o.push_back({ACT_CANCEL, "Cancel"});
@@ -834,6 +856,7 @@ void UpdateMyCreatures(Game& g) {
         if (in.back || (in.confirm && g.itemSel == N - 1)) { g.stonePick = false; PlaySfx(Sfx::MenuBack); return; }
         if (!in.confirm) return;
         g.stonePick = false;
+        g.moveOrder = false;
         int to = StoneEvolution(MonSpecies(m), stones[g.itemSel]);
         if (to < 0) return;
         BagTake(p, stones[g.itemSel]);
@@ -865,6 +888,30 @@ void UpdateMyCreatures(Game& g) {
         return;
     }
 
+    if (g.moveOrder && n > 0) {   // pick a move, then the slot (button) to swap it with
+        OwnedMon& m = p.mons[list[g.myCreSel]];
+        int N = (int)m.moves.size();
+        if (N == 0) { g.moveOrder = false; return; }
+        g.moveOrdSel = std::max(0, std::min(g.moveOrdSel, N - 1));
+        if (in.up) { g.moveOrdSel = (g.moveOrdSel + N - 1) % N; PlaySfx(Sfx::MenuMove); }
+        if (in.down) { g.moveOrdSel = (g.moveOrdSel + 1) % N; PlaySfx(Sfx::MenuMove); }
+        if (in.back) {
+            if (g.moveGrab >= 0) g.moveGrab = -1;
+            else g.moveOrder = false;
+            PlaySfx(Sfx::MenuBack);
+            return;
+        }
+        if (!in.confirm) return;
+        if (g.moveGrab < 0) { g.moveGrab = g.moveOrdSel; PlaySfx(Sfx::MenuOk); return; }
+        if (g.moveGrab != g.moveOrdSel) {
+            std::swap(m.moves[g.moveGrab], m.moves[g.moveOrdSel]);
+            SaveOrWarn(g);
+        }
+        g.moveGrab = -1;
+        PlaySfx(Sfx::MenuOk);
+        return;
+    }
+
     if (g.actMenu && n > 0) {
         auto opts = ActOptions(g);
         int N = (int)opts.size();
@@ -878,6 +925,7 @@ void UpdateMyCreatures(Game& g) {
             case ACT_ITEM: g.itemPick = true; g.itemSel = 0; break;
             case ACT_STONE: g.stonePick = true; g.itemSel = 0; break;
             case ACT_TM: g.tmPick = true; g.itemSel = 0; break;
+            case ACT_MOVES: g.moveOrder = true; g.moveOrdSel = 0; g.moveGrab = -1; break;
             case ACT_UP: std::swap(p.mons[idx], p.mons[list[g.myCreSel - 1]]); g.myCreSel--; break;
             case ACT_DEPOSIT:
                 p.mons[idx].boxed = true;
@@ -1082,6 +1130,30 @@ void DrawMyCreatures(const Game& g) {
             DrawText(opts[i].second.c_str(), 212, y, 10, on ? UI_GOLD : UI_TEXT);
         }
     }
+    if (g.moveOrder) {
+        int N = (int)m.moves.size();
+        int h = 60 + N * 22;
+        int py = 180 - h / 2;
+        DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.5f));
+        DrawPanel(150, py, 340, h, UI_PANEL, UI_GOLD);
+        DrawText(TextFormat("%s: which button uses which move", m.species.c_str()), 160, py + 8, 10, UI_GOLD);
+        bool online = g.on.active;
+        int who = g.coop && !online ? g.coopWho : 0;
+        bool tp = g.coop && !online;
+        for (int i = 0; i < N; i++) {
+            int y = py + 26 + i * 22;
+            bool on = g.moveOrdSel == i, grabbed = g.moveGrab == i;
+            if (on) DrawRectangle(154, y - 3, 332, 20, UI_PANEL_LIGHT);
+            if (grabbed) DrawRectangleLines(154, y - 3, 332, 20, UI_GOLD);
+            const char* key = AttackKeyLabel(who, i, tp);
+            DrawPanel(160, y - 1, 34, 16, UI_INK, grabbed ? UI_GOLD : Color{90, 84, 120, 255});
+            DrawText(key, 177 - TextW(key, 10) / 2, y + 2, 10, UI_GOLD);
+            const MoveDef* md = FindMove(m.moves[i]);
+            if (md) DrawMoveLine(*md, 200, y + 2, 280, false);
+            else DrawText(m.moves[i].c_str(), 204, y + 2, 10, UI_TEXT);
+        }
+        DrawText(g.moveGrab < 0 ? "Enter pick a move   Esc done" : "Enter swap it here   Esc cancel", 160, py + h - 16, 10, UI_DIM);
+    }
     if (g.stonePick) {
         auto stones = UsableStones(p, m);
         int N = (int)stones.size() + 1;
@@ -1174,16 +1246,34 @@ void ProcessStoryBattleEnd(Game& g) {
     int& trainingWins = coop ? g.coopSave.trainingWins : g.profile.trainingWins;
 
     StoryTimeStep(g, true);
+    // The after-battle stats screen: everyone who was sent out.
+    g.statRows.clear();
+    for (int s = 0; s < b.NumSlots(); s++) {
+        const Side& sd = b.GetSide(s);
+        for (const Fighter& f : sd.team) {
+            if (!f.sentOut || f.lent) continue;
+            Game::StatRow r;
+            r.team = sd.teamId;
+            r.who = sd.teamId == 0 && coop ? (f.owner & 1) : 0;
+            r.species = f.RealSpecies();
+            r.level = f.level;
+            r.dealt = (int)std::lround(f.dmgDealt);
+            r.taken = (int)std::lround(f.dmgTaken);
+            r.kos = f.kos;
+            r.fainted = f.hp <= 0 && !f.retired;
+            r.tag = sd.teamId == 0 ? (coop ? Prof(g, r.who).name : g.profile.name) : sd.label;
+            g.statRows.push_back(r);
+        }
+    }
     auto foes = b.TeamFighters(1);
     for (int w = 0; w < (coop ? 2 : 1); w++)
         if (OnlineMine(g, w))
             for (const Fighter* f : foes)
                 if (f->sentOut) DexSee(Prof(g, w), AllSpecies()[f->RealSpecies()].name);
+    // Exp. Share: after a win every Pokemon you brought gets a share of the foes' XP - more for
+    // the ones that fought, less for the ones that sat on the bench.
     int bonus = 0;
-    if (g.won) {
-        for (const Fighter* f : foes) bonus += KoXp(*f->sp, f->level, b.Setup().trainerBattle);
-        bonus /= 2;
-    }
+    if (g.won) for (const Fighter* f : foes) bonus += KoXp(*f->sp, f->level, b.Setup().trainerBattle);
     int players = coop ? 2 : 1;
     bool amulet[2] = {false, false};
     float damage[2] = {0, 0};
@@ -1235,9 +1325,10 @@ void ProcessStoryBattleEnd(Game& g) {
             bool mine = OnlineMine(g, who);
             if (mine) for (const auto& mv : f.pendingLearn) g.learnQueue.push_back({f.ownedId, mv, who});
 
-            if (g.won && f.sentOut && bonus > 0) {
+            if (g.won && bonus > 0) {
                 Growth gr;
-                int b2 = f.Holds(ItemFx::LuckyEgg) ? (int)(bonus * f.item->value) : bonus;
+                int share = (int)std::lround(bonus * (f.sentOut ? 0.35f : 0.2f));
+                int b2 = f.Holds(ItemFx::LuckyEgg) ? (int)(share * f.item->value) : share;
                 AddXp(m, b2, gr);
                 row.xp += b2;
                 for (const auto& mv : gr.learned) g.resultLines.push_back(m.species + " learned " + mv + "!");
@@ -1365,9 +1456,7 @@ void ProcessStoryBattleEnd(Game& g) {
     if (g.won) {
         wins++;
         if (storyBattle && g.stageIdx == stage && g.stageIdx < (int)Story().stages.size()) {
-            if (Story().stages[g.stageIdx].reward)
-                for (int w = 0; w < players; w++)
-                    if (OnlineMine(g, w)) { g.rewardsPending++; g.rewardWho.push_back(w); }
+            // No free Pokemon for story wins: you catch them in the wild (training battles).
             const StageDef& beat = Story().stages[g.stageIdx];
             if (beat.snorlax) SnorlaxReward(g, beat.snorlax, damage[0], damage[1], foeLv);
             if (coop && beat.name.find("Dojo") != std::string::npos) g.coopSave.dojoFirst = damage[1] > damage[0] ? 1 : 0;
@@ -1389,8 +1478,71 @@ void ProcessStoryBattleEnd(Game& g) {
         SaveOrWarn(g);
     }
     g.resultSel = 0;
-    g.screen = Screen::StoryResults;
+    g.screen = g.statRows.empty() ? Screen::StoryResults : Screen::BattleStats;
     PlaySfx(g.won ? Sfx::Win : Sfx::Faint);
+}
+
+// ------------------------------------------------------------------ after-battle stats
+
+void UpdateBattleStats(Game& g) {
+    PlayerInput in = MenuInput();
+    if (!in.confirm && !in.back) return;
+    PlaySfx(Sfx::MenuOk);
+    g.screen = Screen::StoryResults;
+}
+
+void DrawBattleStats(const Game& g) {
+    ClearBackground(Color{20, 18, 32, 255});
+    DrawTextCentered(g.won ? "VICTORY - BATTLE STATS" : "DEFEAT - BATTLE STATS", VW / 2, 8, 20, g.won ? UI_GOLD : Color{255, 120, 100, 255});
+    int best = -1, bestDealt = -1;   // MVP: most damage dealt on your side
+    for (int i = 0; i < (int)g.statRows.size(); i++)
+        if (g.statRows[i].team == 0 && g.statRows[i].dealt > bestDealt) { bestDealt = g.statRows[i].dealt; best = i; }
+    int maxDealt = 1;
+    for (const auto& r : g.statRows) maxDealt = std::max(maxDealt, std::max(r.dealt, r.taken));
+    for (int team = 0; team < 2; team++) {
+        int x = team == 0 ? 8 : 326, w = 306, y = 34;
+        DrawPanel(x, y, w, 300, UI_PANEL, team == 0 ? Color{90, 140, 220, 255} : Color{220, 90, 90, 255});
+        DrawText(team == 0 ? "YOUR TEAM" : "OPPONENTS", x + 8, y + 6, 10, team == 0 ? Color{140, 190, 255, 255} : Color{255, 140, 130, 255});
+        DrawText("dealt", x + 150, y + 6, 10, UI_DIM);
+        DrawText("taken", x + 216, y + 6, 10, UI_DIM);
+        DrawText("KOs", x + 278, y + 6, 10, UI_DIM);
+        int tDealt = 0, tTaken = 0, tKos = 0, row = 0;
+        for (int i = 0; i < (int)g.statRows.size(); i++) {
+            const auto& r = g.statRows[i];
+            if (r.team != team) continue;
+            tDealt += r.dealt; tTaken += r.taken; tKos += r.kos;
+            if (row >= 11) continue;
+            int ry = y + 22 + row * 22;
+            row++;
+            bool mvp = i == best && r.dealt > 0;
+            DrawRectangle(x + 4, ry, w - 8, 20, mvp ? Fade(UI_GOLD, 0.15f) : Fade(BLACK, 0.15f));
+            if (r.species >= 0) DrawSpeciesFit(r.species, VIEW_FRONT, x + 16, ry + 19, 18, r.fainted ? Color{110, 110, 120, 255} : WHITE);
+            Color nc = team == 0 && g.coop ? (r.who == 0 ? UI_GOLD : Color{120, 230, 255, 255}) : UI_TEXT;
+            const char* nm = r.species >= 0 ? AllSpecies()[r.species].name.c_str() : "?";
+            DrawText(nm, x + 30, ry + 2, 10, nc);
+            DrawText(TextFormat("Lv%d%s", r.level, r.fainted ? "  fainted" : ""), x + 30, ry + 11, 10, r.fainted ? Color{255, 120, 100, 255} : UI_DIM);
+            if (mvp) DrawText("MVP", x + 112, ry + 6, 10, UI_GOLD);
+            // bars
+            DrawRectangle(x + 150, ry + 13, (int)(56.0f * r.dealt / maxDealt), 3, Color{255, 170, 80, 255});
+            DrawRectangle(x + 216, ry + 13, (int)(56.0f * r.taken / maxDealt), 3, Color{120, 170, 255, 255});
+            DrawText(TextFormat("%d", r.dealt), x + 150, ry + 2, 10, UI_TEXT);
+            DrawText(TextFormat("%d", r.taken), x + 216, ry + 2, 10, UI_TEXT);
+            DrawText(TextFormat("%d", r.kos), x + 282, ry + 5, 10, r.kos ? UI_GOLD : UI_DIM);
+        }
+        DrawRectangle(x + 4, y + 272, w - 8, 1, UI_BORDER);
+        DrawText("Total", x + 30, y + 280, 10, UI_TEXT);
+        DrawText(TextFormat("%d", tDealt), x + 150, y + 280, 10, Color{255, 190, 110, 255});
+        DrawText(TextFormat("%d", tTaken), x + 216, y + 280, 10, Color{150, 190, 255, 255});
+        DrawText(TextFormat("%d", tKos), x + 282, y + 280, 10, UI_GOLD);
+    }
+    if (g.coop) {   // per-player totals
+        int d[2] = {0, 0}, k[2] = {0, 0};
+        for (const auto& r : g.statRows) if (r.team == 0) { d[r.who] += r.dealt; k[r.who] += r.kos; }
+        DrawText(TextFormat("%s: %d dealt, %d KO%s", g.coopP[0].name.c_str(), d[0], k[0], k[0] == 1 ? "" : "s"), 12, 338, 10, UI_GOLD);
+        const char* t2 = TextFormat("%s: %d dealt, %d KO%s", g.coopP[1].name.c_str(), d[1], k[1], k[1] == 1 ? "" : "s");
+        DrawText(t2, 314 - TextW(t2, 10), 338, 10, Color{120, 230, 255, 255});
+    }
+    DrawText("Enter: continue", VW - 8 - TextW("Enter: continue", 10), 338, 10, UI_DIM);
 }
 
 // ------------------------------------------------------------------ fossils, the Dojo and gifts
@@ -2126,8 +2278,35 @@ void EndCatchTurn(Game& g) {
 
 void UpdateCatch(Game& g, float dt) {
     int n = (int)g.catchCands.size();
-    if (g.on.active && g.catchWho != g.on.me) {  // the partner's pick: wait for it to arrive
-        if (!g.on.partnerCatch.empty()) {
+    if (g.on.active && g.catchWho != g.on.me) {  // the partner's turn: watch their throws, then take what's left
+        float resultAt = 1.3f + g.catchShakes * 0.6f;
+        bool idle = g.catchPhase == 0 || (g.catchPhase == 2 && g.catchT > resultAt + 1.4f);
+        if (g.catchPhase > 0) {
+            float before = g.catchT;
+            g.catchT += dt;
+            for (int k = 0; k < g.catchShakes; k++) {
+                float at = 1.3f + k * 0.6f;
+                if (before < at && g.catchT >= at) PlaySfx(Sfx::Thud);
+            }
+            if (g.catchPhase == 1 && g.catchT >= resultAt) { g.catchPhase = 2; PlaySfx(g.catchOk ? Sfx::LevelUp : Sfx::Faint); }
+        }
+        if (idle && !g.on.partnerThrows.empty()) {
+            OnlineSession::Throw t = g.on.partnerThrows.front();
+            g.on.partnerThrows.pop_front();
+            Game::CatchCand c{t.species, t.level, {}, 1.0f, 0.0f};
+            for (const auto& pc : g.catchPool) if (pc.species == t.species && pc.level == t.level) { c = pc; break; }
+            g.catchCands = {c};
+            g.catchSel = 0;
+            g.catchOk = t.ok;
+            g.catchShakes = t.shakes;
+            g.catchFled = t.fled;
+            g.catchBoxed = false;
+            g.catchPhase = 1;
+            g.catchT = 0;
+            PlaySfx(Sfx::Shoot);
+            return;
+        }
+        if (idle && g.on.partnerThrows.empty() && !g.on.partnerCatch.empty()) {
             g.catchPoolPick = g.on.partnerCatch.front();
             g.on.partnerCatch.pop_front();
             if (g.catchPoolPick >= (int)g.catchPool.size()) g.catchPoolPick = -1;
@@ -2164,6 +2343,7 @@ void UpdateCatch(Game& g, float dt) {
         g.catchOk = GetRandomValue(0, 9999) < (int)(ch * 10000);
         g.catchShakes = g.catchOk ? 3 : GetRandomValue(0, 2);
         g.catchFled = !g.catchOk && GetRandomValue(0, 99) < 35;
+        if (g.on.active) OnlineSendThrow(c.species, c.level, g.catchOk, g.catchShakes, g.catchFled);
         g.catchPhase = 1;
         g.catchT = 0;
         PlaySfx(Sfx::Shoot);
@@ -2217,15 +2397,34 @@ void DrawCatch(const Game& g) {
     if (n == 0) return;
     const Profile& P = Prof(g, g.catchWho);
     auto balls = OwnedBalls(P);
-    if (g.on.active && g.catchWho != g.on.me) {
+    bool watching = g.on.active && g.catchWho != g.on.me;
+    if (watching && g.catchPhase == 0) {
+        Color pc = (g.catchWho == 0 ? UI_GOLD : Color{120, 230, 255, 255});
         DrawTextCentered("CATCH DRAFT", VW / 2, 14, 20, UI_GOLD);
-        DrawTextCentered(TextFormat("%s is choosing which creature to catch...", P.name.c_str()), VW / 2, 40, 10, UI_TEXT, false);
+        DrawTextCentered(TextFormat("%s is choosing which creature to catch...", P.name.c_str()), VW / 2, 40, 10, pc, false);
         int cw = std::min(150, 560 / std::max(1, n)), gap = 10;
         int x0 = VW / 2 - (n * cw + (n - 1) * gap) / 2;
-        for (int i = 0; i < n; i++) DrawCreatureCard(g.catchCands[i].species, g.catchCands[i].level, x0 + i * (cw + gap), 70, cw, 124, false);
-        DrawTextCentered("You'll pick from what's left next.", VW / 2, 220, 10, UI_DIM, false);
+        int ps = g.on.partnerCatchSel;
+        for (int i = 0; i < n; i++) {
+            int x = x0 + i * (cw + gap);
+            DrawCreatureCard(g.catchCands[i].species, g.catchCands[i].level, x, 70, cw, 124, false);
+            DrawHpBar(x + 10, 200, cw - 20, 4, g.catchCands[i].hpFrac);
+            if (ps == i) {   // the partner's cursor
+                DrawRectangleLinesEx({(float)x - 3, 67, (float)cw + 6, 130}, 2, pc);
+                float bob = std::sin(g.t * 6) * 2;
+                DrawTriangle({x + cw / 2.0f - 6, 58 + bob}, {x + cw / 2.0f, 66 + bob}, {x + cw / 2.0f + 6, 58 + bob}, pc);
+            }
+        }
+        DrawMenuItem("Leave it", VW / 2, 214, 10, ps == n);
+        DrawTextCentered("You'll pick from what's left next.", VW / 2, 236, 10, UI_DIM, false);
         return;
     }
+    if (watching) {
+        Color pc = (g.catchWho == 0 ? UI_GOLD : Color{120, 230, 255, 255});
+        DrawPanel(4, 4, 190, 30, UI_PANEL, pc);
+        DrawText(TextFormat("Watching %s", P.name.c_str()), 10, 8, 10, pc);
+        DrawText("Your pick comes next", 10, 20, 10, UI_DIM);
+    } else
     if (g.coop) {
         Color pc = g.catchWho == 0 ? UI_GOLD : Color{120, 230, 255, 255};
         DrawPanel(4, 4, 150, 30, UI_PANEL, pc);
@@ -2305,21 +2504,24 @@ void DrawCatch(const Game& g) {
     if (g.catchPhase == 1) {
         int shown = t > 1.1f ? std::min(g.catchShakes, (int)((t - 1.1f) / 0.6f) + 1) : 0;
         std::string dots(shown, '.');
-        DrawTextCentered(TextFormat("You threw a ball at %s%s", sp.name.c_str(), dots.c_str()), VW / 2, 262, 20, UI_TEXT);
+        DrawTextCentered(watching ? TextFormat("%s threw a ball at %s%s", P.name.c_str(), sp.name.c_str(), dots.c_str())
+                                  : TextFormat("You threw a ball at %s%s", sp.name.c_str(), dots.c_str()), VW / 2, 262, 20, UI_TEXT);
     } else if (g.catchOk) {
         DrawTextCentered(TextFormat("Gotcha! %s was caught!", sp.name.c_str()), VW / 2, 252, 20, UI_GOLD);
-        DrawTextCentered(g.catchBoxed ? TextFormat("Your party is full, so it went to the Box (level %d).", c.level)
+        if (watching) DrawTextCentered(TextFormat("It joins %s's team at level %d.", P.name.c_str(), c.level), VW / 2, 280, 10, UI_TEXT, false);
+        else DrawTextCentered(g.catchBoxed ? TextFormat("Your party is full, so it went to the Box (level %d).", c.level)
                                       : TextFormat("It joins %s party at level %d (with its HP as it was).", g.coop ? (P.name + "'s").c_str() : "your", c.level),
                          VW / 2, 280, 10, UI_TEXT, false);
     } else {
         const char* lines[3] = {"Oh no! It broke free!", "Aww! It appeared to be caught!", "Argh! Almost had it!"};
         DrawTextCentered(lines[std::min(2, g.catchShakes)], VW / 2, 252, 20, Color{255, 130, 100, 255});
         if (g.catchFled) DrawTextCentered(TextFormat("%s fled!", sp.name.c_str()), VW / 2, 280, 10, UI_TEXT, false);
+        else if (watching) DrawTextCentered(TextFormat("%s is still here...", sp.name.c_str()), VW / 2, 280, 10, UI_GOLD, false);
         else if (!OwnedBalls(P).empty()) DrawTextCentered(TextFormat("%s is still here! Enter: throw again   Esc: let it go", sp.name.c_str()), VW / 2, 280, 10, UI_GOLD, false);
         else DrawTextCentered("You're out of Poke Balls...", VW / 2, 280, 10, UI_TEXT, false);
     }
     bool again = g.catchPhase == 2 && !g.catchOk && !g.catchFled && !OwnedBalls(P).empty();
-    if (g.catchPhase == 2 && t > resultAt + 0.5f && !again) DrawTextCentered("Enter to continue", VW / 2, 330, 10, UI_DIM, false);
+    if (g.catchPhase == 2 && t > resultAt + 0.5f && !again && !watching) DrawTextCentered("Enter to continue", VW / 2, 330, 10, UI_DIM, false);
 }
 
 // ------------------------------------------------------------------ healing center
@@ -2730,22 +2932,17 @@ void StartCoopFlow(Game& g) {
 
 void UpdateCoopSelect(Game& g) {
     int n = (int)g.profiles.size();
+    int N = n + 1;   // the profiles, then "+ New trainer"
     if (IsKeyPressed(KEY_ESCAPE) && !g.coopReady[0] && !g.coopReady[1]) { PlaySfx(Sfx::MenuBack); GoTitle(g); return; }
-    if (n < 2) {
-        PlayerInput in = MenuInput();
-        if (in.confirm || in.back) { PlaySfx(Sfx::MenuBack); GoTitle(g); }
-        return;
-    }
     for (int p = 0; p < 2; p++) {
         PlayerInput in = ReadInput(p, true);
+        g.coopPick[p] = std::max(0, std::min(g.coopPick[p], n));
         if (!g.coopReady[p]) {
-            if (in.left || in.up) { g.coopPick[p] = (g.coopPick[p] + n - 1) % n; PlaySfx(Sfx::MenuMove); }
-            if (in.right || in.down) { g.coopPick[p] = (g.coopPick[p] + 1) % n; PlaySfx(Sfx::MenuMove); }
+            if (in.left || in.up) { g.coopPick[p] = (g.coopPick[p] + N - 1) % N; PlaySfx(Sfx::MenuMove); }
+            if (in.right || in.down) { g.coopPick[p] = (g.coopPick[p] + 1) % N; PlaySfx(Sfx::MenuMove); }
             if (in.confirm) {
-                Profile pr;
-                LoadProfile(g.profiles[g.coopPick[p]], pr);
-                if (pr.mons.empty()) { Toast(g, pr.name + " has no creatures yet - pick a starter in Story Mode first."); PlaySfx(Sfx::MenuBack); }
-                else if (g.coopReady[1 - p] && g.coopPick[1 - p] == g.coopPick[p]) { Toast(g, "Each player needs a different profile."); PlaySfx(Sfx::MenuBack); }
+                bool isNew = g.coopPick[p] >= n;
+                if (!isNew && g.coopReady[1 - p] && g.coopPick[1 - p] == g.coopPick[p]) { Toast(g, "Each player needs a different trainer."); PlaySfx(Sfx::MenuBack); }
                 else { g.coopReady[p] = true; PlaySfx(Sfx::MenuOk); }
             }
             if (in.back && p == 0) { PlaySfx(Sfx::MenuBack); GoTitle(g); return; }
@@ -2755,67 +2952,92 @@ void UpdateCoopSelect(Game& g) {
         }
     }
     if (g.coopReady[0] && g.coopReady[1]) {
-        for (int p = 0; p < 2; p++) LoadProfile(g.profiles[g.coopPick[p]], g.coopP[p]);
-        bool existed = LoadCoop(g.coopP[0].name, g.coopP[1].name, g.coopSave);
-        g.coopSave.p[0] = g.coopP[0].name;
-        g.coopSave.p[1] = g.coopP[1].name;
-        if (!existed) SaveCoop(g.coopSave);
-        g.coop = true;
-        g.coopActive = -1;
-        g.coopWho = 0;
-        g.rareSpecies = -1;
-        Toast(g, existed ? "Welcome back! Your co-op journey continues." : "A new co-op journey begins!");
-        EnterStoryHub(g);
+        bool anyNew = false;
+        for (int p = 0; p < 2; p++) {
+            g.coopNew[p] = g.coopPick[p] >= n;
+            anyNew |= g.coopNew[p];
+            g.coopName[p].clear();
+            if (!g.coopNew[p]) LoadProfile(g.profiles[g.coopPick[p]], g.coopP[p]);
+        }
+        g.coopReady[0] = g.coopReady[1] = false;
+        if (anyNew) {   // type the new trainers' names first
+            g.coopNameWho = g.coopNew[0] ? 0 : 1;
+            while (GetCharPressed()) {}
+            g.screen = Screen::CoopSetup;
+            return;
+        }
+        if (g.coopP[0].mons.empty() || g.coopP[1].mons.empty()) {
+            g.coopStarterSel[0] = 0;
+            g.coopStarterSel[1] = std::min(1, (int)Story().starters.size() - 1);
+            g.screen = Screen::CoopStarter;
+            return;
+        }
+        CoopBeginJourney(g);
     }
 }
 
 void DrawCoopSelect(const Game& g) {
     ClearBackground(Color{24, 20, 38, 255});
     DrawTextCentered("CO-OP STORY", VW / 2, 12, 30, UI_GOLD);
-    DrawTextCentered("Two players, two profiles, one journey. Badges and story progress are shared;", VW / 2, 48, 10, UI_TEXT, false);
-    DrawTextCentered("XP, coins, items and creatures stay in each player's own profile.", VW / 2, 60, 10, UI_TEXT, false);
+    DrawTextCentered("Two trainers, one journey. Badges and story progress are shared;", VW / 2, 48, 10, UI_TEXT, false);
+    DrawTextCentered("XP, coins, items and Pokemon stay with each trainer.", VW / 2, 60, 10, UI_TEXT, false);
     int n = (int)g.profiles.size();
-    if (n < 2) {
-        DrawPanel(120, 120, 400, 70, UI_PANEL, UI_BORDER);
-        DrawTextCentered("Co-op needs two Story Mode profiles.", VW / 2, 134, 10, UI_TEXT, false);
-        DrawTextCentered("Make them in Story Mode (each picks a starter), then come back.", VW / 2, 150, 10, UI_DIM, false);
-        DrawTextCentered("Enter / Esc: back", VW / 2, 170, 10, UI_DIM, false);
-        return;
-    }
     for (int p = 0; p < 2; p++) {
         int x = p == 0 ? 20 : 330, w = 290, y = 80;
         Color pc = PlayerCol(p);
         DrawPanel(x, y, w, 200, UI_PANEL, g.coopReady[p] ? pc : UI_BORDER);
         DrawRectangle(x, y, w, 2, pc);
         DrawText(p == 0 ? "PLAYER 1" : "PLAYER 2", x + 8, y + 8, 10, pc);
-        Profile pr;
-        LoadProfile(g.profiles[g.coopPick[p]], pr);
-        DrawTextShadow(TextFormat("< %s >", pr.name.c_str()), x + 8, y + 24, 20, UI_TEXT);
-        DrawText(TextFormat("%d creatures   %d coins   solo stage %d", (int)pr.mons.size(), pr.coins, pr.storyStage), x + 8, y + 50, 10, UI_DIM);
-        int k = 0;
-        for (const auto& m : pr.mons) {
-            if (m.boxed) continue;
-            int idx = MonSpecies(m);
-            int cx = x + 26 + k * 44;
-            if (idx >= 0) DrawSpeciesFit(idx, VIEW_FRONT, cx, y + 104, 36);
-            DrawTextCentered(TextFormat("Lv%d", m.level), cx, y + 108, 10, UI_GOLD, false);
-            if (++k >= 6) break;
+        if (g.coopPick[p] >= n) {
+            DrawTextShadow("< + New trainer >", x + 8, y + 24, 20, Color{140, 230, 150, 255});
+            DrawText("Start fresh: type a name, then pick", x + 8, y + 56, 10, UI_TEXT);
+            DrawText("your starter together with your partner.", x + 8, y + 70, 10, UI_TEXT);
+        } else {
+            Profile pr;
+            LoadProfile(g.profiles[g.coopPick[p]], pr);
+            DrawTextShadow(TextFormat("< %s >", pr.name.c_str()), x + 8, y + 24, 20, UI_TEXT);
+            DrawText(TextFormat("%d Pokemon   %d coins   solo stage %d", (int)pr.mons.size(), pr.coins, pr.storyStage), x + 8, y + 50, 10, UI_DIM);
+            int k = 0;
+            for (const auto& m : pr.mons) {
+                if (m.boxed) continue;
+                int idx = MonSpecies(m);
+                int cx = x + 26 + k * 44;
+                if (idx >= 0) DrawSpeciesFit(idx, VIEW_FRONT, cx, y + 104, 36);
+                DrawTextCentered(TextFormat("Lv%d", m.level), cx, y + 108, 10, UI_GOLD, false);
+                if (++k >= 6) break;
+            }
+            if (pr.mons.empty()) DrawText("No Pokemon yet - picks a starter first", x + 8, y + 80, 10, Color{140, 230, 150, 255});
         }
-        if (pr.mons.empty()) DrawText("No creatures yet", x + 8, y + 80, 10, Color{255, 130, 100, 255});
         const char* st = g.coopReady[p] ? "READY!" : TextFormat("Left/Right choose   %s confirm", ConfirmLabel(p, true));
         DrawText(st, x + 8, y + 184, 10, g.coopReady[p] ? pc : UI_DIM);
     }
     CoopSave cs;
-    if (g.coopPick[0] != g.coopPick[1] && LoadCoop(g.profiles[g.coopPick[0]], g.profiles[g.coopPick[1]], cs))
+    bool bothOld = g.coopPick[0] < n && g.coopPick[1] < n;
+    if (bothOld && g.coopPick[0] != g.coopPick[1] && LoadCoop(g.profiles[g.coopPick[0]], g.profiles[g.coopPick[1]], cs))
         DrawTextCentered(TextFormat("These two have a co-op save: stage %d, %d badge%s", cs.storyStage + 1, (int)cs.badges.size(), cs.badges.size() == 1 ? "" : "s"),
                          VW / 2, 292, 10, Color{140, 230, 150, 255}, false);
-    else if (g.coopPick[0] != g.coopPick[1])
+    else if (!bothOld || g.coopPick[0] != g.coopPick[1])
         DrawTextCentered("A new co-op journey for these two (starts at stage 1).", VW / 2, 292, 10, UI_DIM, false);
     else
-        DrawTextCentered("Pick two different profiles.", VW / 2, 292, 10, Color{255, 130, 100, 255}, false);
+        DrawTextCentered("Pick two different trainers.", VW / 2, 292, 10, Color{255, 130, 100, 255}, false);
     DrawTextCentered("Each player uses their own controls.   Esc: back", VW / 2, 340, 10, UI_DIM, false);
     DrawToast(g);
 }
+
+void CoopBeginJourney(Game& g) {
+    bool existed = LoadCoop(g.coopP[0].name, g.coopP[1].name, g.coopSave);
+    g.coopSave.p[0] = g.coopP[0].name;
+    g.coopSave.p[1] = g.coopP[1].name;
+    if (!existed) SaveCoop(g.coopSave);
+    g.coop = true;
+    g.coopActive = -1;
+    g.coopWho = 0;
+    g.rareSpecies = -1;
+    Toast(g, existed ? "Welcome back! Your co-op journey continues." : "A new co-op journey begins!");
+    EnterStoryHub(g);
+}
+
+bool CoopNeedsStarter(const Game& g) { return g.coopP[0].mons.empty() || g.coopP[1].mons.empty(); }
 
 // ------------------------------------------------------------------ co-op story: hub
 
@@ -2825,7 +3047,7 @@ void UpdateCoopHub(Game& g) {
         if (in.confirm || in.back) { g.showBoard = false; PlaySfx(Sfx::MenuBack); }
         return;
     }
-    const int N = 11;
+    const int N = 13;
     if (in.up) { g.hubSel = (g.hubSel + N - 1) % N; PlaySfx(Sfx::MenuMove); }
     if (in.down) { g.hubSel = (g.hubSel + 1) % N; PlaySfx(Sfx::MenuMove); }
     bool online = g.on.active;
@@ -2916,6 +3138,7 @@ void UpdateCoopHub(Game& g) {
             g.actMenu = false;
             g.swapFrom = -1;
             g.stonePick = false;
+            g.moveOrder = false;
             g.boxTab = 0;
             g.screen = Screen::MyCreatures;
             break;
@@ -2932,6 +3155,14 @@ void UpdateCoopHub(Game& g) {
             break;
         case 9:
             g.showBoard = true;
+            break;
+        case 10:
+            StartPractice(g);
+            break;
+        case 11:
+            g.settingsSel = 0;
+            g.settingsBack = Screen::CoopHub;
+            g.screen = Screen::Settings;
             break;
         default:
             leave();
@@ -2980,7 +3211,7 @@ void DrawCoopHubBase(const Game& g) {
     int left = every - (g.coopSave.trainingWins % every) - 1;
     const std::string& wn = g.coopP[g.coopWho].name;
     bool partnerTrading = g.on.active && g.on.partnerInTrade;
-    std::string items[11] = {
+    std::string items[13] = {
         done ? "Rematch the last gym (2v2)" : "Story battle (2v2)",
         (rare ? "RARE 2v2 in " : "Training 2v2: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
         "Map",
@@ -2991,18 +3222,20 @@ void DrawCoopHubBase(const Game& g) {
         partnerTrading ? "Trade (your partner is waiting!)" : "Trade Pokemon",
         IsNight(g.coopSave.clock) ? "Wait until morning" : "Wait until night",
         "Leaderboard",
+        "Practice arena",
+        "Settings",
         "Save and quit",
     };
     DrawTimePanel(g.coopSave.clock, 304, 30);
     bool partnerHere = g.on.active && g.on.partnerCursor >= 0 && (g.on.partnerActivity.empty() || g.on.partnerActivity == "in the hub");
-    for (int i = 0; i < 11; i++) {
-        int y = 6 + i * 15;
+    for (int i = 0; i < 13; i++) {
+        int y = 6 + i * 13;
         bool sel = g.hubSel == i;
-        DrawPanel(rx, y, rw, 14, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
+        DrawPanel(rx, y, rw, 12, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
         Color c = sel ? UI_GOLD : UI_TEXT;
         if (i == 1 && rare) c = Color{255, 150, 230, 255};
         if (i == 7 && partnerTrading) c = Color{140, 230, 150, 255};
-        DrawText(items[i].c_str(), rx + 8, y + 3, 10, c);
+        DrawText(items[i].c_str(), rx + 8, y + 1, 10, c);
         if (g.on.active && (i == 0 || i == 1)) {   // ready count: the battle starts at 2/2
             int kind = i == 0 ? 1 : 2;
             bool r[2];
@@ -3012,22 +3245,22 @@ void DrawCoopHubBase(const Game& g) {
         }
         if (partnerHere && g.on.partnerCursor == i) {   // where your partner's cursor is
             Color pc = PlayerCol(1 - g.on.me);
-            DrawRectangleLines(rx + 1, y + 1, rw - 2, 13, Fade(pc, 0.9f));
-            DrawRectangle(rx + 1, y + 1, 3, 13, pc);
+            DrawRectangleLines(rx + 1, y + 1, rw - 2, 11, Fade(pc, 0.9f));
+            DrawRectangle(rx + 1, y + 1, 3, 11, pc);
             float bob = std::sin(g.t * 6) * 1.5f;
-            DrawTriangle({rx - 8 + bob, (float)y + 2}, {rx - 8 + bob, (float)y + 12}, {rx - 2 + bob, (float)y + 7}, pc);
+            DrawTriangle({rx - 8 + bob, (float)y + 1}, {rx - 8 + bob, (float)y + 11}, {rx - 2 + bob, (float)y + 6}, pc);
         }
         if (i >= 3 && i <= 6) {
             std::string tag = (sel && !g.on.active) ? "< " + wn + " >" : wn;
-            DrawText(tag.c_str(), rx + rw - 8 - TextW(tag.c_str(), 10), y + 3, 10, PlayerCol(g.coopWho));
+            DrawText(tag.c_str(), rx + rw - 8 - TextW(tag.c_str(), 10), y + 1, 10, PlayerCol(g.coopWho));
         }
     }
 
     // Both parties
     for (int p = 0; p < 2; p++) {
         const Profile& P = g.coopP[p];
-        int x = rx + p * (rw / 2 + 1), w = rw / 2 - 1, y = 174;
-        DrawPanel(x, y, w, 166, UI_PANEL, PlayerCol(p));
+        int x = rx + p * (rw / 2 + 1), w = rw / 2 - 1, y = 178;
+        DrawPanel(x, y, w, 164, UI_PANEL, PlayerCol(p));
         DrawText(P.name.c_str(), x + 6, y + 5, 10, PlayerCol(p));
         DrawCoins(P.coins, x + w - 44, y + 4);
         int k = 0;
@@ -3042,7 +3275,7 @@ void DrawCoopHubBase(const Game& g) {
             if (++k >= PARTY_SIZE) break;
         }
         int boxed = (int)P.mons.size() - PartyCount(P);
-        if (boxed > 0) DrawText(TextFormat("+%d in the Box", boxed), x + 6, y + 155, 10, UI_DIM);
+        if (boxed > 0) DrawText(TextFormat("+%d", boxed), x + 10 + TextW(P.name.c_str(), 10), y + 5, 10, UI_DIM);   // in the Box
     }
     DrawText(g.on.active ? "Enter choose   Esc leave the online game" : "Enter choose   Left/Right whose   Esc save and leave", 10, 346, 10, UI_DIM);
     DrawToast(g);

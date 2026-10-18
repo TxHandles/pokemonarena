@@ -15,6 +15,20 @@
 extern bool gAutoPlayP1;
 #endif
 
+CombatantSpec FromEntry(const RosterEntry& e) {
+    CombatantSpec c;
+    c.species = e.species;
+    c.level = e.level;
+    c.xp = e.xp;
+    c.moves = e.moves;
+    c.ownedId = e.ownedId;
+    c.hpFrac = e.hpFrac;
+    c.item = e.item;
+    c.abilitySlot = e.ownedId >= 0 ? e.abilitySlot : -1;
+    c.nature = e.ownedId >= 0 ? e.nature : -1;
+    return c;
+}
+
 namespace {
 
 constexpr int GRID_COLS = 6;
@@ -29,19 +43,6 @@ const std::vector<RosterEntry>& ViewRoster(const Game& g) {
     return g.roster[vp];
 }
 
-CombatantSpec FromEntry(const RosterEntry& e) {
-    CombatantSpec c;
-    c.species = e.species;
-    c.level = e.level;
-    c.xp = e.xp;
-    c.moves = e.moves;
-    c.ownedId = e.ownedId;
-    c.hpFrac = e.hpFrac;
-    c.item = e.item;
-    c.abilitySlot = e.ownedId >= 0 ? e.abilitySlot : -1;
-    c.nature = e.ownedId >= 0 ? e.nature : -1;
-    return c;
-}
 
 // Free battles: a gym arena or a venue (quick_arena: -1 random, 0..8 arenas, then the venues).
 ArenaKind QuickArena(uint8_t& venue) {
@@ -365,7 +366,7 @@ void StartBattleFromSelect(Game& g) {
                     bool hasPartner = false;
                     for (auto& e : team) hasPartner |= e.rfind("rival_partner", 0) == 0;
                     if (!hasPartner) team.insert(team.end() - (team.empty() ? 0 : 1), "rival_partner");
-                    while ((int)team.size() < 3) team.insert(team.begin(), "random");
+                    // (no random padding: the rival's team is exactly his own Pokemon)
                     while ((int)team.size() > MAX_TEAM_SIZE) team.erase(team.begin());
                     st.team = team;
                 } else {
@@ -611,11 +612,11 @@ void DrawSelect(const Game& g) {
                 DrawTextShadow(st.trainer.c_str(), x + 6, y + 24, 20, UI_TEXT);
                 DrawText(st.name.c_str(), x + 6, y + 48, 10, UI_DIM);
                 DrawText(TextFormat("%d creature%s", (int)std::min<size_t>(st.team.size(), MAX_TEAM_SIZE), st.team.size() > 1 ? "s" : ""), x + 6, y + 66, 10, UI_TEXT);
-                DrawText(TextFormat("Levels around your team %s", st.levelOffset >= 0 ? TextFormat("+%d", st.levelOffset) : TextFormat("%d", st.levelOffset)), x + 6, y + 80, 10, UI_TEXT);
+                if (st.baseLevel > 0) DrawText(TextFormat("Levels around %d", st.baseLevel), x + 6, y + 80, 10, UI_TEXT);
+                else DrawText(TextFormat("Levels around your team %s", st.levelOffset >= 0 ? TextFormat("+%d", st.levelOffset) : TextFormat("%d", st.levelOffset)), x + 6, y + 80, 10, UI_TEXT);
                 DrawText(TextFormat("CPU skill: %s", AILevelName(st.cpu)), x + 6, y + 94, 10, UI_TEXT);
                 DrawText(TextFormat("Arena: %s", st.arena == ArenaKind::Stadium ? VenueName(st.venue.empty() ? VenueForPlace(st.name) : VenueByName(st.venue)) : ArenaName(st.arena)), x + 6, y + 108, 10, st.arena == ArenaKind::Stadium ? UI_TEXT : UI_GOLD);
-                DrawText(st.Catchable() ? "Catch chance after a win" : "Gym battle: no catching", x + 6, y + 122, 10, UI_DIM);
-                if (st.reward && g.profile.storyStage == g.stageIdx) DrawText("Win to choose a new creature!", x + 6, y + 136, 10, UI_GOLD);
+                DrawText(st.IsGym() ? "Gym battle" : "Trainer battle: catch wild ones in training", x + 6, y + 122, 10, UI_DIM);
             } else {
                 if (g.rareBattle && g.rareSpecies >= 0) {
                     DrawTextShadow("RARE ENCOUNTER!", x + 6, y + 24, 20, Color{255, 150, 230, 255});
@@ -645,23 +646,51 @@ void DrawSelect(const Game& g) {
                 DrawText(g.ready[0] ? "Picking..." : "Waiting for you...", x + 6, y + 60, 10, UI_DIM);
             continue;
         }
+        bool partnerView = g.on.active && p != g.on.me;
+        const std::vector<int>& shown = partnerView ? (g.on.partnerPicksIn ? g.on.partnerPicks : g.on.partnerPickView) : g.picks[p];
+        const auto& pr = g.roster[g.shared ? 0 : p];
         for (int s = 0; s < g.teamSize; s++) {
             int sx = x + w - 6 - (g.teamSize - s) * 23, sy = y + 4;
             DrawRectangle(sx, sy, 22, 22, UI_PANEL_LIGHT);
             RectLines(sx, sy, 22, 22, Color{90, 84, 116, 255});
-            const auto& pr = g.roster[g.shared ? 0 : p];
-            if (s < (int)g.picks[p].size()) DrawSpeciesFit(pr[g.picks[p][s]].species, VIEW_FRONT, sx + 11, sy + 21, 20);
+            if (s < (int)shown.size() && shown[s] >= 0 && shown[s] < (int)pr.size()) DrawSpeciesFit(pr[shown[s]].species, VIEW_FRONT, sx + 11, sy + 21, 20);
         }
-        if (g.on.active && p != g.on.me) {
-            DrawText(g.on.partnerPicksIn ? "Ready! Waiting for you..." : "Choosing their team on their screen...", x + 6, y + 60, 10,
-                     g.on.partnerPicksIn ? UI_GOLD : UI_DIM);
+        if (partnerView || (IsCoop(g.mode) && !g.shared && p != vp && g.ready[p])) {
+            // The partner's team (online: as they pick it), so you can cover each other's weaknesses
+            int ly = y + 30;
+            for (int k = 0; k < (int)shown.size() && k < 3; k++) {
+                if (shown[k] < 0 || shown[k] >= (int)pr.size()) continue;
+                const RosterEntry& e = pr[shown[k]];
+                const SpeciesDef& sp = AllSpecies()[e.species];
+                int ry = ly + k * 26;
+                DrawRectangle(x + 6, ry, w - 12, 24, UI_PANEL_LIGHT);
+                DrawSpeciesFit(e.species, VIEW_FRONT, x + 18, ry + 23, 22);
+                DrawText(sp.name.c_str(), x + 34, ry + 2, 10, UI_TEXT);
+                DrawText(TextFormat("Lv%d", e.level), x + 38 + TextW(sp.name.c_str(), 10), ry + 2, 10, UI_GOLD);
+                int bx = x + 34;
+                bx += DrawTypeBadge(sp.type1, bx, ry + 12) + 2;
+                if (sp.type2 != Type::None) bx += DrawTypeBadge(sp.type2, bx, ry + 12) + 2;
+                for (size_t q = 0; q < e.moves.size() && q < 4; q++) {   // move types as little chips
+                    DrawRectangle(x + w - 50 + (int)q * 10, ry + 8, 8, 8, TypeColor(e.moves[q].type));
+                }
+            }
+            if (shown.empty()) DrawText("No picks yet...", x + 6, ly + 4, 10, UI_DIM);
+            const char* st;
+            if (partnerView) {
+                st = g.on.partnerPicksIn ? "Ready! Waiting for you..." : "Picking on their screen...";
+                int pc = g.on.partnerSelCursor;
+                if (!g.on.partnerPicksIn && pc >= 0 && pc < (int)pr.size())
+                    DrawText(TextFormat("Looking at: %s", AllSpecies()[pr[pc].species].name.c_str()), x + 6, y + h - 28, 10, UI_DIM);
+            } else {
+                st = "READY!";
+            }
+            DrawText(st, x + 6, y + h - 14, 10, (partnerView ? g.on.partnerPicksIn : true) ? UI_GOLD : UI_DIM);
             continue;
         }
         if (!g.shared && p != vp && !g.ready[p]) {
             DrawText("Waiting for Player 1...", x + 6, y + 60, 10, UI_DIM);
             continue;
         }
-        const auto& pr = g.roster[g.shared ? 0 : p];
         if (g.cursor[p] < (int)pr.size()) DrawEntryInfo(pr[g.cursor[p]], x + 6, y + 30);
         const char* status;
         char buf[96];

@@ -8,7 +8,8 @@ struct StageDef {
     std::string trainer;            // e.g. "Youngster Ty"
     std::string say;                // line shown before the battle
     std::vector<std::string> team;  // species names, "random", or "random <Type>"
-    int levelOffset = 0;            // relative to your team's average level
+    int levelOffset = 0;            // relative to your team's average level (only without baseLevel)
+    int baseLevel = 0;              // "lv": the level the battle is built for (your level nudges it a little)
     AILevel cpu = AILevel::Normal;
     bool reward = true;             // win: choose a new creature
     ArenaKind arena = ArenaKind::Stadium;
@@ -22,7 +23,8 @@ struct StageDef {
     std::string venue;              // how a non-gym battle looks ("forest", "cave"...); empty = from the place name
     bool IsGym() const { return !badge.empty(); }
     bool Indoors() const { return (IsGym() || arena != ArenaKind::Stadium) && !outdoor; }
-    bool Catchable() const { return catchMode < 0 ? !IsGym() : catchMode == 1; }
+    // Trainers' Pokemon are never catchable (you can't steal them): new Pokemon come from the wild.
+    bool Catchable() const { return false; }
 };
 
 // Coins for a win at an average CPU level.

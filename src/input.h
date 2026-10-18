@@ -10,6 +10,7 @@ struct PlayerInput {
     bool pause = false;
     bool dodge = false;      // quick invulnerable dash (cooldown)
     bool jump = false;       // hop: over water, puddles and low obstacles (no invulnerability)
+    int target = 0;          // switch targets: +1 next foe, -1 previous (right stick / key)
     // Menu navigation (edge-triggered)
     bool up = false, down = false, left = false, right = false;
     bool confirm = false, back = false;
@@ -26,5 +27,6 @@ const char* SwapKeyLabel(int player, bool twoPlayer);
 const char* DodgeKeyLabel(int player, bool twoPlayer);
 const char* JumpKeyLabel(int player, bool twoPlayer);
 const char* SwapPrevKeyLabel(int player, bool twoPlayer);
+const char* TargetKeyLabel(int player, bool twoPlayer);
 const char* ConfirmLabel(int player, bool twoPlayer);
 const char* BackLabel(int player, bool twoPlayer);

@@ -409,6 +409,7 @@ void Parse(const char* text, StoryDef& st, std::string& log) {
             else if (k == "say") cur->say = v;
             else if (k == "team") cur->team = SplitList(v);
             else if (k == "level") cur->levelOffset = std::atoi(v.c_str());
+            else if (k == "lv") cur->baseLevel = std::max(0, std::atoi(v.c_str()));
             else if (k == "cpu") cur->cpu = ParseLevel(v);
             else if (k == "reward") cur->reward = !IsNo(v);
             else if (k == "arena" || k == "stadium") {
@@ -567,6 +568,10 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
             e = Trim(e.substr(0, sp));
         }
         int level = std::max(2, std::min(MAX_LEVEL, avg + offset + extra + GetRandomValue(0, 1)));
+        if (stage && stage->baseLevel > 0) {   // built for a level, like the games; your level only nudges it
+            int nudge = std::max(-2, std::min(3, (int)std::lround((avg - stage->baseLevel) * 0.25f)));
+            level = std::max(2, std::min(MAX_LEVEL, stage->baseLevel + nudge + extra + GetRandomValue(0, 1)));
+        }
         int idx = -1;
         std::string l = e;
         for (char& c : l) c = (char)std::tolower((unsigned char)c);

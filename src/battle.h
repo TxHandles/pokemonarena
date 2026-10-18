@@ -66,6 +66,7 @@ struct SideSetup {
     int team_ = -1;              // which team (0 or 1); -1 = its index (slots 0 and 1)
     int input = -1;              // human input (0 = player 1, 1 = player 2); -1 = by index
     std::string tag;             // short tag over the creature in 2v2 ("P1", "P2", "CPU")
+    bool dummy = false;          // practice dummy: stands still, never faints
 };
 
 struct BattleSetup {
@@ -82,6 +83,7 @@ struct BattleSetup {
     Weather weather = Weather::None;   // the day's weather (season), lasts the whole battle
     uint8_t venue = 0;           // Venue (field.h): the look of a non-gym battle
     int season = -1;             // Story season (outdoor venues dress for it), -1 none
+    bool practice = false;       // practice arena: nobody faints, no XP
 };
 
 struct StatusState {
@@ -186,6 +188,9 @@ struct Fighter {
 
     // Progress during this battle (read by the game afterwards)
     bool sentOut = false;
+    float dmgDealt = 0, dmgTaken = 0;        // for the after-battle stats screen
+    float hurtT = 99;                        // seconds since a foe last hurt it (CPU targeting)
+    bool hitFresh = false;                   // just got hit (the CPU decides whether to turn on the attacker)
     int startLevel = 0, startSpecies = 0, xpGained = 0, kos = 0;
     std::vector<std::string> learnedNow;     // learned into an empty slot during the battle
     std::vector<std::string> pendingLearn;   // wants to learn, needs a slot (decided after battle)
@@ -330,6 +335,8 @@ struct Side {
     std::string label;
     float swapCd = 0;
     int swapTo = -1;
+    float manualT = 0;       // a player picked this target themselves: keep it for a while
+    bool dummy = false;      // practice dummy
     float sendT = -1;
     Vector2 lastPos{0, 0};
     AIBrain ai;
@@ -356,9 +363,11 @@ public:
     bool IsDoubles() const { return sides.size() > 2; }
     int N() const { return (int)sides.size(); }
     const BattleSetup& Setup() const { return setup; }
+    void PracticeCycleDummies();   // practice arena: every dummy turns into the next type
     const Field& GetField() const { return field; }
 
 private:
+    void PracticeNextDummy(int s, bool announce);
     BattleSetup setup;
     std::vector<Side> sides;
     Field field;
@@ -467,6 +476,7 @@ private:
     bool Hittable(int s) const;      // targetable and not mid-dodge (attacks pass through a dodge)
     void StartDodge(int s, Vector2 dir);
     void StartJump(int s, Vector2 dir);
+    void CycleTarget(int s, int dir);   // a player switches to the next / previous foe
     void SpawnProjectile(const HitSpec& h, const MoveDef& m, Vector2 pos, Vector2 dir);
     void SpawnPatch(const HitSpec& h, Vector2 pos);
     void UpdateProjectiles(float dt);
