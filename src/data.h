@@ -60,6 +60,8 @@ struct SpeciesDef {
     std::string artName;
     std::string spriteDir;
     float size = 1.0f;
+    float spriteSize = 0;       // pokemon.txt sprite_size: picture size set by hand (0 = from the Pokedex)
+    float drawScale = 1.0f;     // battle picture size and hit area: from Pokedex height/weight (see FinishSizes)
     bool custom = false;   // defined or changed by a creatures/ folder
 };
 

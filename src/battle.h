@@ -321,6 +321,8 @@ struct Intent {
     Vector2 aim{1, 0};
 };
 
+float HitR(const Fighter& f);   // body radius for hits: from the Pokedex size (battle.cpp)
+
 struct Side {
     std::vector<Fighter> team;
     int active = 0;

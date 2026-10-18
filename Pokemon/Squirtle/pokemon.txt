@@ -40,6 +40,8 @@ speed      = 43
 
 # ---- BODY ----------------------------------------------------------------
 size   = 1.0               # on-screen size, 0.25 to 4 (1.15 or more counts as heavy)
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 9.0      # Pokedex weight in kg
 hovers = no                # yes = floats above the ground (Gastly, Magnemite...)
 heavy  = no                # yes = smashes trees and throws pillars in the gyms
 winged = no                # yes = flies over water/pools without being Flying type

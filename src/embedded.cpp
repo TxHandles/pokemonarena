@@ -48,7 +48,7 @@ std::string RestoreEmbeddedFiles() {
     int restored = 0, failed = 0;
     // Data updates: files this game version changed are refreshed once (the old copy is kept
     // next to it as .old). Everything else is only written when it's missing, so your edits stay.
-    const int DATA_VERSION = 11;
+    const int DATA_VERSION = 12;
     struct Upd { const char* path; int version; };
     static const Upd kUpdated[] = {
         {"Pokemon/Bulbasaur/pokemon.txt", 2}, {"Pokemon/Pikachu/pokemon.txt", 2},
@@ -62,6 +62,8 @@ std::string RestoreEmbeddedFiles() {
         {"story.txt", 10},  // Snorlax on Routes 16 and 12, the Dojo moved to Saffron
         {"wild.txt", 10},   // rare trade Pokemon, Cinnabar Volcano
         {"story.txt", 11},  // trainer levels (lv) like the real games; no catching trainers' Pokemon
+        {"story.txt", 12},  // gym leaders, Giovanni and other bosses use their FireRed/LeafGreen teams
+        {"Pokemon/_TEMPLATE/pokemon.txt", 12},   // height / weight
         {"Pokemon/_TEMPLATE/pokemon.txt", 8}, {"Pokemon/HOW-TO-ADD-POKEMON.txt", 8},   // TM moves
     };
     std::string verPath = base + "data_version.txt";
@@ -81,7 +83,7 @@ std::string RestoreEmbeddedFiles() {
         }
         // Version 4: every Pokemon's moves and evolutions were checked against the Pokedex.
         // Changed pokemon.txt files are replaced; the old ones are kept in Pokemon/_old_files.
-        if (have < 8) {   // (version 5: Scarlet/Violet movesets; version 8: TM moves)
+        if (have < 12) {   // (version 5: Scarlet/Violet movesets; 8: TM moves; 12: sizes from Pokedex height)
             for (const auto& f : kEmbeddedFiles) {
                 std::string rel = f.path;
                 if (rel.rfind("Pokemon/", 0) != 0 || rel.size() < 20 || rel.substr(rel.size() - 12) != "/pokemon.txt") continue;

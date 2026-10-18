@@ -380,6 +380,15 @@ void ApplyDexData() {
         if (Squash(sp.evolvesTo) == Squash(t[1])) { sp.evolvesTo.clear(); sp.evolveLevel = 0; }
         if (!has) { EvoAlt e; e.to = t[1]; e.trade = true; sp.evoAlts.push_back(e); }
     }
+    // How big each Pokemon looks in battle (and how big a target it is): from its Pokedex height
+    // and weight, so Onix towers over Pikachu. Stats and the "heavy" rule don't change.
+    for (SpeciesDef& sp : reg) {
+        if (sp.spriteSize > 0) sp.drawScale = sp.spriteSize;
+        else if (sp.heightDm > 0 && sp.weightHg > 0) {
+            float h = sp.heightDm / 10.0f, w = sp.weightHg / 10.0f;
+            sp.drawScale = std::max(0.6f, std::min(1.7f, 0.65f * std::pow(h, 0.35f) + 0.35f * std::pow(w / 20.0f, 0.2f)));
+        } else sp.drawScale = sp.size;
+    }
 }
 
 std::string EvolutionHint(int idx) {

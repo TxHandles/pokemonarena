@@ -15,6 +15,8 @@ speed      = 45
 
 # ---- BODY ----------------------------------------------------------------
 size   = 1.0
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 6.9      # Pokedex weight in kg
 hovers = no
 heavy  = no
 winged = no

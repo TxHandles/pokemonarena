@@ -354,7 +354,7 @@ void LoadAllSprites(std::string& log) {
             else Placeholder(cs);
             cs.pixel = SPRITE_PIXEL;
         }
-        cs.pixel = SnapScale(cs.pixel * sp.size);
+        cs.pixel = SnapScale(cs.pixel * sp.drawScale);   // Pokedex size (data.cpp)
     }
 }
 

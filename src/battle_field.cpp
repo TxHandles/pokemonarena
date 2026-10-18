@@ -64,7 +64,7 @@ void Battle::UpdateField(float dt) {
                 Vector2 a = o.pos, b = o.pos + o.fallDir * o.height;
                 HitSpec h = EnvSpec(Type::Grass, 50);
                 for (int ts = 0; ts < N(); ts++)
-                    if (Hittable(ts) && DistPointSeg(sides[ts].Cur().pos, a, b) < BODY_R + 6) ApplyHit(h, ts, o.fallDir);
+                    if (Hittable(ts) && DistPointSeg(sides[ts].Cur().pos, a, b) < HitR(sides[ts].Cur()) + 6) ApplyHit(h, ts, o.fallDir);
                 Burst(b, Color{90, 160, 60, 255}, 16, 70, 4);
                 Shake(2);
                 PlaySfx(Sfx::Thud);

@@ -122,7 +122,7 @@ uint64_t DataHash() {
     auto mf = [&](float v) { mix(&v, sizeof v); };
     for (const auto& sp : AllSpecies()) {
         ms(sp.name); mi((int)sp.type1); mi((int)sp.type2); mi(sp.hp); mi(sp.atk); mi(sp.def); mi(sp.spd); mi(sp.spAtk); mi(sp.spDef);
-        mf(sp.size); mi(sp.floats); mi(sp.heavy); mi(sp.winged); ms(sp.evolvesTo); mi(sp.evolveLevel);
+        mf(sp.size); mf(sp.drawScale); mi(sp.floats); mi(sp.heavy); mi(sp.winged); ms(sp.evolvesTo); mi(sp.evolveLevel);
         for (const auto& e : sp.learnset) { mi(e.level); ms(e.move.name); mi(e.move.power); }
         for (const auto& e : sp.evoAlts) { ms(e.to); ms(e.item); mi(e.friendship); mi(e.trade); }
         ms(sp.ability1); ms(sp.ability2); ms(sp.hiddenAbility);

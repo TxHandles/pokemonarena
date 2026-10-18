@@ -12,6 +12,8 @@
 namespace {
 
 constexpr float BODY_R = 9.0f;       // collision radius of a creature
+// How big a creature's body is for hits and bumping: its Pokedex size (the same scale its picture
+// is drawn at), so Onix is a big target and Pikachu a small one.
 constexpr float HP_SCALE = 3.0f;     // stretches HP so fights last a while in real time
 constexpr float PI_F = 3.14159265f;
 
@@ -552,7 +554,7 @@ void Battle::Update(float dt, const PlayerInput in[2]) {
     // Bodies are solid - foes and teammates alike. The check runs in a squashed space so two
     // creatures can't stand on top of each other on screen (the arena is drawn foreshortened),
     // and bigger creatures take up more room.
-    auto bodyR = [](const Fighter& f) { return BODY_R * std::max(0.85f, std::min(1.6f, f.sp->size)) + 2.0f; };
+    auto bodyR = [](const Fighter& f) { return HitR(f) + 2.0f; };
     const float YK = 0.7f;
     for (int pass = 0; pass < 2; pass++)
         for (int i = 0; i < N(); i++)
@@ -787,7 +789,7 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
             Shake(2);
             PlaySfx(Sfx::Thud);
             for (int ts : FoeSlots(s)) {
-                if (!Hittable(ts) || Dist(f.pos, sides[ts].Cur().pos) >= bm.radius + BODY_R) continue;
+                if (!Hittable(ts) || Dist(f.pos, sides[ts].Cur().pos) >= bm.radius + HitR(sides[ts].Cur())) continue;
                 Vector2 ep = sides[ts].Cur().pos;
                 ApplyHit(h, ts, SafeNorm(ep - f.pos));
                 TryElectrify(ep, h);
@@ -1323,7 +1325,7 @@ void Battle::Execute(int s, int mi, bool first, const MoveDef* override) {
             Vector2 c = f.pos + a * (m.range * 0.7f);
             ObstaclesInArea(c, m.radius, h, true, f.pos);
             for (int ts : foes) {
-                if (!Hittable(ts) || Dist(c, sides[ts].Cur().pos) >= m.radius + BODY_R) continue;
+                if (!Hittable(ts) || Dist(c, sides[ts].Cur().pos) >= m.radius + HitR(sides[ts].Cur())) continue;
                 Vector2 tp = sides[ts].Cur().pos;
                 ApplyHit(h, ts, a);
                 TryElectrify(tp, h);
@@ -1350,7 +1352,7 @@ void Battle::Execute(int s, int mi, bool first, const MoveDef* override) {
             if (m.power > 0) Shake(1);
             if (m.power > 0) ObstaclesInArea(f.pos, m.radius, h, true, f.pos);
             for (int ts : foes)
-                if (Hittable(ts) && Dist(f.pos, sides[ts].Cur().pos) < m.radius + BODY_R)
+                if (Hittable(ts) && Dist(f.pos, sides[ts].Cur().pos) < m.radius + HitR(sides[ts].Cur()))
                     ApplyHit(h, ts, SafeNorm(sides[ts].Cur().pos - f.pos));
             if (m.power > 0) FieldReact(f.pos, h, m.radius);
         } break;
@@ -1361,7 +1363,7 @@ void Battle::Execute(int s, int mi, bool first, const MoveDef* override) {
             Shake(2);
             bool bhit = false;
             for (int ts : foes) {
-                if (!Hittable(ts) || DistPointSeg(sides[ts].Cur().pos, f.pos, end) >= m.radius + BODY_R) continue;
+                if (!Hittable(ts) || DistPointSeg(sides[ts].Cur().pos, f.pos, end) >= m.radius + HitR(sides[ts].Cur())) continue;
                 Vector2 tp = sides[ts].Cur().pos;
                 ApplyHit(h, ts, a);
                 if (!bhit) TryElectrify(tp, h);
@@ -1660,7 +1662,7 @@ void Battle::Execute(int s, int mi, bool first, const MoveDef* override) {
                 if (!Hittable(ts)) continue;
                 Vector2 tp = sides[ts].Cur().pos;
                 float d2 = Len(Vector2{tp.x - f.pos.x, (tp.y - f.pos.y) * 0.7f});  // same squashed space as bodies
-                if (d2 < m.range + BODY_R && (d2 < 14 || Dot(SafeNorm(tp - f.pos), a) > std::cos(half + 0.15f))) {
+                if (d2 < m.range + HitR(sides[ts].Cur()) && (d2 < 14 || Dot(SafeNorm(tp - f.pos), a) > std::cos(half + 0.15f))) {
                     ApplyHit(h, ts, SafeNorm(tp - f.pos));
                     TryElectrify(tp, h);
                 }
@@ -2249,7 +2251,7 @@ void Battle::UpdateProjectiles(float dt) {
             for (int ts = 0; ts < N(); ts++) {
                 if (!Hits(p.hit.side, ts) || !Hittable(ts)) continue;
                 Vector2 epos = sides[ts].Cur().pos;
-                if (Dist(at, epos) < radius + BODY_R) ApplyHit(p.hit, ts, SafeNorm(epos - at));
+                if (Dist(at, epos) < radius + HitR(sides[ts].Cur())) ApplyHit(p.hit, ts, SafeNorm(epos - at));
             }
             ObstaclesInArea(at, radius * 0.6f, p.hit, false, at);
             FieldReact(at, p.hit, radius);
@@ -2327,7 +2329,7 @@ void Battle::UpdateProjectiles(float dt) {
                 for (int ts = 0; ts < N(); ts++) {
                     if (!Hits(p.hit.side, ts) || !Hittable(ts)) continue;
                     int bit = p.returning ? 2 : 1;
-                    if ((p.hitMask & bit) || Dist(p.pos, sides[ts].Cur().pos) >= p.radius + BODY_R) continue;
+                    if ((p.hitMask & bit) || Dist(p.pos, sides[ts].Cur().pos) >= p.radius + HitR(sides[ts].Cur())) continue;
                     p.hitMask |= bit;
                     ApplyHit(p.hit, ts, vdir);
                     TryElectrify(p.pos, p.hit);
@@ -2350,7 +2352,7 @@ void Battle::UpdateProjectiles(float dt) {
             for (int ts = 0; ts < N() && !hitSomething; ts++) {
                 if (!Hits(p.hit.side, ts) || !Hittable(ts)) continue;
                 Vector2 epos = sides[ts].Cur().pos;
-                if (Dist(p.pos, epos) < p.radius + BODY_R) {
+                if (Dist(p.pos, epos) < p.radius + HitR(sides[ts].Cur())) {
                     p.alive = false;
                     hitSomething = true;
                     ApplyHit(p.hit, ts, vdir);
@@ -2425,7 +2427,7 @@ void Battle::UpdateHazards(float dt) {
         int os = -1;  // a foe touching it
         if (hz.hit.side >= 0)
             for (int ts : FoeSlots(hz.hit.side))
-                if (Hittable(ts) && Dist(hz.pos, sides[ts].Cur().pos) < hz.radius + BODY_R - (hz.trap ? 2 : 0)) { os = ts; break; }
+                if (Hittable(ts) && Dist(hz.pos, sides[ts].Cur().pos) < hz.radius + HitR(sides[ts].Cur()) - (hz.trap ? 2 : 0)) { os = ts; break; }
 
         if (hz.orbit) {  // circles its owner; hits on touch
             const Side& ow = sides[std::max(0, hz.hit.side)];
@@ -2487,7 +2489,7 @@ void Battle::UpdateHazards(float dt) {
             hz.tickT = 0.5f;
             for (int ts = 0; ts < N(); ts++) {
                 if (!Hits(hazards[i].hit.side, ts) || !Hittable(ts)) continue;
-                if (Dist(hazards[i].pos, sides[ts].Cur().pos) < hazards[i].radius + BODY_R - 2) {
+                if (Dist(hazards[i].pos, sides[ts].Cur().pos) < hazards[i].radius + HitR(sides[ts].Cur()) - 2) {
                     HitSpec hit = hazards[i].hit;
                     ApplyHit(hit, ts, {0, 0});
                 }
@@ -2509,7 +2511,7 @@ void Battle::UpdateWaves(float dt) {
             for (int os : FoeSlots(waves[i].hit.side)) {
                 if ((waves[i].hitMask >> os) & 1 || !Hittable(os)) continue;
                 float d = Dist(waves[i].origin, sides[os].Cur().pos);
-                if (d <= waves[i].r + BODY_R && d <= waves[i].maxR + BODY_R) {
+                if (d <= waves[i].r + HitR(sides[os].Cur()) && d <= waves[i].maxR + HitR(sides[os].Cur())) {
                     waves[i].hitMask |= 1 << os;
                     HitSpec hit = waves[i].hit;
                     Vector2 o = waves[i].origin;
@@ -3465,3 +3467,7 @@ void Battle::DrawHud() const {
         }
     }
 }
+
+// How big a creature's body is for hits and bumping: its Pokedex size (the same scale its picture
+// is drawn at), so Onix is a big target and Pikachu a small one.
+float HitR(const Fighter& f) { return 9.0f * std::max(0.75f, std::min(1.6f, f.sp->drawScale)); }

@@ -40,7 +40,13 @@ sp_defense = 50
 speed      = 65
 
 # ---- BODY ----------------------------------------------------------------
-size   = 1.0               # on-screen size, 0.25 to 4 (1.15 or more counts as heavy)
+size   = 1.0               # 0.25 to 4: 1.15 or more counts as heavy. (Its battle size comes from height/weight below)
+height = 1.0               # Pokedex height in meters (shown in the Pokedex)
+weight = 30.0              # Pokedex weight in kg
+                          # height and weight set how big the Pokemon is in battle (its picture and hit area; not its stats):
+                          #   0.65 * height^0.35 + 0.35 * (weight/20)^0.2, between 0.6 and 1.7
+                          #   (Diglett 0.6, Pikachu 0.75, Charizard 1.25, Snorlax 1.5, Onix 1.7)
+# sprite_size = 1.0        # optional: set the picture size yourself instead
 hovers = no                # yes = floats above the ground (Gastly, Magnemite...)
 heavy  = no                # yes = smashes trees and throws pillars in the gyms
 winged = no                # yes = flies over water/pools without being Flying type

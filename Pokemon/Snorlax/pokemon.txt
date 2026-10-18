@@ -12,6 +12,8 @@ sp_defense = 110
 speed      = 30
 
 size   = 1.29
+height = 2.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 460.0      # Pokedex weight in kg
 hovers = no
 heavy  = yes
 winged = no

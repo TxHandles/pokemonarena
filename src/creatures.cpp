@@ -220,6 +220,9 @@ bool ParseCreatureFile(const std::string& path, SpeciesDef& sp, std::string& rep
             sp.category = Trim(val);
         } else if (key == "dex_entry" || key == "pokedex_entry" || key == "pokedex") {
             sp.dexEntry = Trim(val);
+        } else if (key == "sprite_size" || key == "picture_size") {
+            float s = (float)std::atof(val.c_str());
+            if (s >= 0.25f && s <= 4.0f) sp.spriteSize = s;
         } else if (key == "height") {
             sp.heightDm = (int)std::round(std::atof(val.c_str()) * 10);   // metres
         } else if (key == "weight") {
