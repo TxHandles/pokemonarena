@@ -7,7 +7,7 @@ on first start.
 
 ## Online co-op
 1. Both players run the same ArenaClash.exe (online play checks that the versions match).
-2. Story Mode > Co-op > Online. One player hosts, the other joins.
+2. Pick **Online Co-op** on the title screen, choose your profile, then one player picks "Host a game" and the other "Join a game".
 3. Swap connection codes (Ctrl+C copies yours): the friend types the host's code, the host types the
    friend's. No router setup needed on most home networks.
 4. If it can't connect: the host forwards UDP port 47777 to their PC and the friend types
