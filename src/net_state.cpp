@@ -102,13 +102,15 @@ struct Ar {
         v(o.kind); v(o.pos); v(o.radius); v(o.height); v(o.alive); v(o.burnT); v(o.fallT); v(o.fallDir); v(o.respawnT);
         v(o.life); v(o.maxLife); v(o.wallType); v(o.hp); v(o.maxHp); v(o.grow); v(o.seed);
     }
-    void v(Puddle& p) { v(p.pos); v(p.r); v(p.maxR); v(p.ice); v(p.shockCd); v(p.shockT); v(p.sheet); v(p.seed); }
+    void v(Puddle& p) { v(p.pos); v(p.r); v(p.maxR); v(p.ice); v(p.shockCd); v(p.shockT); v(p.sheet); v(p.seed); v(p.rink); v(p.thawT); }
+    void v(Wisp& w) { v(w.pos); v(w.vel); v(w.life); v(w.respawnT); v(w.seed); }
     void v(Zone& z) { v(z.kind); v(z.pos); v(z.rx); v(z.ry); v(z.seed); }
     void v(Portal& p) { v(p.pos); v(p.age); }
     void v(Turret& t) { v(t.pos); v(t.dir); v(t.warnT); v(t.aimAt); }
     void v(Field& f) {
         v(f.kind); v(f.obs); v(f.zones); v(f.portals); v(f.turrets); v(f.portalT); v(f.turretT); v(f.lavaT); v(f.tickT);
         v(f.electrifyCd); v(f.waterFlash); v(f.spikeBand); v(f.puddles); v(f.puddleT); v(f.moundT); v(f.venue); v(f.season);
+        v(f.wisps); v(f.spot); v(f.spotTo); v(f.spotT);
     }
     void v(Projectile& p) {
         v(p.hit); v(p.pos); v(p.vel); v(p.traveled); v(p.maxDist); v(p.radius); v(p.homing); v(p.lob); v(p.drop); v(p.start);
@@ -161,6 +163,8 @@ struct BattleIO {
         i((int)b.waves.size());
         for (const auto& o : b.field.obs) { i(o.alive); f(o.pos.x); f(o.hp); }
         for (const auto& p : b.field.puddles) { f(p.r); f(p.ice); }
+        for (const auto& w : b.field.wisps) { f(w.pos.x); f(w.life); }
+        f(b.field.spot.x);
         return h;
     }
 };

@@ -7,7 +7,8 @@
 #include "types.h"
 
 // Arenas. Stadium is the plain one; the rest are the eight gym stadiums.
-enum class ArenaKind { Stadium, Rock, Water, Electric, Grass, Poison, Psychic, Fire, Ground, Count };
+enum class ArenaKind { Stadium, Rock, Water, Electric, Grass, Poison, Psychic, Fire, Ground,
+                       Ice, Fighting, Ghost, Dragon, Champion, Count };   // Ice..Champion: the Pokemon League
 constexpr int ARENA_COUNT = (int)ArenaKind::Count;
 const char* ArenaName(ArenaKind k);         // "Stone Gym" etc.
 const char* ArenaKey(ArenaKind k);          // "rock" etc. (story.txt)
@@ -78,6 +79,8 @@ struct Puddle {
     float shockCd = 0;         // can't shock again until this reaches 0
     float shockT = 0;          // electric flash (drawing)
     bool sheet = false;        // ice sheet over the Water Gym's pool: gone when it thaws
+    bool rink = false;         // Lorelei's ice rink: melted by fire, freezes over again
+    float thawT = 0;           // rink: seconds until it freezes again
     uint32_t seed = 0;         // its shape
     bool Contains(Vector2 p, float pad = 0) const {
         float dx = p.x - pos.x, dy = p.y - pos.y;
@@ -98,6 +101,14 @@ struct Turret {
     Vector2 aimAt{0, 0};
 };
 
+// Agatha's hall: a will-o'-wisp drifts toward anything that isn't a Ghost and burns it.
+struct Wisp {
+    Vector2 pos{0, 0}, vel{0, 0};
+    float life = 0;       // > 0: out and hunting (seconds left)
+    float respawnT = 0;   // gone: back after this
+    uint32_t seed = 0;
+};
+
 struct Field {
     ArenaKind kind = ArenaKind::Stadium;
     Venue venue = Venue::Stadium;   // the look (and props) of a non-gym battle
@@ -111,6 +122,11 @@ struct Field {
     float spikeBand = 0;  // poison gym: toxic spikes along the edges
     std::vector<Puddle> puddles;
     float puddleT = 4, moundT = 6;   // next new puddle (rain) / snow mound (snow)
+    std::vector<Wisp> wisps;         // Ghost hall
+    Vector2 spot{0, 0}, spotTo{0, 0};   // Champion's stadium: the roaming spotlight
+    float spotT = 0;
+    static constexpr float SPOT_R = 44;
+    bool InSpot(Vector2 p) const { float dx = p.x - spot.x, dy = p.y - spot.y; return kind == ArenaKind::Champion && dx * dx + dy * dy < SPOT_R * SPOT_R; }
 
     void Build(ArenaKind k, Venue v = Venue::Stadium, int season = -1);  // random layout
     bool IsWater(Vector2 p) const;

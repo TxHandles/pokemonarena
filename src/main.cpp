@@ -94,6 +94,7 @@ int main() {
             case Screen::LearnMove: UpdateLearnMove(g); break;
             case Screen::Fossil: UpdateFossil(g); break;
             case Screen::Gift: UpdateGift(g); break;
+            case Screen::HallOfFame: UpdateHallOfFame(g); break;
             case Screen::Revive: UpdateRevive(g); break;
             case Screen::Slots: UpdateSlots(g); break;
             case Screen::CoopSetup: UpdateCoopSetup(g); break;
@@ -135,6 +136,7 @@ int main() {
             case Screen::LearnMove: DrawLearnMove(g); break;
             case Screen::Fossil: DrawFossil(g); break;
             case Screen::Gift: DrawGift(g); break;
+            case Screen::HallOfFame: DrawHallOfFame(g); break;
             case Screen::Revive: DrawRevive(g); break;
             case Screen::Slots: DrawSlots(g); break;
             case Screen::CoopSetup: DrawCoopSetup(g); break;

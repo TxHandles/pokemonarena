@@ -208,6 +208,59 @@ void StoryTimeStep(Game& g, bool announce) {
 
 int BadgeCount(const Game& g) { return (int)(g.coop ? g.coopSave.badges.size() : g.profile.badges.size()); }
 
+bool StoryDone(const Game& g) {
+    int st = g.coop ? g.coopSave.storyStage : g.profile.storyStage;
+    return !Story().stages.empty() && st >= (int)Story().stages.size();
+}
+
+uint32_t TowerSeedFor(const Game& g) {
+    std::string key = g.coop ? g.coopSave.p[0] + "&" + g.coopSave.p[1] : g.profile.name;
+    int runs = g.coop ? g.coopSave.towerRuns : g.profile.towerRuns;
+    uint32_t h = 2166136261u;
+    for (char c : key) { h ^= (uint8_t)c; h *= 16777619u; }
+    return h ^ ((uint32_t)runs * 0x9E3779B9u);
+}
+
+void BeginTowerFloor(Game& g, int floor, uint32_t seed) {
+    g.tower = true;
+    g.towerFloor = std::max(1, floor);
+    g.towerSeed = seed;
+    g.stageIdx = -1;
+    g.mode = g.coop ? Mode::CoopStory : Mode::Story;
+    g.rareBattle = false;
+    g.screen = Screen::StageIntro;
+}
+
+StageDef ActiveStage(const Game& g) {
+    if (g.tower) return TowerStage(g.towerFloor, g.towerSeed);
+    const auto& stages = Story().stages;
+    if (stages.empty()) return StageDef();
+    StageDef st = stages[std::max(0, std::min((int)stages.size() - 1, g.stageIdx))];
+    if (IsRematch(g) && st.IsBoss()) st = RematchStage(st);
+    return st;
+}
+
+namespace {
+// Where the League run stands: how many of the five are beaten in this run (-1: not in the League yet).
+int LeagueProgress(int storyStage) {
+    int start = LeagueStartStage();
+    if (start < 0 || storyStage < start) return -1;
+    return storyStage - start;
+}
+std::string NextLine(const Game& g, int storyStage) {
+    const auto& stages = Story().stages;
+    if (storyStage >= (int)stages.size()) {
+        int best = g.coop ? g.coopSave.towerBest : g.profile.towerBest;
+        return best > 0 ? TextFormat("Champion! Battle Tower record: floor %d", best) : "Champion! The Battle Tower is open - how high can you climb?";
+    }
+    const StageDef& st = stages[storyStage];
+    std::string l = "Next: " + st.trainer + "  -  " + st.name;
+    int lp = LeagueProgress(storyStage);
+    if (lp > 0) l += TextFormat("   (League run: %d of 5 beaten)", lp);
+    return l;
+}
+} // namespace
+
 void OpenHealingCenter(Game& g) {
     g.healSel = 0;
     g.healReturn = g.screen == Screen::Heal ? Screen::StoryHub : g.screen;
@@ -215,6 +268,7 @@ void OpenHealingCenter(Game& g) {
 }
 
 void EnterStoryHub(Game& g) {
+    g.tower = false;
     if (g.coop) {
         if (g.coopActive >= 0) {  // done with one player's Shop / Healing Center / Party & Box
             g.coopP[g.coopActive] = g.profile;
@@ -410,13 +464,14 @@ void UpdateStoryHub(Game& g) {
     if (!in.confirm) return;
     PlaySfx(Sfx::MenuOk);
     int stages = (int)Story().stages.size();
-    if ((g.hubSel == 0 || g.hubSel == 1) && HealthyCount(g.profile) == 0) {
+    if (((g.hubSel == 0 && !StoryDone(g)) || g.hubSel == 1) && HealthyCount(g.profile) == 0) {
         Toast(g, "Your whole team has fainted! Visit the Healing Center first.");
         OpenHealingCenter(g);
         return;
     }
     switch (g.hubSel) {
         case 0:
+            if (StoryDone(g)) { BeginTowerFloor(g, g.profile.towerFloor + 1, TowerSeedFor(g)); break; }
             g.stageIdx = std::min(g.profile.storyStage, stages - 1);
             g.mode = Mode::Story;
             g.rareBattle = false;
@@ -490,9 +545,7 @@ void DrawStoryHub(const Game& g) {
     // Map on the left
     DrawStoryMap(p, 8, 26, 400, 300, g.t, false);
     DrawTextShadow(p.name.c_str(), 10, 6, 20, UI_GOLD);
-    std::string next;
-    if (done) next = "All 8 badges! The Elite Four awaits... (coming soon)";
-    else next = "Next: " + Story().stages[p.storyStage].trainer + "  -  " + Story().stages[p.storyStage].name;
+    std::string next = NextLine(g, p.storyStage);
     DrawText(next.c_str(), 10, 330, 10, done ? UI_GOLD : UI_TEXT);
 
     // Coins and badges
@@ -513,7 +566,7 @@ void DrawStoryHub(const Game& g) {
     int dexCaught = 0;
     for (const auto& sp : AllSpecies()) if (sp.dex > 0 && sp.custom && DexHasCaught(p, sp.name)) dexCaught++;
     std::string items[11] = {
-        done ? "Rematch the last gym" : "Story battle",
+        done ? TextFormat("Battle Tower: floor %d  (best %d)", p.towerFloor + 1, p.towerBest) : LeagueProgress(p.storyStage) >= 0 ? "Pokemon League" : "Story battle",
         (rare ? "RARE in " : "Training: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
         "Map",
         GameCornerOpen(g) ? "Shop & Game Corner" : "Shop",
@@ -567,12 +620,12 @@ bool IsRematch(const Game& g) {
 namespace {
 bool CanRematch(const Game& g, int stage) {
     const auto& stages = Story().stages;
-    return stage >= 0 && stage < (int)stages.size() && stages[stage].IsGym() && stage < ProgressView(g).storyStage;
+    return stage >= 0 && stage < (int)stages.size() && stages[stage].IsBoss() && stage < ProgressView(g).storyStage;
 }
 } // namespace
 
 bool StartGymRematch(Game& g, int stage) {
-    if (!CanRematch(g, stage)) { Toast(g, "Beat this gym in the story first."); return false; }
+    if (!CanRematch(g, stage)) { Toast(g, "Beat them in the story first."); return false; }
     const StageDef& st = Story().stages[stage];
     if (g.coop && g.on.active) {   // online: both pick the same rematch, like any battle
         if (OnlineWaiting(g)) return false;
@@ -617,7 +670,7 @@ void UpdateMap(Game& g) {
     if (in.left || in.right) {   // jump to the previous / next gym
         int d = in.left ? -1 : 1;
         for (int i = g.mapSel + d; i >= 0 && i < n; i += d)
-            if (stages[i].IsGym()) { g.mapSel = i; PlaySfx(Sfx::MenuMove); break; }
+            if (stages[i].IsBoss()) { g.mapSel = i; PlaySfx(Sfx::MenuMove); break; }
     }
 }
 
@@ -641,41 +694,53 @@ void DrawMap(const Game& g) {
              beaten ? Color{120, 230, 130, 255} : (isNext ? WHITE : UI_DIM));
     DrawText(TextFormat("%d creature%s", (int)st.team.size(), st.team.size() > 1 ? "s" : ""), x + 8, 86, 10, UI_TEXT);
     DrawText(TextFormat("Arena: %s", ArenaName(st.arena)), x + 8, 100, 10, UI_TEXT);
-    if (st.IsGym()) {
-        DrawBadge(st.badge, x + 20, 126, HasBadge(pv, st.badge), 11);
-        DrawText(TextFormat("%s Badge", st.badge.c_str()), x + 36, 121, 10, BadgeColor(st.badge));
+    if (st.IsBoss()) {
+        if (st.IsGym()) {
+            DrawBadge(st.badge, x + 20, 126, HasBadge(pv, st.badge), 11);
+            DrawText(TextFormat("%s Badge", st.badge.c_str()), x + 36, 121, 10, BadgeColor(st.badge));
+        } else {
+            DrawLeagueMark(st, x + 20, 126, beaten, 9);
+            DrawText(st.IsChampion() ? "The Championship" : TextFormat("Elite Four - %d of 4", st.league), x + 36, 121, 10, GymColor(st.arena));
+        }
         if (beaten) {
             float pulse = 0.75f + 0.25f * std::sin(g.t * 5);
             DrawPanel(x + 6, 140, w - 12, 14, UI_PANEL_LIGHT, Fade(UI_GOLD, pulse));
             DrawText("Enter: REMATCH", x + 12, 142, 10, UI_GOLD);
         }
     }
-    // Upcoming gyms list
+    // Gyms and the League
     int y = 158;
-    DrawText("Gyms", x + 8, y, 10, UI_DIM);
-    y += 14;
-    int partnerPick = g.on.active && g.on.partnerReady >= 3 ? g.on.partnerReady - 3 : -1;
+    DrawText("Gyms & League", x + 8, y, 10, UI_DIM);
+    y += 13;
+    int partnerPick = g.on.active && g.on.partnerReady >= 3 && g.on.partnerReady != 250 ? g.on.partnerReady - 3 : -1;
     for (int i = 0; i < n; i++) {
-        if (!stages[i].IsGym()) continue;
-        bool have = HasBadge(pv, stages[i].badge);
-        if (i == g.mapSel) DrawRectangle(x + 4, y - 2, w - 8, 14, UI_PANEL_LIGHT);
-        DrawBadge(stages[i].badge, x + 14, y + 5, have, 5.5f);
+        if (!stages[i].IsBoss()) continue;
+        bool have = stages[i].IsGym() ? HasBadge(pv, stages[i].badge) : i < pv.storyStage;
+        if (i == g.mapSel) DrawRectangle(x + 4, y - 1, w - 8, 11, UI_PANEL_LIGHT);
+        if (stages[i].IsGym()) DrawBadge(stages[i].badge, x + 14, y + 4, have, 4.5f);
+        else DrawLeagueMark(stages[i], x + 14, y + 4, have, 4.5f);
         std::string nm = stages[i].trainer;
         DrawText(nm.c_str(), x + 26, y, 10, i == g.mapSel ? UI_GOLD : have ? UI_TEXT : UI_DIM);
         if (i == partnerPick) DrawText("<", x + w - 14, y, 10, Color{140, 230, 150, 255});
-        y += 15;
+        y += 11;
     }
     if (partnerPick >= 0) {
         DrawWrapped(TextFormat("%s wants a rematch with %s - pick it too!", g.coopP[1 - g.on.me].name.c_str(), stages[partnerPick].trainer.c_str()),
-                    x + 8, 288, w - 16, 10, Color{140, 230, 150, 255});
+                    x + 8, 306, w - 16, 10, Color{140, 230, 150, 255});
+        return;
     }
-    DrawText("Up/Down browse", x + 8, 316, 10, UI_DIM);
-    DrawText("Left/Right jump to a gym", x + 8, 328, 10, UI_DIM);
-    DrawText("Esc back", x + 8, 340, 10, UI_DIM);
+    DrawText("Up/Down: browse", x + 8, 318, 10, UI_DIM);
+    DrawText("Left/Right: gyms & League", x + 8, 330, 10, UI_DIM);
+    DrawText("Esc: back", x + 8, 342, 10, UI_DIM);
 }
 
 void UpdateStageIntro(Game& g) {
     PlayerInput in = MenuInput();
+    if (g.tower && in.sort) {   // a look at the Hall of Fame
+        bool any = !g.profile.hof.empty() || (g.coop && (!g.coopP[0].hof.empty() || !g.coopP[1].hof.empty()));
+        if (any) { g.hofSel = 0; g.hofBack = Screen::StageIntro; g.screen = Screen::HallOfFame; PlaySfx(Sfx::MenuOk); }
+        return;
+    }
     if (in.back) { PlaySfx(Sfx::MenuBack); if (g.on.active) OnlineCancelSelect(g); EnterStoryHub(g); return; }
     if (in.confirm) { PlaySfx(Sfx::MenuOk); g.mode = g.coop ? Mode::CoopStory : Mode::Story; BeginTeamSelect(g); }
 }
@@ -696,8 +761,8 @@ void DrawGymIntro(const Game& g, const StageDef& st) {
     }
     DrawEllipseLines(VW / 2, 300, 120, 40, Fade(WHITE, 0.5f));
     DrawLine(VW / 2, 236, VW / 2, VH, Fade(WHITE, 0.4f));
-    // fireworks
-    for (int k = 0; k < 3; k++) {
+    // fireworks (the Championship gets the full show)
+    for (int k = 0; k < (st.IsChampion() ? 7 : 3); k++) {
         float ph = std::fmod(t * 0.55f + k * 0.37f, 1.0f);
         int cyc = (int)(t * 0.55f + k * 0.37f);
         float fx = 80 + std::fmod(cyc * 197.0f + k * 151.0f, (float)(VW - 160)), fy = 30 + std::fmod(cyc * 61.0f + k * 37.0f, 90.0f);
@@ -715,28 +780,90 @@ void DrawGymIntro(const Game& g, const StageDef& st) {
     DrawRectangle(0, 54, VW, 2, team);
     DrawRectangle(0, 126, VW, 2, team);
     bool again = IsRematch(g);
-    DrawTextCentered(TextFormat(again ? "GYM REMATCH  -  %s" : "GYM BATTLE  -  %s", st.name.c_str()), VW / 2, 60, 10, Fade(WHITE, 0.9f), false);
+    std::string head, sub;
+    if (st.towerFloor > 0) {
+        head = TextFormat("BATTLE TOWER  -  FLOOR %d  -  TOWER BOSS", st.towerFloor);
+        sub = TextFormat("%s   -   a story boss at full strength, scaled to your team", ArenaName(st.arena));
+    } else if (st.IsChampion()) {
+        head = again ? "CHAMPIONSHIP REMATCH  -  INDIGO PLATEAU" : "CHAMPIONSHIP BATTLE  -  INDIGO PLATEAU";
+        sub = again ? std::string(ArenaName(st.arena)) + "   -   rematch: the team is scaled to your level"
+                    : std::string(ArenaName(st.arena)) + "   -   win and enter the Hall of Fame!";
+    } else if (st.IsLeague()) {
+        head = TextFormat(again ? "ELITE FOUR REMATCH  -  %s" : "THE ELITE FOUR  -  %s", st.name.c_str());
+        sub = again ? TextFormat("%s   -   rematch: the team is scaled to your level", ArenaName(st.arena))
+                    : TextFormat("%s   -   battle %d of 5: lose and the League starts over", ArenaName(st.arena), st.league);
+    } else {
+        head = TextFormat(again ? "GYM REMATCH  -  %s" : "GYM BATTLE  -  %s", st.name.c_str());
+        sub = again ? TextFormat("%s   -   rematch: the team is scaled to your level", ArenaName(st.arena))
+                    : TextFormat("%s   -   win the %s Badge!", ArenaName(st.arena), st.badge.c_str());
+    }
+    DrawTextCentered(head.c_str(), VW / 2, 60, 10, Fade(WHITE, 0.9f), false);
     float pulse = 1.0f + 0.04f * std::sin(t * 4);
     DrawTextCentered(st.trainer.c_str(), VW / 2, (int)(76 - 4 * (pulse - 1)), 30, UI_GOLD);
-    DrawTextCentered(again ? TextFormat("%s   -   rematch: the team is scaled to your level", ArenaName(st.arena))
-                           : TextFormat("%s   -   win the %s Badge!", ArenaName(st.arena), st.badge.c_str()), VW / 2, 110, 10, BadgeColor(st.badge), false);
-    DrawBadge(st.badge, VW / 2 - 150, 92, true, 11);
-    DrawBadge(st.badge, VW / 2 + 150, 92, true, 11);
+    DrawTextCentered(sub.c_str(), VW / 2, 110, 10, st.IsGym() ? BadgeColor(st.badge) : ColorBrightness(team, 0.3f), false);
+    if (st.IsGym()) {
+        DrawBadge(st.badge, VW / 2 - 150, 92, true, 11);
+        DrawBadge(st.badge, VW / 2 + 150, 92, true, 11);
+    } else if (st.IsLeague()) {
+        DrawLeagueMark(st, VW / 2 - 160, 92, true, 11);
+        DrawLeagueMark(st, VW / 2 + 160, 92, true, 11);
+    }
+}
+
+// The Battle Tower: floor number in lights, the trainer, your record.
+void DrawTowerIntro(const Game& g, const StageDef& st) {
+    float t = g.t;
+    DrawGymStadium(t, st.arena, 0.35f + 0.25f * std::sin(t * 1.1f), 0, 236);
+    DrawRectangle(0, 236, VW, VH - 236, Color{20, 16, 34, 255});
+    for (int y = 236; y < VH; y++) {   // the tower's floor, far below
+        float u = (y - 236) / (float)(VH - 236);
+        int half = (int)(150 + u * 170);
+        DrawRectangle(VW / 2 - half, y, half * 2, 1, ColorBrightness(Color{150, 120, 60, 255}, -0.6f + u * 0.25f));
+    }
+    DrawRectangle(0, 40, VW, 84, Fade(UI_INK, 0.75f));
+    DrawRectangle(0, 40, VW, 2, UI_GOLD);
+    DrawRectangle(0, 122, VW, 2, UI_GOLD);
+    DrawTextCentered("BATTLE TOWER", VW / 2, 46, 10, Fade(WHITE, 0.9f), false);
+    DrawTextCentered(TextFormat("FLOOR %d", st.towerFloor), VW / 2, 58, 30, UI_GOLD);
+    DrawTextCentered(st.trainer.c_str(), VW / 2, 96, 20, UI_TEXT);
+    std::string say = "\"" + st.say + "\"";
+    int lines = 1 + TextW(say.c_str(), 10) / 500;
+    DrawPanel(60, 132, 520, 16 + lines * 12, UI_PANEL, UI_GOLD);
+    DrawWrapped(say.c_str(), 70, 139, 500, 10, UI_TEXT);
+    int written = (int)std::min<size_t>(st.team.size(), MAX_TEAM_SIZE);
+    int foes = g.coop ? std::min(MAX_TEAM_SIZE, std::max(3, written + 2)) : written;
+    int mine = g.coop ? 3 : TowerTeamSize(st.towerFloor);
+    DrawRectangle(40, 168, VW - 80, 48, Fade(UI_INK, 0.85f));
+    DrawTextCentered(TextFormat("%s%d vs %d   CPU skill %s   levels: your team %s", g.coop ? "2v2 co-op: up to 3 each   " : "", g.coop ? 6 : mine, foes,
+                                AILevelName(st.cpu), st.levelOffset >= 0 ? TextFormat("+%d", st.levelOffset) : TextFormat("%d", st.levelOffset)),
+                     VW / 2, 173, 10, UI_TEXT, false);
+    DrawTextCentered(st.arena == ArenaKind::Stadium ? "The Tower's stadium. No tricks - just battling." : TextFormat("Tonight's arena: %s - %s", ArenaName(st.arena), ArenaTwist(st.arena)),
+                     VW / 2, 187, 10, Color{150, 200, 240, 255}, false);
+    int best = g.coop ? g.coopSave.towerBest : g.profile.towerBest;
+    DrawTextCentered(TextFormat("This run: %d floor%s cleared     Record: floor %d     Every 10th floor: a Tower Boss", st.towerFloor - 1, st.towerFloor == 2 ? "" : "s", best),
+                     VW / 2, 201, 10, UI_GOLD, false);
+    DrawTextCentered("Everyone fights at full health (it won't change their HP outside). XP and coins as usual. Lose once and the run ends.", VW / 2, 300, 10, UI_DIM, false);
+    bool hof = !g.profile.hof.empty() || (g.coop && (!g.coopP[0].hof.empty() || !g.coopP[1].hof.empty()));
+    DrawRectangle(VW / 2 - 190, 330, 380, 16, Fade(UI_INK, 0.85f));
+    DrawTextCentered(hof ? "Enter: choose your team     Tab / X: Hall of Fame     Esc: back" : "Enter: choose your team     Esc: back", VW / 2, 333, 10, UI_DIM, false);
 }
 } // namespace
 
 void DrawStageIntro(const Game& g) {
-    const StageDef& st = Story().stages[g.stageIdx];
-    if (st.IsGym()) {
+    const StageDef st = ActiveStage(g);
+    if (st.towerFloor > 0 && !st.BigIntro()) { DrawTowerIntro(g, st); return; }
+    if (st.BigIntro()) {
         DrawGymIntro(g, st);
         std::string say = "\"" + (st.say.empty() ? std::string("Let's battle!") : st.say) + "\"";
-        int lines = 1 + TextW(say.c_str(), 10) / 500;
-        DrawPanel(60, 140, 520, 16 + lines * 12, UI_PANEL, GymColor(st.arena));
-        DrawWrapped(say.c_str(), 70, 147, 500, 10, UI_TEXT);
+        int lines = 1 + (TextW(say.c_str(), 10) + 90) / 500;
+        DrawPanel(60, 136, 520, 14 + lines * 12, UI_PANEL, GymColor(st.arena));
+        DrawWrapped(say.c_str(), 70, 142, 500, 10, UI_TEXT);
         int foes = g.coop ? std::min(MAX_TEAM_SIZE, std::max(3, (int)st.team.size() + 2)) : (int)std::min<size_t>(st.team.size(), MAX_TEAM_SIZE);
-        DrawRectangle(40, 170, VW - 80, 34, Fade(UI_INK, 0.85f));
-        DrawTextCentered(TextFormat("%d Pokemon   CPU skill %s%s", foes, AILevelName(IsRematch(g) ? AILevel::Hard : st.cpu), g.coop ? "   2v2 co-op battle" : ""), VW / 2, 175, 10, UI_TEXT, false);
-        DrawTextCentered(ArenaTwist(st.arena), VW / 2, 189, 10, Color{150, 200, 240, 255}, false);
+        int iy = std::max(170, 136 + 14 + lines * 12 + 4);
+        DrawRectangle(40, iy, VW - 80, 34, Fade(UI_INK, 0.85f));
+        DrawTextCentered(TextFormat("%d Pokemon   CPU skill %s%s", foes, AILevelName(st.cpu), g.coop ? "   2v2 co-op battle" : ""), VW / 2, iy + 5, 10, UI_TEXT, false);
+        DrawTextCentered(ArenaTwist(st.arena), VW / 2, iy + 19, 10, Color{150, 200, 240, 255}, false);
+        if (st.towerFloor > 0) DrawTextCentered("Battle Tower: everyone fights at full health. Lose and the run ends.", VW / 2, 318, 10, UI_DIM, false);
         DrawRectangle(VW / 2 - 130, 336, 260, 16, Fade(UI_INK, 0.85f));
         DrawTextCentered("Enter: choose your team     Esc: back", VW / 2, 339, 10, UI_DIM, false);
         return;
@@ -1472,7 +1599,7 @@ void ProcessStoryBattleEnd(Game& g) {
             m.moves.clear();
             if (f.transformFrom >= 0) for (int i = 0; i < f.origN; i++) m.moves.push_back(f.origMoves[i].name);
             else for (int i = 0; i < f.nMoves; i++) m.moves.push_back(f.moves[i].name);
-            m.hp = f.hp > 0 ? std::max(0.01f, std::min(1.0f, f.hp / (float)f.maxHp)) : 0.0f;
+            if (!g.tower) m.hp = f.hp > 0 ? std::max(0.01f, std::min(1.0f, f.hp / (float)f.maxHp)) : 0.0f;   // the Tower doesn't touch HP
             row.xp = f.xpGained;
             took.push_back({who, f.ownedId, f.sentOut, f.hp <= 0});
             brought[who]++;
@@ -1515,7 +1642,7 @@ void ProcessStoryBattleEnd(Game& g) {
             row.name = m.species;
             if (f.startSpecies != f.RealSpecies()) row.note = "evolved!";
             else if (!f.sentOut) row.note = "stayed on the bench";
-            else if (m.hp <= 0) row.note = "fainted";
+            else if (f.hp <= 0) row.note = "fainted";
             if (f.sentOut || row.xp > 0) g.resultRows.push_back(row);
         }
     }
@@ -1569,9 +1696,11 @@ void ProcessStoryBattleEnd(Game& g) {
     int foeLv = 0;
     for (const Fighter* f : foes) foeLv += f->level;
     foeLv = foes.empty() ? 5 : foeLv / (int)foes.size();
-    bool storyBattle = (g.mode == Mode::Story || g.mode == Mode::CoopStory) && g.stageIdx >= 0;
+    bool storyBattle = (g.mode == Mode::Story || g.mode == Mode::CoopStory) && g.stageIdx >= 0 && !g.tower;
     bool training = g.mode == Mode::Training || g.mode == Mode::CoopTraining;
-    const StageDef* st = storyBattle ? &Story().stages[g.stageIdx] : nullptr;
+    StageDef stv;
+    if (storyBattle || g.tower) stv = ActiveStage(g);
+    const StageDef* st = storyBattle || g.tower ? &stv : nullptr;
     if (g.won) {
         // Coins: every player gets their own full share.
         int coins = WinCoins(st, foeLv);
@@ -1585,8 +1714,8 @@ void ProcessStoryBattleEnd(Game& g) {
             if (coop) g.resultLines.push_back(TextFormat("%s got %d coins! (%d total)", P.name.c_str(), c, P.coins));
             else g.resultLines.push_back(TextFormat("You got %d coins! (%d total)", c, P.coins));
         }
-        if (st && st->IsGym() && g.stageIdx < stage) g.resultLines.push_back("You won the rematch against " + st->trainer + "!");
-        if (st && st->IsGym() && std::find(badges.begin(), badges.end(), st->badge) == badges.end()) {
+        if (storyBattle && st->IsBoss() && g.stageIdx < stage) g.resultLines.push_back("You won the rematch against " + st->trainer + "!");
+        if (storyBattle && st->IsGym() && std::find(badges.begin(), badges.end(), st->badge) == badges.end()) {
             badges.push_back(st->badge);
             g.resultLines.push_back(std::string(coop ? "You both earned the " : "You earned the ") + st->badge + " Badge!");
         }
@@ -1631,7 +1760,27 @@ void ProcessStoryBattleEnd(Game& g) {
             if (beat.snorlax) SnorlaxReward(g, beat.snorlax, damage[0], damage[1], foeLv);
             if (coop && beat.name.find("Dojo") != std::string::npos) g.coopSave.dojoFirst = damage[1] > damage[0] ? 1 : 0;
             stage++;
-            if (stage >= (int)Story().stages.size()) g.resultLines.push_back("All eight gyms beaten! The Elite Four is coming soon...");
+            if (beat.IsLeague() && !beat.IsChampion()) g.resultLines.push_back(beat.trainer + " is beaten! On to the next room...");
+            if (stage >= (int)Story().stages.size()) {
+                g.resultLines.push_back(coop ? "You're the new Pokemon League Champions!" : "You're the new Pokemon League Champion!");
+                g.resultLines.push_back("The Battle Tower is now open - see how high you can climb!");
+            }
+        }
+        if (storyBattle && st->IsChampion()) {   // every Championship win goes in the Hall of Fame
+            for (int w = 0; w < players; w++) {
+                Profile& P = Prof(g, w);
+                std::string e = coop ? Prof(g, 1 - w).name : std::string();
+                e += "|";
+                bool first = true;
+                for (const auto& m : P.mons) {
+                    if (m.boxed) continue;
+                    e += (first ? "" : ",") + m.species + ":" + std::to_string(m.level);
+                    first = false;
+                }
+                P.hof.push_back(e);
+                if (P.hof.size() > 30) P.hof.erase(P.hof.begin());
+            }
+            g.hofPending = true;
         }
         if (training) {
             trainingWins++;
@@ -1639,6 +1788,32 @@ void ProcessStoryBattleEnd(Game& g) {
         }
     } else {
         losses++;
+        if (storyBattle && g.stageIdx == stage && st->IsLeague() && st->league > 1) {   // the League is one run
+            int start = LeagueStartStage();
+            if (start >= 0 && start < stage) {
+                stage = start;
+                g.resultLines.push_back("The League challenge starts over from " + Story().stages[start].trainer + ".");
+            }
+        }
+    }
+    if (g.tower) {   // the Battle Tower: a win climbs a floor, a loss ends the run
+        int& floor = coop ? g.coopSave.towerFloor : g.profile.towerFloor;
+        int& best = coop ? g.coopSave.towerBest : g.profile.towerBest;
+        int& runs = coop ? g.coopSave.towerRuns : g.profile.towerRuns;
+        if (g.won) {
+            floor = std::max(floor, g.towerFloor);
+            if (st->IsTowerBoss()) g.resultLines.push_back("You beat the Tower Boss! Triple coins!");
+            if (floor > best) {
+                best = floor;
+                g.resultLines.push_back(TextFormat("New Battle Tower record: floor %d!", best));
+            } else {
+                g.resultLines.push_back(TextFormat("Floor %d cleared! Next up: floor %d.", floor, floor + 1));
+            }
+        } else {
+            g.resultLines.push_back(TextFormat("The run ends on floor %d (%d cleared). Record: floor %d.", g.towerFloor, floor, best));
+            floor = 0;
+            runs++;
+        }
     }
     if (coop) {
         SaveWho(g, 0);
@@ -2145,6 +2320,15 @@ void AdvanceStoryQueues(Game& g) {
         SaveOrWarn(g);
     }
     OnlineSendProfile(g);
+    if (g.hofPending) {   // a new Champion: the Hall of Fame
+        g.hofPending = false;
+        g.hofSel = 0;
+        g.hofBack = Screen::StoryHub;
+        g.hofT = 0;
+        g.screen = Screen::HallOfFame;
+        PlaySfx(Sfx::Win);
+        return;
+    }
     if (g.returnToTrade) {  // a trade evolution
         g.returnToTrade = false;
         g.screen = Screen::Trade;
@@ -2173,8 +2357,10 @@ void DrawStoryResults(const Game& g) {
     g.battle.Draw(false);
     DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.8f));
     DrawTextCentered(g.won ? "VICTORY!" : "DEFEATED...", VW / 2, 20, 30, g.won ? UI_GOLD : Color{255, 120, 100, 255});
-    if ((g.mode == Mode::Story || g.mode == Mode::CoopStory) && g.stageIdx >= 0)
-        DrawTextCentered(TextFormat("vs %s", Story().stages[g.stageIdx].trainer.c_str()), VW / 2, 56, 10, UI_TEXT, false);
+    if ((g.mode == Mode::Story || g.mode == Mode::CoopStory) && (g.stageIdx >= 0 || g.tower)) {
+        StageDef st = ActiveStage(g);
+        DrawTextCentered(g.tower ? TextFormat("Battle Tower floor %d  -  vs %s", g.towerFloor, st.trainer.c_str()) : TextFormat("vs %s", st.trainer.c_str()), VW / 2, 56, 10, UI_TEXT, false);
+    }
     int y = 70;
     bool compact = g.resultRows.size() > 3;
     int rh = g.resultRows.size() > 4 ? 24 : (compact ? 30 : 40);
@@ -2208,7 +2394,7 @@ void DrawStoryResults(const Game& g) {
     if (!g.evoQueue.empty()) { DrawTextCentered("Something is happening...", VW / 2, y + 8, 10, UI_GOLD, false); y += 14; }
     if (!g.learnQueue.empty()) { DrawTextCentered("A creature wants to learn a new move!", VW / 2, y + 8, 10, UI_GOLD, false); y += 14; }
     if (g.rewardsPending > 0) DrawTextCentered(g.coop ? "You can each choose a new creature!" : "You can choose a new creature!", VW / 2, y + 8, 10, UI_GOLD, false);
-    if (!g.won) DrawTextCentered("XP from knockouts is kept. Heal up, train and try again!", VW / 2, 322, 10, UI_DIM, false);
+    if (!g.won) DrawTextCentered(g.tower ? "XP from knockouts is kept. Train up and start a new run!" : "XP from knockouts is kept. Heal up, train and try again!", VW / 2, 322, 10, UI_DIM, false);
     DrawTextCentered("Enter to continue", VW / 2, 340, 10, UI_DIM, false);
 }
 
@@ -3247,10 +3433,11 @@ void UpdateCoopHub(Game& g) {
     PlaySfx(Sfx::MenuOk);
     int stages = (int)Story().stages.size();
     if (online && (g.hubSel == 0 || g.hubSel == 1 || g.hubSel == 7) && OnlineWaiting(g)) return;
+    bool tower = g.hubSel == 0 && StoryDone(g);
     if (online && (g.hubSel == 0 || g.hubSel == 1)) {
         // Online: say what you want to do; it starts when your partner picks the same.
-        int kind = g.hubSel == 0 ? 1 : 2;
-        if (HealthyCount(Prof(g, g.on.me)) == 0) {
+        int kind = g.hubSel == 0 ? (tower ? 250 : 1) : 2;
+        if (!tower && HealthyCount(Prof(g, g.on.me)) == 0) {
             Toast(g, "Your party has all fainted! Visit the Healing Center first.");
             OpenFor(g, g.on.me);
             OpenHealingCenter(g);
@@ -3259,7 +3446,7 @@ void UpdateCoopHub(Game& g) {
         OnlineSetReady(g, g.on.myReady == kind ? 0 : kind);
         return;
     }
-    if (g.hubSel == 0 || g.hubSel == 1) {
+    if ((g.hubSel == 0 && !tower) || g.hubSel == 1) {
         for (int p = 0; p < 2; p++) {
             if (HealthyCount(g.coopP[p]) == 0) {
                 Toast(g, g.coopP[p].name + "'s party has all fainted! Visit the Healing Center first.");
@@ -3272,6 +3459,7 @@ void UpdateCoopHub(Game& g) {
     }
     switch (g.hubSel) {
         case 0:
+            if (tower) { BeginTowerFloor(g, g.coopSave.towerFloor + 1, TowerSeedFor(g)); break; }
             g.stageIdx = std::min(g.coopSave.storyStage, stages - 1);
             g.mode = Mode::CoopStory;
             g.rareBattle = false;
@@ -3296,7 +3484,7 @@ void UpdateCoopHub(Game& g) {
         } break;
         case 2:
             g.mapSel = std::min(g.coopSave.storyStage, stages - 1);
-            if (online && g.on.partnerReady >= 3 && g.on.partnerReady - 3 < stages) g.mapSel = g.on.partnerReady - 3;   // join their rematch
+            if (online && g.on.partnerReady >= 3 && g.on.partnerReady != 250 && g.on.partnerReady - 3 < stages) g.mapSel = g.on.partnerReady - 3;   // join their rematch
             g.screen = Screen::Map;
             break;
         case 3:
@@ -3360,8 +3548,7 @@ void DrawCoopHubBase(const Game& g) {
     DrawTextShadow(g.coopP[1].name.c_str(), 24 + TextW(g.coopP[0].name.c_str(), 10), 6, 10, kP2Col);
     if (g.on.active) DrawText(TextFormat("ONLINE %dms", net::PingMs()), 226, 6, 10, Color{140, 230, 150, 255});
     else DrawText("CO-OP", 248, 6, 10, Color{255, 150, 230, 255});
-    std::string next = done ? "All 8 badges! The Elite Four awaits... (coming soon)"
-                            : "Next: " + Story().stages[pv.storyStage].trainer + "  -  " + Story().stages[pv.storyStage].name;
+    std::string next = NextLine(g, pv.storyStage);
     DrawText(next.c_str(), 10, 256, 10, done ? UI_GOLD : UI_TEXT);
     DrawText(TextFormat("Together: %dW %dL   training wins %d", pv.wins, pv.losses, pv.trainingWins), 10, 270, 10, UI_DIM);
     std::vector<std::string> badges;
@@ -3373,12 +3560,13 @@ void DrawCoopHubBase(const Game& g) {
         const std::string& pn = g.coopP[1 - o.me].name;
         auto kind = [](int k) -> std::string {
             if (k == 1) return "a Story battle";
+            if (k == 250) return "the Battle Tower";
             if (k == 2) return "Training";
             int st = k - 3;
             return st >= 0 && st < (int)Story().stages.size() ? "a rematch with " + Story().stages[st].trainer : std::string("a battle");
         };
         std::string mine = o.myReady ? "You want " + kind(o.myReady) + " - waiting for " + pn : "Pick a battle - it starts when you both pick it.";
-        std::string theirs = o.partnerReady ? pn + " wants " + kind(o.partnerReady) + (o.partnerReady >= 3 ? " (open the Map)" : "!")
+        std::string theirs = o.partnerReady ? pn + " wants " + kind(o.partnerReady) + (o.partnerReady >= 3 && o.partnerReady != 250 ? " (open the Map)" : "!")
                                             : pn + " is " + (o.partnerActivity.empty() ? "in the hub" : o.partnerActivity) + ".";
         if (o.reconnecting) {
             mine = "Waiting for " + pn + " to come back (Esc leaves the online game).";
@@ -3399,7 +3587,8 @@ void DrawCoopHubBase(const Game& g) {
     const std::string& wn = g.coopP[g.coopWho].name;
     bool partnerTrading = g.on.active && g.on.partnerInTrade;
     std::string items[13] = {
-        done ? "Rematch the last gym (2v2)" : "Story battle (2v2)",
+        done ? TextFormat("Battle Tower 2v2: floor %d  (best %d)", g.coopSave.towerFloor + 1, g.coopSave.towerBest)
+             : LeagueProgress(pv.storyStage) >= 0 ? "Pokemon League (2v2)" : "Story battle (2v2)",
         (rare ? "RARE 2v2 in " : "Training 2v2: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
         "Map",
         GameCornerOpen(g) ? "Shop & Game Corner" : "Shop",
@@ -3424,7 +3613,7 @@ void DrawCoopHubBase(const Game& g) {
         if (i == 7 && partnerTrading) c = Color{140, 230, 150, 255};
         DrawText(items[i].c_str(), rx + 8, y + 1, 10, c);
         if (g.on.active && (i == 0 || i == 1)) {   // ready count: the battle starts at 2/2
-            int kind = i == 0 ? 1 : 2;
+            int kind = i == 0 ? (done ? 250 : 1) : 2;
             bool r[2];
             r[g.on.me] = g.on.myReady == kind;
             r[1 - g.on.me] = g.on.partnerReady == kind;
@@ -3516,4 +3705,105 @@ void DrawLeaderboard(const Game& g) {
 void DrawCoopHub(const Game& g) {
     DrawCoopHubBase(g);
     if (g.showBoard) DrawLeaderboard(g);
+}
+
+// ------------------------------------------------------------------ Hall of Fame
+
+namespace {
+struct HofEntry { std::string partner; std::vector<std::pair<std::string, int>> mons; };
+HofEntry ParseHof(const std::string& e) {
+    HofEntry h;
+    size_t bar = e.find('|');
+    h.partner = bar == std::string::npos ? std::string() : e.substr(0, bar);
+    std::string rest = bar == std::string::npos ? e : e.substr(bar + 1);
+    size_t pos = 0;
+    while (pos < rest.size()) {
+        size_t c = rest.find(',', pos);
+        std::string part = rest.substr(pos, c == std::string::npos ? std::string::npos : c - pos);
+        size_t colon = part.rfind(':');
+        if (colon != std::string::npos) h.mons.push_back({part.substr(0, colon), std::atoi(part.c_str() + colon + 1)});
+        if (c == std::string::npos) break;
+        pos = c + 1;
+    }
+    return h;
+}
+int HofCount(const Game& g) {
+    int n = (int)g.profile.hof.size();
+    if (g.coop) n = (int)std::max(g.coopP[0].hof.size(), g.coopP[1].hof.size());
+    return n;
+}
+} // namespace
+
+void UpdateHallOfFame(Game& g) {
+    PlayerInput in = MenuInput();
+    g.hofT += GetFrameTime();
+    int n = HofCount(g);
+    if (n > 1 && (in.left || in.right)) {
+        g.hofSel = std::max(0, std::min(n - 1, g.hofSel + (in.left ? 1 : -1)));   // left = older
+        g.hofT = 0.6f;
+        PlaySfx(Sfx::MenuMove);
+    }
+    if (in.confirm || in.back) {
+        PlaySfx(Sfx::MenuOk);
+        if (g.hofBack == Screen::StageIntro) g.screen = Screen::StageIntro;
+        else EnterStoryHub(g);
+    }
+}
+
+void DrawHallOfFame(const Game& g) {
+    float t = g.t;
+    for (int y = 0; y < VH; y++) {   // night sky fading to gold at the bottom
+        float u = y / (float)VH;
+        DrawRectangle(0, y, VW, 1, Color{(unsigned char)(16 + u * 70), (unsigned char)(12 + u * 46), (unsigned char)(40 - u * 10), 255});
+    }
+    BeginBlendMode(BLEND_ADDITIVE);
+    for (int k = 0; k < 9; k++) {   // slow light rays
+        float a = -1.2f + k * 0.3f + std::sin(t * 0.3f + k) * 0.05f;
+        Vector2 src{VW / 2.0f, VH + 40.0f};
+        Vector2 p1{src.x + std::sin(a - 0.05f) * 700, src.y - std::cos(a - 0.05f) * 700}, p2{src.x + std::sin(a + 0.05f) * 700, src.y - std::cos(a + 0.05f) * 700};
+        DrawTriangle(src, p2, p1, Fade(Color{255, 220, 140, 255}, 0.05f));
+        DrawTriangle(src, p1, p2, Fade(Color{255, 220, 140, 255}, 0.05f));
+    }
+    EndBlendMode();
+    for (int i = 0; i < 90; i++) {   // confetti
+        float x = std::fmod(i * 73.3f + std::sin(t + i) * 12, (float)VW);
+        float y = std::fmod(i * 41.7f + t * (30 + (i % 7) * 6), (float)VH);
+        Color c = i % 4 == 0 ? UI_GOLD : i % 4 == 1 ? Color{240, 90, 90, 255} : i % 4 == 2 ? Color{110, 180, 255, 255} : WHITE;
+        DrawRectangle((int)x, (int)y, 2 + (i % 2), 2, Fade(c, 0.8f));
+    }
+    float pulse = 1.0f + 0.03f * std::sin(t * 3);
+    DrawTextCentered("HALL OF FAME", VW / 2, (int)(12 - 3 * (pulse - 1)), 30, UI_GOLD);
+    int n = HofCount(g);
+    int players = g.coop ? 2 : 1;
+    DrawTextCentered(g.hofSel == 0 ? "Welcome to the Hall of Fame! These Pokemon became Champions together."
+                                   : TextFormat("Entry %d of %d", n - g.hofSel, n), VW / 2, 46, 10, UI_TEXT, false);
+    for (int w = 0; w < players; w++) {
+        const Profile& P = Prof(g, w);
+        if (P.hof.empty()) continue;
+        int idx = (int)P.hof.size() - 1 - std::min(g.hofSel, (int)P.hof.size() - 1);
+        HofEntry e = ParseHof(P.hof[idx]);
+        int rowY = players == 1 ? 120 : 92 + w * 124;
+        int cell = players == 1 ? 98 : 84, size = players == 1 ? 72 : 58;
+        int count = (int)e.mons.size();
+        int x0 = VW / 2 - count * cell / 2;
+        std::string who = P.name + (e.partner.empty() ? "" : " (with " + e.partner + ")") + TextFormat("  -  entry %d", idx + 1);
+        DrawTextCentered(who.c_str(), VW / 2, rowY - 22, 10, g.coop ? PlayerCol(w) : UI_GOLD, false);
+        for (int i = 0; i < count; i++) {
+            float appear = std::min(1.0f, std::max(0.0f, g.hofT * 2.5f - i * 0.5f));
+            if (appear <= 0) continue;
+            int cx = x0 + i * cell + cell / 2;
+            int base = rowY + size + 6;
+            DrawEllipse(cx, base + 2, size * 0.45f, 6, Color{60, 46, 30, 255});   // a gold pedestal
+            DrawEllipse(cx, base, size * 0.45f, 6, Color{220, 180, 80, 255});
+            BeginBlendMode(BLEND_ADDITIVE);
+            DrawCircle(cx, base - size / 2, size * 0.6f * appear, Fade(Color{255, 220, 140, 255}, 0.12f));
+            EndBlendMode();
+            int sp = SpeciesIndex(e.mons[i].first);
+            float bob = std::sin(t * 2 + i) * 1.5f;
+            if (sp >= 0) DrawSpeciesFit(sp, VIEW_FRONT, cx, (int)(base - 2 + bob - (1 - appear) * 20), size, Fade(WHITE, appear));
+            DrawTextCentered(e.mons[i].first.c_str(), cx, base + 10, 10, Fade(UI_TEXT, appear), false);
+            DrawTextCentered(TextFormat("Lv%d", e.mons[i].second), cx, base + 22, 10, Fade(UI_GOLD, appear), false);
+        }
+    }
+    DrawTextCentered(n > 1 ? "Left/Right: older / newer entries     Enter: continue" : "Enter: continue", VW / 2, 340, 10, UI_DIM, false);
 }

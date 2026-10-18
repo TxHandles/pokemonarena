@@ -47,6 +47,10 @@ struct Profile {
     int casino = 0;                    // Celadon Game Corner coins
     int boxSort = 0;                   // Box order: 0 caught, 1 level, 2 dex number, 3 name, 4 type, 5 newest
     std::string boxFilter;             // Box filter: "" all, "type:Fire", "evolve", "item", "hurt"
+    int towerFloor = 0;                // Battle Tower: floors cleared in the current run (next = +1)
+    int towerBest = 0;                 // the highest floor ever cleared
+    int towerRuns = 0;                 // runs finished (a lost floor ends a run)
+    std::vector<std::string> hof;      // Hall of Fame entries, oldest first: "partner|Species:Lv,Species:Lv,..."
 };
 void DexSee(Profile& p, const std::string& species);
 bool DexHasSeen(const Profile& p, const std::string& species);
@@ -76,6 +80,7 @@ struct CoopSave {
     RunStats run[2];                   // each player's record over the whole co-op run (hub leaderboard)
     int snorlaxWho[2] = {-1, -1};      // who got the Snorlax of each encounter (-1 = nobody yet)
     int dojoFirst = -1;                // who picks first at the Fighting Dojo (the MVP of that battle)
+    int towerFloor = 0, towerBest = 0, towerRuns = 0;   // the Battle Tower, climbed together
 };
 bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out);   // false = none yet (out is fresh)
 bool SaveCoop(const CoopSave& c);

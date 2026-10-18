@@ -13,7 +13,7 @@ enum class Screen {
     ProfileSelect, NameEntry, Starter, StoryHub, MyCreatures, StageIntro,
     RosterPick, Select, Battle, Results,
     StoryResults, Evolve, LearnMove, Reward, Catch, Heal, Map, Shop, DoublesMenu,
-    CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice
+    CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame
 };
 
 enum class Mode { Quick, TwoPlayer, Watch, Story, Training, Doubles, CoopStory, CoopTraining };
@@ -134,7 +134,14 @@ struct Game {
     bool paused = false;
 
     // Story
-    int stageIdx = -1;                      // -1 = training battle
+    int stageIdx = -1;                      // -1 = training battle (or a Battle Tower floor)
+    bool tower = false;                     // this battle is a Battle Tower floor (towerFloor)
+    int towerFloor = 0;
+    uint32_t towerSeed = 0;
+    bool hofPending = false;                // just became Champion: show the Hall of Fame
+    int hofSel = 0;                         // which Hall of Fame entry is shown (0 = newest)
+    float hofT = 0;
+    Screen hofBack = Screen::StoryHub;
     std::vector<CombatantSpec> cpuTeam;
     std::vector<ResultRow> resultRows;
     std::vector<std::string> resultLines;
@@ -288,6 +295,11 @@ void UpdateDoublesMenu(Game& g);     void DrawDoublesMenu(const Game& g);
 bool TwoHumans(const Game& g);       // two people are playing (2 Players, co-op 2v2, co-op story)
 bool IsCoop(Mode m);
 void UpdateMap(Game& g);             void DrawMap(const Game& g);
+void UpdateHallOfFame(Game& g);      void DrawHallOfFame(const Game& g);
+struct StageDef ActiveStage(const Game& g);   // the trainer of the battle being set up (story stage, rematch or Tower floor)
+bool StoryDone(const Game& g);                // the Champion is beaten: the Battle Tower is open
+void BeginTowerFloor(Game& g, int floor, uint32_t seed);   // set up the next Tower battle (then the intro screen)
+uint32_t TowerSeedFor(const Game& g);         // this run's floors (the same on both online computers)
 void UpdateShop(Game& g);            void DrawShop(const Game& g);
 void UpdateCoopSelect(Game& g);      void DrawCoopSelect(const Game& g);   // two players choose profiles
 void UpdateCoopHub(Game& g);         void DrawCoopHub(const Game& g);

@@ -23,6 +23,9 @@
 #    coins   = coins for winning (default: worked out from the level)
 #    map     = x, y   where the stage sits on the map image (in image pixels)
 #    outdoor = yes   gyms are indoor arenas (no weather, lit at night); this makes one outdoors
+#    league  = 1-4: an Elite Four member (fought in order), 5: the Champion. The League is one run:
+#              lose any of them and it starts over from the first Elite Four member.
+#    arena also has the League rooms: ice, fighting, ghost, dragon, champion
 #    venue   = where a non-gym battle is drawn: route, forest, cave, ice cave, beach, city, bridge,
 #              ship, park, dojo, office, tower, mansion, volcano, hideout, lab, mountain, stadium
 #              (default: worked out from the stage name)
@@ -525,3 +528,73 @@ lv = 52
 cpu = hard
 catch = no
 rival = yes
+
+[stage]
+name = Victory Road
+map = 182, 340
+trainer = Cooltrainer Caroline
+say = Only trainers with all eight badges make it this far. Let's see if you deserve the League!
+team = Golbat -2, Machoke -1, Marowak -1, Onix +2
+lv = 50
+cpu = hard
+venue = cave
+
+# ---------------------------------------------------------------- The Pokemon League (Indigo Plateau)
+# The Elite Four and the Champion are fought in a row: lose any of them and the challenge
+# starts over from Lorelei. (league = 1-4 the Elite Four in order, 5 the Champion.)
+[stage]
+name = Lorelei's Chamber
+map = 140, 236
+trainer = Elite Four Lorelei
+say = Welcome to the Pokemon League. I am Lorelei of the Elite Four. My icy Pokemon will freeze you right where you stand!
+team = Dewgong -2, Cloyster -3, Slowbro -2, Jynx, Lapras
+lv = 54
+cpu = hard
+arena = ice
+league = 1
+
+[stage]
+name = Bruno's Ring
+map = 156, 222
+trainer = Elite Four Bruno
+say = I am Bruno of the Elite Four! My Pokemon and I have trained our bodies to the limit. Hoo hah! Prepare to be crushed!
+team = Onix -5, Hitmonchan -3, Hitmonlee -3, Onix -2, Machamp
+lv = 56
+cpu = hard
+arena = fighting
+league = 2
+
+[stage]
+name = Agatha's Hall
+map = 178, 222
+trainer = Elite Four Agatha
+say = I'm Agatha of the Elite Four. Oak's taken a shine to you, has he? That old duff once was tough. Let me show you how a real trainer fights!
+team = Gengar -4, Golbat -4, Haunter -5, Arbok -2, Gengar
+lv = 58
+cpu = hard
+arena = ghost
+league = 3
+
+[stage]
+name = Lance's Den
+map = 194, 236
+trainer = Elite Four Lance
+say = I am Lance, the last of the Elite Four - and a Dragon master. Dragons are mythical Pokemon: hard to catch and harder to beat!
+team = Gyarados -4, Dragonair -6, Dragonair -6, Aerodactyl -2, Dragonite
+lv = 60
+cpu = hard
+arena = dragon
+league = 4
+
+[stage]
+name = Champion's Stadium
+map = 167, 252
+trainer = Champion Blue
+say = Hey! I was looking forward to seeing you. While you were working your way up, I became the Pokemon League Champion! You know what that means? I'm the most powerful trainer in the world!
+team = Pidgeot -4, Alakazam -6, Rhydon -4, rival_trio1 -2, rival_trio2 -2, rival
+lv = 63
+cpu = hard
+catch = no
+rival = yes
+arena = champion
+league = 5

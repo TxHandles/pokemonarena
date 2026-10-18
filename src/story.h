@@ -21,8 +21,15 @@ struct StageDef {
     bool rival = false;             // a rival battle (team uses the rival tokens)
     bool outdoor = false;           // gyms are indoors (no weather, lit at night) unless this is set
     std::string venue;              // how a non-gym battle looks ("forest", "cave"...); empty = from the place name
+    int league = 0;                 // Pokemon League: 1-4 the Elite Four (in order), 5 the Champion
+    int towerFloor = 0;             // > 0: a Battle Tower floor (made by TowerStage, not story.txt)
     bool IsGym() const { return !badge.empty(); }
-    bool Indoors() const { return (IsGym() || arena != ArenaKind::Stadium) && !outdoor; }
+    bool IsLeague() const { return league > 0; }
+    bool IsChampion() const { return league >= 5; }
+    bool IsBoss() const { return IsGym() || IsLeague(); }   // can be rematched from the Map
+    bool IsTowerBoss() const { return towerFloor > 0 && towerFloor % 10 == 0; }
+    bool BigIntro() const { return IsBoss() || IsTowerBoss(); }   // the packed-stadium intro
+    bool Indoors() const { return (IsGym() || IsLeague() || arena != ArenaKind::Stadium) && !outdoor; }
     // Trainers' Pokemon are never catchable (you can't steal them): new Pokemon come from the wild.
     bool Catchable() const { return false; }
 };
@@ -30,6 +37,13 @@ struct StageDef {
 // A gym rematch: the same team, scaled to the challenger's level (the ace a few levels above
 // their average), with the leader at full strength (Hard).
 StageDef RematchStage(const StageDef& stage);
+
+// The Pokemon League: the first Elite Four stage (where a lost run starts over), -1 if none.
+int LeagueStartStage();
+// Battle Tower: the trainer on a floor. Same floor and seed = the same trainer (both online
+// players make it themselves). coop: two players (more foes).
+StageDef TowerStage(int floor, uint32_t seed);
+int TowerTeamSize(int floor);   // how many Pokemon each side brings on a floor
 
 // Coins for a win at an average CPU level.
 int WinCoins(const StageDef* stage, int cpuLevel);

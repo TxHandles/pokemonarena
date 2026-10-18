@@ -10,6 +10,7 @@
 #include "story.h"
 #include "ui.h"
 #include "vec.h"
+#include "arena.h"
 
 namespace {
 Texture2D gMap{};
@@ -122,6 +123,26 @@ void DrawBadge(const std::string& b, int x, int y, bool have, float r) {
     if (have) DrawRectangle(x - 2, y - 3, 2, 2, Fade(WHITE, 0.8f));
 }
 
+void DrawLeagueMark(const StageDef& st, int x, int y, bool beaten, float r) {
+    Color c = beaten ? GymColor(st.arena) : Color{70, 64, 86, 255};
+    if (st.IsChampion()) {   // a crown
+        float w = r * 1.2f, h = r;
+        Color ink{30, 26, 40, 255};
+        DrawRectangle(x - (int)w - 1, y - 1, (int)(w * 2) + 2, (int)(h * 0.7f) + 2, ink);
+        DrawRectangle(x - (int)w, y, (int)(w * 2), (int)(h * 0.7f), c);
+        for (int k = -1; k <= 1; k++) {
+            Vector2 b1{x + k * w * 0.8f - w * 0.35f, (float)y + 1}, b2{x + k * w * 0.8f + w * 0.35f, (float)y + 1}, tp{x + k * w * 0.8f, y - h * (k == 0 ? 0.95f : 0.7f)};
+            DrawTriangle(b1, b2, tp, ink);
+            DrawTriangle({b1.x + 1, b1.y}, {b2.x - 1, b2.y}, {tp.x, tp.y + 1.5f}, c);
+        }
+        if (beaten) DrawRectangle(x - 1, y + 1, 2, 2, Color{220, 60, 70, 255});
+        return;
+    }
+    DrawPoly({(float)x, (float)y}, 4, r, 0, Color{30, 26, 40, 255});
+    DrawPoly({(float)x, (float)y}, 4, r - 1.5f, 0, c);
+    if (beaten) DrawRectangle(x - 1, y - (int)(r * 0.4f), 2, 2, Fade(WHITE, 0.8f));
+}
+
 void DrawStoryMap(const Profile& p, int x, int y, int w, int h, float t, bool townLabels, int focusStage) {
     float sc = std::min(w / gW, h / gH);
     float ox = x + (w - gW * sc) / 2, oy = y + (h - gH * sc) / 2;
@@ -180,6 +201,8 @@ void DrawStoryMap(const Profile& p, int x, int y, int w, int h, float t, bool to
         bool beaten = i < p.storyStage;
         if (st.IsGym()) {
             DrawBadge(st.badge, (int)c.x, (int)c.y, beaten, 6.5f);
+        } else if (st.IsLeague()) {
+            DrawLeagueMark(st, (int)c.x, (int)c.y, beaten, 5.5f);
         } else {
             Color col = beaten ? UI_GOLD : (i == cur && !done ? WHITE : Color{120, 112, 140, 255});
             DrawCircleV(c, 3.2f, UI_INK);

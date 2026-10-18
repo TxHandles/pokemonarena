@@ -7,6 +7,7 @@
 #include "battle.h"
 #include "ui.h"
 #include "vec.h"
+#include "vfx.h"
 
 namespace {
 
@@ -19,6 +20,8 @@ bool HasType(const SpeciesDef* sp, Type t) { return sp->type1 == t || sp->type2 
 
 const Color kYellow{250, 225, 70, 255};
 const Color kPink{230, 120, 240, 255};
+const Color kWisp{150, 120, 255, 255};
+const Color kSpot{255, 236, 170, 255};
 
 } // namespace
 
@@ -71,15 +74,16 @@ void Battle::UpdateField(float dt) {
             }
             if (o.fallT >= 0.7f) { o.alive = false; o.fallT = -1; }
         }
-        if (!o.alive && o.kind == Obstacle::Pillar && field.kind == ArenaKind::Rock) {   // the Stone Gym's pillars grow back
+        if (!o.alive && o.kind == Obstacle::Pillar && (field.kind == ArenaKind::Rock || field.kind == ArenaKind::Ice)) {   // the Stone Gym's pillars (and Lorelei's ice) grow back
             o.respawnT -= dt;
             bool clear = true;
             for (int s = 0; s < N(); s++)
                 if (Dist(sides[s].Cur().pos, o.pos) < o.radius + BODY_R + 4) clear = false;
             if (o.respawnT <= 0 && clear) {
                 o.alive = true;
-                Burst(o.pos, Color{150, 130, 110, 255}, 14, 50, 4);
-                AddText(o.pos, "The pillar rises again!", UI_DIM, 36);
+                bool ice = field.kind == ArenaKind::Ice;
+                Burst(o.pos, ice ? Color{200, 240, 255, 255} : Color{150, 130, 110, 255}, 14, 50, 4);
+                AddText(o.pos, ice ? "The ice pillar froze again!" : "The pillar rises again!", UI_DIM, 36);
             }
         }
     }
@@ -184,7 +188,109 @@ void Battle::UpdateField(float dt) {
         }
     }
 
+    bool live = winner < 0 && introT <= 0;
+    if (field.kind == ArenaKind::Ghost && live) UpdateWisps(dt);
+    if (field.kind == ArenaKind::Dragon && live) UpdateStatues(dt);
+    if (field.kind == ArenaKind::Champion) UpdateSpotlight(dt);
+
     for (int s = 0; s < N(); s++) FieldEffectsOn(s, dt);
+}
+
+// Will-o'-wisps rise from the graves and drift toward the nearest creature that isn't a Ghost.
+void Battle::UpdateWisps(float dt) {
+    for (Wisp& w : field.wisps) {
+        if (w.life <= 0) {
+            w.respawnT -= dt;
+            if (w.respawnT > 0) continue;
+            std::vector<const Obstacle*> graves;
+            for (const Obstacle& o : field.obs) if (o.kind == Obstacle::Pillar && o.alive) graves.push_back(&o);
+            Vector2 p{Frand(150, ARENA_W - 150), Frand(40, ARENA_H - 40)};
+            if (!graves.empty()) { const Obstacle* gr = graves[SimRand(0, (int)graves.size() - 1)]; p = gr->pos + Vector2{Frand(-10, 10), 8}; }
+            w.pos = p;
+            w.vel = {0, 0};
+            w.life = Frand(10, 14);
+            Burst(p, kWisp, 10, 40, 10);
+            continue;
+        }
+        w.life -= dt;
+        int best = -1;
+        float bd = 1e9f;
+        for (int s = 0; s < N(); s++) {
+            const Fighter& f = sides[s].Cur();
+            if (!Targetable(s) || f.burrowed || HasType(f.sp, Type::Ghost)) continue;
+            float d = Dist(f.pos, w.pos);
+            if (d < bd) { bd = d; best = s; }
+        }
+        Vector2 want = best >= 0 ? SafeNorm(sides[best].Cur().pos - w.pos) * 40.0f
+                                 : Vector2{std::sin(time * 0.8f + (w.seed % 7)), std::cos(time * 0.6f + (w.seed % 5))} * 20.0f;
+        w.vel = w.vel + (want - w.vel) * std::min(1.0f, dt * 1.4f);
+        w.pos += w.vel * dt;
+        w.pos.x = std::max(10.0f, std::min(ARENA_W - 10, w.pos.x));
+        w.pos.y = std::max(10.0f, std::min(ARENA_H - 10, w.pos.y));
+        if (best >= 0 && bd < BODY_R + 6 && Hittable(best)) {
+            HitSpec h = EnvSpec(Type::Ghost, 32, Status::Burn, 0.25f);
+            h.special = true;
+            ApplyHit(h, best, SafeNorm(sides[best].Cur().pos - w.pos, Vector2{1, 0}));
+            AddText(w.pos, "Will-o'-wisp!", kWisp, 30);
+            Burst(w.pos, kWisp, 16, 60, 10);
+            PlaySfx(Sfx::Fire);
+            w.life = 0;
+            w.respawnT = Frand(4.5f, 7.0f);
+        } else if (w.life <= 0) {
+            Burst(w.pos, kWisp, 6, 25, 10);
+            w.respawnT = 1.5f;
+        }
+    }
+}
+
+// Lance's dragon statues: one glows, then breathes a fan of dragonfire at someone.
+void Battle::UpdateStatues(float dt) {
+    if (field.turrets.empty()) return;
+    field.turretT -= dt;
+    if (field.turretT <= 0) {
+        field.turretT = Frand(7.0f, 9.0f);
+        Turret& t = field.turrets[SimRand(0, (int)field.turrets.size() - 1)];
+        std::vector<int> live;
+        for (int s = 0; s < N(); s++) if (Targetable(s)) live.push_back(s);
+        t.warnT = 1.6f;
+        t.aimAt = live.empty() ? Vector2{ARENA_W / 2, ARENA_H / 2} : sides[live[SimRand(0, (int)live.size() - 1)]].Cur().pos;
+        AddText({ARENA_W / 2, ARENA_H * 0.1f}, "A dragon statue's eyes are glowing...", Color{255, 150, 90, 255}, 20);
+        PlaySfx(Sfx::Status);
+    }
+    for (Turret& t : field.turrets) {
+        if (t.warnT < 0) continue;
+        t.warnT -= dt;
+        if (t.warnT > 0) continue;
+        t.warnT = -1;
+        Vector2 dir = SafeNorm(t.aimAt - t.pos, t.dir);
+        for (int k = -1; k <= 1; k++) {
+            Projectile p;
+            p.hit = EnvSpec(Type::Fire, 50, Status::Burn, 0.2f);
+            p.hit.special = true;
+            Vector2 d = Rot(dir, k * 0.17f);
+            p.pos = t.pos + d * 10.0f;
+            p.vel = d * 230.0f;
+            p.maxDist = 900;
+            p.radius = 7;
+            p.z = 10;
+            projs.push_back(p);
+        }
+        Burst(t.pos + dir * 10.0f, Color{255, 140, 60, 255}, 18, 80, 12);
+        Shake(2);
+        PlaySfx(Sfx::Fire);
+    }
+}
+
+// The Champion's spotlight glides to a new spot every few seconds.
+void Battle::UpdateSpotlight(float dt) {
+    field.spotT -= dt;
+    if (field.spotT <= 0) {
+        field.spotT = Frand(6.0f, 9.0f);
+        field.spotTo = {Frand(110, ARENA_W - 110), Frand(60, ARENA_H - 60)};
+    }
+    Vector2 d = field.spotTo - field.spot;
+    float l = Len(d);
+    if (l > 0.5f) field.spot += d * (std::min(l, 55.0f * dt) / l);
 }
 
 void Battle::FieldEffectsOn(int s, float dt) {
@@ -288,6 +394,50 @@ void Battle::FieldEffectsOn(int s, float dt) {
                 }
             }
             break;
+        case ArenaKind::Ice:
+            if (HasType(sp, Type::Ice) && !air && OnIce(f.pos)) {   // Ice types skate
+                f.envSpeed = 1.3f;
+                f.envAtk = 1.1f;
+                if (f.moving && SimRand(0, 3) == 0) Emit(PK::Snow, f.pos + Vector2{Frand(-6, 6), Frand(-2, 2)}, 1, {Frand(-15, 15), 0}, Frand(10, 25), 0.4f, 1.5f, Color{220, 245, 255, 255}, true);
+            }
+            break;
+        case ArenaKind::Fighting: {
+            if (HasType(sp, Type::Fighting) && Dist(f.pos, Vector2{ARENA_W / 2, ARENA_H / 2}) < 72) {
+                f.envAtk = 1.3f;
+                if (SimRand(0, 6) == 0) Emit(PK::Spark, f.pos + Vector2{Frand(-7, 7), Frand(-3, 3)}, Frand(4, 14), {0, 0}, 25, 0.4f, 1.5f, Color{255, 170, 80, 255});
+            }
+            // The ropes: knocked into them, you bounce back into the ring.
+            const float band = 20;
+            Vector2 k = f.knock;
+            bool bounce = false;
+            if (f.portalCd <= 0) {
+                if (f.pos.x < band && k.x < -40) { k.x = -k.x * 1.3f; bounce = true; }
+                if (f.pos.x > ARENA_W - band && k.x > 40) { k.x = -k.x * 1.3f; bounce = true; }
+                if (f.pos.y < band * 0.8f && k.y < -40) { k.y = -k.y * 1.3f; bounce = true; }
+                if (f.pos.y > ARENA_H - band * 0.8f && k.y > 40) { k.y = -k.y * 1.3f; bounce = true; }
+            }
+            if (bounce) {
+                f.knock = k;
+                f.portalCd = 0.6f;
+                AddText(f.pos, "Off the ropes!", Color{255, 190, 90, 255}, 30);
+                Shake(1);
+                PlaySfx(Sfx::Thud);
+                DirectDamage(s, f.maxHp * 0.03f, Color{255, 190, 90, 255}, os);
+            }
+        } break;
+        case ArenaKind::Ghost:
+            if (HasType(sp, Type::Ghost)) f.envSpeed = 1.15f;
+            break;
+        case ArenaKind::Dragon:
+            if (HasType(sp, Type::Dragon)) f.envAtk = 1.2f;
+            break;
+        case ArenaKind::Champion:
+            if (field.InSpot(f.pos)) {
+                f.envAtk = 1.25f;
+                f.envSpeed = 1.15f;
+                if (SimRand(0, 4) == 0) Emit(PK::Star, f.pos + Vector2{Frand(-9, 9), Frand(-3, 3)}, Frand(4, 20), {0, 0}, 20, 0.5f, 1.5f, kSpot);
+            }
+            break;
         case ArenaKind::Psychic:
             if (f.portalCd <= 0 && field.portals.size() > 1 && !f.burrowed) {
                 for (size_t k = 0; k < field.portals.size(); k++) {
@@ -312,6 +462,15 @@ void Battle::FieldEffectsOn(int s, float dt) {
 
 void Battle::ObstacleImpact(Obstacle& o, const HitSpec& h, Vector2 dir, bool physical) {
     if (!o.Blocks()) return;
+    if (field.kind == ArenaKind::Ice && o.kind == Obstacle::Pillar && h.type == Type::Fire && h.power > 0) {
+        o.alive = false;
+        o.respawnT = 12.0f;
+        for (int k = 0; k < 10; k++)
+            Emit(PK::Smoke, o.pos + Vector2{Frand(-o.radius, o.radius), Frand(-3, 3)}, Frand(4, o.height), {Frand(-10, 10), 0}, Frand(20, 40), Frand(0.6f, 1.0f), Frand(2, 4), Color{230, 235, 245, 200});
+        AddText(o.pos, "The ice pillar melted!", Color{255, 170, 90, 255}, 36);
+        PlaySfx(Sfx::Fire);
+        return;
+    }
     if (h.type == Type::Fire && o.kind == Obstacle::Tree && o.burnT <= 0) {
         o.burnT = 3.0f;
         AddText(o.pos, "The tree caught fire!", Color{255, 150, 60, 255}, 40);
@@ -457,6 +616,7 @@ void Battle::FieldReact(Vector2 at, const HitSpec& h, float radius) {
                 if (!pd.Contains(at, radius + 6)) continue;
                 if (pd.ice <= 0) froze = true;
                 pd.ice = std::max(pd.ice, 12.0f);
+                pd.thawT = 0;
             }
             if (field.kind == ArenaKind::Water && field.IsWater(at)) {
                 bool near = false;
@@ -486,7 +646,10 @@ void Battle::FieldReact(Vector2 at, const HitSpec& h, float radius) {
                 if (pd.ice > 0) {
                     pd.ice = 0;
                     if (pd.sheet) pd.r = 0;
+                    if (pd.rink) pd.thawT = 7.0f;   // the rink freezes over again in a while
                     melted = true;
+                } else if (pd.rink) {
+                    pd.thawT = std::max(pd.thawT, 5.0f);
                 } else {
                     pd.r *= 0.5f;
                     steam = true;
@@ -602,6 +765,15 @@ void Battle::UpdateWeatherField(float dt) {
     for (Puddle& pd : field.puddles) {
         pd.shockCd = std::max(0.0f, pd.shockCd - dt);
         pd.shockT = std::max(0.0f, pd.shockT - dt);
+        if (pd.rink) {   // Lorelei's rinks stay frozen; melted ones freeze again
+            if (pd.ice > 0) pd.ice = std::max(pd.ice, 2.0f);
+            else if ((pd.thawT -= dt) <= 0) {
+                pd.ice = 2.0f;
+                Burst(pd.pos, Color{200, 240, 255, 255}, 10, 40, 2);
+                AddText(pd.pos, "The rink froze over again!", Color{170, 230, 255, 255}, 26);
+            }
+            continue;
+        }
         if (pd.ice > 0) {
             if (w == Weather::Snow && !pd.sheet) pd.ice = std::max(pd.ice, 2.0f);   // stays frozen while it snows
             pd.ice -= dt * (w == Weather::Sun ? 3.0f : 1.0f);
@@ -793,6 +965,37 @@ Vector2 Battle::FieldPull(int s) const {
                 if (z) pull += SafeNorm(z->pos - f.pos) * 0.6f;
             }
             break;
+        case ArenaKind::Ice:
+            if (HasType(sp, Type::Ice) && !OnIce(f.pos)) {
+                const Puddle* best = nullptr;
+                float bd = 1e9f;
+                for (const Puddle& pd : field.puddles) if (pd.rink && pd.ice > 0 && Dist(pd.pos, f.pos) < bd) { bd = Dist(pd.pos, f.pos); best = &pd; }
+                if (best && bd < 220) pull += SafeNorm(best->pos - f.pos) * 0.7f;
+            }
+            break;
+        case ArenaKind::Fighting: {
+            Vector2 c{ARENA_W / 2, ARENA_H / 2};
+            if (HasType(sp, Type::Fighting) && Dist(f.pos, c) > 60) pull += SafeNorm(c - f.pos) * 0.8f;
+        } break;
+        case ArenaKind::Ghost:
+            if (!HasType(sp, Type::Ghost))
+                for (const Wisp& w : field.wisps)
+                    if (w.life > 0 && Dist(w.pos, f.pos) < 75) pull += SafeNorm(f.pos - w.pos, Vector2{0, 1}) * 1.3f;
+            break;
+        case ArenaKind::Champion:
+            if (!field.InSpot(f.pos) && Dist(field.spot, f.pos) < 260) pull += SafeNorm(field.spot - f.pos) * 0.8f;
+            break;
+        case ArenaKind::Dragon:
+            for (const Turret& t : field.turrets) {
+                if (t.warnT < 0) continue;
+                Vector2 dir = SafeNorm(t.aimAt - t.pos, t.dir);
+                Vector2 rel = f.pos - t.pos;
+                float along = Dot(rel, dir);
+                if (along < 0) continue;
+                Vector2 lat = rel - dir * along;
+                if (Len(lat) < 24 + along * 0.17f) pull += SafeNorm(lat, Vector2{-dir.y, dir.x}) * 1.6f;
+            }
+            break;
         case ArenaKind::Ground:
             for (const Turret& t : field.turrets) {
                 if (t.warnT < 0) continue;
@@ -821,7 +1024,11 @@ void Battle::DrawObstacle(const Obstacle& o) const {
             // The look depends on where it stands, and its seed picks a variant.
             int style = 0;   // 0 column, 1 broken column, 2 stacked boulders, 3 jagged spire, 4 round boulder
             Venue vn = field.venue;
-            if (vn == Venue::Tower) style = 10;
+            if (field.kind == ArenaKind::Ice) style = 12;
+            else if (field.kind == ArenaKind::Ghost) style = 10;
+            else if (field.kind == ArenaKind::Fighting) style = 2;
+            else if (field.kind == ArenaKind::Dragon) style = 15;
+            else if (vn == Venue::Tower) style = 10;
             else if (vn == Venue::Mansion) style = 11;
             else if (vn == Venue::IceCave) style = 12;
             else if (vn == Venue::Cave) style = 13 + (int)(o.seed % 2);           // stalagmite / rock
@@ -908,6 +1115,17 @@ void Battle::DrawObstacle(const Obstacle& o) const {
                         DrawTriangle(a, b2, tp, k == 1 ? ic : idk);
                         DrawLineEx(tp, {a.x + 2, a.y}, 1, il);
                     }
+                } break;
+                case 15: {   // Dragon's Den: a dark column with gold bands and a dragon's-eye gem
+                    Color dc{70, 56, 90, 255}, dd{44, 34, 60, 255}, dl{110, 92, 136, 255}, gold{230, 186, 70, 255};
+                    DrawRectangle(x - r, y - h, r * 2, h, dc);
+                    DrawRectangle(x - r, y - h, 3, h, dl);
+                    DrawRectangle(x + r - 3, y - h, 3, h, dd);
+                    for (int k = 0; k < 3; k++) DrawRectangle(x - r, y - h + 4 + k * (h / 3), r * 2, 2, gold);
+                    DrawRectangle(x - r - 2, y - 4, r * 2 + 4, 4, dd);
+                    DrawEllipse(x, y - h, (float)r + 1, (r + 1) * 0.45f, dl);
+                    DrawCircle(x, y - h / 2, 2.5f, Color{220, 60, 70, 255});
+                    DrawRectangle(x - 1, y - h / 2 - 1, 1, 1, WHITE);
                 } break;
                 case 13: case 14: {   // cave stalagmite / rock
                     Color cc{112, 100, 92, 255}, cd{74, 66, 60, 255}, cl{140, 128, 118, 255};
@@ -1191,6 +1409,37 @@ void Battle::DrawFieldFloor() const {
                 if (field.portalT < 2.0f && ((int)(t * 8) % 2)) EllipsePix(c.x, c.y, r + 2, (r + 2) * DEPTH, WHITE);
             }
             break;
+        case ArenaKind::Dragon:
+            for (const Turret& tu : field.turrets) {
+                if (tu.warnT >= 0) {   // where the dragonfire will go
+                    Vector2 dir = SafeNorm(tu.aimAt - tu.pos, tu.dir);
+                    float blink = ((int)(t * 10) % 2) ? 0.85f : 0.4f;
+                    for (int k = -1; k <= 1; k++) {
+                        Vector2 d = Rot(dir, k * 0.17f);
+                        Vector2 a = ToScreen(tu.pos), b = ToScreen(tu.pos + d * 700.0f);
+                        DrawLineEx(a, b, 3, Fade(Color{255, 120, 40, 255}, 0.15f));
+                        DrawLineEx(a, b, 1, Fade(Color{255, 160, 60, 255}, blink));
+                    }
+                }
+                DrawDragonStatue(tu);
+            }
+            break;
+        case ArenaKind::Champion: {
+            Vector2 c = ToScreen(field.spot);
+            float R = Field::SPOT_R * (1.0f + 0.04f * std::sin(t * 5));
+            VAdd();
+            DrawEllipse((int)c.x, (int)c.y, R, R * DEPTH, Fade(kSpot, 0.20f));
+            DrawEllipse((int)c.x, (int)c.y, R * 0.65f, R * 0.65f * DEPTH, Fade(kSpot, 0.14f));
+            VNorm();
+            for (int k = 0; k < 24; k++) {   // a turning dashed ring
+                if (k % 2) continue;
+                float a0 = t * 0.8f + k * PI_F / 12, a1 = a0 + PI_F / 12;
+                DrawLineEx({c.x + std::cos(a0) * R, c.y + std::sin(a0) * R * DEPTH}, {c.x + std::cos(a1) * R, c.y + std::sin(a1) * R * DEPTH}, 1, Fade(Color{255, 210, 90, 255}, 0.8f));
+            }
+        } break;
+        case ArenaKind::Fighting:
+            DrawRingRopes(false);
+            break;
         case ArenaKind::Ground:
             for (const Turret& tu : field.turrets) {
                 if (tu.warnT < 0) continue;
@@ -1222,6 +1471,57 @@ void Battle::DrawFieldFloor() const {
 }
 
 void Battle::DrawFieldTop() const {
+    if (field.kind == ArenaKind::Fighting) DrawRingRopes(true);
+    if (field.kind == ArenaKind::Ghost) {   // lights out: only the candles, the creatures and the wisps glow
+        float dark = 0.40f + 0.03f * std::sin(time * 7) + 0.02f * std::sin(time * 13.3f);
+        DrawRectangle(0, FLOOR_Y - 24, VW, FLOOR_BOTTOM - FLOOR_Y + 32, Fade(Color{8, 4, 20, 255}, dark));
+        VAdd();
+        for (int k = 0; k < 7; k++) {   // candles along the back wall
+            Vector2 p = ToScreen({40 + k * 90.0f, 2}, 14);
+            float fl = 0.35f + 0.1f * std::sin(time * 9 + k * 2.1f);
+            VGlow(p, 18, Color{255, 170, 90, 255}, fl);
+        }
+        for (int s = 0; s < N(); s++) {
+            const Fighter& f = sides[s].Cur();
+            if (f.state != FState::Active && f.state != FState::Entering) continue;
+            VGlow(ToScreen(f.pos, 8), 24, Color{120, 110, 170, 255}, 0.22f);
+        }
+        for (const Wisp& w : field.wisps)
+            if (w.life > 0) VGlow(ToScreen(w.pos, 12), 26, kWisp, 0.45f);
+        VNorm();
+        for (const Wisp& w : field.wisps) {   // the flames themselves
+            if (w.life <= 0) continue;
+            float bob = std::sin(time * 4 + (w.seed % 11)) * 2;
+            Vector2 c = ToScreen(w.pos, 12 + bob);
+            float fade = std::min(1.0f, w.life);
+            for (int k = 0; k < 3; k++) {
+                float fx = c.x + std::sin(time * 11 + k * 2 + (w.seed % 5)) * 1.5f;
+                DrawTriangle({fx - 3.0f + k, c.y + 2}, {fx + 3.0f - k, c.y + 2}, {fx, c.y - 7.0f + k * 2 - std::fabs(std::sin(time * 8 + k)) * 3}, Fade(k == 2 ? WHITE : kWisp, fade * (k == 0 ? 0.6f : 0.9f)));
+            }
+            DrawCircleV({c.x, c.y + 1}, 2.5f, Fade(Color{200, 190, 255, 255}, fade));
+        }
+    }
+    if (field.kind == ArenaKind::Champion) {
+        Vector2 c = ToScreen(field.spot);
+        float R = Field::SPOT_R;
+        Vector2 src{VW / 2 + (c.x - VW / 2) * 0.4f, -10};
+        VAdd();
+        DrawTriangle(src, {c.x - R, c.y}, {c.x + R, c.y}, Fade(kSpot, 0.07f));
+        DrawTriangle(src, {c.x + R, c.y}, {c.x - R, c.y}, Fade(kSpot, 0.07f));
+        float ph = std::fmod(time, 14.0f);   // pyrotechnics at the four corners
+        if (ph < 1.4f) {
+            const Vector2 cs[4] = {{12, 12}, {ARENA_W - 12, 12}, {12, ARENA_H - 12}, {ARENA_W - 12, ARENA_H - 12}};
+            float a = ph < 0.2f ? ph / 0.2f : 1.0f - (ph - 0.2f) / 1.2f;
+            for (const Vector2& w : cs) {
+                for (int k = 0; k < 6; k++) {
+                    float z = 6 + k * 9 + std::fmod(time * 60 + k * 13, 9.0f);
+                    Vector2 q = ToScreen(w + Vector2{std::sin(time * 17 + k) * 3, 0}, z);
+                    VGlow(q, 9 - k * 0.8f, k < 2 ? Color{255, 240, 160, 255} : Color{255, 130, 40, 255}, 0.7f * a);
+                }
+            }
+        }
+        VNorm();
+    }
     if (field.kind == ArenaKind::Ground) {
         for (const Turret& tu : field.turrets) {
             Vector2 c = ToScreen(tu.pos, tu.dir.y > 0 ? 10.0f : 6.0f);
@@ -1258,4 +1558,63 @@ void Battle::DrawFieldTop() const {
             }
         }
     }
+}
+
+// Bruno's ring: corner posts and three ropes (red, white, blue). The back and sides go under
+// everything; the front rope and posts go on top.
+void Battle::DrawRingRopes(bool front) const {
+    const float in = 3;
+    Vector2 c[4] = {{in, in}, {ARENA_W - in, in}, {ARENA_W - in, ARENA_H - in}, {in, ARENA_H - in}};
+    const Color rope[3] = {{220, 60, 60, 255}, {240, 240, 240, 255}, {70, 110, 220, 255}};
+    auto seg = [&](Vector2 a, Vector2 b) {
+        for (int k = 0; k < 3; k++) {
+            float z = 7.0f + k * 6;
+            Vector2 p = ToScreen(a, z), q = ToScreen(b, z);
+            DrawLineEx({p.x, p.y + 1}, {q.x, q.y + 1}, 1, Fade(BLACK, 0.4f));
+            DrawLineEx(p, q, 1.5f, rope[k]);
+        }
+    };
+    auto post = [&](Vector2 a) {
+        Vector2 b = ToScreen(a), tp = ToScreen(a, 24);
+        DrawRectangle((int)b.x - 2, (int)tp.y, 4, (int)(b.y - tp.y), Color{200, 200, 210, 255});
+        DrawRectangle((int)b.x + 1, (int)tp.y, 1, (int)(b.y - tp.y), Color{130, 130, 140, 255});
+        for (int k = 0; k < 3; k++) { Vector2 pp = ToScreen(a, 7.0f + k * 6); DrawRectangle((int)pp.x - 3, (int)pp.y - 2, 6, 4, rope[k]); }
+    };
+    if (!front) {
+        seg(c[0], c[1]);
+        seg(c[0], c[3]);
+        seg(c[1], c[2]);
+        post(c[0]);
+        post(c[1]);
+    } else {
+        seg(c[3], c[2]);
+        post(c[3]);
+        post(c[2]);
+    }
+}
+
+// Lance's statues: stone dragon heads on the walls; the eyes glow before they breathe.
+void Battle::DrawDragonStatue(const Turret& tu) const {
+    bool back = tu.dir.y > 0;
+    Vector2 c = ToScreen(tu.pos, back ? 16.0f : 10.0f);
+    bool warn = tu.warnT >= 0;
+    Color st{96, 84, 120, 255}, sd{62, 52, 82, 255}, sl{140, 126, 166, 255};
+    Color eye = warn ? (((int)(time * 12) % 2) ? Color{255, 80, 40, 255} : Color{255, 200, 80, 255}) : Color{120, 40, 50, 255};
+    if (back) {
+        DrawRectangle((int)c.x - 9, (int)c.y - 10, 18, 12, st);   // the head
+        DrawRectangle((int)c.x - 9, (int)c.y - 10, 18, 2, sl);
+        DrawTriangle({c.x - 6, c.y + 2}, {c.x + 6, c.y + 2}, {c.x, c.y + 9}, sd);   // snout, pointing down
+        DrawTriangle({c.x - 9, c.y - 10}, {c.x - 12, c.y - 17}, {c.x - 5, c.y - 10}, sl);   // horns
+        DrawTriangle({c.x + 5, c.y - 10}, {c.x + 12, c.y - 17}, {c.x + 9, c.y - 10}, sl);
+        DrawRectangle((int)c.x - 6, (int)c.y - 6, 3, 2, eye);
+        DrawRectangle((int)c.x + 3, (int)c.y - 6, 3, 2, eye);
+    } else {
+        int s = tu.dir.x > 0 ? 1 : -1;
+        DrawRectangle((int)c.x - (s > 0 ? 12 : 0), (int)c.y - 8, 12, 12, st);
+        DrawTriangle({c.x, c.y - 5}, {c.x, c.y + 4}, {c.x + s * 9.0f, c.y}, sd);
+        if (s < 0) DrawTriangle({c.x, c.y - 5}, {c.x + s * 9.0f, c.y}, {c.x, c.y + 4}, sd);
+        DrawTriangle({c.x - s * 8.0f, c.y - 8}, {c.x - s * 12.0f, c.y - 15}, {c.x - s * 3.0f, c.y - 8}, sl);
+        DrawRectangle((int)c.x - s * 6 - 1, (int)c.y - 5, 3, 2, eye);
+    }
+    if (warn) { VAdd(); VGlow(c, 14, Color{255, 120, 40, 255}, 0.5f); VNorm(); }
 }

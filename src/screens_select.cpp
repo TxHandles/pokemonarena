@@ -180,7 +180,10 @@ void BeginTeamSelect(Game& g) {
     if (TwoHumans(g) && g.shared) g.cursor[1] = std::min(GRID_COLS - 1, (int)g.roster[0].size() - 1);
     g.teamSize = IsStoryMode(g.mode) ? MAX_TEAM_SIZE : Cfg().teamSize;
     if (g.mode == Mode::Doubles) g.teamSize = std::min(3, g.teamSize);
+    if (g.tower)   // the Battle Tower heals everyone: anyone in the party can fight
+        for (int p = 0; p < 2; p++) for (auto& e : g.roster[p]) e.hpFrac = 1;
     if (IsCoop(g.mode)) g.teamSize = 3;  // each player brings up to 3 of their party
+    else if (g.tower) g.teamSize = TowerTeamSize(g.towerFloor);
     else if (IsStoryMode(g.mode)) g.teamSize = std::min(g.teamSize, HealthyCount(g.profile));
     if (!IsCoop(g.mode))  // co-op: each player locks in early if they have fewer
         for (int p = 0; p < HumanPickers(g); p++) g.teamSize = std::min(g.teamSize, (int)g.roster[p].size());
@@ -294,8 +297,7 @@ void StartBattleFromSelect(Game& g) {
             for (auto& c : b.team) c.hpFrac = 1;
         } break;
         case Mode::Story: {
-            StageDef st = Story().stages[g.stageIdx];
-            if (IsRematch(g) && st.IsGym()) st = RematchStage(st);
+            StageDef st = ActiveStage(g);
             if (st.rival) SetRivalContext(RivalStarterFor({ProfileStarter(g.profile)}), false);
             g.cpuTeam = MakeCpuTeam(&st, avg, MAX_TEAM_SIZE);
             b.team = g.cpuTeam;
@@ -359,8 +361,7 @@ void StartBattleFromSelect(Game& g) {
             AILevel lvA = Cfg().cpuLevel, lvB = Cfg().cpuLevel;
             std::string label = "Rival";
             if (g.mode == Mode::CoopStory) {
-                StageDef st = Story().stages[g.stageIdx];
-                if (IsRematch(g) && st.IsGym()) st = RematchStage(st);
+                StageDef st = ActiveStage(g);
                 if (st.rival) {
                     // The rival takes the starter neither player has, and brings his Pikachu too.
                     SetRivalContext(RivalStarterFor({ProfileStarter(g.coopP[0]), ProfileStarter(g.coopP[1])}), true);
@@ -467,10 +468,15 @@ void StartBattleFromSelect(Game& g) {
             b.level = Cfg().cpuLevel;
         } break;
     }
+    if (g.tower)   // the Battle Tower: everyone fights at full health (and the profile's HP isn't touched)
+        for (auto& sd : su.side)
+            if (sd.team_ == 0 || &sd == &su.side[0]) for (auto& c : sd.team) c.hpFrac = 1;
     if (IsStoryMode(g.mode)) {   // Story: where it happens, day or night, and the season's weather
         int clock = StoryClock(g);
-        const StageDef* st = (g.mode == Mode::Story || g.mode == Mode::CoopStory) && g.stageIdx >= 0 && g.stageIdx < (int)Story().stages.size()
-                                 ? &Story().stages[g.stageIdx] : nullptr;
+        StageDef stv;
+        bool hasStage = (g.mode == Mode::Story || g.mode == Mode::CoopStory) && (g.tower || (g.stageIdx >= 0 && g.stageIdx < (int)Story().stages.size()));
+        if (hasStage) stv = ActiveStage(g);
+        const StageDef* st = hasStage ? &stv : nullptr;
         su.season = SeasonOf(clock);
         if (su.arena == ArenaKind::Stadium) {   // trainers fight where they stand; wild Pokemon where they live
             if (st) su.venue = (uint8_t)(st->venue.empty() ? VenueForPlace(st->name) : VenueByName(st->venue));
@@ -487,6 +493,7 @@ void StartBattleFromSelect(Game& g) {
             su.daylight = !su.night;
             su.weather = RollSeasonWeather(SeasonOf(clock));
         }
+        if (su.arena == ArenaKind::Ice) su.weather = Weather::Snow;   // it never stops snowing in Lorelei's chamber
     }
     g.battle.Start(su);
     g.paused = false;
@@ -531,10 +538,12 @@ void DrawSelect(const Game& g) {
         head = std::string(vp == 0 ? "PLAYER 1" : "PLAYER 2") + ": PICK UP TO 3";
         std::string vs;
         if (g.mode == Mode::CoopStory) {
-            const StageDef& st = Story().stages[g.stageIdx];
+            const StageDef st = ActiveStage(g);
             int want = std::min(MAX_TEAM_SIZE, std::max(3, (int)st.team.size() + 2));
             vs = TextFormat("vs %s - %d creatures%s", st.trainer.c_str(), want,
-                            st.IsGym() ? (IsRematch(g) ? " - REMATCH (scaled to your level)" : TextFormat(" - %s Badge", st.badge.c_str())) : "");
+                            st.towerFloor > 0 ? TextFormat(" - Battle Tower floor %d", st.towerFloor)
+                            : IsRematch(g) && st.IsBoss() ? " - REMATCH (scaled to your level)"
+                            : st.IsGym() ? TextFormat(" - %s Badge", st.badge.c_str()) : st.IsChampion() ? " - CHAMPIONSHIP" : st.IsLeague() ? " - Elite Four" : "");
         } else if (g.rareBattle && g.rareSpecies >= 0) {
             vs = TextFormat("RARE: a wild %s and a partner - weaken them to catch!", AllSpecies()[g.rareSpecies].name.c_str());
         } else {
@@ -611,16 +620,18 @@ void DrawSelect(const Game& g) {
 
         if (p == 1 && IsStoryMode(g.mode) && !IsCoop(g.mode)) {
             if (g.mode == Mode::Story) {
-                const StageDef& st = Story().stages[g.stageIdx];
+                const StageDef st = ActiveStage(g);
                 DrawTextShadow(st.trainer.c_str(), x + 6, y + 24, 20, UI_TEXT);
                 DrawText(st.name.c_str(), x + 6, y + 48, 10, UI_DIM);
                 DrawText(TextFormat("%d creature%s", (int)std::min<size_t>(st.team.size(), MAX_TEAM_SIZE), st.team.size() > 1 ? "s" : ""), x + 6, y + 66, 10, UI_TEXT);
-                if (IsRematch(g) && st.IsGym()) DrawText("REMATCH: levels scale to your team", x + 6, y + 80, 10, UI_GOLD);
+                if (st.towerFloor > 0) DrawText(TextFormat("Tower floor %d: levels scale to your team", st.towerFloor), x + 6, y + 80, 10, UI_GOLD);
+                else if (IsRematch(g) && st.IsBoss()) DrawText("REMATCH: levels scale to your team", x + 6, y + 80, 10, UI_GOLD);
                 else if (st.baseLevel > 0) DrawText(TextFormat("Levels around %d", st.baseLevel), x + 6, y + 80, 10, UI_TEXT);
                 else DrawText(TextFormat("Levels around your team %s", st.levelOffset >= 0 ? TextFormat("+%d", st.levelOffset) : TextFormat("%d", st.levelOffset)), x + 6, y + 80, 10, UI_TEXT);
-                DrawText(TextFormat("CPU skill: %s", AILevelName(IsRematch(g) && st.IsGym() ? AILevel::Hard : st.cpu)), x + 6, y + 94, 10, UI_TEXT);
+                DrawText(TextFormat("CPU skill: %s", AILevelName(st.cpu)), x + 6, y + 94, 10, UI_TEXT);
                 DrawText(TextFormat("Arena: %s", st.arena == ArenaKind::Stadium ? VenueName(st.venue.empty() ? VenueForPlace(st.name) : VenueByName(st.venue)) : ArenaName(st.arena)), x + 6, y + 108, 10, st.arena == ArenaKind::Stadium ? UI_TEXT : UI_GOLD);
-                DrawText(st.IsGym() ? "Gym battle" : "Trainer battle: catch wild ones in training", x + 6, y + 122, 10, UI_DIM);
+                DrawText(st.towerFloor > 0 ? "Battle Tower: everyone fights at full health" : st.IsChampion() ? "The Championship!" : st.IsLeague() ? "Elite Four: lose and the League starts over"
+                         : st.IsGym() ? "Gym battle" : "Trainer battle: catch wild ones in training", x + 6, y + 122, 10, UI_DIM);
             } else {
                 if (g.rareBattle && g.rareSpecies >= 0) {
                     DrawTextShadow("RARE ENCOUNTER!", x + 6, y + 24, 20, Color{255, 150, 230, 255});

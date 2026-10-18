@@ -26,10 +26,22 @@ changes. The build also copies `Pokemon/` and `story.txt` next to the exe. Saves
 - **Story Mode** – the only mode that earns XP. Make a profile, pick a starter and work through
   32 stages from `story.txt`: three trainers before each of 8 gyms (Brock, Misty, Lt. Surge, Erika,
   Koga, Sabrina, Blaine, Giovanni). Gyms give badges. Wins unlock new base-form creatures and coins.
-  The Elite Four and Champion come later.
+  After the eighth badge: the rival on Route 22, Victory Road, then the Pokemon League.
+- **The Pokemon League** – the Elite Four (Lorelei, Bruno, Agatha, Lance) and the Champion (the rival)
+  with their FireRed/LeafGreen teams, each in their own arena. They're fought as one run: lose to any
+  of them and the challenge starts over from Lorelei (the Healing Center stays open between rooms).
+  Beating the Champion puts your party in the **Hall of Fame** (saved in the profile, every Championship
+  win adds an entry) and opens the Battle Tower. League members can be rematched from the Map like gyms.
+- **Battle Tower** – after the Championship, the hub's first item. Endless floors of trainers: their
+  levels climb with the floor (your team's average −1, +1 every 4 floors), the CPU plays Hard from floor
+  5, both sides bring 3 (4 from floor 10, 5 from 20, 6 from 30), every 5th floor is fought in a gym arena
+  and every 10th is a Tower Boss: a gym leader, Elite Four member or the Champion with their own team in
+  their own arena. Everyone fights at full health and the Tower never changes your Pokemon's HP; XP and
+  coins as usual (bosses triple). A loss ends the run; the best floor is kept. Solo, local and online co-op.
 - **HP carry-over and the Healing Center** – HP stays between Story battles. Healing costs about
   3 coins per level for a full heal; reviving costs 6 per level + 10. Coins for a win: trainer
-  30 + 6×Lv, gym 150 + 15×Lv, training 15 + 3×Lv (or `coins =` in story.txt). A free emergency heal
+  30 + 6×Lv, gym 150 + 15×Lv, Elite Four 300 + 20×Lv, Champion 600 + 25×Lv, Tower 40 + 7×Lv + 4×floor,
+  training 15 + 3×Lv (or `coins =` in story.txt). A free emergency heal
   kicks in if the whole team is down and you can't pay.
 - **Map** – the hub draws `map.png` (set by `map_image` in story.txt) with each stage at its `map = x, y`
   spot, badges on the gyms and the lead creature at the next stage. Without an image it draws a simple map.
@@ -109,7 +121,7 @@ changes. The build also copies `Pokemon/` and `story.txt` next to the exe. Saves
 - New moves fill an empty slot straight away; otherwise the game asks which move to forget after the
   battle.
 
-## Gym arenas (src/field.*, src/battle_field.cpp, src/arena.cpp)
+## Gym and League arenas (src/field.*, src/battle_field.cpp, src/arena.cpp)
 
 | Arena | Twist |
 |---|---|
@@ -121,6 +133,12 @@ changes. The build also copies `Pokemon/` and `story.txt` next to the exe. Saves
 | Trick Room Gym (Sabrina) | 4 portals; creatures and projectiles that touch one come out of another. They move every 12 s. |
 | Volcano Gym (Blaine) | Lava pools (4% HP/s, burn chance, slower movement) spit Fire globs (power 45) every 3–5 s with a landing marker. Rocks give cover. |
 | Hideout Gym (Giovanni) | Steel pillars (indestructible). Every 10 s two wall cannons show a red aim line for 1.5 s, then fire a power-60 shot that hits both sides. |
+
+| Frozen Chamber (Lorelei) | It always snows. Frozen rinks send everyone but Ice types sliding; Ice types skate on them (×1.3 speed, ×1.1 ATK). Fire melts a rink for 7 s. Ice pillars melt under any Fire hit and freeze again after 12 s. |
+| Brawler's Ring (Bruno) | A boxing ring: knocked into the ropes, you bounce back in harder (3% max HP). Fighting types in the centre circle get ×1.3 ATK. Four training boulders. |
+| Haunted Hall (Agatha) | Lights out. Three will-o'-wisps rise from the gravestones and drift after the nearest creature that isn't a Ghost: touching one is a Ghost hit (power 32, 25% burn). Ghost types move ×1.15 faster. |
+| Dragon's Den (Lance) | Every 7–9 s a dragon statue's eyes glow for 1.6 s, then it breathes a fan of three Fire shots (power 50, burn chance) at someone. Dragon types get ×1.2 ATK. |
+| Champion's Stadium | A spotlight glides around the floor; whoever stands in it gets ×1.25 ATK and ×1.15 speed. Fireworks, pyrotechnics and the biggest crowd in Kanto. |
 
 Arena hazards hit either side, and their damage scales with the battle's average level. The CPU avoids
 harmful zones and seeks helpful ones. Every arena can be picked for Quick Battle / 2 Players in

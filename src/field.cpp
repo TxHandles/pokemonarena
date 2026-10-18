@@ -7,8 +7,10 @@
 namespace {
 
 const char* kNames[ARENA_COUNT] = {"Stadium", "Stone Gym", "Cascade Gym", "Power Plant Gym", "Greenhouse Gym",
-                                   "Swamp Gym", "Trick Room Gym", "Volcano Gym", "Hideout Gym"};
-const char* kKeys[ARENA_COUNT] = {"stadium", "rock", "water", "electric", "grass", "poison", "psychic", "fire", "ground"};
+                                   "Swamp Gym", "Trick Room Gym", "Volcano Gym", "Hideout Gym",
+                                   "Frozen Chamber", "Brawler's Ring", "Haunted Hall", "Dragon's Den", "Champion's Stadium"};
+const char* kKeys[ARENA_COUNT] = {"stadium", "rock", "water", "electric", "grass", "poison", "psychic", "fire", "ground",
+                                  "ice", "fighting", "ghost", "dragon", "champion"};
 
 float Rf(float a, float b) { return a + (b - a) * (float)SimRand(0, 10000) / 10000.0f; }
 
@@ -79,6 +81,11 @@ const char* ArenaTwist(ArenaKind k) {
         case ArenaKind::Psychic: return "Four portals teleport anything that enters them - and they keep moving.";
         case ArenaKind::Fire: return "Lava pools burn non-Fire types and spit fireballs. Rocks give a little cover.";
         case ArenaKind::Ground: return "Steel pillars give cover. Every 10 seconds the wall cannons fire - watch for the red lines!";
+        case ArenaKind::Ice: return "Endless snow. Ice rinks send you sliding (Ice types skate faster). Ice pillars melt under Fire and grow back.";
+        case ArenaKind::Fighting: return "A boxing ring: knocked into the ropes, you bounce back in! Fighting types hit harder in the center ring.";
+        case ArenaKind::Ghost: return "Lights out. Will-o'-wisps drift toward anything that isn't a Ghost and can burn it. Ghost types move faster in the dark.";
+        case ArenaKind::Dragon: return "Dragon statues breathe fire across the den - watch the warning glow! Dragon types are stronger here.";
+        case ArenaKind::Champion: return "The crowd's spotlight roams the floor: whoever stands in it hits harder and moves faster. Fight for the spotlight!";
         default: return "A classic stadium. No tricks.";
     }
 }
@@ -181,6 +188,71 @@ void Field::Build(ArenaKind k, Venue v, int seasonIn) {
             }
             turretT = 10.0f;
         } break;
+        case ArenaKind::Ice: {
+            AddObstacles(*this, Obstacle::Pillar, 5, 11, 28, 90, 80, 150, ARENA_W - 150);
+            int rinks = 4;
+            for (int i = 0; i < rinks; i++) {   // big frozen rinks, away from where the teams start
+                for (int tries = 0; tries < 40; tries++) {
+                    Vector2 p{Rf(185, ARENA_W - 185), Rf(50, ARENA_H - 50)};
+                    if (i == 0) p = {ARENA_W / 2 + Rf(-30, 30), ARENA_H / 2 + Rf(-30, 30)};
+                    float r = i == 0 ? Rf(46, 54) : Rf(30, 40);
+                    bool ok = true;
+                    for (const Puddle& o : puddles) if (Dist2(o.pos, p) < o.maxR + r + 16) ok = false;
+                    for (const Obstacle& o : obs) if (Dist2(o.pos, p) < o.radius + r + 6) ok = false;
+                    if (!ok) continue;
+                    Puddle pd;
+                    pd.pos = p;
+                    pd.r = pd.maxR = r;
+                    pd.ice = 2;
+                    pd.rink = true;
+                    pd.seed = (uint32_t)SimRand(1, 0x3fffffff);
+                    puddles.push_back(pd);
+                    break;
+                }
+            }
+        } break;
+        case ArenaKind::Fighting: {   // four training boulders, one in each quarter of the ring
+            const Vector2 q[4] = {{ARENA_W * 0.3f, ARENA_H * 0.25f}, {ARENA_W * 0.7f, ARENA_H * 0.25f}, {ARENA_W * 0.3f, ARENA_H * 0.75f}, {ARENA_W * 0.7f, ARENA_H * 0.75f}};
+            for (int i = 0; i < 4; i++) {
+                Obstacle o;
+                o.kind = Obstacle::Pillar;
+                o.pos = {q[i].x + Rf(-20, 20), q[i].y + Rf(-12, 12)};
+                o.radius = 12;
+                o.height = 26;
+                o.seed = (uint32_t)SimRand(1, 0x3fffffff);
+                obs.push_back(o);
+            }
+        } break;
+        case ArenaKind::Ghost:
+            AddObstacles(*this, Obstacle::Pillar, 6, 9, 22, 95, 80, 130, ARENA_W - 130);   // gravestones
+            for (int i = 0; i < 3; i++) {
+                Wisp w;
+                w.seed = (uint32_t)SimRand(1, 0x3fffffff);
+                w.respawnT = 2.0f + i * 2.5f;
+                wisps.push_back(w);
+            }
+            break;
+        case ArenaKind::Dragon: {
+            AddObstacles(*this, Obstacle::Pillar, 4, 11, 30, 130, 95, 170, ARENA_W - 170, 70, ARENA_H - 70);
+            const float xs[3] = {ARENA_W * 0.25f, ARENA_W * 0.5f, ARENA_W * 0.75f};   // dragon statues on the back wall
+            for (float x : xs) {
+                Turret t;
+                t.pos = {x, 0};
+                t.dir = {0, 1};
+                turrets.push_back(t);
+            }
+            for (int k = 0; k < 2; k++) {   // and one on each side, low down
+                Turret t;
+                t.pos = {k ? ARENA_W : 0.0f, ARENA_H * 0.78f};
+                t.dir = {k ? -1.0f : 1.0f, 0};
+                turrets.push_back(t);
+            }
+            turretT = 6.0f;
+        } break;
+        case ArenaKind::Champion:
+            spot = spotTo = {ARENA_W / 2, ARENA_H / 2};
+            spotT = 5.0f;
+            break;
         default: break;
     }
 }

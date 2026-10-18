@@ -105,6 +105,11 @@ Theme ThemeFor(ArenaKind k) {
         case ArenaKind::Psychic:  return {{40, 26, 60, 255}, {34, 22, 52, 255}, {90, 60, 130, 255}, {70, 46, 106, 255}, {120, 84, 160, 255}, {30, 18, 46, 255}};
         case ArenaKind::Fire:     return {{58, 30, 26, 255}, {50, 26, 22, 255}, {92, 56, 48, 255}, {70, 42, 36, 255}, {110, 70, 56, 255}, {40, 20, 18, 255}};
         case ArenaKind::Ground:   return {{36, 32, 34, 255}, {30, 26, 28, 255}, {70, 64, 66, 255}, {54, 50, 52, 255}, {86, 80, 82, 255}, {120, 30, 30, 255}};
+        case ArenaKind::Ice:      return {{44, 60, 84, 255}, {38, 52, 74, 255}, {170, 200, 226, 255}, {130, 164, 196, 255}, {200, 226, 244, 255}, {90, 130, 170, 255}};
+        case ArenaKind::Fighting: return {{60, 40, 36, 255}, {52, 34, 30, 255}, {120, 90, 70, 255}, {96, 70, 54, 255}, {140, 108, 84, 255}, {170, 50, 40, 255}};
+        case ArenaKind::Ghost:    return {{26, 20, 38, 255}, {22, 16, 32, 255}, {64, 54, 80, 255}, {50, 42, 64, 255}, {76, 66, 94, 255}, {30, 22, 42, 255}};
+        case ArenaKind::Dragon:   return {{34, 30, 52, 255}, {28, 24, 44, 255}, {74, 64, 100, 255}, {58, 50, 82, 255}, {92, 80, 120, 255}, {200, 160, 60, 255}};
+        case ArenaKind::Champion: return {{70, 30, 36, 255}, {60, 24, 30, 255}, {150, 120, 70, 255}, {120, 94, 54, 255}, {200, 170, 100, 255}, {240, 200, 80, 255}};
         default:                  return {{58, 48, 72, 255}, {48, 40, 62, 255}, {104, 96, 112, 255}, {84, 76, 94, 255}, {112, 104, 120, 255}, {90, 76, 60, 255}};
     }
 }
@@ -171,6 +176,70 @@ Color FloorBase(ArenaKind k, int sx, int sy) {
             if (r < 62 && r > 56) c = Color{110, 30, 34, 255};
             else if (r <= 56) c = Shade(c, -8);
             if (n < 4) c = Shade(c, -10);
+            return c;
+        }
+        case ArenaKind::Ice: {   // frosted ice tiles
+            Color c = ((tx + ty) % 2) ? Color{196, 222, 240, 255} : Color{186, 214, 236, 255};
+            c = Shade(c, (int)((Fbm(wx * 0.04f, wy * 0.06f) - 0.5f) * 30));
+            if (lineX || lineY) c = Color{230, 244, 255, 255};
+            if (std::fabs(Noise(wx * 0.05f, wy * 0.08f) - 0.5f) < 0.01f) c = Color{150, 186, 214, 255};   // cracks in the frost
+            if (n < 3) c = WHITE;
+            return c;
+        }
+        case ArenaKind::Fighting: {   // the ring's canvas, a dark apron, and the centre circle
+            float edge = std::min(std::min(wx, ARENA_W - wx), std::min(wy, ARENA_H - wy) * 1.2f);
+            if (edge < 10) return Shade(Color{40, 60, 120, 255}, n < 10 ? -10 : 0);
+            Color c = Color{226, 222, 208, 255};
+            c = Shade(c, (int)((Fbm(wx * 0.05f, wy * 0.05f) - 0.5f) * 18) - (n < 6 ? 10 : 0));
+            if (edge < 16) c = Color{60, 90, 170, 255};
+            float d = std::sqrt((wx - ARENA_W / 2) * (wx - ARENA_W / 2) + (wy - ARENA_H / 2) * (wy - ARENA_H / 2));
+            if (d < 72 && d > 68) c = Color{200, 50, 40, 255};
+            else if (d < 68) c = Mix(c, Color{240, 200, 190, 255}, 0.3f);
+            if (std::fabs(wx - ARENA_W / 2) < 1.2f && d >= 72) c = Shade(c, -25);
+            return c;
+        }
+        case ArenaKind::Ghost: {   // cracked dark flagstones in a cold mist
+            int col = (int)(wx / 30), row = (int)(wy / 26);
+            float lx = std::fmod(wx + (row % 2) * 15, 30.0f), ly = std::fmod(wy, 26.0f);
+            Color c = Shade(Color{58, 50, 72, 255}, (int)((Hash2(col, row) - 0.5f) * 20));
+            if (lx < 1.0f || ly < 1.0f / DEPTH) c = Color{30, 24, 40, 255};
+            float mist = Fbm(wx * 0.02f + 3, wy * 0.03f);
+            if (mist > 0.56f) c = Mix(c, Color{120, 100, 160, 255}, (mist - 0.56f) * 1.8f);
+            if (std::fabs(Noise(wx * 0.06f, wy * 0.08f) - 0.5f) < 0.008f) c = Color{20, 16, 28, 255};
+            return c;
+        }
+        case ArenaKind::Dragon: {   // dark stone with a gold dragon seal in the middle
+            Color c = ((tx + ty) % 2) ? Color{54, 48, 74, 255} : Color{48, 42, 66, 255};
+            if (lineX || lineY) c = Color{32, 28, 46, 255};
+            if (n < 4) c = Shade(c, 14);
+            float dx = wx - ARENA_W / 2, dy = wy - ARENA_H / 2, d = std::sqrt(dx * dx + dy * dy);
+            if (d < 84 && d > 80) c = Color{210, 168, 70, 255};
+            else if (d < 74 && d > 72) c = Color{170, 130, 50, 255};
+            float a = std::atan2(dy, dx);
+            float spiral = std::fmod(a * 3 / 6.2831853f + d / 40.0f + 10, 1.0f);
+            if (d < 70 && d > 14 && spiral < 0.08f) c = Color{200, 160, 66, 255};   // a coiled dragon
+            if (d < 12) c = Color{180, 40, 50, 255};
+            if (std::fabs(wy - ARENA_H / 2) < 6 && d > 84) c = Mix(c, Color{130, 30, 40, 255}, 0.6f);   // a red runner
+            return c;
+        }
+        case ArenaKind::Champion: {   // polished marble, gold inlay, a giant Poke Ball and a red carpet
+            Color c = ((tx + ty) % 2) ? Color{236, 230, 216, 255} : Color{220, 212, 196, 255};
+            if (std::fabs(Noise(wx * 0.07f, wy * 0.07f) - 0.5f) < 0.012f) c = Shade(c, -26);   // veins in the marble
+            if (lineX || lineY) c = Color{214, 170, 70, 255};
+            float edge = std::min(std::min(wx, ARENA_W - wx), std::min(wy, ARENA_H - wy) * 1.2f);
+            if (edge < 8) c = Color{200, 150, 50, 255};
+            else if (edge < 12) c = Color{120, 30, 40, 255};
+            if (std::fabs(wy - ARENA_H / 2) < 16 && (wx < ARENA_W / 2 - 90 || wx > ARENA_W / 2 + 90)) {
+                c = std::fabs(wy - ARENA_H / 2) > 13 ? Color{230, 190, 80, 255} : Shade(Color{170, 30, 40, 255}, (int)((Noise(wx * 0.3f, wy * 0.3f) - 0.5f) * 16));
+            }
+            float dx = wx - ARENA_W / 2, dy = wy - ARENA_H / 2, d = std::sqrt(dx * dx + dy * dy);
+            if (d < 86) {
+                if (d > 82) c = Color{230, 190, 80, 255};
+                else if (d > 78) c = Color{40, 36, 50, 255};
+                else if (std::fabs(dy) < 5) c = Color{40, 36, 50, 255};
+                else c = dy < 0 ? Shade(Color{210, 50, 50, 255}, n < 8 ? 12 : 0) : Shade(Color{244, 242, 236, 255}, n < 8 ? -8 : 0);
+                if (d < 20) c = d > 15 ? Color{40, 36, 50, 255} : (d > 10 ? Color{250, 250, 252, 255} : Color{230, 190, 80, 255});
+            }
             return c;
         }
         default: {
@@ -732,6 +801,10 @@ void DrawTorches(float time, ArenaKind kind) {
     else if (kind == ArenaKind::Poison) { flame = Color{160, 80, 220, 255}; core = Color{220, 170, 255, 255}; }
     else if (kind == ArenaKind::Grass) { flame = Color{110, 210, 90, 255}; core = Color{220, 255, 200, 255}; }
     else if (kind == ArenaKind::Ground) { flame = Color{220, 40, 40, 255}; core = Color{255, 160, 160, 255}; }
+    else if (kind == ArenaKind::Ice) { flame = Color{150, 220, 255, 255}; core = WHITE; }
+    else if (kind == ArenaKind::Ghost) { flame = Color{140, 110, 255, 255}; core = Color{220, 210, 255, 255}; }
+    else if (kind == ArenaKind::Dragon) { flame = Color{120, 90, 240, 255}; core = Color{255, 180, 90, 255}; }
+    else if (kind == ArenaKind::Champion) { flame = Color{255, 200, 60, 255}; core = WHITE; }
     for (int i = 0; i < 4; i++) {
         int x = torchX[i] + (int)gShake.x, y = STANDS_H - 4 + (int)gShake.y;
         DrawRectangle(x, y + 6, 3, 12, Color{90, 60, 40, 255});
@@ -776,6 +849,11 @@ Color GymColor(ArenaKind k) {
         case ArenaKind::Psychic: return Color{240, 100, 170, 255};
         case ArenaKind::Fire: return Color{240, 110, 50, 255};
         case ArenaKind::Ground: return Color{200, 60, 50, 255};
+        case ArenaKind::Ice: return Color{140, 210, 250, 255};
+        case ArenaKind::Fighting: return Color{220, 110, 60, 255};
+        case ArenaKind::Ghost: return Color{150, 100, 220, 255};
+        case ArenaKind::Dragon: return Color{110, 100, 240, 255};
+        case ArenaKind::Champion: return Color{250, 205, 70, 255};
         default: return Color{230, 200, 90, 255};
     }
 }
@@ -837,6 +915,20 @@ void DrawGymSpectacle(float time, ArenaKind kind, float hype) {
         DrawEllipse((int)aim.x, (int)aim.y, 36, 36 * DEPTH, Fade(Color{255, 250, 220, 255}, 0.07f + hype * 0.05f));
     }
     EndBlendMode();
+    if (kind == ArenaKind::Champion) {   // fireworks over the stands, all battle long
+        for (int k = 0; k < 4; k++) {
+            float ph = std::fmod(time * 0.45f + k * 0.29f, 1.0f);
+            int cyc = (int)(time * 0.45f + k * 0.29f);
+            float fx = 40 + H01(cyc, k) * (VW - 80), fy = 4 + H01(cyc, k + 7) * (STANDS_H - 6);
+            if (ph < 0.15f) continue;
+            float u = (ph - 0.15f) / 0.85f;
+            Color fc = k % 3 == 0 ? team : k % 3 == 1 ? Color{255, 120, 120, 255} : Color{140, 220, 255, 255};
+            for (int r = 0; r < 14; r++) {
+                float a = r * 6.2831853f / 14;
+                DrawCircleV({fx + std::cos(a) * u * 22 + sx, fy + std::sin(a) * u * 14 + u * u * 6 + sy}, 1.2f, Fade(fc, 1 - u));
+            }
+        }
+    }
 }
 } // namespace
 

@@ -363,6 +363,76 @@ level = 4
 cpu = hard
 arena = ground
 badge = Earth
+
+[stage]
+name = Victory Road
+map = 182, 340
+trainer = Cooltrainer Caroline
+say = Only trainers with all eight badges make it this far. Let's see if you deserve the League!
+team = Golbat -2, Machoke -1, Marowak -1, Onix +2
+lv = 50
+cpu = hard
+venue = cave
+
+# ---------------------------------------------------------------- The Pokemon League (Indigo Plateau)
+# The Elite Four and the Champion are fought in a row: lose any of them and the challenge
+# starts over from Lorelei. (league = 1-4 the Elite Four in order, 5 the Champion.)
+[stage]
+name = Lorelei's Chamber
+map = 140, 236
+trainer = Elite Four Lorelei
+say = Welcome to the Pokemon League. I am Lorelei of the Elite Four. My icy Pokemon will freeze you right where you stand!
+team = Dewgong -2, Cloyster -3, Slowbro -2, Jynx, Lapras
+lv = 54
+cpu = hard
+arena = ice
+league = 1
+
+[stage]
+name = Bruno's Ring
+map = 156, 222
+trainer = Elite Four Bruno
+say = I am Bruno of the Elite Four! My Pokemon and I have trained our bodies to the limit. Hoo hah! Prepare to be crushed!
+team = Onix -5, Hitmonchan -3, Hitmonlee -3, Onix -2, Machamp
+lv = 56
+cpu = hard
+arena = fighting
+league = 2
+
+[stage]
+name = Agatha's Hall
+map = 178, 222
+trainer = Elite Four Agatha
+say = I'm Agatha of the Elite Four. Oak's taken a shine to you, has he? That old duff once was tough. Let me show you how a real trainer fights!
+team = Gengar -4, Golbat -4, Haunter -5, Arbok -2, Gengar
+lv = 58
+cpu = hard
+arena = ghost
+league = 3
+
+[stage]
+name = Lance's Den
+map = 194, 236
+trainer = Elite Four Lance
+say = I am Lance, the last of the Elite Four - and a Dragon master. Dragons are mythical Pokemon: hard to catch and harder to beat!
+team = Gyarados -4, Dragonair -6, Dragonair -6, Aerodactyl -2, Dragonite
+lv = 60
+cpu = hard
+arena = dragon
+league = 4
+
+[stage]
+name = Champion's Stadium
+map = 167, 252
+trainer = Champion Blue
+say = Hey! I was looking forward to seeing you. While you were working your way up, I became the Pokemon League Champion! You know what that means? I'm the most powerful trainer in the world!
+team = Pidgeot -4, Alakazam -6, Rhydon -4, rival_trio1 -2, rival_trio2 -2, rival
+lv = 63
+cpu = hard
+catch = no
+rival = yes
+arena = champion
+league = 5
 )STORY";
 
 void Parse(const char* text, StoryDef& st, std::string& log) {
@@ -420,6 +490,7 @@ void Parse(const char* text, StoryDef& st, std::string& log) {
             else if (k == "snorlax") cur->snorlax = std::max(0, std::atoi(v.c_str()));
             else if (k == "outdoor") cur->outdoor = !IsNo(v);
             else if (k == "venue") cur->venue = v;
+            else if (k == "league") cur->league = std::max(0, std::min(5, std::atoi(v.c_str())));
             else if (k == "coins" || k == "prize") cur->coins = std::max(0, std::atoi(v.c_str()));
             else if (k == "map") {
                 auto parts = SplitList(v);
@@ -558,6 +629,90 @@ StageDef RematchStage(const StageDef& stage) {
     return r;
 }
 
+int LeagueStartStage() {
+    for (int i = 0; i < (int)Story().stages.size(); i++)
+        if (Story().stages[i].league == 1) return i;
+    return -1;
+}
+
+int TowerTeamSize(int floor) { return floor < 10 ? 3 : floor < 20 ? 4 : floor < 30 ? 5 : 6; }
+
+StageDef TowerStage(int floor, uint32_t seed) {
+    floor = std::max(1, floor);
+    uint32_t h = seed ^ ((uint32_t)floor * 2654435761u);
+    auto pick = [&](int n) {
+        h ^= h >> 16; h *= 0x7feb352du; h ^= h >> 15; h *= 0x846ca68bu; h ^= h >> 16;
+        return n <= 1 ? 0 : (int)(h % (uint32_t)n);
+    };
+    pick(1);
+    int climb = std::min(30, (floor - 5) / 4);   // levels above your team's average: -1 at first, +1 every 4 floors
+    if (floor % 10 == 0) {   // a boss floor: a gym leader, Elite Four member or the Champion, in their own arena
+        std::vector<int> bosses;
+        for (int i = 0; i < (int)Story().stages.size(); i++)
+            if (Story().stages[i].IsBoss()) bosses.push_back(i);
+        if (!bosses.empty()) {
+            const StageDef& b = Story().stages[bosses[pick((int)bosses.size())]];
+            StageDef r = RematchStage(b);   // their own team, at your level, at full strength
+            r.levelOffset += std::max(0, climb - 2);
+            r.towerFloor = floor;
+            r.name = TextFormat("Battle Tower - Floor %d", floor);
+            r.badge.clear();
+            r.league = 0;
+            r.coins = -1;
+            r.venue = "stadium";
+            r.trainer = "Tower Boss " + b.trainer;
+            // their team fills out to the floor's size with more of their favourite type
+            Type fav = Type::Normal;
+            for (const auto& e0 : b.team) {
+                std::string e = Trim(e0);
+                size_t sp = e.find_last_of(' ');
+                if (sp != std::string::npos && (e[sp + 1] == '+' || e[sp + 1] == '-')) e = Trim(e.substr(0, sp));
+                int idx = SpeciesIndex(e);
+                if (idx >= 0) fav = AllSpecies()[idx].type1;
+            }
+            while ((int)r.team.size() < TowerTeamSize(floor)) r.team.insert(r.team.begin(), std::string("random ") + TypeName(fav));
+            return r;
+        }
+    }
+    struct Cls { const char* name; const char* type; };
+    static const Cls kCls[] = {{"Ace Trainer", ""}, {"Black Belt", "Fighting"}, {"Bird Keeper", "Flying"}, {"Swimmer", "Water"},
+                               {"Psychic", "Psychic"}, {"Hiker", "Rock"}, {"Bug Maniac", "Bug"}, {"Channeler", "Ghost"},
+                               {"Burglar", "Fire"}, {"Rocker", "Electric"}, {"Beauty", "Grass"}, {"Juggler", "Poison"},
+                               {"Ruin Maniac", "Ground"}, {"Gentleman", "Normal"}, {"Ice Skater", "Ice"}, {"Cooltrainer", ""},
+                               {"Veteran", ""}, {"Tamer", ""}};
+    static const char* kNames[] = {"Alex", "Sam", "Riley", "Jordan", "Casey", "Morgan", "Taylor", "Quinn", "Avery", "Drew",
+                                   "Kai", "Rowan", "Sky", "Jamie", "Reese", "Blake", "Harper", "Logan", "Mika", "Nova"};
+    static const char* kSay[] = {"Only the strongest make it this high. Let's see if you're one of them!",
+                                 "I've been waiting on this floor all day. Don't disappoint me!",
+                                 "Every floor gets harder. This is where your streak ends!",
+                                 "The Tower doesn't care about badges - only wins.",
+                                 "My team was built for this. Show me yours!",
+                                 "You're still climbing? Impressive. Not for long!"};
+    const Cls& c = kCls[pick((int)(sizeof kCls / sizeof kCls[0]))];
+    StageDef st;
+    st.towerFloor = floor;
+    st.name = TextFormat("Battle Tower - Floor %d", floor);
+    st.trainer = std::string(c.name) + " " + kNames[pick((int)(sizeof kNames / sizeof kNames[0]))];
+    st.say = kSay[pick((int)(sizeof kSay / sizeof kSay[0]))];
+    st.venue = "stadium";
+    st.levelOffset = climb;
+    st.cpu = floor < 5 ? AILevel::Normal : AILevel::Hard;
+    st.catchMode = 0;
+    st.reward = false;
+    int size = TowerTeamSize(floor);
+    for (int i = 0; i < size; i++) {
+        std::string e = (c.type[0] && pick(2) == 0) ? std::string("random ") + c.type : std::string("random");
+        if (i == size - 1) e += " +2";   // their ace
+        st.team.push_back(e);
+    }
+    if (floor % 5 == 0) {   // every fifth floor is fought in one of the gym arenas
+        static const ArenaKind kGyms[] = {ArenaKind::Rock, ArenaKind::Water, ArenaKind::Electric, ArenaKind::Grass,
+                                          ArenaKind::Poison, ArenaKind::Psychic, ArenaKind::Fire, ArenaKind::Ground};
+        st.arena = kGyms[pick(8)];
+    }
+    return st;
+}
+
 std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamSize) {
     if (!stage && WildActive()) {   // training: the Pokemon that live in the chosen area
         auto t = MakeWildTeam(teamSize, avg);
@@ -659,6 +814,9 @@ std::vector<int> RewardChoices(const std::vector<std::string>& owned, int n, int
 int WinCoins(const StageDef* stage, int lv) {
     if (stage && stage->coins >= 0) return stage->coins;
     if (!stage) return 15 + 3 * lv;
+    if (stage->IsChampion()) return 600 + 25 * lv;
+    if (stage->IsLeague()) return 300 + 20 * lv;
+    if (stage->towerFloor > 0) return (40 + 7 * lv + std::min(stage->towerFloor, 200) * 4) * (stage->towerFloor % 10 == 0 ? 3 : 1);
     if (stage->IsGym()) return 150 + 15 * lv;
     return 30 + 6 * lv;
 }

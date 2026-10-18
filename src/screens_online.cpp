@@ -28,7 +28,8 @@ extern bool gAutoNetInput;
 
 namespace {
 
-constexpr uint32_t PROTOCOL = 8;   // 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect
+constexpr int KIND_TOWER = 250;   // ready kind: the Battle Tower (1 story, 2 training, 3+N rematch stage N)
+constexpr uint32_t PROTOCOL = 9;   // 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower
 constexpr float TICK = 1.0f / 60.0f;
 constexpr int INPUT_DELAY = 2;    // ticks: our own presses take effect this much later (33 ms)
 constexpr int MAX_AHEAD = 15;     // ticks we may run ahead of what the partner has confirmed
@@ -134,10 +135,13 @@ uint64_t DataHash() {
 
 int Other(const Game& g) { return 1 - g.on.me; }
 
+// Which copy of the shared save is newer. Battles fought only ever go up (the story stage can go
+// back when a League run is lost), so they decide first.
 bool MoreProgress(const CoopSave& a, const CoopSave& b) {
+    int fa = a.wins + a.losses + a.trainingWins, fb = b.wins + b.losses + b.trainingWins;
+    if (fa != fb) return fa > fb;
     if (a.storyStage != b.storyStage) return a.storyStage > b.storyStage;
-    if (a.badges.size() != b.badges.size()) return a.badges.size() > b.badges.size();
-    return a.wins + a.losses + a.trainingWins > b.wins + b.losses + b.trainingWins;
+    return a.badges.size() > b.badges.size();
 }
 
 void SendCoop(const CoopSave& c) {
@@ -147,6 +151,7 @@ void SendCoop(const CoopSave& c) {
     w.i32(c.clock);
     for (int p = 0; p < 2; p++) w.i32(c.run[p].kos).i32(c.run[p].damage).i32(c.run[p].caught).i32(c.run[p].mvp).i32(c.run[p].faints).i32(c.run[p].battles);
     w.str(c.trainArea);
+    w.i32(c.towerFloor).i32(c.towerBest).i32(c.towerRuns);
     w.Send();
 }
 
@@ -339,6 +344,10 @@ static void HostMaybeGo(Game& g) {
     int stageIdx = kind == 1 ? std::min(g.coopSave.storyStage, stages - 1) : kind >= 3 ? std::min(kind - 3, stages - 1) : -1;   // 3+: a gym rematch
     bool rare = false;
     int rareSpecies = -1;
+    if (kind == KIND_TOWER) {   // the Battle Tower: the floor and its trainer's seed
+        stageIdx = g.coopSave.towerFloor + 1;
+        rareSpecies = (int)TowerSeedFor(g);
+    }
     if (kind == 2) {
         int every = std::max(1, Story().rareEvery);
         rare = (g.coopSave.trainingWins + 1) % every == 0;
@@ -359,6 +368,8 @@ static void HostMaybeGo(Game& g) {
     g.mode = kind != 2 ? Mode::CoopStory : Mode::CoopTraining;
     g.rareBattle = rare;
     g.rareSpecies = rareSpecies;
+    g.tower = false;
+    if (kind == KIND_TOWER) BeginTowerFloor(g, stageIdx, (uint32_t)rareSpecies);
     o.myReady = o.partnerReady = 0;
     o.picksSent = o.partnerPicksIn = false;
     o.partnerPickView.clear();
@@ -518,6 +529,11 @@ void OnlinePoll(Game& g) {
                 std::string ta = r.str();   // the host picks the training area
                 if (r.ok && g.on.me == 1 && !ta.empty() && ta != g.coopSave.trainArea) { g.coopSave.trainArea = ta; statsChanged = true; }
                 c.trainArea = g.coopSave.trainArea;
+                c.towerFloor = r.i32();
+                c.towerBest = r.i32();
+                c.towerRuns = r.i32();
+                if (r.ok && c.towerBest > g.coopSave.towerBest) { g.coopSave.towerBest = c.towerBest; statsChanged = true; }
+                c.towerBest = std::max(c.towerBest, g.coopSave.towerBest);
                 if (statsChanged) SaveCoop(g.coopSave);
                 if (MoreProgress(c, g.coopSave)) { g.coopSave = c; SaveCoop(g.coopSave); }
                 else if (c.clock > g.coopSave.clock) {   // partner waited: follow their clock
@@ -565,7 +581,9 @@ void OnlinePoll(Game& g) {
                 o.partnerPickView.clear();
                 o.partnerSelCursor = -1;
                 if (g.coopActive >= 0) EnterStoryHub(g);  // close the shop etc. first
-                if (kind != 2) g.screen = Screen::StageIntro;   // the trainer / gym intro first (3+: a rematch)
+                g.tower = false;
+                if (kind == KIND_TOWER) BeginTowerFloor(g, g.stageIdx, (uint32_t)g.rareSpecies);
+                else if (kind != 2) g.screen = Screen::StageIntro;   // the trainer / gym intro first (3+: a rematch)
                 else BeginTeamSelect(g);
             } break;
             case M_PICKS: {

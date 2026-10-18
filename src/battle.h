@@ -450,6 +450,9 @@ private:
     void CheckWeakened(int s);
     void Retire(int s);
     void UpdateField(float dt);
+    void UpdateWisps(float dt);       // Agatha's hall
+    void UpdateStatues(float dt);     // Lance's den
+    void UpdateSpotlight(float dt);   // the Champion's stadium
     void FieldEffectsOn(int s, float dt);
     void ObstacleImpact(Obstacle& o, const HitSpec& h, Vector2 dir, bool physical);
     void ObstaclesInArea(Vector2 c, float r, const HitSpec& h, bool physical, Vector2 fromPos);
@@ -512,4 +515,6 @@ private:
     void DrawObstacle(const Obstacle& o) const;
     void DrawFieldFloor() const;
     void DrawFieldTop() const;
+    void DrawRingRopes(bool front) const;
+    void DrawDragonStatue(const Turret& tu) const;
 };
