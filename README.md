@@ -38,6 +38,22 @@ changes. The build also copies `Pokemon/` and `story.txt` next to the exe. Saves
   and every 10th is a Tower Boss: a gym leader, Elite Four member or the Champion with their own team in
   their own arena. Everyone fights at full health and the Tower never changes your Pokemon's HP; XP and
   coins as usual (bosses triple). A loss ends the run; the best floor is kept. Solo, local and online co-op.
+- **Legendary Pokemon** – the hub's "Legendary Pokemon" item (solo and co-op hubs) lists five one-off
+  boss encounters where they live in the games, with a map marker, their story and how they unlock:
+  Articuno in the Seafoam Islands, Zapdos in the Power Plant and Moltres on Victory Road (all 8 badges),
+  Mewtwo in Cerulean Cave (Champion only), and Mew on Faraway Island (once Mewtwo is caught, a sailor in
+  Vermilion hands over the Old Sea Map). Each is a single boss a few levels above your team (birds: your
+  average +5, at least Lv 50; Mewtwo +3, at least Lv 70; Mew +2) with a huge HP pool that grows with every
+  Pokemon you bring (birds about ×6 solo with 6, ×10 in co-op; Mewtwo ×3.7 / ×5.9; Mew ×3.5 / ×5.5),
+  CPU Hard, and it stands its ground instead of kiting. It fights in its own lair, with hazards that only
+  hit the challengers. In co-op it's 2 on 1. A legendary
+  is never knocked out: at 25% HP it's weakened and the catch starts. Solo you get **3 balls**; in co-op
+  **6, taking turns** (the MVP – whoever dealt more damage – throws balls 1, 3 and 5, the partner 2, 4
+  and 6; no balls = that turn passes). If it's still free after the last ball it flees and the encounter
+  can be tried again from the list. Whoever catches it keeps it and the encounter is closed for good
+  (saved as `legends` in the profile / co-op save; online both games share it). Lower HP = better odds;
+  Mewtwo and Mew are harder to catch, and a Master Ball always works. Legendaries no longer show up as
+  rare training encounters.
 - **HP carry-over and the Healing Center** – HP stays between Story battles. Healing costs about
   3 coins per level for a full heal; reviving costs 6 per level + 10. Coins for a win: trainer
   30 + 6×Lv, gym 150 + 15×Lv, Elite Four 300 + 20×Lv, Champion 600 + 25×Lv, Tower 40 + 7×Lv + 4×floor,
@@ -139,6 +155,16 @@ changes. The build also copies `Pokemon/` and `story.txt` next to the exe. Saves
 | Haunted Hall (Agatha) | Lights out. Three will-o'-wisps rise from the gravestones and drift after the nearest creature that isn't a Ghost: touching one is a Ghost hit (power 32, 25% burn). Ghost types move ×1.15 faster. |
 | Dragon's Den (Lance) | Every 7–9 s a dragon statue's eyes glow for 1.6 s, then it breathes a fan of three Fire shots (power 50, burn chance) at someone. Dragon types get ×1.2 ATK. |
 | Champion's Stadium | A spotlight glides around the floor; whoever stands in it gets ×1.25 ATK and ×1.15 speed. Fireworks, pyrotechnics and the biggest crowd in Kanto. |
+
+| Seafoam Depths (Articuno) | Ice rules (rinks, ice pillars) and endless snow. Every 5 s two hailstones fall on markers near the challengers (Ice 50, 10% freeze). |
+| Power Plant (Zapdos) | Electric coils and rain. Every 4.5 s two lightning bolts strike near the challengers (Electric 55, 30% paralysis). |
+| Moltres's Nest | Victory Road's lava pools under a blazing sun. Every 5 s two burning rocks drop near the challengers (Fire 50, 30% burn). |
+| Cerulean Cave (Mewtwo) | Deep pools slow you, crystal pillars, Mewtwo hurls a psychic boulder every 3.5 s (Psychic 60) and sends a psychic pulse rippling out every 9–12 s. |
+| Faraway Island (Mew) | Jungle: trees and tall grass. Mew teleports to a random patch of grass every 8–11 s, and in the grass it's ×1.1 faster and heals 0.15% HP/s. |
+
+Lair hazards only hit the challengers and stop once the legendary is weakened. A legendary boss is also a
+slightly bigger target (hit radius ×1.25). Catch odds per ball: (8% + up to 30% the lower its HP was when it
+gave up) × the legendary's catch rate (Mewtwo ×0.55, Mew ×0.75), then the ball's bonus as usual.
 
 Arena hazards hit either side, and their damage scales with the battle's average level. The CPU avoids
 harmful zones and seeks helpful ones. Every arena can be picked for Quick Battle / 2 Players in

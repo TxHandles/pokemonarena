@@ -90,6 +90,7 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "box_filter") out.boxFilter = v;
             else if (k == "tower") { std::istringstream ts(v); ts >> out.towerFloor >> out.towerBest >> out.towerRuns; }
             else if (k == "hof") { if (!v.empty()) out.hof.push_back(v); }
+            else if (k == "legends") out.legends = std::max(0, iv);
             else if (k == "wins") out.wins = iv;
             else if (k == "losses") out.losses = iv;
             else if (k == "training_wins") out.trainingWins = iv;
@@ -193,6 +194,7 @@ std::string ProfileToText(const Profile& p) {
     if (!p.boxFilter.empty()) o += "box_filter = " + p.boxFilter + "\n";
     if (p.towerFloor || p.towerBest || p.towerRuns) o += TextFormat("tower = %d %d %d\n", p.towerFloor, p.towerBest, p.towerRuns);
     for (const auto& h : p.hof) o += "hof = " + h + "\n";
+    if (p.legends) o += TextFormat("legends = %d\n", p.legends);
     if (!p.starter.empty()) o += "starter = " + p.starter + "\n";
     std::string bd;
     for (size_t i = 0; i < p.badges.size(); i++) bd += (i ? " | " : "") + p.badges[i];
@@ -431,6 +433,7 @@ bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out) {
         else if (k == "snorlax_who") { std::istringstream rs(v); rs >> out.snorlaxWho[0] >> out.snorlaxWho[1]; }
         else if (k == "dojo_first") out.dojoFirst = iv;
         else if (k == "tower") { std::istringstream ts(v); ts >> out.towerFloor >> out.towerBest >> out.towerRuns; }
+        else if (k == "legends") { std::istringstream ls(v); ls >> out.legends; for (int i = 0; i < 5; i++) ls >> out.legendWho[i]; }
         else if (k == "run1" || k == "run2") {
             CoopSave::RunStats& r = out.run[k == "run2" ? 1 : 0];
             std::istringstream rs(v);
@@ -458,6 +461,7 @@ bool SaveCoop(const CoopSave& c) {
     if (!c.trainArea.empty()) o += "train_area = " + c.trainArea + "\n";
     o += TextFormat("snorlax_who = %d %d\ndojo_first = %d\n", c.snorlaxWho[0], c.snorlaxWho[1], c.dojoFirst);
     o += TextFormat("tower = %d %d %d\n", c.towerFloor, c.towerBest, c.towerRuns);
+    o += TextFormat("legends = %d %d %d %d %d %d\n", c.legends, c.legendWho[0], c.legendWho[1], c.legendWho[2], c.legendWho[3], c.legendWho[4]);
     o += "# leaderboard: KOs, damage, caught, MVP battles, fainted, battles\n";
     for (int p = 0; p < 2; p++)
         o += TextFormat("run%d = %d %d %d %d %d %d\n", p + 1, c.run[p].kos, c.run[p].damage, c.run[p].caught, c.run[p].mvp, c.run[p].faints, c.run[p].battles);

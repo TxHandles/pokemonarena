@@ -13,7 +13,7 @@ enum class Screen {
     ProfileSelect, NameEntry, Starter, StoryHub, MyCreatures, StageIntro,
     RosterPick, Select, Battle, Results,
     StoryResults, Evolve, LearnMove, Reward, Catch, Heal, Map, Shop, DoublesMenu,
-    CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame
+    CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame, Legends, LegendCatch
 };
 
 enum class Mode { Quick, TwoPlayer, Watch, Story, Training, Doubles, CoopStory, CoopTraining };
@@ -138,6 +138,22 @@ struct Game {
     bool tower = false;                     // this battle is a Battle Tower floor (towerFloor)
     int towerFloor = 0;
     uint32_t towerSeed = 0;
+    int legend = -1;                        // this battle is a legendary encounter (legend.h), -1 = not
+    int legendSel = 0;                      // the Legendary Pokemon screen's cursor
+    bool legendCatchPending = false;        // a legendary was weakened: its catch comes next
+    struct LegendCatch {
+        int id = -1, species = -1, level = 1, abSlot = -1, nature = 0;
+        std::vector<std::string> moves;
+        float hpFrac = 0.1f, chance = 0.3f;
+        int order[2] = {0, 1};              // who throws first (the MVP) and second
+        int players = 1;
+        int throwNo = 0, maxThrows = 3;
+        int phase = 0;                      // 0 pick a ball, 1 the throw, 2 its result, 3 the end (caught / fled)
+        float t = 0;
+        bool ok = false, passed = false, boxed = false;
+        int shakes = 0, ballSel = 0, caughtBy = -1;
+        int Thrower() const { return order[throwNo % players]; }
+    } lc;
     bool hofPending = false;                // just became Champion: show the Hall of Fame
     int hofSel = 0;                         // which Hall of Fame entry is shown (0 = newest)
     float hofT = 0;
@@ -296,6 +312,16 @@ bool TwoHumans(const Game& g);       // two people are playing (2 Players, co-op
 bool IsCoop(Mode m);
 void UpdateMap(Game& g);             void DrawMap(const Game& g);
 void UpdateHallOfFame(Game& g);      void DrawHallOfFame(const Game& g);
+void UpdateLegends(Game& g);         void DrawLegends(const Game& g);        // the Legendary Pokemon list
+void UpdateLegendCatch(Game& g, float dt); void DrawLegendCatch(const Game& g);
+void OpenLegends(Game& g);
+void BeginLegend(Game& g, int id);                    // set up the encounter (then its intro)
+bool LegendOpen(const Game& g, int id, std::string* why = nullptr);   // unlocked and not caught yet
+int LegendCaughtBy(const Game& g, int id);            // -1 not caught; else the player who has it (0 alone)
+CombatantSpec LegendBoss(int id, int avgLevel, int brought, bool coop);   // the legendary as a boss for this battle
+void LegendBattleOver(Game& g, const Battle& b, const float damage[2]);   // a won encounter: set up the catch
+void DrawLegendIntro(const Game& g);
+struct StageDef LegendStage(int id);           // a legendary encounter as a stage
 struct StageDef ActiveStage(const Game& g);   // the trainer of the battle being set up (story stage, rematch or Tower floor)
 bool StoryDone(const Game& g);                // the Champion is beaten: the Battle Tower is open
 void BeginTowerFloor(Game& g, int floor, uint32_t seed);   // set up the next Tower battle (then the intro screen)

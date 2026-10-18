@@ -123,6 +123,12 @@ void DrawBadge(const std::string& b, int x, int y, bool have, float r) {
     if (have) DrawRectangle(x - 2, y - 3, 2, 2, Fade(WHITE, 0.8f));
 }
 
+Vector2 StoryMapPoint(int x, int y, int w, int h, float mx, float my) {
+    float sc = std::min(w / gW, h / gH);
+    float ox = x + (w - gW * sc) / 2, oy = y + (h - gH * sc) / 2;
+    return Vector2{ox + mx * sc, oy + my * sc};
+}
+
 void DrawLeagueMark(const StageDef& st, int x, int y, bool beaten, float r) {
     Color c = beaten ? GymColor(st.arena) : Color{70, 64, 86, 255};
     if (st.IsChampion()) {   // a crown

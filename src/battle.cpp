@@ -217,7 +217,7 @@ bool Fighter::CanAct() const {
 }
 
 void Fighter::RecalcHp(bool keepDamage) {
-    int newMax = std::max(1, (int)((Scaled(sp->hp) + 60) * HP_SCALE * StatMul(level)));
+    int newMax = std::max(1, (int)((Scaled(sp->hp) + 60) * HP_SCALE * StatMul(level) * (boss > 0 ? boss : 1.0f)));
     if (keepDamage) hp += newMax - maxHp;
     else hp = (float)newMax;
     maxHp = newMax;
@@ -427,6 +427,7 @@ void Battle::Start(const BattleSetup& su) {
             f.level = std::max(1, std::min(MAX_LEVEL, c.level));
             f.xp = std::max(c.xp, XpForLevel(f.level));
             f.ownedId = c.ownedId;
+            f.boss = c.boss;
             InitAbility(f, c.abilitySlot);
             f.nature = c.nature >= 0 && c.nature < NATURE_COUNT ? c.nature : SimRand(0, NATURE_COUNT - 1);
             f.item = FindItem(c.item);
@@ -640,7 +641,7 @@ void Battle::Update(float dt, const PlayerInput in[2]) {
         else if (d0) winner = 1;
         else if (d1) winner = 0;
         if (winner >= 0) PlaySfx(Sfx::Win);
-        if (winner >= 0 && setup.arena != ArenaKind::Stadium) { Confetti(140); hype = 1; }
+        if (winner >= 0 && setup.arena != ArenaKind::Stadium && !IsLegendArena(setup.arena)) { Confetti(140); hype = 1; }
     } else {
         overT += dt;
     }
@@ -2065,8 +2066,13 @@ void Battle::Faint(int s, int credit) {
         }
         return;
     }
-    if (setup.arena != ArenaKind::Stadium) { Confetti(45); hype = 1; }   // the gym crowd goes wild
     Fighter& t = sides[s].Cur();
+    if (t.boss > 0 && setup.catchable && sides[s].teamId == 1 && !t.retired && t.state == FState::Active) {
+        t.hp = 1;   // a legendary is never knocked out: it's weakened, then it's time to catch it
+        CheckWeakened(s);
+        return;
+    }
+    if (setup.arena != ArenaKind::Stadium && !IsLegendArena(setup.arena)) { Confetti(45); hype = 1; }   // the gym crowd goes wild
     if (t.state == FState::Fainting || t.state == FState::Fainted) return;
     t.hp = 0;
     t.state = FState::Fainting;
@@ -2622,6 +2628,7 @@ Intent Battle::ThinkAI(int s, float dt) {
     Vector2 perp{-dirTo.y * b.strafeSign, dirTo.x * b.strafeSign};
     float sideW = b.strafing ? 0.7f : 0.0f;
     float ideal = IdealRange(f);
+    if (f.boss > 0) ideal = std::min(ideal, 55.0f);   // a legendary stands its ground instead of kiting
 
     Vector2 mv{0, 0};
     if (dist > ideal + 30) mv = dirTo + perp * (sideW * 0.4f);
@@ -3470,4 +3477,7 @@ void Battle::DrawHud() const {
 
 // How big a creature's body is for hits and bumping: its Pokedex size (the same scale its picture
 // is drawn at), so Onix is a big target and Pikachu a small one.
-float HitR(const Fighter& f) { return 9.0f * std::max(0.75f, std::min(1.6f, f.sp->drawScale)); }
+float HitR(const Fighter& f) {
+    float r = 9.0f * std::max(0.75f, std::min(1.6f, f.sp->drawScale));
+    return f.boss > 0 ? r * 1.25f : r;   // a legendary boss is a bigger target
+}

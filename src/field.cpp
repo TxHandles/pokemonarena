@@ -8,9 +8,11 @@ namespace {
 
 const char* kNames[ARENA_COUNT] = {"Stadium", "Stone Gym", "Cascade Gym", "Power Plant Gym", "Greenhouse Gym",
                                    "Swamp Gym", "Trick Room Gym", "Volcano Gym", "Hideout Gym",
-                                   "Frozen Chamber", "Brawler's Ring", "Haunted Hall", "Dragon's Den", "Champion's Stadium"};
+                                   "Frozen Chamber", "Brawler's Ring", "Haunted Hall", "Dragon's Den", "Champion's Stadium",
+                                   "Seafoam Depths", "Power Plant", "Moltres's Nest", "Cerulean Cave", "Faraway Island"};
 const char* kKeys[ARENA_COUNT] = {"stadium", "rock", "water", "electric", "grass", "poison", "psychic", "fire", "ground",
-                                  "ice", "fighting", "ghost", "dragon", "champion"};
+                                  "ice", "fighting", "ghost", "dragon", "champion",
+                                  "seafoam", "powerplant", "ember", "unknown", "faraway"};
 
 float Rf(float a, float b) { return a + (b - a) * (float)SimRand(0, 10000) / 10000.0f; }
 
@@ -86,6 +88,11 @@ const char* ArenaTwist(ArenaKind k) {
         case ArenaKind::Ghost: return "Lights out. Will-o'-wisps drift toward anything that isn't a Ghost and can burn it. Ghost types move faster in the dark.";
         case ArenaKind::Dragon: return "Dragon statues breathe fire across the den - watch the warning glow! Dragon types are stronger here.";
         case ArenaKind::Champion: return "The crowd's spotlight roams the floor: whoever stands in it hits harder and moves faster. Fight for the spotlight!";
+        case ArenaKind::Seafoam: return "Endless snow and frozen currents: rinks send you sliding, and icicles crash down from the cave roof where the markers glow.";
+        case ArenaKind::PowerPlant: return "A thunderstorm inside the plant: tesla coils power up Electric types, puddles conduct, and lightning strikes where the markers glow.";
+        case ArenaKind::Ember: return "Moltres's nest: lava pools spit fire, the sun blazes, and burning rocks rain down where the markers glow.";
+        case ArenaKind::Unknown: return "Mewtwo's cave: deep pools slow you, it hurls boulders with its mind, and its psychic pulse ripples out every few seconds.";
+        case ArenaKind::Faraway: return "Mew's island: it hides and heals in the tall grass, and teleports around the jungle when you corner it.";
         default: return "A classic stadium. No tricks.";
     }
 }
@@ -102,6 +109,32 @@ bool ParseArena(const std::string& s, ArenaKind& out) {
     if (l == "default" || l == "none" || l.empty()) { out = ArenaKind::Stadium; return true; }
     return false;
 }
+
+namespace {
+// Lorelei's / Articuno's frozen rinks (pool = true: Mewtwo's deep pools, water that stays water).
+void AddRinks(Field& f, int rinks, bool pool) {
+    for (int i = 0; i < rinks; i++) {
+        for (int tries = 0; tries < 40; tries++) {
+            Vector2 p{Rf(185, ARENA_W - 185), Rf(50, ARENA_H - 50)};
+            if (i == 0) p = {ARENA_W / 2 + Rf(-30, 30), ARENA_H / 2 + Rf(-30, 30)};
+            float r = i == 0 ? Rf(46, 54) : Rf(30, 40);
+            bool ok = true;
+            for (const Puddle& o : f.puddles) if (Dist2(o.pos, p) < o.maxR + r + 16) ok = false;
+            for (const Obstacle& o : f.obs) if (Dist2(o.pos, p) < o.radius + r + 6) ok = false;
+            if (!ok) continue;
+            Puddle pd;
+            pd.pos = p;
+            pd.r = pd.maxR = r;
+            pd.ice = pool ? 0 : 2;
+            pd.rink = true;
+            pd.thawT = pool ? 1e9f : 0;
+            pd.seed = (uint32_t)SimRand(1, 0x3fffffff);
+            f.puddles.push_back(pd);
+            break;
+        }
+    }
+}
+} // namespace
 
 void Field::Build(ArenaKind k, Venue v, int seasonIn) {
     *this = Field();
@@ -188,6 +221,33 @@ void Field::Build(ArenaKind k, Venue v, int seasonIn) {
             }
             turretT = 10.0f;
         } break;
+        case ArenaKind::Seafoam:
+            AddObstacles(*this, Obstacle::Pillar, 4, 11, 28, 100, 80, 150, ARENA_W - 150);
+            AddRinks(*this, 4, false);
+            strikeT = 4.0f;
+            break;
+        case ArenaKind::PowerPlant:
+            AddObstacles(*this, Obstacle::Coil, 4, 10, 34, 140, 110, 90, ARENA_W - 90, 70, ARENA_H - 70);
+            AddObstacles(*this, Obstacle::Crate, 2, 11, 18, 120, 90);
+            strikeT = 4.0f;
+            break;
+        case ArenaKind::Ember:
+            AddZones(*this, Zone::LavaPool, 6, 22, 38, 80, 100);
+            AddObstacles(*this, Obstacle::Boulder, 4, 8, 12, 60, 60);
+            lavaT = 3.0f;
+            strikeT = 4.0f;
+            break;
+        case ArenaKind::Unknown:
+            AddObstacles(*this, Obstacle::Pillar, 4, 11, 30, 100, 85, 150, ARENA_W - 150);
+            AddRinks(*this, 3, true);
+            strikeT = 3.5f;
+            pulseT = 8.0f;
+            break;
+        case ArenaKind::Faraway:
+            AddZones(*this, Zone::TallGrass, 6, 45, 75, 40, 80);
+            AddObstacles(*this, Obstacle::Tree, 5, 10, 36, 58, 65);
+            blinkT = 9.0f;
+            break;
         case ArenaKind::Ice: {
             AddObstacles(*this, Obstacle::Pillar, 5, 11, 28, 90, 80, 150, ARENA_W - 150);
             int rinks = 4;

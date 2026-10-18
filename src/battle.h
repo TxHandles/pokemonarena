@@ -53,6 +53,7 @@ struct CombatantSpec {
     int owner = 0;               // which player's collection it belongs to (co-op)
     int abilitySlot = -1;        // 0/1 regular, 2 hidden; -1 = pick one at random (CPU creatures)
     int nature = -1;             // natures.h; -1 = random (CPU creatures)
+    float boss = 0;              // > 0: a legendary boss (HP x this, can't be knocked out: it's weakened instead)
 };
 
 // One controller slot in a battle: a player or CPU with its own creatures, one on the field at a time.
@@ -110,6 +111,7 @@ struct Fighter {
     int nMoves = 0;
 
     int maxHp = 1;
+    float boss = 0;                      // legendary boss: HP multiplier (0 = a normal creature)
     float hp = 1;
     float displayHp = 1;
 
@@ -453,6 +455,7 @@ private:
     void UpdateWisps(float dt);       // Agatha's hall
     void UpdateStatues(float dt);     // Lance's den
     void UpdateSpotlight(float dt);   // the Champion's stadium
+    void UpdateLegendField(float dt); // legendary lairs: strikes from above, Mewtwo's pulse, Mew's teleports
     void FieldEffectsOn(int s, float dt);
     void ObstacleImpact(Obstacle& o, const HitSpec& h, Vector2 dir, bool physical);
     void ObstaclesInArea(Vector2 c, float r, const HitSpec& h, bool physical, Vector2 fromPos);

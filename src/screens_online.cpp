@@ -14,6 +14,7 @@
 #include "arena.h"
 #include "audio.h"
 #include "game.h"
+#include "legend.h"
 #include "wild.h"
 #include "net.h"
 #include "net_state.h"
@@ -28,8 +29,9 @@ extern bool gAutoNetInput;
 
 namespace {
 
+constexpr int KIND_LEGEND = 200;  // ready kinds 200..204: a legendary encounter (legend.h)
 constexpr int KIND_TOWER = 250;   // ready kind: the Battle Tower (1 story, 2 training, 3+N rematch stage N)
-constexpr uint32_t PROTOCOL = 9;   // 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower
+constexpr uint32_t PROTOCOL = 10;   // 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower, 10: legendary encounters
 constexpr float TICK = 1.0f / 60.0f;
 constexpr int INPUT_DELAY = 2;    // ticks: our own presses take effect this much later (33 ms)
 constexpr int MAX_AHEAD = 15;     // ticks we may run ahead of what the partner has confirmed
@@ -152,6 +154,8 @@ void SendCoop(const CoopSave& c) {
     for (int p = 0; p < 2; p++) w.i32(c.run[p].kos).i32(c.run[p].damage).i32(c.run[p].caught).i32(c.run[p].mvp).i32(c.run[p].faints).i32(c.run[p].battles);
     w.str(c.trainArea);
     w.i32(c.towerFloor).i32(c.towerBest).i32(c.towerRuns);
+    w.i32(c.legends);
+    for (int i = 0; i < LEGEND_COUNT; i++) w.i32(c.legendWho[i]);
     w.Send();
 }
 
@@ -190,6 +194,8 @@ const char* ActivityName(Screen s) {
         case Screen::Catch: return "catching";
         case Screen::Trade: return "at the trade machine";
         case Screen::Pokedex: return "reading their Pokedex";
+        case Screen::Legends: return "reading about Legendary Pokemon";
+        case Screen::LegendCatch: return "catching a legendary";
         default: return "busy";
     }
 }
@@ -341,7 +347,9 @@ static void HostMaybeGo(Game& g) {
     if (o.me != 0 || o.myReady == 0 || o.myReady != o.partnerReady || g.screen != Screen::CoopHub) return;
     int kind = o.myReady;
     int stages = (int)Story().stages.size();
-    int stageIdx = kind == 1 ? std::min(g.coopSave.storyStage, stages - 1) : kind >= 3 ? std::min(kind - 3, stages - 1) : -1;   // 3+: a gym rematch
+    bool legend = kind >= KIND_LEGEND && kind < KIND_LEGEND + LEGEND_COUNT;   // 200+id: a legendary encounter
+    if (legend && !LegendOpen(g, kind - KIND_LEGEND)) { OnlineSetReady(g, 0); return; }
+    int stageIdx = kind == 1 ? std::min(g.coopSave.storyStage, stages - 1) : (kind >= 3 && !legend && kind != KIND_TOWER) ? std::min(kind - 3, stages - 1) : -1;   // 3+: a gym rematch
     bool rare = false;
     int rareSpecies = -1;
     if (kind == KIND_TOWER) {   // the Battle Tower: the floor and its trainer's seed
@@ -369,7 +377,9 @@ static void HostMaybeGo(Game& g) {
     g.rareBattle = rare;
     g.rareSpecies = rareSpecies;
     g.tower = false;
+    g.legend = -1;
     if (kind == KIND_TOWER) BeginTowerFloor(g, stageIdx, (uint32_t)rareSpecies);
+    if (legend) BeginLegend(g, kind - KIND_LEGEND);
     o.myReady = o.partnerReady = 0;
     o.picksSent = o.partnerPicksIn = false;
     o.partnerPickView.clear();
@@ -386,7 +396,7 @@ static void HostMaybeStartBattle(Game& g) {
     for (int i : o.partnerPicks)
         if (i >= 0 && i < (int)g.roster[1].size()) g.picks[1].push_back(i);
     StartBattleFromSelect(g);   // builds the 2v2 battle (both players' slots are human)
-    W(M_BATTLE).i32(g.stageIdx).u8((int)g.mode).u8(g.rareBattle).i32(g.rareSpecies).str(Compress(SaveBattle(g.battle))).Send();
+    W(M_BATTLE).i32(g.stageIdx).u8((int)g.mode).u8(g.rareBattle).i32(g.rareSpecies).str(Compress(SaveBattle(g.battle))).i32(g.legend).Send();
     BeginOnlineBattle(g);
 }
 
@@ -534,6 +544,20 @@ void OnlinePoll(Game& g) {
                 c.towerRuns = r.i32();
                 if (r.ok && c.towerBest > g.coopSave.towerBest) { g.coopSave.towerBest = c.towerBest; statsChanged = true; }
                 c.towerBest = std::max(c.towerBest, g.coopSave.towerBest);
+                {   // caught legendaries stay caught (whoever caught one keeps it)
+                    int lm = r.i32();
+                    int who[LEGEND_COUNT];
+                    for (int i = 0; i < LEGEND_COUNT; i++) who[i] = r.i32();
+                    if (r.ok)
+                        for (int i = 0; i < LEGEND_COUNT; i++)
+                            if ((lm >> i & 1) && !(g.coopSave.legends >> i & 1)) {
+                                g.coopSave.legends |= 1 << i;
+                                g.coopSave.legendWho[i] = who[i];
+                                statsChanged = true;
+                            }
+                    c.legends = g.coopSave.legends;
+                    for (int i = 0; i < LEGEND_COUNT; i++) c.legendWho[i] = g.coopSave.legendWho[i];
+                }
                 if (statsChanged) SaveCoop(g.coopSave);
                 if (MoreProgress(c, g.coopSave)) { g.coopSave = c; SaveCoop(g.coopSave); }
                 else if (c.clock > g.coopSave.clock) {   // partner waited: follow their clock
@@ -582,7 +606,9 @@ void OnlinePoll(Game& g) {
                 o.partnerSelCursor = -1;
                 if (g.coopActive >= 0) EnterStoryHub(g);  // close the shop etc. first
                 g.tower = false;
+                g.legend = -1;
                 if (kind == KIND_TOWER) BeginTowerFloor(g, g.stageIdx, (uint32_t)g.rareSpecies);
+                else if (kind >= KIND_LEGEND && kind < KIND_LEGEND + LEGEND_COUNT) BeginLegend(g, kind - KIND_LEGEND);
                 else if (kind != 2) g.screen = Screen::StageIntro;   // the trainer / gym intro first (3+: a rematch)
                 else BeginTeamSelect(g);
             } break;
@@ -604,6 +630,8 @@ void OnlinePoll(Game& g) {
                 g.rareBattle = r.u8() != 0;
                 g.rareSpecies = r.i32();
                 std::string st = Decompress(r.str());
+                int lg = r.i32();
+                if (r.ok) g.legend = lg;
                 if (!LoadBattle(st, g.battle)) { OnlineLeave(g, "Couldn't start the online battle (the games don't match)."); return; }
                 BeginOnlineBattle(g);
             } break;

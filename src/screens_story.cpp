@@ -12,6 +12,7 @@
 #include "vec.h"
 #include "storymap.h"
 #include "net.h"
+#include "legend.h"
 
 namespace {
 
@@ -232,6 +233,7 @@ void BeginTowerFloor(Game& g, int floor, uint32_t seed) {
 }
 
 StageDef ActiveStage(const Game& g) {
+    if (g.legend >= 0) return LegendStage(g.legend);
     if (g.tower) return TowerStage(g.towerFloor, g.towerSeed);
     const auto& stages = Story().stages;
     if (stages.empty()) return StageDef();
@@ -269,6 +271,7 @@ void OpenHealingCenter(Game& g) {
 
 void EnterStoryHub(Game& g) {
     g.tower = false;
+    g.legend = -1;
     if (g.coop) {
         if (g.coopActive >= 0) {  // done with one player's Shop / Healing Center / Party & Box
             g.coopP[g.coopActive] = g.profile;
@@ -456,7 +459,7 @@ bool NextTrainingIsRare(const Profile& p) { return NextTrainingIsRare(p.training
 
 void UpdateStoryHub(Game& g) {
     PlayerInput in = MenuInput();
-    const int N = 11;
+    const int N = 12;
     if (in.up) { g.hubSel = (g.hubSel + N - 1) % N; PlaySfx(Sfx::MenuMove); }
     if (in.down) { g.hubSel = (g.hubSel + 1) % N; PlaySfx(Sfx::MenuMove); }
     if (g.hubSel == 1 && (in.left || in.right)) { CycleTrainArea(g, in.left ? -1 : 1); SaveOrWarn(g); return; }
@@ -529,12 +532,25 @@ void UpdateStoryHub(Game& g) {
             g.settingsBack = Screen::StoryHub;
             g.screen = Screen::Settings;
             break;
+        case 10:
+            if (BadgeCount(g) < 8) { Toast(g, "Legends tell of rare Pokemon that only show themselves to trainers with all 8 badges."); break; }
+            OpenLegends(g);
+            break;
         default:
             SaveOrWarn(g);
             GoTitle(g);
             break;
     }
 }
+
+namespace {
+std::string LegendHubLabel(const Game& g) {
+    if (BadgeCount(g) < 8) return "Legendary Pokemon  (8 badges)";
+    int open = 0;
+    for (int i = 0; i < LEGEND_COUNT; i++) open += LegendOpen(g, i) ? 1 : 0;
+    return open ? TextFormat("Legendary Pokemon  (%d waiting)", open) : "Legendary Pokemon";
+}
+} // namespace
 
 void DrawStoryHub(const Game& g) {
     ClearBackground(Color{20, 18, 32, 255});
@@ -565,7 +581,7 @@ void DrawStoryHub(const Game& g) {
     for (const auto& m : p.mons) hurt += m.hp < 0.999f ? 1 : 0;
     int dexCaught = 0;
     for (const auto& sp : AllSpecies()) if (sp.dex > 0 && sp.custom && DexHasCaught(p, sp.name)) dexCaught++;
-    std::string items[11] = {
+    std::string items[12] = {
         done ? TextFormat("Battle Tower: floor %d  (best %d)", p.towerFloor + 1, p.towerBest) : LeagueProgress(p.storyStage) >= 0 ? "Pokemon League" : "Story battle",
         (rare ? "RARE in " : "Training: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
         "Map",
@@ -576,20 +592,22 @@ void DrawStoryHub(const Game& g) {
         IsNight(p.clock) ? "Wait until morning" : "Wait until night",
         "Practice arena",
         "Settings",
+        LegendHubLabel(g),
         "Save and quit",
     };
-    for (int i = 0; i < 11; i++) {
-        int y = 26 + i * 17;
+    for (int i = 0; i < 12; i++) {
+        int y = 26 + i * 16;
         bool sel = g.hubSel == i;
-        DrawPanel(rx, y, rw, 15, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
+        DrawPanel(rx, y, rw, 14, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
         Color c = sel ? UI_GOLD : UI_TEXT;
         if (i == 1 && rare) c = Color{255, 150, 230, 255};
-        DrawText(items[i].c_str(), rx + 8, y + 3, 10, c);
+        if (i == 10) c = BadgeCount(g) < 8 ? UI_DIM : (sel ? UI_GOLD : Color{255, 200, 120, 255});
+        DrawText(items[i].c_str(), rx + 8, y + 2, 10, c);
     }
     DrawTimePanel(p.clock, 402, 30);
 
     // Team
-    int ty = 26 + 11 * 17 + 3;
+    int ty = 26 + 12 * 16 + 3;
     std::vector<const OwnedMon*> party;
     for (const auto& m : p.mons) if (!m.boxed) party.push_back(&m);
     DrawText(TextFormat("Party (%d/%d)", (int)party.size(), PARTY_SIZE), rx, ty, 10, UI_DIM);
@@ -850,6 +868,7 @@ void DrawTowerIntro(const Game& g, const StageDef& st) {
 } // namespace
 
 void DrawStageIntro(const Game& g) {
+    if (g.legend >= 0) { DrawLegendIntro(g); return; }
     const StageDef st = ActiveStage(g);
     if (st.towerFloor > 0 && !st.BigIntro()) { DrawTowerIntro(g, st); return; }
     if (st.BigIntro()) {
@@ -1699,8 +1718,9 @@ void ProcessStoryBattleEnd(Game& g) {
     bool storyBattle = (g.mode == Mode::Story || g.mode == Mode::CoopStory) && g.stageIdx >= 0 && !g.tower;
     bool training = g.mode == Mode::Training || g.mode == Mode::CoopTraining;
     StageDef stv;
-    if (storyBattle || g.tower) stv = ActiveStage(g);
-    const StageDef* st = storyBattle || g.tower ? &stv : nullptr;
+    bool legend = g.legend >= 0;
+    if (storyBattle || g.tower || legend) stv = ActiveStage(g);
+    const StageDef* st = storyBattle || g.tower || legend ? &stv : nullptr;
     if (g.won) {
         // Coins: every player gets their own full share.
         int coins = WinCoins(st, foeLv);
@@ -1719,7 +1739,9 @@ void ProcessStoryBattleEnd(Game& g) {
             badges.push_back(st->badge);
             g.resultLines.push_back(std::string(coop ? "You both earned the " : "You earned the ") + st->badge + " Badge!");
         }
-        if (b.Setup().catchable) {
+        if (legend) {
+            LegendBattleOver(g, b, damage);
+        } else if (b.Setup().catchable) {
             myAvg = myN ? myAvg / myN : foeLv;
             for (const Fighter* fp : foes) {
                 const Fighter& f = *fp;
@@ -1788,6 +1810,7 @@ void ProcessStoryBattleEnd(Game& g) {
         }
     } else {
         losses++;
+        if (legend) g.resultLines.push_back(std::string(Legend(g.legend).species) + " was too strong... Heal up, train and come back to " + Legend(g.legend).place + ".");
         if (storyBattle && g.stageIdx == stage && st->IsLeague() && st->league > 1) {   // the League is one run
             int start = LeagueStartStage();
             if (start >= 0 && start < stage) {
@@ -2257,6 +2280,11 @@ void DrawGift(const Game& g) {
 }
 
 void AdvanceStoryQueues(Game& g) {
+    if (g.legendCatchPending) {   // a weakened legendary: its catch comes first
+        g.legendCatchPending = false;
+        g.screen = Screen::LegendCatch;
+        return;
+    }
     if (g.catchPending) {
         g.catchPending = false;
         g.catchPool = g.catchCands;
@@ -2357,7 +2385,7 @@ void DrawStoryResults(const Game& g) {
     g.battle.Draw(false);
     DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.8f));
     DrawTextCentered(g.won ? "VICTORY!" : "DEFEATED...", VW / 2, 20, 30, g.won ? UI_GOLD : Color{255, 120, 100, 255});
-    if ((g.mode == Mode::Story || g.mode == Mode::CoopStory) && (g.stageIdx >= 0 || g.tower)) {
+    if ((g.mode == Mode::Story || g.mode == Mode::CoopStory) && (g.stageIdx >= 0 || g.tower || g.legend >= 0)) {
         StageDef st = ActiveStage(g);
         DrawTextCentered(g.tower ? TextFormat("Battle Tower floor %d  -  vs %s", g.towerFloor, st.trainer.c_str()) : TextFormat("vs %s", st.trainer.c_str()), VW / 2, 56, 10, UI_TEXT, false);
     }
@@ -2390,6 +2418,7 @@ void DrawStoryResults(const Game& g) {
         DrawTextCentered(l.c_str(), VW / 2, y + 2, 10, Color{140, 230, 255, 255}, false);
         y += 12;
     }
+    if (g.legendCatchPending) { DrawTextCentered(g.coop ? "The legendary is weakened - time to take turns throwing balls!" : "The legendary is weakened - you have 3 balls to catch it!", VW / 2, y + 6, 10, UI_GOLD, false); y += 12; }
     if (g.catchPending) { DrawTextCentered(g.coop ? "Weakened foes are still here - time for the catch draft!" : "A weakened foe is still here - try to catch it!", VW / 2, y + 6, 10, UI_GOLD, false); y += 12; }
     if (!g.evoQueue.empty()) { DrawTextCentered("Something is happening...", VW / 2, y + 8, 10, UI_GOLD, false); y += 14; }
     if (!g.learnQueue.empty()) { DrawTextCentered("A creature wants to learn a new move!", VW / 2, y + 8, 10, UI_GOLD, false); y += 14; }
@@ -3408,7 +3437,7 @@ void UpdateCoopHub(Game& g) {
         if (in.confirm || in.back) { g.showBoard = false; PlaySfx(Sfx::MenuBack); }
         return;
     }
-    const int N = 13;
+    const int N = 14;
     if (in.up) { g.hubSel = (g.hubSel + N - 1) % N; PlaySfx(Sfx::MenuMove); }
     if (in.down) { g.hubSel = (g.hubSel + 1) % N; PlaySfx(Sfx::MenuMove); }
     bool online = g.on.active;
@@ -3529,6 +3558,11 @@ void UpdateCoopHub(Game& g) {
             g.settingsBack = Screen::CoopHub;
             g.screen = Screen::Settings;
             break;
+        case 12:
+            if (BadgeCount(g) < 8) { Toast(g, "Legends tell of rare Pokemon that only show themselves to trainers with all 8 badges."); break; }
+            if (online && g.on.partnerReady >= 200 && g.on.partnerReady < 200 + LEGEND_COUNT) g.legendSel = g.on.partnerReady - 200;   // join their hunt
+            OpenLegends(g);
+            break;
         default:
             leave();
             break;
@@ -3562,11 +3596,12 @@ void DrawCoopHubBase(const Game& g) {
             if (k == 1) return "a Story battle";
             if (k == 250) return "the Battle Tower";
             if (k == 2) return "Training";
+            if (k >= 200 && k < 200 + LEGEND_COUNT) return std::string("to find ") + Legend(k - 200).species;
             int st = k - 3;
             return st >= 0 && st < (int)Story().stages.size() ? "a rematch with " + Story().stages[st].trainer : std::string("a battle");
         };
         std::string mine = o.myReady ? "You want " + kind(o.myReady) + " - waiting for " + pn : "Pick a battle - it starts when you both pick it.";
-        std::string theirs = o.partnerReady ? pn + " wants " + kind(o.partnerReady) + (o.partnerReady >= 3 && o.partnerReady != 250 ? " (open the Map)" : "!")
+        std::string theirs = o.partnerReady ? pn + " wants " + kind(o.partnerReady) + (o.partnerReady >= 200 && o.partnerReady < 250 ? " (open Legendary Pokemon)" : o.partnerReady >= 3 && o.partnerReady != 250 ? " (open the Map)" : "!")
                                             : pn + " is " + (o.partnerActivity.empty() ? "in the hub" : o.partnerActivity) + ".";
         if (o.reconnecting) {
             mine = "Waiting for " + pn + " to come back (Esc leaves the online game).";
@@ -3586,7 +3621,7 @@ void DrawCoopHubBase(const Game& g) {
     int left = every - (g.coopSave.trainingWins % every) - 1;
     const std::string& wn = g.coopP[g.coopWho].name;
     bool partnerTrading = g.on.active && g.on.partnerInTrade;
-    std::string items[13] = {
+    std::string items[14] = {
         done ? TextFormat("Battle Tower 2v2: floor %d  (best %d)", g.coopSave.towerFloor + 1, g.coopSave.towerBest)
              : LeagueProgress(pv.storyStage) >= 0 ? "Pokemon League (2v2)" : "Story battle (2v2)",
         (rare ? "RARE 2v2 in " : "Training 2v2: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
@@ -3600,31 +3635,39 @@ void DrawCoopHubBase(const Game& g) {
         "Leaderboard",
         "Practice arena",
         "Settings",
+        LegendHubLabel(g),
         "Save and quit",
     };
     DrawTimePanel(g.coopSave.clock, 304, 30);
     bool partnerHere = g.on.active && g.on.partnerCursor >= 0 && (g.on.partnerActivity.empty() || g.on.partnerActivity == "in the hub");
-    for (int i = 0; i < 13; i++) {
-        int y = 6 + i * 13;
+    for (int i = 0; i < 14; i++) {
+        int y = 6 + i * 12;
         bool sel = g.hubSel == i;
-        DrawPanel(rx, y, rw, 12, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
+        DrawPanel(rx, y, rw, 11, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
         Color c = sel ? UI_GOLD : UI_TEXT;
         if (i == 1 && rare) c = Color{255, 150, 230, 255};
         if (i == 7 && partnerTrading) c = Color{140, 230, 150, 255};
+        if (i == 12) c = BadgeCount(g) < 8 ? UI_DIM : (sel ? UI_GOLD : Color{255, 200, 120, 255});
         DrawText(items[i].c_str(), rx + 8, y + 1, 10, c);
-        if (g.on.active && (i == 0 || i == 1)) {   // ready count: the battle starts at 2/2
+        if (g.on.active && (i == 0 || i == 1 || i == 12)) {   // ready count: the battle starts at 2/2
             int kind = i == 0 ? (done ? 250 : 1) : 2;
             bool r[2];
-            r[g.on.me] = g.on.myReady == kind;
-            r[1 - g.on.me] = g.on.partnerReady == kind;
+            if (i == 12) {
+                auto lg = [](int k) { return k >= 200 && k < 200 + LEGEND_COUNT; };
+                r[g.on.me] = lg(g.on.myReady);
+                r[1 - g.on.me] = lg(g.on.partnerReady);
+            } else {
+                r[g.on.me] = g.on.myReady == kind;
+                r[1 - g.on.me] = g.on.partnerReady == kind;
+            }
             if (r[0] || r[1]) DrawReadyCount(rx + rw - 2, y, r[0], r[1]);
         }
         if (partnerHere && g.on.partnerCursor == i) {   // where your partner's cursor is
             Color pc = PlayerCol(1 - g.on.me);
-            DrawRectangleLines(rx + 1, y + 1, rw - 2, 11, Fade(pc, 0.9f));
-            DrawRectangle(rx + 1, y + 1, 3, 11, pc);
+            DrawRectangleLines(rx + 1, y + 1, rw - 2, 10, Fade(pc, 0.9f));
+            DrawRectangle(rx + 1, y + 1, 3, 10, pc);
             float bob = std::sin(g.t * 6) * 1.5f;
-            DrawTriangle({rx - 8 + bob, (float)y + 1}, {rx - 8 + bob, (float)y + 11}, {rx - 2 + bob, (float)y + 6}, pc);
+            DrawTriangle({rx - 8 + bob, (float)y + 1}, {rx - 8 + bob, (float)y + 10}, {rx - 2 + bob, (float)y + 5.5f}, pc);
         }
         if (i >= 3 && i <= 6) {
             std::string tag = (sel && !g.on.active) ? "< " + wn + " >" : wn;

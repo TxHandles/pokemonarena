@@ -18,3 +18,5 @@ void DrawBadge(const std::string& badge, int x, int y, bool have, float r = 6.5f
 bool HasBadgePicture(const std::string& badge);
 // An Elite Four member (a diamond in their room's colour) or the Champion (a gold crown).
 void DrawLeagueMark(const struct StageDef& st, int x, int y, bool beaten, float r = 6.5f);
+// Where a map position (story.txt map coordinates) lands when the map is drawn into this box.
+Vector2 StoryMapPoint(int x, int y, int w, int h, float mx, float my);

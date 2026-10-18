@@ -644,6 +644,45 @@ void VenueSurroundings(Image* img, Venue v, int season) {
     }
 }
 
+// A legendary's lair is drawn like a place, not a stadium: its surroundings and its floor.
+Venue LairVenue(ArenaKind k) {
+    switch (k) {
+        case ArenaKind::Seafoam: return Venue::IceCave;
+        case ArenaKind::PowerPlant: return Venue::Hideout;
+        case ArenaKind::Ember: return Venue::Volcano;
+        case ArenaKind::Unknown: return Venue::Cave;
+        case ArenaKind::Faraway: return Venue::Forest;
+        default: return Venue::Stadium;
+    }
+}
+Color LairFloor(ArenaKind k, float wx, float wy) {
+    switch (k) {
+        case ArenaKind::PowerPlant: {   // steel plates, cable channels, warning stripes
+            int tx = (int)(wx / 40), ty = (int)(wy / 40);
+            Color c = ((tx + ty) % 2) ? Color{74, 78, 86, 255} : Color{68, 72, 80, 255};
+            if (std::fmod(wx, 40.0f) < 1.0f || std::fmod(wy, 40.0f) < 1.0f / DEPTH) c = Color{44, 46, 52, 255};
+            if (std::fabs(std::fmod(wy + 20, 120.0f) - 60) < 3) c = Color{40, 40, 44, 255};   // cable channel
+            if (std::fabs(std::fmod(wy + 20, 120.0f) - 60) < 1) c = Color{230, 190, 40, 255};
+            if (wx < 10 || wx > ARENA_W - 10 || wy < 12 || wy > ARENA_H - 12) c = (((int)(wx + wy) / 6) % 2) ? Color{240, 200, 40, 255} : Color{30, 30, 30, 255};
+            return Shade(c, R(100) < 4 ? -12 : 0);
+        }
+        case ArenaKind::Unknown: {   // dark cave rock, violet crystal glints
+            Color c = VenueFloor(Venue::Cave, 1, wx, wy);
+            c = Mix(c, Color{60, 40, 90, 255}, 0.35f);
+            if (R(400) == 0) c = Color{210, 160, 255, 255};
+            return c;
+        }
+        case ArenaKind::Faraway: return VenueFloor(Venue::Forest, 1, wx, wy);
+        case ArenaKind::Seafoam: return VenueFloor(Venue::IceCave, 3, wx, wy);
+        case ArenaKind::Ember: {
+            Color c = VenueFloor(Venue::Volcano, 1, wx, wy);
+            if (Noise(wx * 0.05f + 30, wy * 0.07f) > 0.72f) c = Mix(c, Color{120, 50, 30, 255}, 0.5f);   // scorched ground
+            return c;
+        }
+        default: return Color{100, 100, 100, 255};
+    }
+}
+
 Image BuildImage(ArenaKind kind, const Field* f) {
     Image img = GenImageColor(VW, VH, Color{20, 18, 32, 255});
     Theme th = ThemeFor(kind);
@@ -673,7 +712,14 @@ Image BuildImage(ArenaKind kind, const Field* f) {
 
     Venue venue = f && kind == ArenaKind::Stadium ? f->venue : Venue::Stadium;
     int season = f ? f->season : -1;
-    if (venue != Venue::Stadium) {
+    bool lair = IsLegendArena(kind);
+    if (lair) {
+        gRng = 1357911u + (unsigned)kind * 7919u;
+        VenueSurroundings(&img, LairVenue(kind), kind == ArenaKind::Seafoam ? 3 : 1);
+        for (int sy = FLOOR_Y; sy < FLOOR_BOTTOM; sy++)
+            for (int sx = ARENA_SX; sx < ARENA_SX + (int)ARENA_W; sx++)
+                ImageDrawPixel(&img, sx, sy, LairFloor(kind, (float)(sx - ARENA_SX) + 0.5f, (sy - FLOOR_Y + 0.5f) / DEPTH));
+    } else if (venue != Venue::Stadium) {
         gRng = 7654321u + (unsigned)venue * 104729u;
         VenueSurroundings(&img, venue, season);
         for (int sy = FLOOR_Y; sy < FLOOR_BOTTOM; sy++)
@@ -761,9 +807,16 @@ Image BuildImage(ArenaKind kind, const Field* f) {
             ImageDrawPixel(&img, sx, FLOOR_Y + i, Shade(c, -(36 - i * 6)));
         }
 
-    if (venue != Venue::Stadium) {   // trainer spots, chalked faintly
+    if (venue != Venue::Stadium || lair) {   // trainer spots, chalked faintly
+        Venue vv = lair ? LairVenue(kind) : venue;
+        if (lair) {
+            FloorRing(&img, 120, ARENA_H / 2, 22, Mix(Color{150, 180, 220, 255}, LairFloor(kind, 120, ARENA_H / 2 + 30), 0.55f));
+            FloorRing(&img, ARENA_W - 120, ARENA_H / 2, 22, Mix(Color{225, 150, 150, 255}, LairFloor(kind, ARENA_W - 120, ARENA_H / 2 + 30), 0.55f));
+        } else {
         FloorRing(&img, 120, ARENA_H / 2, 22, Mix(Color{150, 180, 220, 255}, VenueFloor(venue, season, 120, ARENA_H / 2 + 30), 0.55f));
         FloorRing(&img, ARENA_W - 120, ARENA_H / 2, 22, Mix(Color{225, 150, 150, 255}, VenueFloor(venue, season, ARENA_W - 120, ARENA_H / 2 + 30), 0.55f));
+        }
+        (void)vv;
     } else if (kind == ArenaKind::Stadium) {
         const Color line{232, 220, 190, 255};
         for (float wy = 0; wy < ARENA_H; wy += 1.0f) {
@@ -778,7 +831,7 @@ Image BuildImage(ArenaKind kind, const Field* f) {
         FloorRing(&img, ARENA_W - 120, ARENA_H / 2, 22, Mix(Color{225, 150, 150, 255}, FloorBase(kind, 0, FLOOR_Y + 10), 0.3f));
     }
 
-    if (venue != Venue::Stadium) return img;
+    if (venue != Venue::Stadium || lair) return img;
     ImageDrawRectangle(&img, ARENA_SX, FLOOR_Y, (int)ARENA_W, 1, th.trim);
     ImageDrawRectangle(&img, ARENA_SX - 1, FLOOR_Y, 1, FLOOR_BOTTOM - FLOOR_Y, Shade(th.trim, -20));
     ImageDrawRectangle(&img, ARENA_SX + (int)ARENA_W, FLOOR_Y, 1, FLOOR_BOTTOM - FLOOR_Y, Shade(th.trim, -20));
@@ -854,6 +907,11 @@ Color GymColor(ArenaKind k) {
         case ArenaKind::Ghost: return Color{150, 100, 220, 255};
         case ArenaKind::Dragon: return Color{110, 100, 240, 255};
         case ArenaKind::Champion: return Color{250, 205, 70, 255};
+        case ArenaKind::Seafoam: return Color{150, 210, 255, 255};
+        case ArenaKind::PowerPlant: return Color{250, 220, 60, 255};
+        case ArenaKind::Ember: return Color{255, 130, 50, 255};
+        case ArenaKind::Unknown: return Color{190, 120, 255, 255};
+        case ArenaKind::Faraway: return Color{255, 150, 210, 255};
         default: return Color{230, 200, 90, 255};
     }
 }
@@ -981,6 +1039,7 @@ void DrawGymStadium(float time, ArenaKind kind, float hype, int top, int bottom)
 void DrawBattleArena(float time, float hype) {
     if (!gBattleLoaded) { DrawArena(time); return; }
     DrawTexture(gBattleTex, (int)gShake.x, (int)gShake.y, WHITE);
+    if (IsLegendArena(gBattleKind)) return;   // a legendary's lair: no crowd, no torches
     if (gBattleVenue == Venue::Stadium) DrawTorches(time, gBattleKind);
     if (gBattleKind != ArenaKind::Stadium) DrawGymSpectacle(time, gBattleKind, hype);
 }

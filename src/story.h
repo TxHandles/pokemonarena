@@ -23,6 +23,8 @@ struct StageDef {
     std::string venue;              // how a non-gym battle looks ("forest", "cave"...); empty = from the place name
     int league = 0;                 // Pokemon League: 1-4 the Elite Four (in order), 5 the Champion
     int towerFloor = 0;             // > 0: a Battle Tower floor (made by TowerStage, not story.txt)
+    int legend = 0;                 // > 0: legendary encounter id+1 (made by LegendStage)
+    bool IsLegend() const { return legend > 0; }
     bool IsGym() const { return !badge.empty(); }
     bool IsLeague() const { return league > 0; }
     bool IsChampion() const { return league >= 5; }

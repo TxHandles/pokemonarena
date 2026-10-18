@@ -8,7 +8,21 @@
 
 // Arenas. Stadium is the plain one; the rest are the eight gym stadiums.
 enum class ArenaKind { Stadium, Rock, Water, Electric, Grass, Poison, Psychic, Fire, Ground,
-                       Ice, Fighting, Ghost, Dragon, Champion, Count };   // Ice..Champion: the Pokemon League
+                       Ice, Fighting, Ghost, Dragon, Champion,               // the Pokemon League
+                       Seafoam, PowerPlant, Ember, Unknown, Faraway,         // legendary encounters
+                       Count };
+// A legendary's lair plays by an existing arena's rules (plus its own extras): Seafoam = Ice,
+// Power Plant = Electric, Moltres's nest = Fire, Faraway Island = Grass. Cerulean Cave is its own.
+inline ArenaKind ArenaRules(ArenaKind k) {
+    switch (k) {
+        case ArenaKind::Seafoam: return ArenaKind::Ice;
+        case ArenaKind::PowerPlant: return ArenaKind::Electric;
+        case ArenaKind::Ember: return ArenaKind::Fire;
+        case ArenaKind::Faraway: return ArenaKind::Grass;
+        default: return k;
+    }
+}
+inline bool IsLegendArena(ArenaKind k) { return k >= ArenaKind::Seafoam && k < ArenaKind::Count; }
 constexpr int ARENA_COUNT = (int)ArenaKind::Count;
 const char* ArenaName(ArenaKind k);         // "Stone Gym" etc.
 const char* ArenaKey(ArenaKind k);          // "rock" etc. (story.txt)
@@ -125,7 +139,9 @@ struct Field {
     std::vector<Wisp> wisps;         // Ghost hall
     Vector2 spot{0, 0}, spotTo{0, 0};   // Champion's stadium: the roaming spotlight
     float spotT = 0;
+    float strikeT = 0, pulseT = 0, blinkT = 0;   // legendary lairs: falling strikes, Mewtwo's pulse, Mew's teleport
     static constexpr float SPOT_R = 44;
+    ArenaKind Rules() const { return ArenaRules(kind); }
     bool InSpot(Vector2 p) const { float dx = p.x - spot.x, dy = p.y - spot.y; return kind == ArenaKind::Champion && dx * dx + dy * dy < SPOT_R * SPOT_R; }
 
     void Build(ArenaKind k, Venue v = Venue::Stadium, int season = -1);  // random layout

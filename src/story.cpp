@@ -822,6 +822,7 @@ int WinCoins(const StageDef* stage, int lv) {
 }
 
 int PickRareSpecies(const std::vector<std::string>& owned, int teamLevel) {
+    (void)teamLevel;
     if (WildActive()) {   // the rarest finds of the training area
         int r = PickRareWild(owned);
         if (r >= 0) return r;
@@ -829,7 +830,7 @@ int PickRareSpecies(const std::vector<std::string>& owned, int teamLevel) {
     std::vector<int> fresh, all;
     for (int i = 0; i < (int)AllSpecies().size(); i++) {
         if (!AllSpecies()[i].rare || !InSpeciesPool(i)) continue;
-        if (AllSpecies()[i].legendary && teamLevel < LEGENDARY_LEVEL) continue;
+        if (AllSpecies()[i].legendary) continue;   // legendaries live in their own lairs (Legendary Pokemon)
         all.push_back(i);
         bool have = false;
         for (const auto& o : owned) have |= SpeciesIndex(o) == i;

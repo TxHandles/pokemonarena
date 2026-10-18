@@ -95,6 +95,8 @@ int main() {
             case Screen::Fossil: UpdateFossil(g); break;
             case Screen::Gift: UpdateGift(g); break;
             case Screen::HallOfFame: UpdateHallOfFame(g); break;
+            case Screen::Legends: UpdateLegends(g); break;
+            case Screen::LegendCatch: UpdateLegendCatch(g, dt); break;
             case Screen::Revive: UpdateRevive(g); break;
             case Screen::Slots: UpdateSlots(g); break;
             case Screen::CoopSetup: UpdateCoopSetup(g); break;
@@ -137,6 +139,8 @@ int main() {
             case Screen::Fossil: DrawFossil(g); break;
             case Screen::Gift: DrawGift(g); break;
             case Screen::HallOfFame: DrawHallOfFame(g); break;
+            case Screen::Legends: DrawLegends(g); break;
+            case Screen::LegendCatch: DrawLegendCatch(g); break;
             case Screen::Revive: DrawRevive(g); break;
             case Screen::Slots: DrawSlots(g); break;
             case Screen::CoopSetup: DrawCoopSetup(g); break;

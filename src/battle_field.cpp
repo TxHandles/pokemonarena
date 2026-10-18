@@ -74,14 +74,14 @@ void Battle::UpdateField(float dt) {
             }
             if (o.fallT >= 0.7f) { o.alive = false; o.fallT = -1; }
         }
-        if (!o.alive && o.kind == Obstacle::Pillar && (field.kind == ArenaKind::Rock || field.kind == ArenaKind::Ice)) {   // the Stone Gym's pillars (and Lorelei's ice) grow back
+        if (!o.alive && o.kind == Obstacle::Pillar && (field.Rules() == ArenaKind::Rock || field.Rules() == ArenaKind::Ice)) {   // the Stone Gym's pillars (and Lorelei's ice) grow back
             o.respawnT -= dt;
             bool clear = true;
             for (int s = 0; s < N(); s++)
                 if (Dist(sides[s].Cur().pos, o.pos) < o.radius + BODY_R + 4) clear = false;
             if (o.respawnT <= 0 && clear) {
                 o.alive = true;
-                bool ice = field.kind == ArenaKind::Ice;
+                bool ice = field.Rules() == ArenaKind::Ice;
                 Burst(o.pos, ice ? Color{200, 240, 255, 255} : Color{150, 130, 110, 255}, 14, 50, 4);
                 AddText(o.pos, ice ? "The ice pillar froze again!" : "The pillar rises again!", UI_DIM, 36);
             }
@@ -107,7 +107,7 @@ void Battle::UpdateField(float dt) {
         }
     }
 
-    if (field.kind == ArenaKind::Fire && winner < 0 && introT <= 0) {
+    if (field.Rules() == ArenaKind::Fire && winner < 0 && introT <= 0) {
         field.lavaT -= dt;
         std::vector<const Zone*> pools;
         for (const Zone& z : field.zones)
@@ -192,6 +192,7 @@ void Battle::UpdateField(float dt) {
     if (field.kind == ArenaKind::Ghost && live) UpdateWisps(dt);
     if (field.kind == ArenaKind::Dragon && live) UpdateStatues(dt);
     if (field.kind == ArenaKind::Champion) UpdateSpotlight(dt);
+    if (IsLegendArena(field.kind) && live) UpdateLegendField(dt);
 
     for (int s = 0; s < N(); s++) FieldEffectsOn(s, dt);
 }
@@ -281,6 +282,89 @@ void Battle::UpdateStatues(float dt) {
     }
 }
 
+// Legendary lairs: icicles / lightning / burning rocks / boulders fall where the markers glow
+// (only on the challengers), Mewtwo's psychic pulse, and Mew teleporting around its island.
+void Battle::UpdateLegendField(float dt) {
+    int boss = -1;
+    for (int s = 0; s < N(); s++) if (sides[s].teamId == 1) { boss = s; break; }
+    if (boss < 0) return;
+    Fighter& bf = sides[boss].Cur();
+    bool up = bf.state == FState::Active && bf.hp > 0 && !bf.weakened;
+    if (!up) return;
+    struct Strike { Type t; int power; Status st; float chance; int count; float every; float radius; };
+    Strike c{Type::Normal, 0, Status::None, 0, 0, 5, 15};
+    switch (field.kind) {
+        case ArenaKind::Seafoam: c = {Type::Ice, 50, Status::Freeze, 0.1f, 2, 5.0f, 15}; break;
+        case ArenaKind::PowerPlant: c = {Type::Electric, 55, Status::Paralyze, 0.3f, 2, 4.5f, 15}; break;
+        case ArenaKind::Ember: c = {Type::Fire, 50, Status::Burn, 0.3f, 2, 5.0f, 15}; break;
+        case ArenaKind::Unknown: c = {Type::Psychic, 60, Status::None, 0, 1, 3.5f, 18}; break;
+        default: break;
+    }
+    if (c.count > 0) {
+        field.strikeT -= dt;
+        if (field.strikeT <= 0) {
+            field.strikeT = c.every * Frand(0.85f, 1.15f);
+            std::vector<int> foes;
+            for (int s = 0; s < N(); s++) if (sides[s].teamId == 0 && Targetable(s)) foes.push_back(s);
+            for (int k = 0; k < c.count && !foes.empty(); k++) {
+                int ts = foes[SimRand(0, (int)foes.size() - 1)];
+                Projectile p;
+                p.hit = EnvSpec(c.t, c.power, c.st, c.chance);
+                p.hit.side = boss;   // only the challengers get hit
+                p.hit.special = true;
+                p.drop = true;
+                Vector2 at = sides[ts].Cur().pos + Vector2{Frand(-22, 22), Frand(-16, 16)};
+                at.x = std::max(6.0f, std::min(ARENA_W - 6, at.x));
+                at.y = std::max(6.0f, std::min(ARENA_H - 4, at.y));
+                p.target = p.pos = at;
+                p.dur = 1.25f;
+                p.t = -k * 0.3f;
+                p.z = 110;
+                p.radius = c.radius;
+                p.spin = Frand(0, 6);
+                projs.push_back(p);
+            }
+            if (field.kind == ArenaKind::Unknown) AddText(bf.pos, bf.sp->name + " hurls a boulder with its mind!", Color{220, 140, 255, 255}, 30);
+        }
+    }
+    if (field.kind == ArenaKind::Unknown) {   // a psychic pulse ripples out from Mewtwo
+        field.pulseT -= dt;
+        if (field.pulseT <= 0) {
+            field.pulseT = Frand(9.0f, 12.0f);
+            ShockWave w;
+            w.hit = EnvSpec(Type::Psychic, 45);
+            w.hit.side = boss;
+            w.hit.special = true;
+            w.origin = bf.pos;
+            w.maxR = 160;
+            w.speed = 150;
+            waves.push_back(w);
+            AddText(bf.pos, "A wave of psychic power!", Color{220, 140, 255, 255}, 34);
+            Shake(2);
+            PlaySfx(Sfx::Buff);
+        }
+    }
+    if (field.kind == ArenaKind::Faraway) {   // Mew teleports to another patch of tall grass
+        field.blinkT -= dt;
+        if (field.blinkT <= 0) {
+            field.blinkT = Frand(8.0f, 11.0f);
+            std::vector<const Zone*> grass;
+            for (const Zone& z : field.zones) if (z.kind == Zone::TallGrass && Dist(z.pos, bf.pos) > 80) grass.push_back(&z);
+            if (!grass.empty()) {
+                const Zone* z = grass[SimRand(0, (int)grass.size() - 1)];
+                Burst(bf.pos, kPink, 16, 70, 10);
+                bf.pos = z->pos;
+                bf.pendingMove = -1;
+                bf.dashing = false;
+                bf.knock = {0, 0};
+                Burst(bf.pos, kPink, 16, 70, 10);
+                AddText(bf.pos, bf.sp->name + " teleported!", kPink, 34);
+                PlaySfx(Sfx::Shield);
+            }
+        }
+    }
+}
+
 // The Champion's spotlight glides to a new spot every few seconds.
 void Battle::UpdateSpotlight(float dt) {
     field.spotT -= dt;
@@ -306,7 +390,14 @@ void Battle::FieldEffectsOn(int s, float dt) {
     if (f.envTickT <= 0) { f.envTickT = 0.5f; tick = true; }
     int os = AnyFoe(s);
 
-    switch (field.kind) {
+    if (f.boss > 0 && field.kind == ArenaKind::Faraway && field.InZone(f.pos, Zone::TallGrass)) {   // Mew hides in the grass
+        f.envSpeed = 1.1f;
+        if (f.hp < f.maxHp && !f.weakened) {
+            f.regenAcc += f.maxHp * 0.0015f * dt;
+            if (f.regenAcc >= 1) { float a = std::floor(f.regenAcc); f.hp = std::min((float)f.maxHp, f.hp + a); f.regenAcc -= a; }
+        }
+    }
+    switch (field.Rules()) {
         case ArenaKind::Water:
             if (!air && field.IsWater(f.pos)) {
                 f.envSpeed = HasType(sp, Type::Water) ? 1.35f : 0.6f;
@@ -462,7 +553,7 @@ void Battle::FieldEffectsOn(int s, float dt) {
 
 void Battle::ObstacleImpact(Obstacle& o, const HitSpec& h, Vector2 dir, bool physical) {
     if (!o.Blocks()) return;
-    if (field.kind == ArenaKind::Ice && o.kind == Obstacle::Pillar && h.type == Type::Fire && h.power > 0) {
+    if (field.Rules() == ArenaKind::Ice && o.kind == Obstacle::Pillar && h.type == Type::Fire && h.power > 0) {
         o.alive = false;
         o.respawnT = 12.0f;
         for (int k = 0; k < 10; k++)
@@ -925,7 +1016,7 @@ Vector2 Battle::FieldPull(int s) const {
             if (z.kind == k && z.Contains(f.pos, 14)) pull += SafeNorm(f.pos - z.pos, Vector2{0, 1}) * 1.3f;
     };
 
-    switch (field.kind) {
+    switch (field.Rules()) {
         case ArenaKind::Electric: {
             const Obstacle* coil = nullptr;
             float best = 1e9f;
@@ -1024,7 +1115,8 @@ void Battle::DrawObstacle(const Obstacle& o) const {
             // The look depends on where it stands, and its seed picks a variant.
             int style = 0;   // 0 column, 1 broken column, 2 stacked boulders, 3 jagged spire, 4 round boulder
             Venue vn = field.venue;
-            if (field.kind == ArenaKind::Ice) style = 12;
+            if (field.kind == ArenaKind::Unknown) style = 16;
+            else if (field.Rules() == ArenaKind::Ice) style = 12;
             else if (field.kind == ArenaKind::Ghost) style = 10;
             else if (field.kind == ArenaKind::Fighting) style = 2;
             else if (field.kind == ArenaKind::Dragon) style = 15;
@@ -1116,6 +1208,19 @@ void Battle::DrawObstacle(const Obstacle& o) const {
                         DrawLineEx(tp, {a.x + 2, a.y}, 1, il);
                     }
                 } break;
+                case 16: {   // Cerulean Cave: a glowing violet crystal cluster
+                    Color cc{150, 110, 220, 235}, cd{96, 64, 160, 255}, cl{235, 210, 255, 255};
+                    DrawEllipse(x, y + 1, (float)r + 2, (r + 2) * 0.45f, Fade(BLACK, 0.3f));
+                    for (int k = 0; k < 3; k++) {
+                        float ox = (k - 1) * r * 0.6f, hh = h * (k == 1 ? 1.0f : 0.6f + rv(40 + k) * 0.2f);
+                        Vector2 a{(float)x + ox - r * 0.38f, (float)y}, b2{(float)x + ox + r * 0.38f, (float)y}, tp{(float)x + ox + (rv(50 + k) - 0.5f) * 5, (float)y - hh};
+                        DrawTriangle(a, b2, tp, k == 1 ? cc : cd);
+                        DrawLineEx(tp, {a.x + 2, a.y}, 1, cl);
+                    }
+                    VAdd();
+                    VGlow({(float)x, (float)(y - h / 2)}, r + 6, Color{170, 110, 255, 255}, 0.25f + 0.1f * std::sin(time * 3 + o.seed % 7));
+                    VNorm();
+                } break;
                 case 15: {   // Dragon's Den: a dark column with gold bands and a dragon's-eye gem
                     Color dc{70, 56, 90, 255}, dd{44, 34, 60, 255}, dl{110, 92, 136, 255}, gold{230, 186, 70, 255};
                     DrawRectangle(x - r, y - h, r * 2, h, dc);
@@ -1158,7 +1263,7 @@ void Battle::DrawObstacle(const Obstacle& o) const {
             EllipsePix((float)x, (float)(y - h), (float)r, r * 0.45f, dk);
         } break;
         case Obstacle::Boulder: {
-            bool hot = field.kind == ArenaKind::Fire || field.venue == Venue::Volcano;
+            bool hot = field.Rules() == ArenaKind::Fire || field.venue == Venue::Volcano;
             auto rv = [&](int k) { return VRand(o.seed, (uint32_t)k); };
             Color c = hot ? Color{86, 70, 66, 255} : field.venue == Venue::Beach ? Color{150, 146, 140, 255} : Color{120, 112, 104, 255};
             Color dk = ColorBrightness(c, -0.4f), lt = ColorBrightness(c, 0.3f);
@@ -1333,7 +1438,7 @@ void Battle::DrawObstacle(const Obstacle& o) const {
 
 void Battle::DrawFieldFloor() const {
     const float t = time;
-    switch (field.kind) {
+    switch (field.Rules()) {
         case ArenaKind::Water: {
             for (int i = 0; i < 110; i++) {   // wave crests rolling slowly across the pool
                 float h1 = VRand(31, i), h2 = VRand(32, i), h3 = VRand(33, i);
@@ -1539,7 +1644,7 @@ void Battle::DrawFieldTop() const {
             DrawRectangle((int)c.x - 1, (int)c.y - 4, 2, 2, light);
         }
     }
-    if (field.kind == ArenaKind::Electric) {  // arcs from coils to creatures in range
+    if (field.Rules() == ArenaKind::Electric) {  // arcs from coils to creatures in range
         for (const Obstacle& o : field.obs) {
             if (o.kind != Obstacle::Coil || !o.alive) continue;
             for (int s = 0; s < N(); s++) {
