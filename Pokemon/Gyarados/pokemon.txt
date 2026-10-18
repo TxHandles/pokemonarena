@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Gyarados
+dex  = 130
+type = Water / Flying
+placeholder_art = Torrentoad     # borrowed art until sprites are added
+
+hp         = 95
+attack     = 125
+defense    = 79
+sp_attack  = 60
+sp_defense = 100
+speed      = 81
+
+size   = 1.50
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Bite
+learn = 1, Splash
+learn = 1, Flail
+learn = 1, Twister
+learn = 1, Tackle
+learn = 1, Leer
+learn = 4, Whirlpool
+learn = 8, Ice Fang
+learn = 12, Brine
+learn = 16, Scary Face
+learn = 21, Waterfall
+learn = 24, Crunch
+learn = 28, Rain Dance
+learn = 32, Aqua Tail
+learn = 36, Dragon Dance
+learn = 40, Hydro Pump
+learn = 44, Hurricane
+learn = 48, Thrash
+learn = 52, Hyper Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Ice Fang, Water Pulse, Chilling Water
+tm = Facade, Bulldoze, Icy Wind, Dragon Tail, Avalanche, Endure
+tm = Sunny Day, Rain Dance, Sandstorm, Body Slam, Sleep Talk, Waterfall
+tm = Thunder Wave, Rest, Taunt, Dark Pulse, Iron Head, Dragon Dance
+tm = Substitute, Crunch, Dragon Pulse, Surf, Flamethrower, Thunderbolt
+tm = Helping Hand, Ice Beam, Fire Blast, Hydro Pump, Blizzard, Earthquake
+tm = Stone Edge, Giga Impact, Outrage, Hurricane, Hyper Beam, Thunder
+tm = Tera Blast, Roar, Spite, Scald, Lash Out, Scale Shot
+tm = Double-Edge, Endeavor, Temper Flare, Whirlpool, Muddy Water, Dragon Cheer

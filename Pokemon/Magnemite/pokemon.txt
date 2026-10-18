@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Magnemite
+dex  = 81
+type = Electric / Steel
+placeholder_art = Joltelly     # borrowed art until sprites are added
+
+hp         = 25
+attack     = 35
+defense    = 70
+sp_attack  = 95
+sp_defense = 55
+speed      = 45
+
+size   = 0.85
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Magneton
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Thunder Shock
+learn = 1, Tackle
+learn = 4, Supersonic
+learn = 8, Thunder Wave
+learn = 12, Electro Ball
+learn = 16, Gyro Ball
+learn = 20, Spark
+learn = 24, Screech
+learn = 28, Magnet Rise
+learn = 32, Flash Cannon
+learn = 36, Discharge
+learn = 40, Metal Sound
+learn = 44, Light Screen
+learn = 48, Lock-On
+learn = 52, Zap Cannon
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Confuse Ray, Charge Beam, Facade, Swift
+tm = Endure, Volt Switch, Sunny Day, Rain Dance, Sandstorm, Sleep Talk
+tm = Electro Ball, Reflect, Light Screen, Thunder Wave, Rest, Flash Cannon
+tm = Eerie Impulse, Iron Head, Substitute, Iron Defense, Heavy Slam, Thunderbolt
+tm = Helping Hand, Electric Terrain, Wild Charge, Thunder, Steel Beam, Tera Blast
+tm = Charge, Gravity, Gyro Ball, Electroweb, Metal Sound

@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Lapras
+dex  = 131
+type = Water / Ice
+placeholder_art = Ripplit     # borrowed art until sprites are added
+
+hp         = 130
+attack     = 85
+defense    = 80
+sp_attack  = 85
+sp_defense = 95
+speed      = 60
+
+size   = 1.33
+hovers = no
+heavy  = yes
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Growl
+learn = 5, Sing
+learn = 10, Mist
+learn = 15, Life Dew
+learn = 20, Ice Shard
+learn = 25, Confuse Ray
+learn = 30, Water Pulse
+learn = 35, Brine
+learn = 40, Body Slam
+learn = 45, Ice Beam
+learn = 50, Rain Dance
+learn = 55, Hydro Pump
+learn = 60, Perish Song
+learn = 65, Sheer Cold
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Water Pulse, Confuse Ray, Disarming Voice
+tm = Chilling Water, Facade, Bulldoze, Icy Wind, Avalanche, Endure
+tm = Rain Dance, Snowscape, Smart Strike, Zen Headbutt, Body Slam, Sleep Talk
+tm = Reflect, Waterfall, Rest, Body Press, Iron Head, Dragon Dance
+tm = Substitute, Drill Run, Liquidation, Dragon Pulse, Hyper Voice, Psychic
+tm = Surf, Thunderbolt, Helping Hand, Ice Beam, Hydro Pump, Blizzard
+tm = Earthquake, Giga Impact, Outrage, Hyper Beam, Thunder, Tera Blast
+tm = Haze, Icicle Spear, Weather Ball, Double-Edge, Whirlpool, Muddy Water
+tm = Curse, Dragon Cheer, Alluring Voice, Psychic Noise

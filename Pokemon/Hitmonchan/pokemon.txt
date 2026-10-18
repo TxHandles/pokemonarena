@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Hitmonchan
+dex  = 107
+type = Fighting
+placeholder_art = Punchip     # borrowed art until sprites are added
+
+hp         = 50
+attack     = 105
+defense    = 79
+sp_attack  = 35
+sp_defense = 110
+speed      = 76
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Feint
+learn = 1, Helping Hand
+learn = 1, Fake Out
+learn = 1, Tackle
+learn = 1, Focus Energy
+learn = 4, Mach Punch
+learn = 8, Vacuum Wave
+learn = 12, Detect
+learn = 16, Bullet Punch
+learn = 21, Quick Guard
+learn = 24, Thunder Punch
+learn = 24, Fire Punch
+learn = 24, Ice Punch
+learn = 28, Agility
+learn = 32, Mega Punch
+learn = 36, Close Combat
+learn = 40, Counter
+learn = 44, Focus Punch
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Mud-Slap, Scary Face, Protect, Low Kick
+tm = Thief, Trailblaze, Facade, Bulldoze, Swift, Rock Tomb
+tm = Low Sweep, Fling, Endure, Sunny Day, Rain Dance, Brick Break
+tm = Bulk Up, Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk
+tm = Drain Punch, Metronome, Poison Jab, Rest, Rock Slide, Taunt
+tm = Swords Dance, Substitute, Aura Sphere, Encore, Helping Hand, Baton Pass
+tm = Reversal, Earthquake, Stone Edge, Giga Impact, Focus Blast, Close Combat
+tm = Tera Blast, Knock Off, Vacuum Wave, Uproar, Focus Punch, Double-Edge
+tm = Endeavor, Coaching, Throat Chop, Upper Hand

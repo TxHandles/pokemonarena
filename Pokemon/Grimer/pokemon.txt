@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Grimer
+dex  = 88
+type = Poison
+placeholder_art = Toxlug     # borrowed art until sprites are added
+
+hp         = 80
+attack     = 80
+defense    = 50
+sp_attack  = 40
+sp_defense = 50
+speed      = 25
+
+size   = 1.07
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Muk
+evolve_level = 38
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Poison Gas
+learn = 1, Pound
+learn = 4, Harden
+learn = 7, Mud-Slap
+learn = 12, Disable
+learn = 15, Sludge
+learn = 18, Mud Shot
+learn = 21, Minimize
+learn = 26, Toxic
+learn = 29, Sludge Bomb
+learn = 32, Sludge Wave
+learn = 37, Screech
+learn = 40, Gunk Shot
+learn = 43, Acid Armor
+learn = 46, Belch
+learn = 48, Memento
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Acid Spray, Confuse Ray
+tm = Thief, Facade, Hex, Mud Shot, Rock Tomb, Fling
+tm = Venoshock, Endure, Sunny Day, Rain Dance, Sandstorm, Dig
+tm = Zen Headbutt, Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk
+tm = Drain Punch, Metronome, Poison Jab, Rest, Rock Slide, Taunt
+tm = Imprison, Gunk Shot, Substitute, Giga Drain, Shadow Ball, Flamethrower
+tm = Thunderbolt, Helping Hand, Fire Blast, Sludge Bomb, Thunder, Tera Blast
+tm = Haze, Toxic, Pain Split, Sludge Wave, Curse

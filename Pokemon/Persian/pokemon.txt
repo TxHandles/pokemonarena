@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Persian
+dex  = 53
+type = Normal
+placeholder_art = Furbit     # borrowed art until sprites are added
+
+hp         = 65
+attack     = 70
+defense    = 60
+sp_attack  = 65
+sp_defense = 65
+speed      = 115
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Power Gem
+learn = 1, Fake Out
+learn = 1, Scratch
+learn = 1, Growl
+learn = 1, Feint
+learn = 1, Switcheroo
+learn = 12, Pay Day
+learn = 16, Bite
+learn = 20, Taunt
+learn = 24, Assurance
+learn = 31, Fury Swipes
+learn = 36, Screech
+learn = 42, Slash
+learn = 48, Nasty Plot
+learn = 54, Play Rough
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Agility, Protect, Thief
+tm = Trailblaze, Chilling Water, Facade, Aerial Ace, Snarl, Metal Claw
+tm = Swift, Icy Wind, Endure, Sunny Day, Rain Dance, Dig
+tm = False Swipe, U-turn, Shadow Claw, Foul Play, Body Slam, Sleep Talk
+tm = Seed Bomb, Thunder Wave, Rest, Taunt, Dark Pulse, Power Gem
+tm = Gunk Shot, Substitute, Shadow Ball, Hyper Voice, Thunderbolt, Play Rough
+tm = Amnesia, Helping Hand, Nasty Plot, Giga Impact, Hyper Beam, Thunder
+tm = Tera Blast, Roar, Spite, Knock Off, Lash Out, Pain Split
+tm = Psych Up, Double-Edge, Endeavor, Skitter Smack, Throat Chop

@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Kangaskhan
+dex  = 115
+type = Normal
+placeholder_art = Furbit     # borrowed art until sprites are added
+
+hp         = 105
+attack     = 95
+defense    = 80
+sp_attack  = 40
+sp_defense = 80
+speed      = 90
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Pound
+learn = 1, Tail Whip
+learn = 4, Growl
+learn = 8, Fake Out
+learn = 12, Bite
+learn = 16, Stomp
+learn = 20, Focus Energy
+learn = 24, Headbutt
+learn = 28, Sucker Punch
+learn = 32, Double Hit
+learn = 36, Crunch
+learn = 40, Endure
+learn = 44, Reversal
+learn = 48, Outrage
+learn = 52, Last Resort
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Low Kick, Thief, Facade, Bulldoze, Icy Wind
+tm = Rock Tomb, Fling, Avalanche, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, Dig, Brick Break, Shadow Claw, Body Slam, Fire Punch
+tm = Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Rest, Rock Slide
+tm = Substitute, Crunch, Shadow Ball, Surf, Flamethrower, Thunderbolt
+tm = Helping Hand, Reversal, Ice Beam, Fire Blast, Hydro Pump, Blizzard
+tm = Earthquake, Giga Impact, Outrage, Focus Blast, Hyper Beam, Thunder
+tm = Solar Beam, Uproar, Whirlpool

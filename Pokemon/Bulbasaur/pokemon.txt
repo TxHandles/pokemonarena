@@ -1,0 +1,56 @@
+# Bulbasaur - #001
+
+# ---- BASICS -------------------------------------------------------------
+name = Bulbasaur
+dex  = 1
+type = Grass / Poison
+
+# ---- STATS (Pokedex base stats) ----------------------------------------
+hp         = 45
+attack     = 49
+defense    = 49
+sp_attack  = 65
+sp_defense = 65
+speed      = 45
+
+# ---- BODY ----------------------------------------------------------------
+size   = 1.0
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+starter = yes
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Ivysaur
+evolve_level = 16
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Tackle
+learn = 3, Vine Whip
+learn = 6, Growth
+learn = 9, Leech Seed
+learn = 12, Razor Leaf
+learn = 15, Sleep Powder
+learn = 15, Poison Powder
+learn = 18, Seed Bomb
+learn = 21, Take Down
+learn = 24, Sweet Scent
+learn = 27, Synthesis
+learn = 30, Worry Seed
+learn = 33, Power Whip
+learn = 36, Solar Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Acid Spray, Trailblaze, Facade
+tm = Magical Leaf, Venoshock, Endure, Sunny Day, Bullet Seed, False Swipe
+tm = Body Slam, Sleep Talk, Seed Bomb, Grass Knot, Rest, Swords Dance
+tm = Substitute, Giga Drain, Energy Ball, Helping Hand, Grassy Terrain, Grass Pledge
+tm = Sludge Bomb, Leaf Storm, Solar Beam, Tera Blast, Toxic, Knock Off
+tm = Weather Ball, Grassy Glide, Double-Edge, Curse

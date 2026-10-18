@@ -1,0 +1,65 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Vaporeon
+dex  = 134
+type = Water
+placeholder_art = Torrentoad     # borrowed art until sprites are added
+
+hp         = 130
+attack     = 65
+defense    = 60
+sp_attack  = 110
+sp_defense = 95
+speed      = 65
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Water Gun
+learn = 1, Double-Edge
+learn = 1, Covet
+learn = 1, Charm
+learn = 1, Tail Whip
+learn = 1, Swift
+learn = 1, Helping Hand
+learn = 1, Growl
+learn = 1, Copycat
+learn = 1, Tackle
+learn = 1, Take Down
+learn = 1, Bite
+learn = 1, Baton Pass
+learn = 5, Sand Attack
+learn = 10, Quick Attack
+learn = 15, Baby-Doll Eyes
+learn = 20, Haze
+learn = 25, Water Pulse
+learn = 30, Aurora Beam
+learn = 35, Aqua Ring
+learn = 40, Muddy Water
+learn = 45, Acid Armor
+learn = 50, Hydro Pump
+learn = 55, Last Resort
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Mud-Slap, Protect, Water Pulse
+tm = Trailblaze, Chilling Water, Facade, Swift, Icy Wind, Stored Power
+tm = Endure, Sunny Day, Rain Dance, Dig, Body Slam, Sleep Talk
+tm = Waterfall, Rest, Substitute, Liquidation, Shadow Ball, Hyper Voice
+tm = Surf, Calm Mind, Helping Hand, Baton Pass, Ice Beam, Hydro Pump
+tm = Blizzard, Giga Impact, Hyper Beam, Tera Blast, Roar, Haze
+tm = Scald, Weather Ball, Flip Turn, Double-Edge, Whirlpool, Muddy Water
+tm = Curse, Alluring Voice

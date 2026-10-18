@@ -1,0 +1,49 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Pidgey
+dex  = 16
+type = Normal / Flying
+placeholder_art = Gustling     # borrowed art until sprites are added
+
+hp         = 40
+attack     = 45
+defense    = 40
+sp_attack  = 35
+sp_defense = 35
+speed      = 56
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Pidgeotto
+evolve_level = 18
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 5, Sand Attack
+learn = 9, Gust
+learn = 13, Quick Attack
+learn = 17, Whirlwind
+learn = 21, Twister
+learn = 25, Feather Dance
+learn = 29, Agility
+learn = 33, Wing Attack
+learn = 37, Roost
+learn = 41, Tailwind
+learn = 45, Aerial Ace
+learn = 49, Air Slash
+learn = 53, Hurricane
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Aerial Ace, Sunny Day, Rain Dance
+tm = U-turn, Sleep Talk, Rest, Fly, Substitute, Toxic

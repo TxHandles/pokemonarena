@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Machop
+dex  = 66
+type = Fighting
+placeholder_art = Punchip     # borrowed art until sprites are added
+
+hp         = 70
+attack     = 80
+defense    = 50
+sp_attack  = 35
+sp_defense = 35
+speed      = 35
+
+size   = 1.03
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Machoke
+evolve_level = 28
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Low Kick
+learn = 1, Leer
+learn = 4, Focus Energy
+learn = 8, Revenge
+learn = 12, Low Sweep
+learn = 16, Knock Off
+learn = 20, Scary Face
+learn = 24, Vital Throw
+learn = 29, Strength
+learn = 32, Dual Chop
+learn = 36, Bulk Up
+learn = 40, Seismic Toss
+learn = 44, Dynamic Punch
+learn = 48, Cross Chop
+learn = 52, Double-Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Low Kick, Thief, Facade, Bulldoze
+tm = Rock Tomb, Low Sweep, Fling, Endure, Sunny Day, Rain Dance
+tm = Dig, Brick Break, Bulk Up, Body Slam, Fire Punch, Thunder Punch
+tm = Ice Punch, Sleep Talk, Light Screen, Metronome, Poison Jab, Rest
+tm = Rock Slide, Substitute, Heavy Slam, Encore, Flamethrower, Helping Hand
+tm = Reversal, Fire Blast, Earthquake, Focus Blast, Close Combat

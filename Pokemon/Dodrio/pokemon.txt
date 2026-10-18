@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Dodrio
+dex  = 85
+type = Normal / Flying
+placeholder_art = Gustling     # borrowed art until sprites are added
+
+hp         = 60
+attack     = 110
+defense    = 70
+sp_attack  = 60
+sp_defense = 60
+speed      = 110
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Tri Attack
+learn = 1, Growl
+learn = 1, Peck
+learn = 1, Quick Attack
+learn = 12, Fury Attack
+learn = 15, Pluck
+learn = 19, Double Hit
+learn = 23, Agility
+learn = 26, Uproar
+learn = 30, Acupressure
+learn = 34, Swords Dance
+learn = 38, Drill Peck
+learn = 43, Endeavor
+learn = 50, Thrash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Mud-Slap, Scary Face, Protect, Low Kick
+tm = Acrobatics, Thief, Trailblaze, Pounce, Facade, Aerial Ace
+tm = Swift, Endure, Sunny Day, Rain Dance, Body Slam, Sleep Talk
+tm = Stomping Tantrum, Rest, Taunt, Swords Dance, Fly, Substitute
+tm = Drill Run, Tailwind, Helping Hand, Baton Pass, Giga Impact, Hyper Beam
+tm = Brave Bird, Tera Blast, Knock Off, Lunge, Uproar, Double-Edge
+tm = Endeavor, Feather Dance, Throat Chop

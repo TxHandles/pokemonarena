@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Koffing
+dex  = 109
+type = Poison
+placeholder_art = Toxlug     # borrowed art until sprites are added
+
+hp         = 40
+attack     = 65
+defense    = 95
+sp_attack  = 60
+sp_defense = 45
+speed      = 35
+
+size   = 0.96
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Weezing
+evolve_level = 35
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Poison Gas
+learn = 1, Tackle
+learn = 4, Smog
+learn = 8, Smokescreen
+learn = 12, Clear Smog
+learn = 16, Assurance
+learn = 20, Sludge
+learn = 24, Haze
+learn = 28, Self-Destruct
+learn = 32, Sludge Bomb
+learn = 36, Toxic
+learn = 40, Belch
+learn = 44, Explosion
+learn = 48, Memento
+learn = 52, Destiny Bond
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Acid Spray, Psybeam, Thief
+tm = Facade, Venoshock, Endure, Sunny Day, Rain Dance, Body Slam
+tm = Sleep Talk, Rest, Taunt, Toxic Spikes, Dark Pulse, Gunk Shot
+tm = Substitute, Will-O-Wisp, Shadow Ball, Flamethrower, Thunderbolt, Fire Blast
+tm = Sludge Bomb, Thunder, Tera Blast, Haze, Toxic, Spite
+tm = Gyro Ball, Pain Split, Sludge Wave, Curse

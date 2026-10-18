@@ -1,0 +1,56 @@
+# Charmander - #004
+# Sprites: front, back, left, right (2 frames each) + menu portrait.
+
+# ---- BASICS -------------------------------------------------------------
+name = Charmander
+dex  = 4
+type = Fire
+
+# ---- STATS (Pokedex base stats) ----------------------------------------
+hp         = 39
+attack     = 52
+defense    = 43
+sp_attack  = 60
+sp_defense = 50
+speed      = 65
+
+# ---- BODY ----------------------------------------------------------------
+size   = 1.0
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+starter = yes
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Charmeleon
+evolve_level = 16
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Growl
+learn = 4, Ember
+learn = 8, Smokescreen
+learn = 12, Dragon Breath
+learn = 17, Fire Fang
+learn = 20, Slash
+learn = 24, Flamethrower
+learn = 28, Scary Face
+learn = 32, Fire Spin
+learn = 36, Inferno
+learn = 40, Flare Blitz
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Fire Fang, Fire Spin, Facade
+tm = Metal Claw, Swift, Rock Tomb, Flame Charge, Fling, Dragon Tail
+tm = Endure, Sunny Day, Dig, False Swipe, Brick Break, Shadow Claw
+tm = Body Slam, Fire Punch, Thunder Punch, Sleep Talk, Dragon Claw, Rest
+tm = Rock Slide, Swords Dance, Dragon Dance, Substitute, Will-O-Wisp, Crunch
+tm = Dragon Pulse, Heat Wave, Flamethrower, Helping Hand, Fire Blast, Fire Pledge
+tm = Outrage, Overheat, Focus Blast, Flare Blitz, Tera Blast, Roar
+tm = Focus Punch, Weather Ball, Temper Flare, Breaking Swipe

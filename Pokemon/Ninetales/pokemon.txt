@@ -1,0 +1,45 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Ninetales
+dex  = 38
+type = Fire
+placeholder_art = Blazelynx     # borrowed art until sprites are added
+
+hp         = 73
+attack     = 76
+defense    = 75
+sp_attack  = 81
+sp_defense = 100
+speed      = 100
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Quick Attack
+learn = 1, Tail Whip
+learn = 1, Flamethrower
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Agility, Protect, Confuse Ray
+tm = Fire Spin, Facade, Hex, Snarl, Swift, Flame Charge
+tm = Stored Power, Night Shade, Endure, Sunny Day, Psyshock, Dig
+tm = Zen Headbutt, Foul Play, Body Slam, Sleep Talk, Rest, Imprison
+tm = Dark Pulse, Substitute, Will-O-Wisp, Shadow Ball, Heat Wave, Energy Ball
+tm = Encore, Flamethrower, Calm Mind, Helping Hand, Baton Pass, Nasty Plot
+tm = Fire Blast, Giga Impact, Overheat, Hyper Beam, Flare Blitz, Solar Beam
+tm = Tera Blast, Roar, Spite, Weather Ball, Burning Jealousy, Pain Split
+tm = Psych Up, Double-Edge, Scorching Sands

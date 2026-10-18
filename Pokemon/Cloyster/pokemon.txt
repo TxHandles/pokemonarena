@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Cloyster
+dex  = 91
+type = Water / Ice
+placeholder_art = Torrentoad     # borrowed art until sprites are added
+
+hp         = 50
+attack     = 95
+defense    = 180
+sp_attack  = 85
+sp_defense = 45
+speed      = 70
+
+size   = 1.20
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Icicle Spear
+learn = 1, Spikes
+learn = 1, Ice Beam
+learn = 1, Withdraw
+learn = 1, Protect
+learn = 1, Hydro Pump
+learn = 1, Whirlpool
+learn = 1, Water Gun
+learn = 1, Shell Smash
+learn = 1, Toxic Spikes
+learn = 1, Iron Defense
+learn = 1, Aurora Beam
+learn = 1, Leer
+learn = 1, Tackle
+learn = 1, Ice Shard
+learn = 1, Supersonic
+learn = 1, Icicle Crash
+learn = 5, Razor Shell
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Water Pulse, Chilling Water, Facade
+tm = Swift, Icy Wind, Mud Shot, Avalanche, Endure, Rain Dance
+tm = Snowscape, Smart Strike, Body Slam, Sleep Talk, Light Screen, Rock Blast
+tm = Waterfall, Poison Jab, Rest, Spikes, Toxic Spikes, Substitute
+tm = Iron Defense, Drill Run, Liquidation, Surf, Ice Spinner, Helping Hand
+tm = Ice Beam, Hydro Pump, Blizzard, Giga Impact, Hyper Beam, Tera Blast
+tm = Icicle Spear, Weather Ball, Whirlpool

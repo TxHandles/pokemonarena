@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Venomoth
+dex  = 49
+type = Bug / Poison
+placeholder_art = Beetlit     # borrowed art until sprites are added
+
+hp         = 70
+attack     = 65
+defense    = 60
+sp_attack  = 90
+sp_defense = 75
+speed      = 90
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Air Slash
+learn = 1, Quiver Dance
+learn = 1, Disable
+learn = 1, Tackle
+learn = 1, Supersonic
+learn = 11, Confusion
+learn = 13, Poison Powder
+learn = 17, Psybeam
+learn = 23, Stun Spore
+learn = 25, Bug Buzz
+learn = 29, Sleep Powder
+learn = 37, Leech Life
+learn = 41, Zen Headbutt
+learn = 47, Poison Fang
+learn = 55, Psychic
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Acid Spray, Acrobatics, Struggle Bug
+tm = Psybeam, Confuse Ray, Thief, Pounce, Facade, Swift
+tm = Air Cutter, Night Shade, Venoshock, Endure, Sunny Day, Zen Headbutt
+tm = U-turn, Air Slash, Sleep Talk, Rest, Toxic Spikes, Leech Life
+tm = Skill Swap, Substitute, Giga Drain, Energy Ball, Psychic, Baton Pass
+tm = Sludge Bomb, Giga Impact, Bug Buzz, Hyper Beam, Solar Beam, Tera Blast
+tm = Toxic, Bug Bite, Lunge, Double-Edge, Endeavor, Sludge Wave
+tm = Skitter Smack, Psychic Noise

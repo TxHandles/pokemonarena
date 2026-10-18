@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Slowpoke
+dex  = 79
+type = Water / Psychic
+placeholder_art = Ripplit     # borrowed art until sprites are added
+
+hp         = 90
+attack     = 65
+defense    = 65
+sp_attack  = 40
+sp_defense = 40
+speed      = 15
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Slowbro
+evolve_level = 37
+evolve_item = Slowbro, Galarica Cuff
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Curse
+learn = 1, Tackle
+learn = 3, Growl
+learn = 6, Water Gun
+learn = 9, Yawn
+learn = 12, Confusion
+learn = 15, Disable
+learn = 18, Water Pulse
+learn = 21, Headbutt
+learn = 24, Zen Headbutt
+learn = 27, Amnesia
+learn = 30, Surf
+learn = 33, Slack Off
+learn = 36, Psychic
+learn = 39, Psych Up
+learn = 42, Rain Dance
+learn = 45, Heal Pulse
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Water Pulse, Psybeam, Chilling Water, Facade
+tm = Bulldoze, Swift, Icy Wind, Mud Shot, Stored Power, Avalanche
+tm = Endure, Sunny Day, Rain Dance, Snowscape, Psyshock, Dig
+tm = Zen Headbutt, Foul Play, Body Slam, Sleep Talk, Light Screen, Waterfall
+tm = Grass Knot, Thunder Wave, Rest, Imprison, Skill Swap, Substitute
+tm = Trick, Liquidation, Shadow Ball, Psychic, Surf, Flamethrower
+tm = Amnesia, Calm Mind, Helping Hand, Ice Beam, Psychic Terrain, Fire Blast
+tm = Hydro Pump, Blizzard, Earthquake, Trick Room, Tera Blast, Weather Ball
+tm = Psych Up, Whirlpool, Expanding Force, Curse

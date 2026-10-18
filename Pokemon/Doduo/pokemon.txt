@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Doduo
+dex  = 84
+type = Normal / Flying
+placeholder_art = Gustling     # borrowed art until sprites are added
+
+hp         = 35
+attack     = 85
+defense    = 45
+sp_attack  = 35
+sp_defense = 35
+speed      = 75
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Dodrio
+evolve_level = 31
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Peck
+learn = 5, Quick Attack
+learn = 9, Fury Attack
+learn = 14, Pluck
+learn = 19, Double Hit
+learn = 23, Agility
+learn = 27, Uproar
+learn = 30, Acupressure
+learn = 33, Swords Dance
+learn = 36, Drill Peck
+learn = 39, Endeavor
+learn = 43, Thrash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Mud-Slap, Protect, Low Kick, Acrobatics
+tm = Thief, Facade, Aerial Ace, Swift, Endure, Sunny Day
+tm = Rain Dance, Body Slam, Sleep Talk, Rest, Swords Dance, Substitute
+tm = Tailwind, Helping Hand, Baton Pass, Brave Bird, Tera Blast, Knock Off
+tm = Lunge, Uproar, Double-Edge, Endeavor, Feather Dance, Throat Chop

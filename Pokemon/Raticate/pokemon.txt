@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Raticate
+dex  = 20
+type = Normal
+placeholder_art = Furbit     # borrowed art until sprites are added
+
+hp         = 55
+attack     = 81
+defense    = 60
+sp_attack  = 50
+sp_defense = 70
+speed      = 97
+
+size   = 1.00
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scary Face
+learn = 1, Swords Dance
+learn = 1, Tackle
+learn = 1, Focus Energy
+learn = 1, Quick Attack
+learn = 1, Tail Whip
+learn = 10, Bite
+learn = 13, Laser Focus
+learn = 16, Take Down
+learn = 19, Assurance
+learn = 24, Crunch
+learn = 29, Sucker Punch
+learn = 34, Super Fang
+learn = 39, Double-Edge
+learn = 44, Endeavor
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Charge Beam, Facade, Sunny Day, Rain Dance
+tm = U-turn, Sleep Talk, Grass Knot, Thunder Wave, Rest, Taunt
+tm = Swords Dance, Substitute, Shadow Ball, Thunderbolt, Ice Beam, Blizzard
+tm = Wild Charge, Giga Impact, Hyper Beam, Thunder, Roar, Toxic

@@ -1,0 +1,63 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Chansey
+dex  = 113
+type = Normal
+placeholder_art = Furbit     # borrowed art until sprites are added
+
+hp         = 250
+attack     = 5
+defense    = 5
+sp_attack  = 35
+sp_defense = 105
+speed      = 50
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_friendship = Blissey, 160   # a Gen 2 Pokemon: waits until it is added
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Covet
+learn = 1, Charm
+learn = 1, Defense Curl
+learn = 1, Sweet Kiss
+learn = 1, Disarming Voice
+learn = 1, Pound
+learn = 1, Copycat
+learn = 4, Tail Whip
+learn = 8, Echoed Voice
+learn = 12, Life Dew
+learn = 16, Sing
+learn = 20, Fling
+learn = 24, Take Down
+learn = 28, Heal Pulse
+learn = 32, Helping Hand
+learn = 36, Light Screen
+learn = 40, Double-Edge
+learn = 44, Soft-Boiled
+learn = 48, Last Resort
+learn = 52, Healing Wish
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Water Pulse, Thief, Disarming Voice
+tm = Trailblaze, Chilling Water, Facade, Bulldoze, Swift, Icy Wind
+tm = Rock Tomb, Stored Power, Fling, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, Snowscape, Brick Break, Zen Headbutt, Body Slam, Fire Punch
+tm = Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Light Screen, Dazzling Gleam
+tm = Metronome, Grass Knot, Thunder Wave, Stomping Tantrum, Rest, Rock Slide
+tm = Skill Swap, Substitute, Shadow Ball, Stealth Rock, Hyper Voice, Psychic
+tm = Flamethrower, Thunderbolt, Calm Mind, Helping Hand, Ice Beam, Electric Terrain
+tm = Fire Blast, Blizzard, Wild Charge, Earthquake, Giga Impact, Focus Blast
+tm = Hyper Beam, Thunder, Solar Beam, Tera Blast, Gravity, Double-Edge
+tm = Endeavor

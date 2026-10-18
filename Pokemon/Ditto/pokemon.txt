@@ -1,0 +1,35 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Ditto
+dex  = 132
+type = Normal
+placeholder_art = Furbit     # borrowed art until sprites are added
+
+hp         = 48
+attack     = 48
+defense    = 48
+sp_attack  = 48
+sp_defense = 48
+speed      = 48
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Transform
+
+# ---- TM MOVES (none) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+# (it can't learn any TMs)

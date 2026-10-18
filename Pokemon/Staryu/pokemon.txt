@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Staryu
+dex  = 120
+type = Water
+placeholder_art = Ripplit     # borrowed art until sprites are added
+
+hp         = 30
+attack     = 45
+defense    = 55
+sp_attack  = 70
+sp_defense = 55
+speed      = 85
+
+size   = 1.03
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Starmie, Water Stone
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Harden
+learn = 1, Tackle
+learn = 4, Water Gun
+learn = 8, Confuse Ray
+learn = 12, Rapid Spin
+learn = 16, Minimize
+learn = 20, Swift
+learn = 24, Psybeam
+learn = 28, Brine
+learn = 32, Light Screen
+learn = 36, Power Gem
+learn = 40, Psychic
+learn = 44, Surf
+learn = 48, Recover
+learn = 52, Cosmic Power
+learn = 56, Hydro Pump
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Swift, Icy Wind, Endure, Rain Dance
+tm = Sleep Talk, Reflect, Light Screen, Waterfall, Dazzling Gleam, Thunder Wave
+tm = Rest, Flash Cannon, Power Gem, Substitute, Psychic, Surf
+tm = Thunderbolt, Ice Beam, Hydro Pump, Blizzard, Thunder, Gyro Ball
+tm = Scald, Whirlpool

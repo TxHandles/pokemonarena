@@ -1,0 +1,65 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Dragonite
+dex  = 149
+type = Dragon / Flying
+placeholder_art = Drakelet     # borrowed art until sprites are added
+
+hp         = 91
+attack     = 134
+defense    = 95
+sp_attack  = 100
+sp_defense = 100
+speed      = 80
+
+size   = 1.30
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Hurricane
+learn = 1, Wrap
+learn = 1, Thunder Wave
+learn = 1, Extreme Speed
+learn = 1, Wing Attack
+learn = 1, Thunder Punch
+learn = 1, Roost
+learn = 1, Twister
+learn = 1, Fire Punch
+learn = 1, Leer
+learn = 15, Dragon Tail
+learn = 20, Agility
+learn = 25, Slam
+learn = 33, Aqua Tail
+learn = 39, Dragon Rush
+learn = 41, Outrage
+learn = 46, Safeguard
+learn = 53, Rain Dance
+learn = 62, Dragon Dance
+learn = 80, Hyper Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Water Pulse, Low Kick
+tm = Chilling Water, Fire Spin, Facade, Aerial Ace, Bulldoze, Swift
+tm = Icy Wind, Rock Tomb, Air Cutter, Fling, Dragon Tail, Endure
+tm = Sunny Day, Rain Dance, Sandstorm, Snowscape, Brick Break, Air Slash
+tm = Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Light Screen
+tm = Waterfall, Dragon Claw, Metronome, Thunder Wave, Stomping Tantrum, Rest
+tm = Rock Slide, Body Press, Fly, Iron Head, Dragon Dance, Substitute
+tm = Tailwind, Dragon Pulse, Heat Wave, Encore, Surf, Ice Spinner
+tm = Flamethrower, Thunderbolt, Helping Hand, Ice Beam, Fire Blast, Hydro Pump
+tm = Blizzard, Earthquake, Stone Edge, Giga Impact, Outrage, Focus Blast
+tm = Hurricane, Hyper Beam, Thunder, Draco Meteor, Tera Blast, Roar
+tm = Haze, Focus Punch, Weather Ball, Scale Shot, Breaking Swipe, Dragon Cheer

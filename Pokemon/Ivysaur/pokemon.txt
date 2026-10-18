@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Ivysaur
+dex  = 2
+type = Grass / Poison
+
+hp         = 60
+attack     = 62
+defense    = 63
+sp_attack  = 80
+sp_defense = 80
+speed      = 60
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Venusaur
+evolve_level = 32
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growth
+learn = 1, Growl
+learn = 1, Tackle
+learn = 1, Vine Whip
+learn = 9, Leech Seed
+learn = 12, Razor Leaf
+learn = 15, Sleep Powder
+learn = 15, Poison Powder
+learn = 20, Seed Bomb
+learn = 25, Take Down
+learn = 30, Sweet Scent
+learn = 35, Synthesis
+learn = 40, Worry Seed
+learn = 45, Power Whip
+learn = 50, Solar Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Acid Spray, Trailblaze, Facade
+tm = Magical Leaf, Venoshock, Endure, Sunny Day, Bullet Seed, False Swipe
+tm = Body Slam, Sleep Talk, Seed Bomb, Grass Knot, Rest, Swords Dance
+tm = Substitute, Giga Drain, Energy Ball, Helping Hand, Grassy Terrain, Grass Pledge
+tm = Sludge Bomb, Leaf Storm, Solar Beam, Tera Blast, Roar, Toxic
+tm = Knock Off, Weather Ball, Grassy Glide, Double-Edge, Curse

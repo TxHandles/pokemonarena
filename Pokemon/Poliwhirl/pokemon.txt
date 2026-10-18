@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Poliwhirl
+dex  = 61
+type = Water
+placeholder_art = Torrentoad     # borrowed art until sprites are added
+
+hp         = 65
+attack     = 65
+defense    = 65
+sp_attack  = 50
+sp_defense = 50
+speed      = 90
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Poliwrath, Water Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Pound
+learn = 1, Water Gun
+learn = 1, Mud Shot
+learn = 1, Hypnosis
+learn = 18, Bubble Beam
+learn = 24, Rain Dance
+learn = 32, Body Slam
+learn = 40, Earth Power
+learn = 48, Hydro Pump
+learn = 56, Belly Drum
+learn = 66, Double-Edge
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Water Pulse, Low Kick, Thief
+tm = Chilling Water, Facade, Bulldoze, Swift, Icy Wind, Mud Shot
+tm = Low Sweep, Fling, Endure, Rain Dance, Dig, Brick Break
+tm = Body Slam, Ice Punch, Sleep Talk, Waterfall, Metronome, Rest
+tm = Substitute, Liquidation, Psychic, Encore, Surf, Amnesia
+tm = Helping Hand, Earth Power, Ice Beam, Hydro Pump, Blizzard, Earthquake
+tm = Tera Blast, Haze, Focus Punch, Weather Ball, Psych Up, Double-Edge
+tm = Endeavor, Whirlpool, Muddy Water

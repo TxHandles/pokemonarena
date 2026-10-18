@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Clefable
+dex  = 36
+type = Fairy
+placeholder_art = Glimmerbun     # borrowed art until sprites are added
+
+hp         = 95
+attack     = 70
+defense    = 73
+sp_attack  = 95
+sp_defense = 90
+speed      = 60
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Meteor Mash
+learn = 1, Moonblast
+learn = 1, Life Dew
+learn = 1, Metronome
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Protect, Water Pulse, Psybeam
+tm = Thief, Disarming Voice, Chilling Water, Charge Beam, Facade, Swift
+tm = Magical Leaf, Icy Wind, Draining Kiss, Stored Power, Night Shade, Fling
+tm = Endure, Sunny Day, Rain Dance, Psyshock, Dig, Brick Break
+tm = Zen Headbutt, Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk
+tm = Drain Punch, Reflect, Light Screen, Dazzling Gleam, Metronome, Grass Knot
+tm = Thunder Wave, Rest, Imprison, Skill Swap, Substitute, Trick
+tm = Shadow Ball, Stealth Rock, Hyper Voice, Psychic, Encore, Flamethrower
+tm = Thunderbolt, Play Rough, Amnesia, Calm Mind, Helping Hand, Baton Pass
+tm = Ice Beam, Misty Terrain, Fire Blast, Blizzard, Giga Impact, Focus Blast
+tm = Hyper Beam, Thunder, Solar Beam, Tera Blast, Gravity, Knock Off
+tm = Uproar, Focus Punch, Dual Wingbeat, Misty Explosion, Psych Up, Double-Edge
+tm = Endeavor, Future Sight, Meteor Beam, Alluring Voice

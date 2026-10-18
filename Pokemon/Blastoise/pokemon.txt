@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Blastoise
+dex  = 9
+type = Water
+
+hp         = 79
+attack     = 83
+defense    = 100
+sp_attack  = 85
+sp_defense = 105
+speed      = 78
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Flash Cannon
+learn = 1, Withdraw
+learn = 1, Water Gun
+learn = 1, Tackle
+learn = 1, Tail Whip
+learn = 9, Rapid Spin
+learn = 12, Bite
+learn = 15, Water Pulse
+learn = 20, Protect
+learn = 25, Rain Dance
+learn = 30, Aqua Tail
+learn = 35, Shell Smash
+learn = 42, Iron Defense
+learn = 49, Hydro Pump
+learn = 56, Wave Crash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Water Pulse, Chilling Water, Facade
+tm = Icy Wind, Mud Shot, Rock Tomb, Fling, Avalanche, Endure
+tm = Rain Dance, Dig, Brick Break, Zen Headbutt, Body Slam, Ice Punch
+tm = Sleep Talk, Rest, Rock Slide, Body Press, Flash Cannon, Dark Pulse
+tm = Substitute, Iron Defense, Crunch, Liquidation, Aura Sphere, Dragon Pulse
+tm = Surf, Ice Spinner, Helping Hand, Ice Beam, Hydro Pump, Blizzard
+tm = Water Pledge, Earthquake, Giga Impact, Hydro Cannon, Focus Blast, Hyper Beam
+tm = Tera Blast, Roar, Haze, Smack Down, Gyro Ball, Focus Punch
+tm = Weather Ball, Flip Turn, Double-Edge, Whirlpool, Muddy Water

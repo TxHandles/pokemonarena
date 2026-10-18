@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Sandslash
+dex  = 28
+type = Ground
+placeholder_art = Dustadillo     # borrowed art until sprites are added
+
+hp         = 75
+attack     = 100
+defense    = 110
+sp_attack  = 45
+sp_defense = 55
+speed      = 65
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Crush Claw
+learn = 1, Scratch
+learn = 1, Sand Attack
+learn = 1, Poison Sting
+learn = 1, Defense Curl
+learn = 9, Rollout
+learn = 12, Fury Cutter
+learn = 15, Rapid Spin
+learn = 18, Bulldoze
+learn = 21, Swift
+learn = 26, Fury Swipes
+learn = 31, Sand Tomb
+learn = 36, Slash
+learn = 41, Dig
+learn = 46, Gyro Ball
+learn = 51, Swords Dance
+learn = 56, Sandstorm
+learn = 61, Earthquake
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Mud-Slap, Protect, Low Kick, Thief
+tm = Facade, Aerial Ace, Bulldoze, Metal Claw, Swift, Mud Shot
+tm = Rock Tomb, Fling, Endure, Sunny Day, Sandstorm, Dig
+tm = False Swipe, Brick Break, Shadow Claw, Body Slam, Sleep Talk, Poison Jab
+tm = Stomping Tantrum, Rest, Rock Slide, Swords Dance, Spikes, Leech Life
+tm = Gunk Shot, Substitute, X-Scissor, Drill Run, Stealth Rock, Amnesia
+tm = Earth Power, Earthquake, Stone Edge, Giga Impact, Focus Blast, Hyper Beam
+tm = Tera Blast, Sand Tomb, Smack Down, Gyro Ball, Knock Off, Super Fang
+tm = High Horsepower, Focus Punch, Double-Edge, Endeavor, Scorching Sands, Throat Chop
+tm = Curse

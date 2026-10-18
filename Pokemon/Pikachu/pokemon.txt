@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Pikachu
+dex  = 25
+type = Electric
+placeholder_art = Joltelly     # borrowed art until sprites are added
+
+hp         = 35
+attack     = 55
+defense    = 40
+sp_attack  = 50
+sp_defense = 50
+speed      = 90
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Raichu, Thunder Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Charm
+learn = 1, Sweet Kiss
+learn = 1, Tail Whip
+learn = 1, Thunder Shock
+learn = 1, Nasty Plot
+learn = 1, Play Nice
+learn = 1, Growl
+learn = 1, Nuzzle
+learn = 1, Quick Attack
+learn = 4, Thunder Wave
+learn = 8, Double Team
+learn = 12, Electro Ball
+learn = 16, Feint
+learn = 20, Spark
+learn = 24, Agility
+learn = 28, Iron Tail
+learn = 32, Discharge
+learn = 36, Thunderbolt
+learn = 40, Light Screen
+learn = 44, Thunder
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Agility, Protect, Thief
+tm = Disarming Voice, Trailblaze, Charge Beam, Facade, Swift, Draining Kiss
+tm = Fling, Endure, Volt Switch, Rain Dance, Dig, Brick Break
+tm = Body Slam, Thunder Punch, Sleep Talk, Electro Ball, Reflect, Light Screen
+tm = Grass Knot, Thunder Wave, Rest, Eerie Impulse, Substitute, Encore
+tm = Surf, Thunderbolt, Play Rough, Helping Hand, Reversal, Electric Terrain
+tm = Nasty Plot, Wild Charge, Thunder, Tera Blast, Charge, Knock Off
+tm = Focus Punch, Endeavor, Electroweb, Alluring Voice, Upper Hand

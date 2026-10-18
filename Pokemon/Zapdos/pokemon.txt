@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Zapdos
+dex  = 145
+type = Electric / Flying
+placeholder_art = Joltelly     # borrowed art until sprites are added
+
+hp         = 90
+attack     = 90
+defense    = 85
+sp_attack  = 125
+sp_defense = 90
+speed      = 100
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = yes
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Thunder Wave
+learn = 1, Peck
+learn = 5, Thunder Shock
+learn = 10, Light Screen
+learn = 15, Pluck
+learn = 20, Agility
+learn = 25, Ancient Power
+learn = 30, Charge
+learn = 35, Drill Peck
+learn = 40, Roost
+learn = 45, Discharge
+learn = 50, Rain Dance
+learn = 55, Thunder
+learn = 60, Detect
+learn = 65, Magnetic Flux
+learn = 70, Zap Cannon
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Acrobatics, Facade, Aerial Ace
+tm = Swift, Air Cutter, Endure, Volt Switch, Sunny Day, Rain Dance
+tm = Sandstorm, U-turn, Sleep Talk, Electro Ball, Light Screen, Thunder Wave
+tm = Rest, Eerie Impulse, Fly, Substitute, Tailwind, Heat Wave
+tm = Thunderbolt, Helping Hand, Baton Pass, Electric Terrain, Wild Charge, Giga Impact
+tm = Hurricane, Hyper Beam, Brave Bird, Thunder, Tera Blast, Charge
+tm = Weather Ball, Dual Wingbeat, Supercell Slam, Metal Sound

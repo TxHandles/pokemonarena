@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Eevee
+dex  = 133
+type = Normal
+placeholder_art = Furbit     # borrowed art until sprites are added
+
+hp         = 55
+attack     = 55
+defense    = 50
+sp_attack  = 45
+sp_defense = 65
+speed      = 55
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Vaporeon, Water Stone
+evolve_item = Jolteon, Thunder Stone
+evolve_item = Flareon, Fire Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Covet
+learn = 1, Growl
+learn = 1, Tackle
+learn = 1, Helping Hand
+learn = 1, Tail Whip
+learn = 5, Sand Attack
+learn = 10, Quick Attack
+learn = 15, Baby-Doll Eyes
+learn = 20, Swift
+learn = 25, Bite
+learn = 30, Copycat
+learn = 35, Baton Pass
+learn = 40, Take Down
+learn = 45, Charm
+learn = 50, Double-Edge
+learn = 55, Last Resort
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Mud-Slap, Protect, Trailblaze
+tm = Facade, Swift, Stored Power, Endure, Sunny Day, Rain Dance
+tm = Dig, Body Slam, Sleep Talk, Rest, Substitute, Shadow Ball
+tm = Hyper Voice, Calm Mind, Helping Hand, Baton Pass, Tera Blast, Roar
+tm = Weather Ball, Double-Edge, Curse, Alluring Voice

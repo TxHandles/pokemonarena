@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Psyduck
+dex  = 54
+type = Water
+placeholder_art = Ripplit     # borrowed art until sprites are added
+
+hp         = 50
+attack     = 52
+defense    = 48
+sp_attack  = 65
+sp_defense = 50
+speed      = 55
+
+size   = 1.03
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Golduck
+evolve_level = 33
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Tail Whip
+learn = 3, Water Gun
+learn = 6, Confusion
+learn = 9, Fury Swipes
+learn = 12, Water Pulse
+learn = 15, Disable
+learn = 18, Zen Headbutt
+learn = 21, Screech
+learn = 24, Aqua Tail
+learn = 27, Soak
+learn = 30, Psych Up
+learn = 34, Amnesia
+learn = 39, Wonder Room
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Water Pulse, Low Kick, Psybeam, Confuse Ray
+tm = Thief, Trailblaze, Chilling Water, Facade, Swift, Icy Wind
+tm = Mud Shot, Low Sweep, Fling, Endure, Rain Dance, Psyshock
+tm = Dig, Brick Break, Zen Headbutt, Shadow Claw, Body Slam, Ice Punch
+tm = Sleep Talk, Light Screen, Waterfall, Metronome, Rest, Taunt
+tm = Skill Swap, Substitute, Liquidation, Psychic, Encore, Surf
+tm = Amnesia, Calm Mind, Helping Hand, Ice Beam, Nasty Plot, Hydro Pump
+tm = Blizzard, Tera Blast, Haze, Knock Off, Vacuum Wave, Focus Punch
+tm = Flip Turn, Psych Up, Double-Edge, Endeavor, Whirlpool, Muddy Water
+tm = Psychic Noise

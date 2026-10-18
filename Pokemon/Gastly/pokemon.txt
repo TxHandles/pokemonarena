@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Gastly
+dex  = 92
+type = Ghost / Poison
+placeholder_art = Wispurr     # borrowed art until sprites are added
+
+hp         = 30
+attack     = 35
+defense    = 30
+sp_attack  = 100
+sp_defense = 35
+speed      = 80
+
+size   = 1.12
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Haunter
+evolve_level = 25
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Lick
+learn = 1, Confuse Ray
+learn = 4, Hypnosis
+learn = 8, Mean Look
+learn = 12, Payback
+learn = 16, Spite
+learn = 20, Curse
+learn = 24, Hex
+learn = 28, Night Shade
+learn = 32, Sucker Punch
+learn = 36, Dark Pulse
+learn = 40, Shadow Ball
+learn = 44, Destiny Bond
+learn = 48, Dream Eater
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Acid Spray, Confuse Ray, Thief, Facade
+tm = Hex, Icy Wind, Night Shade, Venoshock, Endure, Sunny Day
+tm = Rain Dance, Foul Play, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk
+tm = Dazzling Gleam, Poison Jab, Rest, Taunt, Imprison, Dark Pulse
+tm = Skill Swap, Gunk Shot, Substitute, Will-O-Wisp, Trick, Giga Drain
+tm = Shadow Ball, Energy Ball, Psychic, Thunderbolt, Nasty Plot, Sludge Bomb
+tm = Trick Room, Thunder, Tera Blast, Haze, Toxic, Spite
+tm = Poltergeist, Pain Split, Psych Up, Sludge Wave, Skitter Smack, Curse

@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Exeggutor
+dex  = 103
+type = Grass / Psychic
+placeholder_art = Thornbloom     # borrowed art until sprites are added
+
+hp         = 95
+attack     = 95
+defense    = 85
+sp_attack  = 125
+sp_defense = 75
+speed      = 55
+
+size   = 1.27
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Stomp
+learn = 1, Worry Seed
+learn = 1, Synthesis
+learn = 1, Extrasensory
+learn = 1, Psyshock
+learn = 1, Confusion
+learn = 1, Absorb
+learn = 1, Giga Drain
+learn = 1, Bullet Seed
+learn = 1, Reflect
+learn = 1, Leech Seed
+learn = 1, Mega Drain
+learn = 1, Wood Hammer
+learn = 1, Uproar
+learn = 1, Hypnosis
+learn = 1, Leaf Storm
+learn = 1, Solar Beam
+learn = 1, Seed Bomb
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Low Kick, Psybeam, Thief, Facade
+tm = Bulldoze, Magical Leaf, Stored Power, Endure, Sunny Day, Psyshock
+tm = Bullet Seed, Zen Headbutt, Body Slam, Sleep Talk, Seed Bomb, Reflect
+tm = Light Screen, Grass Knot, Stomping Tantrum, Rest, Swords Dance, Imprison
+tm = Skill Swap, Substitute, Trick, Giga Drain, Energy Ball, Psychic
+tm = Calm Mind, Helping Hand, Grassy Terrain, Psychic Terrain, Sludge Bomb, Earthquake
+tm = Giga Impact, Leaf Storm, Trick Room, Hyper Beam, Solar Beam, Tera Blast
+tm = Gravity, Uproar, Grassy Glide, Psych Up, Double-Edge, Future Sight
+tm = Expanding Force, Curse, Psychic Noise

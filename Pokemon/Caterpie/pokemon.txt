@@ -1,0 +1,36 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Caterpie
+dex  = 10
+type = Bug
+
+hp         = 45
+attack     = 30
+defense    = 35
+sp_attack  = 20
+sp_defense = 20
+speed      = 45
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Metapod
+evolve_level = 7
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, String Shot
+learn = 1, Tackle
+learn = 9, Bug Bite
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Electroweb

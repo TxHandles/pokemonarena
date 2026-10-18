@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Horsea
+dex  = 116
+type = Water
+placeholder_art = Ripplit     # borrowed art until sprites are added
+
+hp         = 30
+attack     = 40
+defense    = 70
+sp_attack  = 70
+sp_defense = 25
+speed      = 60
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Seadra
+evolve_level = 32
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Leer
+learn = 5, Smokescreen
+learn = 10, Twister
+learn = 15, Focus Energy
+learn = 20, Dragon Breath
+learn = 25, Bubble Beam
+learn = 30, Agility
+learn = 35, Water Pulse
+learn = 40, Dragon Pulse
+learn = 45, Hydro Pump
+learn = 50, Dragon Dance
+learn = 55, Rain Dance
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Water Pulse, Chilling Water, Facade, Swift
+tm = Icy Wind, Endure, Rain Dance, Sleep Talk, Waterfall, Rest
+tm = Flash Cannon, Dragon Dance, Substitute, Liquidation, Dragon Pulse, Surf
+tm = Ice Beam, Hydro Pump, Blizzard, Outrage, Tera Blast, Weather Ball
+tm = Flip Turn, Scale Shot, Whirlpool, Muddy Water

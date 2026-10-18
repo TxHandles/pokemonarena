@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Gloom
+dex  = 44
+type = Grass / Poison
+placeholder_art = Thornbloom     # borrowed art until sprites are added
+
+hp         = 60
+attack     = 65
+defense    = 70
+sp_attack  = 85
+sp_defense = 75
+speed      = 40
+
+size   = 1.03
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Vileplume, Leaf Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Absorb
+learn = 1, Growth
+learn = 1, Acid
+learn = 1, Sweet Scent
+learn = 12, Mega Drain
+learn = 14, Poison Powder
+learn = 16, Stun Spore
+learn = 18, Sleep Powder
+learn = 20, Giga Drain
+learn = 26, Toxic
+learn = 32, Moonblast
+learn = 38, Grassy Terrain
+learn = 44, Moonlight
+learn = 50, Petal Dance
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Acid Spray, Trailblaze, Facade, Magical Leaf
+tm = Venoshock, Endure, Sunny Day, Bullet Seed, Sleep Talk, Seed Bomb
+tm = Grass Knot, Rest, Swords Dance, Substitute, Giga Drain, Energy Ball
+tm = Helping Hand, Pollen Puff, Grassy Terrain, Sludge Bomb, Leaf Storm, Solar Beam
+tm = Tera Blast, Toxic, Grassy Glide, Petal Blizzard

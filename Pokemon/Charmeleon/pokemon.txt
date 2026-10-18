@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Charmeleon
+dex  = 5
+type = Fire
+
+hp         = 58
+attack     = 64
+defense    = 58
+sp_attack  = 80
+sp_defense = 65
+speed      = 80
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Charizard
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Growl
+learn = 1, Smokescreen
+learn = 1, Ember
+learn = 12, Dragon Breath
+learn = 19, Fire Fang
+learn = 24, Slash
+learn = 30, Flamethrower
+learn = 37, Scary Face
+learn = 48, Inferno
+learn = 54, Flare Blitz
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Fire Fang, Fire Spin, Facade
+tm = Swift, Rock Tomb, Flame Charge, Fling, Dragon Tail, Endure
+tm = Sunny Day, Dig, False Swipe, Brick Break, Shadow Claw, Body Slam
+tm = Fire Punch, Thunder Punch, Sleep Talk, Dragon Claw, Rest, Rock Slide
+tm = Swords Dance, Dragon Dance, Substitute, Will-O-Wisp, Crunch, Dragon Pulse
+tm = Heat Wave, Flamethrower, Helping Hand, Fire Blast, Fire Pledge, Outrage
+tm = Overheat, Focus Blast, Flare Blitz, Tera Blast, Roar, Focus Punch
+tm = Weather Ball, Temper Flare, Breaking Swipe

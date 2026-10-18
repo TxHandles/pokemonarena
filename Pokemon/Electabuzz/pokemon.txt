@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Electabuzz
+dex  = 125
+type = Electric
+placeholder_art = Joltelly     # borrowed art until sprites are added
+
+hp         = 65
+attack     = 83
+defense    = 57
+sp_attack  = 95
+sp_defense = 85
+speed      = 105
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Thunder Shock
+learn = 1, Charge
+learn = 1, Quick Attack
+learn = 1, Leer
+learn = 12, Swift
+learn = 16, Shock Wave
+learn = 20, Thunder Wave
+learn = 24, Screech
+learn = 28, Thunder Punch
+learn = 34, Discharge
+learn = 40, Low Kick
+learn = 46, Thunderbolt
+learn = 52, Light Screen
+learn = 58, Thunder
+learn = 64, Giga Impact
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Low Kick, Thief, Trailblaze, Charge Beam
+tm = Facade, Swift, Low Sweep, Fling, Endure, Volt Switch
+tm = Rain Dance, Brick Break, Bulk Up, Body Slam, Fire Punch, Thunder Punch
+tm = Ice Punch, Sleep Talk, Electro Ball, Light Screen, Metronome, Thunder Wave
+tm = Rest, Taunt, Eerie Impulse, Substitute, Psychic, Thunderbolt
+tm = Helping Hand, Electric Terrain, Wild Charge, Giga Impact, Focus Blast, Hyper Beam
+tm = Thunder, Tera Blast, Charge, Knock Off, Uproar, Focus Punch
+tm = Double-Edge, Supercell Slam, Electroweb, Metal Sound

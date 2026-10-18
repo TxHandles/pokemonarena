@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Geodude
+dex  = 74
+type = Rock / Ground
+placeholder_art = Pebblor     # borrowed art until sprites are added
+
+hp         = 40
+attack     = 80
+defense    = 100
+sp_attack  = 30
+sp_defense = 30
+speed      = 20
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Graveler
+evolve_level = 25
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Defense Curl
+learn = 6, Rock Polish
+learn = 10, Rollout
+learn = 12, Bulldoze
+learn = 16, Rock Throw
+learn = 18, Smack Down
+learn = 24, Self-Destruct
+learn = 28, Stealth Rock
+learn = 30, Rock Blast
+learn = 34, Earthquake
+learn = 36, Explosion
+learn = 40, Double-Edge
+learn = 42, Stone Edge
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Facade, Bulldoze
+tm = Mud Shot, Rock Tomb, Fling, Endure, Sunny Day, Sandstorm
+tm = Dig, Brick Break, Body Slam, Fire Punch, Thunder Punch, Sleep Talk
+tm = Rock Blast, Metronome, Stomping Tantrum, Rest, Rock Slide, Substitute
+tm = Iron Defense, Stealth Rock, Flamethrower, Earth Power, Fire Blast, Earthquake
+tm = Stone Edge, Tera Blast, Smack Down, Gyro Ball, High Horsepower, Focus Punch
+tm = Double-Edge, Curse

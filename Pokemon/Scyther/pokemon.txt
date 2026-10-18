@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Scyther
+dex  = 123
+type = Bug / Flying
+placeholder_art = Gustling     # borrowed art until sprites are added
+
+hp         = 70
+attack     = 110
+defense    = 80
+sp_attack  = 55
+sp_defense = 80
+speed      = 105
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Quick Attack
+learn = 1, Leer
+learn = 4, Fury Cutter
+learn = 8, False Swipe
+learn = 12, Wing Attack
+learn = 16, Double Team
+learn = 20, Double Hit
+learn = 24, Slash
+learn = 28, Focus Energy
+learn = 32, Agility
+learn = 36, Air Slash
+learn = 40, X-Scissor
+learn = 44, Swords Dance
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Acrobatics, Struggle Bug
+tm = Thief, Trailblaze, Pounce, Facade, Aerial Ace, Swift
+tm = Air Cutter, Endure, Sunny Day, Rain Dance, False Swipe, Brick Break
+tm = U-turn, Air Slash, Sleep Talk, Light Screen, Rest, Swords Dance
+tm = Substitute, X-Scissor, Tailwind, Helping Hand, Baton Pass, Reversal
+tm = Giga Impact, Bug Buzz, Hyper Beam, Close Combat, Tera Blast, Bug Bite
+tm = Vacuum Wave, Lunge, Dual Wingbeat, Skitter Smack

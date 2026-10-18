@@ -1,0 +1,63 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Mr. Mime
+dex  = 122
+type = Psychic / Fairy
+placeholder_art = Mystling     # borrowed art until sprites are added
+
+hp         = 40
+attack     = 45
+defense    = 65
+sp_attack  = 100
+sp_defense = 120
+speed      = 90
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Quick Guard
+learn = 1, Power Swap
+learn = 1, Guard Swap
+learn = 1, Pound
+learn = 1, Copycat
+learn = 1, Wide Guard
+learn = 1, Encore
+learn = 1, Baton Pass
+learn = 12, Confusion
+learn = 16, Role Play
+learn = 20, Protect
+learn = 24, Recycle
+learn = 28, Psybeam
+learn = 32, Mimic
+learn = 36, Reflect
+learn = 36, Light Screen
+learn = 36, Safeguard
+learn = 40, Sucker Punch
+learn = 44, Dazzling Gleam
+learn = 48, Psychic
+learn = 52, Teeter Dance
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Thief, Facade, Magical Leaf, Icy Wind
+tm = Stored Power, Fling, Endure, Sunny Day, Rain Dance, Psyshock
+tm = Brick Break, Zen Headbutt, Foul Play, Body Slam, Fire Punch, Thunder Punch
+tm = Ice Punch, Sleep Talk, Drain Punch, Reflect, Light Screen, Dazzling Gleam
+tm = Metronome, Grass Knot, Thunder Wave, Rest, Taunt, Skill Swap
+tm = Substitute, Iron Defense, Trick, Shadow Ball, Energy Ball, Psychic
+tm = Encore, Thunderbolt, Calm Mind, Helping Hand, Baton Pass, Psychic Terrain
+tm = Misty Terrain, Nasty Plot, Giga Impact, Focus Blast, Trick Room, Hyper Beam
+tm = Thunder, Solar Beam, Uproar, Future Sight

@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Butterfree
+dex  = 12
+type = Bug / Flying
+
+hp         = 60
+attack     = 45
+defense    = 50
+sp_attack  = 90
+sp_defense = 80
+speed      = 70
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Gust
+learn = 1, Harden
+learn = 1, Bug Bite
+learn = 1, Tackle
+learn = 1, String Shot
+learn = 4, Supersonic
+learn = 8, Confusion
+learn = 12, Sleep Powder
+learn = 12, Stun Spore
+learn = 12, Poison Powder
+learn = 16, Psybeam
+learn = 20, Whirlwind
+learn = 24, Air Slash
+learn = 28, Safeguard
+learn = 32, Bug Buzz
+learn = 36, Tailwind
+learn = 40, Rage Powder
+learn = 44, Quiver Dance
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Acrobatics, Thief, Facade, Swift, Draining Kiss
+tm = Venoshock, Endure, Sunny Day, Rain Dance, U-turn, Air Slash
+tm = Sleep Talk, Rest, Skill Swap, Substitute, Iron Defense, Giga Drain
+tm = Shadow Ball, Energy Ball, Psychic, Pollen Puff, Baton Pass, Giga Impact
+tm = Hurricane, Bug Buzz, Hyper Beam, Solar Beam, Electroweb

@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Kabutops
+dex  = 141
+type = Rock / Water
+placeholder_art = Pebblor     # borrowed art until sprites are added
+
+hp         = 60
+attack     = 115
+defense    = 105
+sp_attack  = 65
+sp_defense = 70
+speed      = 80
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Slash
+learn = 1, Harden
+learn = 1, Night Slash
+learn = 1, Absorb
+learn = 1, Scratch
+learn = 1, Feint
+learn = 1, Sand Attack
+learn = 15, Aqua Jet
+learn = 20, Leer
+learn = 25, Mud Shot
+learn = 30, Ancient Power
+learn = 35, Brine
+learn = 43, Protect
+learn = 49, Leech Life
+learn = 56, Liquidation
+learn = 63, Metal Sound
+learn = 70, Stone Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Low Kick, Thief, Facade, Icy Wind, Mud Shot
+tm = Rock Tomb, Endure, Rain Dance, Sandstorm, Dig, Brick Break
+tm = Body Slam, Sleep Talk, Rock Blast, Waterfall, Rest, Rock Slide
+tm = Swords Dance, Leech Life, Substitute, Iron Defense, X-Scissor, Liquidation
+tm = Giga Drain, Stealth Rock, Surf, Earth Power, Ice Beam, Hydro Pump
+tm = Blizzard, Stone Edge, Giga Impact, Hyper Beam, Scald, Whirlpool

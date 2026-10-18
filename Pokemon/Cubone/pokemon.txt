@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Cubone
+dex  = 104
+type = Ground
+placeholder_art = Dustadillo     # borrowed art until sprites are added
+
+hp         = 50
+attack     = 50
+defense    = 95
+sp_attack  = 40
+sp_defense = 50
+speed      = 35
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Marowak
+evolve_level = 28
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Mud-Slap
+learn = 1, Growl
+learn = 4, Tail Whip
+learn = 8, False Swipe
+learn = 12, Headbutt
+learn = 16, Retaliate
+learn = 20, Fling
+learn = 24, Stomping Tantrum
+learn = 29, Bone Rush
+learn = 32, Focus Energy
+learn = 36, Endeavor
+learn = 40, Bonemerang
+learn = 44, Thrash
+learn = 48, Double-Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Low Kick, Thief, Facade, Bulldoze, Swift
+tm = Icy Wind, Rock Tomb, Fling, Endure, Sunny Day, Sandstorm
+tm = Dig, False Swipe, Brick Break, Body Slam, Fire Punch, Thunder Punch
+tm = Sleep Talk, Stomping Tantrum, Rest, Rock Slide, Swords Dance, Iron Head
+tm = Substitute, Iron Defense, Stealth Rock, Flamethrower, Earth Power, Ice Beam
+tm = Fire Blast, Blizzard, Earthquake, Uproar

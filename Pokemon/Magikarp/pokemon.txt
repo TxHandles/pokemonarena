@@ -1,0 +1,37 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Magikarp
+dex  = 129
+type = Water
+placeholder_art = Ripplit     # borrowed art until sprites are added
+
+hp         = 20
+attack     = 10
+defense    = 55
+sp_attack  = 15
+sp_defense = 20
+speed      = 80
+
+size   = 1.07
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Gyarados
+evolve_level = 20
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Splash
+learn = 15, Tackle
+learn = 25, Flail
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Hydro Pump

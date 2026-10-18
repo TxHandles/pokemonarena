@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Articuno
+dex  = 144
+type = Ice / Flying
+placeholder_art = Yetiny     # borrowed art until sprites are added
+
+hp         = 90
+attack     = 85
+defense    = 100
+sp_attack  = 95
+sp_defense = 125
+speed      = 85
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = yes
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Gust
+learn = 1, Mist
+learn = 5, Powder Snow
+learn = 10, Reflect
+learn = 15, Ice Shard
+learn = 20, Agility
+learn = 25, Ancient Power
+learn = 30, Tailwind
+learn = 35, Freeze-Dry
+learn = 40, Roost
+learn = 45, Ice Beam
+learn = 50, Snowscape
+learn = 55, Hurricane
+learn = 60, Haze
+learn = 65, Blizzard
+learn = 70, Sheer Cold
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Water Pulse, Facade, Aerial Ace
+tm = Swift, Icy Wind, Air Cutter, Avalanche, Endure, Sunny Day
+tm = Rain Dance, Sandstorm, Snowscape, U-turn, Air Slash, Sleep Talk
+tm = Reflect, Light Screen, Rest, Fly, Substitute, Tailwind
+tm = Ice Spinner, Helping Hand, Ice Beam, Blizzard, Giga Impact, Hurricane
+tm = Hyper Beam, Brave Bird, Tera Blast, Roar, Haze, Icicle Spear
+tm = Weather Ball, Dual Wingbeat, Double-Edge, Triple Axel, Feather Dance

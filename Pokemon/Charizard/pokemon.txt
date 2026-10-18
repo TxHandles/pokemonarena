@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Charizard
+dex  = 6
+type = Fire / Flying
+
+hp         = 78
+attack     = 84
+defense    = 78
+sp_attack  = 109
+sp_defense = 85
+speed      = 100
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Air Slash
+learn = 1, Scratch
+learn = 1, Dragon Claw
+learn = 1, Heat Wave
+learn = 1, Growl
+learn = 1, Smokescreen
+learn = 1, Ember
+learn = 12, Dragon Breath
+learn = 19, Fire Fang
+learn = 24, Slash
+learn = 30, Flamethrower
+learn = 39, Scary Face
+learn = 46, Fire Spin
+learn = 54, Inferno
+learn = 62, Flare Blitz
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Fire Fang, Acrobatics, Fire Spin
+tm = Facade, Aerial Ace, Bulldoze, Swift, Rock Tomb, Flame Charge
+tm = Air Cutter, Fling, Dragon Tail, Endure, Sunny Day, Sandstorm
+tm = Dig, Brick Break, Shadow Claw, Air Slash, Body Slam, Fire Punch
+tm = Thunder Punch, Sleep Talk, Dragon Claw, Rest, Rock Slide, Swords Dance
+tm = Fly, Dragon Dance, Substitute, Will-O-Wisp, Crunch, Dragon Pulse
+tm = Heat Wave, Flamethrower, Helping Hand, Fire Blast, Fire Pledge, Earthquake
+tm = Giga Impact, Blast Burn, Outrage, Overheat, Focus Blast, Hurricane
+tm = Hyper Beam, Flare Blitz, Solar Beam, Tera Blast, Roar, Heat Crash
+tm = Focus Punch, Weather Ball, Double-Edge, Temper Flare, Scorching Sands, Breaking Swipe
+tm = Dragon Cheer

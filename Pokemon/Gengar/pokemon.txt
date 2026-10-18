@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Gengar
+dex  = 94
+type = Ghost / Poison
+placeholder_art = Wispurr     # borrowed art until sprites are added
+
+hp         = 60
+attack     = 65
+defense    = 60
+sp_attack  = 130
+sp_defense = 75
+speed      = 110
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Reflect Type
+learn = 1, Lick
+learn = 1, Perish Song
+learn = 1, Mean Look
+learn = 1, Confuse Ray
+learn = 1, Shadow Punch
+learn = 1, Hypnosis
+learn = 12, Payback
+learn = 16, Spite
+learn = 20, Curse
+learn = 24, Hex
+learn = 30, Night Shade
+learn = 36, Sucker Punch
+learn = 42, Dark Pulse
+learn = 48, Shadow Ball
+learn = 54, Destiny Bond
+learn = 60, Dream Eater
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Acid Spray, Confuse Ray, Thief, Facade
+tm = Hex, Icy Wind, Night Shade, Fling, Venoshock, Endure
+tm = Sunny Day, Rain Dance, Brick Break, Shadow Claw, Foul Play, Body Slam
+tm = Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Dazzling Gleam
+tm = Metronome, Thunder Wave, Poison Jab, Rest, Taunt, Toxic Spikes
+tm = Imprison, Dark Pulse, Skill Swap, Gunk Shot, Substitute, Will-O-Wisp
+tm = Trick, Giga Drain, Shadow Ball, Energy Ball, Psychic, Encore
+tm = Thunderbolt, Nasty Plot, Sludge Bomb, Phantom Force, Giga Impact, Focus Blast
+tm = Trick Room, Hyper Beam, Thunder, Tera Blast, Haze, Toxic
+tm = Spite, Knock Off, Focus Punch, Poltergeist, Pain Split, Psych Up
+tm = Sludge Wave, Skitter Smack, Curse, Psychic Noise

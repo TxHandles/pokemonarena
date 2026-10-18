@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Venonat
+dex  = 48
+type = Bug / Poison
+placeholder_art = Beetlit     # borrowed art until sprites are added
+
+hp         = 60
+attack     = 55
+defense    = 50
+sp_attack  = 40
+sp_defense = 55
+speed      = 45
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Venomoth
+evolve_level = 31
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Disable
+learn = 1, Tackle
+learn = 5, Supersonic
+learn = 11, Confusion
+learn = 13, Poison Powder
+learn = 17, Psybeam
+learn = 23, Stun Spore
+learn = 25, Bug Buzz
+learn = 29, Sleep Powder
+learn = 35, Leech Life
+learn = 37, Zen Headbutt
+learn = 41, Poison Fang
+learn = 47, Psychic
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Acid Spray, Struggle Bug, Psybeam
+tm = Confuse Ray, Thief, Pounce, Facade, Swift, Night Shade
+tm = Venoshock, Endure, Sunny Day, Zen Headbutt, Sleep Talk, Rest
+tm = Toxic Spikes, Leech Life, Skill Swap, Substitute, Giga Drain, Energy Ball
+tm = Psychic, Baton Pass, Sludge Bomb, Bug Buzz, Solar Beam, Tera Blast
+tm = Toxic, Bug Bite, Lunge, Endeavor, Skitter Smack, Psychic Noise

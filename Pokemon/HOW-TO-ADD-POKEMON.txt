@@ -1,0 +1,97 @@
+ADDING POKEMON
+==============
+
+Every folder in here is one Pokemon: a pokemon.txt plus its sprite images.
+The game reads them each time it starts - no rebuilding needed.
+
+  Pokemon\
+    _TEMPLATE\        <- copy this to start a new Pokemon (ignored by the game)
+    Bulbasaur\        pokemon.txt + sprites
+    Charmander\       pokemon.txt + sprites
+    Squirtle\         pokemon.txt (built-in placeholder art until sprites are added)
+    Pikachu\          "
+
+ADD A NEW POKEMON (you can do this yourself - no new download needed)
+  1. Copy "_TEMPLATE" and rename the copy to the Pokemon's name (e.g. Ivysaur).
+  2. Put its sprites in the folder.
+  3. Fill in pokemon.txt (every setting is explained inside it).
+  4. Start the game and check Pokemon\load_log.txt for anything it didn't understand.
+  New base forms show up in Quick Battle right away and as Story Mode rewards.
+
+ADDING SPRITES TO SQUIRTLE / PIKACHU
+  Drop the images into the folder and delete the "placeholder_art = ..." line.
+
+EVOLUTION CHAINS
+  On the earlier form:   evolves_to = <folder name of the next form>
+                         evolve_level = 16
+  Stone evolution:        evolve_item = Vaporeon, Water Stone
+  Friendship evolution:   evolve_friendship = Crobat, 160
+  Trade evolution:        evolve_trade = Alakazam   (evolves when traded to your co-op partner)
+  The next form is just another folder. Chains can be any length.
+  In Story Mode the evolution happens the moment the level is reached - even in
+  the middle of a battle - or right after the battle.
+
+ABILITIES AND POKEDEX
+  The original 151 get their real abilities and Pokedex entries automatically.
+  For your own Pokemon (or to change them):
+    abilities      = Overgrow            (one or two, comma separated)
+    hidden_ability = Chlorophyll         (1 in 20 caught have it)
+    category  = Seed                     height = 0.7  (m)    weight = 6.9  (kg)
+    dex_entry = A strange seed was planted on its back at birth.
+  Ability names must match the list in Party & Box / the Pokedex (the games' names).
+
+LEVEL-UP MOVES
+  learn = 7, Leech Seed           (by name from MOVE-LIST.txt)
+  learn = 20, Razor Wind, Normal, Spread, 40, 1.5, crit     (your own move)
+  learn = evo, Fire Blast         (learned the moment it evolves into this Pokemon)
+  The original 151 use their real level-up moves from Scarlet/Violet (or Brilliant
+  Diamond/Shining Pearl for Pokemon that aren't in Scarlet/Violet).
+  Every move from the main games is in MOVE-LIST.txt.
+  A Pokemon can know 4 moves. When it would learn a 5th, the game asks which
+  move to forget after the battle.
+
+TM MOVES
+  tm = Thunderbolt, Thunder, Thunder Wave, Protect     (any number of tm lines)
+  The moves it can learn from TMs, which are bought in the Poke Mart's TMs tab
+  (stronger TMs unlock with badges) and taught from Party & Box. TMs use the
+  Scarlet/Violet TM list (TM001-TM229). The original 151 list exactly what they can
+  learn in Scarlet/Violet (or their most recent game if they aren't in it).
+  The Move Relearner (also in the Poke Mart) teaches back level-up moves up to the
+  Pokemon's level and any move it forgot.
+
+SPRITE IMAGES
+  - PNG (also JPG, BMP, GIF). WEBP files need converting to PNG first
+    (open in Paint and Save As PNG). Transparent backgrounds work best; a solid
+    background color is removed automatically.
+  - Grid-chart pictures (colored squares with numbered rows/columns and a color
+    legend) are read square by square, with or without numbers in the squares.
+  - Name each file with its direction: front/mae/down, back/ushiro/up,
+    left/hidari, right/migi, plus _1 / _2 for the two walking frames.
+    Missing directions are filled in (left and right mirror each other).
+  - A picture with no direction in the name becomes the menu portrait.
+  - Small sprites (about 16-32 px) show at the same size as the built-ins.
+    Use "size = 1.3" etc. to make one bigger or smaller.
+
+STATS AND LEVELS
+  Copy the base stats straight from the Pokedex: hp, attack, defense, sp_attack,
+  sp_defense, speed. The game scales them up for battle.
+  Physical moves (Melee, Dash, Burst, Wave, Blink, Burrow) use attack vs defense;
+  special moves (Shot, Spread, Beam, Lob, Zone, Strike, Rain) use sp_attack vs
+  sp_defense. Add "physical" or "special" to a custom move to choose yourself.
+  Stats also grow with level: level 5 = 55%, level 50 = 100%, level 100 = 150%.
+  Free play (Quick Battle / 2 Players) uses level 50 for everyone.
+
+STARTERS
+  "starter = yes" makes a Pokemon one of the Story Mode starter choices.
+  Bulbasaur, Charmander and Squirtle are tagged; tag more to offer more.
+
+THE BUILT-IN TEST CREATURES
+  Furbit, Cindercub, Ripplit, Joltelly and the others are the original test
+  creatures (one per type). They stay in the game until real Pokemon replace
+  them. To take one over with a Pokemon, add "replaces = Joltelly" (etc.) to
+  that Pokemon's pokemon.txt.
+
+AFTER STARTING THE GAME
+  - load_log.txt     what was loaded from every folder, and any mistakes found
+  - MOVE-LIST.txt    every move you can use by name, with what it does
+  - <folder>\converted\   the sprites the game read from your charts

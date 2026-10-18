@@ -1,0 +1,63 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Raichu
+dex  = 26
+type = Electric
+placeholder_art = Joltelly     # borrowed art until sprites are added
+
+hp         = 60
+attack     = 90
+defense    = 55
+sp_attack  = 90
+sp_defense = 80
+speed      = 110
+
+size   = 1.03
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Thunder Punch
+learn = 1, Thunder Wave
+learn = 1, Feint
+learn = 1, Charm
+learn = 1, Sweet Kiss
+learn = 1, Tail Whip
+learn = 1, Spark
+learn = 1, Thunder Shock
+learn = 1, Discharge
+learn = 1, Nasty Plot
+learn = 1, Light Screen
+learn = 1, Play Nice
+learn = 1, Growl
+learn = 1, Electro Ball
+learn = 1, Thunder
+learn = 1, Iron Tail
+learn = 1, Nuzzle
+learn = 1, Agility
+learn = 1, Double Team
+learn = 1, Quick Attack
+learn = 5, Thunderbolt
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Agility, Protect, Thief, Disarming Voice
+tm = Trailblaze, Charge Beam, Facade, Swift, Draining Kiss, Fling
+tm = Endure, Volt Switch, Rain Dance, Dig, Brick Break, Body Slam
+tm = Thunder Punch, Sleep Talk, Electro Ball, Reflect, Light Screen, Grass Knot
+tm = Thunder Wave, Rest, Eerie Impulse, Substitute, Encore, Surf
+tm = Thunderbolt, Play Rough, Helping Hand, Reversal, Electric Terrain, Nasty Plot
+tm = Wild Charge, Giga Impact, Focus Blast, Hyper Beam, Thunder, Tera Blast
+tm = Charge, Knock Off, Focus Punch, Endeavor, Electroweb, Alluring Voice
+tm = Upper Hand

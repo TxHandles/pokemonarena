@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Starmie
+dex  = 121
+type = Water / Psychic
+placeholder_art = Torrentoad     # borrowed art until sprites are added
+
+hp         = 60
+attack     = 75
+defense    = 85
+sp_attack  = 100
+sp_defense = 85
+speed      = 115
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Swift
+learn = 1, Harden
+learn = 1, Light Screen
+learn = 1, Psybeam
+learn = 1, Recover
+learn = 1, Hydro Pump
+learn = 1, Confuse Ray
+learn = 1, Minimize
+learn = 1, Water Gun
+learn = 1, Cosmic Power
+learn = 1, Psychic
+learn = 1, Tackle
+learn = 1, Brine
+learn = 1, Power Gem
+learn = 1, Surf
+learn = 1, Rapid Spin
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Facade, Swift, Icy Wind, Avalanche
+tm = Endure, Rain Dance, Psyshock, Sleep Talk, Reflect, Light Screen
+tm = Waterfall, Dazzling Gleam, Grass Knot, Thunder Wave, Rest, Flash Cannon
+tm = Skill Swap, Power Gem, Substitute, Trick, Psychic, Surf
+tm = Thunderbolt, Ice Beam, Hydro Pump, Blizzard, Giga Impact, Trick Room
+tm = Hyper Beam, Thunder, Gyro Ball, Scald, Whirlpool

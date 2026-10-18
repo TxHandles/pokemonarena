@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Nidoran F
+dex  = 29
+type = Poison
+placeholder_art = Toxlug     # borrowed art until sprites are added
+
+hp         = 55
+attack     = 47
+defense    = 52
+sp_attack  = 40
+sp_defense = 40
+speed      = 41
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Nidorina
+evolve_level = 16
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Poison Sting
+learn = 1, Growl
+learn = 5, Scratch
+learn = 10, Tail Whip
+learn = 15, Fury Swipes
+learn = 20, Toxic Spikes
+learn = 25, Double Kick
+learn = 30, Bite
+learn = 35, Helping Hand
+learn = 40, Toxic
+learn = 45, Flatter
+learn = 50, Crunch
+learn = 55, Earth Power
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Thief, Facade, Venoshock, Endure
+tm = Sunny Day, Rain Dance, Dig, Shadow Claw, Body Slam, Sleep Talk
+tm = Poison Jab, Rest, Toxic Spikes, Substitute, Crunch, Thunderbolt
+tm = Helping Hand, Earth Power, Ice Beam, Blizzard, Sludge Bomb, Thunder

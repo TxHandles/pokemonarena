@@ -1,0 +1,36 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Weedle
+dex  = 13
+type = Bug / Poison
+
+hp         = 40
+attack     = 35
+defense    = 30
+sp_attack  = 20
+sp_defense = 20
+speed      = 50
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Kakuna
+evolve_level = 7
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, String Shot
+learn = 1, Poison Sting
+learn = 9, Bug Bite
+
+# ---- TM MOVES (none) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+# (it can't learn any TMs)

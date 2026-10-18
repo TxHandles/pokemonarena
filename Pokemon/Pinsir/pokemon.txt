@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Pinsir
+dex  = 127
+type = Bug
+placeholder_art = Beetlit     # borrowed art until sprites are added
+
+hp         = 65
+attack     = 125
+defense    = 100
+sp_attack  = 55
+sp_defense = 70
+speed      = 85
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Harden
+learn = 1, Vise Grip
+learn = 4, Focus Energy
+learn = 8, Bind
+learn = 12, Seismic Toss
+learn = 16, Bug Bite
+learn = 20, Storm Throw
+learn = 24, Double Hit
+learn = 28, Vital Throw
+learn = 32, X-Scissor
+learn = 36, Strength
+learn = 40, Swords Dance
+learn = 44, Submission
+learn = 48, Guillotine
+learn = 52, Superpower
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Bulldoze, Rock Tomb, Fling
+tm = Endure, Sunny Day, Rain Dance, Dig, False Swipe, Brick Break
+tm = Bulk Up, Body Slam, Sleep Talk, Rest, Rock Slide, Swords Dance
+tm = Substitute, Iron Defense, X-Scissor, Stealth Rock, Helping Hand, Reversal
+tm = Earthquake, Stone Edge, Giga Impact, Focus Blast, Hyper Beam, Close Combat
+tm = High Horsepower, Throat Chop

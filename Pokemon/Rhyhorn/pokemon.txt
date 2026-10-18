@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Rhyhorn
+dex  = 111
+type = Ground / Rock
+placeholder_art = Dustadillo     # borrowed art until sprites are added
+
+hp         = 80
+attack     = 85
+defense    = 95
+sp_attack  = 30
+sp_defense = 30
+speed      = 25
+
+size   = 1.09
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Rhydon
+evolve_level = 42
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tail Whip
+learn = 1, Tackle
+learn = 5, Smack Down
+learn = 10, Bulldoze
+learn = 15, Horn Attack
+learn = 20, Scary Face
+learn = 25, Stomp
+learn = 30, Rock Blast
+learn = 35, Drill Run
+learn = 40, Take Down
+learn = 45, Earthquake
+learn = 50, Stone Edge
+learn = 55, Megahorn
+learn = 60, Horn Drill
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Fire Fang, Thunder Fang
+tm = Ice Fang, Thief, Facade, Bulldoze, Icy Wind, Mud Shot
+tm = Rock Tomb, Endure, Sunny Day, Rain Dance, Sandstorm, Smart Strike
+tm = Dig, Body Slam, Sleep Talk, Rock Blast, Poison Jab, Stomping Tantrum
+tm = Rest, Rock Slide, Swords Dance, Body Press, Substitute, Drill Run
+tm = Crunch, Dragon Pulse, Stealth Rock, Heavy Slam, Flamethrower, Thunderbolt
+tm = Earth Power, Reversal, Ice Beam, Fire Blast, Blizzard, Earthquake
+tm = Stone Edge, Thunder, Tera Blast, Roar, Smack Down, High Horsepower
+tm = Uproar, Double-Edge, Endeavor, Supercell Slam, Scorching Sands, Curse

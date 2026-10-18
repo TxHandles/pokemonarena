@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Kingler
+dex  = 99
+type = Water
+placeholder_art = Torrentoad     # borrowed art until sprites are added
+
+hp         = 55
+attack     = 130
+defense    = 115
+sp_attack  = 50
+sp_defense = 50
+speed      = 75
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Harden
+learn = 1, Metal Claw
+learn = 1, Water Gun
+learn = 1, Hammer Arm
+learn = 1, Wide Guard
+learn = 1, Leer
+learn = 12, Mud Shot
+learn = 16, Protect
+learn = 20, Bubble Beam
+learn = 24, Stomp
+learn = 31, Flail
+learn = 36, Razor Shell
+learn = 42, Slam
+learn = 48, Swords Dance
+learn = 54, Crabhammer
+learn = 60, Guillotine
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Thief, Facade, Icy Wind, Mud Shot
+tm = Rock Tomb, Fling, Endure, Rain Dance, Dig, False Swipe
+tm = Brick Break, Body Slam, Sleep Talk, Stomping Tantrum, Rest, Rock Slide
+tm = Swords Dance, Substitute, Iron Defense, X-Scissor, Liquidation, Surf
+tm = Amnesia, Ice Beam, Hydro Pump, Blizzard, Giga Impact, Hyper Beam
+tm = High Horsepower, Scald, Whirlpool

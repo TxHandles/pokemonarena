@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Nidoking
+dex  = 34
+type = Poison / Ground
+placeholder_art = Toxlug     # borrowed art until sprites are added
+
+hp         = 81
+attack     = 102
+defense    = 77
+sp_attack  = 85
+sp_defense = 75
+speed      = 85
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Megahorn
+learn = 1, Sludge Wave
+learn = 1, Double Kick
+learn = 1, Earth Power
+learn = 1, Flatter
+learn = 1, Horn Attack
+learn = 1, Poison Sting
+learn = 1, Fury Attack
+learn = 1, Toxic Spikes
+learn = 1, Helping Hand
+learn = 1, Focus Energy
+learn = 1, Poison Jab
+learn = 1, Toxic
+learn = 1, Peck
+learn = 1, Leer
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Bulldoze, Hex, Icy Wind
+tm = Mud Shot, Rock Tomb, Fling, Venoshock, Avalanche, Endure
+tm = Sunny Day, Rain Dance, Sandstorm, Smart Strike, Dig, Brick Break
+tm = Shadow Claw, Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk
+tm = Rock Blast, Poison Jab, Stomping Tantrum, Rest, Rock Slide, Taunt
+tm = Body Press, Toxic Spikes, Substitute, Drill Run, Shadow Ball, Dragon Pulse
+tm = Stealth Rock, Surf, Flamethrower, Thunderbolt, Amnesia, Helping Hand
+tm = Earth Power, Ice Beam, Fire Blast, Blizzard, Sludge Bomb, Earthquake
+tm = Stone Edge, Giga Impact, Outrage, Focus Blast, Hyper Beam, Thunder
+tm = Sand Tomb, High Horsepower, Uproar, Whirlpool, Sludge Wave, Throat Chop

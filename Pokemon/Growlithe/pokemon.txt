@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Growlithe
+dex  = 58
+type = Fire
+placeholder_art = Cindercub     # borrowed art until sprites are added
+
+hp         = 55
+attack     = 70
+defense    = 45
+sp_attack  = 70
+sp_defense = 50
+speed      = 60
+
+size   = 1.00
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Arcanine, Fire Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leer
+learn = 1, Ember
+learn = 4, Howl
+learn = 8, Bite
+learn = 12, Flame Wheel
+learn = 16, Helping Hand
+learn = 20, Agility
+learn = 24, Fire Fang
+learn = 28, Retaliate
+learn = 32, Crunch
+learn = 36, Take Down
+learn = 40, Flamethrower
+learn = 44, Roar
+learn = 48, Play Rough
+learn = 52, Reversal
+learn = 56, Flare Blitz
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Agility, Scary Face, Protect, Fire Fang
+tm = Thunder Fang, Thief, Fire Spin, Facade, Snarl, Swift
+tm = Flame Charge, Endure, Sunny Day, Dig, Psychic Fangs, Body Slam
+tm = Sleep Talk, Rest, Substitute, Will-O-Wisp, Crunch, Heat Wave
+tm = Flamethrower, Play Rough, Helping Hand, Reversal, Fire Blast, Wild Charge
+tm = Outrage, Overheat, Flare Blitz, Close Combat, Tera Blast, Roar
+tm = Double-Edge, Temper Flare, Curse

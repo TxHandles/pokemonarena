@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Golbat
+dex  = 42
+type = Poison / Flying
+placeholder_art = Gustling     # borrowed art until sprites are added
+
+hp         = 75
+attack     = 80
+defense    = 70
+sp_attack  = 65
+sp_defense = 75
+speed      = 90
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_friendship = Crobat, 160   # a Gen 2 Pokemon: waits until it is added
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Absorb
+learn = 1, Mean Look
+learn = 1, Astonish
+learn = 1, Screech
+learn = 1, Supersonic
+learn = 15, Poison Fang
+learn = 20, Quick Guard
+learn = 27, Air Cutter
+learn = 34, Bite
+learn = 41, Haze
+learn = 48, Venoshock
+learn = 55, Confuse Ray
+learn = 62, Air Slash
+learn = 69, Leech Life
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Acrobatics, Thief, Facade, Swift
+tm = Venoshock, Endure, Sunny Day, Rain Dance, Zen Headbutt, U-turn
+tm = Air Slash, Sleep Talk, Rest, Taunt, Leech Life, Fly
+tm = Substitute, Crunch, Giga Drain, Shadow Ball, Heat Wave, Nasty Plot
+tm = Sludge Bomb, Giga Impact, Hyper Beam, Brave Bird, Uproar

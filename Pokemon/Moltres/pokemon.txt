@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Moltres
+dex  = 146
+type = Fire / Flying
+placeholder_art = Cindercub     # borrowed art until sprites are added
+
+hp         = 90
+attack     = 100
+defense    = 90
+sp_attack  = 125
+sp_defense = 85
+speed      = 90
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = yes
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Gust
+learn = 1, Leer
+learn = 5, Ember
+learn = 10, Safeguard
+learn = 15, Wing Attack
+learn = 20, Agility
+learn = 25, Ancient Power
+learn = 30, Incinerate
+learn = 35, Air Slash
+learn = 40, Roost
+learn = 45, Heat Wave
+learn = 50, Sunny Day
+learn = 55, Hurricane
+learn = 60, Endure
+learn = 65, Overheat
+learn = 70, Sky Attack
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Acrobatics, Fire Spin, Facade
+tm = Aerial Ace, Swift, Flame Charge, Air Cutter, Endure, Sunny Day
+tm = Rain Dance, Sandstorm, U-turn, Air Slash, Sleep Talk, Rest
+tm = Fly, Substitute, Will-O-Wisp, Tailwind, Heat Wave, Flamethrower
+tm = Helping Hand, Fire Blast, Giga Impact, Overheat, Hurricane, Hyper Beam
+tm = Brave Bird, Flare Blitz, Solar Beam, Tera Blast, Roar, Weather Ball
+tm = Burning Jealousy, Dual Wingbeat, Double-Edge, Temper Flare, Scorching Sands

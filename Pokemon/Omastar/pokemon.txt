@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Omastar
+dex  = 139
+type = Rock / Water
+placeholder_art = Pebblor     # borrowed art until sprites are added
+
+hp         = 70
+attack     = 60
+defense    = 125
+sp_attack  = 115
+sp_defense = 70
+speed      = 55
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Crunch
+learn = 1, Withdraw
+learn = 1, Rollout
+learn = 1, Bind
+learn = 1, Sand Attack
+learn = 15, Water Gun
+learn = 20, Leer
+learn = 25, Mud Shot
+learn = 30, Ancient Power
+learn = 35, Brine
+learn = 43, Protect
+learn = 49, Rock Blast
+learn = 56, Surf
+learn = 63, Shell Smash
+learn = 70, Hydro Pump
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Icy Wind, Mud Shot, Rock Tomb
+tm = Endure, Rain Dance, Sandstorm, Body Slam, Sleep Talk, Rock Blast
+tm = Waterfall, Rest, Rock Slide, Spikes, Toxic Spikes, Substitute
+tm = Iron Defense, Crunch, Liquidation, Stealth Rock, Surf, Earth Power
+tm = Ice Beam, Hydro Pump, Blizzard, Stone Edge, Giga Impact, Hyper Beam
+tm = Gyro Ball, Scald, Whirlpool, Muddy Water

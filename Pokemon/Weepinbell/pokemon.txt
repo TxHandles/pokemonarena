@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Weepinbell
+dex  = 70
+type = Grass / Poison
+placeholder_art = Thornbloom     # borrowed art until sprites are added
+
+hp         = 65
+attack     = 90
+defense    = 50
+sp_attack  = 85
+sp_defense = 45
+speed      = 55
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Victreebel, Leaf Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Wrap
+learn = 1, Growth
+learn = 1, Vine Whip
+learn = 13, Sleep Powder
+learn = 15, Poison Powder
+learn = 17, Stun Spore
+learn = 24, Acid
+learn = 29, Knock Off
+learn = 32, Sweet Scent
+learn = 39, Gastro Acid
+learn = 44, Razor Leaf
+learn = 47, Poison Jab
+learn = 54, Slam
+learn = 58, Power Whip
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Acid Spray, Thief, Trailblaze, Pounce, Facade
+tm = Swift, Magical Leaf, Venoshock, Endure, Sunny Day, Bullet Seed
+tm = Body Slam, Sleep Talk, Seed Bomb, Reflect, Grass Knot, Poison Jab
+tm = Rest, Swords Dance, Leech Life, Substitute, Giga Drain, Energy Ball
+tm = Encore, Grassy Terrain, Sludge Bomb, Leaf Storm, Solar Beam, Tera Blast
+tm = Toxic, Knock Off, Bug Bite, Lunge, Weather Ball, Grassy Glide
+tm = Sludge Wave

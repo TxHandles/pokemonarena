@@ -1,0 +1,649 @@
+# ==========================================================================
+#  WILD POKEMON - where each Pokemon lives (FireRed/LeafGreen encounter tables)
+#  Training battles happen in an area you have reached; pick it in the hub.
+#
+#  [Area name]              one block per area
+#  unlock = Story stage      the area opens when your story reaches that stage
+#                            ("@done" = after the last story battle)
+#  pokemon = method, Name, rate, levels [, badges N] [, rare]
+#     method: walk, surf, old-rod, good-rod, super-rod, rock-smash
+#     rate:   how common it is (percent of that method's encounters)
+#     badges: only appears once you have that many badges
+#     rare:   only shows up as a rare training encounter
+#  method_unlock = method, Story stage    (when rods / Surf / Rock Smash become usable)
+#  Both versions are merged, so FireRed and LeafGreen exclusives are all catchable.
+# ==========================================================================
+
+method_unlock = old-rod, S.S. Anne
+method_unlock = good-rod, Route 15
+method_unlock = super-rod, Pokemon Tower
+method_unlock = surf, Silph Co.
+method_unlock = rock-smash, Viridian Gym
+
+[Pallet Town]
+unlock = Oak's Lab
+pokemon = surf, Tentacool, 100, 5-40
+pokemon = old-rod, Magikarp, 100, 5-10
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 40, 15-25
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Shellder, 40, 15-25
+pokemon = super-rod, Staryu, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+
+[Route 1]
+unlock = Route 1
+pokemon = walk, Pidgey, 50, 2-5
+pokemon = walk, Rattata, 50, 2-4
+
+[Viridian City]
+unlock = Route 22
+pokemon = surf, Psyduck, 100, 20-40
+pokemon = surf, Slowpoke, 100, 20-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Poliwag, 60, 5-15
+pokemon = good-rod, Goldeen, 20, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Poliwag, 40, 15-25
+pokemon = super-rod, Poliwhirl, 40, 20-30
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 5, 15-35
+pokemon = super-rod, Slowpoke, 5, 15-35
+
+[Route 22]
+unlock = Route 22
+pokemon = walk, Mankey, 45, 2-5
+pokemon = walk, Rattata, 45, 2-5
+pokemon = walk, Spearow, 10, 3-5
+pokemon = surf, Psyduck, 100, 20-40
+pokemon = surf, Slowpoke, 100, 20-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Poliwag, 60, 5-15
+pokemon = good-rod, Goldeen, 20, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Poliwag, 40, 15-25
+pokemon = super-rod, Poliwhirl, 40, 20-30
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 5, 15-35
+pokemon = super-rod, Slowpoke, 5, 15-35
+
+[Route 2]
+unlock = Viridian Forest
+pokemon = walk, Pidgey, 45, 2-5
+pokemon = walk, Rattata, 45, 2-5
+pokemon = walk, Caterpie, 5, 4-5
+pokemon = walk, Weedle, 5, 4-5
+pokemon = walk, Mr. Mime, 4, 8-12, rare
+
+[Viridian Forest]
+unlock = Viridian Forest
+pokemon = walk, Caterpie, 40, 3-5
+pokemon = walk, Weedle, 40, 3-5
+pokemon = walk, Kakuna, 10, 4-6
+pokemon = walk, Metapod, 10, 4-6
+pokemon = walk, Pikachu, 5, 3-5
+
+[Route 3]
+unlock = Pewter Outskirts
+pokemon = walk, Spearow, 35, 6-8
+pokemon = walk, Pidgey, 30, 6-7
+pokemon = walk, Nidoran F, 14, 6-7
+pokemon = walk, Nidoran M, 14, 6-7
+pokemon = walk, Jigglypuff, 10, 3-7
+pokemon = walk, Mankey, 10, 7-7
+
+[Mt. Moon]
+unlock = Mt. Moon
+pokemon = walk, Paras, 100, 5-12
+pokemon = walk, Zubat, 69, 7-11
+pokemon = walk, Geodude, 30, 7-10
+pokemon = walk, Clefairy, 6, 8-12
+
+[Route 4]
+unlock = Cerulean City
+pokemon = walk, Rattata, 35, 8-12
+pokemon = walk, Spearow, 35, 8-12
+pokemon = walk, Ekans, 25, 6-12
+pokemon = walk, Sandshrew, 25, 6-12
+pokemon = walk, Mankey, 5, 10-12
+pokemon = surf, Tentacool, 100, 5-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 84, 15-35
+pokemon = super-rod, Krabby, 84, 15-35
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+
+[Cerulean City]
+unlock = Cerulean City
+pokemon = surf, Tentacool, 100, 5-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 84, 15-35
+pokemon = super-rod, Krabby, 84, 15-35
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+
+[Route 24]
+unlock = Nugget Bridge
+pokemon = walk, Bellsprout, 25, 12-14
+pokemon = walk, Oddish, 25, 12-14
+pokemon = walk, Caterpie, 20, 7-7
+pokemon = walk, Weedle, 20, 7-7
+pokemon = walk, Abra, 15, 8-12
+pokemon = walk, Pidgey, 15, 11-13
+pokemon = walk, Kakuna, 4, 8-8
+pokemon = walk, Metapod, 4, 8-8
+pokemon = surf, Tentacool, 100, 5-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 84, 15-35
+pokemon = super-rod, Krabby, 84, 15-35
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+
+[Route 25]
+unlock = Route 24
+pokemon = walk, Bellsprout, 25, 12-14
+pokemon = walk, Oddish, 25, 12-14
+pokemon = walk, Caterpie, 20, 8-8
+pokemon = walk, Weedle, 20, 8-8
+pokemon = walk, Abra, 15, 9-13
+pokemon = walk, Pidgey, 15, 11-13
+pokemon = walk, Kakuna, 4, 9-9
+pokemon = walk, Metapod, 4, 9-9
+pokemon = surf, Psyduck, 100, 20-40
+pokemon = surf, Slowpoke, 100, 20-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Poliwag, 60, 5-15
+pokemon = good-rod, Goldeen, 20, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Poliwag, 40, 15-25
+pokemon = super-rod, Poliwhirl, 40, 20-30
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 5, 15-35
+pokemon = super-rod, Slowpoke, 5, 15-35
+pokemon = walk, Jynx, 3, 12-16, badges 2, rare
+
+[Route 5]
+unlock = Route 6
+pokemon = walk, Pidgey, 40, 13-16
+pokemon = walk, Meowth, 35, 10-16
+pokemon = walk, Bellsprout, 25, 13-16
+pokemon = walk, Oddish, 25, 13-16
+pokemon = walk, Mr. Mime, 4, 13-17, rare
+
+[Route 6]
+unlock = Route 6
+pokemon = walk, Pidgey, 40, 13-16
+pokemon = walk, Meowth, 35, 10-16
+pokemon = walk, Bellsprout, 25, 13-16
+pokemon = walk, Oddish, 25, 13-16
+pokemon = surf, Psyduck, 100, 20-40
+pokemon = surf, Slowpoke, 100, 20-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Poliwag, 60, 5-15
+pokemon = good-rod, Goldeen, 20, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Poliwag, 40, 15-25
+pokemon = super-rod, Poliwhirl, 40, 20-30
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 5, 15-35
+pokemon = super-rod, Slowpoke, 5, 15-35
+pokemon = walk, Farfetch'd, 4, 14-18, rare
+
+[Vermilion City]
+unlock = S.S. Anne
+pokemon = surf, Tentacool, 100, 5-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 44, 15-35
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Shellder, 40, 15-25
+pokemon = super-rod, Staryu, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+
+[S.S. Anne]
+unlock = S.S. Anne
+pokemon = surf, Tentacool, 100, 5-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 44, 15-35
+pokemon = super-rod, Krabby, 44, 15-35
+pokemon = super-rod, Shellder, 40, 15-25
+pokemon = super-rod, Staryu, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+
+[Route 11]
+unlock = Diglett's Cave
+pokemon = walk, Ekans, 40, 12-15
+pokemon = walk, Sandshrew, 40, 12-15
+pokemon = walk, Spearow, 35, 13-17
+pokemon = walk, Drowzee, 25, 11-15
+pokemon = surf, Tentacool, 100, 5-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 84, 15-35
+pokemon = super-rod, Krabby, 84, 15-35
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+
+[Diglett's Cave]
+unlock = Diglett's Cave
+pokemon = walk, Diglett, 95, 15-22
+pokemon = walk, Dugtrio, 5, 29-31
+
+[Route 9]
+unlock = Rock Tunnel
+pokemon = walk, Rattata, 40, 14-17
+pokemon = walk, Spearow, 35, 13-17
+pokemon = walk, Ekans, 25, 11-17
+pokemon = walk, Sandshrew, 25, 11-17
+
+[Route 10]
+unlock = Rock Tunnel
+pokemon = walk, Voltorb, 40, 14-17
+pokemon = walk, Spearow, 35, 13-17
+pokemon = walk, Ekans, 25, 11-17
+pokemon = walk, Sandshrew, 25, 11-17
+pokemon = surf, Tentacool, 100, 5-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 84, 15-35
+pokemon = super-rod, Krabby, 84, 15-35
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+
+[Rock Tunnel]
+unlock = Rock Tunnel
+pokemon = walk, Geodude, 35, 15-17
+pokemon = walk, Zubat, 30, 15-16
+pokemon = walk, Machop, 15, 16-17
+pokemon = walk, Mankey, 15, 16-17
+pokemon = walk, Onix, 10, 13-17
+pokemon = rock-smash, Geodude, 95, 5-30
+pokemon = rock-smash, Graveler, 5, 25-40
+
+[Route 8]
+unlock = Route 8
+pokemon = walk, Meowth, 30, 18-20
+pokemon = walk, Pidgey, 30, 18-20
+pokemon = walk, Ekans, 20, 17-19
+pokemon = walk, Growlithe, 20, 15-18
+pokemon = walk, Sandshrew, 20, 17-19
+pokemon = walk, Vulpix, 20, 15-18
+
+[Route 7]
+unlock = Route 8
+pokemon = walk, Meowth, 40, 17-20
+pokemon = walk, Pidgey, 30, 19-22
+pokemon = walk, Bellsprout, 20, 19-22
+pokemon = walk, Oddish, 20, 19-22
+pokemon = walk, Growlithe, 10, 18-20
+pokemon = walk, Vulpix, 10, 18-20
+
+[Celadon City]
+unlock = Celadon Park
+pokemon = surf, Psyduck, 99, 5-40
+pokemon = surf, Slowpoke, 99, 5-40
+pokemon = surf, Koffing, 1, 30-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Magikarp, 100, 5-15
+pokemon = super-rod, Magikarp, 99, 15-35
+pokemon = super-rod, Grimer, 1, 30-40
+
+[Route 16]
+unlock = Cycling Road
+pokemon = walk, Doduo, 35, 18-22
+pokemon = walk, Rattata, 30, 18-22
+pokemon = walk, Spearow, 30, 20-22
+pokemon = walk, Raticate, 5, 23-25
+
+[Route 17]
+unlock = Cycling Road
+pokemon = walk, Doduo, 35, 24-28
+pokemon = walk, Spearow, 30, 20-22
+pokemon = walk, Raticate, 25, 25-29
+pokemon = walk, Fearow, 5, 25-27
+pokemon = walk, Rattata, 5, 22-22
+
+[Route 18]
+unlock = Cycling Road
+pokemon = walk, Doduo, 35, 24-28
+pokemon = walk, Spearow, 30, 20-22
+pokemon = walk, Fearow, 15, 25-29
+pokemon = walk, Raticate, 15, 25-29
+pokemon = walk, Rattata, 5, 22-22
+pokemon = walk, Lickitung, 5, 24-30, rare
+
+[Safari Zone]
+unlock = Safari Zone
+pokemon = walk, Doduo, 20, 26-26
+pokemon = walk, Exeggcute, 20, 23-27
+pokemon = walk, Nidoran F, 20, 22-30
+pokemon = walk, Nidoran M, 20, 22-30
+pokemon = walk, Rhyhorn, 20, 25-26
+pokemon = walk, Paras, 15, 22-23
+pokemon = walk, Venonat, 15, 22-23
+pokemon = walk, Nidorina, 10, 30-33
+pokemon = walk, Nidorino, 10, 30-33
+pokemon = walk, Parasect, 5, 25-30
+pokemon = walk, Venomoth, 5, 32-32
+pokemon = walk, Chansey, 4, 23-26
+pokemon = walk, Kangaskhan, 4, 25-28
+pokemon = walk, Pinsir, 4, 23-28
+pokemon = walk, Scyther, 4, 23-28
+pokemon = walk, Tauros, 4, 25-28
+pokemon = surf, Psyduck, 100, 20-40
+pokemon = surf, Slowpoke, 100, 20-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Goldeen, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = good-rod, Poliwag, 20, 5-15
+pokemon = super-rod, Goldeen, 40, 15-25
+pokemon = super-rod, Seaking, 40, 20-30
+pokemon = super-rod, Dratini, 15, 15-25
+pokemon = super-rod, Psyduck, 4, 15-35
+pokemon = super-rod, Slowpoke, 4, 15-35
+pokemon = super-rod, Dragonair, 1, 25-35
+pokemon = walk, Lickitung, 4, 22-28, rare
+
+[Fuchsia City]
+unlock = Safari Zone
+pokemon = surf, Psyduck, 100, 20-40
+pokemon = surf, Slowpoke, 100, 20-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Goldeen, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = good-rod, Poliwag, 20, 5-15
+pokemon = super-rod, Goldeen, 40, 15-25
+pokemon = super-rod, Seaking, 40, 20-30
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 5, 15-35
+pokemon = super-rod, Slowpoke, 5, 15-35
+
+[Route 15]
+unlock = Route 15
+pokemon = walk, Bellsprout, 35, 22-26
+pokemon = walk, Oddish, 35, 22-26
+pokemon = walk, Venonat, 30, 24-26
+pokemon = walk, Pidgey, 20, 25-27
+pokemon = walk, Ditto, 5, 25-25
+pokemon = walk, Gloom, 5, 28-30
+pokemon = walk, Pidgeotto, 5, 29-29
+pokemon = walk, Weepinbell, 5, 28-30
+
+[Route 14]
+unlock = Route 15
+pokemon = walk, Bellsprout, 35, 22-26
+pokemon = walk, Oddish, 35, 22-26
+pokemon = walk, Venonat, 30, 24-26
+pokemon = walk, Ditto, 15, 23-23
+pokemon = walk, Pidgey, 10, 27-27
+pokemon = walk, Gloom, 5, 30-30
+pokemon = walk, Pidgeotto, 5, 29-29
+pokemon = walk, Weepinbell, 5, 30-30
+
+[Route 13]
+unlock = Route 15
+pokemon = walk, Bellsprout, 35, 22-26
+pokemon = walk, Oddish, 35, 22-26
+pokemon = walk, Venonat, 30, 24-26
+pokemon = walk, Pidgey, 20, 25-27
+pokemon = walk, Ditto, 5, 25-25
+pokemon = walk, Gloom, 5, 28-30
+pokemon = walk, Pidgeotto, 5, 29-29
+pokemon = walk, Weepinbell, 5, 28-30
+pokemon = surf, Tentacool, 100, 5-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 84, 15-35
+pokemon = super-rod, Krabby, 84, 15-35
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+pokemon = walk, Farfetch'd, 4, 25-29, rare
+
+[Route 12]
+unlock = Route 12
+pokemon = walk, Bellsprout, 35, 22-26
+pokemon = walk, Oddish, 35, 22-26
+pokemon = walk, Pidgey, 30, 23-27
+pokemon = walk, Venonat, 30, 24-26
+pokemon = walk, Gloom, 5, 28-30
+pokemon = walk, Weepinbell, 5, 28-30
+pokemon = surf, Tentacool, 100, 5-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 84, 15-35
+pokemon = super-rod, Krabby, 84, 15-35
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+pokemon = walk, Farfetch'd, 5, 24-28, rare
+
+[Pokemon Tower]
+unlock = Pokemon Tower
+pokemon = walk, Gastly, 90, 13-19
+pokemon = walk, Haunter, 15, 20-25
+pokemon = walk, Cubone, 10, 15-19
+
+[Power Plant]
+unlock = Saffron Gym
+pokemon = walk, Magnemite, 30, 22-25
+pokemon = walk, Voltorb, 30, 22-25
+pokemon = walk, Pikachu, 25, 22-26
+pokemon = walk, Magneton, 15, 31-34
+pokemon = walk, Electabuzz, 5, 32-35
+
+[Sea Route 19]
+unlock = Seafoam Islands
+pokemon = surf, Tentacool, 100, 5-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 80, 15-25
+pokemon = super-rod, Krabby, 80, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+pokemon = surf, Lapras, 5, 30-40, badges 6, rare
+
+[Sea Route 20]
+unlock = Seafoam Islands
+pokemon = surf, Tentacool, 100, 5-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 80, 15-25
+pokemon = super-rod, Krabby, 80, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+pokemon = surf, Lapras, 5, 30-40, badges 6, rare
+
+[Seafoam Islands]
+unlock = Seafoam Islands
+pokemon = walk, Psyduck, 55, 26-33
+pokemon = walk, Slowpoke, 55, 26-33
+pokemon = walk, Seel, 50, 28-34
+pokemon = walk, Zubat, 34, 22-26
+pokemon = walk, Golbat, 15, 26-30
+pokemon = walk, Golduck, 15, 32-35
+pokemon = walk, Slowbro, 15, 32-35
+pokemon = walk, Dewgong, 10, 32-36
+pokemon = surf, Seel, 60, 25-35
+pokemon = surf, Horsea, 30, 25-30
+pokemon = surf, Krabby, 30, 25-30
+pokemon = surf, Dewgong, 5, 35-40
+pokemon = surf, Psyduck, 4, 30-40
+pokemon = surf, Slowpoke, 4, 30-40
+pokemon = surf, Golduck, 1, 35-40
+pokemon = surf, Slowbro, 1, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 80, 15-30
+pokemon = super-rod, Krabby, 80, 15-30
+pokemon = super-rod, Gyarados, 16, 15-35
+pokemon = super-rod, Psyduck, 4, 15-25
+pokemon = super-rod, Slowpoke, 4, 15-25
+pokemon = surf, Lapras, 5, 30-40, badges 6, rare
+pokemon = walk, Jynx, 5, 30-36, rare
+
+[Cinnabar Island]
+unlock = Cinnabar Mansion
+pokemon = surf, Tentacool, 100, 5-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 40, 15-25
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Shellder, 40, 15-25
+pokemon = super-rod, Staryu, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Slowbro, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+
+[Pokemon Mansion]
+unlock = Cinnabar Mansion
+pokemon = walk, Grimer, 30, 28-30
+pokemon = walk, Koffing, 30, 28-30
+pokemon = walk, Raticate, 30, 32-38
+pokemon = walk, Growlithe, 15, 30-32
+pokemon = walk, Rattata, 15, 26-28
+pokemon = walk, Vulpix, 15, 30-32
+pokemon = walk, Ditto, 10, 30-30
+pokemon = walk, Muk, 5, 32-34
+pokemon = walk, Weezing, 5, 32-34
+
+[Cinnabar Volcano]
+unlock = Cinnabar Volcano
+pokemon = walk, Ponyta, 35, 34-40
+pokemon = walk, Growlithe, 30, 34-38
+pokemon = walk, Magmar, 15, 36-40
+pokemon = walk, Graveler, 10, 36-40
+pokemon = walk, Rapidash, 10, 40-44, badges 7
+pokemon = rock-smash, Geodude, 70, 30-36
+pokemon = rock-smash, Graveler, 30, 34-40
+
+[Sea Route 21]
+unlock = Cinnabar Gym
+pokemon = walk, Tangela, 100, 17-28
+pokemon = surf, Tentacool, 100, 5-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 60, 5-15
+pokemon = good-rod, Krabby, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 80, 15-25
+pokemon = super-rod, Krabby, 80, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+pokemon = surf, Lapras, 5, 30-40, badges 6, rare
+
+[Route 23]
+unlock = Route 22 Gate
+pokemon = walk, Mankey, 30, 32-34
+pokemon = walk, Fearow, 25, 40-44
+pokemon = walk, Ekans, 20, 32-34
+pokemon = walk, Sandshrew, 20, 32-34
+pokemon = walk, Spearow, 15, 32-34
+pokemon = walk, Arbok, 5, 44-44
+pokemon = walk, Primeape, 5, 42-42
+pokemon = walk, Sandslash, 5, 44-44
+pokemon = surf, Psyduck, 100, 20-40
+pokemon = surf, Slowpoke, 100, 20-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Poliwag, 60, 5-15
+pokemon = good-rod, Goldeen, 20, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Poliwag, 40, 15-25
+pokemon = super-rod, Poliwhirl, 40, 20-30
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 5, 15-35
+pokemon = super-rod, Slowpoke, 5, 15-35
+
+[Victory Road]
+unlock = Route 22 Gate
+pokemon = walk, Onix, 30, 40-48
+pokemon = walk, Geodude, 20, 32-34
+pokemon = walk, Machop, 20, 32-34
+pokemon = walk, Primeape, 10, 42-42
+pokemon = walk, Zubat, 10, 32-34
+pokemon = walk, Arbok, 5, 44-46
+pokemon = walk, Golbat, 5, 44-46
+pokemon = walk, Machoke, 5, 44-48
+pokemon = walk, Marowak, 5, 44-48
+pokemon = walk, Sandslash, 5, 44-46
+
+[Cerulean Cave]
+unlock = @done
+pokemon = walk, Ditto, 25, 52-67
+pokemon = walk, Golbat, 25, 46-61
+pokemon = walk, Kadabra, 25, 55-67
+pokemon = walk, Parasect, 25, 49-64
+pokemon = walk, Machoke, 20, 46-52
+pokemon = walk, Magneton, 20, 49-55
+pokemon = walk, Primeape, 11, 52-61
+pokemon = walk, Electrode, 5, 58-64
+pokemon = surf, Psyduck, 65, 30-60
+pokemon = surf, Slowpoke, 65, 30-60
+pokemon = surf, Golduck, 35, 40-65
+pokemon = surf, Slowbro, 35, 40-65
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Poliwag, 60, 5-15
+pokemon = good-rod, Goldeen, 20, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Poliwag, 40, 15-25
+pokemon = super-rod, Poliwhirl, 40, 20-30
+pokemon = super-rod, Gyarados, 16, 15-35
+pokemon = super-rod, Psyduck, 5, 15-35
+pokemon = super-rod, Slowpoke, 5, 15-35
+pokemon = rock-smash, Geodude, 65, 30-60
+pokemon = rock-smash, Graveler, 35, 40-65

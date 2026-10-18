@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Marowak
+dex  = 105
+type = Ground
+placeholder_art = Dustadillo     # borrowed art until sprites are added
+
+hp         = 60
+attack     = 80
+defense    = 110
+sp_attack  = 50
+sp_defense = 80
+speed      = 45
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Mud-Slap
+learn = 1, Growl
+learn = 1, False Swipe
+learn = 1, Tail Whip
+learn = 12, Headbutt
+learn = 16, Retaliate
+learn = 20, Fling
+learn = 24, Stomping Tantrum
+learn = 31, Bone Rush
+learn = 36, Focus Energy
+learn = 42, Endeavor
+learn = 48, Bonemerang
+learn = 54, Thrash
+learn = 60, Double-Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Low Kick, Thief, Facade, Bulldoze, Swift
+tm = Icy Wind, Rock Tomb, Fling, Endure, Sunny Day, Sandstorm
+tm = Dig, False Swipe, Brick Break, Body Slam, Fire Punch, Thunder Punch
+tm = Sleep Talk, Stomping Tantrum, Rest, Rock Slide, Swords Dance, Iron Head
+tm = Substitute, Iron Defense, Stealth Rock, Flamethrower, Earth Power, Ice Beam
+tm = Fire Blast, Blizzard, Earthquake, Stone Edge, Giga Impact, Outrage
+tm = Focus Blast, Hyper Beam, Uproar, Throat Chop

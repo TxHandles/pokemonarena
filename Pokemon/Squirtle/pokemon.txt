@@ -1,0 +1,100 @@
+# ==========================================================================
+#  POKEMON TEMPLATE
+# ==========================================================================
+#  HOW TO ADD A POKEMON
+#   1. Copy this whole _TEMPLATE folder and rename the copy to the Pokemon's
+#      name, e.g.  Pokemon\Ivysaur
+#   2. Put its sprite images in the folder (see SPRITES below).
+#   3. Fill in every value below and save.
+#   4. Start the game. Pokemon\load_log.txt shows what was read and any mistakes.
+#
+#  Folders whose name starts with _ (like this one) are ignored.
+#  Anything after a # is a note and is ignored.
+#
+#  SPRITES - files are matched by the direction word in their name:
+#     front:  front, mae, down        back:  back, ushiro, up
+#     left:   left, hidari            right: right, migi
+#  followed by _1 / _2 for the two walking frames, e.g.
+#     001_1_mae_1.png   001_1_mae_2.png   front_1.png   left.png
+#  Grid-chart pictures work as-is. Copies with "_No" in the name are only used
+#  if the plain one is missing. A picture with no direction word becomes the
+#  menu portrait. Missing left/right views are mirrored from each other.
+# ==========================================================================
+
+# ---- BASICS -------------------------------------------------------------
+name = Squirtle
+dex  = 7                   # Pokedex number (for your own reference; sorting)
+type = Water
+                           # Normal Fire Water Grass Electric Ice Fighting Poison Ground
+                           # Flying Psychic Bug Rock Ghost Dragon Dark Steel Fairy
+
+# ---- STATS: copy the base stats straight from the Pokedex ----------------
+# The game scales them for battle. It has one attack and one defense stat:
+# if you fill in sp_attack / sp_defense too, they're averaged in.
+hp         = 44
+attack     = 48
+defense    = 65
+sp_attack  = 50
+sp_defense = 64
+speed      = 43
+
+# ---- BODY ----------------------------------------------------------------
+size   = 1.0               # on-screen size, 0.25 to 4 (1.15 or more counts as heavy)
+hovers = no                # yes = floats above the ground (Gastly, Magnemite...)
+heavy  = no                # yes = smashes trees and throws pillars in the gyms
+winged = no                # yes = flies over water/pools without being Flying type
+rare   = no                # yes = can appear as a rare training encounter
+starter = yes               # yes = offered as a starter in Story Mode
+
+# Name of the next form's folder and the level it evolves at. The next form
+# must be its own folder. Leave these as "none" / 0 for no evolution.
+
+# xp_yield = 60            # XP it gives when defeated (default: worked out from its stats)
+#       # optional: take over one of the built-in test creatures
+#    # optional: borrow built-in art until your sprites are ready
+
+# "learn = level, Move". A new Pokemon knows the last four it has reached;
+# later ones are offered as it levels up. Names come from MOVE-LIST.txt.
+
+
+# ---- YOUR OWN MOVES (optional) ------------------------------------------
+# A move that isn't in MOVE-LIST.txt can be made right here:
+#   move  = Name, Type, Kind, Power, Cooldown, extras
+#   learn = Level, Name, Type, Kind, Power, Cooldown, extras
+# Kinds and extras are listed in MOVE-LIST.txt. Examples:
+#   move  = Ember Storm, Fire, Spread, 35, 1.5, burn 20%
+#   learn = 20, Lava Plume, Fire, Wave, 80, 4, burn 30%
+#   move  = Roost, Flying, Heal, 0, 12, heal 40%
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Wartortle
+evolve_level = 16
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Tail Whip
+learn = 3, Water Gun
+learn = 6, Withdraw
+learn = 9, Rapid Spin
+learn = 12, Bite
+learn = 15, Water Pulse
+learn = 18, Protect
+learn = 21, Rain Dance
+learn = 24, Aqua Tail
+learn = 27, Shell Smash
+learn = 30, Iron Defense
+learn = 33, Hydro Pump
+learn = 36, Wave Crash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Water Pulse, Chilling Water, Facade, Icy Wind
+tm = Mud Shot, Fling, Endure, Rain Dance, Dig, Brick Break
+tm = Zen Headbutt, Body Slam, Ice Punch, Sleep Talk, Rest, Substitute
+tm = Iron Defense, Liquidation, Surf, Ice Spinner, Helping Hand, Ice Beam
+tm = Hydro Pump, Blizzard, Water Pledge, Tera Blast, Haze, Gyro Ball
+tm = Focus Punch, Weather Ball, Flip Turn, Double-Edge, Whirlpool, Muddy Water

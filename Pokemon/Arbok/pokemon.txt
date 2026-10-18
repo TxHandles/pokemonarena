@@ -1,0 +1,63 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Arbok
+dex  = 24
+type = Poison
+placeholder_art = Toxlug     # borrowed art until sprites are added
+
+hp         = 60
+attack     = 95
+defense    = 69
+sp_attack  = 65
+sp_defense = 79
+speed      = 80
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Crunch
+learn = 1, Wrap
+learn = 1, Ice Fang
+learn = 1, Fire Fang
+learn = 1, Bite
+learn = 1, Leer
+learn = 1, Thunder Fang
+learn = 1, Poison Sting
+learn = 12, Glare
+learn = 17, Screech
+learn = 20, Acid
+learn = 27, Spit Up
+learn = 27, Swallow
+learn = 27, Stockpile
+learn = 32, Acid Spray
+learn = 39, Sludge Bomb
+learn = 44, Gastro Acid
+learn = 48, Belch
+learn = 51, Haze
+learn = 56, Coil
+learn = 63, Gunk Shot
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Fire Fang, Thunder Fang
+tm = Ice Fang, Acid Spray, Thief, Trailblaze, Facade, Poison Tail
+tm = Bulldoze, Snarl, Mud Shot, Rock Tomb, Dragon Tail, Venoshock
+tm = Endure, Sunny Day, Rain Dance, Dig, Psychic Fangs, Body Slam
+tm = Sleep Talk, Seed Bomb, Poison Jab, Stomping Tantrum, Rest, Rock Slide
+tm = Toxic Spikes, Dark Pulse, Leech Life, Gunk Shot, Substitute, Crunch
+tm = Giga Drain, Sludge Bomb, Earthquake, Giga Impact, Hyper Beam, Tera Blast
+tm = Haze, Toxic, Spite, Knock Off, Lash Out, Scale Shot
+tm = Pain Split, Double-Edge, Sludge Wave, Skitter Smack, Throat Chop, Breaking Swipe

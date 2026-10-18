@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Seel
+dex  = 86
+type = Water
+placeholder_art = Ripplit     # borrowed art until sprites are added
+
+hp         = 65
+attack     = 45
+defense    = 55
+sp_attack  = 45
+sp_defense = 70
+speed      = 45
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Dewgong
+evolve_level = 34
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Headbutt
+learn = 3, Growl
+learn = 7, Charm
+learn = 11, Icy Wind
+learn = 13, Encore
+learn = 17, Ice Shard
+learn = 21, Rest
+learn = 23, Aqua Ring
+learn = 27, Aurora Beam
+learn = 31, Aqua Jet
+learn = 33, Brine
+learn = 37, Take Down
+learn = 41, Dive
+learn = 43, Aqua Tail
+learn = 47, Ice Beam
+learn = 51, Safeguard
+learn = 53, Snowscape
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Water Pulse, Thief, Chilling Water
+tm = Facade, Icy Wind, Fling, Avalanche, Endure, Rain Dance
+tm = Snowscape, Smart Strike, Body Slam, Sleep Talk, Waterfall, Rest
+tm = Substitute, Drill Run, Encore, Surf, Ice Spinner, Helping Hand
+tm = Ice Beam, Hydro Pump, Blizzard, Tera Blast, Haze, Icicle Spear
+tm = Uproar, Weather Ball, Flip Turn, Double-Edge, Whirlpool, Muddy Water
+tm = Triple Axel, Curse

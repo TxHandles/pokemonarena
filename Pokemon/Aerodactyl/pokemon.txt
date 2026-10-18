@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Aerodactyl
+dex  = 142
+type = Rock / Flying
+placeholder_art = Pebblor     # borrowed art until sprites are added
+
+hp         = 80
+attack     = 105
+defense    = 65
+sp_attack  = 60
+sp_defense = 75
+speed      = 130
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Ancient Power
+learn = 1, Bite
+learn = 5, Supersonic
+learn = 10, Wing Attack
+learn = 15, Scary Face
+learn = 20, Rock Slide
+learn = 25, Roar
+learn = 30, Crunch
+learn = 35, Iron Head
+learn = 40, Take Down
+learn = 45, Stone Edge
+learn = 50, Agility
+learn = 55, Hyper Beam
+learn = 60, Giga Impact
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Scary Face, Protect, Fire Fang, Thunder Fang, Ice Fang
+tm = Thief, Facade, Bulldoze, Swift, Rock Tomb, Endure
+tm = Sunny Day, Rain Dance, Sandstorm, Psychic Fangs, Sleep Talk, Rock Blast
+tm = Dragon Claw, Rest, Rock Slide, Taunt, Fly, Iron Head
+tm = Dragon Dance, Substitute, Crunch, Dragon Pulse, Stealth Rock, Heat Wave
+tm = Flamethrower, Earth Power, Fire Blast, Earthquake, Stone Edge, Giga Impact
+tm = Hurricane, Hyper Beam

@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Rapidash
+dex  = 78
+type = Fire
+placeholder_art = Blazelynx     # borrowed art until sprites are added
+
+hp         = 65
+attack     = 100
+defense    = 70
+sp_attack  = 80
+sp_defense = 80
+speed      = 105
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Smart Strike
+learn = 1, Megahorn
+learn = 1, Growl
+learn = 1, Tackle
+learn = 1, Poison Jab
+learn = 1, Quick Attack
+learn = 1, Tail Whip
+learn = 1, Ember
+learn = 15, Flame Charge
+learn = 20, Agility
+learn = 25, Flame Wheel
+learn = 30, Stomp
+learn = 35, Fire Spin
+learn = 43, Take Down
+learn = 49, Inferno
+learn = 56, Fire Blast
+learn = 63, Flare Blitz
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Agility, Protect, Low Kick, Fire Spin, Facade
+tm = Swift, Endure, Sunny Day, Smart Strike, Body Slam, Sleep Talk
+tm = Poison Jab, Rest, Swords Dance, Substitute, Drill Run, Will-O-Wisp
+tm = Heat Wave, Flamethrower, Play Rough, Baton Pass, Fire Blast, Wild Charge
+tm = Giga Impact, Overheat, Hyper Beam, Flare Blitz, Solar Beam, High Horsepower
+tm = Solar Blade, Throat Chop

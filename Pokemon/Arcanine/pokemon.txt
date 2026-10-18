@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Arcanine
+dex  = 59
+type = Fire
+placeholder_art = Blazelynx     # borrowed art until sprites are added
+
+hp         = 90
+attack     = 110
+defense    = 80
+sp_attack  = 100
+sp_defense = 80
+speed      = 95
+
+size   = 1.26
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Extreme Speed
+learn = 1, Flame Wheel
+learn = 1, Reversal
+learn = 1, Roar
+learn = 1, Fire Fang
+learn = 1, Flare Blitz
+learn = 1, Play Rough
+learn = 1, Howl
+learn = 1, Crunch
+learn = 1, Leer
+learn = 1, Helping Hand
+learn = 1, Agility
+learn = 1, Take Down
+learn = 1, Retaliate
+learn = 1, Bite
+learn = 1, Ember
+learn = 5, Flamethrower
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Agility, Scary Face, Protect, Fire Fang
+tm = Thunder Fang, Thief, Fire Spin, Facade, Aerial Ace, Bulldoze
+tm = Snarl, Swift, Flame Charge, Endure, Sunny Day, Dig
+tm = Psychic Fangs, Body Slam, Sleep Talk, Rest, Iron Head, Substitute
+tm = Will-O-Wisp, Crunch, Dragon Pulse, Hyper Voice, Heat Wave, Flamethrower
+tm = Play Rough, Helping Hand, Reversal, Fire Blast, Wild Charge, Giga Impact
+tm = Outrage, Overheat, Hyper Beam, Flare Blitz, Close Combat, Solar Beam
+tm = Tera Blast, Roar, Heat Crash, Double-Edge, Temper Flare, Scorching Sands
+tm = Curse

@@ -1,0 +1,49 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Paras
+dex  = 46
+type = Bug / Grass
+placeholder_art = Beetlit     # borrowed art until sprites are added
+
+hp         = 35
+attack     = 70
+defense    = 55
+sp_attack  = 45
+sp_defense = 55
+speed      = 25
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Parasect
+evolve_level = 24
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 6, Poison Powder
+learn = 6, Stun Spore
+learn = 11, Absorb
+learn = 17, Fury Cutter
+learn = 22, Spore
+learn = 27, Slash
+learn = 33, Growth
+learn = 38, Giga Drain
+learn = 43, Aromatherapy
+learn = 49, Rage Powder
+learn = 54, X-Scissor
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Aerial Ace, Venoshock, Sunny Day
+tm = False Swipe, Brick Break, Sleep Talk, Light Screen, Grass Knot, Rest
+tm = Swords Dance, Leech Life, Substitute, X-Scissor, Energy Ball, Sludge Bomb
+tm = Solar Beam, Toxic

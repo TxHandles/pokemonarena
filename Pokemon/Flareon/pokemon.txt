@@ -1,0 +1,64 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Flareon
+dex  = 136
+type = Fire
+placeholder_art = Blazelynx     # borrowed art until sprites are added
+
+hp         = 65
+attack     = 130
+defense    = 60
+sp_attack  = 95
+sp_defense = 110
+speed      = 65
+
+size   = 1.07
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Ember
+learn = 1, Double-Edge
+learn = 1, Covet
+learn = 1, Charm
+learn = 1, Tail Whip
+learn = 1, Swift
+learn = 1, Helping Hand
+learn = 1, Growl
+learn = 1, Copycat
+learn = 1, Tackle
+learn = 1, Take Down
+learn = 1, Baton Pass
+learn = 5, Sand Attack
+learn = 10, Quick Attack
+learn = 15, Baby-Doll Eyes
+learn = 20, Smog
+learn = 25, Bite
+learn = 30, Fire Fang
+learn = 35, Fire Spin
+learn = 40, Lava Plume
+learn = 45, Scary Face
+learn = 50, Flare Blitz
+learn = 55, Last Resort
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Mud-Slap, Scary Face, Protect
+tm = Fire Fang, Trailblaze, Fire Spin, Facade, Swift, Stored Power
+tm = Endure, Sunny Day, Rain Dance, Dig, Body Slam, Sleep Talk
+tm = Rest, Substitute, Will-O-Wisp, Shadow Ball, Hyper Voice, Heat Wave
+tm = Flamethrower, Calm Mind, Helping Hand, Baton Pass, Fire Blast, Giga Impact
+tm = Overheat, Hyper Beam, Flare Blitz, Tera Blast, Roar, Weather Ball
+tm = Burning Jealousy, Double-Edge, Endeavor, Temper Flare, Scorching Sands, Curse
+tm = Alluring Voice

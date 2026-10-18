@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Meowth
+dex  = 52
+type = Normal
+placeholder_art = Furbit     # borrowed art until sprites are added
+
+hp         = 40
+attack     = 45
+defense    = 35
+sp_attack  = 40
+sp_defense = 40
+speed      = 90
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Persian
+evolve_level = 28
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Fake Out
+learn = 1, Growl
+learn = 4, Feint
+learn = 8, Scratch
+learn = 12, Pay Day
+learn = 16, Bite
+learn = 20, Taunt
+learn = 24, Assurance
+learn = 29, Fury Swipes
+learn = 32, Screech
+learn = 36, Slash
+learn = 40, Nasty Plot
+learn = 44, Play Rough
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Agility, Protect, Thief
+tm = Trailblaze, Chilling Water, Facade, Aerial Ace, Snarl, Metal Claw
+tm = Swift, Icy Wind, Endure, Sunny Day, Rain Dance, Dig
+tm = False Swipe, U-turn, Shadow Claw, Foul Play, Body Slam, Sleep Talk
+tm = Seed Bomb, Thunder Wave, Rest, Taunt, Dark Pulse, Power Gem
+tm = Gunk Shot, Substitute, Shadow Ball, Hyper Voice, Thunderbolt, Play Rough
+tm = Amnesia, Helping Hand, Nasty Plot, Thunder, Tera Blast, Spite
+tm = Knock Off, Lash Out, Pain Split, Psych Up, Double-Edge, Endeavor
+tm = Throat Chop

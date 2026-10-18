@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Omanyte
+dex  = 138
+type = Rock / Water
+placeholder_art = Pebblor     # borrowed art until sprites are added
+
+hp         = 35
+attack     = 40
+defense    = 100
+sp_attack  = 90
+sp_defense = 55
+speed      = 35
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Omastar
+evolve_level = 40
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Withdraw
+learn = 1, Bind
+learn = 5, Rollout
+learn = 10, Sand Attack
+learn = 15, Water Gun
+learn = 20, Leer
+learn = 25, Mud Shot
+learn = 30, Ancient Power
+learn = 35, Brine
+learn = 41, Protect
+learn = 45, Rock Blast
+learn = 50, Surf
+learn = 55, Shell Smash
+learn = 60, Hydro Pump
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Icy Wind, Mud Shot, Rock Tomb
+tm = Endure, Rain Dance, Sandstorm, Body Slam, Sleep Talk, Rock Blast
+tm = Waterfall, Rest, Rock Slide, Spikes, Toxic Spikes, Substitute
+tm = Iron Defense, Stealth Rock, Surf, Earth Power, Ice Beam, Hydro Pump
+tm = Blizzard, Gyro Ball, Scald, Whirlpool, Muddy Water

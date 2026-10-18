@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Tentacool
+dex  = 72
+type = Water / Poison
+placeholder_art = Ripplit     # borrowed art until sprites are added
+
+hp         = 40
+attack     = 40
+defense    = 35
+sp_attack  = 50
+sp_defense = 100
+speed      = 70
+
+size   = 1.07
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Tentacruel
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Poison Sting
+learn = 1, Water Gun
+learn = 4, Acid
+learn = 8, Wrap
+learn = 12, Supersonic
+learn = 16, Water Pulse
+learn = 20, Screech
+learn = 24, Bubble Beam
+learn = 28, Hex
+learn = 32, Acid Armor
+learn = 36, Poison Jab
+learn = 40, Surf
+learn = 44, Sludge Wave
+learn = 48, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Water Pulse, Acid Spray, Confuse Ray, Thief, Pounce
+tm = Chilling Water, Facade, Hex, Swift, Icy Wind, Mud Shot
+tm = Venoshock, Endure, Rain Dance, Sleep Talk, Dazzling Gleam, Poison Jab
+tm = Rest, Swords Dance, Toxic Spikes, Gunk Shot, Substitute, Liquidation
+tm = Giga Drain, Surf, Ice Beam, Hydro Pump, Blizzard, Sludge Bomb
+tm = Tera Blast, Haze, Toxic, Knock Off, Flip Turn, Whirlpool
+tm = Muddy Water, Sludge Wave, Throat Chop

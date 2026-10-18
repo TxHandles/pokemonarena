@@ -1,0 +1,40 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Abra
+dex  = 63
+type = Psychic
+placeholder_art = Mystling     # borrowed art until sprites are added
+
+hp         = 25
+attack     = 20
+defense    = 15
+sp_attack  = 105
+sp_defense = 55
+speed      = 90
+
+size   = 1.07
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Kadabra
+evolve_level = 16
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Teleport
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Swift, Fling, Endure
+tm = Sunny Day, Rain Dance, Psyshock, Zen Headbutt, Foul Play, Body Slam
+tm = Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Reflect
+tm = Light Screen, Dazzling Gleam, Metronome, Grass Knot, Thunder Wave, Rest
+tm = Taunt, Skill Swap, Substitute, Trick, Shadow Ball, Energy Ball
+tm = Psychic, Encore, Calm Mind, Psychic Terrain, Trick Room

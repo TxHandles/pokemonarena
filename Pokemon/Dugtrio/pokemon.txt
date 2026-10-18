@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Dugtrio
+dex  = 51
+type = Ground
+placeholder_art = Dustadillo     # borrowed art until sprites are added
+
+hp         = 35
+attack     = 100
+defense    = 50
+sp_attack  = 50
+sp_defense = 70
+speed      = 120
+
+size   = 1.00
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Sand Tomb
+learn = 1, Night Slash
+learn = 1, Scratch
+learn = 1, Tri Attack
+learn = 1, Astonish
+learn = 1, Growl
+learn = 1, Sand Attack
+learn = 12, Mud-Slap
+learn = 16, Bulldoze
+learn = 20, Sucker Punch
+learn = 24, Slash
+learn = 30, Sandstorm
+learn = 36, Dig
+learn = 42, Earth Power
+learn = 48, Earthquake
+learn = 54, Fissure
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Agility, Mud-Slap, Protect, Thief
+tm = Facade, Bulldoze, Mud Shot, Rock Tomb, Endure, Sunny Day
+tm = Sandstorm, Dig, Shadow Claw, Foul Play, Body Slam, Sleep Talk
+tm = Rock Blast, Stomping Tantrum, Rest, Rock Slide, Swords Dance, Substitute
+tm = Stealth Rock, Earth Power, Reversal, Sludge Bomb, Earthquake, Stone Edge
+tm = Giga Impact, Hyper Beam, Tera Blast, Sand Tomb, Smack Down, Uproar
+tm = Double-Edge, Endeavor, Sludge Wave, Scorching Sands, Throat Chop, Curse

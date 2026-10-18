@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Parasect
+dex  = 47
+type = Bug / Grass
+placeholder_art = Beetlit     # borrowed art until sprites are added
+
+hp         = 60
+attack     = 95
+defense    = 80
+sp_attack  = 60
+sp_defense = 80
+speed      = 30
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Poison Powder
+learn = 1, Cross Poison
+learn = 1, Absorb
+learn = 1, Scratch
+learn = 1, Stun Spore
+learn = 17, Fury Cutter
+learn = 22, Spore
+learn = 29, Slash
+learn = 37, Growth
+learn = 44, Giga Drain
+learn = 51, Aromatherapy
+learn = 59, Rage Powder
+learn = 66, X-Scissor
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Aerial Ace, Venoshock, Sunny Day
+tm = False Swipe, Brick Break, Sleep Talk, Light Screen, Grass Knot, Rest
+tm = Swords Dance, Leech Life, Substitute, X-Scissor, Energy Ball, Sludge Bomb
+tm = Giga Impact, Hyper Beam, Solar Beam, Toxic

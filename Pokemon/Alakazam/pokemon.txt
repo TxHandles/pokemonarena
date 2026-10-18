@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Alakazam
+dex  = 65
+type = Psychic
+placeholder_art = Mystling     # borrowed art until sprites are added
+
+hp         = 55
+attack     = 50
+defense    = 45
+sp_attack  = 135
+sp_defense = 95
+speed      = 120
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Teleport
+learn = 1, Confusion
+learn = 1, Kinesis
+learn = 1, Disable
+learn = 5, Psybeam
+learn = 10, Reflect
+learn = 15, Ally Switch
+learn = 20, Psycho Cut
+learn = 25, Recover
+learn = 30, Psyshock
+learn = 35, Psychic
+learn = 40, Role Play
+learn = 45, Future Sight
+learn = 50, Calm Mind
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Swift, Stored Power, Fling
+tm = Endure, Sunny Day, Rain Dance, Psyshock, Zen Headbutt, Foul Play
+tm = Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch
+tm = Reflect, Light Screen, Dazzling Gleam, Metronome, Grass Knot, Thunder Wave
+tm = Rest, Taunt, Imprison, Skill Swap, Substitute, Trick
+tm = Shadow Ball, Energy Ball, Psychic, Encore, Calm Mind, Psychic Terrain
+tm = Nasty Plot, Giga Impact, Focus Blast, Trick Room, Hyper Beam, Future Sight

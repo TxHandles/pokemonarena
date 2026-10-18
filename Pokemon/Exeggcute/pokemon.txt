@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Exeggcute
+dex  = 102
+type = Grass / Psychic
+placeholder_art = Thistlet     # borrowed art until sprites are added
+
+hp         = 60
+attack     = 40
+defense    = 80
+sp_attack  = 60
+sp_defense = 45
+speed      = 40
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Exeggutor, Leaf Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Absorb
+learn = 1, Hypnosis
+learn = 5, Reflect
+learn = 10, Leech Seed
+learn = 15, Mega Drain
+learn = 20, Confusion
+learn = 25, Synthesis
+learn = 30, Bullet Seed
+learn = 35, Giga Drain
+learn = 40, Extrasensory
+learn = 45, Uproar
+learn = 50, Worry Seed
+learn = 55, Solar Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Psybeam, Thief, Facade, Stored Power, Endure
+tm = Sunny Day, Psyshock, Bullet Seed, Zen Headbutt, Sleep Talk, Seed Bomb
+tm = Reflect, Light Screen, Grass Knot, Rest, Swords Dance, Imprison
+tm = Skill Swap, Substitute, Trick, Giga Drain, Energy Ball, Psychic
+tm = Helping Hand, Grassy Terrain, Sludge Bomb, Leaf Storm, Solar Beam, Tera Blast
+tm = Uproar, Grassy Glide, Psych Up, Curse, Psychic Noise

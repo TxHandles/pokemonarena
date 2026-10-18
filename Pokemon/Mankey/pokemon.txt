@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Mankey
+dex  = 56
+type = Fighting
+placeholder_art = Punchip     # borrowed art until sprites are added
+
+hp         = 40
+attack     = 80
+defense    = 35
+sp_attack  = 35
+sp_defense = 45
+speed      = 70
+
+size   = 0.91
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Primeape
+evolve_level = 28
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Covet
+learn = 1, Focus Energy
+learn = 1, Leer
+learn = 5, Fury Swipes
+learn = 8, Low Kick
+learn = 12, Seismic Toss
+learn = 17, Swagger
+learn = 22, Cross Chop
+learn = 26, Assurance
+learn = 29, Thrash
+learn = 33, Close Combat
+learn = 36, Screech
+learn = 40, Stomping Tantrum
+learn = 44, Outrage
+learn = 48, Final Gambit
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Low Kick, Acrobatics, Thief
+tm = Facade, Bulldoze, Swift, Rock Tomb, Low Sweep, Fling
+tm = Endure, Sunny Day, Rain Dance, Dig, Brick Break, U-turn
+tm = Shadow Claw, Bulk Up, Body Slam, Fire Punch, Thunder Punch, Ice Punch
+tm = Sleep Talk, Seed Bomb, Drain Punch, Metronome, Poison Jab, Stomping Tantrum
+tm = Rest, Rock Slide, Taunt, Gunk Shot, Substitute, Encore
+tm = Thunderbolt, Helping Hand, Reversal, Earthquake, Stone Edge, Outrage
+tm = Overheat, Focus Blast, Close Combat, Tera Blast, Spite, Uproar
+tm = Focus Punch, Lash Out, Double-Edge, Endeavor, Throat Chop, Curse

@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Beedrill
+dex  = 15
+type = Bug / Poison
+
+hp         = 65
+attack     = 90
+defense    = 40
+sp_attack  = 45
+sp_defense = 80
+speed      = 75
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Fury Attack
+learn = 1, Harden
+learn = 1, Bug Bite
+learn = 1, String Shot
+learn = 1, Poison Sting
+learn = 11, Fury Cutter
+learn = 14, Laser Focus
+learn = 20, Focus Energy
+learn = 23, Venoshock
+learn = 26, Assurance
+learn = 29, Toxic Spikes
+learn = 32, Pin Missile
+learn = 35, Poison Jab
+learn = 38, Agility
+learn = 41, Endeavor
+learn = 44, Fell Stinger
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Acrobatics, Thief, Facade, Aerial Ace, Venoshock
+tm = Sunny Day, False Swipe, Brick Break, U-turn, Sleep Talk, Poison Jab
+tm = Rest, Swords Dance, Substitute, X-Scissor, Sludge Bomb, Giga Impact
+tm = Hyper Beam, Solar Beam, Toxic

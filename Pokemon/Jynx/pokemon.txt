@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Jynx
+dex  = 124
+type = Ice / Psychic
+placeholder_art = Yetiny     # borrowed art until sprites are added
+
+hp         = 65
+attack     = 50
+defense    = 35
+sp_attack  = 115
+sp_defense = 95
+speed      = 95
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Lick
+learn = 1, Sweet Kiss
+learn = 1, Pound
+learn = 1, Copycat
+learn = 1, Powder Snow
+learn = 12, Confusion
+learn = 16, Covet
+learn = 20, Sing
+learn = 24, Fake Tears
+learn = 28, Ice Punch
+learn = 34, Psychic
+learn = 40, Lovely Kiss
+learn = 46, Mean Look
+learn = 52, Perish Song
+learn = 58, Blizzard
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Protect, Thief, Facade, Icy Wind
+tm = Draining Kiss, Stored Power, Fling, Avalanche, Endure, Rain Dance
+tm = Psyshock, Brick Break, Zen Headbutt, Body Slam, Ice Punch, Sleep Talk
+tm = Drain Punch, Reflect, Light Screen, Metronome, Grass Knot, Rest
+tm = Taunt, Skill Swap, Substitute, Trick, Shadow Ball, Hyper Voice
+tm = Energy Ball, Psychic, Encore, Calm Mind, Helping Hand, Ice Beam
+tm = Psychic Terrain, Nasty Plot, Blizzard, Giga Impact, Focus Blast, Trick Room
+tm = Hyper Beam, Icicle Spear, Uproar, Future Sight

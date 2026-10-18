@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Hypno
+dex  = 97
+type = Psychic
+placeholder_art = Mystling     # borrowed art until sprites are added
+
+hp         = 85
+attack     = 73
+defense    = 70
+sp_attack  = 73
+sp_defense = 115
+speed      = 67
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Confusion
+learn = 1, Pound
+learn = 1, Disable
+learn = 1, Hypnosis
+learn = 1, Switcheroo
+learn = 13, Headbutt
+learn = 17, Poison Gas
+learn = 21, Psybeam
+learn = 25, Psych Up
+learn = 32, Zen Headbutt
+learn = 37, Swagger
+learn = 42, Psychic
+learn = 47, Nasty Plot
+learn = 51, Psyshock
+learn = 56, Future Sight
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Low Kick, Psybeam, Confuse Ray
+tm = Thief, Trailblaze, Facade, Hex, Swift, Draining Kiss
+tm = Low Sweep, Stored Power, Night Shade, Fling, Endure, Sunny Day
+tm = Rain Dance, Psyshock, Brick Break, Zen Headbutt, Foul Play, Body Slam
+tm = Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Reflect
+tm = Light Screen, Dazzling Gleam, Metronome, Grass Knot, Thunder Wave, Rest
+tm = Taunt, Body Press, Imprison, Skill Swap, Substitute, Trick
+tm = Shadow Ball, Psychic, Encore, Calm Mind, Helping Hand, Baton Pass
+tm = Psychic Terrain, Nasty Plot, Giga Impact, Focus Blast, Trick Room, Hyper Beam
+tm = Tera Blast, Haze, Toxic, Knock Off, Focus Punch, Psych Up
+tm = Double-Edge, Endeavor, Future Sight, Expanding Force, Curse, Psychic Noise

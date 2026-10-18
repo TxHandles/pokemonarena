@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Nidorino
+dex  = 33
+type = Poison
+placeholder_art = Toxlug     # borrowed art until sprites are added
+
+hp         = 61
+attack     = 72
+defense    = 57
+sp_attack  = 55
+sp_defense = 55
+speed      = 65
+
+size   = 1.07
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Nidoking, Moon Stone
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Poison Sting
+learn = 1, Focus Energy
+learn = 1, Peck
+learn = 1, Leer
+learn = 15, Fury Attack
+learn = 22, Toxic Spikes
+learn = 29, Double Kick
+learn = 36, Horn Attack
+learn = 43, Helping Hand
+learn = 50, Toxic
+learn = 57, Flatter
+learn = 64, Poison Jab
+learn = 71, Earth Power
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Venoshock, Endure, Sunny Day
+tm = Rain Dance, Smart Strike, Dig, Shadow Claw, Body Slam, Sleep Talk
+tm = Poison Jab, Stomping Tantrum, Rest, Toxic Spikes, Substitute, Drill Run
+tm = Thunderbolt, Amnesia, Helping Hand, Earth Power, Ice Beam, Blizzard
+tm = Sludge Bomb, Thunder

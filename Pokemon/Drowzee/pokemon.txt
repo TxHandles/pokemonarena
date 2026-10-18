@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Drowzee
+dex  = 96
+type = Psychic
+placeholder_art = Mystling     # borrowed art until sprites are added
+
+hp         = 60
+attack     = 48
+defense    = 45
+sp_attack  = 43
+sp_defense = 90
+speed      = 42
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Hypno
+evolve_level = 26
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Pound
+learn = 1, Hypnosis
+learn = 5, Disable
+learn = 9, Confusion
+learn = 13, Headbutt
+learn = 17, Poison Gas
+learn = 21, Psybeam
+learn = 25, Psych Up
+learn = 29, Zen Headbutt
+learn = 33, Swagger
+learn = 37, Psychic
+learn = 41, Nasty Plot
+learn = 45, Psyshock
+learn = 49, Future Sight
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Low Kick, Psybeam, Thief, Trailblaze
+tm = Facade, Swift, Draining Kiss, Low Sweep, Stored Power, Night Shade
+tm = Fling, Endure, Sunny Day, Rain Dance, Psyshock, Brick Break
+tm = Zen Headbutt, Foul Play, Body Slam, Fire Punch, Thunder Punch, Ice Punch
+tm = Sleep Talk, Drain Punch, Reflect, Light Screen, Dazzling Gleam, Metronome
+tm = Grass Knot, Thunder Wave, Rest, Taunt, Imprison, Skill Swap
+tm = Substitute, Trick, Shadow Ball, Psychic, Encore, Calm Mind
+tm = Helping Hand, Psychic Terrain, Nasty Plot, Focus Blast, Trick Room, Tera Blast
+tm = Haze, Toxic, Knock Off, Focus Punch, Psych Up, Double-Edge
+tm = Endeavor, Future Sight, Expanding Force, Curse, Psychic Noise

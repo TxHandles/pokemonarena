@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Shellder
+dex  = 90
+type = Water
+placeholder_art = Ripplit     # borrowed art until sprites are added
+
+hp         = 30
+attack     = 65
+defense    = 100
+sp_attack  = 45
+sp_defense = 25
+speed      = 40
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Cloyster, Water Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Tackle
+learn = 4, Withdraw
+learn = 8, Ice Shard
+learn = 12, Leer
+learn = 16, Whirlpool
+learn = 20, Supersonic
+learn = 24, Aurora Beam
+learn = 28, Protect
+learn = 32, Razor Shell
+learn = 36, Iron Defense
+learn = 40, Ice Beam
+learn = 44, Shell Smash
+learn = 48, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Water Pulse, Chilling Water, Facade, Swift
+tm = Icy Wind, Mud Shot, Avalanche, Endure, Rain Dance, Snowscape
+tm = Sleep Talk, Rock Blast, Waterfall, Rest, Spikes, Toxic Spikes
+tm = Substitute, Iron Defense, Liquidation, Surf, Ice Spinner, Helping Hand
+tm = Ice Beam, Hydro Pump, Blizzard, Tera Blast, Icicle Spear, Whirlpool

@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Krabby
+dex  = 98
+type = Water
+placeholder_art = Ripplit     # borrowed art until sprites are added
+
+hp         = 30
+attack     = 105
+defense    = 90
+sp_attack  = 25
+sp_defense = 25
+speed      = 50
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Kingler
+evolve_level = 28
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Leer
+learn = 4, Harden
+learn = 8, Metal Claw
+learn = 12, Mud Shot
+learn = 16, Protect
+learn = 20, Bubble Beam
+learn = 24, Stomp
+learn = 29, Flail
+learn = 32, Razor Shell
+learn = 36, Slam
+learn = 40, Swords Dance
+learn = 44, Crabhammer
+learn = 48, Guillotine
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Thief, Facade, Icy Wind, Mud Shot
+tm = Rock Tomb, Fling, Endure, Rain Dance, Dig, False Swipe
+tm = Brick Break, Body Slam, Sleep Talk, Rest, Rock Slide, Swords Dance
+tm = Substitute, Iron Defense, X-Scissor, Liquidation, Surf, Amnesia
+tm = Ice Beam, Blizzard, Scald, Whirlpool

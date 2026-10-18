@@ -1,0 +1,63 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Slowbro
+dex  = 80
+type = Water / Psychic
+placeholder_art = Torrentoad     # borrowed art until sprites are added
+
+hp         = 95
+attack     = 75
+defense    = 110
+sp_attack  = 100
+sp_defense = 80
+speed      = 30
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Withdraw
+learn = 1, Water Gun
+learn = 1, Curse
+learn = 1, Growl
+learn = 1, Tackle
+learn = 9, Yawn
+learn = 12, Confusion
+learn = 15, Disable
+learn = 18, Water Pulse
+learn = 21, Headbutt
+learn = 24, Zen Headbutt
+learn = 27, Amnesia
+learn = 30, Surf
+learn = 33, Slack Off
+learn = 36, Psychic
+learn = 41, Psych Up
+learn = 46, Rain Dance
+learn = 51, Heal Pulse
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Water Pulse, Psybeam, Chilling Water, Facade
+tm = Bulldoze, Swift, Icy Wind, Mud Shot, Stored Power, Fling
+tm = Avalanche, Endure, Sunny Day, Rain Dance, Snowscape, Psyshock
+tm = Dig, Brick Break, Zen Headbutt, Foul Play, Body Slam, Ice Punch
+tm = Sleep Talk, Drain Punch, Light Screen, Waterfall, Metronome, Grass Knot
+tm = Thunder Wave, Rest, Body Press, Imprison, Skill Swap, Substitute
+tm = Iron Defense, Trick, Liquidation, Shadow Ball, Psychic, Surf
+tm = Flamethrower, Amnesia, Calm Mind, Helping Hand, Ice Beam, Psychic Terrain
+tm = Nasty Plot, Fire Blast, Hydro Pump, Blizzard, Earthquake, Giga Impact
+tm = Focus Blast, Trick Room, Hyper Beam, Tera Blast, Scald, Focus Punch
+tm = Weather Ball, Psych Up, Whirlpool, Muddy Water, Future Sight, Expanding Force
+tm = Curse, Psychic Noise

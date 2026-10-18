@@ -1,0 +1,71 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Snorlax
+dex  = 143
+type = Normal
+placeholder_art = Furbit     # borrowed art until sprites are added
+
+hp         = 160
+attack     = 110
+defense    = 65
+sp_attack  = 65
+sp_defense = 110
+speed      = 30
+
+size   = 1.29
+hovers = no
+heavy  = yes
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Block
+learn = 1, Covet
+learn = 1, Defense Curl
+learn = 1, Flail
+learn = 1, Recycle
+learn = 1, Swallow
+learn = 1, Tackle
+learn = 1, Screech
+learn = 1, Stockpile
+learn = 1, Last Resort
+learn = 1, Fling
+learn = 1, Lick
+learn = 1, Metronome
+learn = 12, Yawn
+learn = 16, Bite
+learn = 20, Sleep Talk
+learn = 20, Snore
+learn = 20, Rest
+learn = 24, Crunch
+learn = 28, Body Slam
+learn = 32, Heavy Slam
+learn = 36, Amnesia
+learn = 40, High Horsepower
+learn = 44, Hammer Arm
+learn = 48, Belly Drum
+learn = 52, Belch
+learn = 56, Giga Impact
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Mud-Slap, Protect, Trailblaze, Chilling Water
+tm = Facade, Bulldoze, Icy Wind, Rock Tomb, Fling, Endure
+tm = Sunny Day, Rain Dance, Sandstorm, Dig, Brick Break, Zen Headbutt
+tm = Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Seed Bomb
+tm = Metronome, Stomping Tantrum, Rest, Rock Slide, Body Press, Iron Head
+tm = Gunk Shot, Substitute, Crunch, Shadow Ball, Hyper Voice, Heavy Slam
+tm = Encore, Surf, Flamethrower, Thunderbolt, Amnesia, Helping Hand
+tm = Ice Beam, Fire Blast, Blizzard, Wild Charge, Earthquake, Giga Impact
+tm = Outrage, Focus Blast, Hyper Beam, Thunder, Solar Beam, Tera Blast
+tm = Smack Down, High Horsepower, Heat Crash, Uproar, Focus Punch, Double-Edge
+tm = Supercell Slam, Curse, Hard Press

@@ -1,0 +1,65 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Jolteon
+dex  = 135
+type = Electric
+placeholder_art = Joltelly     # borrowed art until sprites are added
+
+hp         = 65
+attack     = 65
+defense    = 60
+sp_attack  = 110
+sp_defense = 95
+speed      = 130
+
+size   = 1.03
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Thunder Shock
+learn = 1, Double-Edge
+learn = 1, Covet
+learn = 1, Charm
+learn = 1, Tail Whip
+learn = 1, Swift
+learn = 1, Helping Hand
+learn = 1, Growl
+learn = 1, Copycat
+learn = 1, Tackle
+learn = 1, Take Down
+learn = 1, Bite
+learn = 1, Baton Pass
+learn = 5, Sand Attack
+learn = 10, Quick Attack
+learn = 15, Baby-Doll Eyes
+learn = 20, Thunder Wave
+learn = 25, Double Kick
+learn = 30, Thunder Fang
+learn = 35, Pin Missile
+learn = 40, Discharge
+learn = 45, Agility
+learn = 50, Thunder
+learn = 55, Last Resort
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Agility, Mud-Slap, Protect
+tm = Thunder Fang, Trailblaze, Facade, Swift, Stored Power, Endure
+tm = Volt Switch, Sunny Day, Rain Dance, Dig, False Swipe, Body Slam
+tm = Sleep Talk, Electro Ball, Light Screen, Thunder Wave, Rest, Eerie Impulse
+tm = Substitute, Shadow Ball, Hyper Voice, Thunderbolt, Calm Mind, Helping Hand
+tm = Baton Pass, Electric Terrain, Wild Charge, Giga Impact, Hyper Beam, Thunder
+tm = Tera Blast, Roar, Charge, Weather Ball, Double-Edge, Electroweb
+tm = Metal Sound, Curse, Alluring Voice

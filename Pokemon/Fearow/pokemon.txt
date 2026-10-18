@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Fearow
+dex  = 22
+type = Normal / Flying
+placeholder_art = Gustling     # borrowed art until sprites are added
+
+hp         = 65
+attack     = 90
+defense    = 65
+sp_attack  = 61
+sp_defense = 61
+speed      = 100
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Drill Run
+learn = 1, Peck
+learn = 1, Pluck
+learn = 1, Leer
+learn = 8, Assurance
+learn = 11, Fury Attack
+learn = 15, Aerial Ace
+learn = 18, Wing Attack
+learn = 23, Take Down
+learn = 27, Agility
+learn = 32, Focus Energy
+learn = 36, Roost
+learn = 41, Drill Peck
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Aerial Ace, Sunny Day, Rain Dance
+tm = False Swipe, U-turn, Sleep Talk, Rest, Fly, Substitute
+tm = Giga Impact, Hyper Beam, Toxic

@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Ponyta
+dex  = 77
+type = Fire
+placeholder_art = Cindercub     # borrowed art until sprites are added
+
+hp         = 50
+attack     = 85
+defense    = 55
+sp_attack  = 65
+sp_defense = 65
+speed      = 90
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Rapidash
+evolve_level = 40
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Tackle
+learn = 5, Tail Whip
+learn = 10, Ember
+learn = 15, Flame Charge
+learn = 20, Agility
+learn = 25, Flame Wheel
+learn = 30, Stomp
+learn = 35, Fire Spin
+learn = 41, Take Down
+learn = 45, Inferno
+learn = 50, Fire Blast
+learn = 55, Flare Blitz
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Agility, Protect, Low Kick, Fire Spin, Facade
+tm = Swift, Endure, Sunny Day, Body Slam, Sleep Talk, Rest
+tm = Substitute, Will-O-Wisp, Heat Wave, Flamethrower, Play Rough, Fire Blast
+tm = Wild Charge, Overheat, Flare Blitz, Solar Beam, High Horsepower, Solar Blade

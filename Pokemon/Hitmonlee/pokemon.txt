@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Hitmonlee
+dex  = 106
+type = Fighting
+placeholder_art = Punchip     # borrowed art until sprites are added
+
+hp         = 50
+attack     = 120
+defense    = 53
+sp_attack  = 35
+sp_defense = 110
+speed      = 87
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Fake Out
+learn = 1, Tackle
+learn = 1, Helping Hand
+learn = 1, Focus Energy
+learn = 1, Low Sweep
+learn = 4, Double Kick
+learn = 8, Low Kick
+learn = 12, Endure
+learn = 16, Sucker Punch
+learn = 21, Wide Guard
+learn = 24, Blaze Kick
+learn = 28, Feint
+learn = 32, Mega Kick
+learn = 36, Close Combat
+learn = 40, Reversal
+learn = 44, High Jump Kick
+learn = 50, Axe Kick
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Low Kick, Thief
+tm = Facade, Bulldoze, Swift, Rock Tomb, Low Sweep, Fling
+tm = Endure, Sunny Day, Rain Dance, Brick Break, Bulk Up, Body Slam
+tm = Sleep Talk, Metronome, Poison Jab, Stomping Tantrum, Rest, Rock Slide
+tm = Taunt, Swords Dance, Substitute, Aura Sphere, Helping Hand, Baton Pass
+tm = Reversal, Earthquake, Stone Edge, Giga Impact, Focus Blast, Close Combat
+tm = Tera Blast, Knock Off, Vacuum Wave, Lunge, Uproar, Double-Edge
+tm = Endeavor, Coaching, Throat Chop, Upper Hand

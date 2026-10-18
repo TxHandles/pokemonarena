@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Graveler
+dex  = 75
+type = Rock / Ground
+placeholder_art = Pebblor     # borrowed art until sprites are added
+
+hp         = 55
+attack     = 95
+defense    = 115
+sp_attack  = 45
+sp_defense = 45
+speed      = 35
+
+size   = 1.09
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_trade = Golem      # evolves when traded (or with a Linking Cord)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Rock Polish
+learn = 1, Tackle
+learn = 1, Defense Curl
+learn = 10, Rollout
+learn = 12, Bulldoze
+learn = 16, Rock Throw
+learn = 18, Smack Down
+learn = 24, Self-Destruct
+learn = 30, Stealth Rock
+learn = 34, Rock Blast
+learn = 40, Earthquake
+learn = 44, Explosion
+learn = 50, Double-Edge
+learn = 54, Stone Edge
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Facade, Bulldoze
+tm = Mud Shot, Rock Tomb, Fling, Endure, Sunny Day, Sandstorm
+tm = Dig, Brick Break, Body Slam, Fire Punch, Thunder Punch, Sleep Talk
+tm = Rock Blast, Metronome, Stomping Tantrum, Rest, Rock Slide, Body Press
+tm = Iron Head, Substitute, Iron Defense, Stealth Rock, Heavy Slam, Flamethrower
+tm = Earth Power, Fire Blast, Earthquake, Stone Edge, Focus Blast, Tera Blast
+tm = Smack Down, Gyro Ball, High Horsepower, Focus Punch, Double-Edge, Curse
+tm = Hard Press

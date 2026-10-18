@@ -1,0 +1,48 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Spearow
+dex  = 21
+type = Normal / Flying
+placeholder_art = Gustling     # borrowed art until sprites are added
+
+hp         = 40
+attack     = 60
+defense    = 30
+sp_attack  = 31
+sp_defense = 31
+speed      = 70
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Fearow
+evolve_level = 20
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Peck
+learn = 4, Leer
+learn = 8, Assurance
+learn = 11, Fury Attack
+learn = 15, Aerial Ace
+learn = 18, Wing Attack
+learn = 22, Take Down
+learn = 25, Agility
+learn = 29, Focus Energy
+learn = 32, Roost
+learn = 36, Drill Peck
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Aerial Ace, Sunny Day, Rain Dance
+tm = False Swipe, U-turn, Sleep Talk, Rest, Fly, Substitute
+tm = Toxic

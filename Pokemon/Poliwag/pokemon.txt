@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Poliwag
+dex  = 60
+type = Water
+placeholder_art = Ripplit     # borrowed art until sprites are added
+
+hp         = 40
+attack     = 50
+defense    = 40
+sp_attack  = 40
+sp_defense = 40
+speed      = 90
+
+size   = 0.96
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Poliwhirl
+evolve_level = 25
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Hypnosis
+learn = 6, Pound
+learn = 12, Mud Shot
+learn = 18, Bubble Beam
+learn = 24, Rain Dance
+learn = 30, Body Slam
+learn = 36, Earth Power
+learn = 42, Hydro Pump
+learn = 48, Belly Drum
+learn = 54, Double-Edge
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Water Pulse, Low Kick, Thief
+tm = Chilling Water, Facade, Bulldoze, Swift, Icy Wind, Mud Shot
+tm = Endure, Rain Dance, Dig, Body Slam, Sleep Talk, Waterfall
+tm = Rest, Substitute, Liquidation, Psychic, Encore, Surf
+tm = Amnesia, Helping Hand, Earth Power, Ice Beam, Hydro Pump, Blizzard
+tm = Tera Blast, Haze, Focus Punch, Weather Ball, Double-Edge, Endeavor
+tm = Whirlpool, Muddy Water

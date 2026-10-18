@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Wartortle
+dex  = 8
+type = Water
+
+hp         = 59
+attack     = 63
+defense    = 80
+sp_attack  = 65
+sp_defense = 80
+speed      = 58
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Blastoise
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Withdraw
+learn = 1, Water Gun
+learn = 1, Tackle
+learn = 1, Tail Whip
+learn = 9, Rapid Spin
+learn = 12, Bite
+learn = 15, Water Pulse
+learn = 20, Protect
+learn = 25, Rain Dance
+learn = 30, Aqua Tail
+learn = 35, Shell Smash
+learn = 40, Iron Defense
+learn = 45, Hydro Pump
+learn = 50, Wave Crash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Water Pulse, Chilling Water, Facade, Icy Wind
+tm = Mud Shot, Fling, Endure, Rain Dance, Dig, Brick Break
+tm = Zen Headbutt, Body Slam, Ice Punch, Sleep Talk, Rest, Substitute
+tm = Iron Defense, Liquidation, Surf, Ice Spinner, Helping Hand, Ice Beam
+tm = Hydro Pump, Blizzard, Water Pledge, Tera Blast, Haze, Gyro Ball
+tm = Focus Punch, Weather Ball, Flip Turn, Double-Edge, Whirlpool, Muddy Water

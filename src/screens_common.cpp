@@ -1,0 +1,120 @@
+#include <algorithm>
+#include <cmath>
+#include <cstdio>
+#include "arena.h"
+#include "game.h"
+#include "settings.h"
+#include "sprites.h"
+#include "ui.h"
+
+void Toast(Game& g, const std::string& msg) {
+    g.toast = msg;
+    g.toastT = 2.5f;
+}
+
+void DrawToast(const Game& g) {
+    if (g.toastT <= 0 || g.toast.empty()) return;
+    float a = std::min(1.0f, g.toastT * 2);
+    int w = TextW(g.toast.c_str(), 10) + 16;
+    int x = VW / 2 - w / 2, y = VH - 30;
+    DrawRectangle(x, y, w, 16, Fade(UI_INK, 0.9f * a));
+    RectLines(x, y, w, 16, Fade(UI_GOLD, a));
+    DrawText(g.toast.c_str(), x + 8, y + 3, 10, Fade(UI_TEXT, a));
+}
+
+void DrawMenuItem(const char* text, int cx, int y, int size, bool selected, bool dim) {
+    if (selected) {
+        int w = TextW(text, size) + 24;
+        DrawRectangle(cx - w / 2, y - 3, w, size + 4, Fade(UI_PANEL_LIGHT, 0.9f));
+        RectLines(cx - w / 2, y - 3, w, size + 4, UI_GOLD);
+    }
+    DrawTextCentered(text, cx, y, size, selected ? UI_GOLD : (dim ? UI_DIM : UI_TEXT));
+}
+
+static std::string Keys(int layout, Act a, Act b, Act c, Act d) {
+    const auto& k = Cfg().keys[layout];
+    return std::string(KeyName(k[(int)a][0])) + " " + KeyName(k[(int)b][0]) + " " + KeyName(k[(int)c][0]) + " " + KeyName(k[(int)d][0]);
+}
+
+void DrawControlsHelp(int x, int y, bool twoPlayer) {
+    const auto& K = Cfg().keys;
+    if (twoPlayer) {
+        std::string p1 = "P1: move " + Keys(LAYOUT_P1, Act::Up, Act::Left, Act::Down, Act::Right) + "   moves " +
+                         Keys(LAYOUT_P1, Act::Move1, Act::Move2, Act::Move3, Act::Move4) + "   swap " + KeyName(K[LAYOUT_P1][(int)Act::SwapPrev][0]) + "/" + KeyName(K[LAYOUT_P1][(int)Act::Swap][0]) +
+                         "   dodge " + KeyName(K[LAYOUT_P1][(int)Act::Dodge][0]) + "   jump " + KeyName(K[LAYOUT_P1][(int)Act::Jump][0]);
+        std::string p2 = "P2: move " + Keys(LAYOUT_P2, Act::Up, Act::Left, Act::Down, Act::Right) + "   moves " +
+                         Keys(LAYOUT_P2, Act::Move1, Act::Move2, Act::Move3, Act::Move4) + "   swap " + KeyName(K[LAYOUT_P2][(int)Act::SwapPrev][0]) + "/" + KeyName(K[LAYOUT_P2][(int)Act::Swap][0]) +
+                         "   dodge " + KeyName(K[LAYOUT_P2][(int)Act::Dodge][0]) + "   jump " + KeyName(K[LAYOUT_P2][(int)Act::Jump][0]);
+        DrawText(p1.c_str(), x, y, 10, UI_TEXT);
+        DrawText(p2.c_str(), x, y + 12, 10, UI_TEXT);
+    } else {
+        std::string l = "Move: " + Keys(LAYOUT_SOLO, Act::Up, Act::Left, Act::Down, Act::Right) + "   Moves: " +
+                        Keys(LAYOUT_SOLO, Act::Move1, Act::Move2, Act::Move3, Act::Move4) + "   Swap: " + KeyName(K[LAYOUT_SOLO][(int)Act::SwapPrev][0]) + "/" + KeyName(K[LAYOUT_SOLO][(int)Act::Swap][0]) +
+                        "   Dodge: " + KeyName(K[LAYOUT_SOLO][(int)Act::Dodge][0]) + "   Jump: " + KeyName(K[LAYOUT_SOLO][(int)Act::Jump][0]);
+        DrawText(l.c_str(), x, y, 10, UI_TEXT);
+        DrawText("Gamepad: stick moves, A B X Y moves, LB dodge, RB jump, LT / RT swap back / next (Settings > Controls)", x, y + 12, 10, UI_TEXT);
+    }
+    DrawText(Cfg().autoAim ? "Attacks aim at your opponent automatically.   Esc / P: pause   F11: window / fullscreen"
+                           : "Attacks fire the way you face.   Esc / P: pause   F11: window / fullscreen", x, y + 24, 10, UI_DIM);
+}
+
+void DrawMoveLine(const MoveDef& m, int x, int y, int w, bool details) {
+    DrawRectangle(x, y + 1, 6, 8, TypeColor(m.type));
+    DrawText(m.name.c_str(), x + 10, y, 10, UI_TEXT);
+    char buf[48];
+    if (IsDamaging(m)) std::snprintf(buf, sizeof buf, "%s  pow %d  %.1fs", MoveKindName(m.kind), m.power, m.cooldown);
+    else std::snprintf(buf, sizeof buf, "%s  %.1fs", MoveKindName(m.kind), m.cooldown);
+    DrawText(buf, x + w - TextW(buf, 10), y, 10, UI_DIM);
+    if (details) {
+        std::string d = DescribeMove(m);
+        while (d.size() > 4 && TextW(d.c_str(), 10) > w - 10) d = d.substr(0, d.size() - 4) + "...";   // keep it inside its panel
+        DrawText(d.c_str(), x + 10, y + 11, 10, Color{150, 190, 220, 255});
+    }
+}
+
+void DrawCreatureCard(int species, int level, int x, int y, int w, int h, bool selected) {
+    const SpeciesDef& sp = AllSpecies()[species];
+    DrawPanel(x, y, w, h, UI_PANEL, selected ? UI_GOLD : Color{80, 74, 104, 255});
+    DrawRectangle(x + 1, y + 1, w - 2, 3, TypeColor(sp.type1));
+    DrawEllipse(x + w / 2, y + h - 30, 16, 4, Fade(BLACK, 0.3f));
+    DrawSpeciesFit(species, VIEW_FRONT, x + w / 2, y + h - 28, std::min(w - 20, h - 50));
+    DrawTextCentered(sp.name.c_str(), x + w / 2, y + h - 24, 10, UI_TEXT, false);
+    int bw = TextW(TypeName(sp.type1), 10) + 6 + (sp.type2 != Type::None ? TextW(TypeName(sp.type2), 10) + 8 : 0);
+    int bx = x + w / 2 - bw / 2;
+    bx += DrawTypeBadge(sp.type1, bx, y + h - 13) + 2;
+    if (sp.type2 != Type::None) DrawTypeBadge(sp.type2, bx, y + h - 13);
+    if (level > 0) DrawText(TextFormat("Lv%d", level), x + 5, y + 7, 10, UI_GOLD);
+}
+
+std::vector<RosterEntry> FreePlayRoster() {
+    std::vector<RosterEntry> r;
+    for (int i = 0; i < (int)AllSpecies().size(); i++) {
+        if (!InSpeciesPool(i)) continue;
+        RosterEntry e;
+        e.species = i;
+        e.level = FREE_PLAY_LEVEL;
+        e.moves = FreePlayMoves(AllSpecies()[i]);
+        r.push_back(e);
+    }
+    return r;
+}
+
+std::vector<RosterEntry> ProfileRoster(const Profile& p, bool partyOnly) {
+    std::vector<RosterEntry> r;
+    for (int i = 0; i < (int)p.mons.size(); i++) {
+        if (MonSpecies(p.mons[i]) < 0 || (partyOnly && p.mons[i].boxed)) continue;
+        CombatantSpec c = MonCombatant(p, i);
+        RosterEntry e;
+        e.species = c.species;
+        e.level = c.level;
+        e.xp = c.xp;
+        e.moves = c.moves;
+        e.ownedId = i;
+        e.hpFrac = p.mons[i].hp;
+        e.item = p.mons[i].item;
+        e.abilitySlot = c.abilitySlot;
+        e.nature = c.nature;
+        r.push_back(e);
+    }
+    return r;
+}

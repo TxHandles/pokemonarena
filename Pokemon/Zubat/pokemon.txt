@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Zubat
+dex  = 41
+type = Poison / Flying
+placeholder_art = Gustling     # borrowed art until sprites are added
+
+hp         = 40
+attack     = 45
+defense    = 35
+sp_attack  = 30
+sp_defense = 40
+speed      = 55
+
+size   = 1.03
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Golbat
+evolve_level = 22
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Absorb
+learn = 1, Supersonic
+learn = 5, Astonish
+learn = 10, Mean Look
+learn = 15, Poison Fang
+learn = 20, Quick Guard
+learn = 25, Air Cutter
+learn = 30, Bite
+learn = 35, Haze
+learn = 40, Venoshock
+learn = 45, Confuse Ray
+learn = 50, Air Slash
+learn = 55, Leech Life
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Acrobatics, Thief, Facade, Swift
+tm = Venoshock, Endure, Sunny Day, Rain Dance, Zen Headbutt, U-turn
+tm = Air Slash, Sleep Talk, Rest, Taunt, Leech Life, Fly
+tm = Substitute, Crunch, Giga Drain, Shadow Ball, Heat Wave, Nasty Plot
+tm = Sludge Bomb, Brave Bird, Uproar

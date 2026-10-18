@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Seadra
+dex  = 117
+type = Water
+placeholder_art = Torrentoad     # borrowed art until sprites are added
+
+hp         = 55
+attack     = 65
+defense    = 95
+sp_attack  = 95
+sp_defense = 45
+speed      = 85
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Twister
+learn = 1, Water Gun
+learn = 1, Smokescreen
+learn = 1, Leer
+learn = 15, Focus Energy
+learn = 20, Dragon Breath
+learn = 25, Bubble Beam
+learn = 30, Agility
+learn = 37, Water Pulse
+learn = 44, Dragon Pulse
+learn = 51, Hydro Pump
+learn = 58, Dragon Dance
+learn = 65, Rain Dance
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Scary Face, Protect, Water Pulse, Chilling Water, Facade
+tm = Swift, Icy Wind, Endure, Rain Dance, Snowscape, Sleep Talk
+tm = Waterfall, Rest, Flash Cannon, Dragon Dance, Substitute, Liquidation
+tm = Dragon Pulse, Surf, Ice Beam, Hydro Pump, Blizzard, Giga Impact
+tm = Outrage, Hyper Beam, Tera Blast, Weather Ball, Flip Turn, Scale Shot
+tm = Whirlpool, Muddy Water

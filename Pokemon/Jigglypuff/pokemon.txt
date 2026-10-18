@@ -1,0 +1,65 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Jigglypuff
+dex  = 39
+type = Normal / Fairy
+placeholder_art = Furbit     # borrowed art until sprites are added
+
+hp         = 115
+attack     = 45
+defense    = 20
+sp_attack  = 45
+sp_defense = 25
+speed      = 20
+
+size   = 0.91
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Wigglytuff, Moon Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Sing
+learn = 1, Charm
+learn = 1, Defense Curl
+learn = 1, Sweet Kiss
+learn = 1, Disarming Voice
+learn = 1, Pound
+learn = 1, Copycat
+learn = 1, Disable
+learn = 4, Echoed Voice
+learn = 8, Covet
+learn = 12, Spit Up
+learn = 12, Swallow
+learn = 12, Stockpile
+learn = 16, Round
+learn = 20, Rest
+learn = 24, Body Slam
+learn = 28, Mimic
+learn = 32, Gyro Ball
+learn = 36, Hyper Voice
+learn = 44, Double-Edge
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Protect, Water Pulse, Thief
+tm = Disarming Voice, Trailblaze, Chilling Water, Facade, Swift, Magical Leaf
+tm = Icy Wind, Draining Kiss, Stored Power, Fling, Endure, Sunny Day
+tm = Rain Dance, Sandstorm, Psyshock, Dig, Brick Break, Zen Headbutt
+tm = Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch
+tm = Reflect, Light Screen, Dazzling Gleam, Metronome, Grass Knot, Thunder Wave
+tm = Rest, Taunt, Body Press, Dark Pulse, Skill Swap, Substitute
+tm = Shadow Ball, Stealth Rock, Hyper Voice, Energy Ball, Psychic, Encore
+tm = Ice Spinner, Flamethrower, Thunderbolt, Play Rough, Amnesia, Calm Mind
+tm = Helping Hand, Baton Pass, Ice Beam, Misty Terrain, Nasty Plot, Fire Blast
+tm = Blizzard, Wild Charge, Thunder, Solar Beam, Tera Blast, Gravity
+tm = Gyro Ball, Knock Off, Uproar, Focus Punch, Misty Explosion, Pain Split
+tm = Psych Up, Double-Edge, Endeavor, Alluring Voice, Psychic Noise

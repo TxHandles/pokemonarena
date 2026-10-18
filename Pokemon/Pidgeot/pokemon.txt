@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Pidgeot
+dex  = 18
+type = Normal / Flying
+placeholder_art = Gustling     # borrowed art until sprites are added
+
+hp         = 83
+attack     = 80
+defense    = 75
+sp_attack  = 70
+sp_defense = 70
+speed      = 101
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Gust
+learn = 1, Hurricane
+learn = 1, Tackle
+learn = 1, Sand Attack
+learn = 1, Quick Attack
+learn = 17, Whirlwind
+learn = 22, Twister
+learn = 27, Feather Dance
+learn = 32, Agility
+learn = 38, Wing Attack
+learn = 44, Roost
+learn = 50, Tailwind
+learn = 56, Aerial Ace
+learn = 62, Air Slash
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Aerial Ace, Sunny Day, Rain Dance
+tm = U-turn, Sleep Talk, Rest, Fly, Substitute, Giga Impact
+tm = Hyper Beam, Toxic

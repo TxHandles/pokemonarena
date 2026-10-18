@@ -1,0 +1,84 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Mew
+dex  = 151
+type = Psychic
+placeholder_art = Mystling     # borrowed art until sprites are added
+
+hp         = 100
+attack     = 100
+defense    = 100
+sp_attack  = 100
+sp_defense = 100
+speed      = 100
+
+size   = 0.85
+hovers = yes
+heavy  = no
+winged = no
+rare   = yes
+legendary = yes
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Reflect Type
+learn = 1, Pound
+learn = 10, Amnesia
+learn = 20, Baton Pass
+learn = 30, Ancient Power
+learn = 40, Life Dew
+learn = 50, Nasty Plot
+learn = 60, Metronome
+learn = 70, Imprison
+learn = 80, Transform
+learn = 90, Aura Sphere
+learn = 100, Psychic
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Agility, Mud-Slap, Scary Face
+tm = Protect, Fire Fang, Thunder Fang, Ice Fang, Water Pulse, Low Kick
+tm = Acid Spray, Acrobatics, Struggle Bug, Psybeam, Confuse Ray, Thief
+tm = Disarming Voice, Trailblaze, Pounce, Chilling Water, Charge Beam, Fire Spin
+tm = Facade, Poison Tail, Aerial Ace, Bulldoze, Hex, Snarl
+tm = Metal Claw, Swift, Magical Leaf, Icy Wind, Mud Shot, Rock Tomb
+tm = Draining Kiss, Flame Charge, Low Sweep, Air Cutter, Stored Power, Night Shade
+tm = Fling, Dragon Tail, Venoshock, Avalanche, Endure, Volt Switch
+tm = Sunny Day, Rain Dance, Sandstorm, Snowscape, Smart Strike, Psyshock
+tm = Dig, Bullet Seed, False Swipe, Brick Break, Zen Headbutt, U-turn
+tm = Shadow Claw, Foul Play, Psychic Fangs, Bulk Up, Air Slash, Body Slam
+tm = Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Seed Bomb, Electro Ball
+tm = Drain Punch, Reflect, Light Screen, Rock Blast, Waterfall, Dragon Claw
+tm = Dazzling Gleam, Metronome, Grass Knot, Thunder Wave, Poison Jab, Stomping Tantrum
+tm = Rest, Rock Slide, Taunt, Swords Dance, Body Press, Spikes
+tm = Toxic Spikes, Imprison, Flash Cannon, Dark Pulse, Leech Life, Eerie Impulse
+tm = Fly, Skill Swap, Iron Head, Dragon Dance, Power Gem, Gunk Shot
+tm = Substitute, Iron Defense, X-Scissor, Drill Run, Will-O-Wisp, Crunch
+tm = Trick, Liquidation, Giga Drain, Aura Sphere, Tailwind, Shadow Ball
+tm = Dragon Pulse, Stealth Rock, Hyper Voice, Heat Wave, Energy Ball, Psychic
+tm = Heavy Slam, Encore, Surf, Ice Spinner, Flamethrower, Thunderbolt
+tm = Play Rough, Amnesia, Calm Mind, Helping Hand, Pollen Puff, Baton Pass
+tm = Earth Power, Reversal, Ice Beam, Electric Terrain, Grassy Terrain, Psychic Terrain
+tm = Misty Terrain, Nasty Plot, Fire Blast, Hydro Pump, Blizzard, Fire Pledge
+tm = Water Pledge, Grass Pledge, Wild Charge, Sludge Bomb, Earthquake, Stone Edge
+tm = Phantom Force, Giga Impact, Blast Burn, Hydro Cannon, Frenzy Plant, Outrage
+tm = Overheat, Focus Blast, Leaf Storm, Hurricane, Trick Room, Bug Buzz
+tm = Hyper Beam, Brave Bird, Flare Blitz, Thunder, Close Combat, Solar Beam
+tm = Draco Meteor, Steel Beam, Tera Blast, Roar, Charge, Haze
+tm = Toxic, Sand Tomb, Spite, Gravity, Smack Down, Gyro Ball
+tm = Knock Off, Bug Bite, Super Fang, Vacuum Wave, Lunge, High Horsepower
+tm = Icicle Spear, Scald, Heat Crash, Solar Blade, Uproar, Focus Punch
+tm = Weather Ball, Grassy Glide, Burning Jealousy, Flip Turn, Dual Wingbeat, Poltergeist
+tm = Lash Out, Scale Shot, Misty Explosion, Pain Split, Psych Up, Double-Edge
+tm = Endeavor, Petal Blizzard, Temper Flare, Whirlpool, Muddy Water, Supercell Slam
+tm = Electroweb, Triple Axel, Coaching, Sludge Wave, Scorching Sands, Feather Dance
+tm = Future Sight, Expanding Force, Skitter Smack, Meteor Beam, Throat Chop, Breaking Swipe
+tm = Metal Sound, Curse, Hard Press, Dragon Cheer, Alluring Voice, Psychic Noise
+tm = Upper Hand

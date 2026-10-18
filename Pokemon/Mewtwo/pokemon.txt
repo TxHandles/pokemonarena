@@ -1,0 +1,65 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Mewtwo
+dex  = 150
+type = Psychic
+placeholder_art = Mystling     # borrowed art until sprites are added
+
+hp         = 106
+attack     = 110
+defense    = 90
+sp_attack  = 154
+sp_defense = 90
+speed      = 130
+
+size   = 1.27
+hovers = no
+heavy  = yes
+winged = no
+rare   = yes
+legendary = yes
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Swift
+learn = 1, Confusion
+learn = 1, Disable
+learn = 1, Life Dew
+learn = 8, Ancient Power
+learn = 16, Psycho Cut
+learn = 24, Safeguard
+learn = 32, Amnesia
+learn = 40, Aura Sphere
+learn = 48, Psychic
+learn = 56, Power Swap
+learn = 56, Guard Swap
+learn = 64, Mist
+learn = 72, Psystrike
+learn = 80, Recover
+learn = 88, Future Sight
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Low Kick, Psybeam
+tm = Confuse Ray, Trailblaze, Chilling Water, Facade, Bulldoze, Hex
+tm = Swift, Icy Wind, Rock Tomb, Low Sweep, Stored Power, Night Shade
+tm = Fling, Avalanche, Endure, Sunny Day, Rain Dance, Sandstorm
+tm = Psyshock, Brick Break, Zen Headbutt, Foul Play, Bulk Up, Body Slam
+tm = Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Electro Ball, Drain Punch
+tm = Reflect, Light Screen, Metronome, Grass Knot, Thunder Wave, Poison Jab
+tm = Stomping Tantrum, Rest, Rock Slide, Taunt, Imprison, Dark Pulse
+tm = Skill Swap, Power Gem, Substitute, Will-O-Wisp, Trick, Aura Sphere
+tm = Shadow Ball, Energy Ball, Psychic, Flamethrower, Thunderbolt, Amnesia
+tm = Calm Mind, Helping Hand, Earth Power, Reversal, Ice Beam, Psychic Terrain
+tm = Nasty Plot, Fire Blast, Blizzard, Earthquake, Stone Edge, Giga Impact
+tm = Focus Blast, Hurricane, Trick Room, Hyper Beam, Thunder, Solar Beam
+tm = Tera Blast, Spite, Gravity, Knock Off, Focus Punch, Weather Ball
+tm = Lash Out, Psych Up, Double-Edge, Future Sight, Expanding Force, Curse
+tm = Psychic Noise

@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Voltorb
+dex  = 100
+type = Electric
+placeholder_art = Joltelly     # borrowed art until sprites are added
+
+hp         = 40
+attack     = 30
+defense    = 50
+sp_attack  = 55
+sp_defense = 55
+speed      = 100
+
+size   = 0.91
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Electrode
+evolve_level = 30
+evolve_item = Electrode, Leaf Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Charge
+learn = 1, Tackle
+learn = 4, Thunder Shock
+learn = 6, Eerie Impulse
+learn = 9, Spark
+learn = 11, Rollout
+learn = 13, Screech
+learn = 16, Charge Beam
+learn = 20, Swift
+learn = 22, Electro Ball
+learn = 26, Self-Destruct
+learn = 29, Light Screen
+learn = 34, Magnet Rise
+learn = 37, Discharge
+learn = 41, Explosion
+learn = 46, Gyro Ball
+learn = 50, Mirror Coat
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Thief, Charge Beam, Facade
+tm = Swift, Endure, Volt Switch, Rain Dance, Foul Play, Sleep Talk
+tm = Electro Ball, Light Screen, Thunder Wave, Rest, Taunt, Eerie Impulse
+tm = Substitute, Thunderbolt, Helping Hand, Electric Terrain, Wild Charge, Thunder
+tm = Tera Blast, Charge, Gyro Ball, Double-Edge, Electroweb, Metal Sound

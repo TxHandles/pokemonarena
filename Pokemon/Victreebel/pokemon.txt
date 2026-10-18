@@ -1,0 +1,46 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Victreebel
+dex  = 71
+type = Grass / Poison
+placeholder_art = Thornbloom     # borrowed art until sprites are added
+
+hp         = 80
+attack     = 105
+defense    = 65
+sp_attack  = 100
+sp_defense = 70
+speed      = 70
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Leaf Storm
+learn = 1, Sweet Scent
+learn = 1, Sleep Powder
+learn = 1, Vine Whip
+learn = 1, Razor Leaf
+learn = 44, Leaf Blade
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Acid Spray, Thief, Trailblaze, Pounce
+tm = Facade, Swift, Magical Leaf, Venoshock, Endure, Sunny Day
+tm = Bullet Seed, Body Slam, Sleep Talk, Seed Bomb, Reflect, Grass Knot
+tm = Poison Jab, Rest, Swords Dance, Leech Life, Substitute, Giga Drain
+tm = Energy Ball, Encore, Grassy Terrain, Sludge Bomb, Giga Impact, Leaf Storm
+tm = Hyper Beam, Solar Beam, Tera Blast, Toxic, Knock Off, Bug Bite
+tm = Lunge, Weather Ball, Grassy Glide, Sludge Wave

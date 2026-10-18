@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Muk
+dex  = 89
+type = Poison
+placeholder_art = Toxlug     # borrowed art until sprites are added
+
+hp         = 105
+attack     = 105
+defense    = 75
+sp_attack  = 65
+sp_defense = 100
+speed      = 50
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Harden
+learn = 1, Mud-Slap
+learn = 1, Poison Gas
+learn = 1, Pound
+learn = 12, Disable
+learn = 15, Sludge
+learn = 18, Mud Shot
+learn = 21, Minimize
+learn = 26, Toxic
+learn = 29, Sludge Bomb
+learn = 32, Sludge Wave
+learn = 37, Screech
+learn = 40, Gunk Shot
+learn = 46, Acid Armor
+learn = 52, Belch
+learn = 57, Memento
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Acid Spray, Confuse Ray
+tm = Thief, Facade, Hex, Swift, Mud Shot, Rock Tomb
+tm = Fling, Venoshock, Endure, Sunny Day, Rain Dance, Sandstorm
+tm = Dig, Brick Break, Zen Headbutt, Body Slam, Fire Punch, Thunder Punch
+tm = Ice Punch, Sleep Talk, Drain Punch, Metronome, Poison Jab, Rest
+tm = Rock Slide, Taunt, Toxic Spikes, Imprison, Dark Pulse, Gunk Shot
+tm = Substitute, Giga Drain, Shadow Ball, Flamethrower, Thunderbolt, Helping Hand
+tm = Fire Blast, Sludge Bomb, Giga Impact, Focus Blast, Hyper Beam, Thunder
+tm = Tera Blast, Haze, Toxic, Spite, Knock Off, Lunge
+tm = Focus Punch, Lash Out, Pain Split, Sludge Wave, Curse

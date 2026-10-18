@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Dragonair
+dex  = 148
+type = Dragon
+placeholder_art = Drakelet     # borrowed art until sprites are added
+
+hp         = 61
+attack     = 84
+defense    = 65
+sp_attack  = 70
+sp_defense = 70
+speed      = 70
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Dragonite
+evolve_level = 55
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Wrap
+learn = 1, Twister
+learn = 1, Thunder Wave
+learn = 1, Leer
+learn = 15, Dragon Tail
+learn = 20, Agility
+learn = 25, Slam
+learn = 33, Aqua Tail
+learn = 39, Dragon Rush
+learn = 46, Safeguard
+learn = 53, Rain Dance
+learn = 60, Dragon Dance
+learn = 67, Outrage
+learn = 74, Hyper Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Water Pulse, Chilling Water, Fire Spin
+tm = Facade, Swift, Icy Wind, Dragon Tail, Endure, Sunny Day
+tm = Rain Dance, Body Slam, Sleep Talk, Light Screen, Waterfall, Thunder Wave
+tm = Rest, Iron Head, Dragon Dance, Substitute, Dragon Pulse, Surf
+tm = Flamethrower, Thunderbolt, Helping Hand, Ice Beam, Fire Blast, Hydro Pump
+tm = Blizzard, Giga Impact, Outrage, Hyper Beam, Thunder, Draco Meteor
+tm = Tera Blast, Haze, Weather Ball, Scale Shot, Breaking Swipe, Dragon Cheer

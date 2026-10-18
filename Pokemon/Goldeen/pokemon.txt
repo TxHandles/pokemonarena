@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Goldeen
+dex  = 118
+type = Water
+placeholder_art = Ripplit     # borrowed art until sprites are added
+
+hp         = 45
+attack     = 67
+defense    = 60
+sp_attack  = 35
+sp_defense = 50
+speed      = 63
+
+size   = 0.96
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Seaking
+evolve_level = 33
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Peck
+learn = 1, Tail Whip
+learn = 5, Supersonic
+learn = 10, Water Pulse
+learn = 15, Horn Attack
+learn = 20, Agility
+learn = 25, Aqua Ring
+learn = 30, Flail
+learn = 35, Waterfall
+learn = 40, Soak
+learn = 45, Megahorn
+learn = 50, Horn Drill
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Facade, Swift, Icy Wind, Mud Shot
+tm = Endure, Rain Dance, Smart Strike, Body Slam, Sleep Talk, Waterfall
+tm = Poison Jab, Rest, Swords Dance, Substitute, Drill Run, Surf
+tm = Ice Beam, Hydro Pump, Blizzard, Scald, Whirlpool, Muddy Water
+tm = Throat Chop

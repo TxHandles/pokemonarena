@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Tangela
+dex  = 114
+type = Grass
+placeholder_art = Thistlet     # borrowed art until sprites are added
+
+hp         = 65
+attack     = 55
+defense    = 115
+sp_attack  = 100
+sp_defense = 40
+speed      = 60
+
+size   = 1.09
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Absorb
+learn = 1, Bind
+learn = 4, Stun Spore
+learn = 8, Growth
+learn = 12, Mega Drain
+learn = 16, Vine Whip
+learn = 20, Poison Powder
+learn = 24, Ancient Power
+learn = 28, Knock Off
+learn = 32, Giga Drain
+learn = 36, Sleep Powder
+learn = 40, Slam
+learn = 44, Tickle
+learn = 48, Power Whip
+learn = 52, Ingrain
+learn = 56, Grassy Terrain
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Endure, Sunny Day, Bullet Seed
+tm = Body Slam, Sleep Talk, Seed Bomb, Reflect, Grass Knot, Rest
+tm = Swords Dance, Substitute, Giga Drain, Energy Ball, Amnesia, Grassy Terrain
+tm = Sludge Bomb, Giga Impact, Leaf Storm, Hyper Beam, Solar Beam

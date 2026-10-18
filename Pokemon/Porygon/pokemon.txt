@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Porygon
+dex  = 137
+type = Normal
+placeholder_art = Furbit     # borrowed art until sprites are added
+
+hp         = 65
+attack     = 60
+defense    = 70
+sp_attack  = 85
+sp_defense = 75
+speed      = 40
+
+size   = 1.03
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Conversion
+learn = 1, Tackle
+learn = 5, Recycle
+learn = 10, Magnet Rise
+learn = 15, Thunder Shock
+learn = 20, Psybeam
+learn = 25, Conversion 2
+learn = 30, Agility
+learn = 35, Recover
+learn = 40, Discharge
+learn = 45, Tri Attack
+learn = 50, Double-Edge
+learn = 55, Lock-On
+learn = 60, Zap Cannon
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Psybeam, Thief, Charge Beam
+tm = Facade, Swift, Icy Wind, Endure, Sunny Day, Rain Dance
+tm = Psyshock, Zen Headbutt, Foul Play, Sleep Talk, Thunder Wave, Rest
+tm = Eerie Impulse, Substitute, Trick, Shadow Ball, Psychic, Thunderbolt
+tm = Ice Beam, Blizzard, Giga Impact, Trick Room, Hyper Beam, Thunder
+tm = Solar Beam, Tera Blast, Charge, Gravity, Double-Edge, Electroweb

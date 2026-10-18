@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Magmar
+dex  = 126
+type = Fire
+placeholder_art = Cindercub     # borrowed art until sprites are added
+
+hp         = 65
+attack     = 95
+defense    = 57
+sp_attack  = 100
+sp_defense = 85
+speed      = 93
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Smog
+learn = 1, Leer
+learn = 1, Smokescreen
+learn = 1, Ember
+learn = 12, Clear Smog
+learn = 16, Flame Wheel
+learn = 20, Confuse Ray
+learn = 24, Scary Face
+learn = 28, Fire Punch
+learn = 34, Lava Plume
+learn = 40, Low Kick
+learn = 46, Flamethrower
+learn = 52, Sunny Day
+learn = 58, Fire Blast
+learn = 64, Hyper Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Low Kick, Acid Spray, Confuse Ray
+tm = Thief, Fire Spin, Facade, Flame Charge, Low Sweep, Fling
+tm = Endure, Sunny Day, Brick Break, Body Slam, Fire Punch, Thunder Punch
+tm = Sleep Talk, Metronome, Poison Jab, Rest, Taunt, Substitute
+tm = Will-O-Wisp, Heat Wave, Psychic, Flamethrower, Helping Hand, Fire Blast
+tm = Giga Impact, Overheat, Focus Blast, Hyper Beam, Flare Blitz, Tera Blast
+tm = Roar, Knock Off, Heat Crash, Uproar, Focus Punch, Burning Jealousy
+tm = Double-Edge, Temper Flare, Scorching Sands, Curse

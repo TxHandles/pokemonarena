@@ -1,0 +1,103 @@
+# ==========================================================================
+#  POKEMON TEMPLATE
+# ==========================================================================
+#  HOW TO ADD A POKEMON
+#   1. Copy this whole _TEMPLATE folder and rename the copy to the Pokemon's
+#      name, e.g.  Pokemon\Ivysaur
+#   2. Put its sprite images in the folder (see SPRITES below).
+#   3. Fill in every value below and save.
+#   4. Start the game. Pokemon\load_log.txt shows what was read and any mistakes.
+#
+#  Folders whose name starts with _ (like this one) are ignored.
+#  Anything after a # is a note and is ignored.
+#
+#  SPRITES - files are matched by the direction word in their name:
+#     front:  front, mae, down        back:  back, ushiro, up
+#     left:   left, hidari            right: right, migi
+#  followed by _1 / _2 for the two walking frames, e.g.
+#     001_1_mae_1.png   001_1_mae_2.png   front_1.png   left.png
+#  Grid-chart pictures work as-is. Numbered copies ("_No" in the name) are used
+#  first; plain copies are the backup. A picture with no direction word becomes the
+#  menu portrait. Missing left/right views are mirrored from each other.
+# ==========================================================================
+
+# ---- BASICS -------------------------------------------------------------
+name = Newmon
+dex  = 0                   # Pokedex number (for your own reference; sorting)
+type = Fire                # one or two types:  type = Grass / Poison
+                           # Normal Fire Water Grass Electric Ice Fighting Poison Ground
+                           # Flying Psychic Bug Rock Ghost Dragon Dark Steel Fairy
+
+# ---- STATS: copy the base stats straight from the Pokedex ----------------
+# The game scales them for battle.
+#   attack / defense       -> physical moves: Melee, Dash, Burst, Wave, Blink, Burrow
+#   sp_attack / sp_defense -> special moves: Shot, Spread, Beam, Lob, Zone, Strike, Rain
+hp         = 39
+attack     = 52
+defense    = 43
+sp_attack  = 60
+sp_defense = 50
+speed      = 65
+
+# ---- BODY ----------------------------------------------------------------
+size   = 1.0               # on-screen size, 0.25 to 4 (1.15 or more counts as heavy)
+hovers = no                # yes = floats above the ground (Gastly, Magnemite...)
+heavy  = no                # yes = smashes trees and throws pillars in the gyms
+winged = no                # yes = flies over water/pools without being Flying type
+rare   = no                # yes = can appear as a rare training encounter
+starter = no               # yes = offered as a starter in Story Mode
+legendary = no             # yes = (with rare = yes) only shows up once your team averages level 40
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# Name of the next form's folder and the level it evolves at. The next form
+# must be its own folder. Leave these as "none" / 0 for no evolution.
+evolves_to   = none
+evolve_level = 0
+# Other ways to evolve (repeat a line for several options, like Eevee):
+# evolve_item = Vaporeon, Water Stone      # use the stone on it from Party & Box
+# evolve_friendship = Crobat, 160          # evolves after a win once friendship reaches 160
+# evolve_trade = Alakazam                  # evolves when traded to your co-op partner
+
+# ---- ABILITIES & POKEDEX (optional - the original 151 fill these in automatically) ----
+# abilities      = Overgrow                # one or two, comma separated
+# hidden_ability = Chlorophyll             # rare (1 in 20 caught)
+# category  = Seed                         # "Seed Pokemon"
+# height    = 0.7                          # metres
+# weight    = 6.9                          # kilograms
+# dex_entry = A strange seed was planted on its back at birth.
+
+# xp_yield = 60            # XP it gives when defeated (default: worked out from its stats)
+# replaces = Joltelly      # optional: take over one of the built-in test creatures
+# placeholder_art = Cindercub   # optional: borrow built-in art until your sprites are ready
+
+# ---- LEVEL-UP MOVES (Story Mode) -----------------------------------------
+# "learn = level, Move". A new Pokemon knows the last four it has reached;
+# later ones are offered as it levels up. Names come from MOVE-LIST.txt.
+learn = 1, Scratch
+learn = 1, Growl
+learn = 5, Ember
+learn = 10, Quick Attack
+learn = 16, Flame Wheel
+learn = 24, Fire Fang
+learn = 32, Flamethrower
+
+# ---- TM MOVES -------------------------------------------------------------
+# Moves it can learn from TMs (Poke Mart TMs tab, taught in Party & Box).
+tm = Protect, Facade, Rest, Sleep Talk, Substitute
+tm = Flame Charge, Flamethrower, Fire Blast, Will-O-Wisp
+
+# ---- FREE-PLAY MOVESET (Quick Battle / 2 Players, everyone at Lv50) ------
+move = Ember
+move = Flame Wheel
+move = Flamethrower
+move = Quick Attack
+
+# ---- YOUR OWN MOVES (optional) ------------------------------------------
+# A move that isn't in MOVE-LIST.txt can be made right here:
+#   move  = Name, Type, Kind, Power, Cooldown, extras
+#   learn = Level, Name, Type, Kind, Power, Cooldown, extras
+# Kinds and extras are listed in MOVE-LIST.txt. Examples:
+#   move  = Ember Storm, Fire, Spread, 35, 1.5, burn 20%
+#   move  = Rock Wrecker, Rock, Beam, 120, 6, physical   (force physical/special)
+#   learn = 20, Lava Plume, Fire, Wave, 80, 4, burn 30%
+#   move  = Roost, Flying, Heal, 0, 12, heal 40%

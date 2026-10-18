@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Haunter
+dex  = 93
+type = Ghost / Poison
+placeholder_art = Wispurr     # borrowed art until sprites are added
+
+hp         = 45
+attack     = 50
+defense    = 45
+sp_attack  = 115
+sp_defense = 55
+speed      = 95
+
+size   = 1.12
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_trade = Gengar      # evolves when traded (or with a Linking Cord)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Shadow Punch
+learn = 1, Lick
+learn = 1, Mean Look
+learn = 1, Confuse Ray
+learn = 1, Hypnosis
+learn = 12, Payback
+learn = 16, Spite
+learn = 20, Curse
+learn = 24, Hex
+learn = 30, Night Shade
+learn = 36, Sucker Punch
+learn = 42, Dark Pulse
+learn = 48, Shadow Ball
+learn = 54, Destiny Bond
+learn = 60, Dream Eater
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Acid Spray, Confuse Ray, Thief, Facade
+tm = Hex, Icy Wind, Night Shade, Fling, Venoshock, Endure
+tm = Sunny Day, Rain Dance, Shadow Claw, Foul Play, Fire Punch, Thunder Punch
+tm = Ice Punch, Sleep Talk, Dazzling Gleam, Metronome, Poison Jab, Rest
+tm = Taunt, Toxic Spikes, Imprison, Dark Pulse, Skill Swap, Gunk Shot
+tm = Substitute, Will-O-Wisp, Trick, Giga Drain, Shadow Ball, Energy Ball
+tm = Psychic, Encore, Thunderbolt, Nasty Plot, Sludge Bomb, Phantom Force
+tm = Focus Blast, Trick Room, Thunder, Tera Blast, Haze, Toxic
+tm = Spite, Poltergeist, Pain Split, Psych Up, Sludge Wave, Skitter Smack
+tm = Curse

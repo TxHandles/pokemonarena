@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Tentacruel
+dex  = 73
+type = Water / Poison
+placeholder_art = Torrentoad     # borrowed art until sprites are added
+
+hp         = 80
+attack     = 70
+defense    = 65
+sp_attack  = 80
+sp_defense = 120
+speed      = 100
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Reflect Type
+learn = 1, Wrap
+learn = 1, Acid
+learn = 1, Poison Sting
+learn = 1, Water Gun
+learn = 12, Supersonic
+learn = 16, Water Pulse
+learn = 20, Screech
+learn = 24, Bubble Beam
+learn = 28, Hex
+learn = 34, Acid Armor
+learn = 40, Poison Jab
+learn = 46, Surf
+learn = 52, Sludge Wave
+learn = 58, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Water Pulse, Acid Spray, Confuse Ray, Thief
+tm = Pounce, Chilling Water, Facade, Hex, Swift, Icy Wind
+tm = Mud Shot, Venoshock, Endure, Rain Dance, Sleep Talk, Dazzling Gleam
+tm = Poison Jab, Rest, Swords Dance, Toxic Spikes, Gunk Shot, Substitute
+tm = Liquidation, Giga Drain, Surf, Ice Beam, Hydro Pump, Blizzard
+tm = Sludge Bomb, Giga Impact, Hyper Beam, Tera Blast, Haze, Toxic
+tm = Knock Off, Weather Ball, Flip Turn, Whirlpool, Muddy Water, Sludge Wave
+tm = Skitter Smack, Throat Chop

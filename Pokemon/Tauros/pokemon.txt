@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Tauros
+dex  = 128
+type = Normal
+placeholder_art = Furbit     # borrowed art until sprites are added
+
+hp         = 75
+attack     = 100
+defense    = 95
+sp_attack  = 40
+sp_defense = 70
+speed      = 110
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Tail Whip
+learn = 5, Work Up
+learn = 10, Payback
+learn = 15, Assurance
+learn = 20, Horn Attack
+learn = 25, Scary Face
+learn = 30, Zen Headbutt
+learn = 35, Raging Bull
+learn = 40, Rest
+learn = 45, Swagger
+learn = 50, Thrash
+learn = 55, Double-Edge
+learn = 60, Giga Impact
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Thief, Trailblaze, Facade
+tm = Bulldoze, Icy Wind, Rock Tomb, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, Smart Strike, Dig, Zen Headbutt, Body Slam, Sleep Talk
+tm = Stomping Tantrum, Rest, Rock Slide, Iron Head, Substitute, Shadow Ball
+tm = Surf, Flamethrower, Thunderbolt, Helping Hand, Reversal, Ice Beam
+tm = Fire Blast, Blizzard, Wild Charge, Earthquake, Stone Edge, Giga Impact
+tm = Outrage, Hyper Beam, Thunder, Close Combat, Solar Beam, Tera Blast
+tm = High Horsepower, Lash Out, Double-Edge, Endeavor, Throat Chop, Curse

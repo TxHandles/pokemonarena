@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Rattata
+dex  = 19
+type = Normal
+placeholder_art = Furbit     # borrowed art until sprites are added
+
+hp         = 30
+attack     = 56
+defense    = 35
+sp_attack  = 25
+sp_defense = 35
+speed      = 72
+
+size   = 0.85
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Raticate
+evolve_level = 20
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Tail Whip
+learn = 4, Quick Attack
+learn = 7, Focus Energy
+learn = 10, Bite
+learn = 13, Laser Focus
+learn = 16, Take Down
+learn = 19, Assurance
+learn = 22, Crunch
+learn = 25, Sucker Punch
+learn = 28, Super Fang
+learn = 31, Double-Edge
+learn = 34, Endeavor
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Charge Beam, Facade, Sunny Day, Rain Dance
+tm = U-turn, Sleep Talk, Grass Knot, Thunder Wave, Rest, Taunt
+tm = Substitute, Shadow Ball, Thunderbolt, Ice Beam, Blizzard, Wild Charge
+tm = Thunder, Toxic

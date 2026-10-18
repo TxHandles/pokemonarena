@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Farfetch'd
+dex  = 83
+type = Normal / Flying
+placeholder_art = Gustling     # borrowed art until sprites are added
+
+hp         = 52
+attack     = 90
+defense    = 55
+sp_attack  = 58
+sp_defense = 62
+speed      = 60
+
+size   = 1.03
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Sand Attack
+learn = 1, Peck
+learn = 5, Leer
+learn = 10, Fury Cutter
+learn = 15, Cut
+learn = 20, Aerial Ace
+learn = 25, Air Cutter
+learn = 30, Knock Off
+learn = 35, False Swipe
+learn = 40, Slash
+learn = 45, Swords Dance
+learn = 50, Air Slash
+learn = 55, Leaf Blade
+learn = 60, Agility
+learn = 65, Brave Bird
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Acrobatics, Thief, Facade, Swift
+tm = Endure, Sunny Day, False Swipe, U-turn, Air Slash, Body Slam
+tm = Sleep Talk, Poison Jab, Rest, Swords Dance, Fly, Substitute
+tm = Heat Wave, Helping Hand, Baton Pass, Brave Bird, Close Combat, Solar Blade
+tm = Uproar, Throat Chop

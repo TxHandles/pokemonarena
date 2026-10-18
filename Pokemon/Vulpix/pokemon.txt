@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Vulpix
+dex  = 37
+type = Fire
+placeholder_art = Cindercub     # borrowed art until sprites are added
+
+hp         = 38
+attack     = 41
+defense    = 40
+sp_attack  = 50
+sp_defense = 65
+speed      = 65
+
+size   = 0.96
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Ninetales, Fire Stone
+evolve_item = Ninetales, Ice Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tail Whip
+learn = 1, Ember
+learn = 4, Disable
+learn = 8, Quick Attack
+learn = 12, Spite
+learn = 16, Incinerate
+learn = 20, Confuse Ray
+learn = 24, Will-O-Wisp
+learn = 28, Extrasensory
+learn = 32, Flamethrower
+learn = 36, Imprison
+learn = 40, Fire Spin
+learn = 44, Safeguard
+learn = 48, Inferno
+learn = 52, Fire Blast
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Agility, Protect, Confuse Ray, Fire Spin
+tm = Facade, Hex, Snarl, Swift, Flame Charge, Endure
+tm = Sunny Day, Dig, Zen Headbutt, Foul Play, Body Slam, Sleep Talk
+tm = Rest, Imprison, Dark Pulse, Substitute, Will-O-Wisp, Heat Wave
+tm = Energy Ball, Encore, Flamethrower, Helping Hand, Baton Pass, Nasty Plot
+tm = Fire Blast, Overheat, Flare Blitz, Tera Blast, Roar, Spite
+tm = Weather Ball, Burning Jealousy, Pain Split, Psych Up, Double-Edge

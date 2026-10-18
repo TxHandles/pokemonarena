@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Kabuto
+dex  = 140
+type = Rock / Water
+placeholder_art = Pebblor     # borrowed art until sprites are added
+
+hp         = 30
+attack     = 80
+defense    = 90
+sp_attack  = 55
+sp_defense = 45
+speed      = 55
+
+size   = 0.91
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Kabutops
+evolve_level = 40
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Harden
+learn = 1, Absorb
+learn = 5, Scratch
+learn = 10, Sand Attack
+learn = 15, Aqua Jet
+learn = 20, Leer
+learn = 25, Mud Shot
+learn = 30, Ancient Power
+learn = 35, Brine
+learn = 41, Protect
+learn = 45, Leech Life
+learn = 50, Liquidation
+learn = 55, Metal Sound
+learn = 60, Stone Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Icy Wind, Mud Shot, Rock Tomb
+tm = Endure, Rain Dance, Sandstorm, Dig, Body Slam, Sleep Talk
+tm = Rock Blast, Waterfall, Rest, Rock Slide, Leech Life, Substitute
+tm = Iron Defense, Liquidation, Giga Drain, Stealth Rock, Surf, Earth Power
+tm = Ice Beam, Hydro Pump, Blizzard, Stone Edge, Scald, Whirlpool

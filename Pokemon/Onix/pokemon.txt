@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Onix
+dex  = 95
+type = Rock / Ground
+placeholder_art = Pebblor     # borrowed art until sprites are added
+
+hp         = 35
+attack     = 45
+defense    = 160
+sp_attack  = 30
+sp_defense = 45
+speed      = 70
+
+size   = 1.50
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Harden
+learn = 1, Rock Throw
+learn = 1, Bind
+learn = 1, Tackle
+learn = 4, Smack Down
+learn = 8, Rock Polish
+learn = 12, Dragon Breath
+learn = 16, Curse
+learn = 20, Rock Slide
+learn = 24, Screech
+learn = 28, Sand Tomb
+learn = 32, Stealth Rock
+learn = 36, Slam
+learn = 40, Sandstorm
+learn = 44, Dig
+learn = 48, Iron Tail
+learn = 52, Stone Edge
+learn = 56, Double-Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Facade, Bulldoze, Rock Tomb, Endure
+tm = Sunny Day, Sandstorm, Dig, Body Slam, Sleep Talk, Rock Blast
+tm = Stomping Tantrum, Rest, Rock Slide, Taunt, Body Press, Flash Cannon
+tm = Iron Head, Dragon Dance, Substitute, Drill Run, Dragon Pulse, Stealth Rock
+tm = Heavy Slam, Earth Power, Earthquake, Stone Edge, Sand Tomb, Gyro Ball
+tm = High Horsepower, Breaking Swipe

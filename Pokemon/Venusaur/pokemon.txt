@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Venusaur
+dex  = 3
+type = Grass / Poison
+
+hp         = 80
+attack     = 82
+defense    = 83
+sp_attack  = 100
+sp_defense = 100
+speed      = 80
+
+size   = 1.27
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Petal Blizzard
+learn = 1, Growth
+learn = 1, Growl
+learn = 1, Petal Dance
+learn = 1, Tackle
+learn = 1, Vine Whip
+learn = 9, Leech Seed
+learn = 12, Razor Leaf
+learn = 15, Sleep Powder
+learn = 15, Poison Powder
+learn = 20, Seed Bomb
+learn = 25, Take Down
+learn = 30, Sweet Scent
+learn = 37, Synthesis
+learn = 44, Worry Seed
+learn = 51, Power Whip
+learn = 58, Solar Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Scary Face, Protect, Acid Spray, Trailblaze
+tm = Facade, Bulldoze, Magical Leaf, Venoshock, Endure, Sunny Day
+tm = Bullet Seed, False Swipe, Body Slam, Sleep Talk, Seed Bomb, Grass Knot
+tm = Poison Jab, Stomping Tantrum, Rest, Swords Dance, Substitute, Giga Drain
+tm = Energy Ball, Amnesia, Helping Hand, Earth Power, Grassy Terrain, Grass Pledge
+tm = Sludge Bomb, Earthquake, Giga Impact, Frenzy Plant, Leaf Storm, Hyper Beam
+tm = Solar Beam, Tera Blast, Roar, Toxic, Knock Off, Weather Ball
+tm = Grassy Glide, Double-Edge, Petal Blizzard, Curse

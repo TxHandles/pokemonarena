@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Ekans
+dex  = 23
+type = Poison
+placeholder_art = Toxlug     # borrowed art until sprites are added
+
+hp         = 35
+attack     = 60
+defense    = 44
+sp_attack  = 40
+sp_defense = 54
+speed      = 55
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Arbok
+evolve_level = 22
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Wrap
+learn = 1, Leer
+learn = 4, Poison Sting
+learn = 9, Bite
+learn = 12, Glare
+learn = 17, Screech
+learn = 20, Acid
+learn = 25, Stockpile
+learn = 25, Spit Up
+learn = 25, Swallow
+learn = 28, Acid Spray
+learn = 33, Sludge Bomb
+learn = 36, Gastro Acid
+learn = 38, Belch
+learn = 41, Haze
+learn = 44, Coil
+learn = 49, Gunk Shot
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Fire Fang, Acid Spray
+tm = Thief, Trailblaze, Facade, Poison Tail, Snarl, Mud Shot
+tm = Rock Tomb, Venoshock, Endure, Sunny Day, Rain Dance, Dig
+tm = Psychic Fangs, Sleep Talk, Seed Bomb, Poison Jab, Rest, Rock Slide
+tm = Toxic Spikes, Dark Pulse, Leech Life, Gunk Shot, Substitute, Crunch
+tm = Giga Drain, Sludge Bomb, Earthquake, Tera Blast, Haze, Toxic
+tm = Spite, Knock Off, Lash Out, Scale Shot, Double-Edge, Sludge Wave
+tm = Skitter Smack

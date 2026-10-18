@@ -1,0 +1,65 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Clefairy
+dex  = 35
+type = Fairy
+placeholder_art = Glimmerbun     # borrowed art until sprites are added
+
+hp         = 70
+attack     = 45
+defense    = 48
+sp_attack  = 60
+sp_defense = 65
+speed      = 35
+
+size   = 0.96
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Clefable, Moon Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Sing
+learn = 1, Charm
+learn = 1, Defense Curl
+learn = 1, Sweet Kiss
+learn = 1, Disarming Voice
+learn = 1, Splash
+learn = 1, Pound
+learn = 1, Growl
+learn = 1, Copycat
+learn = 4, Stored Power
+learn = 8, Encore
+learn = 12, After You
+learn = 16, Life Dew
+learn = 20, Metronome
+learn = 24, Moonlight
+learn = 28, Gravity
+learn = 32, Meteor Mash
+learn = 36, Follow Me
+learn = 40, Cosmic Power
+learn = 44, Moonblast
+learn = 48, Healing Wish
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Protect, Water Pulse, Psybeam
+tm = Thief, Disarming Voice, Chilling Water, Charge Beam, Facade, Swift
+tm = Magical Leaf, Icy Wind, Draining Kiss, Stored Power, Night Shade, Fling
+tm = Endure, Sunny Day, Rain Dance, Psyshock, Dig, Brick Break
+tm = Zen Headbutt, Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk
+tm = Drain Punch, Reflect, Light Screen, Dazzling Gleam, Metronome, Grass Knot
+tm = Thunder Wave, Rest, Imprison, Skill Swap, Substitute, Trick
+tm = Shadow Ball, Stealth Rock, Hyper Voice, Psychic, Encore, Flamethrower
+tm = Thunderbolt, Play Rough, Amnesia, Calm Mind, Helping Hand, Baton Pass
+tm = Ice Beam, Misty Terrain, Fire Blast, Blizzard, Thunder, Solar Beam
+tm = Tera Blast, Gravity, Knock Off, Uproar, Focus Punch, Dual Wingbeat
+tm = Misty Explosion, Psych Up, Double-Edge, Endeavor, Meteor Beam, Alluring Voice

@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Nidoran M
+dex  = 32
+type = Poison
+placeholder_art = Toxlug     # borrowed art until sprites are added
+
+hp         = 46
+attack     = 57
+defense    = 40
+sp_attack  = 40
+sp_defense = 40
+speed      = 50
+
+size   = 0.91
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Nidorino
+evolve_level = 16
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Poison Sting
+learn = 1, Leer
+learn = 5, Peck
+learn = 10, Focus Energy
+learn = 15, Fury Attack
+learn = 20, Toxic Spikes
+learn = 25, Double Kick
+learn = 30, Horn Attack
+learn = 35, Helping Hand
+learn = 40, Toxic
+learn = 45, Flatter
+learn = 50, Poison Jab
+learn = 55, Earth Power
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Venoshock, Endure, Sunny Day
+tm = Rain Dance, Smart Strike, Dig, Shadow Claw, Body Slam, Sleep Talk
+tm = Poison Jab, Rest, Toxic Spikes, Substitute, Drill Run, Thunderbolt
+tm = Amnesia, Helping Hand, Earth Power, Ice Beam, Blizzard, Sludge Bomb
+tm = Thunder

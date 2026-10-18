@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Magneton
+dex  = 82
+type = Electric / Steel
+placeholder_art = Joltelly     # borrowed art until sprites are added
+
+hp         = 50
+attack     = 60
+defense    = 95
+sp_attack  = 120
+sp_defense = 70
+speed      = 70
+
+size   = 1.09
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Tri Attack
+learn = 1, Thunder Shock
+learn = 1, Thunder Wave
+learn = 1, Tackle
+learn = 1, Electric Terrain
+learn = 1, Supersonic
+learn = 12, Electro Ball
+learn = 16, Gyro Ball
+learn = 20, Spark
+learn = 24, Screech
+learn = 28, Magnet Rise
+learn = 34, Flash Cannon
+learn = 40, Discharge
+learn = 46, Metal Sound
+learn = 52, Light Screen
+learn = 58, Lock-On
+learn = 64, Zap Cannon
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Confuse Ray, Charge Beam, Facade, Swift
+tm = Endure, Volt Switch, Sunny Day, Rain Dance, Sandstorm, Sleep Talk
+tm = Electro Ball, Reflect, Light Screen, Thunder Wave, Rest, Flash Cannon
+tm = Eerie Impulse, Iron Head, Substitute, Iron Defense, Heavy Slam, Thunderbolt
+tm = Helping Hand, Electric Terrain, Wild Charge, Hyper Beam, Thunder, Steel Beam
+tm = Tera Blast, Charge, Gravity, Gyro Ball, Electroweb, Metal Sound

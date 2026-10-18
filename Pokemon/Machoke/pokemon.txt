@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Machoke
+dex  = 67
+type = Fighting
+placeholder_art = Punchip     # borrowed art until sprites are added
+
+hp         = 80
+attack     = 100
+defense    = 70
+sp_attack  = 50
+sp_defense = 60
+speed      = 45
+
+size   = 1.12
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_trade = Machamp      # evolves when traded (or with a Linking Cord)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Revenge
+learn = 1, Focus Energy
+learn = 1, Low Kick
+learn = 1, Leer
+learn = 12, Low Sweep
+learn = 16, Knock Off
+learn = 20, Scary Face
+learn = 24, Vital Throw
+learn = 31, Strength
+learn = 36, Dual Chop
+learn = 42, Bulk Up
+learn = 48, Seismic Toss
+learn = 54, Dynamic Punch
+learn = 60, Cross Chop
+learn = 66, Double-Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Low Kick, Thief, Facade, Bulldoze
+tm = Rock Tomb, Low Sweep, Fling, Endure, Sunny Day, Rain Dance
+tm = Dig, Brick Break, Bulk Up, Body Slam, Fire Punch, Thunder Punch
+tm = Ice Punch, Sleep Talk, Light Screen, Metronome, Poison Jab, Stomping Tantrum
+tm = Rest, Rock Slide, Substitute, Heavy Slam, Encore, Flamethrower
+tm = Helping Hand, Reversal, Fire Blast, Earthquake, Focus Blast, Close Combat

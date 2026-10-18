@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Rhydon
+dex  = 112
+type = Ground / Rock
+placeholder_art = Dustadillo     # borrowed art until sprites are added
+
+hp         = 105
+attack     = 130
+defense    = 120
+sp_attack  = 45
+sp_defense = 45
+speed      = 40
+
+size   = 1.26
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+# (does not evolve)
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Hammer Arm
+learn = 1, Bulldoze
+learn = 1, Smack Down
+learn = 1, Tackle
+learn = 1, Tail Whip
+learn = 15, Horn Attack
+learn = 20, Scary Face
+learn = 25, Stomp
+learn = 30, Rock Blast
+learn = 35, Drill Run
+learn = 40, Take Down
+learn = 47, Earthquake
+learn = 54, Stone Edge
+learn = 61, Megahorn
+learn = 68, Horn Drill
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Fire Fang, Thunder Fang
+tm = Ice Fang, Thief, Facade, Bulldoze, Icy Wind, Mud Shot
+tm = Rock Tomb, Fling, Avalanche, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, Smart Strike, Dig, Brick Break, Shadow Claw, Body Slam
+tm = Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Rock Blast, Poison Jab
+tm = Stomping Tantrum, Rest, Rock Slide, Swords Dance, Body Press, Substitute
+tm = Iron Defense, Drill Run, Crunch, Dragon Pulse, Stealth Rock, Heavy Slam
+tm = Surf, Flamethrower, Thunderbolt, Helping Hand, Earth Power, Reversal
+tm = Ice Beam, Fire Blast, Hydro Pump, Blizzard, Earthquake, Stone Edge
+tm = Giga Impact, Outrage, Focus Blast, Hyper Beam, Thunder, Tera Blast
+tm = Roar, Smack Down, High Horsepower, Heat Crash, Uproar, Focus Punch
+tm = Double-Edge, Endeavor, Supercell Slam, Scorching Sands, Meteor Beam, Breaking Swipe
+tm = Curse
