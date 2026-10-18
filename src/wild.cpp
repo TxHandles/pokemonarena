@@ -197,6 +197,53 @@ std::vector<std::string> WildPlacesFor(int species, int storyStage, int& locked)
     return open;
 }
 
+std::vector<WildSpot> WildSpotsFor(int species, int storyStage, int badges) {
+    std::vector<WildSpot> out;
+    for (int a = 0; a < (int)gAreas.size(); a++) {
+        float total = 0, mine = 0;
+        bool any = false;
+        for (const auto& e : gAreas[a].mons) any |= e.species == species;
+        if (!any) continue;
+        bool open = WildAreaOpen(a, storyStage);
+        if (open)
+            for (const auto& p : Usable(a, storyStage, badges, false)) {
+                total += p.w;
+                if (p.e->species == species) mine += p.w;
+            }
+        for (const auto& e : gAreas[a].mons) {
+            if (e.species != species) continue;
+            WildSpot w;
+            w.area = a;
+            w.place = gAreas[a].name;
+            w.open = open;
+            w.opensAt = gAreas[a].unlock == "@done" ? "the end of the story" : gAreas[a].unlock;
+            w.method = e.method;
+            w.methodOpen = MethodOpen(e.method, storyStage);
+            auto it = gMethodUnlock.find(e.method);
+            if (it != gMethodUnlock.end()) w.methodAt = it->second;
+            w.rate = e.rate;
+            w.lo = e.lo;
+            w.hi = e.hi;
+            w.badges = e.badges;
+            w.rare = e.rare;
+            if (open && w.methodOpen && badges >= e.badges && !e.rare && total > 0) {
+                float t = 0;   // this method's share of the area's encounters
+                std::map<std::string, int> sum;
+                for (const auto& o : gAreas[a].mons) if (!o.rare) sum[o.method] += o.rate;
+                t = e.rate / (float)std::max(1, sum[e.method]) * MethodShare(e.method);
+                w.share = t / total;
+            }
+            out.push_back(w);
+        }
+        (void)mine;
+    }
+    std::stable_sort(out.begin(), out.end(), [](const WildSpot& x, const WildSpot& y) {
+        if (x.open != y.open) return x.open;
+        return StageIndexOf(gAreas[x.area].unlock) < StageIndexOf(gAreas[y.area].unlock);
+    });
+    return out;
+}
+
 void SetWildContext(int area, int storyStage, int badges) {
     gCtxArea = area;
     gCtxStage = storyStage;

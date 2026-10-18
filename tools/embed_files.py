@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bakes the game's data files (Pokemon/, story.txt, map.png) into src/embedded_files.inc so the
+"""Bakes the game's data files (Pokemon/, Badges/, story.txt, map.png) into src/embedded_files.inc so the
 exe carries them. At startup the game writes back any of these files that are missing next to it.
 Run this again after changing anything in Pokemon/, story.txt or map.png:   python tools/embed_files.py
 """
@@ -13,12 +13,13 @@ files = []
 for rel in ["story.txt", "wild.txt", "map.png"]:
     if os.path.exists(os.path.join(ROOT, rel)):
         files.append(rel)
-for dirpath, dirnames, filenames in os.walk(os.path.join(ROOT, "Pokemon")):
-    dirnames[:] = sorted(d for d in dirnames if d not in SKIP_DIRS)
-    for f in sorted(filenames):
-        if f in SKIP_NAMES:
-            continue
-        files.append(os.path.relpath(os.path.join(dirpath, f), ROOT).replace(os.sep, "/"))
+for top in ["Pokemon", "Badges"]:
+    for dirpath, dirnames, filenames in os.walk(os.path.join(ROOT, top)):
+        dirnames[:] = sorted(d for d in dirnames if d not in SKIP_DIRS)
+        for f in sorted(filenames):
+            if f in SKIP_NAMES:
+                continue
+            files.append(os.path.relpath(os.path.join(dirpath, f), ROOT).replace(os.sep, "/"))
 
 # The bytes go into several src/embedded_data_NN.cpp files (a few MB each) so no single file is too
 # big for the compiler; src/embedded_files.inc only declares them and lists the files.

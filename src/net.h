@@ -17,6 +17,12 @@ bool Open(bool host, int port, std::string& err);
 bool Connect(const std::string& address, std::string& err);  // guest: "1.2.3.4", "1.2.3.4:5000", a hostname, or a code
 bool IsHost();
 void Close();                                              // disconnect and shut down
+// After a lost connection: keep the same port (and connection code) and get ready again - the host
+// waits for the friend to come back, a guest can Connect() again.
+void Rearm();
+bool HasSocket();
+bool TakeReplaced();                                       // host: the friend reconnected before the old link timed out
+void DropForTest();                                        // autotest: lose the connection without a goodbye
 void Poll();                                               // call every frame
 State GetState();
 const std::string& StatusText();

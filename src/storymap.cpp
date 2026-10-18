@@ -1,8 +1,11 @@
 #include "storymap.h"
 #include "embedded.h"
 #include <algorithm>
+#include <cctype>
 #include <cmath>
+#include <map>
 #include <vector>
+#include "chart.h"
 #include "sprites.h"
 #include "story.h"
 #include "ui.h"
@@ -12,7 +15,50 @@ namespace {
 Texture2D gMap{};
 bool gHasMap = false;
 float gW = 1142, gH = 857;   // map coordinate space (image size, or a default for the drawn map)
+
+// Badge pictures: Badges/<Name>.png next to the game (a plain picture or a pixel-art chart).
+struct BadgePic { bool tried = false; Texture2D tex{}; };
+std::map<std::string, BadgePic> gBadges;
+
+std::string Lower(std::string s) { for (char& c : s) c = (char)std::tolower((unsigned char)c); return s; }
+
+const Texture2D* BadgePicture(const std::string& badge) {
+    BadgePic& e = gBadges[badge];
+    if (e.tried) return e.tex.id ? &e.tex : nullptr;
+    if (!IsWindowReady()) return nullptr;
+    e.tried = true;
+    std::string dir = DataDir() + "Badges";
+    if (!DirectoryExists(dir.c_str())) return nullptr;
+    FilePathList fl = LoadDirectoryFiles(dir.c_str());
+    std::string want = Lower(badge), best;
+    int bestRank = 0;
+    for (unsigned i = 0; i < fl.count; i++) {
+        std::string path = fl.paths[i];
+        std::string file = Lower(GetFileName(fl.paths[i]));
+        std::string ext = Lower(GetFileExtension(fl.paths[i]));
+        if (ext != ".png" && ext != ".jpg" && ext != ".bmp" && ext != ".gif" && ext != ".qoi") continue;
+        if (file.find(want) == std::string::npos) continue;
+        // a chart with numbers in the squares reads best (like the Pokemon pictures)
+        int rank = (file.find("_no.") != std::string::npos || file.find("-no.") != std::string::npos) ? 2 : 1;
+        if (rank > bestRank) { bestRank = rank; best = path; }
+    }
+    UnloadDirectoryFiles(fl);
+    if (best.empty()) return nullptr;
+    Image img = LoadImage(best.c_str());
+    if (!img.data) return nullptr;
+    std::string note;
+    bool chart = false;
+    Image spr = ExtractSprite(img, note, chart, bestRank == 2);
+    UnloadImage(img);
+    if (spr.width <= 0) return nullptr;
+    e.tex = LoadTextureFromImage(spr);
+    SetTextureFilter(e.tex, TEXTURE_FILTER_POINT);
+    UnloadImage(spr);
+    return &e.tex;
+}
 } // namespace
+
+bool HasBadgePicture(const std::string& badge) { return BadgePicture(badge) != nullptr; }
 
 void LoadStoryMap() {
     gHasMap = false;
@@ -42,6 +88,8 @@ void LoadStoryMap() {
 void UnloadStoryMap() {
     if (gHasMap) UnloadTexture(gMap);
     gHasMap = false;
+    for (auto& kv : gBadges) if (kv.second.tex.id) UnloadTexture(kv.second.tex);
+    gBadges.clear();
 }
 
 bool StoryMapHasImage() { return gHasMap; }
@@ -59,6 +107,15 @@ Color BadgeColor(const std::string& b) {
 }
 
 void DrawBadge(const std::string& b, int x, int y, bool have, float r) {
+    if (const Texture2D* t = BadgePicture(b)) {   // the real badge; a dark outline of it until it's won
+        float box = r * 2 + 2;
+        float sc = box / std::max(t->width, t->height);
+        if (sc >= 1) sc = std::floor(sc);         // whole-pixel steps stay crisp
+        float w = t->width * sc, h = t->height * sc;
+        Rectangle dst{std::floor(x - w / 2), std::floor(y - h / 2), w, h};
+        DrawTexturePro(*t, {0, 0, (float)t->width, (float)t->height}, dst, {0, 0}, 0, have ? WHITE : Color{48, 44, 60, 255});
+        return;
+    }
     Color c = have ? BadgeColor(b) : Color{60, 56, 72, 255};
     DrawPoly({(float)x, (float)y}, 6, r, 0, have ? Color{30, 26, 40, 255} : Color{40, 36, 50, 255});
     DrawPoly({(float)x, (float)y}, 6, r - 1.5f, 30, c);

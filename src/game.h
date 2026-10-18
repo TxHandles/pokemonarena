@@ -43,6 +43,9 @@ struct ResultRow {
 // battle runs on both computers in step with rollback (see OnlineBattleUpdate).
 struct OnlineSession {
     bool active = false;          // in an online co-op session (connected, past the hello)
+    bool reconnecting = false;    // the connection dropped: the session waits for the partner to come back
+    float reconnectT = 0, retryAt = 0;
+    bool resend = false;          // after a reconnect: tell the partner where we are again
     int me = 0;                   // 0 = host, 1 = guest
     // Setup screen
     int page = 0;                 // 0 choose, 1 hosting, 2 joining
@@ -224,6 +227,8 @@ struct Game {
     OnlineSession on;
     // Pokedex
     int dexSel = 0, dexScroll = 0, dexWho = 0;
+    bool dexWhere = false;        // Pokedex: the 'where to find it' page
+    int dexWhereSel = 0;
     // Trading (co-op)
     int tradeCur[2] = {0, 0}, tradeScroll[2] = {0, 0}, tradeOffer[2] = {-1, -1};
     bool tradeReady[2] = {false, false};
@@ -297,6 +302,7 @@ std::string MonToText(const OwnedMon& m);
 bool MonFromText(const std::string& text, OwnedMon& out);
 void SetTrainingWild(Game& g);      // training battles use the chosen area's wild Pokemon (wild.h)
 int TrainingAreaIndex(const Game& g);
+bool SetTrainArea(Game& g, int area);   // pick where training battles happen (false + toast if not allowed)
 void OnlineSendCoop(Game& g);        // shared story progress and clock (after Wait)
 void OnlineSendTrade(Game& g);       // my presence at the trade machine, offer and ready
 void OnlineTradeUpdate(Game& g);     // host: both ready -> do the trade
@@ -307,6 +313,8 @@ void OnlineSendProfile(Game& g);
 void OnlineSetReady(Game& g, int kind);
 void OnlineLeave(Game& g, const std::string& why);
 bool OnlineMine(const Game& g, int who);       // offline: always; online: only my own player
+bool OnlineWaiting(Game& g);                   // online and reconnecting: shows a toast and returns true
+void DrawOnlineOverlay(const Game& g);         // the 'reconnecting' banner over any screen
 void OnlineSendCatch(int poolPick);
 void OnlineSendThrow(int species, int level, bool ok, int shakes, bool fled);   // so the partner watches our throw
 void OnlineCancelSelect(Game& g);
@@ -331,6 +339,8 @@ const Profile& Prof(const Game& g, int who);
 void SaveWho(Game& g, int who);
 void StartCoopFlow(Game& g);
 Profile ProgressView(const Game& g);        // story progress (stage, badges) for the map
+bool IsRematch(const Game& g);              // the story battle being set up is a stage already beaten
+bool StartGymRematch(Game& g, int stage);   // from the Map: false (with a toast) if it can't start now
 int BadgeCount(const Game& g);
 int& StoryClock(Game& g);                   // shared time of day / season (co-op save or profile)
 int StoryClock(const Game& g);

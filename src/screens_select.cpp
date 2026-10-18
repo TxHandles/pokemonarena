@@ -294,7 +294,8 @@ void StartBattleFromSelect(Game& g) {
             for (auto& c : b.team) c.hpFrac = 1;
         } break;
         case Mode::Story: {
-            const StageDef& st = Story().stages[g.stageIdx];
+            StageDef st = Story().stages[g.stageIdx];
+            if (IsRematch(g) && st.IsGym()) st = RematchStage(st);
             if (st.rival) SetRivalContext(RivalStarterFor({ProfileStarter(g.profile)}), false);
             g.cpuTeam = MakeCpuTeam(&st, avg, MAX_TEAM_SIZE);
             b.team = g.cpuTeam;
@@ -359,6 +360,7 @@ void StartBattleFromSelect(Game& g) {
             std::string label = "Rival";
             if (g.mode == Mode::CoopStory) {
                 StageDef st = Story().stages[g.stageIdx];
+                if (IsRematch(g) && st.IsGym()) st = RematchStage(st);
                 if (st.rival) {
                     // The rival takes the starter neither player has, and brings his Pikachu too.
                     SetRivalContext(RivalStarterFor({ProfileStarter(g.coopP[0]), ProfileStarter(g.coopP[1])}), true);
@@ -531,7 +533,8 @@ void DrawSelect(const Game& g) {
         if (g.mode == Mode::CoopStory) {
             const StageDef& st = Story().stages[g.stageIdx];
             int want = std::min(MAX_TEAM_SIZE, std::max(3, (int)st.team.size() + 2));
-            vs = TextFormat("vs %s - %d creatures%s", st.trainer.c_str(), want, st.IsGym() ? TextFormat(" - %s Badge", st.badge.c_str()) : "");
+            vs = TextFormat("vs %s - %d creatures%s", st.trainer.c_str(), want,
+                            st.IsGym() ? (IsRematch(g) ? " - REMATCH (scaled to your level)" : TextFormat(" - %s Badge", st.badge.c_str())) : "");
         } else if (g.rareBattle && g.rareSpecies >= 0) {
             vs = TextFormat("RARE: a wild %s and a partner - weaken them to catch!", AllSpecies()[g.rareSpecies].name.c_str());
         } else {
@@ -612,9 +615,10 @@ void DrawSelect(const Game& g) {
                 DrawTextShadow(st.trainer.c_str(), x + 6, y + 24, 20, UI_TEXT);
                 DrawText(st.name.c_str(), x + 6, y + 48, 10, UI_DIM);
                 DrawText(TextFormat("%d creature%s", (int)std::min<size_t>(st.team.size(), MAX_TEAM_SIZE), st.team.size() > 1 ? "s" : ""), x + 6, y + 66, 10, UI_TEXT);
-                if (st.baseLevel > 0) DrawText(TextFormat("Levels around %d", st.baseLevel), x + 6, y + 80, 10, UI_TEXT);
+                if (IsRematch(g) && st.IsGym()) DrawText("REMATCH: levels scale to your team", x + 6, y + 80, 10, UI_GOLD);
+                else if (st.baseLevel > 0) DrawText(TextFormat("Levels around %d", st.baseLevel), x + 6, y + 80, 10, UI_TEXT);
                 else DrawText(TextFormat("Levels around your team %s", st.levelOffset >= 0 ? TextFormat("+%d", st.levelOffset) : TextFormat("%d", st.levelOffset)), x + 6, y + 80, 10, UI_TEXT);
-                DrawText(TextFormat("CPU skill: %s", AILevelName(st.cpu)), x + 6, y + 94, 10, UI_TEXT);
+                DrawText(TextFormat("CPU skill: %s", AILevelName(IsRematch(g) && st.IsGym() ? AILevel::Hard : st.cpu)), x + 6, y + 94, 10, UI_TEXT);
                 DrawText(TextFormat("Arena: %s", st.arena == ArenaKind::Stadium ? VenueName(st.venue.empty() ? VenueForPlace(st.name) : VenueByName(st.venue)) : ArenaName(st.arena)), x + 6, y + 108, 10, st.arena == ArenaKind::Stadium ? UI_TEXT : UI_GOLD);
                 DrawText(st.IsGym() ? "Gym battle" : "Trainer battle: catch wild ones in training", x + 6, y + 122, 10, UI_DIM);
             } else {

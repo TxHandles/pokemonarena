@@ -28,7 +28,7 @@ extern bool gAutoNetInput;
 
 namespace {
 
-constexpr uint32_t PROTOCOL = 7;   // 5: dodge and jump, 6: swap back, 7: target switching
+constexpr uint32_t PROTOCOL = 8;   // 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect
 constexpr float TICK = 1.0f / 60.0f;
 constexpr int INPUT_DELAY = 2;    // ticks: our own presses take effect this much later (33 ms)
 constexpr int MAX_AHEAD = 15;     // ticks we may run ahead of what the partner has confirmed
@@ -336,7 +336,7 @@ static void HostMaybeGo(Game& g) {
     if (o.me != 0 || o.myReady == 0 || o.myReady != o.partnerReady || g.screen != Screen::CoopHub) return;
     int kind = o.myReady;
     int stages = (int)Story().stages.size();
-    int stageIdx = kind == 1 ? std::min(g.coopSave.storyStage, stages - 1) : -1;
+    int stageIdx = kind == 1 ? std::min(g.coopSave.storyStage, stages - 1) : kind >= 3 ? std::min(kind - 3, stages - 1) : -1;   // 3+: a gym rematch
     bool rare = false;
     int rareSpecies = -1;
     if (kind == 2) {
@@ -356,14 +356,14 @@ static void HostMaybeGo(Game& g) {
     }
     W(M_GO).u8(kind).i32(stageIdx).u8(rare).i32(rareSpecies).Send();
     g.stageIdx = stageIdx;
-    g.mode = kind == 1 ? Mode::CoopStory : Mode::CoopTraining;
+    g.mode = kind != 2 ? Mode::CoopStory : Mode::CoopTraining;
     g.rareBattle = rare;
     g.rareSpecies = rareSpecies;
     o.myReady = o.partnerReady = 0;
     o.picksSent = o.partnerPicksIn = false;
     o.partnerPickView.clear();
     o.partnerSelCursor = -1;
-    if (kind == 1) g.screen = Screen::StageIntro;   // the trainer / gym intro first, like offline
+    if (kind != 2) g.screen = Screen::StageIntro;   // the trainer / gym intro first, like offline
     else BeginTeamSelect(g);
 }
 
@@ -379,17 +379,85 @@ static void HostMaybeStartBattle(Game& g) {
     BeginOnlineBattle(g);
 }
 
+// The connection dropped (or the partner came back on a new one): keep the session, save, and
+// drop whatever needs both players (a battle, team select, the trade machine) back to the hub.
+static void BeginReconnect(Game& g, bool alreadyBack) {
+    OnlineSession& o = g.on;
+    o.reconnecting = true;
+    o.reconnectT = 0;
+    o.retryAt = 1.5f;
+    o.helloSent = o.gotHello = false;
+    o.myReady = o.partnerReady = 0;
+    o.picksSent = o.partnerPicksIn = false;
+    o.partnerPickView.clear();
+    o.partnerSelCursor = -1;
+    o.partnerInTrade = o.partnerTradeReady = false;
+    o.partnerOffer = -1;
+    o.partnerCursor = -1;
+    o.partnerActivity.clear();
+    SaveProfile(g.coopActive == o.me ? g.profile : g.coopP[o.me]);
+    SaveCoop(g.coopSave);
+    const std::string& pn = g.coopP[Other(g)].name;
+    if (o.inBattle) {
+        o.inBattle = false;
+        gSfxMuted = false;
+        gShake = {0, 0};
+        EnterStoryHub(g);
+        Toast(g, "Lost the connection to " + pn + " - the battle was called off (nothing lost).");
+    } else if (g.screen == Screen::Select || g.screen == Screen::StageIntro || g.screen == Screen::Trade) {
+        EnterStoryHub(g);
+        Toast(g, "Lost the connection to " + pn + " - reconnecting...");
+    }
+    if (!alreadyBack) net::Rearm();
+}
+
+static void ReconnectStep(Game& g) {
+    OnlineSession& o = g.on;
+    o.reconnectT += GetFrameTime();
+    if (o.me != 1) {   // host: wait on the same port (Rearm), punching toward the friend's code if we have it
+        if (net::GetState() == net::State::Failed) net::Rearm();
+        return;
+    }
+    net::State st = net::GetState();   // guest: knock again every few seconds
+    if ((st == net::State::Off || st == net::State::Failed) && o.reconnectT >= o.retryAt && !o.field.empty()) {
+        o.retryAt = o.reconnectT + 3.0f;
+        std::string err;
+        if (!net::HasSocket()) net::Open(false, net::DEFAULT_PORT, err);
+        else net::Rearm();
+        net::Connect(o.field, err);
+    }
+}
+
+bool OnlineWaiting(Game& g) {
+    if (!g.on.active || !g.on.reconnecting) return false;
+    Toast(g, "Waiting for " + g.coopP[Other(g)].name + " to reconnect...");
+    return true;
+}
+
+void DrawOnlineOverlay(const Game& g) {
+    const OnlineSession& o = g.on;
+    if (!o.active || !o.reconnecting) return;
+    DrawRectangle(0, 0, VW, 15, Fade(UI_INK, 0.92f));
+    DrawRectangle(0, 15, VW, 1, Color{255, 170, 90, 255});
+    const char* dots = ((int)(g.t * 3) % 3) == 0 ? ".  " : ((int)(g.t * 3) % 3) == 1 ? ".. " : "...";
+    std::string a = "Lost the connection to " + g.coopP[1 - o.me].name + " - reconnecting" + dots + TextFormat(" (%ds)", (int)o.reconnectT) +
+                     "    Your progress is saved.";
+    DrawTextCentered(a.c_str(), VW / 2, 3, 10, Color{255, 190, 120, 255}, false);
+}
+
 void OnlinePoll(Game& g) {
     OnlineSession& o = g.on;
     if (net::GetState() == net::State::Off && !o.active) return;
     net::Poll();
-    if (o.active && net::GetState() == net::State::Failed) {
-        OnlineLeave(g, "Your partner disconnected. Your progress is saved.");
-        return;
+    if (o.active) {
+        bool replaced = net::TakeReplaced();
+        if (replaced || (!o.reconnecting && net::GetState() == net::State::Failed)) BeginReconnect(g, replaced);
+        if (o.reconnecting) ReconnectStep(g);
     }
     // Hello once connected.
     if (net::GetState() == net::State::Connected && !o.helloSent) {
         o.me = net::IsHost() ? 0 : 1;
+        if (o.active) o.mine = g.coopActive == o.me ? g.profile : g.coopP[o.me];   // a reconnect: who we are now
         W(M_HELLO).i32((int32_t)PROTOCOL).u64(DataHash()).str(ProfileToText(o.mine)).Send();
         o.helloSent = true;
     }
@@ -406,6 +474,13 @@ void OnlinePoll(Game& g) {
                 if (dh != DataHash()) { OnlineLeave(g, "Your Pokemon folders are different - both need the same version and Pokemon files."); return; }
                 Profile partner;
                 ProfileFromText(prof, "", partner);
+                if (o.active && o.reconnecting) {   // our partner is back (or someone else knocked)
+                    if (partner.name != g.coopP[Other(g)].name) { net::Rearm(); o.helloSent = false; break; }
+                    g.coopP[Other(g)] = partner;
+                    o.gotHello = true;
+                    SendCoop(g.coopSave);
+                    break;
+                }
                 o.gotHello = true;
                 // Set up the co-op session: me in my slot, them in theirs.
                 g.coop = true;
@@ -449,6 +524,12 @@ void OnlinePoll(Game& g) {
                     g.coopSave.clock = c.clock;
                     SaveCoop(g.coopSave);
                 }
+                if (o.active && o.reconnecting && o.gotHello) {
+                    o.reconnecting = false;
+                    o.resend = true;
+                    Toast(g, "Reconnected to " + g.coopP[Other(g)].name + "!");
+                    OnlineSendProfile(g);
+                }
                 if (!o.active && o.gotHello) {
                     o.active = true;
                     o.myReady = o.partnerReady = 0;
@@ -478,13 +559,13 @@ void OnlinePoll(Game& g) {
                 g.stageIdx = r.i32();
                 g.rareBattle = r.u8() != 0;
                 g.rareSpecies = r.i32();
-                g.mode = kind == 1 ? Mode::CoopStory : Mode::CoopTraining;
+                g.mode = kind != 2 ? Mode::CoopStory : Mode::CoopTraining;
                 o.myReady = o.partnerReady = 0;
                 o.picksSent = o.partnerPicksIn = false;
                 o.partnerPickView.clear();
                 o.partnerSelCursor = -1;
                 if (g.coopActive >= 0) EnterStoryHub(g);  // close the shop etc. first
-                if (kind == 1) g.screen = Screen::StageIntro;   // the trainer / gym intro first
+                if (kind != 2) g.screen = Screen::StageIntro;   // the trainer / gym intro first (3+: a rematch)
                 else BeginTeamSelect(g);
             } break;
             case M_PICKS: {
@@ -600,6 +681,8 @@ void OnlinePoll(Game& g) {
     // Tell the partner what we're up to when it changes.
     static Screen lastScreen = Screen::Title;
     static int lastCursor = -1;
+    if (o.reconnecting) return;   // nothing to send until they're back
+    if (o.resend) { o.resend = false; lastScreen = Screen::Title; lastCursor = -1; }
     if (g.screen != lastScreen) {
         lastScreen = g.screen;
         lastCursor = -1;

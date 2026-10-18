@@ -148,6 +148,19 @@ void CycleTrainArea(Game& g, int dir) {
     g.rareSpecies = -1;   // a rare find belongs to the area
     PlaySfx(Sfx::MenuMove);
 }
+bool SetTrainArea(Game& g, int area) {
+    auto open = OpenWildAreas(TrainStage(g));
+    if (std::find(open.begin(), open.end(), area) == open.end()) { Toast(g, "You can't train there yet."); return false; }
+    if (g.on.active && g.on.me != 0) { Toast(g, "The host picks the training area."); return false; }
+    std::string& slot = g.coop ? g.coopSave.trainArea : g.profile.trainArea;
+    if (TrainArea(g) != area) g.rareSpecies = -1;   // a rare find belongs to the area
+    slot = WildAreas()[area].name;
+    if (g.on.active) OnlineSendCoop(g);
+    else if (g.coop) SaveCoop(g.coopSave);
+    else SaveOrWarn(g);
+    Toast(g, "Training battles now happen in " + slot + ".");
+    return true;
+}
 void SetTrainingWild(Game& g) { SetWildContext(TrainArea(g), TrainStage(g), TrainBadges(g)); }
 int TrainingAreaIndex(const Game& g) { return TrainArea(g); }
 
@@ -545,13 +558,67 @@ void DrawStoryHub(const Game& g) {
 
 // ------------------------------------------------------------------ map
 
+bool IsRematch(const Game& g) {
+    if (g.mode != Mode::Story && g.mode != Mode::CoopStory) return false;
+    int done = g.coop ? g.coopSave.storyStage : g.profile.storyStage;
+    return g.stageIdx >= 0 && g.stageIdx < (int)Story().stages.size() && g.stageIdx < done;
+}
+
+namespace {
+bool CanRematch(const Game& g, int stage) {
+    const auto& stages = Story().stages;
+    return stage >= 0 && stage < (int)stages.size() && stages[stage].IsGym() && stage < ProgressView(g).storyStage;
+}
+} // namespace
+
+bool StartGymRematch(Game& g, int stage) {
+    if (!CanRematch(g, stage)) { Toast(g, "Beat this gym in the story first."); return false; }
+    const StageDef& st = Story().stages[stage];
+    if (g.coop && g.on.active) {   // online: both pick the same rematch, like any battle
+        if (OnlineWaiting(g)) return false;
+        if (HealthyCount(Prof(g, g.on.me)) == 0) { Toast(g, "Your party has all fainted! Visit the Healing Center first."); return false; }
+        OnlineSetReady(g, 3 + stage);
+        EnterStoryHub(g);
+        g.hubSel = 2;
+        const std::string& pn = g.coopP[1 - g.on.me].name;
+        Toast(g, g.on.partnerReady == 3 + stage ? "Rematch with " + st.trainer + "!"
+                                                 : "Waiting for " + pn + " to pick the " + st.trainer + " rematch on their Map.");
+        return true;
+    }
+    if (g.coop) {
+        for (int p = 0; p < 2; p++)
+            if (HealthyCount(g.coopP[p]) == 0) { Toast(g, g.coopP[p].name + "'s party has all fainted! Visit the Healing Center first."); return false; }
+    } else if (HealthyCount(g.profile) == 0) {
+        Toast(g, "Your whole team has fainted! Visit the Healing Center first.");
+        return false;
+    }
+    g.stageIdx = stage;
+    g.mode = g.coop ? Mode::CoopStory : Mode::Story;
+    g.rareBattle = false;
+    g.screen = Screen::StageIntro;
+    return true;
+}
+
 void UpdateMap(Game& g) {
     PlayerInput in = MenuInput();
-    int n = (int)Story().stages.size();
-    if (n == 0 || in.back || in.confirm) { PlaySfx(Sfx::MenuBack); EnterStoryHub(g); g.hubSel = 2; return; }
+    const auto& stages = Story().stages;
+    int n = (int)stages.size();
+    if (n == 0 || in.back) { PlaySfx(Sfx::MenuBack); EnterStoryHub(g); g.hubSel = 2; return; }
+    if (in.confirm) {
+        if (CanRematch(g, g.mapSel)) { PlaySfx(Sfx::MenuOk); StartGymRematch(g, g.mapSel); return; }
+        PlaySfx(Sfx::MenuBack);
+        EnterStoryHub(g);
+        g.hubSel = 2;
+        return;
+    }
     int maxSel = n - 1;
-    if (in.up || in.left) { g.mapSel = std::max(0, g.mapSel - 1); PlaySfx(Sfx::MenuMove); }
-    if (in.down || in.right) { g.mapSel = std::min(maxSel, g.mapSel + 1); PlaySfx(Sfx::MenuMove); }
+    if (in.up) { g.mapSel = std::max(0, g.mapSel - 1); PlaySfx(Sfx::MenuMove); }
+    if (in.down) { g.mapSel = std::min(maxSel, g.mapSel + 1); PlaySfx(Sfx::MenuMove); }
+    if (in.left || in.right) {   // jump to the previous / next gym
+        int d = in.left ? -1 : 1;
+        for (int i = g.mapSel + d; i >= 0 && i < n; i += d)
+            if (stages[i].IsGym()) { g.mapSel = i; PlaySfx(Sfx::MenuMove); break; }
+    }
 }
 
 void DrawMap(const Game& g) {
@@ -575,22 +642,35 @@ void DrawMap(const Game& g) {
     DrawText(TextFormat("%d creature%s", (int)st.team.size(), st.team.size() > 1 ? "s" : ""), x + 8, 86, 10, UI_TEXT);
     DrawText(TextFormat("Arena: %s", ArenaName(st.arena)), x + 8, 100, 10, UI_TEXT);
     if (st.IsGym()) {
-        DrawBadge(st.badge, x + 14, 124, HasBadge(pv, st.badge));
-        DrawText(TextFormat("%s Badge", st.badge.c_str()), x + 26, 119, 10, BadgeColor(st.badge));
+        DrawBadge(st.badge, x + 20, 126, HasBadge(pv, st.badge), 11);
+        DrawText(TextFormat("%s Badge", st.badge.c_str()), x + 36, 121, 10, BadgeColor(st.badge));
+        if (beaten) {
+            float pulse = 0.75f + 0.25f * std::sin(g.t * 5);
+            DrawPanel(x + 6, 140, w - 12, 14, UI_PANEL_LIGHT, Fade(UI_GOLD, pulse));
+            DrawText("Enter: REMATCH", x + 12, 142, 10, UI_GOLD);
+        }
     }
     // Upcoming gyms list
-    int y = 146;
+    int y = 158;
     DrawText("Gyms", x + 8, y, 10, UI_DIM);
     y += 14;
+    int partnerPick = g.on.active && g.on.partnerReady >= 3 ? g.on.partnerReady - 3 : -1;
     for (int i = 0; i < n; i++) {
         if (!stages[i].IsGym()) continue;
         bool have = HasBadge(pv, stages[i].badge);
+        if (i == g.mapSel) DrawRectangle(x + 4, y - 2, w - 8, 14, UI_PANEL_LIGHT);
         DrawBadge(stages[i].badge, x + 14, y + 5, have, 5.5f);
         std::string nm = stages[i].trainer;
-        DrawText(nm.c_str(), x + 26, y, 10, have ? UI_TEXT : UI_DIM);
+        DrawText(nm.c_str(), x + 26, y, 10, i == g.mapSel ? UI_GOLD : have ? UI_TEXT : UI_DIM);
+        if (i == partnerPick) DrawText("<", x + w - 14, y, 10, Color{140, 230, 150, 255});
         y += 15;
     }
-    DrawText("Up/Down browse", x + 8, 326, 10, UI_DIM);
+    if (partnerPick >= 0) {
+        DrawWrapped(TextFormat("%s wants a rematch with %s - pick it too!", g.coopP[1 - g.on.me].name.c_str(), stages[partnerPick].trainer.c_str()),
+                    x + 8, 288, w - 16, 10, Color{140, 230, 150, 255});
+    }
+    DrawText("Up/Down browse", x + 8, 316, 10, UI_DIM);
+    DrawText("Left/Right jump to a gym", x + 8, 328, 10, UI_DIM);
     DrawText("Esc back", x + 8, 340, 10, UI_DIM);
 }
 
@@ -634,10 +714,12 @@ void DrawGymIntro(const Game& g, const StageDef& st) {
     DrawRectangle(0, 54, VW, 74, Fade(UI_INK, 0.72f));
     DrawRectangle(0, 54, VW, 2, team);
     DrawRectangle(0, 126, VW, 2, team);
-    DrawTextCentered(TextFormat("GYM BATTLE  -  %s", st.name.c_str()), VW / 2, 60, 10, Fade(WHITE, 0.9f), false);
+    bool again = IsRematch(g);
+    DrawTextCentered(TextFormat(again ? "GYM REMATCH  -  %s" : "GYM BATTLE  -  %s", st.name.c_str()), VW / 2, 60, 10, Fade(WHITE, 0.9f), false);
     float pulse = 1.0f + 0.04f * std::sin(t * 4);
     DrawTextCentered(st.trainer.c_str(), VW / 2, (int)(76 - 4 * (pulse - 1)), 30, UI_GOLD);
-    DrawTextCentered(TextFormat("%s   -   win the %s Badge!", ArenaName(st.arena), st.badge.c_str()), VW / 2, 110, 10, BadgeColor(st.badge), false);
+    DrawTextCentered(again ? TextFormat("%s   -   rematch: the team is scaled to your level", ArenaName(st.arena))
+                           : TextFormat("%s   -   win the %s Badge!", ArenaName(st.arena), st.badge.c_str()), VW / 2, 110, 10, BadgeColor(st.badge), false);
     DrawBadge(st.badge, VW / 2 - 150, 92, true, 11);
     DrawBadge(st.badge, VW / 2 + 150, 92, true, 11);
 }
@@ -653,7 +735,7 @@ void DrawStageIntro(const Game& g) {
         DrawWrapped(say.c_str(), 70, 147, 500, 10, UI_TEXT);
         int foes = g.coop ? std::min(MAX_TEAM_SIZE, std::max(3, (int)st.team.size() + 2)) : (int)std::min<size_t>(st.team.size(), MAX_TEAM_SIZE);
         DrawRectangle(40, 170, VW - 80, 34, Fade(UI_INK, 0.85f));
-        DrawTextCentered(TextFormat("%d Pokemon   CPU skill %s%s", foes, AILevelName(st.cpu), g.coop ? "   2v2 co-op battle" : ""), VW / 2, 175, 10, UI_TEXT, false);
+        DrawTextCentered(TextFormat("%d Pokemon   CPU skill %s%s", foes, AILevelName(IsRematch(g) ? AILevel::Hard : st.cpu), g.coop ? "   2v2 co-op battle" : ""), VW / 2, 175, 10, UI_TEXT, false);
         DrawTextCentered(ArenaTwist(st.arena), VW / 2, 189, 10, Color{150, 200, 240, 255}, false);
         DrawRectangle(VW / 2 - 130, 336, 260, 16, Fade(UI_INK, 0.85f));
         DrawTextCentered("Enter: choose your team     Esc: back", VW / 2, 339, 10, UI_DIM, false);
@@ -780,10 +862,63 @@ void TeachMove(Game& g, int mon, const std::string& move, int src, const std::st
 }
 
 // Indexes into p.mons for the party (tab 0) or the Box (tab 1).
+const char* kBoxSorts[6] = {"Caught", "Level", "Dex no.", "Name", "Type", "Newest"};
+
+bool CanStillEvolve(int idx) { return idx >= 0 && (EvolutionIndex(idx) >= 0 || !AllSpecies()[idx].evoAlts.empty()); }
+
+bool BoxFilterMatch(const OwnedMon& m, const std::string& f) {
+    if (f.empty()) return true;
+    int idx = MonSpecies(m);
+    if (f == "evolve") return CanStillEvolve(idx);
+    if (f == "item") return !m.item.empty();
+    if (f == "hurt") return m.hp < 0.999f;
+    if (f.rfind("type:", 0) == 0) {
+        if (idx < 0) return false;
+        std::string t = f.substr(5);
+        const SpeciesDef& sp = AllSpecies()[idx];
+        return TypeName(sp.type1) == t || (sp.type2 != Type::None && TypeName(sp.type2) == t);
+    }
+    return true;
+}
+
+// The filters worth offering: all, the special ones, then each type somebody in the Box has.
+std::vector<std::string> BoxFilters(const Profile& p) {
+    std::vector<std::string> f = {"", "evolve", "item", "hurt"};
+    bool has[TYPE_COUNT] = {};
+    for (const auto& m : p.mons) {
+        int idx = MonSpecies(m);
+        if (!m.boxed || idx < 0) continue;
+        has[(int)AllSpecies()[idx].type1] = true;
+        if (AllSpecies()[idx].type2 != Type::None) has[(int)AllSpecies()[idx].type2] = true;
+    }
+    for (int t = 0; t < TYPE_COUNT; t++) if (has[t]) f.push_back(std::string("type:") + TypeName((Type)t));
+    return f;
+}
+
+std::string BoxFilterName(const std::string& f) {
+    if (f.empty()) return "All";
+    if (f == "evolve") return "Can evolve";
+    if (f == "item") return "Has item";
+    if (f == "hurt") return "Hurt";
+    if (f.rfind("type:", 0) == 0) return f.substr(5);
+    return f;
+}
+
 std::vector<int> TabList(const Profile& p, int tab) {
     std::vector<int> v;
     for (int i = 0; i < (int)p.mons.size(); i++)
-        if (p.mons[i].boxed == (tab == 1)) v.push_back(i);
+        if (p.mons[i].boxed == (tab == 1) && (tab == 0 || BoxFilterMatch(p.mons[i], p.boxFilter))) v.push_back(i);
+    if (tab != 1) return v;   // the party keeps its order (it's the order you send them out)
+    auto dex = [&](int i) { int s = MonSpecies(p.mons[i]); return s >= 0 ? AllSpecies()[s].dex : 9999; };
+    auto type = [&](int i) { int s = MonSpecies(p.mons[i]); return s >= 0 ? (int)AllSpecies()[s].type1 : 99; };
+    switch (p.boxSort) {
+        case 1: std::stable_sort(v.begin(), v.end(), [&](int a, int b) { return p.mons[a].level > p.mons[b].level; }); break;
+        case 2: std::stable_sort(v.begin(), v.end(), [&](int a, int b) { return dex(a) < dex(b); }); break;
+        case 3: std::stable_sort(v.begin(), v.end(), [&](int a, int b) { return p.mons[a].species < p.mons[b].species; }); break;
+        case 4: std::stable_sort(v.begin(), v.end(), [&](int a, int b) { return type(a) != type(b) ? type(a) < type(b) : dex(a) < dex(b); }); break;
+        case 5: std::reverse(v.begin(), v.end()); break;
+        default: break;
+    }
     return v;
 }
 
@@ -972,6 +1107,19 @@ void UpdateMyCreatures(Game& g) {
 
     if (in.back) { PlaySfx(Sfx::MenuBack); EnterStoryHub(g); g.hubSel = 5; return; }
     if (in.left || in.right) { g.boxTab = 1 - g.boxTab; g.myCreSel = 0; PlaySfx(Sfx::MenuMove); return; }
+    if ((in.sort || in.filter) && g.boxTab == 1) {
+        if (in.sort) p.boxSort = (p.boxSort + 1) % 6;
+        if (in.filter) {
+            auto f = BoxFilters(p);
+            int at = 0;
+            for (int i = 0; i < (int)f.size(); i++) if (f[i] == p.boxFilter) at = i;
+            p.boxFilter = f[(at + 1) % f.size()];
+        }
+        g.myCreSel = 0;
+        SaveOrWarn(g);
+        PlaySfx(Sfx::MenuMove);
+        return;
+    }
     if (n == 0) return;
     if (in.up) { g.myCreSel = (g.myCreSel + n - 1) % n; PlaySfx(Sfx::MenuMove); }
     if (in.down) { g.myCreSel = (g.myCreSel + 1) % n; PlaySfx(Sfx::MenuMove); }
@@ -995,11 +1143,24 @@ void DrawMyCreatures(const Game& g) {
                                : TextFormat("%s (%d)", tabs[i], (int)mons.size() - PartyCount(p));
         DrawTextCentered(t, x + 44, 33, 10, sel ? UI_GOLD : UI_DIM, false);
     }
+    bool boxTools = g.boxTab == 1 && (int)mons.size() > PartyCount(p);
+    int listY = boxTools ? 66 : 50, listRows = boxTools ? 11 : 12;
+    if (boxTools) {   // sort and filter
+        DrawText(TextFormat("Sort: %s", kBoxSorts[std::max(0, std::min(5, p.boxSort))]), 12, 50, 10, p.boxSort ? UI_GOLD : UI_DIM);
+        std::string f = "Show: " + BoxFilterName(p.boxFilter);
+        if (!p.boxFilter.empty()) f += TextFormat(" (%d)", n);
+        while (TextW(f.c_str(), 10) > 92 && f.size() > 4) f = f.substr(0, f.size() - 4) + "...";
+        DrawText(f.c_str(), 98, 50, 10, p.boxFilter.empty() ? UI_DIM : Color{140, 220, 255, 255});
+    }
     int sel = std::max(0, std::min(g.myCreSel, n - 1));
-    int first = std::max(0, std::min(sel - 5, n - 12));
-    for (int k = first; k < std::min(n, first + 12); k++) {
+    int first = std::max(0, std::min(sel - 5, n - listRows));
+    if (n > listRows) {   // scroll position
+        float f0 = (float)first / n, f1 = (float)(first + listRows) / n;
+        DrawRectangle(192, listY + (int)(f0 * listRows * 24), 2, std::max(4, (int)((f1 - f0) * listRows * 24)), UI_DIM);
+    }
+    for (int k = first; k < std::min(n, first + listRows); k++) {
         int i = list[k];
-        int y = 50 + (k - first) * 24;
+        int y = listY + (k - first) * 24;
         bool on = sel == k;
         DrawPanel(10, y, 180, 22, on ? UI_PANEL_LIGHT : UI_PANEL, on ? UI_GOLD : Color{70, 64, 92, 255});
         int idx = MonSpecies(mons[i]);
@@ -1008,6 +1169,13 @@ void DrawMyCreatures(const Game& g) {
         DrawText(TextFormat("Lv%d", mons[i].level), 150, y + 3, 10, UI_GOLD);
         DrawHpBar(150, y + 15, 34, 2, mons[i].hp);
         if (!mons[i].item.empty()) DrawRectangle(140, y + 4, 5, 5, Color{140, 220, 255, 255});
+    }
+    if (n == 0 && boxTools) {
+        DrawText("Nothing in the Box matches this filter.", 16, 74, 10, UI_DIM);
+        DrawText("R / Y: change the filter", 16, 88, 10, UI_DIM);
+        DrawText("Left/Right switch tab   Tab sort   R filter   Esc back", 212, 340, 10, UI_DIM);
+        DrawToast(g);
+        return;
     }
     if (n == 0) {
         DrawText(g.boxTab == 1 ? "Your Box is empty." : "No creatures in the party.", 16, 58, 10, UI_DIM);
@@ -1112,7 +1280,8 @@ void DrawMyCreatures(const Game& g) {
         DrawRectangle(0, 336, VW, 24, Fade(UI_INK, 0.9f));
         DrawText(TextFormat("Who goes to the Box so %s can join?   Enter swap   Esc cancel", mons[g.swapFrom].species.c_str()), 12, 342, 10, UI_GOLD);
     } else {
-        DrawText("Left/Right Party / Box   Up/Down browse   Enter options   Esc back", 12, 342, 10, UI_DIM);
+        DrawText(g.boxTab == 1 ? "Left/Right Party / Box   Up/Down browse   Enter options   Tab (X) sort   R (Y) filter   Esc back"
+                               : "Left/Right Party / Box   Up/Down browse   Enter options   Esc back", 12, 342, 10, UI_DIM);
     }
 
     if (g.actMenu) {
@@ -1416,6 +1585,7 @@ void ProcessStoryBattleEnd(Game& g) {
             if (coop) g.resultLines.push_back(TextFormat("%s got %d coins! (%d total)", P.name.c_str(), c, P.coins));
             else g.resultLines.push_back(TextFormat("You got %d coins! (%d total)", c, P.coins));
         }
+        if (st && st->IsGym() && g.stageIdx < stage) g.resultLines.push_back("You won the rematch against " + st->trainer + "!");
         if (st && st->IsGym() && std::find(badges.begin(), badges.end(), st->badge) == badges.end()) {
             badges.push_back(st->badge);
             g.resultLines.push_back(std::string(coop ? "You both earned the " : "You earned the ") + st->badge + " Badge!");
@@ -2306,6 +2476,11 @@ void UpdateCatch(Game& g, float dt) {
             PlaySfx(Sfx::Shoot);
             return;
         }
+        if (idle && g.on.partnerThrows.empty() && g.on.partnerCatch.empty() && g.on.reconnecting) {
+            g.catchPoolPick = -1;   // the partner dropped out: they pass on this one, the draft goes on
+            EndCatchTurn(g);
+            return;
+        }
         if (idle && g.on.partnerThrows.empty() && !g.on.partnerCatch.empty()) {
             g.catchPoolPick = g.on.partnerCatch.front();
             g.on.partnerCatch.pop_front();
@@ -3071,6 +3246,7 @@ void UpdateCoopHub(Game& g) {
     if (!in.confirm) return;
     PlaySfx(Sfx::MenuOk);
     int stages = (int)Story().stages.size();
+    if (online && (g.hubSel == 0 || g.hubSel == 1 || g.hubSel == 7) && OnlineWaiting(g)) return;
     if (online && (g.hubSel == 0 || g.hubSel == 1)) {
         // Online: say what you want to do; it starts when your partner picks the same.
         int kind = g.hubSel == 0 ? 1 : 2;
@@ -3120,6 +3296,7 @@ void UpdateCoopHub(Game& g) {
         } break;
         case 2:
             g.mapSel = std::min(g.coopSave.storyStage, stages - 1);
+            if (online && g.on.partnerReady >= 3 && g.on.partnerReady - 3 < stages) g.mapSel = g.on.partnerReady - 3;   // join their rematch
             g.screen = Screen::Map;
             break;
         case 3:
@@ -3194,9 +3371,19 @@ void DrawCoopHubBase(const Game& g) {
     if (g.on.active) {
         const OnlineSession& o = g.on;
         const std::string& pn = g.coopP[1 - o.me].name;
-        const char* kinds[3] = {"", "a Story battle", "Training"};
-        std::string mine = o.myReady ? std::string("You want ") + kinds[o.myReady] + " - waiting for " + pn : "Pick a battle - it starts when you both pick it.";
-        std::string theirs = o.partnerReady ? pn + " wants " + kinds[o.partnerReady] + "!" : pn + " is " + (o.partnerActivity.empty() ? "in the hub" : o.partnerActivity) + ".";
+        auto kind = [](int k) -> std::string {
+            if (k == 1) return "a Story battle";
+            if (k == 2) return "Training";
+            int st = k - 3;
+            return st >= 0 && st < (int)Story().stages.size() ? "a rematch with " + Story().stages[st].trainer : std::string("a battle");
+        };
+        std::string mine = o.myReady ? "You want " + kind(o.myReady) + " - waiting for " + pn : "Pick a battle - it starts when you both pick it.";
+        std::string theirs = o.partnerReady ? pn + " wants " + kind(o.partnerReady) + (o.partnerReady >= 3 ? " (open the Map)" : "!")
+                                            : pn + " is " + (o.partnerActivity.empty() ? "in the hub" : o.partnerActivity) + ".";
+        if (o.reconnecting) {
+            mine = "Waiting for " + pn + " to come back (Esc leaves the online game).";
+            theirs = o.me == 0 ? "They rejoin with your same code - or Join again if they restarted." : "If the host restarted their game, leave and Join again.";
+        }
         DrawText(mine.c_str(), 10, 310, 10, o.myReady ? UI_GOLD : UI_DIM);
         DrawText(theirs.c_str(), 10, 322, 10, o.partnerReady ? Color{140, 230, 150, 255} : UI_DIM);
     } else {

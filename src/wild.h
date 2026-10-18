@@ -31,6 +31,21 @@ std::string WildMethodName(const std::string& method);     // "walk" -> "grass",
 // Where a species lives: area names (open ones first), and how many more lie further on.
 std::vector<std::string> WildPlacesFor(int species, int storyStage, int& lockedCount);
 
+// The Pokedex's "where to find it" list: one row per area and method the species turns up with.
+struct WildSpot {
+    int area = -1;
+    std::string place;
+    bool open = false;          // the story has reached the area
+    std::string opensAt;        // the story stage that opens it
+    std::string method;         // walk, surf, ...
+    bool methodOpen = true;     // rods / Surf / Rock Smash unlocked
+    std::string methodAt;       // the stage that unlocks the method
+    int rate = 0, lo = 0, hi = 0, badges = 0;
+    bool rare = false;          // only as a rare encounter
+    float share = 0;            // of this area's training encounters right now (0..1), 0 if not available yet
+};
+std::vector<WildSpot> WildSpotsFor(int species, int storyStage, int badges);
+
 // Training context: set before building a training battle (MakeCpuTeam(nullptr, ...) and
 // PickRareSpecies then use the area's table). area < 0 turns it off.
 void SetWildContext(int area, int storyStage, int badges);

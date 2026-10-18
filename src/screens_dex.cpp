@@ -29,6 +29,88 @@ const std::vector<int>& DexList() {
 }
 
 const Profile& DexProfile(const Game& g) { return g.coop ? Prof(g, g.dexWho) : g.profile; }
+int DexStage(const Game& g) { return g.coop ? g.coopSave.storyStage : g.profile.storyStage; }
+int DexBadges(const Game& g) { return (int)(g.coop ? g.coopSave.badges.size() : g.profile.badges.size()); }
+
+const char* HowCommon(float share) {
+    if (share >= 0.25f) return "Common";
+    if (share >= 0.10f) return "Uncommon";
+    return "Rare";
+}
+
+// Where a Pokemon lives: every area and method, how common, and what still locks it.
+void DrawWherePage(const Game& g, int idx, int x, int y, int w, int h) {
+    const SpeciesDef& sp = AllSpecies()[idx];
+    const Color ink{40, 34, 50, 255}, soft{100, 92, 110, 255}, green{40, 120, 60, 255}, lock{150, 140, 150, 255};
+    DrawPanel(x, y, w, h, Color{240, 236, 228, 255}, Color{60, 40, 50, 255});
+    DrawPanel(x + 8, y + 8, 52, 52, Color{200, 225, 210, 255}, Color{90, 110, 100, 255});
+    DrawSpeciesFit(idx, VIEW_FRONT, x + 34, y + 57, 46);
+    DrawText(TextFormat("No. %03d", sp.dex), x + 68, y + 10, 10, soft);
+    DrawText(sp.name.c_str(), x + 68, y + 22, 20, ink);
+    DrawText("WHERE TO FIND IT", x + w - 10 - TextW("WHERE TO FIND IT", 10), y + 10, 10, Color{190, 50, 50, 255});
+    int cur = TrainingAreaIndex(g);
+    if (cur >= 0) {
+        std::string t = "Training now: " + WildAreas()[cur].name;
+        DrawText(t.c_str(), x + w - 10 - TextW(t.c_str(), 10), y + 24, 10, soft);
+    }
+    auto spots = WildSpotsFor(idx, DexStage(g), DexBadges(g));
+    int ty = y + 66;
+    // column heads
+    int cPlace = x + 10, cHow = x + 124, cCommon = x + 184, cLv = x + 262, cNote = x + 298;
+    DrawText("Place", cPlace, ty, 10, soft);
+    DrawText("How", cHow, ty, 10, soft);
+    DrawText("How common", cCommon, ty, 10, soft);
+    DrawText("Note", cNote, ty, 10, soft);
+    DrawText("Lv", cLv, ty, 10, soft);
+    DrawRectangle(x + 8, ty + 12, w - 16, 1, Color{200, 190, 190, 255});
+    ty += 16;
+    int N = (int)spots.size();
+    const int rows = 15;
+    int sel = std::max(0, std::min(g.dexWhereSel, N - 1));
+    int first = std::max(0, std::min(sel - rows / 2, N - rows));
+    for (int r = 0; r < rows && first + r < N; r++) {
+        const WildSpot& s = spots[first + r];
+        int ry = ty + r * 14;
+        bool on = first + r == sel;
+        bool here = s.open && s.area == cur;
+        if (on) DrawRectangle(x + 6, ry - 2, w - 12, 14, Color{220, 200, 160, 255});
+        bool avail = s.share > 0;
+        Color c = avail ? ink : (s.open ? soft : lock);
+        std::string place = s.place;
+        while (TextW(place.c_str(), 10) > 110 && place.size() > 3) place = place.substr(0, place.size() - 4) + "...";
+        if (here) DrawCircle(cPlace - 4, ry + 5, 2, green);
+        DrawText(place.c_str(), cPlace, ry, 10, c);
+        DrawText(WildMethodName(s.method).c_str(), cHow, ry, 10, c);
+        if (avail) DrawText(TextFormat("%s %d%%", HowCommon(s.share), std::max(1, (int)std::lround(s.share * 100))), cCommon, ry, 10, green);
+        else if (s.rare && s.open) DrawText("rare find", cCommon, ry, 10, Color{190, 60, 150, 255});
+        else DrawText("-", cCommon, ry, 10, lock);
+        DrawText(s.lo == s.hi ? TextFormat("%d", s.lo) : TextFormat("%d-%d", s.lo, std::min(s.hi, 100)), cLv, ry, 10, c);
+        std::string note;
+        if (!s.open) note = "after " + s.opensAt;
+        else if (!s.methodOpen) note = (s.method == "surf" ? std::string("Surf") : WildMethodName(s.method)) + ": after " + s.methodAt;
+        else if (DexBadges(g) < s.badges) note = TextFormat("needs %d badges", s.badges);
+        else if (s.rare) note = "rare finds only";
+        else if (here) note = "training here";
+        while (TextW(note.c_str(), 10) > x + w - 8 - cNote && note.size() > 3) note = note.substr(0, note.size() - 4) + "...";
+        DrawText(note.c_str(), cNote, ry, 10, here ? green : lock);
+    }
+    if (N == 0) {
+        const std::string& n = sp.name;
+        const char* special = n == "Eevee" ? "A gift for a Pokemon that loves you completely."
+                            : n == "Omanyte" || n == "Kabuto" ? "Revived from a Mt. Moon fossil at the Cinnabar Lab."
+                            : n == "Aerodactyl" ? "Revived from the Pewter Museum's Old Amber at the Cinnabar Lab."
+                            : n == "Hitmonlee" || n == "Hitmonchan" ? "The Saffron Dojo's prize."
+                            : n == "Snorlax" ? "Sleeping on Routes 16 and 12."
+                            : n == "Porygon" ? "A Celadon Game Corner prize."
+                            : sp.starter ? "Not in the wild - a starter Pokemon."
+                            : "Not in the wild - evolve or trade for it.";
+        DrawWrapped(special, x + 10, ty, w - 20, 10, ink);
+    } else if (N > rows) {
+        DrawText(TextFormat("%d-%d of %d", first + 1, std::min(N, first + rows), N), x + w - 70, y + h - 30, 10, soft);
+    }
+    DrawText("Levels are the games'; training battles scale to your team.", x + 10, y + h - 30, 10, soft);
+    DrawText("Enter: train here   Left/Right: other Pokemon   Esc: back", x + 10, y + h - 16, 10, Color{190, 50, 50, 255});
+}
 
 void DrawBall(int x, int y, bool caught) {
     if (caught) {
@@ -81,6 +163,8 @@ void OpenPokedex(Game& g, int who) {
     g.dexWho = who;
     g.dexSel = 0;
     g.dexScroll = 0;
+    g.dexWhere = false;
+    g.dexWhereSel = 0;
     g.screen = Screen::Pokedex;
 }
 
@@ -88,7 +172,35 @@ void UpdatePokedex(Game& g) {
     PlayerInput in = MenuInput();
     const auto& list = DexList();
     int n = (int)list.size();
+    if (n > 0 && g.dexWhere) {   // the 'where to find it' page
+        int idx = list[std::max(0, std::min(n - 1, g.dexSel))];
+        auto spots = WildSpotsFor(idx, DexStage(g), DexBadges(g));
+        int N = (int)spots.size();
+        if (in.back) { g.dexWhere = false; PlaySfx(Sfx::MenuBack); return; }
+        if (N > 0 && in.up) { g.dexWhereSel = (g.dexWhereSel + N - 1) % N; PlaySfx(Sfx::MenuMove); }
+        if (N > 0 && in.down) { g.dexWhereSel = (g.dexWhereSel + 1) % N; PlaySfx(Sfx::MenuMove); }
+        if (in.left || in.right) {   // the previous / next Pokemon you've seen, page stays open
+            int d = in.left ? -1 : 1;
+            for (int i = g.dexSel + d; i >= 0 && i < n; i += d)
+                if (DexHasSeen(DexProfile(g), AllSpecies()[list[i]].name)) { g.dexSel = i; g.dexWhereSel = 0; PlaySfx(Sfx::MenuMove); break; }
+            const int rows = 19;
+            if (g.dexSel < g.dexScroll) g.dexScroll = g.dexSel;
+            if (g.dexSel >= g.dexScroll + rows) g.dexScroll = g.dexSel - rows + 1;
+        }
+        if (in.confirm && N > 0) {
+            const WildSpot& w = spots[std::min(g.dexWhereSel, N - 1)];
+            if (!w.open) Toast(g, w.place + " opens after " + w.opensAt + ".");
+            else if (SetTrainArea(g, w.area)) PlaySfx(Sfx::MenuOk);
+        }
+        return;
+    }
     if (in.back || n == 0) { PlaySfx(Sfx::MenuBack); EnterStoryHub(g); g.hubSel = 6; return; }
+    if (in.confirm) {
+        int idx = list[std::max(0, std::min(n - 1, g.dexSel))];
+        if (DexHasSeen(DexProfile(g), AllSpecies()[idx].name)) { g.dexWhere = true; g.dexWhereSel = 0; PlaySfx(Sfx::MenuOk); }
+        else PlaySfx(Sfx::MenuBack);
+        return;
+    }
     static float holdT = 0;
     bool upHeld = IsKeyDown(KEY_UP) || IsKeyDown(KEY_W), downHeld = IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S);
     int step = 0;
@@ -155,6 +267,10 @@ void DrawPokedex(const Game& g) {
     const SpeciesDef& sp = AllSpecies()[idx];
     bool s = DexHasSeen(P, sp.name), c = DexHasCaught(P, sp.name);
     int x = 212, w = VW - x - 6;
+    if (g.dexWhere && s) {
+        DrawWherePage(g, idx, x, 28, w, 312);
+        return;
+    }
     DrawPanel(x, 28, w, 312, Color{240, 236, 228, 255}, Color{60, 40, 50, 255});
     DrawPanel(x + 8, 36, 116, 112, Color{200, 225, 210, 255}, Color{90, 110, 100, 255});
     DrawSpeciesFit(idx, VIEW_FRONT, x + 66, 142, 100, s ? WHITE : Color{30, 34, 40, 255});
@@ -200,7 +316,7 @@ void DrawPokedex(const Game& g) {
             where += "; " + special;
         }
         DrawText("Found:", x + 10, y, 10, Color{40, 110, 60, 255});
-        y = DrawWrapped(where.c_str(), x + 52, y, w - 62, 10, Color{40, 110, 60, 255}, 11) + 3;
+        y = DrawWrapped((where + "   (Enter: details)").c_str(), x + 52, y, w - 62, 10, Color{40, 110, 60, 255}, 11) + 3;
     }
     if (c) {
         // Abilities
@@ -244,7 +360,7 @@ void DrawPokedex(const Game& g) {
             }
         }
     }
-    DrawText("Up/Down browse   Left/Right jump 10   Esc back", 8, 346, 10, Color{255, 220, 220, 255});
+    DrawText("Up/Down browse   Left/Right jump 10   Enter where to find it   Esc back", 8, 346, 10, Color{255, 220, 220, 255});
 }
 
 // ------------------------------------------------------------------ Trading

@@ -86,6 +86,8 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "dojo") out.dojo = v;
             else if (k == "snorlax") out.snorlax = iv;
             else if (k == "casino_coins") out.casino = std::max(0, iv);
+            else if (k == "box_sort") out.boxSort = std::max(0, iv);
+            else if (k == "box_filter") out.boxFilter = v;
             else if (k == "wins") out.wins = iv;
             else if (k == "losses") out.losses = iv;
             else if (k == "training_wins") out.trainingWins = iv;
@@ -185,6 +187,8 @@ std::string ProfileToText(const Profile& p) {
     if (!p.dojo.empty()) o += "dojo = " + p.dojo + "\n";
     if (p.snorlax) o += TextFormat("snorlax = %d\n", p.snorlax);
     if (p.casino) o += TextFormat("casino_coins = %d\n", p.casino);
+    if (p.boxSort) o += TextFormat("box_sort = %d\n", p.boxSort);
+    if (!p.boxFilter.empty()) o += "box_filter = " + p.boxFilter + "\n";
     if (!p.starter.empty()) o += "starter = " + p.starter + "\n";
     std::string bd;
     for (size_t i = 0; i < p.badges.size(); i++) bd += (i ? " | " : "") + p.badges[i];

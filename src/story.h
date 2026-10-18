@@ -27,6 +27,10 @@ struct StageDef {
     bool Catchable() const { return false; }
 };
 
+// A gym rematch: the same team, scaled to the challenger's level (the ace a few levels above
+// their average), with the leader at full strength (Hard).
+StageDef RematchStage(const StageDef& stage);
+
 // Coins for a win at an average CPU level.
 int WinCoins(const StageDef* stage, int cpuLevel);
 

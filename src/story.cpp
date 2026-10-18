@@ -540,6 +540,24 @@ int StoryStageForRev(int stage, int fromRev) {
     return std::min(stage, (int)Story().stages.size());
 }
 
+StageDef RematchStage(const StageDef& stage) {
+    StageDef r = stage;
+    int top = -99;
+    for (const auto& e0 : stage.team) {   // the highest "+N / -N" on the team is its ace
+        std::string e = Trim(e0);
+        int extra = 0;
+        size_t sp = e.find_last_of(' ');
+        if (sp != std::string::npos && sp + 1 < e.size() && (e[sp + 1] == '+' || e[sp + 1] == '-') && std::isdigit((unsigned char)e.back()))
+            extra = std::atoi(e.c_str() + sp + 1);
+        top = std::max(top, extra);
+    }
+    if (top == -99) top = 0;
+    r.baseLevel = 0;            // no fixed level: follow the challenger
+    r.levelOffset = 3 - top;    // the ace lands 3-4 levels above your team's average
+    r.cpu = AILevel::Hard;
+    return r;
+}
+
 std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamSize) {
     if (!stage && WildActive()) {   // training: the Pokemon that live in the chosen area
         auto t = MakeWildTeam(teamSize, avg);

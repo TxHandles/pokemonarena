@@ -22,6 +22,7 @@ bool gInit = false;
 ENetHost* gHost = nullptr;
 ENetPeer* gPeer = nullptr;
 bool gIsHost = false;
+bool gReplaced = false;
 State gState = State::Off;
 std::string gStatus;
 std::deque<std::string> gInbox;
@@ -148,7 +149,7 @@ bool Open(bool host, int port, std::string& err) {
     ENetAddress addr;
     addr.host = ENET_HOST_ANY;
     addr.port = (uint16_t)(host ? port : 0);
-    gHost = enet_host_create(&addr, host ? 1 : 1, 2, 0, 0);
+    gHost = enet_host_create(&addr, host ? 2 : 1, 2, 0, 0);   // host: room for a reconnect while the old link times out
     if (!gHost) {
         err = host ? "Couldn't open port " + std::to_string(port) + " (is another copy of the game hosting?)" : "Couldn't open a network port.";
         return false;
@@ -201,6 +202,26 @@ bool Connect(const std::string& address, std::string& err) {
 }
 
 bool IsHost() { return gIsHost; }
+bool HasSocket() { return gHost != nullptr; }
+bool TakeReplaced() { bool r = gReplaced; gReplaced = false; return r; }
+
+void Rearm() {
+    if (!gHost) return;
+    if (gPeer) { enet_peer_reset(gPeer); gPeer = nullptr; }
+    gInbox.clear();
+    gOutbox.clear();
+    gReplaced = false;
+    gState = gIsHost ? State::Waiting : State::Off;
+    gStatus = gIsHost ? "Waiting for your friend to come back..." : "";
+}
+
+void DropForTest() {
+    if (gPeer) { enet_peer_reset(gPeer); gPeer = nullptr; }
+    gInbox.clear();
+    gOutbox.clear();
+    gState = State::Failed;
+    gStatus = "The connection was lost.";
+}
 
 void PunchTo(const std::string& friendCode) {
     ENetAddress a;
@@ -224,6 +245,7 @@ void Close() {
     gOutbox.clear();
     gPunch = false;
     gCode.clear();
+    gReplaced = false;
 }
 
 void Poll() {
@@ -247,9 +269,13 @@ void Poll() {
     while (gHost && enet_host_service(gHost, &ev, 0) > 0) {
         switch (ev.type) {
             case ENET_EVENT_TYPE_CONNECT:
-                if (gPeer && gPeer != ev.peer && gState == State::Connected) {  // only one friend
-                    enet_peer_disconnect_now(ev.peer, 0);
-                    break;
+                if (gPeer && gPeer != ev.peer && gState == State::Connected) {
+                    if (!gIsHost) { enet_peer_disconnect_now(ev.peer, 0); break; }
+                    // Only one friend: a new connection replaces the old one (they came back after a drop).
+                    enet_peer_reset(gPeer);
+                    gInbox.clear();
+                    gOutbox.clear();
+                    gReplaced = true;
                 }
                 gPeer = ev.peer;
                 enet_peer_timeout(gPeer, 0, 8000, 15000);
@@ -261,7 +287,7 @@ void Poll() {
                 enet_packet_destroy(ev.packet);
                 break;
             case ENET_EVENT_TYPE_DISCONNECT:
-                if (ev.peer == gPeer) {
+                if (ev.peer == gPeer && gPeer) {
                     gPeer = nullptr;
                     if (gState == State::Connecting) { gState = State::Failed; gStatus = "Couldn't reach your friend's game."; }
                     else if (gIsHost && gState != State::Connected) { gState = State::Waiting; }

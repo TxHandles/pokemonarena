@@ -45,6 +45,8 @@ struct Profile {
     std::string dojo;                  // Fighting Dojo prize taken ("Hitmonlee" / "Hitmonchan"), empty = not yet
     int snorlax = 0;                   // bit k = caught the Snorlax of encounter k (co-op: one each)
     int casino = 0;                    // Celadon Game Corner coins
+    int boxSort = 0;                   // Box order: 0 caught, 1 level, 2 dex number, 3 name, 4 type, 5 newest
+    std::string boxFilter;             // Box filter: "" all, "type:Fire", "evolve", "item", "hurt"
 };
 void DexSee(Profile& p, const std::string& species);
 bool DexHasSeen(const Profile& p, const std::string& species);

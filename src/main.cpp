@@ -158,6 +158,7 @@ int main() {
             g.screen != Screen::Heal && g.screen != Screen::Shop && g.screen != Screen::MyCreatures &&
             g.screen != Screen::CoopSelect && g.screen != Screen::CoopHub && g.screen != Screen::NetMenu)
             DrawToast(g);
+        DrawOnlineOverlay(g);
         if (Cfg().showFps) DrawText(TextFormat("%d FPS", GetFPS()), VW - 44, VH - 12, 10, UI_DIM);
         EndMode2D();
         EndTextureMode();

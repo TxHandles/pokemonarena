@@ -140,6 +140,7 @@ PlayerInput MenuInput() {
     if (gAutoMenu) {
         m.up = gAutoMenu & 1; m.down = gAutoMenu & 2; m.left = gAutoMenu & 4; m.right = gAutoMenu & 8;
         m.confirm = gAutoMenu & 16; m.back = gAutoMenu & 32;
+        m.sort = gAutoMenu & 64; m.filter = gAutoMenu & 128;
         gAutoMenu = 0;
         return m;
     }
@@ -152,6 +153,13 @@ PlayerInput MenuInput() {
     m.back = a.back || b.back || IsKeyPressed(KEY_ESCAPE) || IsKeyPressed(KEY_BACKSPACE);
     m.swap = a.swap || b.swap || a.swapPrev || b.swapPrev;
     m.pause = a.pause || b.pause;
+    m.sort = IsKeyPressed(KEY_TAB);   // (F / G are confirm / back in some layouts)
+    m.filter = IsKeyPressed(KEY_R);
+    for (int p = 0; p < 2; p++) {
+        if (!IsGamepadAvailable(p)) continue;
+        m.sort = m.sort || IsGamepadButtonPressed(p, GAMEPAD_BUTTON_RIGHT_FACE_LEFT);
+        m.filter = m.filter || IsGamepadButtonPressed(p, GAMEPAD_BUTTON_RIGHT_FACE_UP);
+    }
     return m;
 }
 

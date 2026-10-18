@@ -13,4 +13,6 @@ bool StoryMapHasImage();
 void DrawStoryMap(const Profile& p, int x, int y, int w, int h, float t, bool townLabels, int focusStage = -1);
 
 Color BadgeColor(const std::string& badge);
+// The badge: its picture from Badges/ when there is one (dark until won), else a colored hexagon.
 void DrawBadge(const std::string& badge, int x, int y, bool have, float r = 6.5f);
+bool HasBadgePicture(const std::string& badge);

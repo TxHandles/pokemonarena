@@ -14,6 +14,7 @@ struct PlayerInput {
     // Menu navigation (edge-triggered)
     bool up = false, down = false, left = false, right = false;
     bool confirm = false, back = false;
+    bool sort = false, filter = false;   // menus: Tab / R keys, gamepad X / Y (the Box)
 };
 
 // player 0 or 1. twoPlayer picks the shared-keyboard layouts instead of the solo layout.
