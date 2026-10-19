@@ -330,6 +330,8 @@ void UpdateHallOfFame(Game& g);      void DrawHallOfFame(const Game& g);
 void UpdateLegends(Game& g);         void DrawLegends(const Game& g);        // the Legendary Pokemon list
 void UpdateLegendCatch(Game& g, float dt); void DrawLegendCatch(const Game& g);
 void OpenLegends(Game& g);
+bool MapTabSwitch(Game& g, bool toLegends);   // the Map's Route / Legendary Pokemon tabs
+void DrawMapTabs(const Game& g, bool legends);
 constexpr int HUB_GEAR = 100, HUB_GRAPH = 101;   // hub cursor on the Settings gear / Leaderboard graph icons
 void OpenBag(Game& g);
 void UpdateBag(Game& g);             void DrawBag(const Game& g);

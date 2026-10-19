@@ -528,7 +528,7 @@ void DrawHubIcon(int kind, int x, int y, bool sel, float t) {
 
 void UpdateStoryHub(Game& g) {
     PlayerInput in = MenuInput();
-    const int N = 12;
+    const int N = 11;
     if (HubNav(g, in, N, false)) return;
     if (g.hubSel == 1 && (in.left || in.right)) { CycleTrainArea(g, in.left ? -1 : 1); SaveOrWarn(g); return; }
     if (in.back) { SaveOrWarn(g); GoTitle(g); return; }
@@ -603,10 +603,6 @@ void UpdateStoryHub(Game& g) {
             g.settingsBack = Screen::StoryHub;
             g.screen = Screen::Settings;
             break;
-        case 10:
-            if (BadgeCount(g) < 8) { Toast(g, "Legends tell of rare Pokemon that only show themselves to trainers with all 8 badges."); break; }
-            OpenLegends(g);
-            break;
         default:
             SaveOrWarn(g);
             GoTitle(g);
@@ -615,11 +611,12 @@ void UpdateStoryHub(Game& g) {
 }
 
 namespace {
-std::string LegendHubLabel(const Game& g) {
-    if (BadgeCount(g) < 8) return "Legendary Pokemon  (8 badges)";
+// The hub's Map item: legendary encounters live in a tab on the Map, so it says when some are waiting.
+std::string MapHubLabel(const Game& g) {
+    if (BadgeCount(g) < 8) return "Map";
     int open = 0;
     for (int i = 0; i < LEGEND_COUNT; i++) open += LegendOpen(g, i) ? 1 : 0;
-    return open ? TextFormat("Legendary Pokemon  (%d waiting)", open) : "Legendary Pokemon";
+    return open ? TextFormat("Map  (%d legendar%s waiting)", open, open == 1 ? "y" : "ies") : "Map";
 }
 } // namespace
 
@@ -741,10 +738,10 @@ void DrawStoryHub(const Game& g) {
     for (const auto& m : p.mons) hurt += (!m.boxed && m.hp < 0.999f) ? 1 : 0;
     int dexCaught = 0;
     for (const auto& sp : AllSpecies()) if (sp.dex > 0 && sp.custom && DexHasCaught(p, sp.name)) dexCaught++;
-    std::string items[12] = {
+    std::string items[11] = {
         done ? TextFormat("Battle Tower: floor %d  (best %d)", p.towerFloor + 1, p.towerBest) : LeagueProgress(p.storyStage) >= 0 ? "Pokemon League" : "Story battle",
         (rare ? "RARE in " : "Training: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
-        "Map",
+        MapHubLabel(g),
         GameCornerOpen(g) ? "Shop & Game Corner" : "Shop",
         hurt ? TextFormat("Healing Center (%d hurt)", hurt) : "Healing Center",
         "Party & Box",
@@ -752,21 +749,20 @@ void DrawStoryHub(const Game& g) {
         TextFormat("Pokedex (%d caught)", dexCaught),
         IsNight(p.clock) ? "Wait until morning" : "Wait until night",
         "Practice arena",
-        LegendHubLabel(g),
         "Save and quit",
     };
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 11; i++) {
         int y = 26 + i * 16;
         bool sel = g.hubSel == i;
         Color c = sel ? UI_GOLD : UI_TEXT;
         if (i == 1 && rare) c = Color{255, 150, 230, 255};
-        if (i == 10) c = BadgeCount(g) < 8 ? UI_DIM : (sel ? UI_GOLD : Color{255, 200, 120, 255});
-        DrawHubTile(i, items[i].c_str(), rx, y, rw, sel, c, UiEnterT(i, 0.03f), (float)GetTime());
+        if (i == 2 && items[2].size() > 3) c = sel ? UI_GOLD : Color{255, 200, 120, 255};   // legendaries waiting
+        DrawHubTile(i == 10 ? 11 : i, items[i].c_str(), rx, y, rw, sel, c, UiEnterT(i, 0.03f), (float)GetTime());
     }
     DrawTimePanel(p.clock, 402, 30);
 
     // Team
-    int ty = 26 + 12 * 16 + 3;
+    int ty = 26 + 11 * 16 + 8;
     std::vector<const OwnedMon*> party;
     for (const auto& m : p.mons) if (!m.boxed) party.push_back(&m);
     GDrawText(TextFormat("Party (%d/%d)", (int)party.size(), PARTY_SIZE), rx, ty, 10, UI_DIM);
@@ -844,11 +840,53 @@ bool StartGymRematch(Game& g, int stage) {
     return true;
 }
 
+// The Map's two tabs: the route and the Legendary Pokemon. Tab (X) switches.
+bool MapTabSwitch(Game& g, bool toLegends) {
+    if (toLegends && BadgeCount(g) < 8) {
+        PlaySfx(Sfx::MenuBack);
+        Toast(g, "Legends tell of rare Pokemon that only show themselves to trainers with all 8 badges.");
+        return false;
+    }
+    PlaySfx(Sfx::MenuMove);
+    if (toLegends) OpenLegends(g);
+    else g.screen = Screen::Map;
+    return true;
+}
+
+void DrawMapTabs(const Game& g, bool legends) {
+    static float slide = 0;
+    float target = legends ? 1.0f : 0.0f;
+    slide += (target - slide) * std::min(1.0f, GetFrameTime() * 14);
+    if (std::fabs(target - slide) > 1 || Cfg().fxLevel >= 2) slide = target;
+    const char* names[2] = {"Route Map", "Legendary Pokemon"};
+    int x0 = 8, y = 5, h = 15, w[2] = {72, 112};
+    int xs[2] = {x0, x0 + w[0] + 4};
+    bool locked = BadgeCount(g) < 8;
+    for (int i = 0; i < 2; i++) {
+        Rectangle rc{(float)xs[i], (float)y, (float)w[i], (float)h};
+        DrawRectangleRounded({rc.x + 1, rc.y + 1.5f, rc.width, rc.height}, 0.4f, 6, Fade(BLACK, 0.35f));
+        DrawRectangleRounded(rc, 0.4f, 6, Fade(UI_PANEL, 0.95f));
+        DrawRectangleRoundedLinesEx(rc, 0.4f, 6, 1.0f, Color{70, 64, 92, 255});
+    }
+    float hx = xs[0] + (xs[1] - xs[0]) * slide, hw = w[0] + (w[1] - w[0]) * slide;   // the highlight slides between tabs
+    DrawRectangleRounded({hx, (float)y, hw, (float)h}, 0.4f, 6, UI_PANEL_LIGHT);
+    DrawRectangleRoundedLinesEx({hx, (float)y, hw, (float)h}, 0.4f, 6, 1.0f, UI_GOLD);
+    DrawRectangle((int)hx + 8, y + h - 2, (int)hw - 16, 2, UI_GOLD);
+    for (int i = 0; i < 2; i++) {
+        bool on = (i == 1) == legends;
+        Color c = on ? UI_GOLD : (i == 1 && locked ? Fade(UI_DIM, 0.6f) : UI_TEXT);
+        GDrawText(names[i], xs[i] + w[i] / 2 - TextW(names[i], 10) / 2, y + 3, 10, c);
+    }
+    const char* hint = locked ? "Tab (X): 8 badges needed" : "Tab (X): switch";
+    DrawTextOutlined(hint, xs[1] + w[1] + 8, y + 3, 10, UI_DIM);
+}
+
 void UpdateMap(Game& g) {
     PlayerInput in = MenuInput();
     const auto& stages = Story().stages;
     int n = (int)stages.size();
     if (n == 0 || in.back) { PlaySfx(Sfx::MenuBack); EnterStoryHub(g); g.hubSel = 2; return; }
+    if (in.sort) { MapTabSwitch(g, true); return; }
     if (in.confirm) {
         if (CanRematch(g, g.mapSel)) { PlaySfx(Sfx::MenuOk); StartGymRematch(g, g.mapSel); return; }
         PlaySfx(Sfx::MenuBack);
@@ -870,6 +908,7 @@ void DrawMap(const Game& g) {
     DrawMenuBackdrop(Color{20, 18, 32, 255}, (float)GetTime());
     Profile pv = ProgressView(g);
     DrawStoryMap(pv, 0, 0, 480, 360, g.t, true, g.mapSel);
+    DrawMapTabs(g, false);
     int x = 484, w = 152;
     DrawPanel(x, 4, w, 352);
     GDrawText("ROUTE", x + 8, 10, 10, UI_GOLD);
@@ -924,6 +963,7 @@ void DrawMap(const Game& g) {
     GDrawText("Up/Down: browse", x + 8, 318, 10, UI_DIM);
     GDrawText("Left/Right: gyms & League", x + 8, 330, 10, UI_DIM);
     GDrawText("Esc: back", x + 8, 342, 10, UI_DIM);
+    DrawToast(g);
 }
 
 void UpdateStageIntro(Game& g) {
@@ -3980,7 +4020,7 @@ void UpdateCoopHub(Game& g) {
         if (in.confirm || in.back) { g.showBoard = false; PlaySfx(Sfx::MenuBack); }
         return;
     }
-    const int N = 13;
+    const int N = 12;
     if (HubNav(g, in, N, true)) return;
     bool online = g.on.active;
     if (online) g.coopWho = g.on.me;  // online: your own Shop / Healing Center / Party & Box / Bag / Pokedex
@@ -4057,6 +4097,10 @@ void UpdateCoopHub(Game& g) {
             g.mapSel = std::min(g.coopSave.storyStage, stages - 1);
             if (online && g.on.partnerReady >= 3 && g.on.partnerReady != 250 && g.on.partnerReady - 3 < stages) g.mapSel = g.on.partnerReady - 3;   // join their rematch
             g.screen = Screen::Map;
+            if (online && g.on.partnerReady >= 200 && g.on.partnerReady < 200 + LEGEND_COUNT && BadgeCount(g) >= 8) {   // join their hunt
+                g.legendSel = g.on.partnerReady - 200;
+                OpenLegends(g);
+            }
             break;
         case 3:
             OpenFor(g, g.coopWho);
@@ -4104,11 +4148,6 @@ void UpdateCoopHub(Game& g) {
             g.settingsBack = Screen::CoopHub;
             g.screen = Screen::Settings;
             break;
-        case 11:
-            if (BadgeCount(g) < 8) { Toast(g, "Legends tell of rare Pokemon that only show themselves to trainers with all 8 badges."); break; }
-            if (online && g.on.partnerReady >= 200 && g.on.partnerReady < 200 + LEGEND_COUNT) g.legendSel = g.on.partnerReady - 200;   // join their hunt
-            OpenLegends(g);
-            break;
         default:
             leave();
             break;
@@ -4150,7 +4189,7 @@ void DrawCoopHubBase(const Game& g) {
             return st >= 0 && st < (int)Story().stages.size() ? "a rematch with " + Story().stages[st].trainer : std::string("a battle");
         };
         std::string mine = o.myReady ? "You want " + kind(o.myReady) + " - waiting for " + pn : "Pick a battle - it starts when you both pick it.";
-        std::string theirs = o.partnerReady ? pn + " wants " + kind(o.partnerReady) + (o.partnerReady >= 200 && o.partnerReady < 250 ? " (open Legendary Pokemon)" : o.partnerReady >= 3 && o.partnerReady != 250 ? " (open the Map)" : "!")
+        std::string theirs = o.partnerReady ? pn + " wants " + kind(o.partnerReady) + (o.partnerReady >= 200 && o.partnerReady < 250 ? " (open the Map's Legendary tab)" : o.partnerReady >= 3 && o.partnerReady != 250 ? " (open the Map)" : "!")
                                             : pn + " is " + (o.partnerActivity.empty() ? "in the hub" : o.partnerActivity) + ".";
         if (o.reconnecting) {
             mine = "Waiting for " + pn + " to come back (Esc leaves the online game).";
@@ -4170,11 +4209,11 @@ void DrawCoopHubBase(const Game& g) {
     int left = every - (g.coopSave.trainingWins % every) - 1;
     const std::string& wn = g.coopP[g.coopWho].name;
     bool partnerTrading = g.on.active && g.on.partnerInTrade;
-    std::string items[13] = {
+    std::string items[12] = {
         done ? TextFormat("Battle Tower 2v2: floor %d  (best %d)", g.coopSave.towerFloor + 1, g.coopSave.towerBest)
              : LeagueProgress(pv.storyStage) >= 0 ? "Pokemon League (2v2)" : "Story battle (2v2)",
         (rare ? "RARE 2v2 in " : "Training 2v2: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
-        "Map",
+        MapHubLabel(g),
         GameCornerOpen(g) ? "Shop & Game Corner" : "Shop",
         "Healing Center",
         "Party & Box",
@@ -4183,24 +4222,23 @@ void DrawCoopHubBase(const Game& g) {
         partnerTrading ? "Trade (your partner is waiting!)" : "Trade Pokemon",
         IsNight(g.coopSave.clock) ? "Wait until morning" : "Wait until night",
         "Practice arena",
-        LegendHubLabel(g),
         "Save and quit",
     };
     DrawTimePanel(g.coopSave.clock, 304, 30);
     bool partnerHere = g.on.active && g.on.partnerCursor >= 0 && (g.on.partnerActivity.empty() || g.on.partnerActivity == "in the hub");
-    for (int i = 0; i < 13; i++) {
+    for (int i = 0; i < 12; i++) {
         int y = 6 + i * 12;
         bool sel = g.hubSel == i;
         DrawPanel(rx, y, rw, 11, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
         Color c = sel ? UI_GOLD : UI_TEXT;
         if (i == 1 && rare) c = Color{255, 150, 230, 255};
         if (i == 8 && partnerTrading) c = Color{140, 230, 150, 255};
-        if (i == 11) c = BadgeCount(g) < 8 ? UI_DIM : (sel ? UI_GOLD : Color{255, 200, 120, 255});
+        if (i == 2 && items[2].size() > 3) c = sel ? UI_GOLD : Color{255, 200, 120, 255};   // legendaries waiting
         GDrawText(items[i].c_str(), rx + 8, y + 1, 10, c);
-        if (g.on.active && (i == 0 || i == 1 || i == 11)) {   // ready count: the battle starts at 2/2
+        if (g.on.active && (i == 0 || i == 1 || i == 2)) {   // ready count: the battle starts at 2/2 (Map: a legendary hunt)
             int kind = i == 0 ? (done ? 250 : 1) : 2;
             bool r[2];
-            if (i == 11) {
+            if (i == 2) {
                 auto lg = [](int k) { return k >= 200 && k < 200 + LEGEND_COUNT; };
                 r[g.on.me] = lg(g.on.myReady);
                 r[1 - g.on.me] = lg(g.on.partnerReady);

@@ -55,7 +55,7 @@ int PartyAvg(const Game& g) {
 }
 int SpeciesOf(int id) { return SpeciesIndex(Legend(id).species); }
 int LegendLevel(int id, int avg) { return std::max(1, std::min(MAX_LEVEL, std::max(Legend(id).minLevel, avg + Legend(id).bonus))); }
-int HubLegendItem(const Game& g) { return g.coop ? 11 : 10; }
+int HubLegendItem(const Game&) { return 2; }   // the legendaries are a tab on the hub's Map
 } // namespace
 
 // ------------------------------------------------------------------ state
@@ -143,6 +143,7 @@ void UpdateLegends(Game& g) {
     if (in.up) { g.legendSel = (g.legendSel + LEGEND_COUNT - 1) % LEGEND_COUNT; PlaySfx(Sfx::MenuMove); }
     if (in.down) { g.legendSel = (g.legendSel + 1) % LEGEND_COUNT; PlaySfx(Sfx::MenuMove); }
     if (in.back) { PlaySfx(Sfx::MenuBack); EnterStoryHub(g); g.hubSel = HubLegendItem(g); return; }
+    if (in.sort) { MapTabSwitch(g, false); return; }
     if (!in.confirm) return;
     int id = g.legendSel;
     std::string why;
@@ -156,7 +157,7 @@ void UpdateLegends(Game& g) {
         g.hubSel = HubLegendItem(g);
         const std::string& pn = g.coopP[1 - g.on.me].name;
         Toast(g, g.on.partnerReady == 200 + id ? std::string("Off to find ") + Legend(id).species + "!"
-                                               : "Waiting for " + pn + " to pick " + Legend(id).species + " in Legendary Pokemon too.");
+                                               : "Waiting for " + pn + " to pick " + Legend(id).species + " on the Map's Legendary tab too.");
         return;
     }
     for (int p = 0; p < (g.coop ? 2 : 1); p++)
@@ -172,7 +173,7 @@ void DrawLegends(const Game& g) {
     Profile pv = ProgressView(g);
     const int mx = 8, my = 26, mw = 400, mh = 300;
     DrawStoryMap(pv, mx, my, mw, mh, g.t, false);
-    DrawTextShadow("LEGENDARY POKEMON", 10, 6, 10, UI_GOLD);
+    DrawMapTabs(g, true);
     for (int i = 0; i < LEGEND_COUNT; i++) {   // where they live
         const LegendDef& L = Legend(i);
         Vector2 c = StoryMapPoint(mx, my, mw, mh, L.mapX, L.mapY);
@@ -220,7 +221,10 @@ void DrawLegends(const Game& g) {
              10, 330, 10, UI_DIM);
     if (g.on.active && g.on.partnerReady >= 200 && g.on.partnerReady < 200 + LEGEND_COUNT)
         GDrawText(TextFormat("%s wants to go after %s - pick it too!", g.coopP[1 - g.on.me].name.c_str(), Legend(g.on.partnerReady - 200).species), 10, 316, 10, kP2);
-    GDrawText("Up/Down choose   Enter: find it   Esc: back", x, 346, 10, UI_DIM);
+    {
+        const char* help = "Up/Down choose   Enter: find it   Esc: back";
+        GDrawText(help, x + w - TextW(help, 10), 346, 10, UI_DIM);
+    }
     DrawToast(g);
 }
 
@@ -509,7 +513,7 @@ void DrawLegendCatch(const Game& g) {
                                         c.level, c.boxed ? " (in the Box)" : "", sp.name.c_str(), L.place), VW / 2, 264, 10, UI_TEXT, false);
         } else {
             DrawTextCentered(TextFormat("%s broke free and fled!", sp.name.c_str()), VW / 2, 236, 20, Color{255, 130, 100, 255});
-            DrawTextCentered(TextFormat("It's still out there at %s - try the encounter again from Legendary Pokemon.", L.place), VW / 2, 264, 10, UI_TEXT, false);
+            DrawTextCentered(TextFormat("It's still out there at %s - try again from the Map's Legendary tab.", L.place), VW / 2, 264, 10, UI_TEXT, false);
         }
         DrawTextCentered("Enter to continue", VW / 2, 330, 10, UI_DIM, false);
         return;

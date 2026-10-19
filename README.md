@@ -61,7 +61,7 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
   and every 10th is a Tower Boss: a gym leader, Elite Four member or the Champion with their own team in
   their own arena. Everyone fights at full health and the Tower never changes your Pokemon's HP; XP and
   coins as usual (bosses triple). A loss ends the run; the best floor is kept. Solo, local and online co-op.
-- **Legendary Pokemon** – the hub's "Legendary Pokemon" item (solo and co-op hubs) lists five one-off
+- **Legendary Pokemon** – the Map's **Legendary Pokemon** tab (Tab / X on the hub's Map, solo and co-op; the Map item says when some are waiting) lists five one-off
   boss encounters where they live in the games, with a map marker, their story and how they unlock:
   Articuno in the Seafoam Islands, Zapdos in the Power Plant and Moltres on Victory Road (all 8 badges),
   Mewtwo in Cerulean Cave (Champion only), and Mew on Faraway Island (once Mewtwo is caught, a sailor in
