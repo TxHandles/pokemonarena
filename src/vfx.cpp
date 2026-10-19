@@ -254,7 +254,7 @@ bool IsSoundMove(const std::string& n) {
 
 Look BuildLook(const std::string& n, Type t, MoveKind k) {
     Look L = TypeLook(t);
-    if (k == MoveKind::Melee || k == MoveKind::Dash) L.melee = MeleeFor(n);
+    if (k == MoveKind::Melee || k == MoveKind::Dash || k == MoveKind::Throw) L.melee = MeleeFor(n);
     if (k == MoveKind::Rain) {
         switch (t) {
             case Type::Rock: case Type::Ground: L.shape = Shape::Rock; L.size = 1.7f; L.impact = Impact::Debris; break;

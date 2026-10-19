@@ -62,6 +62,10 @@ bool InRange(const MoveDef& m, float d) {
         case MoveKind::Cone:   return d < m.range + 4;
         case MoveKind::Leap:   return d < m.range + 20 && d > 25;
         case MoveKind::Wall:   return false;
+        case MoveKind::Sweep:  return d < m.range * 0.9f;
+        case MoveKind::Tether: return d < m.range * 0.8f;
+        case MoveKind::Grapple: return d < m.range * 0.9f && d > 30;
+        case MoveKind::Throw:  return d < m.range + 16;
         default: return true;
     }
 }
@@ -73,10 +77,10 @@ float IdealRange(const Fighter& f) {
         switch (m.kind) {
             case MoveKind::Melee: case MoveKind::Burst: case MoveKind::Dash: case MoveKind::Zone:
             case MoveKind::Wave: case MoveKind::Blink: case MoveKind::Burrow:
-            case MoveKind::Orbit: case MoveKind::Cone: case MoveKind::Leap: closeP += m.power; break;
+            case MoveKind::Orbit: case MoveKind::Cone: case MoveKind::Leap: case MoveKind::Throw: closeP += m.power; break;
             case MoveKind::Projectile: case MoveKind::Spread: case MoveKind::Beam: case MoveKind::Lob:
             case MoveKind::Chain: case MoveKind::Rain: case MoveKind::Boomerang: case MoveKind::Trap:
-            case MoveKind::Vortex: farP += m.power; break;
+            case MoveKind::Vortex: case MoveKind::Sweep: case MoveKind::Tether: case MoveKind::Grapple: farP += m.power; break;
             default: break;
         }
     }
@@ -492,6 +496,8 @@ void Battle::SendOut(int s, int idx) {
     f.volleyLeft = 0;
     f.hitstun = 0;
     f.shieldT = f.rechargeT = 0;
+    f.sweepT = f.heldT = f.heldZ = f.pinT = 0;
+    f.sweepMask = 0;
     f.sentOut = true;
     for (int k = 0; k < 3; k++) { f.buffMul[k] = 1; f.buffT[k] = 0; f.dropMul[k] = 1; f.dropT[k] = 0; }
     f.st.confuseT = f.st.flinchT = f.st.seedT = 0;
@@ -627,6 +633,8 @@ void Battle::Update(float dt, const PlayerInput in[2]) {
     UpdateWeatherField(dt);
     UpdateProjectiles(dt);
     UpdateHazards(dt);
+    UpdateTethers(dt);
+    UpdateGrabs(dt);
     UpdateWaves(dt);
     UpdateEffects(dt);
 
@@ -674,6 +682,7 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
     f.counterT = std::max(0.0f, f.counterT - dt);
     f.endureT = std::max(0.0f, f.endureT - dt);
     f.rechargeT = std::max(0.0f, f.rechargeT - dt);
+    f.pinT = std::max(0.0f, f.pinT - dt);
     for (int k = 0; k < 3; k++) {
         if (f.buffT[k] > 0 && (f.buffT[k] -= dt) <= 0) { f.buffT[k] = 0; f.buffMul[k] = 1; }
         if (f.dropT[k] > 0 && (f.dropT[k] -= dt) <= 0) { f.dropT[k] = 0; f.dropMul[k] = 1; }
@@ -738,7 +747,7 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
 
     f.pos += f.knock * dt;
     f.knock *= std::exp(-9 * dt);
-    if (f.state != FState::Active) { f.dodgeT = f.jumpT = 0; return; }
+    if (f.state != FState::Active) { f.dodgeT = f.jumpT = 0; f.sweepT = 0; return; }
 
     UpdateStatus(s, dt);
     if (f.state != FState::Active) return;
@@ -750,6 +759,8 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
         if (f.dazeT <= 0) { f.dazeT = 0; Retire(s); }
         return;
     }
+
+    if (Held(s)) { f.pendingMove = -1; f.volleyLeft = 0; return; }   // grabbed: yanked in or thrown, can't act
 
     Intent it;
     if (canAct && !gVfxDemo && !sd.dummy) it = sd.cpu ? ThinkAI(s, dt) : HumanIntent(in);
@@ -806,6 +817,10 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
         return;
     }
 
+    if (f.sweepT > 0) {   // a sweeping beam: rooted until it has swung across
+        UpdateSweep(s, dt);
+        return;
+    }
     if (f.dashing) {
         f.pos += f.dashVel * dt;
         f.dashT -= dt;
@@ -1059,6 +1074,11 @@ void Battle::TrySwap(int s, bool back, int to) {
     Side& sd = sides[s];
     Fighter& f = sd.Cur();
     if (sd.swapCd > 0 || f.state != FState::Active) return;
+    if (f.pinT > 0 && !HasType(f.sp, Type::Ghost)) {   // Mean Look, Anchor Shot, Spirit Shackle (Ghosts slip away)
+        AddText(f.pos, f.sp->name + " can't escape!", UI_DIM, 30);
+        sd.swapCd = 0.6f;
+        return;
+    }
     int n = back ? sd.PrevAlive(sd.active) : sd.NextAlive(sd.active);
     if (to >= 0) {   // straight to a chosen slot (keys 1-6 / the Quick Select wheel)
         if (to >= (int)sd.team.size() || to == sd.active) return;
@@ -1120,7 +1140,7 @@ void Battle::TryBeginMove(int s, int mi, Vector2 aim, bool exactAim) {
     // Sun: Solar Beam / Solar Blade fire at once. Rain: so does Electro Shot.
     if (((m.name == "Solar Beam" || m.name == "Solar Blade") && Wx() == Weather::Sun) || (m.name == "Electro Shot" && Wx() == Weather::Rain)) f.windupT = 0;
 
-    if (m.kind == MoveKind::Beam || m.kind == MoveKind::Burst || m.kind == MoveKind::Wave || m.windup >= 0.5f) {
+    if (m.kind == MoveKind::Beam || m.kind == MoveKind::Sweep || m.kind == MoveKind::Burst || m.kind == MoveKind::Wave || m.windup >= 0.5f) {
         Fx fx;
         fx.kind = FxKind::Charge;
         fx.pos = f.pos;
@@ -1652,6 +1672,35 @@ void Battle::Execute(int s, int mi, bool first, const MoveDef* override) {
             hazards.push_back(hz);
             Burst(hz.pos, tc, 12, 40, 2);
         } break;
+        case MoveKind::Sweep:
+            StartSweep(s, mi, m, a);
+            break;
+        case MoveKind::Tether:
+            StartTether(s, os, m, h, a);
+            break;
+        case MoveKind::Grapple:
+            SpawnHook(h, m, s, a);
+            break;
+        case MoveKind::Throw: {
+            // the nearest foe in reach in front of you gets grabbed
+            int best = -1;
+            float bestD = 1e9f;
+            for (int ts : foes) {
+                if (!Hittable(ts)) continue;
+                Vector2 to = sides[ts].Cur().pos - f.pos;
+                float d = Len(to);
+                if (d > m.range + HitR(sides[ts].Cur()) + BODY_R || (d > 6 && Dot(to * (1.0f / d), a) < 0.2f)) continue;
+                if (d < bestD) { bestD = d; best = ts; }
+            }
+            if (best >= 0) StartThrow(s, best, m, h, a);
+            else {   // a grab at thin air
+                Fx& fx = AddFx(FxKind::Slash, f.pos, 0.25f, tc, m.range + 10, 9);
+                fx.dir = a;
+                fx.look = h.look;
+                fx.type = m.type;
+                fx.seed = (uint32_t)SimRand(1, 0x3fffffff);
+            }
+        } break;
         case MoveKind::Cone: {
             Fx fx;
             fx.kind = FxKind::Cone;
@@ -1723,7 +1772,7 @@ bool Battle::Targetable(int s) const {
     return f.state == FState::Active && f.hp > 0 && !f.burrowed;
 }
 
-bool Battle::Hittable(int s) const { return Targetable(s) && sides[s].Cur().dodgeT <= 0; }
+bool Battle::Hittable(int s) const { return Targetable(s) && sides[s].Cur().dodgeT <= 0 && sides[s].Cur().heldZ < 10; }   // thrown high: out of reach
 
 float Battle::ApplyHit(const HitSpec& h, int ts, Vector2 dir) {
     if (!Targetable(ts)) return 0;
@@ -2378,7 +2427,8 @@ void Battle::UpdateProjectiles(float dt) {
                 if (Dist(p.pos, epos) < p.radius + HitR(sides[ts].Cur())) {
                     p.alive = false;
                     hitSomething = true;
-                    ApplyHit(p.hit, ts, vdir);
+                    float dealt = ApplyHit(p.hit, ts, vdir);
+                    if (p.hook && dealt > 0) HookHit(p, ts);   // a hook that doesn't land (immune, dodged) doesn't pull
                     if (p.thrown) { Boom(p.pos, 22, Impact::Debris, 6); }
                     else if (GetLook(p.hit.look, p.hit.type).boom) Boom(p.pos, GetLook(p.hit.look, p.hit.type).boomR, GetLook(p.hit.look, p.hit.type).impact, p.z);
                     SpawnPatch(p.hit, p.pos);
@@ -2958,6 +3008,13 @@ void Battle::DrawFighter(int s) const {
         z += jz;
         bob = 0;
     }
+    if (f.heldZ > 0) {   // carried or thrown through the air by a foe
+        Vector2 g = ToScreen(f.pos);
+        float k = std::max(0.3f, 1.0f - f.heldZ / 90.0f);
+        DrawEllipse((int)g.x, (int)g.y + 1, 9.0f * k, 3.0f * k, Fade(BLACK, 0.4f));
+        z += f.heldZ;
+        bob = 0;
+    }
     Vector2 poseOff{0, 0};
     float poseLift = 0;
     if (f.state == FState::Active) AnimPose(s, poseOff, sx, sy, poseLift);
@@ -3253,7 +3310,7 @@ void Battle::Draw(bool banners) const {
         if (f.state == FState::Benched || f.state == FState::Fainted || (f.burrowed && !f.leaping)) continue;
         Vector2 g = ToScreen(f.pos);
         float a = f.state == FState::Fainting ? 1.0f - std::min(1.0f, f.stateT) : 1.0f;
-        float lift = f.Jumping() ? std::max(0.35f, 1.0f - f.JumpZ() / 40.0f) : 1.0f;
+        float lift = f.Jumping() ? std::max(0.35f, 1.0f - f.JumpZ() / 40.0f) : (f.heldZ > 0 ? std::max(0.3f, 1.0f - f.heldZ / 90.0f) : 1.0f);
         VShadow({g.x, g.y + 1}, 11 * lift, 3.6f * lift, 0.75f * a * lift);
         EllipsePix(g.x, g.y + 1, 11, 4.0f, Fade(TeamColor(sides[s].teamId), 0.8f * a));
     }
@@ -3337,6 +3394,7 @@ void Battle::Draw(bool banners) const {
             DrawFxTop(fx);
         }
     }
+    DrawCombatLinks();
 
     for (const auto& h : hazards) {  // orbiting orbs
         if (!h.orbit) continue;

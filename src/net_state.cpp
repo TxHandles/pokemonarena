@@ -54,6 +54,7 @@ struct Ar {
         v(m.fixedDmg); v(m.powerMod); v(m.forceSwap); v(m.ohko); v(m.selfKO); v(m.counter); v(m.endure);
         v(m.falseSwipe); v(m.haze); v(m.cure); v(m.metronome); v(m.copycat); v(m.transform); v(m.payDay);
         v(m.original); v(m.cat); v(m.abFx); v(m.scope);
+        v(m.arc); v(m.tether); v(m.sleepOnly); v(m.antiAir); v(m.pin); v(m.throwKind);
     }
     void v(HitSpec& h) {
         v(h.side); v(h.fighter); v(h.name); v(h.type); v(h.power); v(h.light); v(h.atk); v(h.lvlMul); v(h.t1); v(h.t2);
@@ -93,6 +94,7 @@ struct Ar {
         v(f.ab); v(f.abSlot); v(f.nature); v(f.abSpd); v(f.abAtk); v(f.abDef); v(f.abT); v(f.sinceAct); v(f.flashFire); v(f.snackUsed); v(f.pinchShown);
         v(f.onIce); v(f.slid); v(f.slide); v(f.safeT); v(f.mistT); v(f.chantT); v(f.followT);
         v(f.dodgeT); v(f.dodgeCd); v(f.dodgeVel); v(f.jumpT); v(f.jumpDur); v(f.jumpVel);
+        v(f.sweepT); v(f.sweepDur); v(f.sweepA0); v(f.sweepA1); v(f.sweepMove); v(f.sweepMask); v(f.heldT); v(f.heldZ); v(f.pinT);
     }
     void v(Side& s) {
         v(s.team); v(s.active); v(s.teamId); v(s.input); v(s.target); v(s.tag); v(s.damageDealt); v(s.cpu); v(s.earnXp);
@@ -115,11 +117,18 @@ struct Ar {
     void v(Projectile& p) {
         v(p.hit); v(p.pos); v(p.vel); v(p.traveled); v(p.maxDist); v(p.radius); v(p.homing); v(p.lob); v(p.drop); v(p.start);
         v(p.target); v(p.t); v(p.dur); v(p.z); v(p.spin); v(p.alive); v(p.bounces); v(p.boomer); v(p.returning); v(p.hitMask);
-        v(p.thrown); v(p.portalCd);
+        v(p.thrown); v(p.portalCd); v(p.hook); v(p.hookPull); v(p.hookPin); v(p.hookFrom);
     }
     void v(Hazard& h) {
         v(h.hit); v(h.pos); v(h.radius); v(h.life); v(h.maxLife); v(h.tickT); v(h.patch); v(h.orbit); v(h.orbitAngle);
         v(h.orbitDist); v(h.orbitSpeed); v(h.hitCd); v(h.trap); v(h.armT); v(h.pull);
+    }
+    void v(Tether& t) {
+        v(t.hit); v(t.side); v(t.target); v(t.ufi); v(t.tfi); v(t.kind); v(t.life); v(t.maxLife); v(t.range); v(t.leash);
+        v(t.tickT); v(t.tickPower); v(t.age); v(t.sleepOnly); v(t.alive);
+    }
+    void v(Grab& g) {
+        v(g.hit); v(g.by); v(g.target); v(g.tfi); v(g.kind); v(g.from); v(g.to); v(g.t); v(g.dur); v(g.height); v(g.bonus); v(g.slam); v(g.alive);
     }
     void v(ShockWave& w) { v(w.hit); v(w.origin); v(w.r); v(w.maxR); v(w.speed); v(w.done); v(w.hitMask); }
     void v(Fx& f) { v(f.kind); v(f.pos); v(f.dir); v(f.life); v(f.maxLife); v(f.radius); v(f.len); v(f.col); v(f.pts); v(f.look); v(f.seed); v(f.z); v(f.type); v(f.sub); }
@@ -138,6 +147,7 @@ struct BattleIO {
         a.v(b.texts); a.v(b.time); a.v(b.introT); a.v(b.shakeT); a.v(b.sinceDamage); a.v(b.lastHpSum); a.v(b.suddenTick);
         a.v(b.suddenDeath); a.v(b.shakeAmt); a.v(b.winner); a.v(b.overT); a.v(b.envLevel); a.v(b.weather); a.v(b.weatherT);
         a.v(b.weatherTick); a.v(b.lastMove); a.v(b.hasLastMove); a.v(b.payDayCoins); a.v(b.rng.s); a.v(b.gasOn); a.v(b.cloudNine); a.v(b.natural);
+        a.v(b.tethers); a.v(b.grabs);
     }
     static uint64_t Hash(const Battle& b) {
         // FNV-1a over the things that matter for the outcome (bit-exact floats).
@@ -161,6 +171,9 @@ struct BattleIO {
         for (const auto& p : b.projs) { f(p.pos.x); f(p.pos.y); }
         i((int)b.hazards.size());
         i((int)b.waves.size());
+        i((int)b.tethers.size());
+        for (const auto& t : b.tethers) f(t.life);
+        i((int)b.grabs.size());
         for (const auto& o : b.field.obs) { i(o.alive); f(o.pos.x); f(o.hp); }
         for (const auto& p : b.field.puddles) { f(p.r); f(p.ice); }
         for (const auto& w : b.field.wisps) { f(w.pos.x); f(w.life); }

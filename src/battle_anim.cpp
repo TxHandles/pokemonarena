@@ -93,9 +93,11 @@ VPart& Add(PK k, Vector2 wp, float z, Vector2 wv, float vz, float life, float si
 
 bool Ranged(MoveKind k) {
     return k == MoveKind::Projectile || k == MoveKind::Spread || k == MoveKind::Beam || k == MoveKind::Cone || k == MoveKind::Lob ||
-           k == MoveKind::Chain || k == MoveKind::Boomerang || k == MoveKind::Orbit;
+           k == MoveKind::Chain || k == MoveKind::Boomerang || k == MoveKind::Orbit || k == MoveKind::Sweep ||
+           k == MoveKind::Tether || k == MoveKind::Grapple;
 }
-bool Lunge(MoveKind k) { return k == MoveKind::Melee || k == MoveKind::Dash || k == MoveKind::Blink || k == MoveKind::Leap || k == MoveKind::Burrow; }
+bool Lunge(MoveKind k) { return k == MoveKind::Melee || k == MoveKind::Dash || k == MoveKind::Blink || k == MoveKind::Leap || k == MoveKind::Burrow ||
+                              k == MoveKind::Throw; }
 
 // The type's cast flourish around the user: particles themed on the element, scaled by power.
 void Flourish(Type t, Vector2 at, float k, Vector2 aim, Color glow) {
@@ -233,7 +235,7 @@ void Battle::AnimTick() const {
                 if (m.windup >= 0.2f && f.pendingMove == i) {
                     sa.chargeT = now;
                     sa.chargeCol = L.glow;
-                    bool ultimate = m.power >= 120 || (m.kind == MoveKind::Beam && m.power >= 100) || L.cast == Cast::Explosion;
+                    bool ultimate = m.power >= 120 || ((m.kind == MoveKind::Beam || m.kind == MoveKind::Sweep) && m.power >= 100) || L.cast == Cast::Explosion;
                     if (ultimate) {   // the cinematic starts with the wind-up and lands as the move goes off
                         float d = std::min(1.6f, m.windup) + 0.5f;
                         AddEv(EV_ULTIMATE, now, d, f.pos, 9, f.aim, m.power / 100.0f, L.glow, (int)m.type, 0.05f);
@@ -264,7 +266,7 @@ void Battle::AnimTick() const {
                 if (m.type == Type::Psychic || m.type == Type::Flying || m.type == Type::Fighting || pw >= 0.6f)
                     AddEv(EV_RINGS, now, 0.45f, f.pos, 2, f.aim, pw, L.glow, (int)m.type);
                 if (Lunge(m.kind)) AddEv(EV_SPEED, now, 0.25f, f.pos, 9, f.aim, pw, L.glow, (int)m.type);
-                bool ultimate = m.power >= 120 || (m.kind == MoveKind::Beam && m.power >= 100) || L.cast == Cast::Explosion;
+                bool ultimate = m.power >= 120 || ((m.kind == MoveKind::Beam || m.kind == MoveKind::Sweep) && m.power >= 100) || L.cast == Cast::Explosion;
                 if (ultimate && now > sa.ultUntil) AddEv(EV_ULTIMATE, now, 0.85f, f.pos, 9, f.aim, pw, L.glow, (int)m.type, 0.06f);
                 else if (ultimate) AddEv(EV_RINGS, now, 0.4f, f.pos, 9, f.aim, pw, L.glow, (int)m.type, 0.06f);
                 else if (m.power >= 90) AddEv(EV_RINGS, now, 0.3f, f.pos, 9, f.aim, pw, L.glow, (int)m.type, 0.025f);

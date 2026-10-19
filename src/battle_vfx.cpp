@@ -21,6 +21,8 @@ Vector2 RandDir() { float a = Frand(0, 2 * PI_F); return {std::cos(a), std::sin(
 Color Cc(int r, int g, int b) { return Color{(unsigned char)r, (unsigned char)g, (unsigned char)b, 255}; }
 Color Vary(Color c, float lo, float hi) { return ColorBrightness(c, Frand(lo, hi)); }
 float Clamp01(float x) { return x < 0 ? 0 : (x > 1 ? 1 : x); }
+float EaseOutQ(float u) { u = Clamp01(u); return 1 - (1 - u) * (1 - u); }
+float EaseInQ(float u) { u = Clamp01(u); return u * u; }
 
 Particle gDummy;
 
@@ -287,6 +289,35 @@ void Battle::CastVfx(int s, const MoveDef& m, const HitSpec& h, Vector2 a) {
                 p.grow = 7;
             }
         } break;
+        case MoveKind::Sweep: {   // the beam's muzzle flares and the ground scorches under the user's feet
+            AddFx(FxKind::Hit, mouth, 0.2f, L.glow, 12, 9).type = m.type;
+            AddFx(FxKind::Ring, f.pos, 0.35f, L.glow, 22, 1);
+            for (int i = 0; i < 10; i++) {
+                Particle& p = Emit(PK::Spark, mouth, 9, Rot(a, Frand(-1.2f, 1.2f)) * Frand(60, 140), Frand(0, 40), 0.3f, 1.2f, L.core, false);
+                p.drag = 4;
+            }
+            for (int i = 0; i < 6; i++) {
+                Particle& p = Emit(PK::Smoke, f.pos + RandDir() * 6.0f, 1, RandDir() * Frand(20, 50) - a * 30.0f, Frand(4, 12), 0.6f, 3.0f, Cc(170, 160, 150), false);
+                p.grow = 6;
+            }
+        } break;
+        case MoveKind::Tether: {   // a burst of the line's colour at the user as it lashes out
+            Color c = m.tether == 1 ? Cc(140, 240, 140) : (m.tether == 3 ? Cc(150, 70, 190) : L.glow);
+            if (m.name == "Dream Eater") c = Cc(230, 140, 230);
+            if (m.name == "Oblivion Wing") c = Cc(230, 60, 80);
+            AddFx(FxKind::Hit, mouth, 0.15f, c, 7, 10).type = m.type;
+            for (int i = 0; i < 6; i++) Emit(PK::Glow, mouth, 10, Rot(a, Frand(-0.8f, 0.8f)) * Frand(30, 70), Frand(0, 20), 0.35f, 1.3f, c, false).drag = 4;
+        } break;
+        case MoveKind::Grapple: {   // a snap as the hook / vine / tongue fires
+            AddFx(FxKind::Hit, mouth, 0.1f, L.glow, 6, 9).type = m.type;
+            for (int i = 0; i < 4; i++) Emit(PK::Pixel, mouth, 9, Rot(a, Frand(-0.5f, 0.5f)) * Frand(40, 90), Frand(0, 15), 0.25f, 1.0f, Cc(240, 235, 220), false);
+        } break;
+        case MoveKind::Throw: {   // a grab: dust kicked up as the user plants and reaches
+            for (int i = 0; i < 6; i++) {
+                Particle& p = Emit(PK::Smoke, f.pos - a * 4.0f + RandDir() * 4.0f, 1, RandDir() * Frand(20, 45), Frand(4, 10), 0.5f, 2.8f, Cc(190, 180, 165), false);
+                p.grow = 5;
+            }
+        } break;
         default: break;
     }
 }
@@ -484,6 +515,58 @@ void Battle::DrawFxTop(const Fx& fx) const {
     switch (fx.kind) {
         case FxKind::Explosion: VExplosion(sp, fx.radius, t, (Impact)fx.sub, fx.seed); break;
         case FxKind::Hit: VImpactStar(sp, fx.radius, t, fx.col, fx.seed); break;
+        case FxKind::Lash: {   // a whiffed tether: the line whips out, curls at the tip, and reels back in
+            float reach = t < 0.45f ? EaseOutQ(t / 0.45f) : 1.0f - EaseInQ((t - 0.45f) / 0.55f);
+            Vector2 a = ToScreen(fx.pos, 10);
+            Vector2 dir = SafeNorm(fx.dir, {1, 0});
+            Vector2 nrm{-dir.y, dir.x};
+            int n = 14;
+            Vector2 prev = a;
+            Color dk = ColorBrightness(fx.col, -0.5f);
+            for (int i = 1; i <= n; i++) {
+                float u = i / (float)n;
+                float curl = std::sin(u * PI_F * 2 + t * 12) * 6 * u * (1 - reach * 0.6f);
+                Vector2 w = fx.pos + dir * (fx.len * reach * u) + nrm * curl;
+                Vector2 p = ToScreen(w, 10 - u * 3 * (1 - reach));
+                DrawLineEx(prev, p, 3.4f - u * 1.6f, dk);
+                DrawLineEx(prev, p, 2.0f - u * 1.0f, fx.col);
+                prev = p;
+            }
+            if (t > 0.35f && t < 0.6f) {   // the crack of the whip at full stretch
+                VAdd();
+                VGlow(prev, 9, fx.col, 0.7f * (1 - std::fabs(t - 0.45f) / 0.15f));
+                VNorm();
+                for (int k = 0; k < 4; k++) {
+                    float ang = k * PI_F / 2 + fx.seed % 7;
+                    DrawLineEx(prev, prev + Vector2{std::cos(ang), std::sin(ang)} * 5.0f, 1.0f, Fade(WHITE, 0.8f));
+                }
+            }
+        } break;
+        case FxKind::Snap: {   // a tether breaking: two frayed ends recoil apart with a spark at the break
+            Vector2 dir = SafeNorm(fx.dir, {1, 0});
+            Vector2 nrm{-dir.y, dir.x};
+            float half = fx.len * 0.5f;
+            float rec = EaseOutQ(t) * std::min(half, 40.0f);
+            float a = 1 - t;
+            for (int side = -1; side <= 1; side += 2) {
+                Vector2 tip = fx.pos + dir * (side * (4 + rec * 0.5f));
+                Vector2 far = fx.pos + dir * (side * std::max(6.0f, half - rec * 0.3f));
+                Vector2 prev = ToScreen(far, 10);
+                for (int i = 1; i <= 8; i++) {
+                    float u = i / 8.0f;
+                    Vector2 w = far + (tip - far) * u + nrm * (std::sin(u * 10 + t * 20) * 4 * u * side);
+                    Vector2 p = ToScreen(w, 10 - u * 6 * t);
+                    DrawLineEx(prev, p, 2.2f, Fade(fx.col, a));
+                    prev = p;
+                }
+                for (int k = 0; k < 3; k++)   // frayed strands
+                    DrawLineEx(prev, prev + Vector2{dir.x * side * 3 + (k - 1) * 2.0f, (k - 1) * 2.0f}, 0.8f, Fade(fx.col, a));
+            }
+            VAdd();
+            VGlow(sp, 12 * (1 - t) + 4, fx.col, 0.8f * a);
+            if (t < 0.3f) VGlow(sp, 6, WHITE, 1 - t / 0.3f);
+            VNorm();
+        } break;
         case FxKind::Strike: {
             Vector2 ground = ToScreen(fx.pos, 0);
             uint32_t fr = (uint32_t)(fx.life * 40);
@@ -567,6 +650,7 @@ void Battle::DebugCast(int s, const char* move) {
     f.hitstun = 0;
     f.rechargeT = 0;
     int os = AnyFoe(s);
+    if (os >= 0 && m->sleepOnly) { sides[os].Cur().st.major = Status::Sleep; sides[os].Cur().st.majorT = 20; }   // Dream Eater's demo
     Vector2 aim = os >= 0 ? SafeNorm(sides[os].Cur().pos - f.pos) : Vector2{1, 0};
     TryBeginMove(s, 0, aim, true);
 }
@@ -578,7 +662,7 @@ void Battle::DebugHold() {
         f.hp = (float)f.maxHp;
         f.knock = {0, 0};
         if (s == 0) { f.st = StatusState(); f.hitstun = 0; f.rechargeT = 0; }
-        if (!f.dashing && !f.burrowed) f.pos = Vector2{s == 0 ? 295.0f - gVfxDemoGap / 2 : 295.0f + gVfxDemoGap / 2, 250.0f};
+        if (!f.dashing && !f.burrowed && f.heldT <= 0) f.pos = Vector2{s == 0 ? 295.0f - gVfxDemoGap / 2 : 295.0f + gVfxDemoGap / 2, 250.0f};
         f.aim = SafeNorm(Vector2{s == 0 ? 1.0f : -1.0f, 0});
     }
     introT = 0;

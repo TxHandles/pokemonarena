@@ -188,6 +188,11 @@ struct Fighter {
     float followT = 0;                        // Follow Me / Rage Powder: foes aim at it
     bool onIce = false, slid = false;
     Vector2 slide{0, 0};
+    // Sweeping beams (the user is rooted while the beam swings), being held by a grapple or throw, pins
+    float sweepT = 0, sweepDur = 0, sweepA0 = 0, sweepA1 = 0;
+    int sweepMove = -1, sweepMask = 0;
+    float heldT = 0, heldZ = 0;   // grabbed: can't act; heldZ = carried height (throws)
+    float pinT = 0;               // can't switch out (Mean Look, Anchor Shot, Spirit Shackle)
     bool Holds(ItemFx fx) const { return item && item->fx == fx; }
 
     // Progress during this battle (read by the game afterwards)
@@ -253,6 +258,31 @@ struct Projectile {
     int hitMask = 0;               // boomerang: 1 = hit going out, 2 = hit coming back
     bool thrown = false;           // a stone pillar hurled by a heavy creature
     float portalCd = 0;
+    // Grapple: a hook on a line that yanks the foe back to its owner
+    uint8_t hook = 0;              // 1 pulls, 2 also knocks a jumping foe down (Smack Down)
+    float hookPull = 1, hookPin = 0;
+    Vector2 hookFrom{0, 0};        // where the line starts (the user's position when thrown)
+};
+
+// A line latched between two battlers (Tether moves): drains, binds or pins until it breaks.
+struct Tether {
+    HitSpec hit;
+    int side = 0, target = 0, ufi = 0, tfi = 0;   // slots, and which team member is on each end
+    uint8_t kind = 1;                              // 1 drain, 2 bind, 3 pin
+    float life = 3, maxLife = 3, range = 140, leash = 100, tickT = 0.3f, tickPower = 0, age = 0;
+    bool sleepOnly = false, alive = true;
+};
+
+// A battler being moved by someone else's move: yanked in by a grapple, or thrown.
+struct Grab {
+    HitSpec hit;
+    int by = 0, target = 0, tfi = 0;
+    uint8_t kind = 0;               // 0 yank (grapple), 1 throw, 2 carried up and dropped (Sky Drop)
+    Vector2 from{0, 0}, to{0, 0};
+    float t = 0, dur = 0.3f, height = 0;
+    float bonus = 1;                // throws: x damage when it slams into something
+    int slam = 0;                   // 0 nothing, 1 an obstacle, 2 the arena wall, 3 a hazard
+    bool alive = true;
 };
 
 struct Hazard {
@@ -279,7 +309,9 @@ struct ShockWave {
 };
 
 enum class FxKind { Ring, Slash, Beam, Charge, Bolt, Mind, Puff, Cone,
-                    Explosion, Strike, Flash, Scorch, Radial, Hit, Shock, Pillar, Crack };
+                    Explosion, Strike, Flash, Scorch, Radial, Hit, Shock, Pillar, Crack,
+                    Lash,      // a vine / chain / tongue whipping out from pos along dir (len) and snapping back
+                    Snap };    // a tether breaking: the line's pieces flying apart at pos
 struct Fx {
     FxKind kind = FxKind::Ring;
     Vector2 pos{0, 0}, dir{1, 0};
@@ -385,6 +417,8 @@ private:
     std::vector<Fx> fxs;
     std::vector<Particle> parts;
     std::vector<FloatText> texts;
+    std::vector<Tether> tethers;
+    std::vector<Grab> grabs;
     float time = 0, introT = 0, shakeT = 0;
     float sinceDamage = 0, lastHpSum = -1, suddenTick = 0;  // stalemate breaker
     bool suddenDeath = false;
@@ -496,6 +530,18 @@ private:
     void UpdateWaves(float dt);
     void UpdateEffects(float dt);
     void Burst(Vector2 pos, Color c, int n, float speed, float z = 6);
+    // Sweeping beams, tethers, grapples and throws (battle_combat.cpp)
+    void StartSweep(int s, int mi, const MoveDef& m, Vector2 aim);
+    void UpdateSweep(int s, float dt);
+    void StartTether(int s, int ts, const MoveDef& m, const HitSpec& h, Vector2 aim);
+    void UpdateTethers(float dt);
+    void BreakTether(Tether& t, const char* why);
+    void SpawnHook(const HitSpec& h, const MoveDef& m, int s, Vector2 aim);
+    void HookHit(const Projectile& p, int ts);
+    void StartThrow(int s, int ts, const MoveDef& m, const HitSpec& h, Vector2 aim);
+    void UpdateGrabs(float dt);
+    bool Held(int s) const;
+    void DrawCombatLinks() const;   // visual only: sweeping beams, tether lines, hook lines, held battlers
     // Visual effects (battle_vfx.cpp). All spawned in the simulation so they stay in step online.
     Particle& Emit(PK k, Vector2 pos, float z, Vector2 vel, float vz, float life, float size, Color c, bool grav = false);
     Fx& AddFx(FxKind k, Vector2 pos, float life, Color c, float radius = 10, float z = 0);

@@ -42,6 +42,10 @@ struct B {
             case MoveKind::Cone:       m.range = 75; m.radius = 35; m.windup = 0.15f; break;
             case MoveKind::Leap:       m.range = 130; m.radius = 34; m.duration = 0.7f; m.windup = 0.1f; break;
             case MoveKind::Weather:    m.duration = 10; m.windup = 0.2f; break;
+            case MoveKind::Sweep:      m.range = 230; m.radius = 6; m.windup = 0.55f; m.arc = 1.4f; m.duration = 0.6f; break;
+            case MoveKind::Tether:     m.range = 140; m.duration = 3.0f; m.windup = 0.12f; m.tether = 1; break;
+            case MoveKind::Grapple:    m.speed = 320; m.range = 150; m.radius = 5; m.windup = 0.1f; m.amount = 1; break;
+            case MoveKind::Throw:      m.range = 26; m.radius = 95; m.duration = 0.55f; m.windup = 0.1f; break;
             default: break;
         }
     }
@@ -89,6 +93,14 @@ struct B {
     B& payday() { m.payDay = true; return *this; }
     B& xform() { m.transform = true; return *this; }
     B& abfx(int k) { m.abFx = (uint8_t)k; return *this; }
+    B& arc(float a) { m.arc = a; return *this; }
+    B& tether(int k) { m.tether = (uint8_t)k; return *this; }
+    B& sleepOnly() { m.sleepOnly = true; return *this; }
+    B& antiAir() { m.antiAir = true; return *this; }
+    B& pinFor(float t) { m.pin = t; return *this; }
+    B& toss(float dist) { m.radius = dist; return *this; }
+    B& skyDrop() { m.throwKind = 1; m.duration = 1.0f; return *this; }
+    B& pullFrac(float f) { m.amount = f; return *this; }
 };
 
 using T = Type;
@@ -120,7 +132,7 @@ std::vector<MoveDef> Build() {
     add(B("Fury Swipes", T::Normal, K::Melee, 18, 1.4f).hits(4));
     add(B("Hyper Voice", T::Normal, K::Wave, 80, 4));
     add(B("Double-Edge", T::Normal, K::Dash, 120, 5).recoil(0.33f).range(110));
-    add(B("Hyper Beam", T::Normal, K::Beam, 150, 9).windup(0.7f).recharge(1.5f).radius(8));
+    add(B("Hyper Beam", T::Normal, K::Sweep, 150, 9).windup(0.7f).recharge(1.5f).radius(8).arc(1.6f).dur(0.75f));
     add(B("Harden", T::Normal, K::Buff, 0, 9).buff(St::Def));
     add(B("Growth", T::Normal, K::Buff, 0, 10).buff(St::Atk, 1.4f));
     add(B("Swords Dance", T::Normal, K::Buff, 0, 11).buff(St::Atk, 1.7f));
@@ -134,7 +146,7 @@ std::vector<MoveDef> Build() {
     add(B("Flame Wheel", T::Fire, K::Dash, 60, 2.2f).st(S::Burn, 0.1f));
     add(B("Fire Spin", T::Fire, K::Zone, 14, 5).dur(4).st(S::Burn, 0.1f));
     add(B("Will-O-Wisp", T::Fire, K::Projectile, 0, 6).homing(3).speed(150).st(S::Burn, 1));
-    add(B("Flamethrower", T::Fire, K::Beam, 90, 3.2f).windup(0.35f).st(S::Burn, 0.1f));
+    add(B("Flamethrower", T::Fire, K::Sweep, 90, 3.2f).windup(0.35f).range(200).arc(1.0f).dur(0.5f).st(S::Burn, 0.1f));
     add(B("Heat Wave", T::Fire, K::Wave, 90, 4.5f).st(S::Burn, 0.1f));
     add(B("Fire Blast", T::Fire, K::Lob, 110, 6).radius(30).patch(12, 3, 22).st(S::Burn, 0.3f));
     add(B("Flare Blitz", T::Fire, K::Dash, 120, 5).recoil(0.33f).st(S::Burn, 0.1f));
@@ -149,15 +161,15 @@ std::vector<MoveDef> Build() {
     add(B("Aqua Tail", T::Water, K::Melee, 90, 1.6f).radius(16));
     add(B("Surf", T::Water, K::Wave, 90, 4.5f).radius(100));
     add(B("Dive", T::Water, K::Burrow, 80, 4));
-    add(B("Hydro Pump", T::Water, K::Beam, 110, 5).windup(0.5f).radius(7).knock(2.5f));
+    add(B("Hydro Pump", T::Water, K::Sweep, 110, 5).windup(0.5f).radius(7).knock(2.5f).arc(1.2f).dur(0.55f));
     add(B("Withdraw", T::Water, K::Buff, 0, 9).buff(St::Def));
     add(B("Aqua Ring", T::Water, K::Heal, 0, 12).heal(0.3f));
 
     // ---------------- Grass
-    add(B("Vine Whip", T::Grass, K::Melee, 45, 0.6f).range(40).radius(12));
-    add(B("Absorb", T::Grass, K::Projectile, 30, 0.8f).drain(0.5f));
-    add(B("Mega Drain", T::Grass, K::Projectile, 50, 1.6f).drain(0.5f).radius(5));
-    add(B("Giga Drain", T::Grass, K::Beam, 75, 3).windup(0.3f).drain(0.5f));
+    add(B("Vine Whip", T::Grass, K::Grapple, 45, 1.2f).range(95).speed(360).pullFrac(0.45f));
+    add(B("Absorb", T::Grass, K::Tether, 30, 1.6f).range(110).dur(2.0f).drain(0.5f));
+    add(B("Mega Drain", T::Grass, K::Tether, 50, 3.0f).range(130).dur(2.6f).drain(0.5f));
+    add(B("Giga Drain", T::Grass, K::Tether, 75, 5.0f).windup(0.3f).range(150).dur(3.2f).drain(0.5f));
     add(B("Razor Leaf", T::Grass, K::Spread, 35, 1.2f).crit());
     add(B("Bullet Seed", T::Grass, K::Projectile, 18, 1.3f).hits(4).speed(260));
     add(B("Leech Seed", T::Grass, K::Projectile, 0, 7).speed(180).st(S::Seed, 1));
@@ -166,7 +178,7 @@ std::vector<MoveDef> Build() {
     add(B("Seed Bomb", T::Grass, K::Lob, 80, 2.6f));
     add(B("Leaf Blade", T::Grass, K::Melee, 90, 1.4f).crit());
     add(B("Petal Blizzard", T::Grass, K::Wave, 90, 4.5f));
-    add(B("Solar Beam", T::Grass, K::Beam, 120, 6).windup(1.0f).radius(9));
+    add(B("Solar Beam", T::Grass, K::Sweep, 120, 6).windup(1.0f).radius(9).arc(1.3f).dur(0.65f));
     add(B("Synthesis", T::Grass, K::Heal, 0, 12).heal(0.35f));
 
     // ---------------- Electric
@@ -288,7 +300,7 @@ std::vector<MoveDef> Build() {
     add(B("Rock Polish", T::Rock, K::Buff, 0, 10).buff(St::Spd));
 
     // ---------------- Ghost
-    add(B("Lick", T::Ghost, K::Melee, 30, 0.5f).st(S::Paralyze, 0.3f));
+    add(B("Lick", T::Ghost, K::Grapple, 30, 1.4f).range(75).speed(280).st(S::Paralyze, 0.3f));
     add(B("Astonish", T::Ghost, K::Melee, 30, 0.5f).st(S::Flinch, 0.3f));
     add(B("Night Shade", T::Ghost, K::Chain, 0, 2.0f).range(180).fixed(-1));
     add(B("Shadow Sneak", T::Ghost, K::Blink, 40, 1.4f));
@@ -358,7 +370,7 @@ std::vector<MoveDef> Build() {
     add(B("Tri Attack", T::Normal, K::Spread, 50, 2.2f).st(S::Paralyze, 0.1f));
     add(B("Uproar", T::Normal, K::Cone, 90, 3.0f).range(80));
     add(B("Boomburst", T::Normal, K::Wave, 140, 7).radius(120).windup(0.5f));
-    add(B("Wrap", T::Normal, K::Vortex, 12, 5).radius(26).pull(55));
+    add(B("Wrap", T::Normal, K::Tether, 15, 6).tether(2).range(90).dur(3.5f).phys());
     add(B("Mega Kick", T::Normal, K::Melee, 120, 3.5f).windup(0.25f).knock(2));
     add(B("Spike Cannon", T::Normal, K::Projectile, 20, 1.6f).hits(4).speed(300));
 
@@ -366,7 +378,7 @@ std::vector<MoveDef> Build() {
     add(B("Flame Charge", T::Fire, K::Dash, 50, 1.4f).quick().range(105));
     add(B("Inferno", T::Fire, K::Cone, 100, 5).range(70).st(S::Burn, 1.0f));
     add(B("Lava Plume", T::Fire, K::Burst, 80, 3.2f).radius(46).st(S::Burn, 0.3f));
-    add(B("Overheat", T::Fire, K::Beam, 130, 7).windup(0.5f).radius(8).self(St::Atk));
+    add(B("Overheat", T::Fire, K::Sweep, 130, 7).windup(0.5f).radius(8).self(St::Atk).arc(1.3f).dur(0.6f));
     add(B("Magma Storm", T::Fire, K::Vortex, 25, 7).radius(36).pull(70).st(S::Burn, 0.2f));
     add(B("Blaze Kick", T::Fire, K::Melee, 85, 1.8f).crit().st(S::Burn, 0.1f));
     add(B("Mystical Fire", T::Fire, K::Projectile, 75, 2.0f).low(St::Atk, 1));
@@ -392,7 +404,7 @@ std::vector<MoveDef> Build() {
     add(B("Magical Leaf", T::Grass, K::Projectile, 60, 1.2f).homing(6));
     add(B("Leaf Storm", T::Grass, K::Spread, 110, 6).self(St::Atk).speed(240));
     add(B("Wood Hammer", T::Grass, K::Dash, 120, 4).recoil(0.33f));
-    add(B("Power Whip", T::Grass, K::Melee, 120, 3.2f).range(42).windup(0.2f));
+    add(B("Power Whip", T::Grass, K::Grapple, 120, 4.0f).range(175).speed(340).windup(0.2f));
     add(B("Energy Ball", T::Grass, K::Projectile, 90, 2.4f).bounce(2).radius(5).low(St::Def, 0.1f));
     add(B("Petal Dance", T::Grass, K::Orbit, 60, 7).count(4).dur(4));
     add(B("Grass Knot", T::Grass, K::Trap, 70, 4).low(St::Spd, 1));
@@ -406,9 +418,9 @@ std::vector<MoveDef> Build() {
     add(B("Zap Cannon", T::Electric, K::Projectile, 120, 6).speed(140).radius(7).st(S::Paralyze, 1.0f));
     add(B("Thunder Fang", T::Electric, K::Melee, 65, 1.0f).st(S::Paralyze, 0.1f));
     add(B("Electroweb", T::Electric, K::Cone, 55, 2.4f).low(St::Spd, 1));
-    add(B("Parabolic Charge", T::Electric, K::Burst, 65, 3.0f).radius(44).drain(0.5f));
+    add(B("Parabolic Charge", T::Electric, K::Tether, 65, 4.5f).range(130).dur(2.6f).drain(0.5f));
     add(B("Volt Switch", T::Electric, K::Boomerang, 70, 2.0f).range(160));
-    add(B("Thunder Cage", T::Electric, K::Vortex, 25, 6).radius(32).pull(60).st(S::Paralyze, 0.2f));
+    add(B("Thunder Cage", T::Electric, K::Tether, 25, 7).tether(2).range(110).dur(4.0f).st(S::Paralyze, 0.2f).spec());
     add(B("Zing Zap", T::Electric, K::Dash, 80, 2.0f).st(S::Flinch, 0.3f));
     add(B("Fusion Bolt", T::Electric, K::Beam, 100, 4).windup(0.4f));
     add(B("Plasma Fists", T::Electric, K::Orbit, 50, 7).count(3).dur(4).st(S::Paralyze, 0.1f));
@@ -433,9 +445,9 @@ std::vector<MoveDef> Build() {
     add(B("Rock Smash", T::Fighting, K::Melee, 40, 0.8f).low(St::Def, 0.5f));
     add(B("Dynamic Punch", T::Fighting, K::Melee, 100, 4).windup(0.3f).st(S::Confuse, 1.0f));
     add(B("Mat Block", T::Fighting, K::Wall, 0, 6).count(3));
-    add(B("Circle Throw", T::Fighting, K::Melee, 60, 2.0f).knock(3).force());
+    add(B("Circle Throw", T::Fighting, K::Throw, 60, 2.6f).toss(120).force());
     add(B("Superpower", T::Fighting, K::Melee, 120, 4).self(St::Atk));
-    add(B("Seismic Toss", T::Fighting, K::Leap, 0, 2.6f).range(110).fixed(-1));
+    add(B("Seismic Toss", T::Fighting, K::Throw, 0, 2.6f).toss(80).fixed(-1));
     add(B("Aura Wheel", T::Fighting, K::Orbit, 50, 7).count(4).dur(4));
 
     // ---------------- Poison
@@ -471,7 +483,7 @@ std::vector<MoveDef> Build() {
     add(B("Aeroblast", T::Flying, K::Beam, 100, 4).crit().windup(0.4f));
     add(B("Feather Dance", T::Flying, K::Cone, 0, 6).low(St::Atk, 1));
     add(B("Dual Wingbeat", T::Flying, K::Melee, 40, 1.2f).hits(2).range(30));
-    add(B("Oblivion Wing", T::Flying, K::Beam, 80, 3.6f).drain(0.75f));
+    add(B("Oblivion Wing", T::Flying, K::Tether, 80, 5.0f).range(160).dur(2.6f).drain(0.75f));
     add(B("Bleakwind Storm", T::Flying, K::Vortex, 30, 6).radius(40).pull(75).low(St::Spd, 0.3f));
     add(B("Razor Wind", T::Flying, K::Boomerang, 60, 1.8f).crit());
 
@@ -483,7 +495,7 @@ std::vector<MoveDef> Build() {
     add(B("Light Screen", T::Psychic, K::Wall, 0, 6).count(5).dur(3));
     add(B("Psywave", T::Psychic, K::Chain, 0, 2.0f).range(170).fixed(-1));
     add(B("Expanding Force", T::Psychic, K::Burst, 80, 3.0f).radius(50));
-    add(B("Dream Eater", T::Psychic, K::Chain, 100, 4).drain(0.5f).hex());
+    add(B("Dream Eater", T::Psychic, K::Tether, 100, 5).range(160).dur(3.0f).drain(0.5f).sleepOnly());
     add(B("Psychic Fangs", T::Psychic, K::Melee, 85, 1.8f));
     add(B("Psyshield Bash", T::Psychic, K::Dash, 70, 1.8f));
     add(B("Mist Ball", T::Psychic, K::Orbit, 60, 7).count(3).dur(4).low(St::Atk, 0.5f));
@@ -497,19 +509,19 @@ std::vector<MoveDef> Build() {
     add(B("Attack Order", T::Bug, K::Rain, 30, 4.5f).rain(6, 12).radius(36).crit());
     add(B("Fell Stinger", T::Bug, K::Melee, 50, 1.2f));
     add(B("Struggle Bug", T::Bug, K::Cone, 50, 1.8f).low(St::Atk, 1));
-    add(B("Infestation", T::Bug, K::Vortex, 15, 5).radius(30).pull(50));
+    add(B("Infestation", T::Bug, K::Tether, 20, 6).tether(2).range(100).dur(3.5f).spec());
     add(B("Pollen Puff", T::Bug, K::Lob, 90, 2.6f));
     add(B("Steamroller", T::Bug, K::Dash, 65, 1.6f).st(S::Flinch, 0.3f));
     add(B("Silk Barrier", T::Bug, K::Wall, 0, 6).count(3));
 
     // ---------------- Rock
     add(B("Rock Wrecker", T::Rock, K::Dash, 150, 9).range(130).windup(0.4f).recharge(1.5f));
-    add(B("Smack Down", T::Rock, K::Projectile, 50, 1.2f));
+    add(B("Smack Down", T::Rock, K::Grapple, 50, 1.8f).range(150).pullFrac(0.5f).antiAir());
     add(B("Rollout", T::Rock, K::Dash, 45, 1.2f).range(120));
     add(B("Diamond Storm", T::Rock, K::Rain, 35, 5).rain(7, 13).radius(40));
     add(B("Wide Guard", T::Rock, K::Wall, 0, 6).count(5).dur(4));
     add(B("Accelerock", T::Rock, K::Dash, 40, 1.0f).quick().range(115));
-    add(B("Meteor Beam", T::Rock, K::Beam, 120, 6).windup(0.9f).radius(8));
+    add(B("Meteor Beam", T::Rock, K::Sweep, 120, 6).windup(0.9f).radius(8).arc(1.3f).dur(0.65f));
     add(B("Stone Axe", T::Rock, K::Melee, 65, 1.6f).crit());
     add(B("Rock Ricochet", T::Rock, K::Projectile, 60, 1.8f).bounce(3).speed(260));
     add(B("Rock Orbit", T::Rock, K::Orbit, 60, 7).count(3).dur(4));
@@ -518,8 +530,8 @@ std::vector<MoveDef> Build() {
     add(B("Shadow Punch", T::Ghost, K::Melee, 60, 1.2f).range(34));
     add(B("Poltergeist", T::Ghost, K::Rain, 110, 5).rain(1, 24).range(200).dur(1.2f));
     add(B("Shadow Bone", T::Ghost, K::Boomerang, 85, 2.4f).phys().low(St::Def, 0.2f));
-    add(B("Moongeist Beam", T::Ghost, K::Beam, 100, 4).windup(0.4f));
-    add(B("Spirit Shackle", T::Ghost, K::Projectile, 80, 2.0f).low(St::Spd, 1));
+    add(B("Moongeist Beam", T::Ghost, K::Sweep, 100, 4).windup(0.45f).arc(1.1f).dur(0.5f));
+    add(B("Spirit Shackle", T::Ghost, K::Grapple, 80, 2.4f).range(160).low(St::Spd, 1).pinFor(3.0f));
     add(B("Infernal Parade", T::Ghost, K::Orbit, 60, 7).count(3).dur(4).st(S::Burn, 0.3f).hex());
     add(B("Bitter Malice", T::Ghost, K::Cone, 75, 2.6f).low(St::Atk, 1));
     add(B("Last Respects", T::Ghost, K::Melee, 50, 1.2f).hex());
@@ -553,9 +565,9 @@ std::vector<MoveDef> Build() {
 
     // ---------------- Steel
     add(B("Smart Strike", T::Steel, K::Projectile, 70, 1.6f).homing(8).phys());
-    add(B("Anchor Shot", T::Steel, K::Projectile, 80, 2.2f).low(St::Spd, 1).phys());
+    add(B("Anchor Shot", T::Steel, K::Grapple, 80, 2.4f).range(160).speed(280).low(St::Spd, 1).pinFor(3.0f).phys());
     add(B("Heavy Slam", T::Steel, K::Leap, 100, 3.6f).radius(42));
-    add(B("Steel Beam", T::Steel, K::Beam, 140, 7).windup(0.6f).recoil(0.4f));
+    add(B("Steel Beam", T::Steel, K::Sweep, 140, 7).windup(0.6f).recoil(0.4f).arc(1.4f).dur(0.65f));
     add(B("Doom Desire", T::Steel, K::Rain, 140, 9).rain(1, 30).range(220).dur(2.0f));
     add(B("Sunsteel Strike", T::Steel, K::Dash, 100, 3.0f));
     add(B("Gear Grind", T::Steel, K::Boomerang, 50, 1.5f).range(140).phys());
@@ -568,8 +580,8 @@ std::vector<MoveDef> Build() {
     add(B("Spirit Break", T::Fairy, K::Melee, 75, 1.6f).low(St::Atk, 1));
     add(B("Strange Steam", T::Fairy, K::Cone, 90, 3.2f).st(S::Confuse, 0.2f));
     add(B("Misty Explosion", T::Fairy, K::Burst, 100, 5).radius(56));
-    add(B("Fleur Cannon", T::Fairy, K::Beam, 130, 7).windup(0.5f).self(St::Atk));
-    add(B("Light of Ruin", T::Fairy, K::Beam, 140, 7).windup(0.6f).recoil(0.4f));
+    add(B("Fleur Cannon", T::Fairy, K::Sweep, 130, 7).windup(0.5f).self(St::Atk).arc(1.3f).dur(0.6f));
+    add(B("Light of Ruin", T::Fairy, K::Sweep, 140, 7).windup(0.6f).recoil(0.4f).arc(1.4f).dur(0.65f));
     add(B("Crafty Shield", T::Fairy, K::Wall, 0, 6).count(3));
     add(B("Sparkling Aria", T::Fairy, K::Wave, 90, 4).radius(100));
     add(B("Floral Healing", T::Fairy, K::Heal, 0, 12).heal(0.4f));
@@ -589,7 +601,7 @@ std::vector<MoveDef> Build() {
     add(B("Vise Grip", T::Normal, K::Melee, 55, 1.0f));
     add(B("Guillotine", T::Normal, K::Melee, 0, 9).ohko());
     add(B("Cut", T::Normal, K::Melee, 50, 0.9f).range(30));
-    add(B("Bind", T::Normal, K::Vortex, 15, 5).radius(26).pull(60));
+    add(B("Bind", T::Normal, K::Tether, 15, 6).tether(2).range(90).dur(3.5f).phys());
     add(B("Slam", T::Normal, K::Melee, 80, 1.9f).range(36));
     add(B("Rolling Kick", T::Normal, K::Melee, 60, 1.4f).st(S::Flinch, 0.3f));
     add(B("Horn Attack", T::Normal, K::Dash, 65, 1.5f));
@@ -683,7 +695,7 @@ std::vector<MoveDef> Build() {
     add(B("Sleep Talk", T::Normal, K::Projectile, 0, 3).metro());
     add(B("Transform", T::Normal, K::Chain, 0, 4).range(220).xform());
     add(B("Endeavor", T::Normal, K::Dash, 0, 6).fixed(-2));
-    add(B("Mean Look", T::Normal, K::Chain, 0, 7).low(St::Spd, 1).range(170));
+    add(B("Mean Look", T::Normal, K::Tether, 0, 8).tether(3).range(170).dur(4.0f).low(St::Spd, 1));
     add(B("Baton Pass", T::Normal, K::Blink, 0, 5));
     add(B("Encore", T::Normal, K::Chain, 0, 8).low(St::Atk, 1).range(150));
     add(B("Laser Focus", T::Normal, K::Buff, 0, 9).buff(St::Atk, 1.3f));
@@ -719,16 +731,16 @@ std::vector<MoveDef> Build() {
     add(B("Incinerate", T::Fire, K::Spread, 60, 1.8f));
     add(B("Burn Up", T::Fire, K::Burst, 130, 6).radius(56));
     add(B("Fiery Dance", T::Fire, K::Orbit, 60, 7).count(3).dur(4));
-    add(B("Blue Flare", T::Fire, K::Beam, 130, 6).windup(0.5f).st(S::Burn, 0.2f));
+    add(B("Blue Flare", T::Fire, K::Sweep, 130, 6).windup(0.5f).st(S::Burn, 0.2f).arc(1.2f).dur(0.55f));
     add(B("Pyro Ball", T::Fire, K::Lob, 120, 4).st(S::Burn, 0.1f));
     add(B("Torch Song", T::Fire, K::Cone, 80, 2.6f));
 
     // ---------------- Water
-    add(B("Clamp", T::Water, K::Vortex, 18, 5).radius(26).pull(60));
+    add(B("Clamp", T::Water, K::Tether, 20, 6).tether(2).range(80).dur(3.5f).phys());
     add(B("Octazooka", T::Water, K::Projectile, 65, 1.8f).low(St::Atk, 0.5f));
     add(B("Mirror Coat", T::Psychic, K::Shield, 0, 8).dur(1.4f).counter());
     add(B("Water Sport", T::Water, K::Burst, 0, 8).radius(60));
-    add(B("Hydro Cannon", T::Water, K::Beam, 150, 9).windup(0.6f).recharge(1.5f).radius(8));
+    add(B("Hydro Cannon", T::Water, K::Sweep, 150, 9).windup(0.6f).recharge(1.5f).radius(8).arc(1.6f).dur(0.75f));
     add(B("Water Pledge", T::Water, K::Wave, 80, 3.5f));
     add(B("Steam Eruption", T::Water, K::Lob, 110, 4).st(S::Burn, 0.3f));
     add(B("Flip Turn", T::Water, K::Boomerang, 60, 1.8f).phys());
@@ -768,12 +780,12 @@ std::vector<MoveDef> Build() {
 
     // ---------------- Fighting
     add(B("Jump Kick", T::Fighting, K::Leap, 100, 3.2f).recoil(0.25f));
-    add(B("Submission", T::Fighting, K::Melee, 80, 2.0f).recoil(0.25f));
+    add(B("Submission", T::Fighting, K::Throw, 80, 2.4f).toss(70).recoil(0.25f));
     add(B("Counter", T::Fighting, K::Shield, 0, 8).dur(1.4f).counter());
     add(B("Triple Kick", T::Fighting, K::Melee, 20, 1.4f).hits(3));
     add(B("Reversal", T::Fighting, K::Melee, 40, 1.6f).pmod(PowerMod::Reversal));
     add(B("Mind Reader", T::Fighting, K::Buff, 0, 10).buff(St::Atk, 1.3f));
-    add(B("Vital Throw", T::Fighting, K::Melee, 70, 1.6f).knock(2));
+    add(B("Vital Throw", T::Fighting, K::Throw, 70, 2.2f).toss(110));
     add(B("Focus Punch", T::Fighting, K::Melee, 150, 6).windup(1.0f));
     add(B("Arm Thrust", T::Fighting, K::Melee, 15, 1.2f).hits(5));
     add(B("Revenge", T::Fighting, K::Melee, 60, 1.4f));
@@ -781,7 +793,7 @@ std::vector<MoveDef> Build() {
     add(B("Hammer Arm", T::Fighting, K::Melee, 100, 2.6f).self(St::Spd));
     add(B("Wake-Up Slap", T::Fighting, K::Melee, 70, 1.6f).hex());
     add(B("Low Sweep", T::Fighting, K::Melee, 65, 1.4f).low(St::Spd, 1));
-    add(B("Storm Throw", T::Fighting, K::Melee, 60, 1.6f).crit());
+    add(B("Storm Throw", T::Fighting, K::Throw, 60, 2.2f).toss(100).crit());
     add(B("Sacred Sword", T::Fighting, K::Melee, 90, 2.0f));
     add(B("Secret Sword", T::Fighting, K::Beam, 85, 3.2f).phys());
     add(B("Power-Up Punch", T::Fighting, K::Melee, 40, 1.0f));
@@ -804,7 +816,7 @@ std::vector<MoveDef> Build() {
     add(B("Headlong Rush", T::Ground, K::Dash, 120, 4).self(St::Def));
 
     // ---------------- Flying
-    add(B("Sky Drop", T::Flying, K::Leap, 60, 2.6f).range(110));
+    add(B("Sky Drop", T::Flying, K::Throw, 60, 3.0f).range(30).toss(30).skyDrop());
     add(B("Pluck", T::Flying, K::Melee, 60, 1.2f));
     add(B("Defog", T::Flying, K::Burst, 0, 8).radius(80).haze());
     add(B("Chatter", T::Flying, K::Cone, 65, 2.0f).st(S::Confuse, 0.3f));
@@ -855,9 +867,9 @@ std::vector<MoveDef> Build() {
     add(B("Astral Barrage", T::Ghost, K::Spread, 120, 5));
 
     // ---------------- Dragon
-    add(B("Roar of Time", T::Dragon, K::Beam, 150, 9).windup(0.7f).recharge(1.5f).radius(9));
+    add(B("Roar of Time", T::Dragon, K::Sweep, 150, 9).windup(0.7f).recharge(1.5f).radius(9).arc(1.6f).dur(0.75f));
     add(B("Dragon Ascent", T::Flying, K::Leap, 120, 4.5f).range(160).self(St::Def));
-    add(B("Dynamax Cannon", T::Dragon, K::Beam, 100, 4).windup(0.5f));
+    add(B("Dynamax Cannon", T::Dragon, K::Sweep, 100, 4).windup(0.5f).arc(1.1f).dur(0.5f));
     add(B("Glaive Rush", T::Dragon, K::Dash, 120, 4).range(130));
     add(B("Order Up", T::Dragon, K::Melee, 80, 1.8f));
 
@@ -975,6 +987,10 @@ const char* MoveKindName(MoveKind k) {
         case MoveKind::Cone:       return "Cone";
         case MoveKind::Leap:       return "Leap";
         case MoveKind::Weather:    return "Weather";
+        case MoveKind::Sweep:      return "Sweep";
+        case MoveKind::Tether:     return "Tether";
+        case MoveKind::Grapple:    return "Grapple";
+        case MoveKind::Throw:      return "Throw";
         default: return "";
     }
 }
@@ -993,6 +1009,10 @@ bool ParseMoveKind(const std::string& s, MoveKind& out) {
     if (k == "barrier") { out = MoveKind::Wall; return true; }
     if (k == "mine") { out = MoveKind::Trap; return true; }
     if (k == "whirl" || k == "pull") { out = MoveKind::Vortex; return true; }
+    if (k == "sweepingbeam" || k == "sweepbeam") { out = MoveKind::Sweep; return true; }
+    if (k == "drain" || k == "leash" || k == "link") { out = MoveKind::Tether; return true; }
+    if (k == "hook" || k == "whip" || k == "lasso") { out = MoveKind::Grapple; return true; }
+    if (k == "grab" || k == "toss") { out = MoveKind::Throw; return true; }
     return false;
 }
 
@@ -1055,6 +1075,7 @@ bool IsSpecial(const MoveDef& m) {
         case MoveKind::Projectile: case MoveKind::Spread: case MoveKind::Beam: case MoveKind::Lob:
         case MoveKind::Zone: case MoveKind::Chain: case MoveKind::Rain:
         case MoveKind::Boomerang: case MoveKind::Trap: case MoveKind::Vortex: case MoveKind::Cone:
+        case MoveKind::Sweep: case MoveKind::Tether:
             return true;
         default:  // Melee, Dash, Burst, Wave, Blink, Burrow: up close
             return false;
@@ -1091,6 +1112,18 @@ std::string DescribeMove(const MoveDef& m) {
         case MoveKind::Vortex: d = "Swirl that drags the foe in"; break;
         case MoveKind::Cone: d = "Sprays a cone in front of you"; break;
         case MoveKind::Leap: d = "Leaps up (can't be hit), slams down on the target"; break;
+        case MoveKind::Sweep: d = "Beam that sweeps across the field (jump or take cover)"; break;
+        case MoveKind::Tether:
+            d = m.tether == 3 ? "Latches on: the foe can't get away or switch out"
+              : m.tether == 2 ? "Latches on and binds the foe, hurting it while it holds"
+              : m.sleepOnly ? "Latches onto a sleeping foe and drains it"
+              : "Latches on and drains the foe while it stays in range";
+            break;
+        case MoveKind::Grapple:
+            d = m.amount < 0.99f ? "Lashes out and tugs the foe toward you" : "Hooks the foe and yanks it to you";
+            if (m.antiAir) d = "Knocks a jumping foe out of the air and pulls it in";
+            break;
+        case MoveKind::Throw: d = m.throwKind == 1 ? "Grabs the foe, carries it up and drops it" : "Grabs the foe and hurls it (harder into walls and rocks)"; break;
         case MoveKind::Weather:
             d = m.weather == Weather::Rain ? "Rain: Water x1.5, Fire x0.5, puddles form"
               : m.weather == Weather::Sun ? "Harsh sun: Fire x1.5, Water x0.5, no freezing"
@@ -1114,6 +1147,7 @@ std::string DescribeMove(const MoveDef& m) {
     if (m.ohko) d += ", 30% one-hit KO";
     if (m.selfKO) d += ", you faint";
     if (m.forceSwap) d += ", forces a switch";
+    if (m.pin > 0) d += ", stops switching";
     if (m.falseSwipe) d += ", never knocks out";
     if (m.haze) d = "Clears all stat changes";
     if (m.cure) d += ", cures your status";

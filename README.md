@@ -211,6 +211,20 @@ leaps to the target – Thunder Shock's chain lightning), **Wave** (ground shock
 **Rain** (falling objects – Rock Slide, Blizzard, Thunder), **Blink** (teleport strike – Shadow Sneak),
 **Shield** (Protect), **Burrow** (Dig, Fly, Dive).
 
+Combat links (src/battle_combat.cpp):
+- **Sweep** – a beam that swings across an arc while the user stands rooted (Hyper Beam, Flamethrower,
+  Hydro Pump, Solar Beam, Roar of Time...). Each foe is hit once; jump over it, dodge through it or duck
+  behind a rock. Recharge moves start their recharge once the sweep ends.
+- **Tether** – a line latched onto one foe. Drain tethers (Absorb, Mega/Giga Drain, Dream Eater – sleeping
+  targets only, Parabolic Charge, Oblivion Wing) heal while they tick; binding tethers (Wrap, Bind, Clamp,
+  Thunder Cage, Infestation) hold the foe on a leash; Mean Look pins it so it can't switch out. Running out of
+  reach, an obstacle in the line, a dodge or a switch breaks it.
+- **Grapple** – a vine/tongue/chain shot that yanks the foe toward the user on a hit (Vine Whip, Power Whip,
+  Lick, Anchor Shot and Spirit Shackle – which also pin – and Smack Down, which knocks jumpers out of the air).
+- **Throw** – grab a foe in reach and hurl it (Seismic Toss, Vital Throw, Storm Throw, Circle Throw,
+  Submission, Sky Drop – lift and drop). Slamming into an obstacle (x1.35), the arena wall (x1.3) or a hazard
+  (x1.2) does extra damage. Ghosts can't be grabbed by Fighting throws; legendaries barely move.
+
 Effects: burn, poison, bad poison, paralysis, freeze, sleep, confusion, flinch, Leech Seed, stat drops,
 drain, recoil, homing, multi-hit, high crit, Hex-style bonus, recharge, and burning/toxic patches left
 where a shot lands (Ember, Sludge, Fire Blast). Every move's effect is listed in `Pokemon/MOVE-LIST.txt`,
@@ -344,6 +358,7 @@ reacts fast and aims perfectly: Easy wins ~9%, Normal ~31%, Hard ~57%.
 | `src/moves.*` | move kinds, status effects, the move library, move descriptions |
 | `src/data.*` | built-in species, learnsets, evolutions, XP and level math |
 | `src/battle.*` | the fight: movement, every move kind, statuses, XP, level-ups, evolution, weakening for catches, CPU AI, HUD |
+| `src/battle_combat.cpp` | sweeping beams, tethers, grapples and throws, and their drawing |
 | `src/field.*`, `src/battle_field.cpp` | gym arena layouts and their mechanics (obstacles, zones, portals, cannons, electrified water) |
 | `src/profile.*` | save profiles and growth outside battle |
 | `src/story.*` | Story Mode ladder (story.txt), CPU teams, rewards, rare picks |

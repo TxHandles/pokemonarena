@@ -30,6 +30,10 @@ enum class MoveKind {
     Cone,       // breath / spray filling a cone in front of the user
     Leap,       // jumps high (can't be hit), lands on the target with a shockwave
     Weather,    // changes the weather for a while (Rain Dance, Sunny Day, Sandstorm, Hail)
+    Sweep,      // a beam that swings across an arc in front of the user (jump, dodge or take cover)
+    Tether,     // latches a line onto the foe: drains, binds or pins it until it breaks free
+    Grapple,    // a vine / tongue / chain shot that yanks the foe in when it connects
+    Throw,      // grabs a foe in reach and hurls it (extra damage into walls, rocks and hazards)
     Count
 };
 
@@ -104,6 +108,13 @@ struct MoveDef {
     uint8_t scope = 0;             // who a status move affects (as in the games): 0 the user, 1 the user and its allies,
                                    // 2 its allies only (fails with no ally), 3 every Grass type on the field, 4 draws attacks (Follow Me)
     MoveCat cat = MoveCat::Auto;   // Auto: close-range kinds are physical, ranged kinds special
+    // Sweep / Tether / Grapple / Throw
+    float arc = 0;                 // Sweep: how far the beam swings (radians)
+    uint8_t tether = 0;            // Tether: 1 drains, 2 binds (a leash, small damage), 3 pins (no damage, no switching)
+    bool sleepOnly = false;        // Tether: only latches onto a sleeping foe (Dream Eater)
+    bool antiAir = false;          // Grapple: knocks a jumping foe out of the air (Smack Down)
+    float pin = 0;                 // Grapple: the foe can't switch out for this long (Anchor Shot, Spirit Shackle)
+    uint8_t throwKind = 0;         // Throw: 0 hurl, 1 carry up and drop (Sky Drop)
 };
 
 const std::vector<MoveDef>& MoveLibrary();
