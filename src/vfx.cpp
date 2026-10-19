@@ -25,7 +25,7 @@ float Deg(Vector2 d) { return std::atan2(d.y, d.x) * 57.2958f; }
 // ---------------------------------------------------------------- Textures
 
 enum TX { T_BEAM, T_GLOW, T_SMOKE, T_RING, T_LEAF, T_SHARD, T_ROCK, T_STAR, T_BUBBLE, T_FEATHER, T_PETAL, T_MOON, T_CRESCENT,
-          T_FIST, T_BOOT, T_JAW, T_HEART, T_COIN, T_NOTE, T_SEED, T_BONE, T_EGG, T_COUNT };
+          T_FIST, T_BOOT, T_JAW, T_HEART, T_COIN, T_NOTE, T_SEED, T_BONE, T_EGG, T_STREAK, T_COUNT };
 Texture2D gTex[T_COUNT];
 bool gLoaded = false;
 
@@ -78,9 +78,17 @@ Image Procedural(int w, int h, uint32_t kind) {
                     a = a * a * (3 - 2 * a);
                     c = C(255, 255, 255, (int)(Clamp01(a) * 255));
                 } break;
-                case T_GLOW: {
-                    float a = Clamp01(1 - d);
-                    a = a * a * (0.6f + 0.4f * a);
+                case T_STREAK: {   // a comet tail: fades in from the back, soft across, round at the head
+                    float along = (u + 1) * 0.5f;   // 0 tail .. 1 head
+                    float across = std::fabs(v) / (0.25f + 0.75f * along);
+                    float a = Clamp01(1 - across);
+                    a = a * a * (3 - 2 * a) * along * along;
+                    if (along > 0.9f) a *= Clamp01((1 - along) / 0.1f + 0.2f);
+                    c = C(255, 255, 255, (int)(Clamp01(a) * 255));
+                } break;
+                case T_GLOW: {   // a soft gaussian with a hotter centre
+                    float g = std::exp(-d * d * 4.2f) * 0.85f + std::exp(-d * d * 14.0f) * 0.15f;
+                    float a = Clamp01((g - 0.012f) / 0.988f) * Clamp01((1 - d) * 6);
                     c = C(255, 255, 255, (int)(a * 255));
                 } break;
                 case T_SMOKE: {
@@ -494,9 +502,10 @@ bool PKAdditive(PK k) {
 void LoadVfx() {
     if (gLoaded) return;
     MakeTex(T_BEAM, Procedural(4, 32, T_BEAM), true);
-    MakeTex(T_GLOW, Procedural(64, 64, T_GLOW), true);
+    MakeTex(T_GLOW, Procedural(128, 128, T_GLOW), true);
     MakeTex(T_SMOKE, Procedural(32, 32, T_SMOKE), true);
-    MakeTex(T_RING, Procedural(64, 64, T_RING), true);
+    MakeTex(T_RING, Procedural(128, 128, T_RING), true);
+    MakeTex(T_STREAK, Procedural(96, 24, T_STREAK), true);
     MakeTex(T_STAR, Procedural(13, 13, T_STAR), false);
     MakeTex(T_BUBBLE, Procedural(24, 24, T_BUBBLE), true);
     MakeTex(T_MOON, Procedural(16, 16, T_MOON), false);
@@ -639,6 +648,15 @@ void VSoft(Vector2 p, float r, Color c, float alpha) {
     Tex(T_GLOW, p, r * 2, 0, c, Clamp01(alpha));
 }
 
+void VShadow(Vector2 p, float rx, float ry, float alpha) {
+    if (alpha <= 0.003f || !gLoaded) return;
+    VNorm();
+    const Texture2D& t = gTex[T_GLOW];
+    Rectangle src{0, 0, (float)t.width, (float)t.height};
+    DrawTexturePro(t, src, Rectangle{p.x, p.y, rx * 2.6f, ry * 2.6f}, Vector2{rx * 1.3f, ry * 1.3f}, 0, Fade(Color{10, 8, 20, 255}, alpha * 0.55f));
+    DrawTexturePro(t, src, Rectangle{p.x, p.y, rx * 1.5f, ry * 1.5f}, Vector2{rx * 0.75f, ry * 0.75f}, 0, Fade(Color{10, 8, 20, 255}, alpha * 0.6f));
+}
+
 void VRingE(Vector2 c, float rx, float ry, float thick, Color col, int segs) {
     if (rx <= 0.2f || col.a == 0) return;
     Vector2 prev{c.x + rx, c.y};
@@ -684,7 +702,16 @@ void VImpactStar(Vector2 p, float r, float t, Color c, uint32_t seed) {
     if (t < 0 || t > 1) return;
     float a = 1 - t;
     float e = EaseOut(t * 1.6f);
-    int n = 7;
+    int n = 8;
+    r *= 1.3f;
+    {   // a shock ring and a hot flash behind the spikes
+        float rr = r * (0.4f + 1.1f * EaseOut(t * 1.2f));
+        VNorm();
+        VRingE(p, rr, rr * 0.8f, 2.2f * a + 0.4f, Fade(BodyOf(c), 0.5f * a), 28);
+        VAdd();
+        VRingE(p, rr, rr * 0.8f, 1.2f * a + 0.3f, Fade(c, 0.9f * a), 28);
+        if (t < 0.3f) VGlow(p, r * (1.4f + t * 3), WHITE, (1 - t / 0.3f) * 0.75f);
+    }
     for (int pass = 0; pass < 2; pass++) {
         if (pass == 0) VNorm(); else VAdd();
         for (int i = 0; i < n; i++) {
@@ -907,10 +934,28 @@ void VBeam(Vector2 a, Vector2 b, float width, float t, float time, const Look& L
 // ---------------------------------------------------------------- Projectiles
 
 void VProjectile(Vector2 sp, Vector2 vel, float radius, float spin, float time, const Look& L, uint32_t seed) {
-    float r = std::max(2.4f, radius * 1.0f * L.size);
+    float r = std::max(3.0f, radius * 1.35f * L.size);
     Vector2 d = SafeNorm(vel, {1, 0});
     Vector2 n{-d.y, d.x};
     Color core = L.core, glow = L.glow;
+    float spd = Len(vel);
+    bool streaky = spd > 20 && L.shape != Shape::Tornado && L.shape != Shape::Web && L.shape != Shape::Comet && L.shape != Shape::Fireball;
+    if (streaky) {   // a motion streak: the shot reads as fast, not as a dot
+        float sl = std::min(r * 7.0f, std::max(r * 2.5f, spd * 0.045f));
+        auto streak = [&](float len, float w, Color c, float al) {
+            const Texture2D& t = gTex[T_STREAK];
+            Vector2 mid = sp - d * (len * 0.5f - r * 0.3f);
+            DrawTexturePro(t, Rectangle{0, 0, (float)t.width, (float)t.height}, Rectangle{mid.x, mid.y, len, w}, Vector2{len / 2, w / 2}, Deg(d), Fade(c, al));
+        };
+        if (gLoaded) {
+            VNorm();
+            if (Saturated(glow)) streak(sl, r * 1.8f, Deepen(glow), 0.4f);
+            VAdd();
+            streak(sl, r * 2.6f, glow, 0.5f);
+            streak(sl * 0.7f, r * 1.0f, core, 0.6f);
+            VNorm();
+        }
+    }
     switch (L.shape) {
         case Shape::Orb: {
             VGlow(sp, r * 3.2f, glow, 0.45f);
@@ -987,13 +1032,22 @@ void VProjectile(Vector2 sp, Vector2 vel, float radius, float spin, float time, 
             VNorm();
         } break;
         case Shape::Droplet: {
-            VGlow(sp, r * 2.2f, glow, 0.35f);
+            VGlow(sp, r * 2.6f, glow, 0.45f);
             VNorm();
-            DrawTriangle(sp + n * r, sp - d * (r * 2.6f), sp - n * r, Fade(glow, 0.9f));
-            DrawTriangle(sp - n * r, sp - d * (r * 2.6f), sp + n * r, Fade(glow, 0.9f));
-            DrawCircleV(sp, r, glow);
-            DrawCircleV(sp, r * 0.75f, core);
-            DrawCircleV(sp + Vector2{-r * 0.3f, -r * 0.35f}, r * 0.3f, WHITE);
+            Color deep = Deepen(glow);
+            DrawTriangle(sp + n * (r * 1.05f), sp - d * (r * 3.0f), sp - n * (r * 1.05f), Fade(deep, 0.9f));
+            DrawTriangle(sp - n * (r * 1.05f), sp - d * (r * 3.0f), sp + n * (r * 1.05f), Fade(deep, 0.9f));
+            DrawCircleV(sp, r * 1.08f, deep);
+            DrawTriangle(sp + n * (r * 0.7f), sp - d * (r * 2.3f), sp - n * (r * 0.7f), Fade(glow, 0.95f));
+            DrawTriangle(sp - n * (r * 0.7f), sp - d * (r * 2.3f), sp + n * (r * 0.7f), Fade(glow, 0.95f));
+            DrawCircleV(sp, r * 0.85f, glow);
+            DrawCircleV(sp + d * (r * 0.1f), r * 0.55f, core);
+            DrawCircleV(sp + Vector2{-r * 0.3f, -r * 0.38f}, r * 0.28f, WHITE);
+            for (int k = 1; k <= 3; k++) {   // trailing droplets
+                float u = std::fmod(time * 6 + k * 0.33f + (seed % 7) * 0.1f, 1.0f);
+                Vector2 q = sp - d * (r * (2.6f + k * 1.4f + u)) + n * (std::sin(time * 25 + k * 2) * r * 0.5f);
+                DrawCircleV(q, r * (0.42f - k * 0.08f), Fade(glow, 0.9f - k * 0.2f));
+            }
         } break;
         case Shape::ShadowOrb: {
             VGlow(sp, r * 3.4f, glow, 0.55f);
@@ -1014,19 +1068,27 @@ void VProjectile(Vector2 sp, Vector2 vel, float radius, float spin, float time, 
             VGlow(sp, r * 1.2f, WHITE, 0.4f);
             VNorm();
         } break;
-        case Shape::Sludge: {
-            VGlow(sp, r * 2.2f, glow, 0.3f);
+        case Shape::Sludge: {   // a glossy, wobbling glob that drips as it flies
+            r *= 1.15f;
+            VGlow(sp, r * 2.4f, glow, 0.35f);
             VNorm();
-            Color dk = ColorBrightness(core, -0.45f);
-            for (int k = 0; k < 4; k++) {
-                Vector2 o{std::sin(time * 11 + k * 1.7f) * r * 0.35f, std::cos(time * 9 + k * 2.3f) * r * 0.3f};
-                DrawCircleV(sp + o, r * 0.85f, dk);
+            Color dk = Deepen(ColorBrightness(core, -0.35f)), md = core, lt = ColorBrightness(core, 0.35f);
+            for (int k = 0; k < 5; k++) {
+                Vector2 o{std::sin(time * 11 + k * 1.7f) * r * 0.32f, std::cos(time * 9 + k * 2.3f) * r * 0.26f};
+                DrawCircleV(sp + o + Vector2{0.4f, 0.6f}, r * 0.86f, dk);
             }
-            for (int k = 0; k < 4; k++) {
-                Vector2 o{std::sin(time * 11 + k * 1.7f) * r * 0.3f, std::cos(time * 9 + k * 2.3f) * r * 0.25f};
-                DrawCircleV(sp + o, r * 0.65f, core);
+            for (int k = 0; k < 5; k++) {
+                Vector2 o{std::sin(time * 11 + k * 1.7f) * r * 0.28f, std::cos(time * 9 + k * 2.3f) * r * 0.22f};
+                DrawCircleV(sp + o, r * 0.68f, md);
             }
-            DrawCircleV(sp + Vector2{-r * 0.3f, -r * 0.3f}, r * 0.25f, Fade(WHITE, 0.8f));
+            DrawCircleV(sp + Vector2{-r * 0.2f, -r * 0.25f}, r * 0.45f, lt);
+            DrawCircleV(sp + Vector2{-r * 0.36f, -r * 0.4f}, r * 0.18f, Fade(WHITE, 0.9f));
+            for (int k = 1; k <= 3; k++) {   // drips trailing behind
+                float u = std::fmod(time * 5 + k * 0.33f + (seed % 5) * 0.2f, 1.0f);
+                Vector2 q = sp - d * (r * (1.2f + k * 1.1f)) + Vector2{0, u * r * 0.8f};
+                DrawCircleV(q, r * (0.36f - k * 0.07f), dk);
+                DrawCircleV(q - Vector2{r * 0.06f, r * 0.06f}, r * (0.26f - k * 0.05f), md);
+            }
         } break;
         case Shape::Seed: {
             VNorm();
@@ -1204,6 +1266,37 @@ void VParticle(PK kind, Vector2 sp, Vector2 sv, float size, float rot, float lf,
         } break;
         case PK::Ring: VRingE(sp, size, size * 0.75f, 0.9f, Fade(c, a), 18); break;
         case PK::Zzz: DrawText("z", (int)sp.x, (int)sp.y, 10, Fade(c, a)); break;
+        case PK::Arrow: {   // a rising chevron (stat up); rot > 3 points down (stat down)
+            float s2 = size * 2.2f;
+            float dir = rot > 3.0f ? 1.0f : -1.0f;
+            Vector2 tip = sp + Vector2{0, dir * s2 * 0.6f};
+            Vector2 l = sp + Vector2{-s2, -dir * s2 * 0.4f}, rr = sp + Vector2{s2, -dir * s2 * 0.4f};
+            VNorm();
+            DrawLineEx(l, tip, size * 1.4f, Fade(Deepen(c), a));
+            DrawLineEx(tip, rr, size * 1.4f, Fade(Deepen(c), a));
+            VAdd();
+            DrawLineEx(l, tip, size * 0.8f, Fade(c, a));
+            DrawLineEx(tip, rr, size * 0.8f, Fade(c, a));
+            Tex(T_GLOW, tip, s2 * 2.2f, 0, c, a * 0.5f);
+            VNorm();
+        } break;
+        case PK::Plus: {
+            float s2 = size * 1.6f;
+            VNorm();
+            DrawRectangleV(sp - Vector2{s2, s2 * 0.35f}, Vector2{s2 * 2, s2 * 0.7f}, Fade(Deepen(c), a));
+            DrawRectangleV(sp - Vector2{s2 * 0.35f, s2}, Vector2{s2 * 0.7f, s2 * 2}, Fade(Deepen(c), a));
+            VAdd();
+            DrawRectangleV(sp - Vector2{s2 * 0.8f, s2 * 0.18f}, Vector2{s2 * 1.6f, s2 * 0.36f}, Fade(c, a));
+            DrawRectangleV(sp - Vector2{s2 * 0.18f, s2 * 0.8f}, Vector2{s2 * 0.36f, s2 * 1.6f}, Fade(c, a));
+            Tex(T_GLOW, sp, s2 * 3.0f, 0, c, a * 0.45f);
+            VNorm();
+        } break;
+        case PK::Shield: {   // a hexagon flash (defence up)
+            VAdd();
+            DrawPolyLinesEx(sp, 6, size * 3.0f, rot * 20, size * 0.5f, Fade(c, a));
+            DrawPoly(sp, 6, size * 2.6f, rot * 20, Fade(c, a * 0.18f));
+            VNorm();
+        } break;
         case PK::Snow: {
             for (int k = 0; k < 3; k++) {
                 float a2 = rot + k * PI_F / 3;
@@ -1227,8 +1320,8 @@ void VMelee(Vector2 from, Vector2 to, float t, MeleeAnim anim, const Look& L, ui
         case MeleeAnim::Arc: {
             float p = Clamp01(t * 2.4f);
             float base = std::atan2(d.y, d.x / 1.0f);
-            float R = dist * 1.05f;
-            int N = 14;
+            float R = dist * 1.05f + 6;
+            int N = 18;
             int shown = (int)(N * p);
             for (int pass = 0; pass < 2; pass++)
             for (int i = 0; i < shown; i++) {
@@ -1236,7 +1329,7 @@ void VMelee(Vector2 from, Vector2 to, float t, MeleeAnim anim, const Look& L, ui
                 Color gc = pass == 0 ? BodyOf(glow) : glow;
                 float u0 = (float)i / N, u1 = (float)(i + 1) / N;
                 float a0 = base - 1.15f + 2.3f * u0, a1 = base - 1.15f + 2.3f * u1;
-                float th = 1.5f + 4.5f * std::sin(u1 * PI_F);
+                float th = 2.0f + 7.0f * std::sin(u1 * PI_F) * (0.4f + 0.6f * u1 / std::max(0.05f, p));
                 Vector2 o0 = from + Vector2{std::cos(a0), std::sin(a0) * 0.75f} * R, o1 = from + Vector2{std::cos(a1), std::sin(a1) * 0.75f} * R;
                 Vector2 i0 = from + Vector2{std::cos(a0), std::sin(a0) * 0.75f} * (R - th), i1 = from + Vector2{std::cos(a1), std::sin(a1) * 0.75f} * (R - th);
                 DrawTriangle(o0, i0, o1, Fade(gc, 0.7f * fade));
@@ -1255,14 +1348,16 @@ void VMelee(Vector2 from, Vector2 to, float t, MeleeAnim anim, const Look& L, ui
                 float delay = (k + 1) * 0.06f;
                 float pk = Clamp01((t - delay) * 5.0f);
                 if (pk <= 0) continue;
-                Vector2 o = to + n * (k * 3.6f) + d * (k * 0.8f);
-                Vector2 s = o - sd * 10.0f, e = o + sd * 10.0f;
+                Vector2 o = to + n * (k * 4.4f) + d * (k * 0.8f);
+                Vector2 s = o - sd * 14.0f, e = o + sd * 14.0f;
                 Vector2 m = s + (e - s) * pk;
                 VNorm();
-                VLine(s, m, 4.5f, BodyOf(glow), 0.8f * fade);
+                VLine(s, m, 5.5f, BodyOf(glow), 0.8f * fade);
                 VAdd();
-                VLine(s, m, 3.0f, glow, 0.8f * fade);
-                VLine(s, m, 1.4f, WHITE, fade);
+                VLine(s, m, 7.0f, glow, 0.25f * fade);
+                VLine(s, m, 3.4f, glow, 0.85f * fade);
+                VLine(s, m, 1.5f, WHITE, fade);
+                if (pk >= 1) VGlow(e, 4, WHITE, 0.6f * fade);
             }
             VNorm();
             (void)p;

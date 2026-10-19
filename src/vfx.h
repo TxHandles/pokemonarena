@@ -10,7 +10,7 @@
 // battle simulation (battle_vfx.cpp) so it stays in step online; this file only draws.
 
 // Particle kinds
-enum class PK : uint8_t { Pixel, Glow, Spark, Smoke, Flame, Leaf, Shard, Drop, Debris, Star, Bubble, Wisp, Feather, Petal, Ring, Zzz, Note, Heart, Coin, Snow, Ember };
+enum class PK : uint8_t { Pixel, Glow, Spark, Smoke, Flame, Leaf, Shard, Drop, Debris, Star, Bubble, Wisp, Feather, Petal, Ring, Zzz, Note, Heart, Coin, Snow, Ember, Arrow, Plus, Shield };
 bool PKAdditive(PK k);
 
 // Projectile shapes
@@ -64,6 +64,7 @@ void VAdd();                                            // additive blending on
 void VNorm();                                           // normal blending
 void VGlow(Vector2 p, float r, Color c, float alpha);   // soft light (additive)
 void VSoft(Vector2 p, float r, Color c, float alpha);   // soft blob (normal)
+void VShadow(Vector2 p, float rx, float ry, float alpha);   // soft contact shadow on the floor
 void VRingE(Vector2 c, float rx, float ry, float thick, Color col, int segs = 40);  // ellipse ring
 void VBolt(Vector2 a, Vector2 b, uint32_t seed, float width, Color c, float alpha, int branches);
 void VExplosion(Vector2 p, float r, float t, Impact im, uint32_t seed);

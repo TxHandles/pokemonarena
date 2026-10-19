@@ -3043,10 +3043,23 @@ void Battle::Draw(bool banners) const {
         if (h.patch) {  // burning spot / puddle
             DrawEllipse((int)sp.x, (int)sp.y, h.radius * pulse, h.radius * DEPTH * pulse, Fade(ColorBrightness(c, -0.3f), 0.45f * a));
             DrawEllipse((int)sp.x, (int)sp.y, h.radius * 0.55f, h.radius * 0.55f * DEPTH, Fade(ColorBrightness(c, 0.3f), 0.5f * a));
-        } else {
-            DrawEllipse((int)sp.x, (int)sp.y, h.radius * pulse, h.radius * DEPTH * pulse, Fade(c, 0.28f * a));
-            EllipsePix(sp.x, sp.y, h.radius * pulse, h.radius * DEPTH * pulse, Fade(c, 0.9f * a));
-            EllipsePix(sp.x, sp.y, h.radius * 0.55f, h.radius * 0.55f * DEPTH, Fade(c, 0.5f * a));
+        } else {   // a lingering zone: a tinted pool of its type, a turning rune ring, a pulse inside
+            float R = h.radius * pulse;
+            DrawEllipse((int)sp.x, (int)sp.y, R, R * DEPTH, Fade(ColorBrightness(c, -0.35f), 0.22f * a));
+            DrawEllipse((int)sp.x, (int)sp.y, R * 0.7f, R * 0.7f * DEPTH, Fade(c, 0.14f * a));
+            VAdd();
+            for (int k = 0; k < 3; k++)
+                VGlow(Vector2{sp.x + (k - 1) * R * 0.45f, sp.y}, R * 0.5f, c, 0.16f * a);
+            float spin = time * 1.4f;
+            for (int k = 0; k < 20; k++) {   // dashed ring, turning
+                if (k % 2) continue;
+                float a0 = spin + k * PI_F / 10, a1 = a0 + PI_F / 10 * 0.8f;
+                DrawLineEx({sp.x + std::cos(a0) * R, sp.y + std::sin(a0) * R * DEPTH}, {sp.x + std::cos(a1) * R, sp.y + std::sin(a1) * R * DEPTH}, 1.4f, Fade(c, 0.85f * a));
+            }
+            float pu = std::fmod(time * 1.2f + h.pos.x * 0.01f, 1.0f);   // a pulse rippling outward
+            VRingE(sp, R * pu, R * pu * DEPTH, 1.0f, Fade(ColorBrightness(c, 0.4f), 0.6f * a * (1 - pu)), 28);
+            VNorm();
+            EllipsePix(sp.x, sp.y, R, R * DEPTH, Fade(ColorBrightness(c, -0.2f), 0.7f * a));
         }
     }
     for (const auto& w : waves) {
@@ -3131,13 +3144,14 @@ void Battle::Draw(bool banners) const {
         if (f.state == FState::Benched || f.state == FState::Fainted || (f.burrowed && !f.leaping)) continue;
         Vector2 g = ToScreen(f.pos);
         float a = f.state == FState::Fainting ? 1.0f - std::min(1.0f, f.stateT) : 1.0f;
-        DrawEllipse((int)g.x, (int)g.y + 1, 9, 3.0f, Fade(BLACK, 0.35f * a));
+        float lift = f.Jumping() ? std::max(0.35f, 1.0f - f.JumpZ() / 40.0f) : 1.0f;
+        VShadow({g.x, g.y + 1}, 11 * lift, 3.6f * lift, 0.75f * a * lift);
         EllipsePix(g.x, g.y + 1, 11, 4.0f, Fade(TeamColor(sides[s].teamId), 0.8f * a));
     }
     for (const auto& p : projs) {
         if (p.drop && p.t < 0) continue;
         Vector2 g = ToScreen(p.pos);
-        DrawEllipse((int)g.x, (int)g.y, 3, 1.2f, Fade(BLACK, 0.3f));
+        VShadow(g, 4.5f, 1.8f, 0.5f);
     }
 
     struct Item { float y; int kind; int idx; };
@@ -3191,17 +3205,17 @@ void Battle::Draw(bool banners) const {
             Vector2 c = ToScreen(fx.dir, 10);
             Vector2 from = ToScreen(fx.pos, 10);
             VAdd();
-            for (int k = 0; k < 4; k++) {   // waves travelling from the user to the target
-                float u = std::fmod(t * 2.0f + k * 0.25f, 1.0f);
+            for (int k = 0; k < 5; k++) {   // waves travelling from the user to the target
+                float u = std::fmod(t * 2.0f + k * 0.2f, 1.0f);
                 Vector2 q = LerpV(from, c, u);
-                float r = 3 + u * 5;
-                VRingE(q, r, r * 0.8f, 1.0f, Fade(fx.col, 0.7f * (1 - t)), 16);
+                float r = 4 + u * 7;
+                VRingE(q, r, r * 0.8f, 1.4f, Fade(fx.col, 0.8f * (1 - t)), 18);
             }
-            for (int k = 0; k < 3; k++) {
-                float r = 4 + (t * 18 + k * 5);
-                VRingE(c, r, r * 0.7f, 1.4f, Fade(fx.col, (1 - t) * (1 - k * 0.25f)), 24);
+            for (int k = 0; k < 4; k++) {   // the mind grip: rings closing in, then bursting out
+                float r = t < 0.4f ? 26 * (1 - t / 0.4f) + 5 + k * 4 : 5 + (t - 0.4f) * 50 + k * 6;
+                VRingE(c, r, r * 0.75f, 1.8f - k * 0.3f, Fade(k % 2 ? WHITE : fx.col, (1 - t) * (1 - k * 0.2f)), 28);
             }
-            VGlow(c, 10 * (1 - t) + 4, fx.col, 0.6f * (1 - t));
+            VGlow(c, 16 * (1 - t) + 6, fx.col, 0.7f * (1 - t));
             VNorm();
         } else if (fx.kind == FxKind::Puff) {
             Vector2 c = ToScreen(fx.pos, 6);
@@ -3242,29 +3256,7 @@ void Battle::Draw(bool banners) const {
 
     DrawParticles();
 
-    if (weather != Weather::None) {  // weather overlay over the arena floor area
-        float fade = std::min(1.0f, weatherT);
-        int top = FLOOR_Y - 10, bottom = FLOOR_BOTTOM;
-        if (weather == Weather::Sun) {
-            DrawRectangle(0, 0, VW, bottom, Fade(Color{255, 210, 120, 255}, 0.10f * fade));
-            for (int i = 0; i < 6; i++) {
-                float x = 60.0f + i * 110 + std::sin(time + i) * 10;
-                DrawTriangle({x, (float)top}, {x - 30, (float)bottom}, {x + 10, (float)bottom}, Fade(Color{255, 240, 180, 255}, 0.05f * fade));
-            }
-        } else {
-            for (int i = 0; i < 140; i++) {
-                float seed = i * 37.17f;
-                float speed = weather == Weather::Rain ? 260.0f : (weather == Weather::Snow ? 40.0f : 120.0f);
-                float x = std::fmod(seed * 13.3f + (weather == Weather::Sand ? time * 220 : time * 30), (float)VW);
-                float y = top + std::fmod(seed * 7.1f + time * speed, (float)(bottom - top));
-                if (weather == Weather::Rain) DrawLineEx({x, y}, {x - 3, y + 8}, 1, Fade(Color{150, 190, 255, 255}, 0.55f * fade));
-                else if (weather == Weather::Snow) DrawRectangle((int)(x + std::sin(time * 2 + i) * 3), (int)y, 2, 2, Fade(WHITE, 0.8f * fade));
-                else DrawRectangle((int)x, (int)y, 3, 1, Fade(Color{210, 180, 120, 255}, 0.6f * fade));
-            }
-            if (weather == Weather::Rain) DrawRectangle(0, 0, VW, bottom, Fade(Color{40, 60, 120, 255}, 0.10f * fade));
-            if (weather == Weather::Sand) DrawRectangle(0, 0, VW, bottom, Fade(Color{180, 140, 80, 255}, 0.12f * fade));
-        }
-    }
+    DrawWeatherSky();
 
     for (const auto& t : texts) {
         Vector2 sp = ToScreen(t.pos, t.z);

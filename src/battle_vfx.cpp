@@ -66,7 +66,7 @@ void Battle::HitVfx(const HitSpec& h, Vector2 pos, float z, Vector2 dir) {
     float m = light ? 0.35f : (h.power >= 90 ? 1.5f : 1.0f);
     Vector2 bias = dir * 40.0f;
     if (!light) {
-        Fx& f = AddFx(FxKind::Hit, pos, 0.24f, L.glow, h.power >= 90 ? 15.0f : 11.0f, z);
+        Fx& f = AddFx(FxKind::Hit, pos, 0.3f, L.glow, h.power >= 90 ? 17.0f : 12.0f, z);
         f.type = h.type;
     }
     Color c0 = ImpactColor(L.impact, 0), c1 = ImpactColor(L.impact, 1), c2 = ImpactColor(L.impact, 2);
@@ -207,6 +207,19 @@ void Battle::CastVfx(int s, const MoveDef& m, const HitSpec& h, Vector2 a) {
                     }
                 } break;
                 default: {
+                    AddFx(FxKind::Shock, f.pos, 0.45f, L.glow, m.radius * 1.15f);
+                    AddFx(FxKind::Ring, f.pos, 0.5f, L.glow, m.radius * 1.05f);
+                    if (m.power >= 80) AddFx(FxKind::Flash, f.pos, 0.15f, L.glow, m.radius);
+                    if (m.type == Type::Dark || m.type == Type::Ghost) {   // dark waves read as smoke, not light
+                        for (int i = 0; i < 18; i++) {
+                            float ang = i * PI_F * 2 / 18;
+                            Vector2 d{std::cos(ang), std::sin(ang)};
+                            Particle& p = Emit(PK::Smoke, f.pos + d * 6.0f, 4, d * (m.radius * Frand(2.2f, 2.8f)), Frand(4, 12), Frand(0.4f, 0.55f), 3.2f,
+                                               m.type == Type::Dark ? Cc(50, 30, 70) : Cc(80, 50, 120), false);
+                            p.grow = 7;
+                            p.drag = 3.2f;
+                        }
+                    }
                     for (int i = 0; i < 24; i++) {
                         float ang = i * PI_F * 2 / 24;
                         Vector2 d{std::cos(ang), std::sin(ang)};
@@ -238,17 +251,28 @@ void Battle::CastVfx(int s, const MoveDef& m, const HitSpec& h, Vector2 a) {
                 Particle& p = Emit(PK::Star, f.pos + Vector2{Frand(-9, 9), Frand(-4, 4)}, Frand(4, 14), {0, 0}, Frand(20, 40), 0.7f, 1.6f, Cc(200, 255, 200), false);
                 p.spin = Frand(-5, 5);
             }
+            for (int i = 0; i < 5; i++) Emit(PK::Plus, f.pos + Vector2{Frand(-10, 10), Frand(-4, 4)}, Frand(2, 14), {0, 0}, Frand(22, 40), Frand(0.6f, 0.9f), Frand(1.4f, 2.0f), Cc(140, 255, 150), false).drag = 1;
             Emit(PK::Ring, f.pos, 1, {0, 0}, 0, 0.45f, 3, Cc(150, 255, 160), false).grow = 40;
+            AddFx(FxKind::Pillar, f.pos, 0.7f, Cc(140, 255, 160), 10);
         } break;
-        case MoveKind::Buff: {
-            Color bc = L.glow;
-            for (int i = 0; i < 12; i++) {
-                float ang = i * PI_F / 6;
-                Particle& p = Emit(PK::Glow, f.pos + Vector2{std::cos(ang) * 10, std::sin(ang) * 5}, 0, {0, 0}, Frand(40, 70), 0.6f, 1.2f, bc, false);
+        case MoveKind::Buff: {   // the stat's colour: chevrons rising through a column of light
+            bool down = m.amount > 0 && m.amount < 1;
+            Color bc = m.stat == StatId::Atk ? Cc(255, 110, 70) : m.stat == StatId::Def ? Cc(90, 160, 255) : Cc(120, 240, 140);
+            if (m.power > 0) bc = L.glow;
+            for (int i = 0; i < 14; i++) {
+                float ang = i * PI_F / 7;
+                Particle& p = Emit(PK::Glow, f.pos + Vector2{std::cos(ang) * 11, std::sin(ang) * 6}, 0, {0, 0}, Frand(45, 80), Frand(0.5f, 0.75f), 1.3f, bc, false);
                 p.drag = 1;
             }
-            Emit(PK::Ring, f.pos, 0, {0, 0}, 0, 0.5f, 4, bc, false).grow = 30;
-            Emit(PK::Ring, f.pos, 10, {0, 0}, 0, 0.4f, 2, WHITE, false).grow = 22;
+            for (int i = 0; i < 5; i++) {
+                Particle& p = Emit(PK::Arrow, f.pos + Vector2{Frand(-9, 9), Frand(-3, 3)}, Frand(-2, 10), {0, 0}, down ? -Frand(25, 40) : Frand(30, 50), Frand(0.55f, 0.8f), Frand(1.6f, 2.2f), bc, false);
+                p.rot = down ? 4.0f : 0.0f;
+                p.drag = 1;
+            }
+            if (m.stat == StatId::Def && m.power <= 0) Emit(PK::Shield, f.pos, 10, {0, 0}, 0, 0.45f, 3.4f, bc, false).spin = 2;
+            Emit(PK::Ring, f.pos, 0, {0, 0}, 0, 0.5f, 4, bc, false).grow = 34;
+            Emit(PK::Ring, f.pos, 10, {0, 0}, 0, 0.4f, 2, WHITE, false).grow = 24;
+            AddFx(FxKind::Pillar, f.pos, 0.6f, bc, 9);
         } break;
         case MoveKind::Dash: {
             for (int i = 0; i < 6; i++) {
@@ -498,9 +522,11 @@ void Battle::DrawFxTop(const Fx& fx) const {
             Vector2 g = ToScreen(fx.pos, 0);
             VAdd();
             float w = fx.radius * (0.6f + 0.4f * a);
-            DrawRectangleGradientV((int)(g.x - w), 0, (int)(w * 2), (int)g.y, Fade(fx.col, 0), Fade(fx.col, 0.55f * a));
-            DrawRectangleGradientV((int)(g.x - w * 0.35f), 0, (int)(w * 0.7f), (int)g.y, Fade(WHITE, 0), Fade(WHITE, 0.7f * a));
+            float top = fx.radius < 14 ? g.y - 46 : 0;   // small ones: an aura column around a Pokemon
+            DrawRectangleGradientV((int)(g.x - w), (int)top, (int)(w * 2), (int)(g.y - top), Fade(fx.col, 0), Fade(fx.col, 0.55f * a));
+            DrawRectangleGradientV((int)(g.x - w * 0.35f), (int)top, (int)(w * 0.7f), (int)(g.y - top), Fade(WHITE, 0), Fade(WHITE, 0.7f * a));
             VGlow(g, w * 2, fx.col, a);
+            if (fx.radius < 14) VRingE(g, w * 1.3f, w * 0.55f, 1.0f, Fade(fx.col, a), 24);
             VNorm();
         } break;
         default: break;
@@ -692,8 +718,18 @@ void Battle::DrawPuddles() const {
 
 void Battle::DrawTimeOfDay() const {
     if (setup.night) {
-        DrawRectangle(0, 0, VW, VH, Fade(Color{8, 14, 46, 255}, 0.42f));
+        DrawRectangleGradientV(0, 0, VW, FLOOR_BOTTOM + 8, Fade(Color{6, 10, 40, 255}, 0.52f), Fade(Color{10, 16, 50, 255}, 0.40f));
+        DrawRectangle(0, FLOOR_BOTTOM + 8, VW, VH - FLOOR_BOTTOM - 8, Fade(Color{8, 14, 46, 255}, 0.42f));
+        // darker toward the edges, where the floodlights don't reach
+        DrawRectangleGradientH(0, 0, 90, FLOOR_BOTTOM + 8, Fade(Color{4, 6, 24, 255}, 0.35f), Fade(Color{4, 6, 24, 255}, 0.0f));
+        DrawRectangleGradientH(VW - 90, 0, 90, FLOOR_BOTTOM + 8, Fade(Color{4, 6, 24, 255}, 0.0f), Fade(Color{4, 6, 24, 255}, 0.35f));
+        DrawRectangleGradientV(0, FLOOR_BOTTOM - 50, VW, 58, Fade(Color{4, 6, 24, 255}, 0.0f), Fade(Color{4, 6, 24, 255}, 0.3f));
         VAdd();
+        for (int i = 0; i < 26; i++) {   // stars twinkling over the scenery
+            float x = VRand(700, i) * VW, y = 2 + VRand(701, i) * (FLOOR_Y - 8);
+            float tw = 0.5f + 0.5f * std::sin(time * (1.5f + VRand(702, i) * 2) + i);
+            DrawRectangleV({x, y}, {0.7f, 0.7f}, Fade(Color{220, 230, 255, 255}, 0.7f * tw));
+        }
         // Floodlights on the field, and a soft light under each battler so they stay readable.
         VGlow(ToScreen({ARENA_W * 0.3f, ARENA_H * 0.5f}), 170, Color{255, 230, 180, 255}, 0.10f);
         VGlow(ToScreen({ARENA_W * 0.7f, ARENA_H * 0.5f}), 170, Color{255, 230, 180, 255}, 0.10f);
@@ -707,5 +743,126 @@ void Battle::DrawTimeOfDay() const {
         VAdd();
         DrawRectangle(0, 0, VW, VH, Fade(Color{255, 244, 215, 255}, 0.05f));
         VNorm();
+    }
+}
+
+// ---------------------------------------------------------------- Weather in the air
+
+void Battle::DrawWeatherSky() const {
+    if (weather == Weather::None) return;
+    float fade = std::min(1.0f, weatherT);
+    const float top = 0, bottom = (float)FLOOR_BOTTOM + 6;
+    const float H = bottom - top;
+    switch (weather) {
+        case Weather::Rain: {
+            DrawRectangleGradientV(0, 0, VW, (int)bottom, Fade(Color{30, 40, 70, 255}, (setup.night ? 0.14f : 0.24f) * fade), Fade(Color{40, 60, 100, 255}, (setup.night ? 0.06f : 0.12f) * fade));
+            const float wind = -0.22f;
+            for (int layer = 0; layer < 3; layer++) {   // far, middle and near rain
+                int n = layer == 0 ? 120 : layer == 1 ? 90 : 45;
+                float speed = layer == 0 ? 300.0f : layer == 1 ? 420.0f : 560.0f;
+                float len = layer == 0 ? 5.0f : layer == 1 ? 8.0f : 13.0f;
+                float w = layer == 0 ? 0.6f : layer == 1 ? 0.9f : 1.3f;
+                float al = layer == 0 ? 0.32f : layer == 1 ? 0.5f : 0.68f;
+                for (int i = 0; i < n; i++) {
+                    float h1 = VRand(300 + layer, i), h2 = VRand(310 + layer, i);
+                    float y = top + std::fmod(h2 * H + time * speed, H);
+                    float x = std::fmod(h1 * (VW + 80) + (y - top) * wind * -1.0f + 4000.0f, (float)(VW + 80)) - 40;
+                    Vector2 a{x, y}, b{x + wind * len, y + len};
+                    DrawLineEx(a, b, w, Fade(Color{190, 215, 255, 255}, al * fade));
+                }
+            }
+            for (int k = 0; k < 40; k++) {   // splashes on the floor
+                float ph = time * 2.6f + VRand(91, k);
+                uint32_t cyc = (uint32_t)ph;
+                float u = ph - cyc;
+                if (u > 0.35f) continue;
+                Vector2 p = ToScreen({VRand(92 + cyc, k) * ARENA_W, VRand(93 + cyc, k) * ARENA_H});
+                float v = u / 0.35f;
+                for (int j = -1; j <= 1; j++) {
+                    Vector2 q{p.x + j * (1.5f + v * 3), p.y - std::sin(v * 3.14159f) * (2.5f - std::abs(j) * 0.8f)};
+                    DrawRectangleV(q, Vector2{0.8f, 0.8f}, Fade(Color{220, 235, 255, 255}, 0.8f * (1 - v) * fade));
+                }
+            }
+            float storm = std::fmod(time, 11.0f);   // now and then, lightning far away
+            if (storm > 10.5f) {
+                float f = storm < 10.6f ? 1.0f : storm < 10.68f ? 0.2f : storm < 10.75f ? 0.8f : 1.0f - (storm - 10.75f) / 0.25f;
+                VAdd();
+                DrawRectangle(0, 0, VW, (int)bottom, Fade(Color{200, 210, 255, 255}, 0.16f * f * fade));
+                VNorm();
+            }
+        } break;
+        case Weather::Snow: {
+            DrawRectangleGradientV(0, 0, VW, (int)bottom, Fade(Color{200, 215, 240, 255}, 0.16f * fade), Fade(Color{220, 230, 250, 255}, 0.05f * fade));
+            for (int layer = 0; layer < 3; layer++) {
+                int n = layer == 0 ? 110 : layer == 1 ? 70 : 26;
+                float speed = layer == 0 ? 18.0f : layer == 1 ? 30.0f : 46.0f;
+                float sz = layer == 0 ? 0.8f : layer == 1 ? 1.3f : 2.2f;
+                float al = layer == 0 ? 0.55f : layer == 1 ? 0.8f : 0.7f;
+                for (int i = 0; i < n; i++) {
+                    float h1 = VRand(400 + layer, i), h2 = VRand(410 + layer, i), h3 = VRand(420 + layer, i);
+                    float y = top + std::fmod(h2 * H + time * speed * (0.8f + h3 * 0.4f), H);
+                    float x = std::fmod(h1 * VW + std::sin(time * (0.8f + h3) + i) * (6 + layer * 4) + time * 8 + VW * 4, (float)VW);
+                    if (layer == 2) { VSoft({x, y}, sz * 1.6f, WHITE, al * fade); VNorm(); }
+                    else DrawCircleV({x, y}, sz, Fade(WHITE, al * fade));
+                }
+            }
+        } break;
+        case Weather::Sand: {
+            DrawRectangleGradientV(0, 0, VW, (int)bottom, Fade(Color{190, 140, 80, 255}, 0.36f * fade), Fade(Color{200, 160, 100, 255}, 0.22f * fade));
+            for (int k = 0; k < 14; k++) {   // dust banks rolling across
+                float h1 = VRand(500, k), h2 = VRand(501, k);
+                float x = std::fmod(h1 * (VW + 300) + time * (60 + h2 * 50), (float)(VW + 300)) - 150;
+                float y = top + 20 + h2 * (H - 30);
+                VSoft({x, y}, 70 + h1 * 60, Color{210, 170, 110, 255}, 0.26f * fade);
+            }
+            VNorm();
+            for (int i = 0; i < 220; i++) {   // grains whipping past
+                float h1 = VRand(510, i), h2 = VRand(511, i), h3 = VRand(512, i);
+                float spd = 240 + h3 * 260;
+                float x = std::fmod(h1 * (VW + 60) + time * spd, (float)(VW + 60)) - 30;
+                float y = top + std::fmod(h2 * H + std::sin(time * 3 + i) * 4 + time * 12, H);
+                float l = 2 + h3 * 6;
+                DrawLineEx({x, y}, {x - l * 1.4f, y - l * 0.1f}, 0.8f + h3 * 0.8f, Fade(Color{240, 210, 160, 255}, (0.45f + h3 * 0.45f) * fade));
+            }
+        } break;
+        case Weather::Sun: {
+            VAdd();
+            DrawRectangleGradientV(0, 0, VW, (int)bottom, Fade(Color{255, 210, 140, 255}, 0.12f * fade), Fade(Color{255, 180, 90, 255}, 0.04f * fade));
+            Vector2 sun{VW * 0.12f, -40};
+            for (int k = 0; k < 7; k++) {   // shafts of light
+                float ang = 0.45f + k * 0.13f + std::sin(time * 0.3f + k) * 0.02f;
+                float w = 0.025f + VRand(601, k) * 0.03f;
+                float len = 700;
+                Vector2 a{sun.x + std::cos(ang - w) * len, sun.y + std::sin(ang - w) * len}, b{sun.x + std::cos(ang + w) * len, sun.y + std::sin(ang + w) * len};
+                float al = (0.05f + 0.04f * std::sin(time * 0.8f + k * 1.7f)) * fade;
+                DrawTriangle(sun, b, a, Fade(Color{255, 235, 180, 255}, al));
+                DrawTriangle(sun, a, b, Fade(Color{255, 235, 180, 255}, al));
+            }
+            VGlow({sun.x + 30, 10}, 90, Color{255, 220, 150, 255}, 0.35f * fade);
+            for (int k = 0; k < 4; k++) {   // a faint lens flare
+                float u = 0.25f + k * 0.2f;
+                Vector2 p{sun.x + (VW * 0.7f - sun.x) * u, 10 + (FLOOR_Y + 120 - 10) * u};
+                VGlow(p, 8 + k * 5, k % 2 ? Color{255, 200, 120, 255} : Color{180, 220, 255, 255}, 0.12f * fade);
+            }
+            for (int i = 0; i < 40; i++) {   // motes in the light
+                float h1 = VRand(610, i), h2 = VRand(611, i);
+                float x = std::fmod(h1 * VW + std::sin(time * 0.5f + i) * 10 + time * 4, (float)VW);
+                float y = FLOOR_Y + std::fmod(h2 * (H - FLOOR_Y) - time * 6 + 400, H - FLOOR_Y);
+                float tw = 0.5f + 0.5f * std::sin(time * 3 + i * 1.3f);
+                VGlow({x, y}, 1.6f, Color{255, 240, 200, 255}, 0.5f * tw * fade);
+            }
+            VNorm();
+            for (int k = 0; k < 5; k++) {   // heat shimmer over the floor
+                float y = FLOOR_Y + 30 + k * 50 + std::fmod(time * 10, 50.0f);
+                if (y > FLOOR_BOTTOM - 4) continue;
+                Vector2 prev{0, y};
+                for (int x = 8; x <= VW; x += 8) {
+                    Vector2 q{(float)x, y + std::sin(x * 0.08f + time * 4 + k) * 1.2f};
+                    DrawLineEx(prev, q, 0.6f, Fade(WHITE, 0.06f * fade));
+                    prev = q;
+                }
+            }
+        } break;
+        default: break;
     }
 }

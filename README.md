@@ -226,6 +226,21 @@ Textures are generated at start-up (no image files). Effects are spawned inside 
 both players see the same thing online; drawing uses a solid body plus additive light so effects read on
 bright and dark arenas alike.
 
+Shots leave a tapered motion streak, hits flash with a shock ring, stat moves show chevrons in the stat's
+colour (Attack red, Defence blue, Speed green) rising through a column of light, healing shows green crosses,
+and everything casts a soft contact shadow.
+
+## Arena floors and weather (src/arena.cpp, src/battle_vfx.cpp)
+
+Battle floors are baked once per battle at full canvas resolution (1920x1080, on a few threads) from
+procedural surfaces sampled in world units: grass blades with flowers or fallen leaves by season, dirt
+paths with pebbles and ruts, beveled stone, tile and metal plates, wood planks with grain and nails,
+cracked rock slabs, ice with frost and cracks, basalt with glowing lava seams, sand ripples and a foamy
+shore, tatami, carpet and marble. A baked light pass adds shade under the walls, a soft vignette and
+drifting cloud light outdoors. Weather is drawn over the field in layers: three depths of slanting rain
+with splashes and far-off lightning, drifting snow in three sizes, rolling sandstorm banks with streaking
+grains, and harsh sun with light shafts, motes and heat shimmer. Night darkens the edges and brings out stars.
+
 ## Pokemon folder
 
 `Pokemon/<Name>/pokemon.txt` plus sprite images, one folder per Pokemon, made from

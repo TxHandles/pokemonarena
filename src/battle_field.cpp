@@ -1383,9 +1383,12 @@ void Battle::DrawObstacle(const Obstacle& o) const {
             Vector2 lean = o.fallDir * (u * o.height);
             Vector2 top = ToScreen(o.pos + lean, o.height * (1.0f - u));
             Vector2 mid = ToScreen(o.pos + lean * 0.5f, o.height * 0.5f * (1.0f - u));
-            DrawEllipse(x, y + 1, (float)r + 3, (r + 3) * 0.45f, Fade(BLACK, 0.35f));
+            VShadow({(float)x + 3, (float)y + 1}, (float)r + 6, (r + 6) * 0.42f, 0.9f);
             DrawLineEx({(float)x, (float)y}, mid, 5, Color{100, 70, 44, 255});
-            DrawLineEx({(float)x - 1, (float)y}, mid, 1, Color{130, 96, 60, 255});
+            DrawLineEx({(float)x + 1.2f, (float)y}, {mid.x + 1.2f, mid.y}, 1.6f, Color{74, 50, 32, 255});
+            DrawLineEx({(float)x - 1.3f, (float)y}, {mid.x - 1.3f, mid.y}, 1, Color{140, 104, 66, 255});
+            DrawTriangle({(float)x - 4, (float)y + 0.5f}, {(float)x, (float)y - 3}, {(float)x - 1, (float)y + 0.5f}, Color{100, 70, 44, 255});   // root flare
+            DrawTriangle({(float)x + 1, (float)y + 0.5f}, {(float)x, (float)y - 3}, {(float)x + 4, (float)y + 0.5f}, Color{86, 60, 38, 255});
             bool burning = o.burnT > 0;
             // Each tree has its own shape (round, pine, tall bush, blossom) and dresses for the season.
             int style = (int)(o.seed % 4);
@@ -1408,28 +1411,44 @@ void Battle::DrawObstacle(const Obstacle& o) const {
                     DrawTriangle({top.x - w + 2, yy - 1}, {top.x + w - 3, yy - 1}, {top.x - 1, yy - 11}, leaf);
                 }
                 DrawTriangle({top.x - 3, top.y + 1}, {top.x, top.y - 5}, {top.x - 1, top.y + 1}, leafL);
-            } else if (style == 2) {   // tall bushy
-                DrawEllipse((int)top.x, (int)(top.y + 6), cr * 0.85f, cr * 1.2f, leafD);
-                DrawEllipse((int)top.x - 1, (int)(top.y + 4), cr * 0.75f, cr * 1.05f, leaf);
-                DrawEllipse((int)top.x - 3, (int)(top.y - 1), cr * 0.3f, cr * 0.4f, leafL);
-            } else {   // round crown (blossom tree in spring)
-                DrawCircle((int)top.x, (int)(top.y + 6), cr + 1, leafD);
-                DrawCircle((int)top.x - 5, (int)(top.y + 8), cr * 0.65f, leaf);
-                DrawCircle((int)top.x + 5, (int)(top.y + 8), cr * 0.65f, leaf);
-                DrawCircle((int)top.x, (int)(top.y + 3), cr * 0.75f, leaf);
-                DrawCircle((int)top.x - 3, (int)(top.y + 1), cr * 0.3f, leafL);
+            } else {   // a leafy crown made of clumps: shadow side, body, sunlit clumps (tall bush / round / blossom)
+                bool tall = style == 2;
+                float sy = tall ? 1.25f : 0.95f;
+                Vector2 c{top.x, top.y + (tall ? 5.0f : 6.0f)};
+                const int N = 9;
+                for (int pass = 0; pass < 3; pass++) {
+                    Color col = pass == 0 ? leafD : pass == 1 ? leaf : leafL;
+                    for (int k = 0; k < N; k++) {
+                        float a = k * 6.2832f / N + VRand(o.seed, k) * 0.5f;
+                        float rr = cr * (0.55f + VRand(o.seed, k + 20) * 0.25f);
+                        Vector2 p{c.x + std::cos(a) * cr * 0.5f, c.y + std::sin(a) * cr * 0.5f * sy};
+                        if (pass == 0) { p.x += 1.2f; p.y += 1.6f; DrawCircleV(p, rr * 1.08f, col); }
+                        else if (pass == 1) DrawCircleV(p, rr * 0.92f, col);
+                        else if (std::cos(a) + std::sin(a) < -0.2f) DrawCircleV({p.x - rr * 0.2f, p.y - rr * 0.25f}, rr * 0.45f, col);
+                    }
+                    if (pass == 1) DrawEllipse((int)c.x, (int)c.y, cr * 0.75f, cr * 0.75f * sy, col);
+                }
+                for (int k = 0; k < 7; k++) {   // leaf glints
+                    Vector2 p{c.x + (VRand(o.seed, 40 + k) - 0.6f) * cr * 1.3f, c.y + (VRand(o.seed, 50 + k) - 0.7f) * cr * 1.2f * sy};
+                    DrawRectangleV(p, {1.0f, 1.0f}, Fade(Color{235, 255, 200, 255}, 0.55f));
+                }
                 if (style == 3 && season != 0 && !burning)   // fruit
-                    for (int k = 0; k < 4; k++) DrawCircle((int)(top.x + (VRand(o.seed, k) - 0.5f) * cr * 1.4f), (int)(top.y + 4 + VRand(o.seed, k + 9) * 8), 1.5f, Color{220, 60, 60, 255});
+                    for (int k = 0; k < 4; k++) {
+                        Vector2 p{top.x + (VRand(o.seed, k) - 0.5f) * cr * 1.3f, top.y + 4 + VRand(o.seed, k + 9) * 8};
+                        DrawCircleV(p, 1.6f, Color{200, 40, 40, 255});
+                        DrawCircleV({p.x - 0.5f, p.y - 0.5f}, 0.6f, Color{255, 180, 170, 255});
+                    }
             }
             if (season == 3 && !burning) {   // snow on the branches
                 DrawEllipse((int)top.x - 2, (int)(top.y + (style == 1 ? 2 : -1)), cr * 0.55f, 3, Color{240, 246, 255, 255});
                 DrawEllipse((int)top.x + 4, (int)(top.y + 7), cr * 0.35f, 2, Color{240, 246, 255, 255});
             }
             if (burning) {
+                uint32_t fr = (uint32_t)(time * 14);   // (drawing must not touch the battle's random numbers)
                 for (int k = 0; k < 6; k++) {
-                    int fx = (int)top.x + SimRand(-(int)cr, (int)cr);
-                    int fy = (int)top.y + SimRand(-2, 10);
-                    DrawRectangle(fx, fy - 3, 2, 4, SimRand(0, 1) ? Color{255, 150, 40, 255} : Color{255, 220, 90, 255});
+                    int fx = (int)(top.x + (VRand(o.seed + fr, k) * 2 - 1) * cr);
+                    int fy = (int)(top.y - 2 + VRand(o.seed + fr, k + 10) * 12);
+                    DrawRectangle(fx, fy - 3, 2, 4, VRand(o.seed + fr, k + 20) < 0.5f ? Color{255, 150, 40, 255} : Color{255, 220, 90, 255});
                 }
             }
         } break;
