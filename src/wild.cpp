@@ -309,3 +309,34 @@ int PickRareWild(const std::vector<std::string>& owned) {
     const auto& from = fresh.empty() ? rare : fresh;
     return from[GetRandomValue(0, (int)from.size() - 1)]->species;
 }
+
+std::vector<WildAreaMon> WildAreaMons(int area, int storyStage, int badges) {
+    std::vector<WildAreaMon> v;
+    auto picks = Usable(area, storyStage, badges, true);
+    float total = 0;
+    for (const auto& p : picks) if (!p.e->rare) total += p.w;
+    for (const auto& p : picks) {
+        WildAreaMon* row = nullptr;
+        for (auto& r : v) if (r.species == p.e->species) row = &r;
+        if (!row) {
+            v.push_back(WildAreaMon{});
+            row = &v.back();
+            row->species = p.e->species;
+            row->rare = true;
+            row->lo = p.e->lo;
+            row->hi = p.e->hi;
+            row->method = p.e->method;
+        }
+        if (!p.e->rare) {
+            row->rare = false;
+            row->share += total > 0 ? p.w / total : 0;
+        }
+        row->lo = std::min(row->lo, p.e->lo);
+        row->hi = std::max(row->hi, p.e->hi);
+    }
+    std::stable_sort(v.begin(), v.end(), [](const WildAreaMon& a, const WildAreaMon& b) {
+        if (a.rare != b.rare) return !a.rare;
+        return a.share > b.share;
+    });
+    return v;
+}

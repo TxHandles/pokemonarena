@@ -1,6 +1,6 @@
-# Arena Clash
+# Pokemon Battle Masters (Arena Clash)
 
-A 2D real-time creature arena battler in C++ with raylib: 18 types, ~170 moves with Pokemon-style
+A 2D real-time Pokemon arena battler in C++ with raylib: 18 types, ~170 moves with Pokemon-style
 names and effects, levels, evolution, catching, eight gym stadiums with their own mechanics, a Story
 Mode with save profiles, and fully remappable controls. Teams are 1–6 creatures.
 
@@ -20,6 +20,11 @@ writes back any of them that are missing, so the exe alone is a complete game an
 never overwritten. Re-run the script after changing those files if you want the exe to carry the
 changes. The build also copies `Pokemon/` and `story.txt` next to the exe. Saves go in `saves/` and settings in
 `settings.txt`, both next to the exe.
+
+## Title menu
+
+Story Mode, **Co-op** (Local Co-op / Online Co-op), **Quick Battle** (1 vs CPU, 2 Players, 2v2 Battle,
+Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
 
 ## Modes
 
@@ -72,14 +77,23 @@ changes. The build also copies `Pokemon/` and `story.txt` next to the exe. Saves
   (saved as `legends` in the profile / co-op save; online both games share it). Lower HP = better odds;
   Mewtwo and Mew are harder to catch, and a Master Ball always works. Legendaries no longer show up as
   rare training encounters.
-- **HP carry-over and the Healing Center** – HP stays between Story battles. Healing costs about
+- **Hub icons** – Settings is the gear in the top-left corner of the Story and co-op hubs; in co-op the
+  bar-graph icon next to it opens the co-op leaderboard. Up from the first menu item reaches them.
+- **Bag** – the hub's Bag item (solo, local and online co-op) shows everything you carry in five pockets:
+  Poke Balls, Held Items, Evolution Stones, TMs and Key Items (Badge Case, Coin Case, the Old Sea Map),
+  with each item's description and a list of the items your Pokemon are holding.
+- **HP carry-over and the Healing Center** – the Pokemon Center heals your **party** only (the Box
+  doesn't count), one Pokemon or the whole party at once. HP stays between Story battles. Healing costs about
   3 coins per level for a full heal; reviving costs 6 per level + 10. Coins for a win: trainer
   30 + 6×Lv, gym 150 + 15×Lv, Elite Four 300 + 20×Lv, Champion 600 + 25×Lv, Tower 40 + 7×Lv + 4×floor,
   training 15 + 3×Lv (or `coins =` in story.txt). A free emergency heal
   kicks in if the whole team is down and you can't pay.
 - **Map** – the hub draws `map.png` (set by `map_image` in story.txt) with each stage at its `map = x, y`
   spot, badges on the gyms and the lead creature at the next stage. Without an image it draws a simple map.
-- **Training** – bring up to 6, face up to 3 (`training_max_foes`). Every 5th training battle
+- **Training** – bring up to 6, face up to 3 (`training_max_foes`) but never more wild Pokemon than
+  you bring (bring 1, face 1). On the team screen X / Tab opens **Where to train**: every area open so
+  far with the Pokemon that live there (common / uncommon / rare, level range); ones not yet in your
+  Pokedex are silhouettes. Every 5th training battle
   (`rare_every`) is a lone rare creature (species with `rare = yes`) at your level + 3 to catch.
 - **Shop and held items** (`src/items.cpp`) – Poke/Great/Ultra/Master Balls and 36 held items, unlocked
   by badge count: 18 type boosters (+20%), Swift Wing, Quick Claw, Lucky Egg, Amulet Coin, Leftovers,
@@ -95,14 +109,14 @@ changes. The build also copies `Pokemon/` and `story.txt` next to the exe. Saves
 - **Watch CPU vs CPU** – for testing matchups.
 - **Party & Box** – a profile carries up to 6 creatures in its party; the rest wait in the Box.
   Only the party can be brought into battle. Catches and rewards go to the Box when the party is full.
-  Wild battles (training, rare encounters) always have at least 2 foes.
+  A Pokemon in the Box can be released into the wild (its held item goes back to the Bag).
 - **2v2 Battle** – four creatures on the field: you + CPU vs 2 CPUs, P1 + P2 vs 2 CPUs, or P1 + CPU vs
   P2 + CPU. Each player brings 1–3. Attacks go at the foe you face; a player whose team is out can
   press Swap to take over a benched creature of their partner's.
 - **Co-op Story** – two profiles share a co-op save (`saves/A+B.coop`: stage, badges, record).
   XP, coins, items and creatures stay in each profile. Every battle is 2v2: each player brings up
   to 3 of their party, CPU teams get +2 creatures (at least 3, never more than 6), training has
-  2–4 wild foes and the rare creature is +6 levels with a partner. Everyone who fought gets full
+  up to 4 wild foes (fewer than the two of you bring together) and the rare creature is +6 levels with a partner. Everyone who fought gets full
   XP. After a catchable win there's a catch draft: whoever dealt more damage picks first, each
   player throws their own balls at one creature, and the partner can't take the same one.
 - **Friendship** – every creature has a friendship meter (shown as hearts in Party & Box, 0–255,
@@ -136,7 +150,9 @@ changes. The build also copies `Pokemon/` and `story.txt` next to the exe. Saves
   when their real input arrives. A checksum every 60 ticks catches drift; the host then sends its
   whole battle (SaveBattle/LoadBattle). Connecting: direct address (LAN / Radmin VPN / ZeroTier /
   forwarded UDP port 47777) or connection codes (STUN-discovered public address + UDP hole
-  punching; both players swap codes). Testing aid: ARENA_NET_LAG_MS=80 delays every message.
+  punching; both players swap codes). If the connection drops, the reconnect banner's Tab opens a box
+  to type your friend's new code (when they restarted the game) without leaving. B on a gamepad backs
+  out of the Host / Join pages. Testing aid: ARENA_NET_LAG_MS=80 delays every message.
 - **Stalemates** – if no one loses HP for 30 s (or a battle passes 200 s), sudden death starts.
 
 ## Levels and evolution
@@ -233,6 +249,11 @@ of the shared keyboard, and two gamepads (keys used twice show in red).
 | Gamepad | Left stick / d-pad | A B X Y | RT / R2 | LT / L2 | LB / L1 | RB / R1 | Start |
 
 Swap next / back step forward or backward through your party (skipping fainted ones).
+
+**Quick Select (solo Story Mode)** – hold Swap (RT) for about half a second: the battle pauses and a
+wheel of your team appears. Point at a Pokemon with the right stick (or left stick / WASD) and press A to
+switch, B to cancel. On the keyboard, 1–6 switch straight to that party slot. If the swap is still
+cooling down, the chosen Pokemon comes in as soon as it's ready. A quick tap still swaps to the next one.
 
 Dodge: a quick dash (in the direction you're moving, or backwards when standing still) that attacks pass
 straight through; 6-second cooldown, shown on a tab above your moves. Jump: no cooldown and no

@@ -46,6 +46,11 @@ struct WildSpot {
 };
 std::vector<WildSpot> WildSpotsFor(int species, int storyStage, int badges);
 
+// Everything that can turn up in an area right now (one row per species): its share of the
+// training encounters (0..1, 0 for rare-only ones), whether it's only a rare find, and the level range.
+struct WildAreaMon { int species = -1; float share = 0; bool rare = false; int lo = 0, hi = 0; std::string method; };
+std::vector<WildAreaMon> WildAreaMons(int area, int storyStage, int badges);
+
 // Training context: set before building a training battle (MakeCpuTeam(nullptr, ...) and
 // PickRareSpecies then use the area's table). area < 0 turns it off.
 void SetWildContext(int area, int storyStage, int badges);

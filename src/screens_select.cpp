@@ -190,10 +190,93 @@ void BeginTeamSelect(Game& g) {
         for (int p = 0; p < HumanPickers(g); p++) g.teamSize = std::min(g.teamSize, (int)g.roster[p].size());
     g.teamSize = std::max(1, g.teamSize);
     g.startDelay = -1;
+    g.areaPick = false;
     g.screen = Screen::Select;
 }
 
+namespace {
+bool TrainingSelect(const Game& g) { return (g.mode == Mode::Training || g.mode == Mode::CoopTraining) && !g.tower && g.legend < 0; }
+
+// Training: the "where to train" menu (X / Tab on the team screen).
+void UpdateAreaPick(Game& g) {
+    PlayerInput in = MenuInput();
+    auto open = OpenWildAreas(TrainStage(g));
+    int n = (int)open.size();
+    if (n == 0 || in.back || in.sort) { g.areaPick = false; PlaySfx(Sfx::MenuBack); return; }
+    if (in.up) { g.areaSel = (g.areaSel + n - 1) % n; PlaySfx(Sfx::MenuMove); }
+    if (in.down) { g.areaSel = (g.areaSel + 1) % n; PlaySfx(Sfx::MenuMove); }
+    if (in.left) { g.areaSel = std::max(0, g.areaSel - 8); PlaySfx(Sfx::MenuMove); }
+    if (in.right) { g.areaSel = std::min(n - 1, g.areaSel + 8); PlaySfx(Sfx::MenuMove); }
+    if (!in.confirm) return;
+    int area = open[std::max(0, std::min(n - 1, g.areaSel))];
+    if (area == TrainingAreaIndex(g)) { g.areaPick = false; PlaySfx(Sfx::MenuOk); return; }
+    if (g.on.active && g.rareBattle) { Toast(g, "This rare find lives where you are - change the area after this battle."); return; }
+    if (!SetTrainArea(g, area)) { PlaySfx(Sfx::MenuBack); return; }
+    SetTrainingWild(g);
+    if (g.rareBattle) RepickRare(g);
+    g.areaPick = false;
+    PlaySfx(Sfx::MenuOk);
+}
+
+void DrawAreaPick(const Game& g) {
+    auto open = OpenWildAreas(TrainStage(g));
+    int n = (int)open.size();
+    if (n == 0) return;
+    int sel = std::max(0, std::min(n - 1, g.areaSel));
+    int cur = TrainingAreaIndex(g);
+    DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.75f));
+    DrawPanel(14, 14, 612, 328, Color{28, 40, 34, 255}, Color{120, 200, 120, 255});
+    DrawRectangle(14, 14, 612, 22, Color{50, 110, 60, 255});
+    DrawTextShadow("WHERE DO YOU WANT TO TRAIN?", 24, 19, 10, WHITE);
+    if (g.on.active && g.on.me != 0) DrawText("(the host picks the area)", 400, 19, 10, Color{200, 230, 200, 255});
+    // the areas
+    int rows = 14, first = std::max(0, std::min(sel - rows / 2, n - rows));
+    for (int k = first; k < std::min(n, first + rows); k++) {
+        int a = open[k];
+        int y = 42 + (k - first) * 21;
+        bool on = k == sel, here = a == cur;
+        DrawPanel(22, y, 196, 19, on ? Color{60, 120, 70, 255} : Color{36, 54, 42, 255}, on ? UI_GOLD : (here ? Color{140, 230, 150, 255} : Color{60, 90, 66, 255}));
+        DrawText(WildAreas()[a].name.c_str(), 30, y + 5, 10, on ? UI_GOLD : UI_TEXT);
+        if (here) DrawText("here", 212 - TextW("here", 10), y + 5, 10, Color{140, 230, 150, 255});
+    }
+    if (n > rows) DrawText(TextFormat("%d / %d", sel + 1, n), 22, 338 - 12, 10, UI_DIM);
+    // what lives there: seen ones show, unseen ones are silhouettes
+    int area = open[sel];
+    auto mons = WildAreaMons(area, TrainStage(g), TrainBadges(g));
+    DrawText(WildAreas()[area].name.c_str(), 232, 44, 20, UI_GOLD);
+    DrawText("Pokemon found here", 232, 68, 10, UI_DIM);
+    auto seen = [&](int sp) {
+        const std::string& nm = AllSpecies()[sp].name;
+        for (int p = 0; p < (g.coop ? 2 : 1); p++)
+            if (DexHasSeen(Prof(g, p), nm) || DexHasCaught(Prof(g, p), nm)) return true;
+        return false;
+    };
+    int cols = 4;
+    for (int k = 0; k < (int)mons.size() && k < 16; k++) {
+        const auto& m = mons[k];
+        int x = 232 + (k % cols) * 96, y = 84 + (k / cols) * 58;
+        bool s = seen(m.species);
+        DrawPanel(x, y, 92, 54, Color{36, 54, 42, 255}, m.rare ? Color{255, 150, 230, 255} : Color{70, 110, 76, 255});
+        DrawSpeciesFit(m.species, VIEW_FRONT, x + 46, y + 38, 32, s ? WHITE : Color{12, 16, 14, 255});
+        DrawTextCentered(s ? AllSpecies()[m.species].name.c_str() : "???", x + 46, y + 40, 10, s ? UI_TEXT : UI_DIM, false);
+        const char* tag = m.rare ? "RARE" : (m.share >= 0.25f ? "Common" : m.share >= 0.10f ? "Uncommon" : "Rare");
+        DrawText(tag, x + 4, y + 3, 10, m.rare ? Color{255, 150, 230, 255} : UI_DIM);
+        DrawText(TextFormat("Lv%d-%d", m.lo, m.hi), x + 88 - TextW(TextFormat("Lv%d-%d", m.lo, m.hi), 10), y + 3, 10, UI_DIM);
+    }
+    if (mons.size() > 16) DrawText(TextFormat("+%d more", (int)mons.size() - 16), 232, 316, 10, UI_DIM);
+    DrawText("Unseen Pokemon show as silhouettes - meet them to fill in your Pokedex.", 232, 324, 10, Color{170, 200, 170, 255});
+    DrawText("Up/Down area   Enter train here   X / Esc close", 24, 346 - 12, 10, Color{200, 230, 200, 255});
+}
+} // namespace
+
 void UpdateSelect(Game& g, float dt) {
+    if (g.areaPick) { UpdateAreaPick(g); return; }
+    if (TrainingSelect(g) && MenuSortPressed()) {   // X / Tab: choose where to train
+        auto open = OpenWildAreas(TrainStage(g));
+        g.areaSel = 0;
+        for (int k = 0; k < (int)open.size(); k++) if (open[k] == TrainingAreaIndex(g)) g.areaSel = k;
+        if (!open.empty()) { g.areaPick = true; PlaySfx(Sfx::MenuOk); return; }
+    }
     int players = HumanPickers(g);
     bool online = g.on.active;
     for (int p = 0; p < players; p++) {
@@ -331,14 +414,18 @@ void StartBattleFromSelect(Game& g) {
                 c.moves = MovesAtLevel(AllSpecies()[c.species], c.level);
                 c.shiny = RollShiny();   // the rare one can be shiny too
                 g.cpuTeam = {c};
-                // Wild creatures never come alone: a regular one tags along.
-                auto pal = MakeCpuTeam(nullptr, std::max(2, avg - 1), 1);
-                g.cpuTeam.push_back(pal[0]);
+                // A regular one tags along - unless you brought just one Pokemon (never more wild
+                // Pokemon than you have).
+                if (g.picks[0].size() >= 2) {
+                    auto pal = MakeCpuTeam(nullptr, std::max(2, avg - 1), 1);
+                    if (!pal.empty()) g.cpuTeam.push_back(pal[0]);
+                }
                 b.label = "Wild " + AllSpecies()[c.species].name;
                 b.level = AILevel::Hard;
                 su.arena = ArenaKind::Stadium;   // wild battles happen out in the world (venue below)
             } else {
-                int foes = std::max(2, std::min((int)g.picks[0].size(), Story().trainingMaxFoes));  // never fewer than 2
+                // never more wild Pokemon than you brought
+                int foes = std::max(1, std::min((int)g.picks[0].size(), Story().trainingMaxFoes));
                 g.cpuTeam = MakeCpuTeam(nullptr, avg, foes);
                 b.level = Cfg().cpuLevel;
                 b.label = "Wild";
@@ -420,14 +507,16 @@ void StartBattleFromSelect(Game& g) {
                     c.moves = MovesAtLevel(AllSpecies()[c.species], c.level);
                     c.shiny = RollShiny();   // the rare one can be shiny too
                     cpu = {c};
-                    auto pal = MakeCpuTeam(nullptr, std::min(MAX_LEVEL, avg2 + 1), 1);
-                    cpu.push_back(pal[0]);
+                    if (v[0].team.size() + v[1].team.size() >= 2) {
+                        auto pal = MakeCpuTeam(nullptr, std::min(MAX_LEVEL, avg2 + 1), 1);
+                        if (!pal.empty()) cpu.push_back(pal[0]);
+                    }
                     lvA = AILevel::Hard;
                     label = "Wild " + AllSpecies()[c.species].name;
                     su.arena = ArenaKind::Stadium;
                 } else {
                     int total = (int)(v[0].team.size() + v[1].team.size());
-                    int foes = std::min(4, std::max(2, total - 1));
+                    int foes = std::min(4, std::max(1, total - 1));   // never more wild Pokemon than the two of you brought
                     cpu = MakeCpuTeam(nullptr, avg2, foes);
                     label = "Wild";
                 }
@@ -528,6 +617,9 @@ void StartBattleFromSelect(Game& g) {
     g.battle.Start(su);
     g.paused = false;
     g.pauseSel = 0;
+    g.wheel = g.wheelRelease = false;
+    g.swapHoldT = 0;
+    g.pendingSwap = -1;
     g.screen = Screen::Battle;
 }
 
@@ -577,9 +669,9 @@ void DrawSelect(const Game& g) {
                             : IsRematch(g) && st.IsBoss() ? " - REMATCH (scaled to your level)"
                             : st.IsGym() ? TextFormat(" - %s Badge", st.badge.c_str()) : st.IsChampion() ? " - CHAMPIONSHIP" : st.IsLeague() ? " - Elite Four" : "");
         } else if (g.rareBattle && g.rareSpecies >= 0) {
-            vs = TextFormat("RARE: a wild %s and a partner - weaken them to catch!", AllSpecies()[g.rareSpecies].name.c_str());
+            vs = TextFormat("RARE in %s: a wild %s - weaken it to catch!   X / Tab: area", TrainAreaName(g).c_str(), AllSpecies()[g.rareSpecies].name.c_str());
         } else {
-            vs = "Training: 2 to 4 wild creatures - weaken them to catch!";
+            vs = TextFormat("Training in %s - up to 4 wild Pokemon - X / Tab: choose where to train", TrainAreaName(g).c_str());
         }
         DrawTextCentered(vs.c_str(), VW / 2, 20, 10, (g.rareBattle && g.mode == Mode::CoopTraining) ? Color{255, 150, 230, 255} : UI_TEXT, false);
     }
@@ -676,13 +768,15 @@ void DrawSelect(const Game& g) {
                     DrawText("Weaken it, then catch it with", x + 6, y + 82, 10, UI_GOLD);
                     DrawText("a ball - don't knock it out!", x + 6, y + 94, 10, UI_GOLD);
                     DrawText(TextFormat("Poke Balls: %d", BagCount(g.profile, "Poke Ball")), x + 6, y + 112, 10, UI_TEXT);
+                    DrawText(TextFormat("In %s   (X / Tab: area)", TrainAreaName(g).c_str()), x + 6, y + 126, 10, Color{140, 230, 150, 255});
                 } else {
                     DrawTextShadow("Training battle", x + 6, y + 24, 20, UI_TEXT);
-                    DrawText("Wild Pokemon near your team's level.", x + 6, y + 50, 10, UI_DIM);
-                    DrawText(TextFormat("2 to %d wild Pokemon - bring up to 6!", std::max(2, Story().trainingMaxFoes)), x + 6, y + 66, 10, UI_TEXT);
+                    DrawText(TextFormat("In %s", TrainAreaName(g).c_str()), x + 6, y + 50, 10, Color{140, 230, 150, 255});
+                    DrawText(TextFormat("Up to %d wild Pokemon - never more than you bring", std::max(2, Story().trainingMaxFoes)), x + 6, y + 66, 10, UI_TEXT);
                     int every = std::max(1, Story().rareEvery);
                     DrawText(TextFormat("Training wins: %d  (every %dth battle: a rare creature)", g.profile.trainingWins, every), x + 6, y + 80, 10, UI_TEXT);
                     DrawText("Weaken a foe to try catching it after the win!", x + 6, y + 96, 10, UI_GOLD);
+                    DrawText("X / Tab: choose where to train", x + 6, y + 112, 10, UI_GOLD);
                 }
             }
             continue;
@@ -759,14 +853,101 @@ void DrawSelect(const Game& g) {
         DrawRectangle(0, 150, VW, 40, Fade(UI_INK, 0.8f));
         DrawTextCentered("BATTLE START!", VW / 2, 160, 20, UI_GOLD);
     }
+    if (g.areaPick) DrawAreaPick(g);
 }
 
 // ------------------------------------------------------------------ battle
+
+namespace {
+// Solo Story Mode: hold Swap for the Quick Select wheel (the battle pauses), tap it to swap to
+// the next Pokemon as before.
+constexpr float WHEEL_HOLD = 0.45f;
+bool WheelMode(const Game& g) { return (g.mode == Mode::Story || g.mode == Mode::Training) && !g.coop && !g.on.active; }
+
+// The wheel's slots: every Pokemon of your team, in order, around a circle (slot 0 at the top).
+int WheelSlotAt(int n, Vector2 v) {
+    if (n <= 0) return -1;
+    float a = std::atan2(v.x, -v.y);   // 0 = up, clockwise
+    if (a < 0) a += 2 * PI;
+    return (int)std::lround(a / (2 * PI / n)) % n;
+}
+bool WheelPickable(const Side& sd, int i) {
+    const Fighter& f = sd.team[i];
+    return i != sd.active && f.hp > 0 && !f.retired && !f.lent && f.state == FState::Benched;
+}
+
+// Returns true while the wheel is open (the battle waits).
+bool UpdateWheel(Game& g, PlayerInput& p, float dt) {
+    const Side& sd = g.battle.GetSide(0);
+    int n = (int)sd.team.size();
+    if (g.wheel) {
+        Vector2 v = p.stick2;
+        if (std::sqrt(v.x * v.x + v.y * v.y) < 0.5f) v = p.move;
+        if (std::sqrt(v.x * v.x + v.y * v.y) >= 0.5f) {
+            int s = WheelSlotAt(n, v);
+            if (s != g.wheelSel) { g.wheelSel = s; PlaySfx(Sfx::MenuMove); }
+        }
+        if (p.swapTo >= 0 && p.swapTo < n) g.wheelSel = p.swapTo;
+        bool go = p.confirm || p.swapTo >= 0;
+        if (p.back) { g.wheel = false; g.wheelRelease = true; PlaySfx(Sfx::MenuBack); p = PlayerInput(); return false; }
+        if (go && g.wheelSel >= 0 && g.wheelSel < n) {
+            if (!WheelPickable(sd, g.wheelSel)) {
+                PlaySfx(Sfx::MenuBack);
+                return true;
+            }
+            int to = g.wheelSel;
+            g.wheel = false;
+            g.wheelRelease = true;
+            p = PlayerInput();
+            p.swapTo = to;
+            PlaySfx(Sfx::MenuOk);
+            return false;
+        }
+        return true;
+    }
+    if (g.wheelRelease) {   // the wheel just closed: wait until Swap is let go
+        if (!p.swapHeld) g.wheelRelease = false;
+        p.swap = false;
+        g.swapHoldT = 0;
+        return false;
+    }
+    if (p.swapHeld) {
+        p.swap = false;   // decided when it's let go (a tap) or held (the wheel)
+        g.swapHoldT += dt;
+        if (g.swapHoldT >= WHEEL_HOLD && sd.Cur().state == FState::Active && sd.AliveCount() > 1) {
+            g.wheel = true;
+            g.wheelSel = -1;
+            for (int k = 1; k <= n; k++) if (WheelPickable(sd, (sd.active + k) % n)) { g.wheelSel = (sd.active + k) % n; break; }
+            g.swapHoldT = 0;
+            PlaySfx(Sfx::MenuOk);
+            return true;
+        }
+    } else if (g.swapHoldT > 0) {
+        if (g.swapHoldT < WHEEL_HOLD) p.swap = true;   // a tap: the next Pokemon, as always
+        g.swapHoldT = 0;
+    }
+    return false;
+}
+} // namespace
 
 void UpdateBattleScreen(Game& g, float dt) {
     if (OnlineBattleUpdate(g, dt)) return;
     bool tp = TwoHumans(g);
     PlayerInput in[2] = {ReadInput(0, tp), ReadInput(1, tp)};
+    if (WheelMode(g) && !g.paused) {
+        if (UpdateWheel(g, in[0], dt)) return;
+        // A chosen swap (wheel or keys 1-6) waits for the cooldown instead of being lost.
+        const Side& sd = g.battle.GetSide(0);
+        if (in[0].swapTo >= 0 && WheelPickable(sd, in[0].swapTo) && (sd.swapCd > 0 || sd.Cur().state != FState::Active)) {
+            g.pendingSwap = in[0].swapTo;
+            g.pendingSwapT = 4.0f;
+        }
+        if (g.pendingSwap >= 0) {
+            g.pendingSwapT -= dt;
+            if (g.pendingSwapT <= 0 || g.pendingSwap >= (int)sd.team.size() || !WheelPickable(sd, g.pendingSwap)) g.pendingSwap = -1;
+            else if (sd.swapCd <= 0 && sd.Cur().state == FState::Active) { in[0].swapTo = g.pendingSwap; g.pendingSwap = -1; }
+        }
+    }
     if (in[0].pause || in[1].pause) {
         g.paused = !g.paused;
         g.pauseSel = 0;
@@ -805,6 +986,49 @@ void DrawBattleScreen(const Game& g) {
         }
         return;
     }
+    if (g.wheel) {   // the Quick Select wheel
+        const Side& sd = g.battle.GetSide(0);
+        int n = (int)sd.team.size();
+        DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.6f));
+        Vector2 c{VW / 2.0f, 172};
+        float R = 100;
+        DrawCircleV(c, R + 34, Fade(Color{20, 22, 40, 255}, 0.85f));
+        DrawCircleLines((int)c.x, (int)c.y, R + 34, Fade(UI_GOLD, 0.6f));
+        if (g.wheelSel >= 0 && g.wheelSel < n) {   // the pointer, under the slots and the middle
+            float a = g.wheelSel * 2 * PI / n;
+            DrawLineEx(c, Vector2{c.x + std::sin(a) * R, c.y - std::cos(a) * R}, 3, Fade(UI_GOLD, 0.7f));
+        }
+        DrawCircleV(c, 40, Color{30, 34, 60, 255});
+        DrawCircleLines((int)c.x, (int)c.y, 40, Fade(UI_GOLD, 0.35f));
+        for (int i = 0; i < n; i++) {
+            float a = i * 2 * PI / n;
+            Vector2 p{c.x + std::sin(a) * R, c.y - std::cos(a) * R};
+            const Fighter& f = sd.team[i];
+            bool sel = g.wheelSel == i, cur = i == sd.active;
+            bool ok = WheelPickable(sd, i);
+            DrawCircleV(p, 27, sel ? Color{255, 214, 60, 255} : (cur ? Color{90, 150, 230, 255} : Color{60, 64, 96, 255}));
+            DrawCircleV(p, 24, ok || cur ? Color{36, 40, 70, 255} : Color{40, 30, 36, 255});
+            DrawSpeciesFit(ShinyIdx(f.RealSpecies(), f.shiny), VIEW_FRONT, (int)p.x, (int)p.y + 14, 30, f.hp > 0 ? WHITE : Color{90, 90, 100, 255}, true);
+            DrawCircleV(Vector2{p.x - 21, p.y - 19}, 7, sel ? Color{255, 214, 60, 255} : Color{24, 26, 46, 255});
+            DrawTextCentered(TextFormat("%d", i + 1), (int)p.x - 21, (int)p.y - 24, 10, sel ? UI_INK : UI_GOLD, false);
+            float hp = f.maxHp > 0 ? std::max(0.0f, f.hp) / f.maxHp : 0;
+            DrawHpBar((int)p.x - 16, (int)p.y + 17, 32, 3, hp);
+            if (cur) DrawTextCentered("IN BATTLE", (int)p.x, (int)p.y - 36, 10, Color{140, 190, 255, 255}, true);
+            else if (f.hp <= 0) DrawTextCentered("FAINTED", (int)p.x, (int)p.y - 36, 10, Color{255, 120, 100, 255}, true);
+        }
+        if (g.wheelSel >= 0 && g.wheelSel < n) {
+            const Fighter& f = sd.team[g.wheelSel];
+            DrawTextCentered(f.sp->name.c_str(), (int)c.x, (int)c.y - 12, 10, UI_GOLD, false);
+            DrawTextCentered(TextFormat("Lv%d", f.level), (int)c.x, (int)c.y + 2, 10, UI_TEXT, false);
+        } else {
+            DrawTextCentered("QUICK", (int)c.x, (int)c.y - 12, 10, UI_GOLD, false);
+            DrawTextCentered("SELECT", (int)c.x, (int)c.y + 2, 10, UI_GOLD, false);
+        }
+        DrawRectangle(0, 314, VW, sd.swapCd > 0 ? 34 : 20, Fade(UI_INK, 0.92f));
+        DrawTextCentered("Right stick: point   A: switch   B: cancel   (keys 1-6 work too)", VW / 2, 319, 10, UI_TEXT, false);
+        if (sd.swapCd > 0) DrawTextCentered(TextFormat("Swap ready in %.1fs - it switches as soon as it can", sd.swapCd), VW / 2, 333, 10, UI_DIM, false);
+        return;
+    }
     if (!g.paused) return;
     DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.7f));
     DrawTextCentered("PAUSED", VW / 2, 70, 30, UI_GOLD);
@@ -813,6 +1037,9 @@ void DrawBattleScreen(const Game& g) {
     DrawControlsHelp(60, 200, TwoHumans(g));
     DrawText("Status: BRN burn, PSN/TOX poison, PAR paralysis, FRZ frozen, SLP asleep. Moves show x2 / x0.5 / x0 vs the foe.",
              60, 250, 10, UI_DIM);
+    if (WheelMode(g))
+        DrawText("Quick Select: hold Swap (RT), point with the right stick, A to switch.   Keys 1-6: that slot.",
+                 60, 264, 10, Color{140, 230, 150, 255});
 }
 
 // ------------------------------------------------------------------ quick results

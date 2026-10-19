@@ -194,7 +194,7 @@ void UpdatePokedex(Game& g) {
         }
         return;
     }
-    if (in.back || n == 0) { PlaySfx(Sfx::MenuBack); EnterStoryHub(g); g.hubSel = 6; return; }
+    if (in.back || n == 0) { PlaySfx(Sfx::MenuBack); EnterStoryHub(g); g.hubSel = 7; return; }
     if (in.confirm) {
         int idx = list[std::max(0, std::min(n - 1, g.dexSel))];
         if (DexHasSeen(DexProfile(g), AllSpecies()[idx].name)) { g.dexWhere = true; g.dexWhereSel = 0; PlaySfx(Sfx::MenuOk); }
@@ -404,7 +404,7 @@ void LeaveTrade(Game& g) {
     g.screen = Screen::CoopHub;   // OnlineSendTrade below sees we left
     OnlineSendTrade(g);
     EnterStoryHub(g);
-    g.hubSel = 7;
+    g.hubSel = 8;
 }
 
 } // namespace

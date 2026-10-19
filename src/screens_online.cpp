@@ -196,6 +196,7 @@ const char* ActivityName(Screen s) {
         case Screen::Trade: return "at the trade machine";
         case Screen::Pokedex: return "reading their Pokedex";
         case Screen::Legends: return "reading about Legendary Pokemon";
+        case Screen::Bag: return "looking in their Bag";
         case Screen::LegendCatch: return "catching a legendary";
         default: return "busy";
     }
@@ -456,15 +457,79 @@ bool OnlineWaiting(Game& g) {
     return true;
 }
 
+static void TypeCode(std::string& s, size_t maxLen);
+
+// The friend restarted their game (new code): type it here instead of leaving and joining again.
+bool OnlineCodeEntry(Game& g) {
+    OnlineSession& o = g.on;
+    if (!o.active || !o.reconnecting) { o.codeEdit = false; return false; }
+    if (!o.codeEdit) {
+        if (IsKeyPressed(KEY_TAB)) {
+            o.codeEdit = true;
+            o.newCode.clear();
+            while (GetCharPressed()) {}
+            PlaySfx(Sfx::MenuOk);
+            return true;
+        }
+        return false;
+    }
+    bool back = IsKeyPressed(KEY_ESCAPE);
+    for (int p = 0; p < 4; p++) if (IsGamepadAvailable(p) && IsGamepadButtonPressed(p, GAMEPAD_BUTTON_RIGHT_FACE_RIGHT)) back = true;
+    if (back) { o.codeEdit = false; PlaySfx(Sfx::MenuBack); return true; }
+    if ((IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL)) && IsKeyPressed(KEY_C) && !net::MyCode().empty()) {
+        SetClipboardText(net::MyCode().c_str());
+        Toast(g, "Your code was copied - send it to your friend.");
+    }
+    TypeCode(o.newCode, 60);
+    bool enter = IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_KP_ENTER);
+    for (int p = 0; p < 4; p++) if (IsGamepadAvailable(p) && IsGamepadButtonPressed(p, GAMEPAD_BUTTON_RIGHT_FACE_DOWN)) enter = true;
+    if (enter && !o.newCode.empty()) {
+        std::string c = o.newCode;
+        while (!c.empty() && c.back() == ' ') c.pop_back();
+        while (!c.empty() && c.front() == ' ') c.erase(c.begin());
+        o.field = c;
+        o.codeEdit = false;
+        if (o.me == 1) {   // guest: knock on the new code right away
+            std::string err;
+            if (!net::HasSocket()) net::Open(false, net::DEFAULT_PORT, err);
+            else net::Rearm();
+            if (!net::Connect(o.field, err)) Toast(g, err);
+            o.retryAt = o.reconnectT + 3.0f;
+        } else if (net::CodeLooksValid(o.field)) {
+            net::PunchTo(o.field);   // host: open the path toward the friend's new code
+        }
+        Toast(g, "Trying " + c + "...");
+        PlaySfx(Sfx::MenuOk);
+    }
+    return true;
+}
+
 void DrawOnlineOverlay(const Game& g) {
     const OnlineSession& o = g.on;
     if (!o.active || !o.reconnecting) return;
-    DrawRectangle(0, 0, VW, 15, Fade(UI_INK, 0.92f));
-    DrawRectangle(0, 15, VW, 1, Color{255, 170, 90, 255});
+    const std::string& pn = g.coopP[1 - o.me].name;
+    DrawRectangle(0, 0, VW, 27, Fade(UI_INK, 0.92f));
+    DrawRectangle(0, 27, VW, 1, Color{255, 170, 90, 255});
     const char* dots = ((int)(g.t * 3) % 3) == 0 ? ".  " : ((int)(g.t * 3) % 3) == 1 ? ".. " : "...";
-    std::string a = "Lost the connection to " + g.coopP[1 - o.me].name + " - reconnecting" + dots + TextFormat(" (%ds)", (int)o.reconnectT) +
+    std::string a = "Lost the connection to " + pn + " - reconnecting" + dots + TextFormat(" (%ds)", (int)o.reconnectT) +
                      "    Your progress is saved.";
     DrawTextCentered(a.c_str(), VW / 2, 3, 10, Color{255, 190, 120, 255}, false);
+    std::string b = "Did " + pn + " restart the game?  Press Tab to type their new code.";
+    DrawTextCentered(b.c_str(), VW / 2, 15, 10, UI_DIM, false);
+    if (!o.codeEdit) return;
+    DrawRectangle(0, 0, VW, VH, Fade(BLACK, 0.55f));
+    int w = 440, h = 150, x = (VW - w) / 2, y = (VH - h) / 2;
+    DrawPanel(x, y, w, h, UI_PANEL, UI_GOLD);
+    DrawTextCentered(("RECONNECT TO " + pn).c_str(), VW / 2, y + 10, 20, UI_GOLD);
+    DrawText((pn + "'s new connection code:").c_str(), x + 16, y + 40, 10, UI_DIM);
+    DrawPanel(x + 16, y + 54, w - 32, 24, UI_PANEL_LIGHT, UI_GOLD);
+    std::string shown = o.newCode + ((((int)(g.t * 2)) % 2) ? "_" : " ");
+    DrawText(shown.c_str(), x + 26, y + 61, 10, UI_TEXT);
+    const std::string& code = net::MyCode();
+    DrawText("Your code:", x + 16, y + 88, 10, UI_DIM);
+    DrawText(code.empty() ? "finding it..." : code.c_str(), x + 80, y + 88, 10, code.empty() ? UI_DIM : UI_GOLD);
+    DrawText("(Ctrl+C copies - send it to them too)", x + 16, y + 101, 10, UI_DIM);
+    DrawTextCentered("Type or Ctrl+V to paste    Enter / (A) connect    Esc / (B) cancel", VW / 2, y + h - 18, 10, UI_TEXT, false);
 }
 
 void OnlinePoll(Game& g) {
@@ -787,6 +852,7 @@ bool OnlineBattleUpdate(Game& g, float dt) {
     if (!o.active || !o.inBattle) return false;
     // Gather our input every frame; presses stay held until a tick takes them.
     PlayerInput li = ReadInput(0, false);
+    li.swapTo = -1;   // (keys 1-6 are solo only: not part of the online input)
 #ifdef ARENA_AUTOTEST
     if (gAutoNetInput) {
         uint32_t h = (uint32_t)(o.tick / 18) * 2654435761u ^ (uint32_t)(o.me + 1) * 40503u;
@@ -892,6 +958,8 @@ void TypeInto(std::string& s, size_t maxLen) {
 }
 } // namespace
 
+static void TypeCode(std::string& s, size_t maxLen) { TypeInto(s, maxLen); }
+
 void UpdateNetMenu(Game& g) {
     OnlineSession& o = g.on;
     int n = (int)g.profiles.size();
@@ -929,7 +997,9 @@ void UpdateNetMenu(Game& g) {
         return;
     }
     // Hosting / joining: typing a code or address.
-    if (IsKeyPressed(KEY_ESCAPE)) { net::Close(); o.page = 0; o.helloSent = o.gotHello = false; return; }
+    bool padBack = false;
+    for (int p = 0; p < 4; p++) if (IsGamepadAvailable(p) && IsGamepadButtonPressed(p, GAMEPAD_BUTTON_RIGHT_FACE_RIGHT)) padBack = true;
+    if (IsKeyPressed(KEY_ESCAPE) || padBack) { net::Close(); o.page = 0; o.helloSent = o.gotHello = false; PlaySfx(Sfx::MenuBack); return; }
     if ((IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL)) && IsKeyPressed(KEY_C) && !net::MyCode().empty()) {
         SetClipboardText(net::MyCode().c_str());
         Toast(g, "Your code was copied - paste it to your friend.");
@@ -1001,6 +1071,6 @@ void DrawNetMenu(const Game& g) {
     if (!st.empty()) DrawTextCentered(st.c_str(), VW / 2, y + 10, 20, net::GetState() == net::State::Failed ? Color{255, 130, 100, 255} : UI_TEXT);
     if (!o.err.empty()) DrawTextCentered(o.err.c_str(), VW / 2, y + 40, 10, Color{255, 130, 100, 255}, false);
     DrawText(TextFormat("Port %d (UDP)", net::DEFAULT_PORT), 60, 326, 10, UI_DIM);
-    DrawTextCentered("Esc back", VW / 2, 340, 10, UI_DIM, false);
+    DrawTextCentered("Esc / (B) back", VW / 2, 340, 10, UI_DIM, false);
     DrawToast(g);
 }

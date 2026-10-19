@@ -13,7 +13,7 @@ enum class Screen {
     ProfileSelect, NameEntry, Starter, StoryHub, MyCreatures, StageIntro,
     RosterPick, Select, Battle, Results,
     StoryResults, Evolve, LearnMove, Reward, Catch, Heal, Map, Shop, DoublesMenu,
-    CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame, Legends, LegendCatch
+    CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame, Legends, LegendCatch, Bag
 };
 
 enum class Mode { Quick, TwoPlayer, Watch, Story, Training, Doubles, CoopStory, CoopTraining };
@@ -52,6 +52,8 @@ struct OnlineSession {
     int page = 0;                 // 0 choose, 1 hosting, 2 joining
     int sel = 0, profSel = 0;
     std::string field;            // typed address / code
+    bool codeEdit = false;        // reconnecting: typing the friend's new code
+    std::string newCode;
     std::string err;
     bool helloSent = false, gotHello = false, gotCoop = false;
     Profile mine;                 // my profile while setting up
@@ -102,6 +104,15 @@ struct Game {
 
     // Menus
     int titleSel = 0, settingsSel = 0, pauseSel = 0, resultSel = 0, hubSel = 0;
+    int titleMenu = 0;                      // title: 0 main, 1 Co-op, 2 Quick Battle
+    int bagTab = 0, bagSel = 0;             // the Bag: pocket and item
+    bool areaPick = false;                  // training team select: the "where to train" menu is open
+    float swapHoldT = 0;                    // solo story battles: how long Swap has been held
+    bool wheel = false, wheelRelease = false;   // the Quick Select wheel is open / wait for Swap to be let go
+    int wheelSel = -1;
+    int pendingSwap = -1;                   // a chosen swap that waits for the swap cooldown
+    float pendingSwapT = 0;
+    int areaSel = 0;
     int ctrlTab = 0, ctrlRow = 0, ctrlCol = 0;
     bool capturing = false;
     float captureT = 0;
@@ -206,6 +217,7 @@ struct Game {
     int boxTab = 0;               // My Creatures: 0 party, 1 Box
     bool actMenu = false;         // My Creatures: action menu open
     int actSel = 0;
+    int releaseAsk = -1, releaseSel = 0;   // Party & Box: releasing a Pokemon from the Box (index, No/Yes)
     int swapFrom = -1;            // My Creatures: Box creature waiting to swap into a full party
     bool stonePick = false;       // My Creatures: choosing an evolution stone
     bool returnToParty = false;   // after a stone evolution, go back to Party & Box
@@ -317,6 +329,11 @@ void UpdateHallOfFame(Game& g);      void DrawHallOfFame(const Game& g);
 void UpdateLegends(Game& g);         void DrawLegends(const Game& g);        // the Legendary Pokemon list
 void UpdateLegendCatch(Game& g, float dt); void DrawLegendCatch(const Game& g);
 void OpenLegends(Game& g);
+constexpr int HUB_GEAR = 100, HUB_GRAPH = 101;   // hub cursor on the Settings gear / Leaderboard graph icons
+void OpenBag(Game& g);
+void UpdateBag(Game& g);             void DrawBag(const Game& g);
+struct ItemDef;
+void DrawItemIcon(const ItemDef& d, float cx, float cy, float scale = 1.0f);
 void BeginLegend(Game& g, int id);                    // set up the encounter (then its intro)
 bool LegendOpen(const Game& g, int id, std::string* why = nullptr);   // unlocked and not caught yet
 int LegendCaughtBy(const Game& g, int id);            // -1 not caught; else the player who has it (0 alone)
@@ -342,7 +359,12 @@ std::string MonToText(const OwnedMon& m);
 bool MonFromText(const std::string& text, OwnedMon& out);
 void SetTrainingWild(Game& g);      // training battles use the chosen area's wild Pokemon (wild.h)
 int TrainingAreaIndex(const Game& g);
-bool SetTrainArea(Game& g, int area);   // pick where training battles happen (false + toast if not allowed)
+bool SetTrainArea(Game& g, int area);
+void RepickRare(Game& g);                 // the training area changed: a new rare find from it
+int TrainStage(const Game& g);
+std::string TrainAreaName(const Game& g);
+int TrainBadges(const Game& g);
+int TrainingAreaIndex(const Game& g);   // pick where training battles happen (false + toast if not allowed)
 void OnlineSendCoop(Game& g);        // shared story progress and clock (after Wait)
 void OnlineSendTrade(Game& g);       // my presence at the trade machine, offer and ready
 void OnlineTradeUpdate(Game& g);     // host: both ready -> do the trade
@@ -354,6 +376,7 @@ void OnlineSetReady(Game& g, int kind);
 void OnlineLeave(Game& g, const std::string& why);
 bool OnlineMine(const Game& g, int who);       // offline: always; online: only my own player
 bool OnlineWaiting(Game& g);                   // online and reconnecting: shows a toast and returns true
+bool OnlineCodeEntry(Game& g);      // reconnecting: the 'type their new code' box (true = it has the input)
 void DrawOnlineOverlay(const Game& g);         // the 'reconnecting' banner over any screen
 void OnlineSendCatch(int poolPick);
 void OnlineSendThrow(int species, int level, bool ok, int shakes, bool fled);   // so the partner watches our throw

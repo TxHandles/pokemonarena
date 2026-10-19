@@ -11,6 +11,9 @@ struct PlayerInput {
     bool dodge = false;      // quick invulnerable dash (cooldown)
     bool jump = false;       // hop: over water, puddles and low obstacles (no invulnerability)
     int target = 0;          // switch targets: +1 next foe, -1 previous (right stick / key)
+    int swapTo = -1;         // swap straight to this team slot (keys 1-6, the Quick Select wheel)
+    bool swapHeld = false;   // the Swap button is held down (hold it for the Quick Select wheel)
+    Vector2 stick2{0, 0};    // the right stick (the Quick Select wheel)
     // Menu navigation (edge-triggered)
     bool up = false, down = false, left = false, right = false;
     bool confirm = false, back = false;
@@ -21,6 +24,7 @@ struct PlayerInput {
 PlayerInput ReadInput(int player, bool twoPlayer);
 // Combined navigation for menus: either player, any layout, plus Enter/Space/Esc/Backspace/arrows.
 PlayerInput MenuInput();
+bool MenuSortPressed();
 
 // On-screen labels for a player's bindings (gamepad names if they last used a gamepad).
 const char* AttackKeyLabel(int player, int slot, bool twoPlayer);

@@ -48,7 +48,7 @@ std::string RestoreEmbeddedFiles() {
     int restored = 0, failed = 0;
     // Data updates: files this game version changed are refreshed once (the old copy is kept
     // next to it as .old). Everything else is only written when it's missing, so your edits stay.
-    const int DATA_VERSION = 15;
+    const int DATA_VERSION = 16;
     struct Upd { const char* path; int version; };
     static const Upd kUpdated[] = {
         {"Pokemon/Bulbasaur/pokemon.txt", 2}, {"Pokemon/Pikachu/pokemon.txt", 2},
@@ -67,6 +67,7 @@ std::string RestoreEmbeddedFiles() {
         {"story.txt", 13},  // Victory Road, the Elite Four and the Champion
         {"story.txt", 14},  // the rival picks two of the six starters in co-op
         {"Pokemon/HOW-TO-ADD-POKEMON.txt", 15},   // shiny.txt
+        {"Pokemon/Nidoking/Pokemon-034-Nidoking.png", 16}, {"Pokemon/Nidoking/shiny.txt", 16},   // the broken portrait, redrawn
         {"Pokemon/_TEMPLATE/pokemon.txt", 8}, {"Pokemon/HOW-TO-ADD-POKEMON.txt", 8},   // TM moves
     };
     std::string verPath = base + "data_version.txt";

@@ -320,6 +320,7 @@ struct Intent {
     int attack = -1;
     bool swap = false;
     bool swapBack = false;   // swap to the previous creature instead of the next
+    int swapTo = -1;         // swap straight to this team slot
     bool dodge = false, jump = false;
     bool hasAim = false;
     Vector2 aim{1, 0};
@@ -421,7 +422,7 @@ private:
     void UpdateStatus(int s, float dt);
     Intent HumanIntent(const PlayerInput& in) const;
     Intent ThinkAI(int s, float dt);
-    void TrySwap(int s, bool back = false);
+    void TrySwap(int s, bool back = false, int to = -1);
     void TryBeginMove(int s, int mi, Vector2 aim, bool exactAim);
     void Execute(int s, int mi, bool first, const MoveDef* override = nullptr);
     HitSpec Spec(int s, const MoveDef& m) const;

@@ -11,9 +11,6 @@
 
 namespace {
 
-const char* kTitleItems[] = {"Story Mode", "Co-op Story", "Online Co-op", "Quick Battle", "2 Players", "2v2 Battle", "Watch CPU vs CPU", "Settings", "Quit"};
-constexpr int TITLE_N = 9;
-
 constexpr int SET_N = 12;
 
 const char* kTabs[] = {"Keyboard - 1 player", "Keyboard - 2P Player 1", "Keyboard - 2P Player 2", "Gamepad 1", "Gamepad 2"};
@@ -29,12 +26,135 @@ void ApplyFullscreen() {
 
 // ------------------------------------------------------------------ title
 
+namespace {
+struct TitleItem { const char* label; const char* hint; };
+const TitleItem kMain[] = {
+    {"Story Mode", "Your journey: gyms, the League, legendaries"},
+    {"Co-op", "Story Mode for two - same screen or online"},
+    {"Quick Battle", "One-off battles: vs the CPU, 2 players, 2v2, or watch"},
+    {"Settings", "Display, sound, gameplay and controls"},
+    {"Quit", "See you next time, Trainer!"},
+};
+const TitleItem kCoop[] = {
+    {"Local Co-op", "Two players on one computer"},
+    {"Online Co-op", "Play with a friend over the internet"},
+    {"Back", ""},
+};
+const TitleItem kQuick[] = {
+    {"1 vs CPU", "Pick a team and battle the computer"},
+    {"2 Players", "Battle a friend on the same computer"},
+    {"2v2 Battle", "Doubles: team up with a partner or the CPU"},
+    {"Watch CPU vs CPU", "Sit back and watch two CPU teams battle"},
+    {"Back", ""},
+};
+const TitleItem* TitleItems(int menu, int& n) {
+    if (menu == 1) { n = 3; return kCoop; }
+    if (menu == 2) { n = 5; return kQuick; }
+    n = 5;
+    return kMain;
+}
+
+// A Poke Ball: red top, white bottom, black band and button.
+void TitleBall(float x, float y, float r, float rot, unsigned char alpha = 255) {
+    Vector2 c{x, y};
+    DrawCircleV(c, r + std::max(1.0f, r * 0.08f), Color{20, 18, 30, alpha});
+    DrawCircleSector(c, r, -180 + rot, 0 + rot, 32, Color{226, 52, 52, alpha});
+    DrawCircleSector(c, r, 0 + rot, 180 + rot, 32, Color{244, 244, 248, alpha});
+    Vector2 d{std::cos(rot * DEG2RAD), std::sin(rot * DEG2RAD)};
+    DrawLineEx({c.x - d.x * r, c.y - d.y * r}, {c.x + d.x * r, c.y + d.y * r}, std::max(1.0f, r * 0.16f), Color{20, 18, 30, alpha});
+    DrawCircleV(c, r * 0.32f, Color{20, 18, 30, alpha});
+    DrawCircleV(c, r * 0.2f, Color{250, 250, 250, alpha});
+}
+
+// The logo: "POKeMON" in arched yellow letters with a thick blue outline (the classic look),
+// then "BATTLE MASTERS" on a red banner with a Poke Ball in the middle.
+void DrawLogo(int cx, int top, float t) {
+    const char* word = "POKEMON";
+    const int size = 40;
+    const Color blue{34, 74, 160, 255}, deep{18, 34, 86, 255}, yellow{255, 206, 22, 255}, light{255, 236, 120, 255};
+    int widths[7], total = 0;
+    for (int i = 0; i < 7; i++) {
+        char ch[2] = {word[i], 0};
+        widths[i] = TextW(ch, size) + 7;
+        total += widths[i];
+    }
+    int x = cx - total / 2;
+    for (int pass = 0; pass < 4; pass++) {
+        int xx = x;
+        for (int i = 0; i < 7; i++) {
+            char ch[2] = {word[i], 0};
+            float u = (i - 3) / 3.0f;
+            int y = top + (int)std::lround(u * u * 5);   // arched, like the real logo
+            float wob = std::sin(t * 2.0f + i * 0.6f) * 0.8f;
+            y += (int)wob;
+            if (pass == 0) {   // deep shadow
+                for (int dx = -4; dx <= 4; dx++)
+                    for (int dy = -4; dy <= 6; dy++)
+                        if (dx * dx + dy * dy <= 22) DrawText(ch, xx + dx, y + dy + 2, size, deep);
+            } else if (pass == 1) {   // blue outline
+                for (int dx = -3; dx <= 3; dx++)
+                    for (int dy = -3; dy <= 3; dy++)
+                        if (dx * dx + dy * dy <= 10) DrawText(ch, xx + dx, y + dy, size, blue);
+            } else if (pass == 2) {
+                DrawText(ch, xx, y, size, yellow);
+            } else {   // the lighter top half of each letter
+                BeginScissorMode((xx - 2) * CANVAS_ZOOM, y * CANVAS_ZOOM, (widths[i] + 4) * CANVAS_ZOOM, (size / 2 - 3) * CANVAS_ZOOM);
+                DrawText(ch, xx, y, size, light);
+                EndScissorMode();
+                if (i == 3) {   // the accent on the E
+                    float ax = xx + widths[i] * 0.38f, ay = (float)y - 1;
+                    DrawLineEx({ax, ay}, {ax + 7, ay - 6}, 5.0f, blue);
+                    DrawLineEx({ax + 0.5f, ay - 0.5f}, {ax + 6.5f, ay - 5.5f}, 2.5f, yellow);
+                }
+            }
+            xx += widths[i];
+        }
+    }
+    // the banner
+    int by = top + 48;
+    const char* l = "BATTLE", *r = "MASTERS";
+    int lw = TextW(l, 20), rw = TextW(r, 20), gap = 30;
+    int bw = lw + rw + gap + 40;
+    DrawRectangle(cx - bw / 2 + 3, by + 3, bw, 24, Fade(BLACK, 0.4f));
+    DrawRectangle(cx - bw / 2, by, bw, 24, Color{200, 36, 44, 255});
+    DrawRectangle(cx - bw / 2, by, bw, 3, Color{246, 96, 96, 255});
+    DrawRectangle(cx - bw / 2, by + 21, bw, 3, Color{130, 18, 30, 255});
+    DrawTriangle({(float)cx - bw / 2, (float)by}, {(float)cx - bw / 2 - 12, (float)by + 12}, {(float)cx - bw / 2, (float)by + 24}, Color{200, 36, 44, 255});
+    DrawTriangle({(float)cx + bw / 2, (float)by}, {(float)cx + bw / 2, (float)by + 24}, {(float)cx + bw / 2 + 12, (float)by + 12}, Color{200, 36, 44, 255});
+    DrawTextOutlined(l, cx - gap / 2 - lw, by + 3, 20, WHITE, Color{110, 14, 24, 255});
+    DrawTextOutlined(r, cx + gap / 2, by + 3, 20, WHITE, Color{110, 14, 24, 255});
+    TitleBall((float)cx, (float)by + 12, 10, std::sin(t * 1.5f) * 20);
+}
+} // namespace
+
 void UpdateTitle(Game& g) {
     PlayerInput in = MenuInput();
-    if (in.up) { g.titleSel = (g.titleSel + TITLE_N - 1) % TITLE_N; PlaySfx(Sfx::MenuMove); }
-    if (in.down) { g.titleSel = (g.titleSel + 1) % TITLE_N; PlaySfx(Sfx::MenuMove); }
+    int n;
+    const TitleItem* items = TitleItems(g.titleMenu, n);
+    (void)items;
+    if (in.up) { g.titleSel = (g.titleSel + n - 1) % n; PlaySfx(Sfx::MenuMove); }
+    if (in.down) { g.titleSel = (g.titleSel + 1) % n; PlaySfx(Sfx::MenuMove); }
+    if (in.back && g.titleMenu != 0) { PlaySfx(Sfx::MenuBack); g.titleSel = g.titleMenu; g.titleMenu = 0; return; }
     if (!in.confirm) return;
     PlaySfx(Sfx::MenuOk);
+    if (g.titleMenu == 1) {
+        switch (g.titleSel) {
+            case 0: StartCoopFlow(g); break;
+            case 1: StartOnlineFlow(g); break;
+            default: g.titleMenu = 0; g.titleSel = 1; break;
+        }
+        return;
+    }
+    if (g.titleMenu == 2) {
+        switch (g.titleSel) {
+            case 0: StartQuickFlow(g, Mode::Quick); break;
+            case 1: StartQuickFlow(g, Mode::TwoPlayer); break;
+            case 2: g.doublesSel = 0; g.screen = Screen::DoublesMenu; break;
+            case 3: StartQuickFlow(g, Mode::Watch); break;
+            default: g.titleMenu = 0; g.titleSel = 2; break;
+        }
+        return;
+    }
     switch (g.titleSel) {
         case 0:
             g.profiles = ListProfiles();
@@ -42,50 +162,107 @@ void UpdateTitle(Game& g) {
             g.confirmDelete = false;
             g.screen = Screen::ProfileSelect;
             break;
-        case 1: StartCoopFlow(g); break;
-        case 2: StartOnlineFlow(g); break;
-        case 3: StartQuickFlow(g, Mode::Quick); break;
-        case 4: StartQuickFlow(g, Mode::TwoPlayer); break;
-        case 5: g.doublesSel = 0; g.screen = Screen::DoublesMenu; break;
-        case 6: StartQuickFlow(g, Mode::Watch); break;
-        case 7: g.settingsSel = 0; g.settingsBack = Screen::Title; g.screen = Screen::Settings; break;
-        case 8: g.quit = true; break;
+        case 1: g.titleMenu = 1; g.titleSel = 0; break;
+        case 2: g.titleMenu = 2; g.titleSel = 0; break;
+        case 3: g.settingsSel = 0; g.settingsBack = Screen::Title; g.screen = Screen::Settings; break;
+        default: g.quit = true; break;
     }
 }
 
 void DrawTitle(const Game& g) {
-    DrawArena(g.t);
-    DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.55f));
-    DrawTextCentered("ARENA CLASH", VW / 2 + 2, 28, 40, Color{60, 40, 90, 255}, false);
-    DrawTextCentered("ARENA CLASH", VW / 2, 26, 40, UI_GOLD);
-    DrawTextCentered("18 types. Real-time battles. Level up, evolve, and become champion.", VW / 2, 70, 10, UI_TEXT);
+    float t = g.t;
+    // Background: a deep sky with light rays, a giant Poke Ball and a grassy field.
+    for (int y = 0; y < VH; y++) {
+        float u = y / (float)VH;
+        Color c{(unsigned char)(18 + 30 * u), (unsigned char)(26 + 40 * u), (unsigned char)(70 + 40 * u), 255};
+        DrawRectangle(0, y, VW, 1, c);
+    }
+    BeginBlendMode(BLEND_ADDITIVE);
+    Vector2 sun{VW / 2.0f, 70};
+    for (int k = 0; k < 14; k++) {
+        float a = k * 0.4488f + t * 0.06f;
+        Vector2 p1{sun.x + std::cos(a - 0.05f) * 700, sun.y + std::sin(a - 0.05f) * 700};
+        Vector2 p2{sun.x + std::cos(a + 0.05f) * 700, sun.y + std::sin(a + 0.05f) * 700};
+        DrawTriangle(sun, p2, p1, Fade(Color{120, 160, 255, 255}, 0.05f));
+        DrawTriangle(sun, p1, p2, Fade(Color{120, 160, 255, 255}, 0.05f));
+    }
+    EndBlendMode();
+    TitleBall(VW - 60.0f, 210, 120, t * 8, 34);   // faint, slowly turning
+    TitleBall(54.0f, 120, 70, -t * 10, 22);
+    for (int i = 0; i < 40; i++) {   // drifting sparkles
+        float x = std::fmod(i * 97.3f + t * (6 + i % 5 * 3), (float)VW);
+        float y = std::fmod(i * 41.7f + std::sin(t + i) * 6, 250.0f);
+        float a = 0.3f + 0.3f * std::sin(t * 3 + i);
+        DrawRectangle((int)x, (int)y, 1, 1, Fade(WHITE, a));
+    }
+    // the field the parade walks on
+    DrawRectangle(0, 262, VW, VH - 262, Color{46, 112, 62, 255});
+    DrawRectangle(0, 262, VW, 3, Color{96, 176, 90, 255});
+    for (int i = 0; i < 64; i++) {
+        int x = (int)std::fmod(i * 23.0f - t * 20.0f + 1000.0f * VW, (float)VW);
+        DrawRectangle(x, 268 + (i * 7) % 12, 2, 2, Color{70, 146, 78, 255});
+    }
 
-    for (int i = 0; i < TITLE_N; i++) DrawMenuItem(kTitleItems[i], VW / 2, 82 + i * 18, 20, g.titleSel == i);
+    DrawLogo(VW / 2, 10, t);
+    DrawTextCentered("Catch them. Train them. Battle in real time.", VW / 2, 92, 10, Color{200, 220, 255, 255}, false);
 
+    // Menu
+    int n;
+    const TitleItem* items = TitleItems(g.titleMenu, n);
+    int y0 = g.titleMenu == 0 ? 112 : 108;
+    if (g.titleMenu != 0) DrawTextCentered(g.titleMenu == 1 ? "CO-OP" : "QUICK BATTLE", VW / 2, y0 - 2, 10, UI_GOLD, false);
+    if (g.titleMenu != 0) y0 += 12;
+    int rowH = n > 4 ? 26 : 28;
+    for (int i = 0; i < n; i++) {
+        bool sel = g.titleSel == i;
+        int w = 220, h = 22, x = VW / 2 - w / 2, y = y0 + i * rowH;
+        bool back = std::string(items[i].label) == "Back";
+        Color fill = sel ? Color{255, 214, 60, 255} : Color{24, 28, 52, 230};
+        Color edge = sel ? Color{255, 250, 210, 255} : Color{86, 104, 170, 255};
+        DrawRectangle(x + 2, y + 3, w, h, Fade(BLACK, 0.35f));
+        DrawRectangleRounded({(float)x, (float)y, (float)w, (float)h}, 0.5f, 8, fill);
+        DrawRectangleRoundedLines({(float)x, (float)y, (float)w, (float)h}, 0.5f, 8, edge);
+        Color tc = sel ? Color{40, 30, 20, 255} : (back ? UI_DIM : UI_TEXT);
+        DrawTextCentered(items[i].label, VW / 2, y + 6, 10, tc, false);
+        bool sub = g.titleMenu == 0 && (i == 1 || i == 2);
+        if (sub) DrawText(">", x + w - 16, y + 6, 10, tc);
+        if (sel) {
+            float bob = std::sin(t * 6) * 1.5f;
+            TitleBall((float)x + 12 + bob, (float)y + h / 2.0f, 6, std::sin(t * 4) * 25);
+        }
+    }
+    int sel = std::max(0, std::min(n - 1, g.titleSel));
+    if (items[sel].hint[0]) {
+        int y = y0 + n * rowH + 2;
+        if (y < 252) DrawTextCentered(items[sel].hint, VW / 2, y, 10, Color{170, 190, 230, 255}, false);
+    }
+
+    // The parade of Pokemon across the field
     static std::vector<int> parade;
     if (parade.empty() || g.t < 0.05f) {
         parade.clear();
         for (int i = 0; i < (int)AllSpecies().size(); i++) if (InSpeciesPool(i)) parade.push_back(i);
     }
-    int n = (int)parade.size();
+    int pn = (int)parade.size();
     const int spacing = 35;
-    float total = (float)n * spacing;
-    float scroll = n > 18 ? std::fmod(g.t * 20.0f, total) : 0.0f;
-    for (int i = 0; i < n; i++) {
+    float total = (float)pn * spacing;
+    float scroll = pn > 18 ? std::fmod(g.t * 20.0f, total) : 0.0f;
+    for (int i = 0; i < pn; i++) {
         float fx = 22 + i * spacing - scroll;
-        if (n > 18 && fx < -20) fx += total;
+        if (pn > 18 && fx < -20) fx += total;
         if (fx < -20 || fx > VW + 20) continue;
         int x = (int)fx;
         int hop = ((int)(g.t * 4 + i * 0.7f) % 4 == 0) ? 3 : 0;
-        DrawEllipse(x, 274, 10, 3, Fade(BLACK, 0.35f));
-        DrawSpeciesFit(parade[i], VIEW_FRONT, x, 276 - hop, 32);
+        DrawEllipse(x, 296, 10, 3, Fade(BLACK, 0.3f));
+        DrawSpeciesFit(parade[i], VIEW_FRONT, x, 298 - hop, 32);
     }
-    DrawControlsHelp(20, 300, false);
-    DrawText("Up/Down choose   Enter / Space / J confirm   Esc back", 20, 340, 10, UI_DIM);
+    DrawRectangle(0, 318, VW, VH - 318, Fade(Color{10, 14, 30, 255}, 0.85f));
+    DrawText(g.titleMenu ? "Up/Down choose   Enter confirm   Esc / B back" : "Up/Down choose   Enter / A confirm", 12, 330, 10, UI_DIM);
     if (g.customCount > 0) {
-        const char* msg = TextFormat("%d from the Pokemon folder", g.customCount);
-        DrawText(msg, VW - 8 - TextW(msg, 10), 348, 10, Color{140, 220, 150, 255});
+        const char* msg = TextFormat("%d Pokemon", g.customCount);
+        DrawText(msg, VW - 12 - TextW(msg, 10), 330, 10, Color{140, 220, 150, 255});
     }
+    DrawText("v2.0", VW - 12 - TextW("v2.0", 10), 344, 10, Fade(UI_DIM, 0.7f));
 }
 
 // ------------------------------------------------------------------ settings

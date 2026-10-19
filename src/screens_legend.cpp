@@ -55,7 +55,7 @@ int PartyAvg(const Game& g) {
 }
 int SpeciesOf(int id) { return SpeciesIndex(Legend(id).species); }
 int LegendLevel(int id, int avg) { return std::max(1, std::min(MAX_LEVEL, std::max(Legend(id).minLevel, avg + Legend(id).bonus))); }
-int HubLegendItem(const Game& g) { return g.coop ? 12 : 10; }
+int HubLegendItem(const Game& g) { return g.coop ? 11 : 10; }
 } // namespace
 
 // ------------------------------------------------------------------ state

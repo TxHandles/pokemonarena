@@ -865,7 +865,8 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
         f.moving = true;
         f.jumpT -= dt;
         if (f.jumpT > 0) {
-            if (it.swap || it.swapBack) TrySwap(s, it.swapBack && !it.swap);   // you can still call it back mid-air
+            if (it.swapTo >= 0) TrySwap(s, false, it.swapTo);
+            else if (it.swap || it.swapBack) TrySwap(s, it.swapBack && !it.swap);   // you can still call it back mid-air
             return;
         }
         f.jumpT = 0;
@@ -934,6 +935,7 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
     }
 
     if (f.volleyLeft > 0) return;
+    if (it.swapTo >= 0) { TrySwap(s, false, it.swapTo); return; }
     if (it.swap || it.swapBack) { TrySwap(s, it.swapBack && !it.swap); return; }
     if (it.attack >= 0 && it.attack < f.nMoves) TryBeginMove(s, it.attack, it.hasAim ? it.aim : f.aim, it.hasAim);
 }
@@ -1044,6 +1046,7 @@ Intent Battle::HumanIntent(const PlayerInput& in) const {
     it.move = in.move;
     it.swap = in.swap;
     it.swapBack = in.swapPrev;
+    it.swapTo = in.swapTo;
     it.dodge = in.dodge;
     it.jump = in.jump;
     for (int k = 0; k < 4; k++)
@@ -1051,11 +1054,17 @@ Intent Battle::HumanIntent(const PlayerInput& in) const {
     return it;
 }
 
-void Battle::TrySwap(int s, bool back) {
+void Battle::TrySwap(int s, bool back, int to) {
     Side& sd = sides[s];
     Fighter& f = sd.Cur();
     if (sd.swapCd > 0 || f.state != FState::Active) return;
     int n = back ? sd.PrevAlive(sd.active) : sd.NextAlive(sd.active);
+    if (to >= 0) {   // straight to a chosen slot (keys 1-6 / the Quick Select wheel)
+        if (to >= (int)sd.team.size() || to == sd.active) return;
+        const Fighter& t = sd.team[to];
+        if (t.hp <= 0 || t.retired || t.lent || t.state != FState::Benched) return;
+        n = to;
+    }
     if (n < 0) return;
     Ab fa = AbOf(f);
     if (fa != Ab::RunAway && !HasType(f.sp, Type::Ghost)) {

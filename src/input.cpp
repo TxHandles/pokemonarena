@@ -71,6 +71,11 @@ PlayerInput ReadInput(int p, bool twoPlayer) {
     in.swapPrev = KeyPressed(lay, Act::SwapPrev);
     if (KeyPressed(lay, Act::Target)) in.target = 1;
     in.jump = KeyPressed(lay, Act::Jump);
+    in.swapHeld = KeyDown(lay, Act::Swap);
+    if (!twoPlayer) {   // keys 1-6: straight to that team slot
+        const int nums[6] = {KEY_ONE, KEY_TWO, KEY_THREE, KEY_FOUR, KEY_FIVE, KEY_SIX};
+        for (int k = 0; k < 6; k++) if (IsKeyPressed(nums[k])) in.swapTo = k;
+    }
     in.confirm = MenuKeyPressed(lay, Act::Move1);
     in.back = MenuKeyPressed(lay, Act::Move2);
     in.up = MenuKeyPressed(lay, Act::Up);
@@ -95,6 +100,8 @@ PlayerInput ReadInput(int p, bool twoPlayer) {
         for (int i = 0; i < 4; i++)
             if (PadPressed(p, moves[i])) { in.attack[i] = true; any = true; }
         if (PadPressed(p, Act::Swap)) { in.swap = true; any = true; }
+        if (PadDown(p, Act::Swap)) in.swapHeld = true;
+        in.stick2 = {GetGamepadAxisMovement(p, GAMEPAD_AXIS_RIGHT_X), GetGamepadAxisMovement(p, GAMEPAD_AXIS_RIGHT_Y)};
         if (PadPressed(p, Act::Pause)) in.pause = true;
         if (PadPressed(p, Act::Dodge)) { in.dodge = true; any = true; }
         if (PadPressed(p, Act::SwapPrev)) { in.swapPrev = true; any = true; }
@@ -161,6 +168,16 @@ PlayerInput MenuInput() {
         m.filter = m.filter || IsGamepadButtonPressed(p, GAMEPAD_BUTTON_RIGHT_FACE_UP);
     }
     return m;
+}
+
+// Just the Sort / X button (doesn't use up a scripted autotest press meant for something else).
+bool MenuSortPressed() {
+#ifdef ARENA_AUTOTEST
+    if (gAutoMenu) { if (gAutoMenu & 64) { gAutoMenu = 0; return true; } return false; }
+#endif
+    bool r = IsKeyPressed(KEY_TAB);
+    for (int p = 0; p < 2; p++) if (IsGamepadAvailable(p) && IsGamepadButtonPressed(p, GAMEPAD_BUTTON_RIGHT_FACE_LEFT)) r = true;
+    return r;
 }
 
 static const char* Label(int player, bool twoPlayer, Act a) {

@@ -163,6 +163,18 @@ bool SetTrainArea(Game& g, int area) {
     return true;
 }
 void SetTrainingWild(Game& g) { SetWildContext(TrainArea(g), TrainStage(g), TrainBadges(g)); }
+// A new rare find for the current training area (after the area changed on the team screen).
+void RepickRare(Game& g) {
+    SetTrainingWild(g);
+    std::vector<std::string> owned;
+    int sum = 0, n = 0;
+    for (int p = 0; p < (g.coop ? 2 : 1); p++)
+        for (const auto& m : Prof(g, p).mons) {
+            owned.push_back(m.species);
+            if (!m.boxed) { sum += m.level; n++; }
+        }
+    g.rareSpecies = PickRareSpecies(owned, n ? sum / n : 5);
+}
 int TrainingAreaIndex(const Game& g) { return TrainArea(g); }
 
 void SaveWho(Game& g, int who) {
@@ -480,11 +492,52 @@ bool NextTrainingIsRare(int trainingWins) {
 bool NextTrainingIsRare(const Profile& p) { return NextTrainingIsRare(p.trainingWins); }
 } // namespace
 
+// The hub's top-left icons: the Settings gear (and, in co-op, the Leaderboard graph). They sit
+// above the menu: Up from the first item reaches them, Left/Right moves between them.
+bool HubNav(Game& g, const PlayerInput& in, int n, bool graph) {
+    if (g.hubSel >= HUB_GEAR) {
+        if (graph && (in.left || in.right)) { g.hubSel = g.hubSel == HUB_GEAR ? HUB_GRAPH : HUB_GEAR; PlaySfx(Sfx::MenuMove); return true; }
+        if (in.down) { g.hubSel = 0; PlaySfx(Sfx::MenuMove); return true; }
+        if (in.up) { g.hubSel = n - 1; PlaySfx(Sfx::MenuMove); return true; }
+        return false;
+    }
+    if (in.up) { g.hubSel = g.hubSel == 0 ? HUB_GEAR : g.hubSel - 1; PlaySfx(Sfx::MenuMove); return true; }
+    if (in.down) { g.hubSel = g.hubSel >= n - 1 ? HUB_GEAR : g.hubSel + 1; PlaySfx(Sfx::MenuMove); return true; }
+    return false;
+}
+
+void DrawHubIcon(int kind, int x, int y, bool sel, float t) {
+    Color bg = sel ? UI_PANEL_LIGHT : UI_PANEL, edge = sel ? UI_GOLD : Color{70, 64, 92, 255}, ic = sel ? UI_GOLD : UI_TEXT;
+    DrawPanel(x, y, 18, 16, bg, edge);
+    float cx = x + 9.0f, cy = y + 8.0f;
+    if (kind == 0) {   // a gear
+        float rot = sel ? t * 90 : 0;
+        for (int k = 0; k < 8; k++) {
+            float a = (k * 45 + rot) * DEG2RAD;
+            Vector2 c{cx + std::cos(a) * 5.0f, cy + std::sin(a) * 5.0f};
+            DrawRectanglePro({c.x, c.y, 3, 3}, {1.5f, 1.5f}, k * 45 + rot, ic);
+        }
+        DrawCircleV({cx, cy}, 4.6f, ic);
+        DrawCircleV({cx, cy}, 2.0f, bg);
+    } else {           // a bar graph
+        DrawRectangle(x + 4, y + 9, 3, 4, ic);
+        DrawRectangle(x + 8, y + 6, 3, 7, ic);
+        DrawRectangle(x + 12, y + 3, 3, 10, ic);
+        DrawRectangle(x + 3, y + 13, 13, 1, ic);
+    }
+    if (sel) {
+        const char* tip = kind == 0 ? "Settings" : "Leaderboard";
+        int tw = TextW(tip, 10);
+        DrawRectangleRounded({(float)x - 3, (float)y + 17, (float)tw + 6, 12}, 0.4f, 4, Fade(UI_INK, 0.92f));
+        DrawRectangleRoundedLinesEx({(float)x - 3, (float)y + 17, (float)tw + 6, 12}, 0.4f, 4, 1, UI_GOLD);
+        DrawText(tip, x, y + 18, 10, UI_GOLD);
+    }
+}
+
 void UpdateStoryHub(Game& g) {
     PlayerInput in = MenuInput();
     const int N = 12;
-    if (in.up) { g.hubSel = (g.hubSel + N - 1) % N; PlaySfx(Sfx::MenuMove); }
-    if (in.down) { g.hubSel = (g.hubSel + 1) % N; PlaySfx(Sfx::MenuMove); }
+    if (HubNav(g, in, N, false)) return;
     if (g.hubSel == 1 && (in.left || in.right)) { CycleTrainArea(g, in.left ? -1 : 1); SaveOrWarn(g); return; }
     if (in.back) { SaveOrWarn(g); GoTitle(g); return; }
     if (!in.confirm) return;
@@ -541,16 +594,19 @@ void UpdateStoryHub(Game& g) {
             g.screen = Screen::MyCreatures;
             break;
         case 6:
-            OpenPokedex(g, 0);
+            OpenBag(g);
             break;
         case 7:
+            OpenPokedex(g, 0);
+            break;
+        case 8:
             StoryTimeStep(g, true);
             SaveOrWarn(g);
             break;
-        case 8:
+        case 9:
             StartPractice(g);
             break;
-        case 9:
+        case HUB_GEAR:
             g.settingsSel = 0;
             g.settingsBack = Screen::StoryHub;
             g.screen = Screen::Settings;
@@ -583,7 +639,8 @@ void DrawStoryHub(const Game& g) {
 
     // Map on the left
     DrawStoryMap(p, 8, 26, 400, 300, g.t, false);
-    DrawTextShadow(p.name.c_str(), 10, 6, 20, UI_GOLD);
+    DrawHubIcon(0, 8, 5, g.hubSel == HUB_GEAR, g.t);
+    DrawTextShadow(p.name.c_str(), 32, 6, 20, UI_GOLD);
     std::string next = NextLine(g, p.storyStage);
     DrawText(next.c_str(), 10, 330, 10, done ? UI_GOLD : UI_TEXT);
 
@@ -601,7 +658,7 @@ void DrawStoryHub(const Game& g) {
     int every = std::max(1, Story().rareEvery);
     int left = every - (p.trainingWins % every) - 1;
     int hurt = 0;
-    for (const auto& m : p.mons) hurt += m.hp < 0.999f ? 1 : 0;
+    for (const auto& m : p.mons) hurt += (!m.boxed && m.hp < 0.999f) ? 1 : 0;
     int dexCaught = 0;
     for (const auto& sp : AllSpecies()) if (sp.dex > 0 && sp.custom && DexHasCaught(p, sp.name)) dexCaught++;
     std::string items[12] = {
@@ -611,10 +668,10 @@ void DrawStoryHub(const Game& g) {
         GameCornerOpen(g) ? "Shop & Game Corner" : "Shop",
         hurt ? TextFormat("Healing Center (%d hurt)", hurt) : "Healing Center",
         "Party & Box",
+        "Bag",
         TextFormat("Pokedex (%d caught)", dexCaught),
         IsNight(p.clock) ? "Wait until morning" : "Wait until night",
         "Practice arena",
-        "Settings",
         LegendHubLabel(g),
         "Save and quit",
     };
@@ -1092,7 +1149,7 @@ std::vector<int> TabList(const Profile& p, int tab) {
     return v;
 }
 
-enum Act { ACT_ITEM, ACT_UP, ACT_DEPOSIT, ACT_WITHDRAW, ACT_SWAP, ACT_STONE, ACT_TM, ACT_MOVES, ACT_CANCEL };
+enum Act { ACT_ITEM, ACT_UP, ACT_DEPOSIT, ACT_WITHDRAW, ACT_SWAP, ACT_STONE, ACT_TM, ACT_MOVES, ACT_RELEASE, ACT_CANCEL };
 
 std::vector<std::pair<int, std::string>> ActOptions(const Game& g) {
     std::vector<std::pair<int, std::string>> o;
@@ -1112,6 +1169,7 @@ std::vector<std::pair<int, std::string>> ActOptions(const Game& g) {
     if (m.moves.size() > 1) o.push_back({ACT_MOVES, "Rearrange moves (buttons)"});
     if (!UsableStones(p, m).empty()) o.push_back({ACT_STONE, "Use an evolution stone"});
     { int n = (int)UsableTMs(p, m).size(); if (n > 0) o.push_back({ACT_TM, TextFormat("Use a TM (%d it can learn)", n)}); }
+    if (g.boxTab == 1) o.push_back({ACT_RELEASE, "Release into the wild"});
     o.push_back({ACT_CANCEL, "Cancel"});
     return o;
 }
@@ -1124,6 +1182,23 @@ void UpdateMyCreatures(Game& g) {
     auto list = TabList(p, g.boxTab);
     int n = (int)list.size();
     g.myCreSel = std::max(0, std::min(g.myCreSel, n - 1));
+
+    if (g.releaseAsk >= 0) {   // "Release X? It's goodbye for good."
+        if (in.up || in.down || in.left || in.right) { g.releaseSel = 1 - g.releaseSel; PlaySfx(Sfx::MenuMove); }
+        if (in.back || (in.confirm && g.releaseSel == 0)) { g.releaseAsk = -1; PlaySfx(Sfx::MenuBack); return; }
+        if (!in.confirm) return;
+        int idx = g.releaseAsk;
+        g.releaseAsk = -1;
+        if (idx < 0 || idx >= (int)p.mons.size() || !p.mons[idx].boxed) return;
+        OwnedMon m = p.mons[idx];
+        if (!m.item.empty()) BagAdd(p, m.item);   // its held item comes back to the Bag
+        p.mons.erase(p.mons.begin() + idx);
+        Toast(g, m.item.empty() ? "Bye-bye, " + m.species + "!" : "Bye-bye, " + m.species + "! (Its " + m.item + " went back to your Bag.)");
+        SaveOrWarn(g);
+        PlaySfx(Sfx::MenuBack);
+        if (TabList(p, g.boxTab).empty()) { g.boxTab = 0; g.myCreSel = 0; }
+        return;
+    }
 
     if (g.itemPick && n > 0) {
         auto items = HeldItemsInBag(p);
@@ -1245,6 +1320,10 @@ void UpdateMyCreatures(Game& g) {
                 p.mons.insert(p.mons.begin() + (last + 1), m);
                 Toast(g, m.species + " joined the party.");
             } break;
+            case ACT_RELEASE:
+                g.releaseAsk = idx;
+                g.releaseSel = 0;
+                return;
             case ACT_SWAP:
                 g.swapFrom = idx;
                 g.boxTab = 0;
@@ -1469,6 +1548,23 @@ void DrawMyCreatures(const Game& g) {
             bool on = g.actSel == i;
             if (on) DrawRectangle(204, y - 2, 232, 14, UI_PANEL_LIGHT);
             DrawText(opts[i].second.c_str(), 212, y, 10, on ? UI_GOLD : UI_TEXT);
+        }
+    }
+    if (g.releaseAsk >= 0 && g.releaseAsk < (int)mons.size()) {
+        const OwnedMon& rm = mons[g.releaseAsk];
+        DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.55f));
+        DrawPanel(160, 120, 320, 110, UI_PANEL, Color{255, 120, 100, 255});
+        int si = MonSpecies(rm);
+        if (si >= 0) DrawSpeciesFit(ShinyIdx(si, rm.shiny), VIEW_FRONT, 196, 176, 44);
+        DrawText(TextFormat("Release %s (Lv%d)?", rm.species.c_str(), rm.level), 232, 132, 10, UI_GOLD);
+        DrawWrapped(rm.shiny ? "It's shiny! Once it's released, it's gone for good." : "Once it's released into the wild, it's gone for good.", 232, 148, 236, 10, UI_TEXT);
+        if (!rm.item.empty()) DrawText(TextFormat("Its %s goes back to your Bag.", rm.item.c_str()), 232, 174, 10, UI_DIM);
+        const char* opt[2] = {"No, keep it", "Yes, release it"};
+        for (int k = 0; k < 2; k++) {
+            int bx = 232 + k * 120, by = 196;
+            bool on = g.releaseSel == k;
+            DrawPanel(bx, by, 110, 20, on ? UI_PANEL_LIGHT : UI_PANEL, on ? (k ? Color{255, 120, 100, 255} : UI_GOLD) : Color{70, 64, 92, 255});
+            DrawTextCentered(opt[k], bx + 55, by + 5, 10, on ? (k ? Color{255, 140, 120, 255} : UI_GOLD) : UI_TEXT, false);
         }
     }
     if (g.moveOrder) {
@@ -2946,24 +3042,37 @@ void DrawCatch(const Game& g) {
 // ------------------------------------------------------------------ healing center
 
 namespace {
+// Only the party is healed here (Pokemon in the Box wait there until they rejoin the party).
+std::vector<int> HealParty(const Profile& p) {
+    std::vector<int> v;
+    for (int i = 0; i < (int)p.mons.size(); i++) if (!p.mons[i].boxed) v.push_back(i);
+    return v;
+}
 int HealAllCost(const Profile& p) {
     int c = 0;
-    for (const auto& m : p.mons) c += HealCost(m);
+    for (int i : HealParty(p)) c += HealCost(p.mons[i]);
     return c;
 }
 bool EmergencyHeal(const Profile& p) {
-    if (p.mons.empty() || HealthyCount(p) > 0) return false;
+    auto party = HealParty(p);
+    if (party.empty()) return false;
+    for (int i : party) if (p.mons[i].hp > 0) return false;
     int cheapest = 1 << 30;
-    for (const auto& m : p.mons) cheapest = std::min(cheapest, HealCost(m));
+    for (int i : party) cheapest = std::min(cheapest, HealCost(p.mons[i]));
     return p.coins < cheapest;
 }
+float gHealAnim = 0;     // the healing machine's jingle (seconds left)
+int gHealOnly = -1;      // which party slot lights up (-1: all)
 } // namespace
 
 void UpdateHeal(Game& g) {
     PlayerInput in = MenuInput();
+    gHealAnim = std::max(0.0f, gHealAnim - GetFrameTime());
     Profile& p = g.profile;
-    int n = (int)p.mons.size();
-    int N = n + 2;  // heal all, each creature, back
+    auto party = HealParty(p);
+    int n = (int)party.size();
+    int N = n + 2;  // heal all, each party Pokemon, back
+    g.healSel = std::min(g.healSel, N - 1);
     if (in.up) { g.healSel = (g.healSel + N - 1) % N; PlaySfx(Sfx::MenuMove); }
     if (in.down) { g.healSel = (g.healSel + 1) % N; PlaySfx(Sfx::MenuMove); }
     if (in.back || (in.confirm && g.healSel == N - 1)) {
@@ -2972,42 +3081,42 @@ void UpdateHeal(Game& g) {
         EnterStoryHub(g);
         return;
     }
-    if (!in.confirm) return;
+    if (!in.confirm || gHealAnim > 0.4f) return;
+    auto healed = [&](int only) { gHealAnim = 1.6f; gHealOnly = only; PlaySfx(Sfx::Heal); SaveOrWarn(g); };
     if (g.healSel == 0) {
         if (EmergencyHeal(p)) {
-            for (auto& m : p.mons) m.hp = 1;
+            for (int i : party) p.mons[i].hp = 1;
             Toast(g, "The nurse patched up your team for free. Take care out there!");
-            PlaySfx(Sfx::Heal);
-            SaveOrWarn(g);
+            healed(-1);
             return;
         }
         int cost = HealAllCost(p);
-        if (cost == 0) { Toast(g, "Everyone is already at full health."); return; }
+        if (cost == 0) { Toast(g, "Your party is already at full health."); return; }
         if (cost > p.coins) {
             // Heal as many as the coins allow, cheapest first.
             std::vector<int> order;
-            for (int i = 0; i < n; i++) if (HealCost(p.mons[i]) > 0) order.push_back(i);
+            for (int i : party) if (HealCost(p.mons[i]) > 0) order.push_back(i);
             std::sort(order.begin(), order.end(), [&](int a, int b) { return HealCost(p.mons[a]) < HealCost(p.mons[b]); });
-            int healed = 0;
+            int count = 0;
             for (int i : order) {
                 int c = HealCost(p.mons[i]);
                 if (c > p.coins) continue;
                 p.coins -= c;
                 p.mons[i].hp = 1;
-                healed++;
+                count++;
             }
-            if (!healed) { Toast(g, "Not enough coins!"); PlaySfx(Sfx::MenuBack); return; }
-            Toast(g, TextFormat("Not enough coins for everyone - healed %d.", healed));
+            if (!count) { Toast(g, "Not enough coins!"); PlaySfx(Sfx::MenuBack); return; }
+            Toast(g, TextFormat("Not enough coins for everyone - healed %d.", count));
         } else {
             p.coins -= cost;
-            for (auto& m : p.mons) m.hp = 1;
-            Toast(g, "Your team is fully healed!");
+            for (int i : party) p.mons[i].hp = 1;
+            Toast(g, "We've restored your Pokemon to full health!");
         }
-        PlaySfx(Sfx::Heal);
-        SaveOrWarn(g);
+        healed(-1);
         return;
     }
-    OwnedMon& m = p.mons[g.healSel - 1];
+    int slot = g.healSel - 1;
+    OwnedMon& m = p.mons[party[slot]];
     int cost = HealCost(m);
     if (cost == 0) { Toast(g, m.species + " is already healthy."); return; }
     if (cost > p.coins) { Toast(g, "Not enough coins!"); PlaySfx(Sfx::MenuBack); return; }
@@ -3015,53 +3124,116 @@ void UpdateHeal(Game& g) {
     bool revived = m.hp <= 0;
     m.hp = 1;
     Toast(g, revived ? m.species + " was revived!" : m.species + " is fully healed!");
-    PlaySfx(Sfx::Heal);
-    SaveOrWarn(g);
+    healed(slot);
 }
 
 void DrawHeal(const Game& g) {
-    ClearBackground(Color{30, 22, 40, 255});
-    for (int y = 0; y < VH; y += 20) DrawRectangle(0, y, VW, 10, Color{36, 26, 48, 255});
-    DrawTextCentered("HEALING CENTER", VW / 2, 10, 20, Color{255, 150, 190, 255});
+    const Color pink{248, 214, 226, 255}, pink2{252, 232, 238, 255}, red{220, 56, 72, 255}, deep{150, 30, 50, 255};
+    // a Pokemon Center: pink-and-white walls, a tiled floor, the red roof sign
+    ClearBackground(pink2);
+    for (int x = 0; x < VW; x += 32) DrawRectangle(x, 30, 16, 200, pink);
+    DrawRectangle(0, 230, VW, VH - 230, Color{236, 226, 214, 255});
+    for (int x = 0; x < VW; x += 24)
+        for (int y = 230; y < VH; y += 24) DrawRectangleLines(x, y, 24, 24, Color{220, 208, 194, 255});
+    DrawRectangle(0, 0, VW, 30, red);
+    DrawRectangle(0, 28, VW, 3, deep);
+    // the Pokemon Center emblem: a white Poke Ball with a red cross
+    DrawCircle(20, 15, 10, WHITE);
+    DrawRectangle(17, 8, 6, 14, red);
+    DrawRectangle(13, 12, 14, 6, red);
+    DrawTextShadow("POKEMON CENTER", 38, 6, 20, WHITE);
     const Profile& p = g.profile;
-    if (g.coop) DrawText(p.name.c_str(), VW - 20 - TextW(p.name.c_str(), 10), 14, 10, g.coopActive == 1 ? Color{120, 230, 255, 255} : UI_GOLD);
-    DrawCoins(p.coins, 20, 14);
-    DrawText("Heal: about 3 coins per level for a full heal.  Revive a fainted creature: 6 per level + 10.", 20, 36, 10, UI_DIM);
-    int n = (int)p.mons.size();
+    if (g.coop) DrawText(p.name.c_str(), 330, 11, 10, WHITE);
+    {   // coins
+        const char* c = TextFormat("%d", p.coins);
+        int x = VW - 18 - TextW(c, 10);
+        DrawCircle(x - 7, 15, 5, Color{170, 120, 20, 255});
+        DrawCircle(x - 7, 15, 4, kCoin);
+        DrawText(c, x, 11, 10, WHITE);
+    }
+    auto party = HealParty(p);
+    int n = (int)party.size();
     int N = n + 2;
     bool emergency = EmergencyHeal(p);
     int allCost = HealAllCost(p);
-    int first = std::max(0, std::min(g.healSel - 8, N - 12));
-    int y = 52;
-    for (int i = first; i < std::min(N, first + 12); i++) {
+    float t = g.t;
+
+    // left: the counter, the nurse's words and the healing machine
+    DrawRectangleRounded({16, 44, 214, 120}, 0.12f, 8, WHITE);
+    DrawRectangleRoundedLines({16, 44, 214, 120}, 0.12f, 8, Color{230, 150, 170, 255});
+    DrawText("Welcome to the Pokemon Center!", 26, 52, 10, deep);
+    DrawWrapped("We restore your tired Pokemon to full health. Only your party is treated here - Pokemon in the Box rest until they rejoin your team.",
+                26, 68, 196, 10, Color{90, 70, 80, 255});
+    DrawText("Heal: about 3 coins per level", 26, 132, 10, Color{120, 100, 110, 255});
+    DrawText("Revive: 6 per level + 10", 26, 144, 10, Color{120, 100, 110, 255});
+    // the healing machine with a socket per party Pokemon
+    DrawRectangleRounded({30, 176, 186, 80}, 0.2f, 8, Color{90, 96, 110, 255});
+    DrawRectangleRounded({36, 182, 174, 68}, 0.2f, 8, Color{60, 64, 76, 255});
+    DrawRectangle(98, 168, 50, 10, Color{120, 126, 140, 255});
+    DrawCircle(123, 172, 4, gHealAnim > 0 ? Color{120, 255, 160, 255} : Color{70, 200, 110, 255});
+    for (int k = 0; k < 6; k++) {
+        float cx = 62 + (k % 3) * 47.0f, cy = 199 + (k / 3) * 30.0f;
+        DrawCircle((int)cx, (int)cy, 11, Color{40, 42, 52, 255});
+        if (k >= n) continue;
+        const OwnedMon& m = p.mons[party[k]];
+        bool lit = gHealAnim > 0 && (gHealOnly < 0 || gHealOnly == k) && ((int)((1.6f - gHealAnim) * 8) + k) % 2 == 0;
+        Color top = m.hp <= 0 ? Color{120, 60, 60, 255} : Color{230, 60, 60, 255};
+        if (lit) {
+            DrawCircle((int)cx, (int)cy, 13, Fade(Color{255, 250, 180, 255}, 0.6f));
+            top = Color{255, 140, 140, 255};
+        }
+        DrawCircle((int)cx, (int)cy, 8, UI_INK);
+        DrawCircleSector({cx, cy}, 7, 180, 360, 16, top);
+        DrawCircleSector({cx, cy}, 7, 0, 180, 16, WHITE);
+        DrawRectangle((int)cx - 7, (int)cy, 14, 1, UI_INK);
+        DrawCircle((int)cx, (int)cy, 2, WHITE);
+    }
+    if (gHealAnim > 0) DrawTextCentered("* ding ding ding... *", 123, 262, 10, deep, false);
+
+    // right: the party
+    int x = 244, w = 380;
+    for (int i = 0; i < N; i++) {
         bool sel = g.healSel == i;
-        DrawPanel(80, y, 480, 22, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
+        int y = i == 0 ? 42 : (i == N - 1 ? 42 + 26 + n * 36 + 4 : 42 + 26 + (i - 1) * 36);
+        int h = (i == 0 || i == N - 1) ? 22 : 34;
+        Color bg = sel ? Color{255, 246, 210, 255} : WHITE;
+        Color edge = sel ? Color{240, 170, 40, 255} : Color{230, 180, 196, 255};
+        DrawRectangleRounded({(float)x, (float)y, (float)w, (float)h}, 0.25f, 8, bg);
+        DrawRectangleRoundedLines({(float)x, (float)y, (float)w, (float)h}, 0.25f, 8, edge);
+        if (sel) DrawTriangle({(float)x - 9, (float)y + h / 2.0f - 5}, {(float)x - 9, (float)y + h / 2.0f + 5}, {(float)x - 3, (float)y + h / 2.0f}, red);
+        Color ink{60, 50, 60, 255};
         if (i == 0) {
-            const char* t = emergency ? "Emergency care (free - your whole team is down)" : (allCost ? "Heal everyone" : "Everyone is healthy");
-            DrawText(t, 92, y + 6, 10, emergency ? Color{140, 230, 150, 255} : (sel ? UI_GOLD : UI_TEXT));
+            const char* tl = emergency ? "Emergency care (free - your whole party is down)" : (allCost ? "Heal your party" : "Your party is healthy");
+            DrawCircle(x + 14, y + 11, 6, red);
+            DrawRectangle(x + 13, y + 7, 2, 8, WHITE);
+            DrawRectangle(x + 10, y + 10, 8, 2, WHITE);
+            DrawText(tl, x + 26, y + 6, 10, emergency ? Color{40, 150, 70, 255} : ink);
             if (!emergency && allCost) {
                 const char* c = TextFormat("%d coins", allCost);
-                DrawText(c, 548 - TextW(c, 10), y + 6, 10, allCost <= p.coins ? kCoin : Color{255, 120, 100, 255});
+                DrawText(c, x + w - 10 - TextW(c, 10), y + 6, 10, allCost <= p.coins ? Color{190, 130, 20, 255} : red);
             }
         } else if (i == N - 1) {
-            DrawText("Back", 92, y + 6, 10, sel ? UI_GOLD : UI_TEXT);
+            DrawText("Back", x + 26, y + 6, 10, ink);
         } else {
-            const OwnedMon& m = p.mons[i - 1];
+            const OwnedMon& m = p.mons[party[i - 1]];
             int idx = MonSpecies(m);
-            if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, 100, y + 21, 18, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
-            DrawText(m.species.c_str(), 116, y + 6, 10, sel ? UI_GOLD : UI_TEXT);
-            DrawText(TextFormat("Lv%d", m.level), 226, y + 6, 10, UI_GOLD);
-            if (m.boxed) DrawText("Box", 192, y + 6, 10, UI_DIM);
-            DrawHpBar(262, y + 9, 140, 4, m.hp);
-            DrawText(m.hp <= 0 ? "fainted" : TextFormat("%d%%", (int)std::round(m.hp * 100)), 410, y + 6, 10, m.hp <= 0 ? Color{255, 120, 100, 255} : UI_TEXT);
+            DrawCircle(x + 20, y + 17, 15, m.hp <= 0 ? Color{230, 220, 224, 255} : Color{232, 244, 236, 255});
+            if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, x + 20, y + 32, 28, m.hp > 0 ? WHITE : Color{110, 110, 120, 255});
+            if (m.shiny) DrawShinyStar((float)x + 6, (float)y + 6, 3);
+            DrawText(m.species.c_str(), x + 42, y + 5, 10, ink);
+            DrawText(TextFormat("Lv%d", m.level), x + 150, y + 5, 10, Color{190, 130, 20, 255});
+            DrawRectangle(x + 42, y + 21, 154, 6, Color{80, 80, 90, 255});
+            DrawText("HP", x + 42, y + 19, 10, Color{230, 160, 40, 255});
+            DrawHpBar(x + 60, y + 22, 134, 4, m.hp);
+            const char* st = m.hp <= 0 ? "Fainted" : (m.hp >= 0.999f ? "Healthy" : TextFormat("%d%%", (int)std::round(m.hp * 100)));
+            DrawText(st, x + 206, y + 19, 10, m.hp <= 0 ? red : (m.hp >= 0.999f ? Color{40, 150, 70, 255} : ink));
             int c = HealCost(m);
             const char* ct = c ? TextFormat("%d coins", c) : "-";
-            DrawText(ct, 548 - TextW(ct, 10), y + 6, 10, c == 0 ? UI_DIM : (c <= p.coins ? kCoin : Color{255, 120, 100, 255}));
+            DrawText(ct, x + w - 10 - TextW(ct, 10), y + 12, 10, c == 0 ? Color{160, 160, 170, 255} : (c <= p.coins ? Color{190, 130, 20, 255} : red));
         }
-        y += 24;
     }
-    DrawText("Win battles to earn coins: trainers pay well, gym leaders pay a lot.", 80, 326, 10, UI_DIM);
-    DrawText("Up/Down choose   Enter heal   Esc back", 80, 340, 10, UI_DIM);
+    DrawText("Win battles to earn coins: trainers pay well, gym leaders pay a lot.", 16, 326, 10, Color{120, 100, 110, 255});
+    DrawText("Up/Down choose   Enter heal   Esc / B back", 16, 340, 10, Color{120, 100, 110, 255});
     DrawToast(g);
 }
 
@@ -3466,12 +3638,11 @@ void UpdateCoopHub(Game& g) {
         if (in.confirm || in.back) { g.showBoard = false; PlaySfx(Sfx::MenuBack); }
         return;
     }
-    const int N = 14;
-    if (in.up) { g.hubSel = (g.hubSel + N - 1) % N; PlaySfx(Sfx::MenuMove); }
-    if (in.down) { g.hubSel = (g.hubSel + 1) % N; PlaySfx(Sfx::MenuMove); }
+    const int N = 13;
+    if (HubNav(g, in, N, true)) return;
     bool online = g.on.active;
-    if (online) g.coopWho = g.on.me;  // online: your own Shop / Healing Center / Party & Box
-    else if ((in.left || in.right) && g.hubSel >= 3 && g.hubSel <= 6) { g.coopWho = 1 - g.coopWho; PlaySfx(Sfx::MenuMove); }
+    if (online) g.coopWho = g.on.me;  // online: your own Shop / Healing Center / Party & Box / Bag / Pokedex
+    else if ((in.left || in.right) && g.hubSel >= 3 && g.hubSel <= 7) { g.coopWho = 1 - g.coopWho; PlaySfx(Sfx::MenuMove); }
     if (g.hubSel == 1 && (in.left || in.right)) {   // where to train (online: the host picks)
         if (online && g.on.me != 0) { Toast(g, "The host picks the training area."); return; }
         CycleTrainArea(g, in.left ? -1 : 1);
@@ -3490,7 +3661,7 @@ void UpdateCoopHub(Game& g) {
     if (!in.confirm) return;
     PlaySfx(Sfx::MenuOk);
     int stages = (int)Story().stages.size();
-    if (online && (g.hubSel == 0 || g.hubSel == 1 || g.hubSel == 7) && OnlineWaiting(g)) return;
+    if (online && (g.hubSel == 0 || g.hubSel == 1 || g.hubSel == 8) && OnlineWaiting(g)) return;
     bool tower = g.hubSel == 0 && StoryDone(g);
     if (online && (g.hubSel == 0 || g.hubSel == 1)) {
         // Online: say what you want to do; it starts when your partner picks the same.
@@ -3566,28 +3737,32 @@ void UpdateCoopHub(Game& g) {
             g.screen = Screen::MyCreatures;
             break;
         case 6:
-            OpenPokedex(g, g.coopWho);
+            OpenFor(g, g.coopWho);
+            OpenBag(g);
             break;
         case 7:
-            OpenTrade(g);
+            OpenPokedex(g, g.coopWho);
             break;
         case 8:
+            OpenTrade(g);
+            break;
+        case 9:
             StoryTimeStep(g, true);
             if (online) OnlineSendCoop(g);
             else SaveCoop(g.coopSave);
             break;
-        case 9:
+        case HUB_GRAPH:
             g.showBoard = true;
             break;
         case 10:
             StartPractice(g);
             break;
-        case 11:
+        case HUB_GEAR:
             g.settingsSel = 0;
             g.settingsBack = Screen::CoopHub;
             g.screen = Screen::Settings;
             break;
-        case 12:
+        case 11:
             if (BadgeCount(g) < 8) { Toast(g, "Legends tell of rare Pokemon that only show themselves to trainers with all 8 badges."); break; }
             if (online && g.on.partnerReady >= 200 && g.on.partnerReady < 200 + LEGEND_COUNT) g.legendSel = g.on.partnerReady - 200;   // join their hunt
             OpenLegends(g);
@@ -3606,9 +3781,12 @@ void DrawCoopHubBase(const Game& g) {
     bool done = pv.storyStage >= stages;
 
     DrawStoryMap(pv, 8, 26, 300, 226, g.t, false);
-    DrawTextShadow(g.coopP[0].name.c_str(), 10, 6, 10, UI_GOLD);
-    DrawText("&", 14 + TextW(g.coopP[0].name.c_str(), 10), 6, 10, UI_DIM);
-    DrawTextShadow(g.coopP[1].name.c_str(), 24 + TextW(g.coopP[0].name.c_str(), 10), 6, 10, kP2Col);
+    DrawHubIcon(0, 8, 4, g.hubSel == HUB_GEAR, g.t);
+    DrawHubIcon(1, 29, 4, g.hubSel == HUB_GRAPH, g.t);
+    int nx = 54;
+    DrawTextShadow(g.coopP[0].name.c_str(), nx, 6, 10, UI_GOLD);
+    DrawText("&", nx + 4 + TextW(g.coopP[0].name.c_str(), 10), 6, 10, UI_DIM);
+    DrawTextShadow(g.coopP[1].name.c_str(), nx + 14 + TextW(g.coopP[0].name.c_str(), 10), 6, 10, kP2Col);
     if (g.on.active) DrawText(TextFormat("ONLINE %dms", net::PingMs()), 226, 6, 10, Color{140, 230, 150, 255});
     else DrawText("CO-OP", 248, 6, 10, Color{255, 150, 230, 255});
     std::string next = NextLine(g, pv.storyStage);
@@ -3634,7 +3812,7 @@ void DrawCoopHubBase(const Game& g) {
                                             : pn + " is " + (o.partnerActivity.empty() ? "in the hub" : o.partnerActivity) + ".";
         if (o.reconnecting) {
             mine = "Waiting for " + pn + " to come back (Esc leaves the online game).";
-            theirs = o.me == 0 ? "They rejoin with your same code - or Join again if they restarted." : "If the host restarted their game, leave and Join again.";
+            theirs = o.me == 0 ? "They rejoin with your same code. Restarted? Tab: type their new code." : "Host restarted? Press Tab and type their new code.";
         }
         DrawText(mine.c_str(), 10, 310, 10, o.myReady ? UI_GOLD : UI_DIM);
         DrawText(theirs.c_str(), 10, 322, 10, o.partnerReady ? Color{140, 230, 150, 255} : UI_DIM);
@@ -3650,7 +3828,7 @@ void DrawCoopHubBase(const Game& g) {
     int left = every - (g.coopSave.trainingWins % every) - 1;
     const std::string& wn = g.coopP[g.coopWho].name;
     bool partnerTrading = g.on.active && g.on.partnerInTrade;
-    std::string items[14] = {
+    std::string items[13] = {
         done ? TextFormat("Battle Tower 2v2: floor %d  (best %d)", g.coopSave.towerFloor + 1, g.coopSave.towerBest)
              : LeagueProgress(pv.storyStage) >= 0 ? "Pokemon League (2v2)" : "Story battle (2v2)",
         (rare ? "RARE 2v2 in " : "Training 2v2: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
@@ -3658,30 +3836,29 @@ void DrawCoopHubBase(const Game& g) {
         GameCornerOpen(g) ? "Shop & Game Corner" : "Shop",
         "Healing Center",
         "Party & Box",
+        "Bag",
         "Pokedex",
         partnerTrading ? "Trade (your partner is waiting!)" : "Trade Pokemon",
         IsNight(g.coopSave.clock) ? "Wait until morning" : "Wait until night",
-        "Leaderboard",
         "Practice arena",
-        "Settings",
         LegendHubLabel(g),
         "Save and quit",
     };
     DrawTimePanel(g.coopSave.clock, 304, 30);
     bool partnerHere = g.on.active && g.on.partnerCursor >= 0 && (g.on.partnerActivity.empty() || g.on.partnerActivity == "in the hub");
-    for (int i = 0; i < 14; i++) {
+    for (int i = 0; i < 13; i++) {
         int y = 6 + i * 12;
         bool sel = g.hubSel == i;
         DrawPanel(rx, y, rw, 11, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
         Color c = sel ? UI_GOLD : UI_TEXT;
         if (i == 1 && rare) c = Color{255, 150, 230, 255};
-        if (i == 7 && partnerTrading) c = Color{140, 230, 150, 255};
-        if (i == 12) c = BadgeCount(g) < 8 ? UI_DIM : (sel ? UI_GOLD : Color{255, 200, 120, 255});
+        if (i == 8 && partnerTrading) c = Color{140, 230, 150, 255};
+        if (i == 11) c = BadgeCount(g) < 8 ? UI_DIM : (sel ? UI_GOLD : Color{255, 200, 120, 255});
         DrawText(items[i].c_str(), rx + 8, y + 1, 10, c);
-        if (g.on.active && (i == 0 || i == 1 || i == 12)) {   // ready count: the battle starts at 2/2
+        if (g.on.active && (i == 0 || i == 1 || i == 11)) {   // ready count: the battle starts at 2/2
             int kind = i == 0 ? (done ? 250 : 1) : 2;
             bool r[2];
-            if (i == 12) {
+            if (i == 11) {
                 auto lg = [](int k) { return k >= 200 && k < 200 + LEGEND_COUNT; };
                 r[g.on.me] = lg(g.on.myReady);
                 r[1 - g.on.me] = lg(g.on.partnerReady);
@@ -3698,7 +3875,7 @@ void DrawCoopHubBase(const Game& g) {
             float bob = std::sin(g.t * 6) * 1.5f;
             DrawTriangle({rx - 8 + bob, (float)y + 1}, {rx - 8 + bob, (float)y + 10}, {rx - 2 + bob, (float)y + 5.5f}, pc);
         }
-        if (i >= 3 && i <= 6) {
+        if (i >= 3 && i <= 7) {
             std::string tag = (sel && !g.on.active) ? "< " + wn + " >" : wn;
             DrawText(tag.c_str(), rx + rw - 8 - TextW(tag.c_str(), 10), y + 1, 10, PlayerCol(g.coopWho));
         }

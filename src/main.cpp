@@ -36,9 +36,9 @@ int main() {
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
 #ifdef ARENA_AUTOTEST
-    InitWindow(1920, 1080, "Arena Clash");
+    InitWindow(1920, 1080, "Pokemon Battle Masters");
 #else
-    InitWindow(1280, 720, "Arena Clash");
+    InitWindow(1280, 720, "Pokemon Battle Masters");
 #endif
     SetWindowMinSize(VW, VH);
     SetExitKey(KEY_NULL);
@@ -77,7 +77,8 @@ int main() {
         }
 
         OnlinePoll(g);
-        switch (g.screen) {
+        if (OnlineCodeEntry(g)) {
+        } else switch (g.screen) {
             case Screen::Title: UpdateTitle(g); break;
             case Screen::Settings: UpdateSettings(g); break;
             case Screen::Controls: UpdateControls(g); break;
@@ -99,6 +100,7 @@ int main() {
             case Screen::HallOfFame: UpdateHallOfFame(g); break;
             case Screen::Legends: UpdateLegends(g); break;
             case Screen::LegendCatch: UpdateLegendCatch(g, dt); break;
+            case Screen::Bag: UpdateBag(g); break;
             case Screen::Revive: UpdateRevive(g); break;
             case Screen::Slots: UpdateSlots(g); break;
             case Screen::CoopSetup: UpdateCoopSetup(g); break;
@@ -143,6 +145,7 @@ int main() {
             case Screen::HallOfFame: DrawHallOfFame(g); break;
             case Screen::Legends: DrawLegends(g); break;
             case Screen::LegendCatch: DrawLegendCatch(g); break;
+            case Screen::Bag: DrawBag(g); break;
             case Screen::Revive: DrawRevive(g); break;
             case Screen::Slots: DrawSlots(g); break;
             case Screen::CoopSetup: DrawCoopSetup(g); break;
