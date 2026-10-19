@@ -8,25 +8,25 @@
 
 Color TeamColor(int side) { return side == 0 ? Color{90, 170, 255, 255} : Color{255, 96, 96, 255}; }
 
-int TextW(const char* text, int size) { return MeasureText(text, size); }
+int TextW(const char* text, int size) { return GMeasureText(text, size); }
 
 void DrawTextOutlined(const char* text, int x, int y, int size, Color c, Color outline) {
-    DrawText(text, x - 1, y, size, outline);
-    DrawText(text, x + 1, y, size, outline);
-    DrawText(text, x, y - 1, size, outline);
-    DrawText(text, x, y + 1, size, outline);
-    DrawText(text, x, y, size, c);
+    GDrawText(text, x - 1, y, size, outline);
+    GDrawText(text, x + 1, y, size, outline);
+    GDrawText(text, x, y - 1, size, outline);
+    GDrawText(text, x, y + 1, size, outline);
+    GDrawText(text, x, y, size, c);
 }
 
 void DrawTextShadow(const char* text, int x, int y, int size, Color c) {
-    DrawText(text, x + 1, y + 1, size, UI_INK);
-    DrawText(text, x, y, size, c);
+    GDrawText(text, x + 1, y + 1, size, UI_INK);
+    GDrawText(text, x, y, size, c);
 }
 
 void DrawTextCentered(const char* text, int cx, int y, int size, Color c, bool outlined) {
     int x = cx - TextW(text, size) / 2;
     if (outlined) DrawTextOutlined(text, x, y, size, c);
-    else DrawText(text, x, y, size, c);
+    else GDrawText(text, x, y, size, c);
 }
 
 int DrawTypeBadge(Type t, int x, int y) {
@@ -142,14 +142,14 @@ void DrawReadyCount(int rightX, int y, bool r0, bool r1) {
         if (rd[p]) DrawRectangle(px, y + 4, 7, 7, pc[p]);
         else DrawRectangleLines(px, y + 4, 7, 7, Fade(pc[p], 0.6f));
     }
-    DrawText(t, x + 26, y + 2, 10, n == 2 ? Color{140, 230, 150, 255} : n == 1 ? UI_GOLD : UI_DIM);
+    GDrawText(t, x + 26, y + 2, 10, n == 2 ? Color{140, 230, 150, 255} : n == 1 ? UI_GOLD : UI_DIM);
 }
 
 void DrawStatBar(const char* label, int value, int x, int y, int barW, int natureMark) {
-    DrawText(label, x, y, 10, natureMark > 0 ? Color{255, 110, 100, 255} : natureMark < 0 ? Color{110, 160, 255, 255} : UI_DIM);
+    GDrawText(label, x, y, 10, natureMark > 0 ? Color{255, 110, 100, 255} : natureMark < 0 ? Color{110, 160, 255, 255} : UI_DIM);
     char buf[8];
     std::snprintf(buf, sizeof buf, "%d", value);
-    DrawText(buf, x + 26, y, 10, UI_TEXT);
+    GDrawText(buf, x + 26, y, 10, UI_TEXT);
     float f = value / 130.0f;
     if (f > 1) f = 1;
     Color c = value >= 95 ? Color{110, 220, 120, 255} : (value >= 70 ? Color{240, 200, 70, 255} : Color{240, 130, 80, 255});
@@ -160,7 +160,7 @@ void DrawStatBar(const char* label, int value, int x, int y, int barW, int natur
 int DrawWrapped(const char* text, int x, int y, int w, int size, Color c, int lineH) {
     std::string s = text, line, word;
     auto flush = [&]() {
-        if (!line.empty()) { DrawText(line.c_str(), x, y, size, c); y += lineH; line.clear(); }
+        if (!line.empty()) { GDrawText(line.c_str(), x, y, size, c); y += lineH; line.clear(); }
     };
     for (size_t i = 0; i <= s.size(); i++) {
         char ch = i < s.size() ? s[i] : ' ';
@@ -194,4 +194,125 @@ void DrawShinyStar(float x, float y, float r) {
         DrawTriangle(c, tip, s2, gold);
     }
     DrawCircleV(c, r * 0.25f, WHITE);
+}
+
+// ------------------------------------------------------------------ menu motion and backdrops
+#include "settings.h"
+float gUiScreenT = 10.0f;
+
+float UiEnterT(int index, float delay, float dur) {
+    if (Cfg().fxLevel >= 2) return 1.0f;
+    float u = (gUiScreenT - index * delay) / dur;
+    if (u <= 0) return 0;
+    if (u >= 1) return 1;
+    float k = 1 - u;
+    return 1 - k * k * k;   // ease out
+}
+
+static Color Shade(Color c, int d) {
+    auto cl = [](int v) { return (unsigned char)(v < 0 ? 0 : v > 255 ? 255 : v); };
+    return Color{cl(c.r + d), cl(c.g + d), cl(c.b + d), 255};
+}
+
+void DrawMenuBackdrop(Color base, float t) {
+    ClearBackground(base);
+    const int W = 640, H = 360;
+    DrawRectangleGradientV(0, 0, W, H, Shade(base, 16), Shade(base, -8));
+    if (Cfg().fxLevel >= 2) return;
+    // slow diagonal light bands
+    for (int i = 0; i < 5; i++) {
+        float x = std::fmod(t * 9.0f + i * 170.0f, 900.0f) - 180.0f;
+        Vector2 a{x, 0}, b{x + 60, 0}, c{x - 120 + 60, (float)H}, d{x - 120, (float)H};
+        Color col = Fade(WHITE, 0.018f + 0.008f * (i % 2));
+        DrawTriangle(a, d, c, col);
+        DrawTriangle(a, c, b, col);
+    }
+    // drifting Poke Ball silhouettes
+    for (int i = 0; i < 9; i++) {
+        float sp = 4.0f + (i % 3) * 2.5f;
+        float r = 14.0f + (i * 7) % 22;
+        float x = std::fmod(i * 97.0f + t * sp, (float)W + 80) - 40;
+        float y = std::fmod(i * 61.0f + 30 - t * sp * 0.6f + 4000.0f, (float)H + 80) - 40;
+        float rot = t * (i % 2 ? 10.0f : -8.0f) + i * 40;
+        Color ring = Fade(WHITE, 0.05f);
+        DrawRing({x, y}, r - 1.6f, r, 0, 360, 36, ring);
+        float ca = std::cos(rot * DEG2RAD), sa = std::sin(rot * DEG2RAD);
+        DrawLineEx({x - ca * r, y - sa * r}, {x + ca * r, y + sa * r}, 1.6f, ring);
+        DrawRing({x, y}, r * 0.22f, r * 0.22f + 1.5f, 0, 360, 20, ring);
+    }
+    // a soft vignette
+    DrawRectangleGradientV(0, 0, W, 40, Fade(BLACK, 0.18f), Fade(BLACK, 0));
+    DrawRectangleGradientV(0, H - 40, W, 40, Fade(BLACK, 0), Fade(BLACK, 0.22f));
+}
+
+void DrawStatHex(float cx, float cy, float r, const int v[6], Color fill, float grow) {
+    Vector2 o[6], p[6];
+    for (int k = 0; k < 6; k++) {
+        float a = (-90 + k * 60) * DEG2RAD;
+        o[k] = {cx + std::cos(a) * r, cy + std::sin(a) * r};
+        float f = std::min(1.15f, std::max(0.06f, v[k] / 130.0f)) * grow;
+        p[k] = {cx + std::cos(a) * r * f, cy + std::sin(a) * r * f};
+    }
+    for (int ring = 1; ring <= 3; ring++) {
+        float s = ring / 3.0f;
+        for (int k = 0; k < 6; k++) {
+            Vector2 a{cx + (o[k].x - cx) * s, cy + (o[k].y - cy) * s}, b{cx + (o[(k + 1) % 6].x - cx) * s, cy + (o[(k + 1) % 6].y - cy) * s};
+            DrawLineEx(a, b, ring == 3 ? 1.2f : 0.7f, Fade(UI_BORDER, ring == 3 ? 0.55f : 0.25f));
+        }
+    }
+    for (int k = 0; k < 6; k++) DrawLineEx({cx, cy}, o[k], 0.7f, Fade(UI_BORDER, 0.25f));
+    Color f = Fade(fill, 0.55f);
+    for (int k = 0; k < 6; k++) {
+        DrawTriangle({cx, cy}, p[(k + 1) % 6], p[k], f);
+    }
+    for (int k = 0; k < 6; k++) DrawLineEx(p[k], p[(k + 1) % 6], 1.3f, fill);
+    for (int k = 0; k < 6; k++) DrawCircleV(p[k], 1.4f, WHITE);
+}
+
+// ------------------------------------------------------------------ the text font
+// Pixelify Sans (SIL Open Font License, fonts/OFL.txt), baked into font_data.cpp. Every bit of text goes
+// through GDrawText / GMeasureText, which take raylib's DrawText sizes: a size-10 line is drawn at 12 px
+// so it has the same cap height as raylib's built-in font, and roughly the same width.
+extern const unsigned int kFontDataSize;
+extern const unsigned char kFontData[];
+namespace {
+constexpr int kAtlasN = 3;
+constexpr int kAtlasPx[kAtlasN] = {36, 72, 108};   // canvas pixels for size 10, 20 and 30 text
+Font gFonts[kAtlasN];
+int gFontState = 0;   // 0 not loaded yet, 1 ready, -1 failed (use raylib's font)
+constexpr float kFontScale = 1.2f;
+
+bool FontReady() {
+    if (gFontState != 0) return gFontState > 0;
+    if (!IsWindowReady()) return false;
+    gFontState = -1;
+    for (int i = 0; i < kAtlasN; i++) {
+        gFonts[i] = LoadFontFromMemory(".ttf", kFontData, (int)kFontDataSize, kAtlasPx[i], nullptr, 0);
+        if (gFonts[i].texture.id == 0 || gFonts[i].glyphCount == 0) return false;
+        SetTextureFilter(gFonts[i].texture, TEXTURE_FILTER_BILINEAR);
+    }
+    gFontState = 1;
+    return true;
+}
+
+const Font& FontFor(float px) {
+    float want = px * 3.0f;   // the canvas is 3x the logical screen
+    for (int i = 0; i < kAtlasN; i++)
+        if (kAtlasPx[i] >= want * 0.92f) return gFonts[i];
+    return gFonts[kAtlasN - 1];
+}
+} // namespace
+
+void GDrawText(const char* text, int x, int y, int size, Color c) {
+    if (!text || !*text) return;
+    if (!FontReady()) { DrawText(text, x, y, size, c); return; }
+    float fs = size * kFontScale;
+    DrawTextEx(FontFor(fs), text, Vector2{(float)x, y - size * 0.12f}, fs, size * 0.025f, c);
+}
+
+int GMeasureText(const char* text, int size) {
+    if (!text || !*text) return 0;
+    if (!FontReady()) return MeasureText(text, size);
+    float fs = size * kFontScale;
+    return (int)std::lround(MeasureTextEx(FontFor(fs), text, fs, size * 0.025f).x);
 }

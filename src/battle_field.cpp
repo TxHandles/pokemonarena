@@ -1254,7 +1254,7 @@ void Battle::DrawObstacle(const Obstacle& o) const {
             DrawRectangle(x - r, y - h, 2, h, lt);
             DrawRectangle(x + r - 2, y - h, 2, h, dk);
             DrawRectangle(x - r, y - h / 2 - 2, r * 2, 4, Color{170, 30, 30, 255});
-            DrawText("R", x - 3, y - h / 2 - 5, 10, WHITE);
+            GDrawText("R", x - 3, y - h / 2 - 5, 10, WHITE);
             for (int k = 0; k < 3; k++) {
                 DrawRectangle(x - r + 3, y - h + 3 + k * 9, 1, 1, lt);
                 DrawRectangle(x + r - 4, y - h + 3 + k * 9, 1, 1, lt);
@@ -1305,7 +1305,7 @@ void Battle::DrawObstacle(const Obstacle& o) const {
                     DrawRectangle(x - w2 + 2, y - bh - bh + 2, w2 * 2, 2, lt);
                     DrawRectangleLines(x - w2 + 2, y - bh - bh + 2, w2 * 2, bh - 2, dk);
                 }
-                if (metal) DrawText("R", x - 3, y - bh / 2 - 5, 10, Color{200, 40, 40, 255});
+                if (metal) GDrawText("R", x - 3, y - bh / 2 - 5, 10, Color{200, 40, 40, 255});
             }
             if (life < 0.6f) DrawLineEx({(float)x - 3, (float)y - h + 3}, {(float)x + 2, (float)y - 4}, 1, Fade(BLACK, 0.6f));
         } break;

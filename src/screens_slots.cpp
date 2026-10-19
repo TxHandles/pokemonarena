@@ -220,12 +220,12 @@ void DrawGameCorner(const Game& g) {
         Color tc = sel ? UI_GOLD : UI_TEXT;
         if (i == 0) {
             DrawSymbol(0, 32, y + 10, 1, 0.5f);
-            DrawText("Play the slot machines", 46, y + 5, 10, sel ? UI_GOLD : Color{255, 150, 220, 255});
+            GDrawText("Play the slot machines", 46, y + 5, 10, sel ? UI_GOLD : Color{255, 150, 220, 255});
         } else if (i < TOP_ROWS) {
             DrawCircle(32, y + 9, 5, Color{200, 200, 220, 255});
-            DrawText(TextFormat("Buy %d Game Corner coins", kBuyCoins[i - 1]), 46, y + 5, 10, tc);
+            GDrawText(TextFormat("Buy %d Game Corner coins", kBuyCoins[i - 1]), 46, y + 5, 10, tc);
             const char* pr = TextFormat("%d coins", kBuyCost[i - 1]);
-            DrawText(pr, 340 - TextW(pr, 10), y + 5, 10, kBuyCost[i - 1] <= p.coins ? Color{255, 200, 60, 255} : Color{255, 120, 100, 255});
+            GDrawText(pr, 340 - TextW(pr, 10), y + 5, 10, kBuyCost[i - 1] <= p.coins ? Color{255, 200, 60, 255} : Color{255, 120, 100, 255});
         } else {
             const Prize& pz = kPrizes[i - TOP_ROWS];
             if (pz.mon) {
@@ -244,17 +244,17 @@ void DrawGameCorner(const Game& g) {
                     DrawRectangle(28, y + 5, 9, 9, d && d->fx == ItemFx::TypeBoost ? TypeColor(d->type) : Color{140, 220, 255, 255});
                 }
                 int have = d ? BagCount(p, d->name) : 0;
-                if (have > 0) DrawText(TextFormat("x%d", have), 230, y + 5, 10, UI_DIM);
+                if (have > 0) GDrawText(TextFormat("x%d", have), 230, y + 5, 10, UI_DIM);
             }
-            DrawText(pz.name, 46, y + 5, 10, tc);
+            GDrawText(pz.name, 46, y + 5, 10, tc);
             const char* pr = TextFormat("%d", pz.price);
-            DrawText(pr, 340 - TextW(pr, 10), y + 5, 10, pz.price <= p.casino ? Color{255, 150, 220, 255} : Color{255, 120, 100, 255});
+            GDrawText(pr, 340 - TextW(pr, 10), y + 5, 10, pz.price <= p.casino ? Color{255, 150, 220, 255} : Color{255, 120, 100, 255});
         }
     }
     // the details panel
     DrawPanel(362, 56, 258, 150);
-    DrawText("CELADON GAME CORNER", 372, 64, 10, Color{255, 120, 200, 255});
-    DrawText(TextFormat("Game Corner coins: %d", p.casino), 372, 80, 10, Color{255, 150, 220, 255});
+    GDrawText("CELADON GAME CORNER", 372, 64, 10, Color{255, 120, 200, 255});
+    GDrawText(TextFormat("Game Corner coins: %d", p.casino), 372, 80, 10, Color{255, 150, 220, 255});
     std::string desc;
     if (g.shopSel == 0) desc = "Three reels: line up 7s (300), Rocket R's (100), Pikachu or Psyduck (15), Magnemite (6) or Shellder (4). "
                                "A cherry on the left reel pays 2. Bet 3 coins to play all 5 lines!";
@@ -266,8 +266,8 @@ void DrawGameCorner(const Game& g) {
         else if (const ItemDef* d = PrizeItem(pz)) desc = d->fx == ItemFx::TM ? "Teaches " + d->move + ". Used up when taught." : d->desc;
     }
     DrawWrapped(desc.c_str(), 372, 98, 238, 10, UI_TEXT, 12);
-    DrawText("Prizes cost Game Corner coins.", 372, 190, 10, UI_DIM);
-    DrawText("Left/Right tab   Up/Down choose   Enter play / buy   Esc back", 20, 340, 10, UI_DIM);
+    GDrawText("Prizes cost Game Corner coins.", 372, 190, 10, UI_DIM);
+    GDrawText("Left/Right tab   Up/Down choose   Enter play / buy   Esc back", 20, 340, 10, UI_DIM);
 }
 
 // ------------------------------------------------------------------ the slot machine
@@ -379,12 +379,12 @@ void DrawSlots(const Game& g) {
     }
     // the coin display
     DrawRectangle(mx + 30, my + mh - 46, 240, 34, Color{20, 10, 20, 255});
-    DrawText(TextFormat("COINS %05d", p.casino), mx + 40, my + mh - 40, 10, Color{255, 120, 100, 255});
-    DrawText(TextFormat("BET %d", g.slotBet), mx + 40, my + mh - 26, 10, Color{255, 220, 80, 255});
+    GDrawText(TextFormat("COINS %05d", p.casino), mx + 40, my + mh - 40, 10, Color{255, 120, 100, 255});
+    GDrawText(TextFormat("BET %d", g.slotBet), mx + 40, my + mh - 26, 10, Color{255, 220, 80, 255});
     if (g.slotWin > 0) {
         Color wc = std::fmod(g.slotT, 0.3f) < 0.18f ? Color{255, 240, 80, 255} : Color{255, 150, 220, 255};
         const char* t = g.slotWin >= 300 ? TextFormat("JACKPOT! +%d", g.slotWin) : TextFormat("WIN +%d", g.slotWin);
-        DrawText(t, mx + 270 - TextW(t, 10) - 10, my + mh - 33, 10, wc);
+        GDrawText(t, mx + 270 - TextW(t, 10) - 10, my + mh - 33, 10, wc);
     }
     if (g.slotWin >= 100 && g.slotT < 3) {   // coins shower
         for (int k = 0; k < 40; k++) {
@@ -394,24 +394,24 @@ void DrawSlots(const Game& g) {
     }
     // the pay table
     DrawPanel(8, 112, 120, 158);
-    DrawText("PAYS (per line)", 14, 118, 10, UI_DIM);
+    GDrawText("PAYS (per line)", 14, 118, 10, UI_DIM);
     const char* nm[7] = {"7 7 7", "R R R", "Pikachu", "Psyduck", "Magnemite", "Shellder", "Cherry"};
     for (int i = 0; i < 7; i++) {
         int y = 140 + i * 18;
         DrawSymbol(i, 22, y, 1, 0.55f);
-        DrawText(nm[i], 36, y - 4, 10, UI_TEXT);
+        GDrawText(nm[i], 36, y - 4, 10, UI_TEXT);
         const char* v = i < 6 ? TextFormat("%d", kPay[i]) : "2";
-        DrawText(v, 120 - TextW(v, 10), y - 4, 10, Color{255, 220, 80, 255});
+        GDrawText(v, 120 - TextW(v, 10), y - 4, 10, Color{255, 220, 80, 255});
     }
-    DrawText("cherry: left reel", 14, 258, 10, UI_DIM);
+    GDrawText("cherry: left reel", 14, 258, 10, UI_DIM);
     DrawPanel(VW - 128, 120, 120, 110);
-    DrawText("BET", VW - 120, 126, 10, UI_DIM);
-    DrawText("1 coin: middle", VW - 120, 144, 10, g.slotBet == 1 ? UI_GOLD : UI_TEXT);
-    DrawText("2 coins: 3 rows", VW - 120, 160, 10, g.slotBet == 2 ? UI_GOLD : UI_TEXT);
-    DrawText("3 coins: 3 rows", VW - 120, 176, 10, g.slotBet == 3 ? UI_GOLD : UI_TEXT);
-    DrawText("  + diagonals", VW - 120, 190, 10, g.slotBet == 3 ? UI_GOLD : UI_TEXT);
+    GDrawText("BET", VW - 120, 126, 10, UI_DIM);
+    GDrawText("1 coin: middle", VW - 120, 144, 10, g.slotBet == 1 ? UI_GOLD : UI_TEXT);
+    GDrawText("2 coins: 3 rows", VW - 120, 160, 10, g.slotBet == 2 ? UI_GOLD : UI_TEXT);
+    GDrawText("3 coins: 3 rows", VW - 120, 176, 10, g.slotBet == 3 ? UI_GOLD : UI_TEXT);
+    GDrawText("  + diagonals", VW - 120, 190, 10, g.slotBet == 3 ? UI_GOLD : UI_TEXT);
     bool idle = g.slotPhase == 0 || (g.slotPhase == 4 && !g.slotStopping[0] && !g.slotStopping[1] && !g.slotStopping[2]);
     DrawTextCentered(idle ? "Up/Down bet   Enter spin   Esc back to the counter" : "Enter: stop the reel", VW / 2, 322, 10, idle ? UI_DIM : UI_GOLD, false);
-    if (g.coop) DrawText(TextFormat("Playing: %s", p.name.c_str()), 10, 340, 10, g.coopActive == 1 ? Color{120, 230, 255, 255} : UI_GOLD);
+    if (g.coop) GDrawText(TextFormat("Playing: %s", p.name.c_str()), 10, 340, 10, g.coopActive == 1 ? Color{120, 230, 255, 255} : UI_GOLD);
     DrawToast(g);
 }

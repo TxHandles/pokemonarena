@@ -12,6 +12,9 @@ constexpr Color UI_GOLD{255, 214, 90, 255};
 
 Color TeamColor(int side);
 
+// All game text: drawn with the game's pixel font (sizes as for raylib's DrawText).
+void GDrawText(const char* text, int x, int y, int size, Color c);
+int GMeasureText(const char* text, int size);
 int TextW(const char* text, int size = 10);
 void DrawTextOutlined(const char* text, int x, int y, int size, Color c, Color outline = UI_INK);
 void DrawTextShadow(const char* text, int x, int y, int size, Color c);
@@ -31,3 +34,12 @@ void DrawStatBar(const char* label, int value, int x, int y, int barW, int natur
 int DrawWrapped(const char* text, int x, int y, int w, int size, Color c, int lineH = 12);
 // A little gold star: marks a shiny Pokemon (centre x, y; r = size).
 void DrawShinyStar(float x, float y, float r = 3.5f);
+
+// ---- menu motion and backdrops (visual only)
+extern float gUiScreenT;   // seconds since the current screen opened (set by main each frame)
+// 0..1 eased slide-in for the i-th staggered element of a screen.
+float UiEnterT(int index, float delay = 0.035f, float dur = 0.28f);
+// An animated menu background: soft gradient, drifting Poke Ball shapes and light streaks.
+void DrawMenuBackdrop(Color base, float t);
+// A hexagon stat chart: values in order HP, ATK, DEF, SPD, SpD, SpA (clockwise from the top).
+void DrawStatHex(float cx, float cy, float r, const int v[6], Color fill, float grow = 1.0f);

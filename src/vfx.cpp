@@ -1,5 +1,6 @@
 // How moves look: procedural textures, a "look" for every move, and the drawing of
 // projectiles, beams, bolts, explosions, melee strikes and particles.
+#include "ui.h"
 #include "vfx.h"
 #include <algorithm>
 #include <cmath>
@@ -1430,7 +1431,7 @@ void VParticle(PK kind, Vector2 sp, Vector2 sv, float size, float rot, float lf,
             DrawCircleV(sp - Vector2{size * 0.2f, size * 0.2f}, size * 0.22f, Fade(WHITE, a));
         } break;
         case PK::Ring: VRingE(sp, size, size * 0.75f, 0.9f, Fade(c, a), 18); break;
-        case PK::Zzz: DrawText("z", (int)sp.x, (int)sp.y, 10, Fade(c, a)); break;
+        case PK::Zzz: GDrawText("z", (int)sp.x, (int)sp.y, 10, Fade(c, a)); break;
         case PK::Arrow: {   // a rising chevron (stat up); rot > 3 points down (stat down)
             float s2 = size * 2.2f;
             float dir = rot > 3.0f ? 1.0f : -1.0f;
@@ -1642,7 +1643,7 @@ void VStatus(Vector2 base, float h, int status, float time, uint32_t seed) {
         for (int k = 0; k < 2; k++) {
             float ph = std::fmod(time * 0.6f + k * 0.5f, 1.0f);
             Vector2 p{base.x + 6 + ph * 8 + std::sin(time * 3 + k) * 2, base.y - h - ph * 14};
-            DrawText("z", (int)p.x, (int)p.y, 10, Fade(WHITE, 1 - ph));
+            GDrawText("z", (int)p.x, (int)p.y, 10, Fade(WHITE, 1 - ph));
         }
     }
 }

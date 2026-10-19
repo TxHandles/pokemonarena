@@ -168,7 +168,7 @@ void UpdateLegends(Game& g) {
 }
 
 void DrawLegends(const Game& g) {
-    ClearBackground(Color{16, 14, 28, 255});
+    DrawMenuBackdrop(Color{16, 14, 28, 255}, (float)GetTime());
     Profile pv = ProgressView(g);
     const int mx = 8, my = 26, mw = 400, mh = 300;
     DrawStoryMap(pv, mx, my, mw, mh, g.t, false);
@@ -196,15 +196,15 @@ void DrawLegends(const Game& g) {
         DrawPanel(x, y, w, 42, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : (open ? GymColor(L.arena) : Color{70, 64, 92, 255}));
         int sp = SpeciesOf(i);
         if (sp >= 0) DrawSpeciesFit(sp, VIEW_FRONT, x + 22, y + 39, 36, by >= 0 || open ? WHITE : (known ? Color{20, 18, 30, 255} : Color{10, 10, 16, 255}));
-        DrawText(known ? L.species : "???", x + 44, y + 4, 10, sel ? UI_GOLD : UI_TEXT);
-        DrawText(known ? L.place : "Somewhere in Kanto", x + 44, y + 16, 10, UI_DIM);
+        GDrawText(known ? L.species : "???", x + 44, y + 4, 10, sel ? UI_GOLD : UI_TEXT);
+        GDrawText(known ? L.place : "Somewhere in Kanto", x + 44, y + 16, 10, UI_DIM);
         std::string status;
         Color sc = UI_DIM;
         if (by >= 0) { status = g.coop ? "Caught by " + Prof(g, by).name : std::string("Caught!"); sc = Color{120, 230, 130, 255}; }
         else if (open) { status = TextFormat("Waiting - about Lv%d", LegendLevel(i, avg)); sc = GymColor(L.arena); }
         else status = L.unlock == LegendUnlock::Badges8 ? "Needs all 8 badges" : L.unlock == LegendUnlock::Champion ? "Champion only" : "Needs the Old Sea Map";
-        DrawText(status.c_str(), x + 44, y + 28, 10, sc);
-        if (g.on.active && g.on.partnerReady == 200 + i) DrawText("<", x + w - 12, y + 4, 10, kP2);
+        GDrawText(status.c_str(), x + 44, y + 28, 10, sc);
+        if (g.on.active && g.on.partnerReady == 200 + i) GDrawText("<", x + w - 12, y + 4, 10, kP2);
     }
     // The selected one: its story and the rules
     const LegendDef& L = Legend(g.legendSel);
@@ -215,12 +215,12 @@ void DrawLegends(const Game& g) {
     DrawPanel(x, 228, w, 104);
     DrawWrapped(known ? L.lore : "Old stories tell of a Pokemon far older than any other...", x + 6, 233, w - 12, 10, UI_TEXT);
     if (!open && by < 0) DrawWrapped(why.c_str(), x + 6, 306, w - 12, 10, Color{255, 170, 120, 255});
-    DrawText(g.coop ? "Win 2v1, then 6 balls - taking turns, the MVP first. One of you keeps it."
+    GDrawText(g.coop ? "Win 2v1, then 6 balls - taking turns, the MVP first. One of you keeps it."
                     : "Weaken it, then you get 3 balls. If it breaks free, it flees - come back and try again.",
              10, 330, 10, UI_DIM);
     if (g.on.active && g.on.partnerReady >= 200 && g.on.partnerReady < 200 + LEGEND_COUNT)
-        DrawText(TextFormat("%s wants to go after %s - pick it too!", g.coopP[1 - g.on.me].name.c_str(), Legend(g.on.partnerReady - 200).species), 10, 316, 10, kP2);
-    DrawText("Up/Down choose   Enter: find it   Esc: back", x, 346, 10, UI_DIM);
+        GDrawText(TextFormat("%s wants to go after %s - pick it too!", g.coopP[1 - g.on.me].name.c_str(), Legend(g.on.partnerReady - 200).species), 10, 316, 10, kP2);
+    GDrawText("Up/Down choose   Enter: find it   Esc: back", x, 346, 10, UI_DIM);
     DrawToast(g);
 }
 
@@ -446,7 +446,7 @@ void DrawLegendCatch(const Game& g) {
     if (c.shiny) {
         int tw = TextW(TextFormat("CATCH %s!", sp.name.c_str()), 20);
         DrawShinyStar(VW / 2 + tw / 2.0f + 10, 17, 5);
-        DrawText("Shiny!", VW / 2 + tw / 2 + 18, 12, 10, Color{255, 214, 80, 255});
+        GDrawText("Shiny!", VW / 2 + tw / 2 + 18, 12, 10, Color{255, 214, 80, 255});
     }
     // the balls: one pip per throw, in the thrower's colour
     int pips = c.maxThrows;
@@ -527,17 +527,17 @@ void DrawLegendCatch(const Game& g) {
         return;
     }
     const ItemDef* ball = balls[std::min(c.ballSel, (int)balls.size() - 1)];
-    DrawText(TextFormat("%s's ball:", P.name.c_str()), 160, 250, 10, c.players > 1 ? WhoCol(who) : UI_DIM);
+    GDrawText(TextFormat("%s's ball:", P.name.c_str()), 160, 250, 10, c.players > 1 ? WhoCol(who) : UI_DIM);
     float ch = WithBall(c.chance, ball);
-    DrawText(TextFormat("%d%% chance", (int)std::round(ch * 100)), 400, 250, 10, ch >= 0.5f ? Color{120, 230, 130, 255} : (ch >= 0.25f ? UI_GOLD : Color{255, 130, 100, 255}));
+    GDrawText(TextFormat("%d%% chance", (int)std::round(ch * 100)), 400, 250, 10, ch >= 0.5f ? Color{120, 230, 130, 255} : (ch >= 0.25f ? UI_GOLD : Color{255, 130, 100, 255}));
     for (int i = 0; i < (int)balls.size(); i++) {
         int bx = 170 + i * 80, by = 284;
         bool sel = ball == balls[i];
         if (sel) RectLines(bx - 12, by - 14, 76, 30, UI_GOLD);
         Ball((float)bx, (float)by, 6, 0, BallCol(balls[i]->name));
-        DrawText(TextFormat("x%d", BagCount(P, balls[i]->name)), bx + 10, by - 10, 10, UI_TEXT);
+        GDrawText(TextFormat("x%d", BagCount(P, balls[i]->name)), bx + 10, by - 10, 10, UI_TEXT);
         std::string nm = balls[i]->name;
-        DrawText(nm.substr(0, nm.find(' ')).c_str(), bx + 10, by + 1, 10, sel ? UI_GOLD : UI_DIM);
+        GDrawText(nm.substr(0, nm.find(' ')).c_str(), bx + 10, by + 1, 10, sel ? UI_GOLD : UI_DIM);
     }
     DrawTextCentered("Left/Right or Up/Down: ball     Enter: throw", VW / 2, 340, 10, UI_DIM, false);
 }

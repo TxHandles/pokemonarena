@@ -129,7 +129,10 @@ int main() {
                          (lastScreen == Screen::Controls) || (g.screen == Screen::Controls);
             if (!minor) transT = 0.42f;
             lastScreen = g.screen;
+            g.screenT = 0;
         }
+        g.screenT += GetFrameTime();
+        gUiScreenT = g.screenT;
         transT = std::max(0.0f, transT - GetFrameTime());
 
         BeginTextureMode(target);
@@ -194,7 +197,7 @@ int main() {
             DrawRing(c, R - 2.5f, R, 0, 360, 64, Fade(Color{226, 52, 52, 255}, 1 - e));
             if (u < 0.35f) DrawPokeBall(c, 18 * (1 - u / 0.35f) + 2, u * 600, u / 0.35f);
         }
-        if (Cfg().showFps) DrawText(TextFormat("%d FPS", GetFPS()), VW - 44, VH - 12, 10, UI_DIM);
+        if (Cfg().showFps) GDrawText(TextFormat("%d FPS", GetFPS()), VW - 44, VH - 12, 10, UI_DIM);
         EndMode2D();
         EndTextureMode();
 

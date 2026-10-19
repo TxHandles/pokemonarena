@@ -16,6 +16,7 @@
 #include "sprites.h"
 #include "vec.h"
 #include "vfx.h"
+#include "ui.h"
 
 namespace {
 
@@ -40,9 +41,13 @@ struct SlotAnim {
     float trail = 1;           // HP bar damage trail
     bool havePos = false;
     Vector2 hitFrom{0, 0};
+    unsigned announced = 0;    // team members already given an appearance banner (bit per team slot)
 };
 
-enum EvKind { EV_SIGIL, EV_MUZZLE, EV_RINGS, EV_BOLTS, EV_IMPACT, EV_ULTIMATE, EV_KO, EV_SPEED };
+struct Banner { int species; bool shiny, legend; float t; };
+std::vector<Banner> gBanners;
+
+enum EvKind { EV_SIGIL, EV_MUZZLE, EV_RINGS, EV_BOLTS, EV_IMPACT, EV_ULTIMATE, EV_KO, EV_SPEED, EV_SUPER, EV_IMMUNE };
 struct Ev {
     EvKind kind;
     float t, dur;
@@ -206,6 +211,7 @@ void Battle::AnimTick() const {
         gEv.clear();
         gVP.clear();
         gWinT = -99;
+        gBanners.clear();
     }
     float dt = fresh ? 0 : now - gLastT;
     bool rewind = dt < 0;   // online rollback re-ran a little: just re-read the field
@@ -307,6 +313,36 @@ void Battle::AnimTick() const {
             }
         }
     }
+    if (!fresh && !rewind && dt > 0)   // the battle's messages: type matchups get their own moment
+        for (const FloatText& tx : texts) {
+            if (tx.life > dt + 0.0005f) continue;
+            bool sup = tx.text.rfind("Super effective", 0) == 0, imm = tx.text == "No effect";
+            if (!sup && !imm) continue;
+            int type = 0;
+            float best = 1e9f;
+            for (int s = 0; s < N() && s < MAX_SLOTS; s++) {   // the Pokemon it's about, and who hit it
+                const Fighter& f = sides[s].Cur();
+                float d = Dist(f.pos, tx.pos);
+                if (d < best && f.lastHitBy >= 0 && f.lastHitBy < MAX_SLOTS) { best = d; type = gSA[f.lastHitBy].relType; }
+            }
+            if (sup) AddEv(EV_SUPER, now, 0.6f, tx.pos, 14, {1, 0}, tx.text.size() > 17 ? 1.5f : 1.0f, TypeColor((Type)type), type, 0.035f);
+            else AddEv(EV_IMMUNE, now, 0.7f, tx.pos, 12, {1, 0}, 1, Cc(170, 170, 185), 0);
+        }
+    for (int s = 0; s < N() && s < MAX_SLOTS; s++) {   // a shiny foe or a legendary appears: a banner
+        const Fighter& f = sides[s].Cur();
+        SlotAnim& sa = gSA[s];
+        bool shown = f.state == FState::Entering || f.state == FState::Active;
+        bool legend = f.boss > 0;
+        bool shinyFoe = f.shiny && sides[s].teamId == 1;
+        unsigned bit = 1u << (sides[s].active & 31);
+        if (shown && (legend || shinyFoe) && !(sa.announced & bit)) {
+            sa.announced |= bit;
+            float start = now + 0.35f;
+            for (const Banner& b : gBanners) start = std::max(start, b.t + 2.6f);   // one after another
+            gBanners.push_back({ShinyIdx(f.species, f.shiny), f.shiny, legend, start});
+        }
+    }
+    gBanners.erase(std::remove_if(gBanners.begin(), gBanners.end(), [&](const Banner& b) { return now - b.t > 2.8f; }), gBanners.end());
     for (int s = 0; s < N() && s < MAX_SLOTS; s++) {   // HP bar trails: hold a moment, then slide down
         const Fighter& f = sides[s].Cur();
         SlotAnim& sa = gSA[s];
@@ -594,6 +630,36 @@ void Battle::DrawAnimOver() const {
                 VGlow(c, (ko ? 30 : 18) * (0.6f + u), e.col, 0.6f * k);
                 VNorm();
             } break;
+            case EV_SUPER: {   // super effective: the attacking type's emblem bursts out of the target
+                float k = 1 - u;
+                float pop = u < 0.15f ? u / 0.15f * 1.25f : 1.25f - std::min(0.25f, (u - 0.15f) * 1.5f);
+                Vector2 p{c.x + 20, c.y - 4 - u * 8};   // beside the target, clear of the text
+                VAdd();
+                for (int i = 0; i < 12; i++) {
+                    float an = i * PI_F / 6 + e.seed % 7;
+                    float r0 = 8 * pop, r1 = r0 + 10 * k * e.power;
+                    DrawLineEx({p.x + std::cos(an) * r0, p.y + std::sin(an) * r0}, {p.x + std::cos(an) * r1, p.y + std::sin(an) * r1}, 1.4f, Fade(e.col, k));
+                }
+                VGlow(p, 16 * pop, e.col, 0.6f * k);
+                VNorm();
+                DrawCircleV(p, 7.5f * pop, Fade(UI_INK, 0.9f * k));
+                DrawCircleV(p, 6.5f * pop, Fade(e.col, k));
+                DrawCircleV({p.x - 2 * pop, p.y - 2 * pop}, 2.2f * pop, Fade(WHITE, 0.5f * k));
+                const char* tn = TypeName((Type)e.type);
+                char ab[4] = {tn[0], tn[1], 0, 0};
+                DrawTextCentered(ab, (int)p.x, (int)(p.y - 4), 10, Fade(WHITE, k), false);
+            } break;
+            case EV_IMMUNE: {   // no effect: a grey puff and a crossed-out ring
+                float k = 1 - u;
+                Vector2 p{c.x + 16, c.y + 4};   // beside the target, clear of the "No effect" text
+                for (int i = 0; i < 6; i++) VSmoke({p.x + (i - 2.5f) * 5.0f, p.y + 6 - u * 10 + (i % 2) * 3}, 12 + u * 12, Cc(160, 160, 172), 0.6f * k, now * 40 + i * 70);
+                VNorm();
+                float pop = std::min(1.0f, u / 0.12f);
+                float r = (7 + u * 3) * pop;
+                DrawCircleV(p, r, Fade(UI_INK, 0.55f * k));
+                DrawRing(p, r - 1.8f, r, 0, 360, 28, Fade(Cc(225, 225, 235), k));
+                DrawLineEx({p.x - r * 0.68f, p.y + r * 0.68f}, {p.x + r * 0.68f, p.y - r * 0.68f}, 1.8f, Fade(Cc(225, 225, 235), k));
+            } break;
             default: break;
         }
     }
@@ -629,5 +695,51 @@ void Battle::DrawAnimCinematic() const {
         DrawRectangle(0, FLOOR_BOTTOM + 8 - bar, VW, bar, Fade(BLACK, 0.85f * a));
         DrawRectangle(0, bar + 18, VW, 1, Fade(e.col, 0.8f * a));
         DrawRectangle(0, FLOOR_BOTTOM + 8 - bar - 1, VW, 1, Fade(e.col, 0.8f * a));
+    }
+}
+
+// "A Shiny Pikachu Has Appeared!" / "A Legendary Mewtwo Has Appeared!": a banner sweeping in with the
+// Pokemon's sprite, sparkles for a shiny, lightning-gold trim for a legendary.
+void Battle::DrawAnimBanners() const {
+    float now = time;
+    for (const Banner& b : gBanners) {
+        float u = now - b.t;
+        if (u < 0 || u > 2.6f) continue;
+        float in = Clamp01(u / 0.3f), out = Clamp01((2.6f - u) / 0.3f);
+        float e = 1 - (1 - in) * (1 - in) * (1 - in);
+        int sp = b.species & ~SHINY_FLAG;
+        std::string name = AllSpecies()[sp].name;
+        std::string msg = std::string(b.legend ? "A Legendary " : "A Shiny ") + name + " Has Appeared!";
+        Color c1 = b.legend ? Color{60, 30, 110, 255} : Color{30, 40, 90, 255};
+        Color trim = b.legend ? Color{255, 200, 70, 255} : Color{255, 235, 150, 255};
+        int tw = TextW(msg.c_str(), 20);
+        float bw = (tw + 120), bh = 54, cy = 168;
+        float x0 = VW / 2.0f - bw / 2 + (1 - e) * -VW + (1 - out) * VW;
+        DrawRectangleV({0, cy - bh / 2 - 3}, {(float)VW, bh + 6}, Fade(BLACK, 0.45f * std::min(in, out)));
+        DrawRectangleRounded({x0, cy - bh / 2, bw, bh}, 0.25f, 8, Fade(c1, 0.95f * out));
+        DrawRectangleRoundedLinesEx({x0, cy - bh / 2, bw, bh}, 0.25f, 8, 2, Fade(trim, out));
+        DrawRectangleGradientV((int)x0 + 4, (int)(cy - bh / 2) + 3, (int)bw - 8, 10, Fade(WHITE, 0.18f * out), Fade(WHITE, 0));
+        // the sprite in a glowing circle
+        Vector2 pc{x0 + 34, cy};
+        VAdd();
+        VGlow(pc, 30 + std::sin(now * 6) * 2, trim, 0.45f * out);
+        VNorm();
+        DrawCircleV(pc, 23, Fade(ColorBrightness(c1, -0.4f), out));
+        DrawCircleLines((int)pc.x, (int)pc.y, 23, Fade(trim, out));
+        DrawSpeciesFit(b.species, VIEW_FRONT, (int)pc.x, (int)(pc.y + 19), 38, Fade(WHITE, out), false);
+        DrawTextOutlined(msg.c_str(), (int)(x0 + 66), (int)(cy - 10), 20, Fade(trim, out), Fade(UI_INK, out));
+        if (b.shiny) {   // sparkles orbiting the sprite
+            for (int k = 0; k < 6; k++) {
+                float a = k * 1.047f + now * 2.5f;
+                DrawShinyStar(pc.x + std::cos(a) * 26, pc.y + std::sin(a) * 26, 2.5f + 1.2f * std::sin(now * 8 + k));
+            }
+        }
+        if (b.legend) {   // crackling gold at the edges
+            VAdd();
+            uint32_t fr = (uint32_t)(now * 20);
+            VBolt({x0 + 4, cy - bh / 2 + 4}, {x0 + bw * 0.3f, cy - bh / 2 + 2}, VHash(fr, 1), 0.7f, trim, 0.8f * out, 0);
+            VBolt({x0 + bw - 4, cy + bh / 2 - 4}, {x0 + bw * 0.7f, cy + bh / 2 - 2}, VHash(fr, 2), 0.7f, trim, 0.8f * out, 0);
+            VNorm();
+        }
     }
 }

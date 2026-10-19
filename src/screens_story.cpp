@@ -9,6 +9,7 @@
 #include "settings.h"
 #include "sprites.h"
 #include "ui.h"
+#include "rlgl.h"
 #include "vec.h"
 #include "storymap.h"
 #include "net.h"
@@ -51,7 +52,7 @@ const char* FriendshipWord(int f) {
 void DrawFriendship(int f, int x, int y) {
     int hearts = (f + 25) / 51;  // 0-5
     for (int i = 0; i < 5; i++) DrawHeart(x + i * 11, y + 1, i < hearts);
-    DrawText(FriendshipWord(f), x + 58, y, 10, f >= 160 ? Color{255, 140, 180, 255} : UI_DIM);
+    GDrawText(FriendshipWord(f), x + 58, y, 10, f >= 160 ? Color{255, 140, 180, 255} : UI_DIM);
 }
 
 void DrawXpBar(const OwnedMon& m, int x, int y, int w) {
@@ -86,15 +87,15 @@ void DrawTimePanel(int clock, int right, int y) {   // right-aligned at 'right'
             DrawLineEx({x + 14 + std::cos(a) * 8.0f, y + 15 + std::sin(a) * 8.0f}, {x + 14 + std::cos(a) * 10.0f, y + 15 + std::sin(a) * 10.0f}, 1, Color{255, 210, 80, 255});
         }
     }
-    DrawText(l1.c_str(), x + 28, y + 5, 10, sc);
-    DrawText(l2.c_str(), x + 28, y + 17, 10, UI_DIM);
+    GDrawText(l1.c_str(), x + 28, y + 5, 10, sc);
+    GDrawText(l2.c_str(), x + 28, y + 17, 10, UI_DIM);
 }
 
 void DrawCoins(int coins, int x, int y) {
     DrawCircle(x + 4, y + 5, 4.5f, Color{170, 120, 20, 255});
     DrawCircle(x + 4, y + 5, 3.5f, kCoin);
     DrawRectangle(x + 3, y + 3, 1, 3, Color{255, 240, 170, 255});
-    DrawText(TextFormat("%d", coins), x + 12, y + 1, 10, kCoin);
+    GDrawText(TextFormat("%d", coins), x + 12, y + 1, 10, kCoin);
 }
 
 void DrawPokeBall(float x, float y, float r, float rot, Color top = Color{230, 60, 60, 255}) { ::DrawPokeBall(Vector2{x, y}, r, rot, 0, top); }
@@ -353,7 +354,7 @@ void UpdateProfileSelect(Game& g) {
 }
 
 void DrawProfileSelect(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     DrawTextCentered("STORY MODE", VW / 2, 16, 30, UI_GOLD);
     DrawTextCentered("Choose a profile. Each one keeps its own Pokemon, levels and story progress.", VW / 2, 52, 10, UI_DIM, false);
     int n = (int)g.profiles.size();
@@ -365,16 +366,16 @@ void DrawProfileSelect(const Game& g) {
         if (i < n) {
             Profile p;
             LoadProfile(g.profiles[i], p);
-            DrawText(p.name.c_str(), VW / 2 - 140, y + 6, 10, sel ? UI_GOLD : UI_TEXT);
+            GDrawText(p.name.c_str(), VW / 2 - 140, y + 6, 10, sel ? UI_GOLD : UI_TEXT);
             const char* info = TextFormat("%d Pokemon   stage %d/%d   %dW %dL", (int)p.mons.size(),
                                           std::min(p.storyStage, (int)Story().stages.size()), (int)Story().stages.size(), p.wins, p.losses);
-            DrawText(info, VW / 2 + 140 - TextW(info, 10), y + 6, 10, UI_DIM);
+            GDrawText(info, VW / 2 + 140 - TextW(info, 10), y + 6, 10, UI_DIM);
         } else {
-            DrawText("+ New profile", VW / 2 - 140, y + 6, 10, sel ? UI_GOLD : Color{140, 220, 150, 255});
+            GDrawText("+ New profile", VW / 2 - 140, y + 6, 10, sel ? UI_GOLD : Color{140, 220, 150, 255});
         }
     }
     if (g.confirmDelete) DrawTextCentered("Press Delete / Swap again to delete this profile for good", VW / 2, 316, 10, Color{255, 120, 100, 255}, false);
-    DrawText("Enter choose   Esc back   Delete (or your Swap key) deletes a profile", 20, 340, 10, UI_DIM);
+    GDrawText("Enter choose   Esc back   Delete (or your Swap key) deletes a profile", 20, 340, 10, UI_DIM);
     DrawToast(g);
 }
 
@@ -414,7 +415,7 @@ void UpdateNameEntry(Game& g) {
 }
 
 void DrawNameEntry(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     DrawTextCentered("NEW PROFILE", VW / 2, 60, 30, UI_GOLD);
     DrawTextCentered("Type your trainer name", VW / 2, 110, 10, UI_TEXT, false);
     DrawPanel(VW / 2 - 120, 130, 240, 30, UI_PANEL_LIGHT, UI_GOLD);
@@ -447,7 +448,7 @@ void UpdateStarter(Game& g) {
 }
 
 void DrawStarter(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     DrawTextCentered("CHOOSE YOUR FIRST PARTNER", VW / 2, 20, 20, UI_GOLD);
     DrawTextCentered(TextFormat("Welcome, %s! Your partner starts at level %d.", g.profile.name.c_str(), Story().startLevel), VW / 2, 46, 10, UI_TEXT, false);
     int n = (int)Story().starters.size();
@@ -465,10 +466,10 @@ void DrawStarter(const Game& g) {
         const SpeciesDef& sp = AllSpecies()[idx];
         DrawPanel(120, 212, 400, 120);
         auto moves = MovesAtLevel(sp, Story().startLevel);
-        DrawText("Starts with:", 130, 220, 10, UI_DIM);
+        GDrawText("Starts with:", 130, 220, 10, UI_DIM);
         for (size_t k = 0; k < moves.size(); k++) DrawMoveLine(moves[k], 130, 234 + (int)k * 22, 380, true);
         std::string hint = EvolutionHint(idx);
-        if (!hint.empty()) DrawText(hint.c_str(), 130, 318, 10, UI_GOLD);
+        if (!hint.empty()) GDrawText(hint.c_str(), 130, 318, 10, UI_GOLD);
     }
     DrawTextCentered("Left/Right choose   Enter confirm", VW / 2, 342, 10, UI_DIM, false);
 }
@@ -521,7 +522,7 @@ void DrawHubIcon(int kind, int x, int y, bool sel, float t) {
         int tw = TextW(tip, 10);
         DrawRectangleRounded({(float)x - 3, (float)y + 17, (float)tw + 6, 12}, 0.4f, 4, Fade(UI_INK, 0.92f));
         DrawRectangleRoundedLinesEx({(float)x - 3, (float)y + 17, (float)tw + 6, 12}, 0.4f, 4, 1, UI_GOLD);
-        DrawText(tip, x, y + 18, 10, UI_GOLD);
+        GDrawText(tip, x, y + 18, 10, UI_GOLD);
     }
 }
 
@@ -622,9 +623,97 @@ std::string LegendHubLabel(const Game& g) {
 }
 } // namespace
 
+namespace {
+// The hub's sky: the time of day and the season, with drifting petals, leaves, snow or fireflies.
+void DrawHubSky(int clock, float t) {
+    bool night = IsNight(clock);
+    int season = SeasonOf(clock);
+    static const Color dayTop[4] = {{120, 170, 230, 255}, {80, 160, 240, 255}, {200, 150, 110, 255}, {170, 190, 215, 255}};
+    static const Color dayBot[4] = {{250, 200, 220, 255}, {250, 230, 160, 255}, {240, 190, 120, 255}, {230, 238, 248, 255}};
+    Color top = night ? Color{14, 16, 44, 255} : dayTop[season];
+    Color bot = night ? Color{50, 36, 78, 255} : dayBot[season];
+    ClearBackground(top);
+    DrawRectangleGradientV(0, 0, VW, VH, top, bot);
+    DrawRectangle(0, 0, VW, VH, Fade(Color{20, 18, 32, 255}, night ? 0.25f : 0.55f));
+    DrawRectangleGradientV(0, VH - 50, VW, 50, Fade(Color{20, 18, 32, 255}, 0), Fade(Color{20, 18, 32, 255}, 0.7f));   // keep the panels readable
+    if (night) {
+        for (int i = 0; i < 60; i++) {
+            float x = (float)((i * 173) % VW), y = (float)((i * 97) % 200);
+            float tw = 0.4f + 0.6f * (0.5f + 0.5f * std::sin(t * 2.0f + i));
+            DrawCircleV({x, y}, (i % 7 == 0) ? 1.1f : 0.6f, Fade(WHITE, tw * 0.8f));
+        }
+        DrawCircleV({600, 14}, 9, Fade(Color{250, 245, 220, 255}, 0.9f));
+        DrawCircleV({604, 12}, 8, top);
+    } else {
+        DrawCircleV({612, 10}, 20, Fade(Color{255, 240, 180, 255}, 0.18f));
+        DrawCircleV({612, 10}, 11, Fade(Color{255, 244, 200, 255}, 0.7f));
+    }
+    if (Cfg().fxLevel >= 2) return;
+    for (int i = 0; i < 34; i++) {   // seasonal drift
+        float sp = 10 + (i % 5) * 4.0f;
+        float x = std::fmod(i * 57.0f + t * sp * (season == 3 ? 0.3f : 1.0f) + std::sin(t + i) * 8, (float)VW + 20) - 10;
+        float y = std::fmod(i * 41.0f + t * sp * 0.8f, (float)VH + 20) - 10;
+        if (night && season != 3) {   // fireflies
+            float a = 0.5f + 0.5f * std::sin(t * 3 + i * 1.7f);
+            DrawCircleV({x, y}, 2.4f, Fade(Color{200, 255, 120, 255}, 0.12f * a));
+            DrawCircleV({x, y}, 0.9f, Fade(Color{230, 255, 160, 255}, 0.8f * a));
+            continue;
+        }
+        float rot = t * 90 + i * 37;
+        switch (season) {
+            case 0: DrawEllipse((int)x, (int)y, 2.2f, 1.2f, Fade(Color{255, 190, 215, 255}, 0.75f)); break;   // petals
+            case 1: DrawCircleV({x, y}, 0.8f, Fade(Color{255, 250, 200, 255}, 0.5f)); break;                    // summer motes
+            case 2: {
+                Vector2 c{x, y};
+                float ca = std::cos(rot * DEG2RAD) * 2.4f, sa = std::sin(rot * DEG2RAD) * 2.4f;
+                DrawLineEx({c.x - ca, c.y - sa}, {c.x + ca, c.y + sa}, 1.8f, Fade(i % 2 ? Color{220, 110, 40, 255} : Color{240, 170, 50, 255}, 0.8f));
+                break;
+            }
+            default: DrawCircleV({x, y}, (i % 3) ? 1.0f : 1.6f, Fade(WHITE, 0.85f)); break;   // snow
+        }
+    }
+}
+
+// One hub menu entry as a tile with an icon.
+void DrawHubTile(int kind, const char* label, int x, int y, int w, bool sel, Color tc, float e, float t) {
+    static const Color acc[12] = {{230, 80, 80, 255}, {90, 190, 90, 255}, {90, 150, 230, 255}, {240, 190, 60, 255}, {250, 120, 160, 255}, {226, 52, 52, 255},
+                                  {170, 120, 70, 255}, {220, 60, 60, 255}, {120, 110, 210, 255}, {230, 140, 60, 255}, {255, 200, 80, 255}, {110, 170, 200, 255}};
+    x += (int)std::lround((1 - e) * 70) - (sel ? 4 : 0);
+    Color a = acc[kind % 12];
+    Rectangle rc{(float)x, (float)y, (float)w + (sel ? 4 : 0), 14};
+    DrawRectangleRounded({rc.x + 1, rc.y + 1.5f, rc.width, rc.height}, 0.4f, 6, Fade(BLACK, 0.3f * e));
+    DrawRectangleRounded(rc, 0.4f, 6, Fade(sel ? UI_PANEL_LIGHT : UI_PANEL, 0.95f * e));
+    DrawRectangleGradientH(x + 15, y + 1, 50, 12, Fade(a, (sel ? 0.35f : 0.18f) * e), Fade(a, 0));
+    DrawRectangleRoundedLinesEx(rc, 0.4f, 6, 1.0f, Fade(sel ? UI_GOLD : Color{70, 64, 92, 255}, e));
+    if (sel) {   // a light sweep across the selected tile
+        float sx = std::fmod(t * 140.0f, (float)w + 120) - 40;
+        if (sx > 0 && sx < w) DrawRectangleGradientH(x + (int)sx, y + 1, 18, 12, Fade(WHITE, 0), Fade(WHITE, 0.14f));
+    }
+    // icon chip
+    DrawRectangleRounded({(float)x + 1.5f, (float)y + 1.5f, 12, 11}, 0.35f, 6, Fade(a, 0.95f * e));
+    float cx = x + 7.5f, cy = y + 7.0f;
+    Color ic = Fade(WHITE, e), ink = Fade(UI_INK, e);
+    switch (kind) {
+        case 0: DrawLineEx({cx - 3.5f, cy + 3.5f}, {cx + 3.5f, cy - 3.5f}, 1.5f, ic); DrawLineEx({cx - 3.5f, cy - 3.5f}, {cx + 3.5f, cy + 3.5f}, 1.5f, ic); break;   // swords
+        case 1: for (int k = -1; k <= 1; k++) DrawTriangle({cx + k * 2.5f, cy - 3.5f + std::abs(k)}, {cx + k * 2.5f - 1.4f, cy + 3.5f}, {cx + k * 2.5f + 1.4f, cy + 3.5f}, ic); break;   // grass
+        case 2: DrawRectangle((int)cx - 4, (int)cy - 3, 8, 6, ic); DrawLineEx({cx - 1.3f, cy - 3}, {cx - 1.3f, cy + 3}, 0.8f, ink); DrawLineEx({cx + 1.3f, cy - 3}, {cx + 1.3f, cy + 3}, 0.8f, ink); break;   // map
+        case 3: DrawCircleV({cx, cy}, 3.6f, Fade(Color{255, 230, 120, 255}, e)); DrawRing({cx, cy}, 2.2f, 2.9f, 0, 360, 16, Fade(Color{200, 150, 40, 255}, e)); break;   // coin
+        case 4: DrawRectangle((int)cx - 1, (int)cy - 4, 3, 8, ic); DrawRectangle((int)cx - 4, (int)cy - 1, 8, 3, ic); break;   // cross
+        case 5: DrawPokeBall({cx, cy}, 3.8f, 0, 0, WHITE, (unsigned char)(255 * e)); break;
+        case 6: DrawRectangle((int)cx - 3, (int)cy - 2, 7, 6, ic); DrawRing({cx + 0.5f, cy - 2}, 1.2f, 2.0f, 180, 360, 10, ic); break;   // bag
+        case 7: DrawRectangle((int)cx - 3, (int)cy - 4, 7, 8, ic); DrawCircleV({cx + 0.5f, cy - 1}, 1.4f, Fade(Color{120, 200, 255, 255}, e)); break;   // dex
+        case 8: DrawCircleV({cx, cy}, 3.6f, ic); DrawCircleV({cx + 1.6f, cy - 1.2f}, 3.0f, Fade(a, e)); break;   // moon
+        case 9: DrawRing({cx, cy}, 2.6f, 3.8f, 0, 360, 16, ic); DrawCircleV({cx, cy}, 1.2f, ic); break;   // target
+        case 10: DrawShinyStar(cx, cy, 3.6f); break;
+        default: DrawRectangle((int)cx - 3, (int)cy - 3, 7, 7, ic); DrawRectangle((int)cx - 2, (int)cy - 3, 4, 2, ink); break;   // save
+    }
+    GDrawText(label, x + 18, y + 2, 10, Fade(tc, e));
+}
+} // namespace
+
 void DrawStoryHub(const Game& g) {
-    ClearBackground(Color{20, 18, 32, 255});
     const Profile& p = g.profile;
+    DrawHubSky(p.clock, (float)GetTime());
     int stages = (int)Story().stages.size();
     bool done = p.storyStage >= stages;
 
@@ -633,12 +722,12 @@ void DrawStoryHub(const Game& g) {
     DrawHubIcon(0, 8, 5, g.hubSel == HUB_GEAR, g.t);
     DrawTextShadow(p.name.c_str(), 32, 6, 20, UI_GOLD);
     std::string next = NextLine(g, p.storyStage);
-    DrawText(next.c_str(), 10, 330, 10, done ? UI_GOLD : UI_TEXT);
+    GDrawText(next.c_str(), 10, 330, 10, done ? UI_GOLD : UI_TEXT);
 
     // Coins and badges
     int rx = 416, rw = 216;
     DrawCoins(p.coins, rx, 6);
-    DrawText(TextFormat("%dW %dL", p.wins, p.losses), rx + 60, 7, 10, UI_DIM);
+    GDrawText(TextFormat("%dW %dL", p.wins, p.losses), rx + 60, 7, 10, UI_DIM);
     std::vector<std::string> badges;
     for (const auto& st : Story().stages)
         if (st.IsGym()) badges.push_back(st.badge);
@@ -669,11 +758,10 @@ void DrawStoryHub(const Game& g) {
     for (int i = 0; i < 12; i++) {
         int y = 26 + i * 16;
         bool sel = g.hubSel == i;
-        DrawPanel(rx, y, rw, 14, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
         Color c = sel ? UI_GOLD : UI_TEXT;
         if (i == 1 && rare) c = Color{255, 150, 230, 255};
         if (i == 10) c = BadgeCount(g) < 8 ? UI_DIM : (sel ? UI_GOLD : Color{255, 200, 120, 255});
-        DrawText(items[i].c_str(), rx + 8, y + 2, 10, c);
+        DrawHubTile(i, items[i].c_str(), rx, y, rw, sel, c, UiEnterT(i, 0.03f), (float)GetTime());
     }
     DrawTimePanel(p.clock, 402, 30);
 
@@ -681,21 +769,35 @@ void DrawStoryHub(const Game& g) {
     int ty = 26 + 12 * 16 + 3;
     std::vector<const OwnedMon*> party;
     for (const auto& m : p.mons) if (!m.boxed) party.push_back(&m);
-    DrawText(TextFormat("Party (%d/%d)", (int)party.size(), PARTY_SIZE), rx, ty, 10, UI_DIM);
+    GDrawText(TextFormat("Party (%d/%d)", (int)party.size(), PARTY_SIZE), rx, ty, 10, UI_DIM);
     for (int i = 0; i < (int)party.size(); i++) {
         const OwnedMon& m = *party[i];
         int idx = MonSpecies(m);
+        float e = UiEnterT(12 + i, 0.03f);
         int y = ty + 12 + i * 18;
-        DrawPanel(rx, y, rw, 17);
-        if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, rx + 11, y + 16, 15, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
-        if (m.shiny) DrawShinyStar((float)rx + 4, (float)y + 4, 3);
-        DrawText(m.species.c_str(), rx + 24, y + 4, 10, m.hp > 0 ? UI_TEXT : UI_DIM);
-        DrawText(TextFormat("Lv%d", m.level), rx + 112, y + 4, 10, UI_GOLD);
-        DrawHpBar(rx + 140, y + 7, 50, 3, m.hp);
-        if (!m.item.empty()) DrawRectangle(rx + rw - 12, y + 6, 5, 5, Color{140, 220, 255, 255});
+        int x = rx + (int)std::lround((1 - e) * 60);
+        Color tc = idx >= 0 ? TypeColor(AllSpecies()[idx].type1) : UI_PANEL;
+        DrawRectangleRounded({(float)x, (float)y, (float)rw, 17}, 0.35f, 6, Fade(UI_PANEL, 0.92f * e));
+        DrawRectangleGradientH(x + 1, y + 1, 40, 15, Fade(tc, 0.45f * e), Fade(tc, 0));
+        DrawRectangleRoundedLinesEx({(float)x, (float)y, (float)rw, 17}, 0.35f, 6, 1.0f, Fade(i == 0 ? UI_GOLD : Color{70, 64, 92, 255}, e));
+        float hop = 0;
+        if (i == 0 && m.hp > 0) {   // the lead hops now and then
+            float ph = std::fmod((float)GetTime(), 2.4f);
+            if (ph < 0.36f) hop = std::sin(ph / 0.36f * PI) * 4.0f;
+        }
+        if (idx >= 0) {
+            DrawEllipse(x + 11, y + 15, 6, 1.5f, Fade(BLACK, 0.3f * e));
+            DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, x + 11, y + 16 - (int)hop, 15, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
+        }
+        if (m.shiny) DrawShinyStar((float)x + 4, (float)y + 4, 3);
+        GDrawText(m.species.c_str(), x + 24, y + 4, 10, Fade(m.hp > 0 ? UI_TEXT : UI_DIM, e));
+        if (i == 0) GDrawText("LEAD", x + 24 + TextW(m.species.c_str(), 10) + 4, y + 4, 10, Fade(UI_GOLD, 0.8f * e));
+        GDrawText(TextFormat("Lv%d", m.level), x + 112 + 14, y + 4, 10, Fade(UI_GOLD, e));
+        DrawHpBar(x + 156, y + 7, 40, 3, m.hp);
+        if (!m.item.empty()) DrawRectangle(x + rw - 12, y + 6, 5, 5, Color{140, 220, 255, 255});
     }
-    if (p.mons.size() > party.size()) DrawText(TextFormat("+%d in the Box", (int)(p.mons.size() - party.size())), rx + 120, ty, 10, UI_DIM);
-    DrawText("Enter choose   Esc save and leave", rx, 346, 10, UI_DIM);
+    if (p.mons.size() > party.size()) GDrawText(TextFormat("+%d in the Box", (int)(p.mons.size() - party.size())), rx + 120, ty, 10, UI_DIM);
+    GDrawText("Enter choose   Esc save and leave", rx, 346, 10, UI_DIM);
     DrawToast(g);
 }
 
@@ -765,42 +867,42 @@ void UpdateMap(Game& g) {
 }
 
 void DrawMap(const Game& g) {
-    ClearBackground(Color{20, 18, 32, 255});
+    DrawMenuBackdrop(Color{20, 18, 32, 255}, (float)GetTime());
     Profile pv = ProgressView(g);
     DrawStoryMap(pv, 0, 0, 480, 360, g.t, true, g.mapSel);
     int x = 484, w = 152;
     DrawPanel(x, 4, w, 352);
-    DrawText("ROUTE", x + 8, 10, 10, UI_GOLD);
+    GDrawText("ROUTE", x + 8, 10, 10, UI_GOLD);
     const auto& stages = Story().stages;
     int n = (int)stages.size();
     if (n == 0) return;
     const StageDef& st = stages[g.mapSel];
     bool beaten = g.mapSel < pv.storyStage;
     bool isNext = g.mapSel == pv.storyStage;
-    DrawText(TextFormat("Stage %d of %d", g.mapSel + 1, n), x + 8, 26, 10, UI_DIM);
+    GDrawText(TextFormat("Stage %d of %d", g.mapSel + 1, n), x + 8, 26, 10, UI_DIM);
     DrawTextShadow(st.name.c_str(), x + 8, 40, 10, UI_TEXT);
-    DrawText(st.trainer.c_str(), x + 8, 54, 10, st.IsGym() ? UI_GOLD : UI_TEXT);
-    DrawText(beaten ? "Beaten" : (isNext ? "Up next" : "Locked"), x + 8, 70, 10,
+    GDrawText(st.trainer.c_str(), x + 8, 54, 10, st.IsGym() ? UI_GOLD : UI_TEXT);
+    GDrawText(beaten ? "Beaten" : (isNext ? "Up next" : "Locked"), x + 8, 70, 10,
              beaten ? Color{120, 230, 130, 255} : (isNext ? WHITE : UI_DIM));
-    DrawText(TextFormat("%d Pokemon", (int)st.team.size()), x + 8, 86, 10, UI_TEXT);
-    DrawText(TextFormat("Arena: %s", ArenaName(st.arena)), x + 8, 100, 10, UI_TEXT);
+    GDrawText(TextFormat("%d Pokemon", (int)st.team.size()), x + 8, 86, 10, UI_TEXT);
+    GDrawText(TextFormat("Arena: %s", ArenaName(st.arena)), x + 8, 100, 10, UI_TEXT);
     if (st.IsBoss()) {
         if (st.IsGym()) {
             DrawBadge(st.badge, x + 20, 126, HasBadge(pv, st.badge), 11);
-            DrawText(TextFormat("%s Badge", st.badge.c_str()), x + 36, 121, 10, BadgeColor(st.badge));
+            GDrawText(TextFormat("%s Badge", st.badge.c_str()), x + 36, 121, 10, BadgeColor(st.badge));
         } else {
             DrawLeagueMark(st, x + 20, 126, beaten, 9);
-            DrawText(st.IsChampion() ? "The Championship" : TextFormat("Elite Four - %d of 4", st.league), x + 36, 121, 10, GymColor(st.arena));
+            GDrawText(st.IsChampion() ? "The Championship" : TextFormat("Elite Four - %d of 4", st.league), x + 36, 121, 10, GymColor(st.arena));
         }
         if (beaten) {
             float pulse = 0.75f + 0.25f * std::sin(g.t * 5);
             DrawPanel(x + 6, 140, w - 12, 14, UI_PANEL_LIGHT, Fade(UI_GOLD, pulse));
-            DrawText("Enter: REMATCH", x + 12, 142, 10, UI_GOLD);
+            GDrawText("Enter: REMATCH", x + 12, 142, 10, UI_GOLD);
         }
     }
     // Gyms and the League
     int y = 158;
-    DrawText("Gyms & League", x + 8, y, 10, UI_DIM);
+    GDrawText("Gyms & League", x + 8, y, 10, UI_DIM);
     y += 13;
     int partnerPick = g.on.active && g.on.partnerReady >= 3 && g.on.partnerReady != 250 ? g.on.partnerReady - 3 : -1;
     for (int i = 0; i < n; i++) {
@@ -810,8 +912,8 @@ void DrawMap(const Game& g) {
         if (stages[i].IsGym()) DrawBadge(stages[i].badge, x + 14, y + 4, have, 4.5f);
         else DrawLeagueMark(stages[i], x + 14, y + 4, have, 4.5f);
         std::string nm = stages[i].trainer;
-        DrawText(nm.c_str(), x + 26, y, 10, i == g.mapSel ? UI_GOLD : have ? UI_TEXT : UI_DIM);
-        if (i == partnerPick) DrawText("<", x + w - 14, y, 10, Color{140, 230, 150, 255});
+        GDrawText(nm.c_str(), x + 26, y, 10, i == g.mapSel ? UI_GOLD : have ? UI_TEXT : UI_DIM);
+        if (i == partnerPick) GDrawText("<", x + w - 14, y, 10, Color{140, 230, 150, 255});
         y += 11;
     }
     if (partnerPick >= 0) {
@@ -819,9 +921,9 @@ void DrawMap(const Game& g) {
                     x + 8, 306, w - 16, 10, Color{140, 230, 150, 255});
         return;
     }
-    DrawText("Up/Down: browse", x + 8, 318, 10, UI_DIM);
-    DrawText("Left/Right: gyms & League", x + 8, 330, 10, UI_DIM);
-    DrawText("Esc: back", x + 8, 342, 10, UI_DIM);
+    GDrawText("Up/Down: browse", x + 8, 318, 10, UI_DIM);
+    GDrawText("Left/Right: gyms & League", x + 8, 330, 10, UI_DIM);
+    GDrawText("Esc: back", x + 8, 342, 10, UI_DIM);
 }
 
 void UpdateStageIntro(Game& g) {
@@ -1367,7 +1469,7 @@ void UpdateMyCreatures(Game& g) {
 }
 
 void DrawMyCreatures(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     const Profile& p = g.profile;
     DrawTextCentered(g.coop ? TextFormat("%s: PARTY & BOX", p.name.c_str()) : "PARTY & BOX", VW / 2, 6, 20, UI_GOLD);
     const auto& mons = p.mons;
@@ -1375,10 +1477,19 @@ void DrawMyCreatures(const Game& g) {
     int n = (int)list.size();
     // Tabs
     const char* tabs[2] = {"Party", "Box"};
+    static float tabX = 10;
+    tabX += (10 + g.boxTab * 92 - tabX) * std::min(1.0f, GetFrameTime() * 14);
+    if (Cfg().fxLevel >= 2) tabX = 10.0f + g.boxTab * 92;
+    for (int i = 0; i < 2; i++) {
+        int x = 10 + i * 92;
+        DrawPanel(x, 30, 88, 16, UI_PANEL, Color{70, 64, 92, 255});
+    }
+    DrawRectangleRounded({tabX, 30, 88, 16}, 0.35f, 6, UI_PANEL_LIGHT);
+    DrawRectangleRoundedLinesEx({tabX, 30, 88, 16}, 0.35f, 6, 1.0f, UI_GOLD);
+    DrawRectangle((int)tabX + 10, 44, 68, 2, UI_GOLD);
     for (int i = 0; i < 2; i++) {
         int x = 10 + i * 92;
         bool sel = g.boxTab == i;
-        DrawPanel(x, 30, 88, 16, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
         const char* t = i == 0 ? TextFormat("%s %d/%d", tabs[i], PartyCount(p), PARTY_SIZE)
                                : TextFormat("%s (%d)", tabs[i], (int)mons.size() - PartyCount(p));
         DrawTextCentered(t, x + 44, 33, 10, sel ? UI_GOLD : UI_DIM, false);
@@ -1386,11 +1497,11 @@ void DrawMyCreatures(const Game& g) {
     bool boxTools = g.boxTab == 1 && (int)mons.size() > PartyCount(p);
     int listY = boxTools ? 66 : 50, listRows = boxTools ? 11 : 12;
     if (boxTools) {   // sort and filter
-        DrawText(TextFormat("Sort: %s", kBoxSorts[std::max(0, std::min(5, p.boxSort))]), 12, 50, 10, p.boxSort ? UI_GOLD : UI_DIM);
+        GDrawText(TextFormat("Sort: %s", kBoxSorts[std::max(0, std::min(5, p.boxSort))]), 12, 50, 10, p.boxSort ? UI_GOLD : UI_DIM);
         std::string f = "Show: " + BoxFilterName(p.boxFilter);
         if (!p.boxFilter.empty()) f += TextFormat(" (%d)", n);
         while (TextW(f.c_str(), 10) > 92 && f.size() > 4) f = f.substr(0, f.size() - 4) + "...";
-        DrawText(f.c_str(), 98, 50, 10, p.boxFilter.empty() ? UI_DIM : Color{140, 220, 255, 255});
+        GDrawText(f.c_str(), 98, 50, 10, p.boxFilter.empty() ? UI_DIM : Color{140, 220, 255, 255});
     }
     int sel = std::max(0, std::min(g.myCreSel, n - 1));
     int first = std::max(0, std::min(sel - 5, n - listRows));
@@ -1398,33 +1509,64 @@ void DrawMyCreatures(const Game& g) {
         float f0 = (float)first / n, f1 = (float)(first + listRows) / n;
         DrawRectangle(192, listY + (int)(f0 * listRows * 24), 2, std::max(4, (int)((f1 - f0) * listRows * 24)), UI_DIM);
     }
+    if (g.boxTab == 1) {   // Box wallpaper: a checker of soft tiles in the season's colour
+        static const Color wall[4] = {{120, 170, 120, 255}, {90, 150, 200, 255}, {190, 120, 70, 255}, {140, 160, 200, 255}};
+        Color wc = wall[SeasonOf(p.clock)];
+        int wy = listY - 2, wh = listRows * 24 + 2;
+        DrawRectangleRounded({6, (float)wy, 188, (float)wh}, 0.04f, 6, Fade(wc, 0.35f));
+        BeginScissorMode(6, wy, 188, wh);
+        float off = std::fmod((float)GetTime() * 6.0f, 24.0f);
+        for (int yy = -1; yy < wh / 12 + 2; yy++)
+            for (int xx = -1; xx < 188 / 12 + 2; xx++)
+                if (((xx + yy) & 1) == 0) DrawRectangle(6 + xx * 12 + (int)off / 2, wy + yy * 12 + (int)off / 2, 12, 12, Fade(wc, 0.18f));
+        EndScissorMode();
+        DrawRectangleRoundedLinesEx({6, (float)wy, 188, (float)wh}, 0.04f, 6, 1.0f, Fade(wc, 0.8f));
+    }
+    // a hop when a different Pokemon is picked (visual only)
+    static int hopKey = -1;
+    static double hopAt = 0;
+    int key = n > 0 ? list[sel] * 4 + g.boxTab : -1;
+    if (key != hopKey) { hopKey = key; hopAt = GetTime(); }
+    float hu = (float)std::min(1.0, (GetTime() - hopAt) / 0.38);
+    float hop = Cfg().fxLevel >= 2 ? 0 : std::sin(hu * PI) * 7.0f * (1 - hu * 0.3f);
     for (int k = first; k < std::min(n, first + listRows); k++) {
         int i = list[k];
+        float e = UiEnterT(k - first, 0.03f);
         int y = listY + (k - first) * 24;
+        int x = 10 - (int)std::lround((1 - e) * 60);
         bool on = sel == k;
-        DrawPanel(10, y, 180, 22, on ? UI_PANEL_LIGHT : UI_PANEL, on ? UI_GOLD : Color{70, 64, 92, 255});
         int idx = MonSpecies(mons[i]);
-        if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, mons[i].shiny), VIEW_FRONT, 24, y + 21, 18, mons[i].hp > 0 ? WHITE : Color{90, 90, 100, 255});
-        if (mons[i].shiny) DrawShinyStar(14, (float)y + 5, 3);
-        DrawText(mons[i].species.c_str(), 40, y + 6, 10, on ? UI_GOLD : UI_TEXT);
-        DrawText(TextFormat("Lv%d", mons[i].level), 150, y + 3, 10, UI_GOLD);
-        DrawHpBar(150, y + 15, 34, 2, mons[i].hp);
-        if (!mons[i].item.empty()) DrawRectangle(140, y + 4, 5, 5, Color{140, 220, 255, 255});
+        Color tc = idx >= 0 ? TypeColor(AllSpecies()[idx].type1) : UI_PANEL;
+        Rectangle rc{(float)x + (on ? 3 : 0), (float)y, 180, 22};
+        DrawRectangleRounded({rc.x + 1, rc.y + 1.5f, rc.width, rc.height}, 0.3f, 6, Fade(BLACK, 0.3f * e));
+        DrawRectangleRounded(rc, 0.3f, 6, Fade(on ? UI_PANEL_LIGHT : UI_PANEL, 0.95f * e));
+        DrawRectangleGradientH((int)rc.x + 1, y + 1, 60, 20, Fade(tc, (on ? 0.5f : 0.28f) * e), Fade(tc, 0));
+        DrawRectangleRoundedLinesEx(rc, 0.3f, 6, 1.0f, Fade(on ? UI_GOLD : Color{70, 64, 92, 255}, e));
+        int sx = (int)rc.x + 14;
+        if (idx >= 0) {
+            DrawEllipse(sx, y + 20, 7, 1.6f, Fade(BLACK, 0.3f * e));
+            DrawSpeciesFit(ShinyIdx(idx, mons[i].shiny), VIEW_FRONT, sx, y + 21 - (on ? (int)hop / 2 : 0), 18, mons[i].hp > 0 ? WHITE : Color{90, 90, 100, 255});
+        }
+        if (mons[i].shiny) DrawShinyStar(rc.x + 4, (float)y + 5, 3);
+        GDrawText(mons[i].species.c_str(), (int)rc.x + 30, y + 6, 10, Fade(on ? UI_GOLD : UI_TEXT, e));
+        GDrawText(TextFormat("Lv%d", mons[i].level), (int)rc.x + 140, y + 3, 10, Fade(UI_GOLD, e));
+        DrawHpBar((int)rc.x + 140, y + 15, 34, 2, mons[i].hp);
+        if (!mons[i].item.empty()) DrawRectangle((int)rc.x + 130, y + 4, 5, 5, Color{140, 220, 255, 255});
     }
     if (n == 0 && boxTools) {
-        DrawText("Nothing in the Box matches this filter.", 16, 74, 10, UI_DIM);
-        DrawText("R / Y: change the filter", 16, 88, 10, UI_DIM);
-        DrawText("Left/Right switch tab   Tab sort   R filter   Esc back", 212, 340, 10, UI_DIM);
+        GDrawText("Nothing in the Box matches this filter.", 16, 74, 10, UI_DIM);
+        GDrawText("R / Y: change the filter", 16, 88, 10, UI_DIM);
+        GDrawText("Left/Right switch tab   Tab sort   R filter   Esc back", 212, 340, 10, UI_DIM);
         DrawToast(g);
         return;
     }
     if (n == 0) {
-        DrawText(g.boxTab == 1 ? "Your Box is empty." : "No Pokemon in the party.", 16, 58, 10, UI_DIM);
+        GDrawText(g.boxTab == 1 ? "Your Box is empty." : "No Pokemon in the party.", 16, 58, 10, UI_DIM);
         if (g.boxTab == 1) {
-            DrawText("Pokemon you catch or receive", 16, 74, 10, UI_DIM);
-            DrawText("go here when your party is full.", 16, 86, 10, UI_DIM);
+            GDrawText("Pokemon you catch or receive", 16, 74, 10, UI_DIM);
+            GDrawText("go here when your party is full.", 16, 86, 10, UI_DIM);
         }
-        DrawText("Left/Right switch tab   Esc back", 212, 340, 10, UI_DIM);
+        GDrawText("Left/Right switch tab   Esc back", 212, 340, 10, UI_DIM);
         DrawToast(g);
         return;
     }
@@ -1432,25 +1574,42 @@ void DrawMyCreatures(const Game& g) {
     int idx = MonSpecies(m);
     DrawPanel(200, 30, 430, 304);
     if (idx < 0) {
-        DrawText(TextFormat("%s is missing from the Pokemon folder.", m.species.c_str()), 212, 50, 10, Color{255, 120, 100, 255});
+        GDrawText(TextFormat("%s is missing from the Pokemon folder.", m.species.c_str()), 212, 50, 10, Color{255, 120, 100, 255});
         DrawToast(g);
         return;
     }
     const SpeciesDef& sp = AllSpecies()[idx];
-    DrawRectangle(212, 42, 80, 80, UI_PANEL_LIGHT);
-    DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, 252, 118, 72);
-    if (m.shiny) { DrawShinyStar(220, 50, 5); DrawText("Shiny!", 228, 46, 10, Color{255, 214, 80, 255}); }
+    {   // the portrait on a backdrop in its type's colours, with rays and a hop when picked
+        Color c1 = TypeColor(sp.type1), c2 = sp.type2 != Type::None ? TypeColor(sp.type2) : c1;
+        Rectangle pr{212, 42, 80, 80};
+        DrawRectangleRounded(pr, 0.12f, 6, UI_PANEL_LIGHT);
+        DrawRectangleGradientV(213, 43, 78, 78, Fade(c1, 0.55f), Fade(c2, 0.25f));
+        BeginScissorMode(212, 42, 80, 80);
+        float rt = (float)GetTime() * 12.0f;
+        for (int k = 0; k < 12; k++) {
+            float a0 = (rt + k * 30) * DEG2RAD, a1 = a0 + 12 * DEG2RAD;
+            Vector2 c{252, 84};
+            DrawTriangle(c, {c.x + std::cos(a1) * 80, c.y + std::sin(a1) * 80}, {c.x + std::cos(a0) * 80, c.y + std::sin(a0) * 80}, Fade(WHITE, 0.07f));
+        }
+        DrawCircleGradient(252, 84, 36, Fade(WHITE, 0.22f), Fade(WHITE, 0));
+        EndScissorMode();
+        DrawEllipse(252, 116, 22, 4, Fade(BLACK, 0.3f));
+        float breathe = 1.0f + std::sin((float)GetTime() * 2.2f) * 0.015f;
+        DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, 252, 118 - (int)hop, (int)(72 * breathe));
+        DrawRectangleRoundedLinesEx(pr, 0.12f, 6, 1.0f, Fade(c1, 0.9f));
+    }
+    if (m.shiny) { DrawShinyStar(220, 50, 5); GDrawText("Shiny!", 228, 46, 10, Color{255, 214, 80, 255}); }
     DrawTextShadow(sp.name.c_str(), 302, 44, 20, UI_TEXT);
     int bx = 302;
     bx += DrawTypeBadge(sp.type1, bx, 68) + 2;
     if (sp.type2 != Type::None) DrawTypeBadge(sp.type2, bx, 68);
-    DrawText(TextFormat("Level %d", m.level), 302, 86, 10, UI_GOLD);
-    if (m.level < MAX_LEVEL) DrawText(TextFormat("%d XP to next level", XpForLevel(m.level + 1) - m.xp), 370, 86, 10, UI_DIM);
+    GDrawText(TextFormat("Level %d", m.level), 302, 86, 10, UI_GOLD);
+    if (m.level < MAX_LEVEL) GDrawText(TextFormat("%d XP to next level", XpForLevel(m.level + 1) - m.xp), 370, 86, 10, UI_DIM);
     DrawXpBar(m, 302, 100, 200);
     std::string hint = EvolutionHint(idx);
     if (!hint.empty()) {
         if (TextW(hint.c_str(), 10) > 320) hint = hint.substr(0, 60) + "...";
-        DrawText(hint.c_str(), 302, 110, 10, Color{140, 220, 255, 255});
+        GDrawText(hint.c_str(), 302, 110, 10, Color{140, 220, 255, 255});
     }
     {
         std::string abn = MonAbility(m);
@@ -1458,71 +1617,85 @@ void DrawMyCreatures(const Game& g) {
         if (ab != Ab::None) {
             std::string line = abn + (m.abilitySlot == 2 ? " (hidden)" : "") + ": " + AbilityInfo(ab).desc;
             while (TextW(line.c_str(), 10) > 320 && line.size() > 4) line = line.substr(0, line.size() - 4) + "...";
-            DrawText(line.c_str(), 302, 120, 10, Color{255, 225, 130, 255});
+            GDrawText(line.c_str(), 302, 120, 10, Color{255, 225, 130, 255});
         }
     }
-    DrawText(TextFormat("Battles %d   Wins %d   KOs %d", m.battles, m.wins, m.kos), 470, 44, 10, UI_DIM);
+    GDrawText(TextFormat("Battles %d   Wins %d   KOs %d", m.battles, m.wins, m.kos), 470, 44, 10, UI_DIM);
     DrawFriendship(m.friendship, 470, 82);
-    DrawText(m.hp <= 0 ? "Fainted" : TextFormat("HP %d%%", (int)std::round(m.hp * 100)), 470, 58, 10, m.hp <= 0 ? Color{255, 120, 100, 255} : UI_TEXT);
+    GDrawText(m.hp <= 0 ? "Fainted" : TextFormat("HP %d%%", (int)std::round(m.hp * 100)), 470, 58, 10, m.hp <= 0 ? Color{255, 120, 100, 255} : UI_TEXT);
     DrawHpBar(530, 60, 90, 4, m.hp);
-    if (!m.ot.empty()) DrawText(("Traded from " + m.ot).c_str(), 470, 70, 10, Color{255, 150, 230, 255});
-    else if (m.caught) DrawText("Caught in the wild", 470, 70, 10, Color{140, 220, 150, 255});
-    if (m.boxed) DrawText("In the Box", 576, 70, 10, UI_DIM);
+    if (!m.ot.empty()) GDrawText(("Traded from " + m.ot).c_str(), 470, 70, 10, Color{255, 150, 230, 255});
+    else if (m.caught) GDrawText("Caught in the wild", 470, 70, 10, Color{140, 220, 150, 255});
+    if (m.boxed) GDrawText("In the Box", 576, 70, 10, UI_DIM);
 
     float mul = StatMul(m.level);
     {   // nature: the raised stat's label is red, the lowered one blue
         static const char* kShort[5] = {"ATK", "DEF", "SPD", "SpA", "SpD"};
         int nu = NatureUp(m.nature), nd = NatureDown(m.nature);
         std::string nt = std::string(NatureName(m.nature)) + " nature";
-        DrawText(nt.c_str(), 212, 132, 10, Color{255, 200, 150, 255});
+        GDrawText(nt.c_str(), 212, 132, 10, Color{255, 200, 150, 255});
         if (nu >= 0) {
             int x = 212 + TextW(nt.c_str(), 10) + 6;
-            DrawText(TextFormat("+%s", kShort[nu]), x, 132, 10, Color{255, 110, 100, 255});
-            DrawText(TextFormat("-%s", kShort[nd]), x + 30, 132, 10, Color{110, 160, 255, 255});
-        } else DrawText("(no change)", 212 + TextW(nt.c_str(), 10) + 6, 132, 10, UI_DIM);
+            GDrawText(TextFormat("+%s", kShort[nu]), x, 132, 10, Color{255, 110, 100, 255});
+            GDrawText(TextFormat("-%s", kShort[nd]), x + 30, 132, 10, Color{110, 160, 255, 255});
+        } else GDrawText("(no change)", 212 + TextW(nt.c_str(), 10) + 6, 132, 10, UI_DIM);
     }
     auto mark = [&](int st) { return NatureUp(m.nature) == st ? 1 : NatureDown(m.nature) == st ? -1 : 0; };
     auto sv = [&](int b, int st) { return (int)std::lround(Scaled(b) * mul * NatureMul(m.nature, st)); };
-    DrawStatBar("HP", (int)std::lround(Scaled(sp.hp) * mul), 212, 146, 50);
-    DrawStatBar("ATK", sv(sp.atk, NS_ATK), 212, 158, 50, mark(NS_ATK));
-    DrawStatBar("DEF", sv(sp.def, NS_DEF), 212, 170, 50, mark(NS_DEF));
-    DrawStatBar("SPD", (int)std::lround(Scaled(sp.spd) * NatureMul(m.nature, NS_SPE)), 212, 182, 50, mark(NS_SPE));
-    DrawStatBar("SpA", sv(sp.SpAtk(), NS_SPA), 316, 158, 40, mark(NS_SPA));
-    DrawStatBar("SpD", sv(sp.SpDef(), NS_SPD), 316, 170, 40, mark(NS_SPD));
+    int stHp = (int)std::lround(Scaled(sp.hp) * mul), stAtk = sv(sp.atk, NS_ATK), stDef = sv(sp.def, NS_DEF);
+    int stSpe = (int)std::lround(Scaled(sp.spd) * NatureMul(m.nature, NS_SPE)), stSpa = sv(sp.SpAtk(), NS_SPA), stSpd = sv(sp.SpDef(), NS_SPD);
+    DrawStatBar("HP", stHp, 212, 146, 0);
+    DrawStatBar("ATK", stAtk, 212, 158, 0, mark(NS_ATK));
+    DrawStatBar("DEF", stDef, 212, 170, 0, mark(NS_DEF));
+    DrawStatBar("SPD", stSpe, 212, 182, 0, mark(NS_SPE));
+    DrawStatBar("SpA", stSpa, 268, 158, 0, mark(NS_SPA));
+    DrawStatBar("SpD", stSpd, 268, 170, 0, mark(NS_SPD));
+    {
+        int hv[6] = {stHp, stAtk, stDef, stSpe, stSpd, stSpa};
+        float grow = 0.25f + 0.75f * (1 - (1 - hu) * (1 - hu));
+        if (Cfg().fxLevel >= 2) grow = 1;
+        DrawStatHex(364, 177, 21, hv, TypeColor(sp.type1), grow);
+        static const char* hl[6] = {"HP", "ATK", "DEF", "SPD", "SpD", "SpA"};
+        for (int k = 0; k < 6; k++) {
+            float an = (-90 + k * 60) * DEG2RAD;
+            int lx = 364 + (int)(std::cos(an) * 34), ly = 177 + (int)(std::sin(an) * 28) - 4;
+            GDrawText(hl[k], lx - TextW(hl[k], 10) / 2, ly, 10, Fade(UI_DIM, 0.85f));
+        }
+    }
 
-    DrawText("Moves", 212, 200, 10, UI_DIM);
+    GDrawText("Moves", 212, 200, 10, UI_DIM);
     auto mv = MonMoves(m);
     for (size_t k = 0; k < 4; k++) {
         if (k < mv.size()) DrawMoveLine(mv[k], 212, 214 + (int)k * 22, 400, true);
-        else DrawText("-", 222, 214 + (int)k * 22, 10, UI_DIM);
+        else GDrawText("-", 222, 214 + (int)k * 22, 10, UI_DIM);
     }
     for (const auto& e : sp.learnset) {
         if (e.level > m.level) {
-            DrawText(TextFormat("Next: learns %s at level %d", e.move.name.c_str(), e.level), 212, 306, 10, Color{140, 220, 255, 255});
+            GDrawText(TextFormat("Next: learns %s at level %d", e.move.name.c_str(), e.level), 212, 306, 10, Color{140, 220, 255, 255});
             break;
         }
     }
-    DrawText("Held item", 420, 132, 10, UI_DIM);
+    GDrawText("Held item", 420, 132, 10, UI_DIM);
     const ItemDef* held = FindItem(m.item);
-    DrawText(held ? held->name.c_str() : "(none)", 420, 146, 10, held ? Color{140, 220, 255, 255} : UI_DIM);
+    GDrawText(held ? held->name.c_str() : "(none)", 420, 146, 10, held ? Color{140, 220, 255, 255} : UI_DIM);
     if (held) {
         std::string desc = held->desc, line, word;
         int ly = 160;
         for (size_t i = 0; i <= desc.size(); i++) {
             if (i == desc.size() || desc[i] == ' ') {
                 std::string t2 = line.empty() ? word : line + " " + word;
-                if (TextW(t2.c_str(), 10) > 196) { DrawText(line.c_str(), 420, ly, 10, UI_DIM); ly += 11; line = word; }
+                if (TextW(t2.c_str(), 10) > 196) { GDrawText(line.c_str(), 420, ly, 10, UI_DIM); ly += 11; line = word; }
                 else line = t2;
                 word.clear();
             } else word += desc[i];
         }
-        if (!line.empty()) DrawText(line.c_str(), 420, ly, 10, UI_DIM);
+        if (!line.empty()) GDrawText(line.c_str(), 420, ly, 10, UI_DIM);
     }
     if (g.swapFrom >= 0 && g.swapFrom < (int)mons.size()) {
         DrawRectangle(0, 336, VW, 24, Fade(UI_INK, 0.9f));
-        DrawText(TextFormat("Who goes to the Box so %s can join?   Enter swap   Esc cancel", mons[g.swapFrom].species.c_str()), 12, 342, 10, UI_GOLD);
+        GDrawText(TextFormat("Who goes to the Box so %s can join?   Enter swap   Esc cancel", mons[g.swapFrom].species.c_str()), 12, 342, 10, UI_GOLD);
     } else {
-        DrawText(g.boxTab == 1 ? "Left/Right Party / Box   Up/Down browse   Enter options   Tab (X) sort   R (Y) filter   Esc back"
+        GDrawText(g.boxTab == 1 ? "Left/Right Party / Box   Up/Down browse   Enter options   Tab (X) sort   R (Y) filter   Esc back"
                                : "Left/Right Party / Box   Up/Down browse   Enter options   Esc back", 12, 342, 10, UI_DIM);
     }
 
@@ -1533,12 +1706,12 @@ void DrawMyCreatures(const Game& g) {
         int py = 180 - h / 2;
         DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.5f));
         DrawPanel(200, py, 240, h, UI_PANEL, UI_GOLD);
-        DrawText(m.species.c_str(), 210, py + 8, 10, UI_GOLD);
+        GDrawText(m.species.c_str(), 210, py + 8, 10, UI_GOLD);
         for (int i = 0; i < N; i++) {
             int y = py + 24 + i * 16;
             bool on = g.actSel == i;
             if (on) DrawRectangle(204, y - 2, 232, 14, UI_PANEL_LIGHT);
-            DrawText(opts[i].second.c_str(), 212, y, 10, on ? UI_GOLD : UI_TEXT);
+            GDrawText(opts[i].second.c_str(), 212, y, 10, on ? UI_GOLD : UI_TEXT);
         }
     }
     if (g.releaseAsk >= 0 && g.releaseAsk < (int)mons.size()) {
@@ -1547,9 +1720,9 @@ void DrawMyCreatures(const Game& g) {
         DrawPanel(160, 120, 320, 110, UI_PANEL, Color{255, 120, 100, 255});
         int si = MonSpecies(rm);
         if (si >= 0) DrawSpeciesFit(ShinyIdx(si, rm.shiny), VIEW_FRONT, 196, 176, 44);
-        DrawText(TextFormat("Release %s (Lv%d)?", rm.species.c_str(), rm.level), 232, 132, 10, UI_GOLD);
+        GDrawText(TextFormat("Release %s (Lv%d)?", rm.species.c_str(), rm.level), 232, 132, 10, UI_GOLD);
         DrawWrapped(rm.shiny ? "It's shiny! Once it's released, it's gone for good." : "Once it's released into the wild, it's gone for good.", 232, 148, 236, 10, UI_TEXT);
-        if (!rm.item.empty()) DrawText(TextFormat("Its %s goes back to your Bag.", rm.item.c_str()), 232, 174, 10, UI_DIM);
+        if (!rm.item.empty()) GDrawText(TextFormat("Its %s goes back to your Bag.", rm.item.c_str()), 232, 174, 10, UI_DIM);
         const char* opt[2] = {"No, keep it", "Yes, release it"};
         for (int k = 0; k < 2; k++) {
             int bx = 232 + k * 120, by = 196;
@@ -1564,7 +1737,7 @@ void DrawMyCreatures(const Game& g) {
         int py = 180 - h / 2;
         DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.5f));
         DrawPanel(150, py, 340, h, UI_PANEL, UI_GOLD);
-        DrawText(TextFormat("%s: which button uses which move", m.species.c_str()), 160, py + 8, 10, UI_GOLD);
+        GDrawText(TextFormat("%s: which button uses which move", m.species.c_str()), 160, py + 8, 10, UI_GOLD);
         bool online = g.on.active;
         int who = g.coop && !online ? g.coopWho : 0;
         bool tp = g.coop && !online;
@@ -1575,12 +1748,12 @@ void DrawMyCreatures(const Game& g) {
             if (grabbed) DrawRectangleLines(154, y - 3, 332, 20, UI_GOLD);
             const char* key = AttackKeyLabel(who, i, tp);
             DrawPanel(160, y - 1, 34, 16, UI_INK, grabbed ? UI_GOLD : Color{90, 84, 120, 255});
-            DrawText(key, 177 - TextW(key, 10) / 2, y + 2, 10, UI_GOLD);
+            GDrawText(key, 177 - TextW(key, 10) / 2, y + 2, 10, UI_GOLD);
             const MoveDef* md = FindMove(m.moves[i]);
             if (md) DrawMoveLine(*md, 200, y + 2, 280, false);
-            else DrawText(m.moves[i].c_str(), 204, y + 2, 10, UI_TEXT);
+            else GDrawText(m.moves[i].c_str(), 204, y + 2, 10, UI_TEXT);
         }
-        DrawText(g.moveGrab < 0 ? "Enter pick a move   Esc done" : "Enter swap it here   Esc cancel", 160, py + h - 16, 10, UI_DIM);
+        GDrawText(g.moveGrab < 0 ? "Enter pick a move   Esc done" : "Enter swap it here   Esc cancel", 160, py + h - 16, 10, UI_DIM);
     }
     if (g.stonePick) {
         auto stones = UsableStones(p, m);
@@ -1589,14 +1762,14 @@ void DrawMyCreatures(const Game& g) {
         int py = 180 - h / 2;
         DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.5f));
         DrawPanel(190, py, 260, h, UI_PANEL, UI_GOLD);
-        DrawText(TextFormat("Use a stone on %s", m.species.c_str()), 200, py + 8, 10, UI_GOLD);
+        GDrawText(TextFormat("Use a stone on %s", m.species.c_str()), 200, py + 8, 10, UI_GOLD);
         for (int i = 0; i < N; i++) {
             int y = py + 24 + i * 16;
             bool on = g.itemSel == i;
             if (on) DrawRectangle(194, y - 2, 252, 14, UI_PANEL_LIGHT);
-            if (i == N - 1) { DrawText("Cancel", 202, y, 10, on ? UI_GOLD : UI_TEXT); continue; }
+            if (i == N - 1) { GDrawText("Cancel", 202, y, 10, on ? UI_GOLD : UI_TEXT); continue; }
             int to = StoneEvolution(idx, stones[i]);
-            DrawText(TextFormat("%s (x%d)  ->  %s", stones[i].c_str(), BagCount(p, stones[i]), to >= 0 ? AllSpecies()[to].name.c_str() : "?"),
+            GDrawText(TextFormat("%s (x%d)  ->  %s", stones[i].c_str(), BagCount(p, stones[i]), to >= 0 ? AllSpecies()[to].name.c_str() : "?"),
                      202, y, 10, on ? UI_GOLD : UI_TEXT);
         }
     }
@@ -1609,19 +1782,19 @@ void DrawMyCreatures(const Game& g) {
         int py = std::max(8, 180 - h / 2);
         DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.5f));
         DrawPanel(150, py, 340, h, UI_PANEL, UI_GOLD);
-        DrawText(TextFormat("Teach %s a move with a TM", m.species.c_str()), 160, py + 8, 10, UI_GOLD);
-        DrawText(m.moves.size() < 4 ? "It has a free move slot." : "It knows 4 moves - you'll pick one to forget.", 160, py + 20, 10, UI_DIM);
+        GDrawText(TextFormat("Teach %s a move with a TM", m.species.c_str()), 160, py + 8, 10, UI_GOLD);
+        GDrawText(m.moves.size() < 4 ? "It has a free move slot." : "It knows 4 moves - you'll pick one to forget.", 160, py + 20, 10, UI_DIM);
         for (int r = 0; r < rows; r++) {
             int i = first + r;
             int y = py + 36 + r * 16;
             bool on = g.itemSel == i;
             if (on) DrawRectangle(154, y - 2, 332, 14, UI_PANEL_LIGHT);
-            if (i == N - 1) { DrawText("Cancel", 162, y, 10, on ? UI_GOLD : UI_TEXT); continue; }
+            if (i == N - 1) { GDrawText("Cancel", 162, y, 10, on ? UI_GOLD : UI_TEXT); continue; }
             const ItemDef* d = FindItem(tms[i]);
             const MoveDef* mv = d ? FindMove(d->move) : nullptr;
             if (mv) DrawRectangle(162, y + 1, 8, 8, TypeColor(mv->type));
-            DrawText(TextFormat("%s  (x%d)", tms[i].c_str(), BagCount(p, tms[i])), 176, y, 10, on ? UI_GOLD : UI_TEXT);
-            if (mv && mv->power > 0) DrawText(TextFormat("pow %d", mv->power), 440, y, 10, UI_DIM);
+            GDrawText(TextFormat("%s  (x%d)", tms[i].c_str(), BagCount(p, tms[i])), 176, y, 10, on ? UI_GOLD : UI_TEXT);
+            if (mv && mv->power > 0) GDrawText(TextFormat("pow %d", mv->power), 440, y, 10, UI_DIM);
         }
     }
     if (g.itemPick) {
@@ -1631,19 +1804,19 @@ void DrawMyCreatures(const Game& g) {
         int py = std::max(20, 180 - h / 2);
         DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.5f));
         DrawPanel(170, py, 300, h, UI_PANEL, UI_GOLD);
-        DrawText(TextFormat("Give %s an item", m.species.c_str()), 180, py + 8, 10, UI_GOLD);
+        GDrawText(TextFormat("Give %s an item", m.species.c_str()), 180, py + 8, 10, UI_GOLD);
         for (int i = 0; i < N; i++) {
             int y = py + 24 + i * 16;
             bool on = g.itemSel == i;
             if (on) DrawRectangle(174, y - 2, 292, 14, UI_PANEL_LIGHT);
-            if (i == 0) DrawText(m.item.empty() ? "(cancel)" : TextFormat("Take off %s", m.item.c_str()), 182, y, 10, on ? UI_GOLD : UI_TEXT);
+            if (i == 0) GDrawText(m.item.empty() ? "(cancel)" : TextFormat("Take off %s", m.item.c_str()), 182, y, 10, on ? UI_GOLD : UI_TEXT);
             else {
                 const ItemDef* d = FindItem(items[i - 1]);
-                DrawText(TextFormat("%s  x%d", items[i - 1].c_str(), BagCount(p, items[i - 1])), 182, y, 10, on ? UI_GOLD : UI_TEXT);
-                if (d && on) DrawText(d->desc.c_str(), 182, py + h + 4, 10, UI_TEXT);
+                GDrawText(TextFormat("%s  x%d", items[i - 1].c_str(), BagCount(p, items[i - 1])), 182, y, 10, on ? UI_GOLD : UI_TEXT);
+                if (d && on) GDrawText(d->desc.c_str(), 182, py + h + 4, 10, UI_TEXT);
             }
         }
-        if (N == 1) DrawText("No held items in your bag - buy some at the Shop.", 182, py + h + 4, 10, UI_DIM);
+        if (N == 1) GDrawText("No held items in your bag - buy some at the Shop.", 182, py + h + 4, 10, UI_DIM);
     }
     DrawToast(g);
 }
@@ -1974,7 +2147,7 @@ void UpdateBattleStats(Game& g) {
 }
 
 void DrawBattleStats(const Game& g) {
-    ClearBackground(Color{20, 18, 32, 255});
+    DrawMenuBackdrop(Color{20, 18, 32, 255}, (float)GetTime());
     DrawTextCentered(g.won ? "VICTORY - BATTLE STATS" : "DEFEAT - BATTLE STATS", VW / 2, 8, 20, g.won ? UI_GOLD : Color{255, 120, 100, 255});
     int best = -1, bestDealt = -1;   // MVP: most damage dealt on your side
     for (int i = 0; i < (int)g.statRows.size(); i++)
@@ -1984,10 +2157,10 @@ void DrawBattleStats(const Game& g) {
     for (int team = 0; team < 2; team++) {
         int x = team == 0 ? 8 : 326, w = 306, y = 34;
         DrawPanel(x, y, w, 300, UI_PANEL, team == 0 ? Color{90, 140, 220, 255} : Color{220, 90, 90, 255});
-        DrawText(team == 0 ? "YOUR TEAM" : "OPPONENTS", x + 8, y + 6, 10, team == 0 ? Color{140, 190, 255, 255} : Color{255, 140, 130, 255});
-        DrawText("dealt", x + 150, y + 6, 10, UI_DIM);
-        DrawText("taken", x + 216, y + 6, 10, UI_DIM);
-        DrawText("KOs", x + 278, y + 6, 10, UI_DIM);
+        GDrawText(team == 0 ? "YOUR TEAM" : "OPPONENTS", x + 8, y + 6, 10, team == 0 ? Color{140, 190, 255, 255} : Color{255, 140, 130, 255});
+        GDrawText("dealt", x + 150, y + 6, 10, UI_DIM);
+        GDrawText("taken", x + 216, y + 6, 10, UI_DIM);
+        GDrawText("KOs", x + 278, y + 6, 10, UI_DIM);
         int tDealt = 0, tTaken = 0, tKos = 0, row = 0;
         for (int i = 0; i < (int)g.statRows.size(); i++) {
             const auto& r = g.statRows[i];
@@ -2001,30 +2174,30 @@ void DrawBattleStats(const Game& g) {
             if (r.species >= 0) DrawSpeciesFit(r.species, VIEW_FRONT, x + 16, ry + 19, 18, r.fainted ? Color{110, 110, 120, 255} : WHITE);
             Color nc = team == 0 && g.coop ? (r.who == 0 ? UI_GOLD : Color{120, 230, 255, 255}) : UI_TEXT;
             const char* nm = r.species >= 0 ? AllSpecies()[r.species].name.c_str() : "?";
-            DrawText(nm, x + 30, ry + 2, 10, nc);
-            DrawText(TextFormat("Lv%d%s", r.level, r.fainted ? "  fainted" : ""), x + 30, ry + 11, 10, r.fainted ? Color{255, 120, 100, 255} : UI_DIM);
-            if (mvp) DrawText("MVP", x + 112, ry + 6, 10, UI_GOLD);
+            GDrawText(nm, x + 30, ry + 2, 10, nc);
+            GDrawText(TextFormat("Lv%d%s", r.level, r.fainted ? "  fainted" : ""), x + 30, ry + 11, 10, r.fainted ? Color{255, 120, 100, 255} : UI_DIM);
+            if (mvp) GDrawText("MVP", x + 112, ry + 6, 10, UI_GOLD);
             // bars
             DrawRectangle(x + 150, ry + 13, (int)(56.0f * r.dealt / maxDealt), 3, Color{255, 170, 80, 255});
             DrawRectangle(x + 216, ry + 13, (int)(56.0f * r.taken / maxDealt), 3, Color{120, 170, 255, 255});
-            DrawText(TextFormat("%d", r.dealt), x + 150, ry + 2, 10, UI_TEXT);
-            DrawText(TextFormat("%d", r.taken), x + 216, ry + 2, 10, UI_TEXT);
-            DrawText(TextFormat("%d", r.kos), x + 282, ry + 5, 10, r.kos ? UI_GOLD : UI_DIM);
+            GDrawText(TextFormat("%d", r.dealt), x + 150, ry + 2, 10, UI_TEXT);
+            GDrawText(TextFormat("%d", r.taken), x + 216, ry + 2, 10, UI_TEXT);
+            GDrawText(TextFormat("%d", r.kos), x + 282, ry + 5, 10, r.kos ? UI_GOLD : UI_DIM);
         }
         DrawRectangle(x + 4, y + 272, w - 8, 1, UI_BORDER);
-        DrawText("Total", x + 30, y + 280, 10, UI_TEXT);
-        DrawText(TextFormat("%d", tDealt), x + 150, y + 280, 10, Color{255, 190, 110, 255});
-        DrawText(TextFormat("%d", tTaken), x + 216, y + 280, 10, Color{150, 190, 255, 255});
-        DrawText(TextFormat("%d", tKos), x + 282, y + 280, 10, UI_GOLD);
+        GDrawText("Total", x + 30, y + 280, 10, UI_TEXT);
+        GDrawText(TextFormat("%d", tDealt), x + 150, y + 280, 10, Color{255, 190, 110, 255});
+        GDrawText(TextFormat("%d", tTaken), x + 216, y + 280, 10, Color{150, 190, 255, 255});
+        GDrawText(TextFormat("%d", tKos), x + 282, y + 280, 10, UI_GOLD);
     }
     if (g.coop) {   // per-player totals
         int d[2] = {0, 0}, k[2] = {0, 0};
         for (const auto& r : g.statRows) if (r.team == 0) { d[r.who] += r.dealt; k[r.who] += r.kos; }
-        DrawText(TextFormat("%s: %d dealt, %d KO%s", g.coopP[0].name.c_str(), d[0], k[0], k[0] == 1 ? "" : "s"), 12, 338, 10, UI_GOLD);
+        GDrawText(TextFormat("%s: %d dealt, %d KO%s", g.coopP[0].name.c_str(), d[0], k[0], k[0] == 1 ? "" : "s"), 12, 338, 10, UI_GOLD);
         const char* t2 = TextFormat("%s: %d dealt, %d KO%s", g.coopP[1].name.c_str(), d[1], k[1], k[1] == 1 ? "" : "s");
-        DrawText(t2, 314 - TextW(t2, 10), 338, 10, Color{120, 230, 255, 255});
+        GDrawText(t2, 314 - TextW(t2, 10), 338, 10, Color{120, 230, 255, 255});
     }
-    DrawText("Enter: continue", VW - 8 - TextW("Enter: continue", 10), 338, 10, UI_DIM);
+    GDrawText("Enter: continue", VW - 8 - TextW("Enter: continue", 10), 338, 10, UI_DIM);
 }
 
 // ------------------------------------------------------------------ fossils, the Dojo and gifts
@@ -2348,19 +2521,19 @@ void DrawRevive(const Game& g) {
     // the list of fossils, per player
     int y = 92;
     DrawPanel(14, y - 6, 170, 20 + (int)list.size() * 26, UI_PANEL, Color{70, 110, 130, 255});
-    DrawText("Waiting to be revived:", 22, y, 10, UI_DIM);
+    GDrawText("Waiting to be revived:", 22, y, 10, UI_DIM);
     for (int i = 0; i < (int)list.size(); i++) {
         int ly = y + 16 + i * 26;
         DrawFossilArt(36, ly + 11, FossilArtKind(list[i].second), false, 0.4f);
         int sp = FossilSpecies(list[i].second);
-        DrawText(list[i].second.c_str(), 62, ly + 1, 10, UI_TEXT);
-        DrawText(TextFormat("%s%s", g.coop ? (Prof(g, list[i].first).name + " - ").c_str() : "", sp >= 0 ? AllSpecies()[sp].name.c_str() : "?"),
+        GDrawText(list[i].second.c_str(), 62, ly + 1, 10, UI_TEXT);
+        GDrawText(TextFormat("%s%s", g.coop ? (Prof(g, list[i].first).name + " - ").c_str() : "", sp >= 0 ? AllSpecies()[sp].name.c_str() : "?"),
                  62, ly + 13, 10, g.coop && list[i].first == 1 ? Color{120, 230, 255, 255} : UI_GOLD);
     }
     DrawPanel(VW - 200, 92, 186, 46, UI_PANEL, Color{70, 110, 130, 255});
     DrawWrapped(TextFormat("Revived Pokemon start at level %d and join your party (or the Box if it's full).", REVIVE_LEVEL), VW - 192, 100, 172, 10,
                 Color{150, 210, 230, 255}, 13);
-    if (g.coop && g.on.active) DrawText("Each player revives on their own computer.", 200, 324, 10, UI_DIM);
+    if (g.coop && g.on.active) GDrawText("Each player revives on their own computer.", 200, 324, 10, UI_DIM);
     DrawTextCentered(running ? "Reviving..." : "Enter: revive your fossils", VW / 2, 300, 10, running ? UI_GOLD : UI_TEXT, false);
     DrawToast(g);
 }
@@ -2375,7 +2548,7 @@ void UpdateGift(Game& g) {
 }
 
 void DrawGift(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     if (g.giftQueue.empty()) return;
     const auto& gf = g.giftQueue.front();
     for (int k = 0; k < 24; k++) {   // sparkles
@@ -2498,7 +2671,39 @@ void UpdateStoryResults(Game& g) {
 void DrawStoryResults(const Game& g) {
     g.battle.Draw(false);
     DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.8f));
-    DrawTextCentered(g.won ? "VICTORY!" : "DEFEATED...", VW / 2, 20, 30, g.won ? UI_GOLD : Color{255, 120, 100, 255});
+    float st0 = g.screenT;
+    {   // the title on a ribbon that sweeps in, with rays behind a win
+        float in = std::min(1.0f, st0 / 0.35f);
+        float e = 1 - (1 - in) * (1 - in) * (1 - in);
+        Color rc = g.won ? Color{210, 160, 40, 255} : Color{150, 50, 50, 255};
+        if (g.won) {
+            BeginBlendMode(BLEND_ADDITIVE);
+            for (int i = 0; i < 16; i++) {
+                float a = i * 6.2832f / 16 + g.t * 0.3f;
+                Vector2 c{VW / 2.0f, 34};
+                DrawTriangle(c, {c.x + std::cos(a + 0.06f) * 300, c.y + std::sin(a + 0.06f) * 300}, {c.x + std::cos(a) * 300, c.y + std::sin(a) * 300}, Fade(Color{255, 220, 120, 255}, 0.05f * e));
+            }
+            EndBlendMode();
+        }
+        float bw = 300 * e;
+        DrawRectangleGradientV((int)(VW / 2 - bw / 2), 16, (int)bw, 36, ColorBrightness(rc, 0.1f), ColorBrightness(rc, -0.45f));
+        DrawTriangle({VW / 2 - bw / 2 - 14, 34}, {VW / 2 - bw / 2, 52}, {VW / 2 - bw / 2, 16}, ColorBrightness(rc, -0.55f));
+        DrawTriangle({VW / 2 + bw / 2 + 14, 34}, {VW / 2 + bw / 2, 16}, {VW / 2 + bw / 2, 52}, ColorBrightness(rc, -0.55f));
+        DrawRectangle((int)(VW / 2 - bw / 2), 16, (int)bw, 2, ColorBrightness(rc, 0.5f));
+        if (e > 0.8f) DrawTextCentered(g.won ? "VICTORY!" : "DEFEATED...", VW / 2, 19, 30, g.won ? Color{255, 240, 190, 255} : Color{255, 200, 190, 255});
+    }
+    // the MVP: whoever dealt the most damage
+    int mvpRow = -1;
+    {
+        float best = 0;
+        for (int ri = 0; ri < (int)g.resultRows.size(); ri++)
+            for (int s = 0; s < g.battle.NumSlots(); s++)
+                for (const Fighter& f : g.battle.GetSide(s).team)
+                    if (f.ownedId == g.resultRows[ri].mon && (f.owner == g.resultRows[ri].who || !g.coop) && g.battle.GetSide(s).teamId == 0 && f.dmgDealt > best) {
+                        best = f.dmgDealt;
+                        mvpRow = ri;
+                    }
+    }
     if ((g.mode == Mode::Story || g.mode == Mode::CoopStory) && (g.stageIdx >= 0 || g.tower || g.legend >= 0)) {
         StageDef st = ActiveStage(g);
         DrawTextCentered(g.tower ? TextFormat("Battle Tower floor %d  -  vs %s", g.towerFloor, st.trainer.c_str()) : TextFormat("vs %s", st.trainer.c_str()), VW / 2, 56, 10, UI_TEXT, false);
@@ -2506,32 +2711,111 @@ void DrawStoryResults(const Game& g) {
     int y = 70;
     bool compact = g.resultRows.size() > 3;
     int rh = g.resultRows.size() > 4 ? 24 : (compact ? 30 : 40);
+    int rowI = -1;
     for (const auto& r : g.resultRows) {
+        rowI++;
         const Profile& P = Prof(g, r.who);
         if (r.mon < 0 || r.mon >= (int)P.mons.size()) continue;
         const OwnedMon& m = P.mons[r.mon];
         int idx = MonSpecies(m);
-        DrawPanel(120, y, 400, rh);
+        float slide = std::min(1.0f, std::max(0.0f, (st0 - 0.2f - rowI * 0.08f) / 0.25f));   // rows slide in one after another
+        if (slide <= 0) { y += rh + (rh < 30 ? 2 : 4); continue; }
+        float se = 1 - (1 - slide) * (1 - slide);
+        rlPushMatrix();
+        rlTranslatef((1 - se) * -60, 0, 0);
+        bool mvp = rowI == mvpRow;
+        DrawPanel(120, y, 400, rh, UI_PANEL, mvp ? UI_GOLD : UI_BORDER);
+        if (mvp) {   // a gold MVP tag
+            DrawRectangleRounded({476, (float)y - 4, 34, 11}, 0.5f, 6, UI_GOLD);
+            GDrawText("MVP", 482, y - 3, 10, UI_INK);
+        }
         if (g.coop) {
             Color tc = r.who == 0 ? UI_GOLD : Color{120, 230, 255, 255};
             DrawRectangle(120, y, 3, rh, tc);
-            DrawText(r.who == 0 ? "P1" : "P2", 102, y + 4, 10, tc);
+            GDrawText(r.who == 0 ? "P1" : "P2", 102, y + 4, 10, tc);
         }
         if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, 145, y + rh - 2, rh - 6, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
         if (m.shiny) DrawShinyStar(134, (float)y + 5, 3);
-        DrawText(r.name.c_str(), 172, y + 4, 10, UI_TEXT);
+        GDrawText(r.name.c_str(), 172, y + 4, 10, UI_TEXT);
         std::string lv = r.levelTo > r.levelFrom ? TextFormat("Lv%d -> Lv%d", r.levelFrom, r.levelTo) : TextFormat("Lv%d", r.levelTo);
-        DrawText(lv.c_str(), 290, y + 4, 10, r.levelTo > r.levelFrom ? UI_GOLD : UI_TEXT);
-        DrawText(TextFormat("+%d XP", r.xp), 420, y + 4, 10, Color{120, 190, 255, 255});
-        if (!r.note.empty()) DrawText(r.note.c_str(), 172, y + rh - 12, 10, UI_DIM);
+        GDrawText(lv.c_str(), 290, y + 4, 10, r.levelTo > r.levelFrom ? UI_GOLD : UI_TEXT);
+        GDrawText(TextFormat("+%d XP", r.xp), 420, y + 4, 10, Color{120, 190, 255, 255});
+        if (!r.note.empty()) GDrawText(r.note.c_str(), 172, y + rh - 12, 10, UI_DIM);
         DrawHpBar(290, y + rh - 11, 90, 3, m.hp);
-        DrawXpBar(m, 290, y + rh - 6, 200);
+        {   // the XP bar fills up; a level-up flashes
+            float fill = std::min(1.0f, std::max(0.0f, (st0 - 0.5f - rowI * 0.08f) / 0.8f));
+            int lo = XpForLevel(m.level), hi = XpForLevel(m.level + 1);
+            float f = m.level >= MAX_LEVEL ? 1.0f : (float)(m.xp - lo) / std::max(1, hi - lo);
+            bool lvl = r.levelTo > r.levelFrom;
+            float shown = lvl ? (fill < 0.5f ? fill * 2 : (fill - 0.5f) * 2 * f) : f * (0.6f + 0.4f * fill);
+            DrawRectangleRounded({289.0f, (float)(y + rh - 7), 202, 5}, 0.6f, 4, UI_INK);
+            DrawRectangle(290, y + rh - 6, 200, 3, Color{40, 40, 60, 255});
+            DrawRectangle(290, y + rh - 6, (int)(200 * std::max(0.0f, std::min(1.0f, shown))), 3, Color{100, 180, 255, 255});
+            DrawRectangle(290, y + rh - 6, (int)(200 * std::max(0.0f, std::min(1.0f, shown))), 1, Color{190, 225, 255, 255});
+            if (lvl && fill >= 0.5f) {
+                float p = std::min(1.0f, (fill - 0.5f) * 4);
+                const char* lu = "LEVEL UP!";
+                Color lc = ((int)(g.t * 6) % 2) ? UI_GOLD : WHITE;
+                DrawTextOutlined(lu, 420 - (int)((1 - p) * 10), y + rh - 19, 10, Fade(lc, p));
+            }
+        }
+        rlPopMatrix();
         y += rh + (rh < 30 ? 2 : 4);
     }
     for (const auto& l : g.resultLines) {
         if (y > 300) break;
-        DrawTextCentered(l.c_str(), VW / 2, y + 2, 10, Color{140, 230, 255, 255}, false);
+        std::string shown = l;
+        size_t cp = l.find(" coins!");
+        if (cp != std::string::npos) {   // coins count up
+            size_t ns = l.rfind(' ', cp - 1);
+            int n = std::atoi(l.c_str() + ns + 1);
+            float u = std::min(1.0f, std::max(0.0f, (st0 - 0.6f) / 0.9f));
+            shown = l.substr(0, ns + 1) + std::to_string((int)(n * u)) + l.substr(cp);
+            int cx0 = VW / 2 - TextW(shown.c_str(), 10) / 2 - 12;
+            DrawCircle(cx0 + 4, y + 6, 4.5f, Color{170, 120, 20, 255});
+            DrawCircle(cx0 + 4, y + 6, 3.5f, kCoin);
+            DrawRectangle(cx0 + 3, y + 4, 1, 3, Color{255, 240, 170, 255});
+        }
+        DrawTextCentered(shown.c_str(), VW / 2, y + 2, 10, cp != std::string::npos ? Color{255, 214, 110, 255} : Color{140, 230, 255, 255}, false);
         y += 12;
+    }
+    {   // a badge just won: the badge case opens and the new one drops into its slot
+        std::string won;
+        for (const auto& l : g.resultLines) {
+            size_t p = l.find(" Badge!");
+            if (p == std::string::npos) continue;
+            size_t q = l.rfind("the ", p);
+            if (q != std::string::npos) won = l.substr(q + 4, p - q - 4);
+        }
+        if (!won.empty()) {
+            std::vector<std::string> all;
+            for (const auto& stg : Story().stages) if (stg.IsGym() && std::find(all.begin(), all.end(), stg.badge) == all.end()) all.push_back(stg.badge);
+            float open = std::min(1.0f, std::max(0.0f, (st0 - 0.8f) / 0.35f));
+            int cw = 104, ch = 78, cx = VW - cw - 6, cy = 64;
+            float e = 1 - (1 - open) * (1 - open);
+            DrawRectangleRounded({(float)cx, (float)cy + (1 - e) * 40, (float)cw, (float)ch}, 0.15f, 6, Fade(Color{120, 40, 40, 255}, e));
+            DrawRectangleRounded({(float)cx + 4, (float)cy + 14 + (1 - e) * 40, (float)cw - 8, (float)ch - 18}, 0.12f, 6, Fade(Color{40, 26, 30, 255}, e));
+            GDrawText("BADGES", cx + 8, cy + 3 + (int)((1 - e) * 40), 10, Fade(UI_GOLD, e));
+            const Profile& P0 = Prof(g, 0);
+            for (int i = 0; i < (int)all.size() && i < 8; i++) {
+                int bx = cx + 16 + (i % 4) * 24, by = cy + 30 + (i / 4) * 26 + (int)((1 - e) * 40);
+                bool have = std::find(P0.badges.begin(), P0.badges.end(), all[i]) != P0.badges.end();
+                if (all[i] == won) {
+                    float drop = std::min(1.0f, std::max(0.0f, (st0 - 1.2f) / 0.4f));
+                    if (drop <= 0) { DrawCircleLines(bx, by, 7, Fade(UI_DIM, e)); continue; }
+                    float bounce = drop < 1 ? (1 - drop) * -30 : 0;
+                    BeginBlendMode(BLEND_ADDITIVE);
+                    DrawCircleV({(float)bx, (float)by + bounce}, 12 + std::sin(g.t * 6) * 2, Fade(BadgeColor(won), 0.35f));
+                    EndBlendMode();
+                    DrawBadge(won, bx, (int)(by + bounce), true, 8);
+                    if (drop >= 1)
+                        for (int k = 0; k < 4; k++) {
+                            float a = k * 1.57f + g.t * 2;
+                            DrawShinyStar(bx + std::cos(a) * 12, by + std::sin(a) * 10, 2 + std::sin(g.t * 8 + k));
+                        }
+                } else DrawBadge(all[i], bx, by, have, 7);
+            }
+        }
     }
     if (g.legendCatchPending) { DrawTextCentered(g.coop ? "The legendary is weakened - time to take turns throwing balls!" : "The legendary is weakened - you have 3 balls to catch it!", VW / 2, y + 6, 10, UI_GOLD, false); y += 12; }
     if (g.catchPending) { DrawTextCentered(g.coop ? "Weakened foes are still here - time for the catch draft!" : "A weakened foe is still here - try to catch it!", VW / 2, y + 6, 10, UI_GOLD, false); y += 12; }
@@ -2681,21 +2965,21 @@ void UpdateLearnMove(Game& g) {
 }
 
 void DrawLearnMove(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     if (g.learnQueue.empty()) return;
     const auto& l = g.learnQueue.front();
     const Profile& P = Prof(g, l.who);
     if (l.mon < 0 || l.mon >= (int)P.mons.size()) return;
     const OwnedMon& m = P.mons[l.mon];
-    if (g.coop) DrawText(TextFormat("%s's Pokemon", P.name.c_str()), 40, 14, 10, l.who == 0 ? UI_GOLD : Color{120, 230, 255, 255});
+    if (g.coop) GDrawText(TextFormat("%s's Pokemon", P.name.c_str()), 40, 14, 10, l.who == 0 ? UI_GOLD : Color{120, 230, 255, 255});
     int idx = MonSpecies(m);
     DrawRectangle(40, 30, 90, 90, UI_PANEL_LIGHT);
     if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, 85, 116, 80);
     DrawTextShadow(TextFormat("%s wants to learn", m.species.c_str()), 146, 34, 20, UI_TEXT);
     DrawTextShadow(l.move.c_str(), 146, 58, 20, UI_GOLD);
-    DrawText("But it already knows four moves. Forget one to make room?", 146, 86, 10, UI_DIM);
-    if (l.src == 1) DrawText(TextFormat("(The %s is only used up if it learns the move.)", l.item.c_str()), 146, 136, 10, Color{140, 220, 255, 255});
-    if (l.src == 2) DrawText(TextFormat("(The Move Relearner charges %d coins only if it learns the move.)", RELEARN_PRICE), 146, 136, 10, Color{140, 220, 255, 255});
+    GDrawText("But it already knows four moves. Forget one to make room?", 146, 86, 10, UI_DIM);
+    if (l.src == 1) GDrawText(TextFormat("(The %s is only used up if it learns the move.)", l.item.c_str()), 146, 136, 10, Color{140, 220, 255, 255});
+    if (l.src == 2) GDrawText(TextFormat("(The Move Relearner charges %d coins only if it learns the move.)", RELEARN_PRICE), 146, 136, 10, Color{140, 220, 255, 255});
     const MoveDef* nm = LookupMove(l.move, idx);
     if (nm) {
         DrawPanel(146, 100, 450, 30, UI_PANEL, UI_GOLD);
@@ -2708,13 +2992,13 @@ void DrawLearnMove(const Game& g) {
         if (i < 4 && i < (int)m.moves.size()) {
             const MoveDef* d = LookupMove(m.moves[i], idx);
             if (d) DrawMoveLine(*d, 154, y + 4, 434, true);
-            else DrawText(m.moves[i].c_str(), 164, y + 9, 10, UI_TEXT);
-            if (sel) DrawText("forget", 106, y + 9, 10, Color{255, 120, 100, 255});
+            else GDrawText(m.moves[i].c_str(), 164, y + 9, 10, UI_TEXT);
+            if (sel) GDrawText("forget", 106, y + 9, 10, Color{255, 120, 100, 255});
         } else if (i == 4) {
-            DrawText(TextFormat("Don't learn %s", l.move.c_str()), 164, y + 9, 10, sel ? UI_GOLD : UI_TEXT);
+            GDrawText(TextFormat("Don't learn %s", l.move.c_str()), 164, y + 9, 10, sel ? UI_GOLD : UI_TEXT);
         }
     }
-    DrawText("Up/Down choose   Enter confirm", 146, 340, 10, UI_DIM);
+    GDrawText("Up/Down choose   Enter confirm", 146, 340, 10, UI_DIM);
 }
 
 // ------------------------------------------------------------------ reward
@@ -2740,7 +3024,7 @@ void UpdateReward(Game& g) {
 }
 
 void DrawReward(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     int who = g.rewardWho.empty() ? 0 : g.rewardWho.front();
     const Profile& P = Prof(g, who);
     DrawTextCentered(g.coop ? TextFormat("%s: CHOOSE A NEW POKEMON", P.name.c_str()) : "CHOOSE A NEW POKEMON", VW / 2, 20, 20,
@@ -2755,7 +3039,7 @@ void DrawReward(const Game& g) {
         const SpeciesDef& sp = AllSpecies()[idx];
         DrawPanel(120, 212, 400, 120);
         auto moves = MovesAtLevel(sp, NewMonLevel(P));
-        DrawText("Knows:", 130, 220, 10, UI_DIM);
+        GDrawText("Knows:", 130, 220, 10, UI_DIM);
         for (size_t k = 0; k < moves.size() && k < 4; k++) DrawMoveLine(moves[k], 130, 234 + (int)k * 22, 380, true);
     }
     DrawTextCentered("Left/Right choose   Enter confirm", VW / 2, 342, 10, UI_DIM, false);
@@ -2957,14 +3241,14 @@ void DrawCatch(const Game& g) {
     if (watching) {
         Color pc = (g.catchWho == 0 ? UI_GOLD : Color{120, 230, 255, 255});
         DrawPanel(4, 4, 190, 30, UI_PANEL, pc);
-        DrawText(TextFormat("Watching %s", P.name.c_str()), 10, 8, 10, pc);
-        DrawText("Your pick comes next", 10, 20, 10, UI_DIM);
+        GDrawText(TextFormat("Watching %s", P.name.c_str()), 10, 8, 10, pc);
+        GDrawText("Your pick comes next", 10, 20, 10, UI_DIM);
     } else
     if (g.coop) {
         Color pc = g.catchWho == 0 ? UI_GOLD : Color{120, 230, 255, 255};
         DrawPanel(4, 4, 150, 30, UI_PANEL, pc);
-        DrawText(TextFormat("%s's turn", P.name.c_str()), 10, 8, 10, pc);
-        DrawText(TextFormat("Pick %d of %d - one each", g.catchTurn + 1, (int)g.catchOrder.size()), 10, 20, 10, UI_DIM);
+        GDrawText(TextFormat("%s's turn", P.name.c_str()), 10, 8, 10, pc);
+        GDrawText(TextFormat("Pick %d of %d - one each", g.catchTurn + 1, (int)g.catchOrder.size()), 10, 20, 10, UI_DIM);
     }
     const ItemDef* ball = balls.empty() ? nullptr : balls[std::min(g.ballSel, (int)balls.size() - 1)];
     if (g.catchPhase == 0) {
@@ -2986,18 +3270,18 @@ void DrawCatch(const Game& g) {
         DrawMenuItem("Leave it", VW / 2, 212, 10, g.catchSel == n);
         // Ball picker
         DrawPanel(150, 230, 340, 70);
-        DrawText("Ball (Up/Down):", 160, 236, 10, UI_DIM);
+        GDrawText("Ball (Up/Down):", 160, 236, 10, UI_DIM);
         if (balls.empty()) {
-            DrawText("No Poke Balls left! Buy more at the Shop.", 160, 256, 10, Color{255, 130, 100, 255});
+            GDrawText("No Poke Balls left! Buy more at the Shop.", 160, 256, 10, Color{255, 130, 100, 255});
         } else {
             for (int i = 0; i < (int)balls.size(); i++) {
                 int bx = 170 + i * 80, by = 266;
                 bool sel = ball == balls[i];
                 if (sel) RectLines(bx - 12, by - 14, 76, 30, UI_GOLD);
                 DrawPokeBall((float)bx, (float)by, 6, 0, BallColor(balls[i]->name));
-                DrawText(TextFormat("x%d", BagCount(P, balls[i]->name)), bx + 10, by - 10, 10, UI_TEXT);
+                GDrawText(TextFormat("x%d", BagCount(P, balls[i]->name)), bx + 10, by - 10, 10, UI_TEXT);
                 std::string nm = balls[i]->name;
-                DrawText(nm.substr(0, nm.find(' ')).c_str(), bx + 10, by + 1, 10, sel ? UI_GOLD : UI_DIM);
+                GDrawText(nm.substr(0, nm.find(' ')).c_str(), bx + 10, by + 1, 10, sel ? UI_GOLD : UI_DIM);
             }
         }
         DrawTextCentered("Left/Right Pokemon   Up/Down ball   Enter throw   Esc leave", VW / 2, 340, 10, UI_DIM, false);
@@ -3201,13 +3485,13 @@ void DrawHeal(const Game& g) {
     DrawRectangle(13, 12, 14, 6, red);
     DrawTextShadow("POKEMON CENTER", 38, 6, 20, WHITE);
     const Profile& p = g.profile;
-    if (g.coop) DrawText(p.name.c_str(), 330, 11, 10, WHITE);
+    if (g.coop) GDrawText(p.name.c_str(), 330, 11, 10, WHITE);
     {   // coins
         const char* c = TextFormat("%d", p.coins);
         int x = VW - 18 - TextW(c, 10);
         DrawCircle(x - 7, 15, 5, Color{170, 120, 20, 255});
         DrawCircle(x - 7, 15, 4, kCoin);
-        DrawText(c, x, 11, 10, WHITE);
+        GDrawText(c, x, 11, 10, WHITE);
     }
     auto party = HealParty(p);
     int n = (int)party.size();
@@ -3219,11 +3503,11 @@ void DrawHeal(const Game& g) {
     // left: the counter, the nurse's words and the healing machine
     DrawRectangleRounded({16, 44, 214, 120}, 0.12f, 8, WHITE);
     DrawRectangleRoundedLines({16, 44, 214, 120}, 0.12f, 8, Color{230, 150, 170, 255});
-    DrawText("Welcome to the Pokemon Center!", 26, 52, 10, deep);
+    GDrawText("Welcome to the Pokemon Center!", 26, 52, 10, deep);
     DrawWrapped("We restore your tired Pokemon to full health. Only your party is treated here - Pokemon in the Box rest until they rejoin your team.",
                 26, 68, 196, 10, Color{90, 70, 80, 255});
-    DrawText("Heal: about 3 coins per level", 26, 132, 10, Color{120, 100, 110, 255});
-    DrawText("Revive: 6 per level + 10", 26, 144, 10, Color{120, 100, 110, 255});
+    GDrawText("Heal: about 3 coins per level", 26, 132, 10, Color{120, 100, 110, 255});
+    GDrawText("Revive: 6 per level + 10", 26, 144, 10, Color{120, 100, 110, 255});
     // the healing machine with a socket per party Pokemon
     DrawRectangleRounded({30, 176, 186, 80}, 0.2f, 8, Color{90, 96, 110, 255});
     DrawRectangleRounded({36, 182, 174, 68}, 0.2f, 8, Color{60, 64, 76, 255});
@@ -3265,33 +3549,33 @@ void DrawHeal(const Game& g) {
             DrawCircle(x + 14, y + 11, 6, red);
             DrawRectangle(x + 13, y + 7, 2, 8, WHITE);
             DrawRectangle(x + 10, y + 10, 8, 2, WHITE);
-            DrawText(tl, x + 26, y + 6, 10, emergency ? Color{40, 150, 70, 255} : ink);
+            GDrawText(tl, x + 26, y + 6, 10, emergency ? Color{40, 150, 70, 255} : ink);
             if (!emergency && allCost) {
                 const char* c = TextFormat("%d coins", allCost);
-                DrawText(c, x + w - 10 - TextW(c, 10), y + 6, 10, allCost <= p.coins ? Color{190, 130, 20, 255} : red);
+                GDrawText(c, x + w - 10 - TextW(c, 10), y + 6, 10, allCost <= p.coins ? Color{190, 130, 20, 255} : red);
             }
         } else if (i == N - 1) {
-            DrawText("Back", x + 26, y + 6, 10, ink);
+            GDrawText("Back", x + 26, y + 6, 10, ink);
         } else {
             const OwnedMon& m = p.mons[party[i - 1]];
             int idx = MonSpecies(m);
             DrawCircle(x + 20, y + 17, 15, m.hp <= 0 ? Color{230, 220, 224, 255} : Color{232, 244, 236, 255});
             if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, x + 20, y + 32, 28, m.hp > 0 ? WHITE : Color{110, 110, 120, 255});
             if (m.shiny) DrawShinyStar((float)x + 6, (float)y + 6, 3);
-            DrawText(m.species.c_str(), x + 42, y + 5, 10, ink);
-            DrawText(TextFormat("Lv%d", m.level), x + 150, y + 5, 10, Color{190, 130, 20, 255});
+            GDrawText(m.species.c_str(), x + 42, y + 5, 10, ink);
+            GDrawText(TextFormat("Lv%d", m.level), x + 150, y + 5, 10, Color{190, 130, 20, 255});
             DrawRectangle(x + 42, y + 21, 154, 6, Color{80, 80, 90, 255});
-            DrawText("HP", x + 42, y + 19, 10, Color{230, 160, 40, 255});
+            GDrawText("HP", x + 42, y + 19, 10, Color{230, 160, 40, 255});
             DrawHpBar(x + 60, y + 22, 134, 4, m.hp);
             const char* st = m.hp <= 0 ? "Fainted" : (m.hp >= 0.999f ? "Healthy" : TextFormat("%d%%", (int)std::round(m.hp * 100)));
-            DrawText(st, x + 206, y + 19, 10, m.hp <= 0 ? red : (m.hp >= 0.999f ? Color{40, 150, 70, 255} : ink));
+            GDrawText(st, x + 206, y + 19, 10, m.hp <= 0 ? red : (m.hp >= 0.999f ? Color{40, 150, 70, 255} : ink));
             int c = HealCost(m);
             const char* ct = c ? TextFormat("%d coins", c) : "-";
-            DrawText(ct, x + w - 10 - TextW(ct, 10), y + 12, 10, c == 0 ? Color{160, 160, 170, 255} : (c <= p.coins ? Color{190, 130, 20, 255} : red));
+            GDrawText(ct, x + w - 10 - TextW(ct, 10), y + 12, 10, c == 0 ? Color{160, 160, 170, 255} : (c <= p.coins ? Color{190, 130, 20, 255} : red));
         }
     }
-    DrawText("Win battles to earn coins: trainers pay well, gym leaders pay a lot.", 16, 326, 10, Color{120, 100, 110, 255});
-    DrawText("Up/Down choose   Enter heal   Esc / B back", 16, 340, 10, Color{120, 100, 110, 255});
+    GDrawText("Win battles to earn coins: trainers pay well, gym leaders pay a lot.", 16, 326, 10, Color{120, 100, 110, 255});
+    GDrawText("Up/Down choose   Enter heal   Esc / B back", 16, 340, 10, Color{120, 100, 110, 255});
     DrawToast(g);
 }
 
@@ -3384,8 +3668,8 @@ void DrawRelearner(const Game& g) {
     const Profile& p = g.profile;
     auto party = TabList(p, 0);
     DrawPanel(20, 56, 330, 276);
-    DrawText("MOVE RELEARNER", 30, 62, 10, Color{120, 190, 255, 255});
-    DrawText(TextFormat("Remembers a forgotten move: %d coins each.", RELEARN_PRICE), 30, 76, 10, UI_DIM);
+    GDrawText("MOVE RELEARNER", 30, 62, 10, Color{120, 190, 255, 255});
+    GDrawText(TextFormat("Remembers a forgotten move: %d coins each.", RELEARN_PRICE), 30, 76, 10, UI_DIM);
     if (g.relearnMon < 0) {
         for (int i = 0; i < (int)party.size(); i++) {
             const OwnedMon& m = p.mons[party[i]];
@@ -3394,19 +3678,19 @@ void DrawRelearner(const Game& g) {
             DrawPanel(28, y, 314, 34, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
             int si = MonSpecies(m);
             if (si >= 0) DrawSpeciesFit(si, VIEW_FRONT, 46, y + 32, 28);
-            DrawText(m.species.c_str(), 66, y + 6, 10, sel ? UI_GOLD : UI_TEXT);
-            DrawText(TextFormat("Lv%d", m.level), 300, y + 6, 10, UI_GOLD);
+            GDrawText(m.species.c_str(), 66, y + 6, 10, sel ? UI_GOLD : UI_TEXT);
+            GDrawText(TextFormat("Lv%d", m.level), 300, y + 6, 10, UI_GOLD);
             int k = (int)RelearnMoves(m).size();
-            DrawText(k ? TextFormat("%d move%s to remember", k, k == 1 ? "" : "s") : "nothing to remember", 66, y + 19, 10, k ? Color{140, 230, 150, 255} : UI_DIM);
+            GDrawText(k ? TextFormat("%d move%s to remember", k, k == 1 ? "" : "s") : "nothing to remember", 66, y + 19, 10, k ? Color{140, 230, 150, 255} : UI_DIM);
         }
         DrawPanel(362, 56, 258, 140);
-        DrawText("Pick a party Pokemon to see the", 372, 66, 10, UI_TEXT);
-        DrawText("moves it can remember:", 372, 80, 10, UI_TEXT);
-        DrawText("- level-up moves up to its level", 372, 98, 10, UI_DIM);
-        DrawText("- moves learned when it evolved", 372, 112, 10, UI_DIM);
-        DrawText("- moves it forgot, like old TM moves", 372, 126, 10, UI_DIM);
-        DrawText("You only pay if it learns the move.", 372, 150, 10, Color{140, 220, 255, 255});
-        DrawText("Left/Right tab   Up/Down choose   Enter pick   Esc back", 20, 340, 10, UI_DIM);
+        GDrawText("Pick a party Pokemon to see the", 372, 66, 10, UI_TEXT);
+        GDrawText("moves it can remember:", 372, 80, 10, UI_TEXT);
+        GDrawText("- level-up moves up to its level", 372, 98, 10, UI_DIM);
+        GDrawText("- moves learned when it evolved", 372, 112, 10, UI_DIM);
+        GDrawText("- moves it forgot, like old TM moves", 372, 126, 10, UI_DIM);
+        GDrawText("You only pay if it learns the move.", 372, 150, 10, Color{140, 220, 255, 255});
+        GDrawText("Left/Right tab   Up/Down choose   Enter pick   Esc back", 20, 340, 10, UI_DIM);
         return;
     }
     if (g.relearnMon >= (int)p.mons.size()) return;
@@ -3415,22 +3699,22 @@ void DrawRelearner(const Game& g) {
     auto mv = RelearnMoves(m);
     int rows = 11, n = (int)mv.size();
     int first = std::max(0, std::min(g.shopSel - rows / 2, n - rows));
-    DrawText(TextFormat("%s can remember:", m.species.c_str()), 30, 90, 10, UI_GOLD);
+    GDrawText(TextFormat("%s can remember:", m.species.c_str()), 30, 90, 10, UI_GOLD);
     for (int i = first; i < std::min(n, first + rows); i++) {
         int y = 106 + (i - first) * 20;
         bool sel = g.shopSel == i;
         DrawPanel(28, y, 314, 18, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
         const MoveDef* d = LookupMove(mv[i].second, si);
         if (d) DrawRectangle(34, y + 5, 8, 8, TypeColor(d->type));
-        DrawText(mv[i].second.c_str(), 48, y + 4, 10, sel ? UI_GOLD : UI_TEXT);
+        GDrawText(mv[i].second.c_str(), 48, y + 4, 10, sel ? UI_GOLD : UI_TEXT);
         const char* tag = mv[i].first < 0 ? "forgotten" : mv[i].first == 0 ? "on evolving" : TextFormat("Lv%d", mv[i].first);
-        DrawText(tag, 334 - TextW(tag, 10), y + 4, 10, UI_DIM);
+        GDrawText(tag, 334 - TextW(tag, 10), y + 4, 10, UI_DIM);
     }
     DrawPanel(362, 56, 258, 140);
     if (si >= 0) DrawSpeciesFit(si, VIEW_FRONT, 400, 120, 56);
-    DrawText(m.species.c_str(), 440, 66, 10, UI_GOLD);
-    DrawText("Knows:", 440, 80, 10, UI_DIM);
-    for (int k = 0; k < (int)m.moves.size(); k++) DrawText(m.moves[k].c_str(), 440, 94 + k * 12, 10, UI_TEXT);
+    GDrawText(m.species.c_str(), 440, 66, 10, UI_GOLD);
+    GDrawText("Knows:", 440, 80, 10, UI_DIM);
+    for (int k = 0; k < (int)m.moves.size(); k++) GDrawText(m.moves[k].c_str(), 440, 94 + k * 12, 10, UI_TEXT);
     if (n > 0) {
         const MoveDef* d = LookupMove(mv[g.shopSel].second, si);
         if (d) {
@@ -3439,8 +3723,8 @@ void DrawRelearner(const Game& g) {
             DrawWrapped(DescribeMove(*d).c_str(), 378, 222, 236, 10, Color{150, 190, 220, 255});
         }
     }
-    DrawText(TextFormat("Price: %d coins", RELEARN_PRICE), 372, 260, 10, p.coins >= RELEARN_PRICE ? Color{255, 200, 60, 255} : Color{255, 120, 100, 255});
-    DrawText("Up/Down choose   Enter teach   Esc pick another Pokemon", 20, 340, 10, UI_DIM);
+    GDrawText(TextFormat("Price: %d coins", RELEARN_PRICE), 372, 260, 10, p.coins >= RELEARN_PRICE ? Color{255, 200, 60, 255} : Color{255, 120, 100, 255});
+    GDrawText("Up/Down choose   Enter teach   Esc pick another Pokemon", 20, 340, 10, UI_DIM);
 }
 } // namespace
 
@@ -3450,8 +3734,8 @@ void DrawShop(const Game& g) {
     DrawTextCentered("POKE MART", VW / 2, 8, 20, Color{120, 190, 255, 255});
     const Profile& p = g.profile;
     DrawCoins(p.coins, 16, 12);
-    DrawText(TextFormat("Badges: %d", BadgeCount(g)), VW - 80, 13, 10, UI_DIM);
-    if (g.coop) DrawText(TextFormat("Shopping: %s", p.name.c_str()), 240, 13, 10, g.coopActive == 1 ? Color{120, 230, 255, 255} : UI_GOLD);
+    GDrawText(TextFormat("Badges: %d", BadgeCount(g)), VW - 80, 13, 10, UI_DIM);
+    if (g.coop) GDrawText(TextFormat("Shopping: %s", p.name.c_str()), 240, 13, 10, g.coopActive == 1 ? Color{120, 230, 255, 255} : UI_GOLD);
     const char* tabs[6] = {"Poke Balls", "Held items", "Evo stones", "TMs", "Move Relearner", "Game Corner"};
     for (int i = 0; i < 6; i++) {
         int x = 20 + i * 100;
@@ -3491,14 +3775,14 @@ void DrawShop(const Game& g) {
         } else {
             DrawRectangle(28, y + 5, 9, 9, Color{140, 220, 255, 255});
         }
-        DrawText(d.name.c_str(), 44, y + 5, 10, locked ? UI_DIM : (sel ? UI_GOLD : UI_TEXT));
-        if (locked) DrawText("locked", 270, y + 5, 10, Color{150, 110, 110, 255});
+        GDrawText(d.name.c_str(), 44, y + 5, 10, locked ? UI_DIM : (sel ? UI_GOLD : UI_TEXT));
+        if (locked) GDrawText("locked", 270, y + 5, 10, Color{150, 110, 110, 255});
         else {
             const char* pr = TextFormat("%d", d.price);
-            DrawText(pr, 340 - TextW(pr, 10), y + 5, 10, d.price <= p.coins ? Color{255, 200, 60, 255} : Color{255, 120, 100, 255});
+            GDrawText(pr, 340 - TextW(pr, 10), y + 5, 10, d.price <= p.coins ? Color{255, 200, 60, 255} : Color{255, 120, 100, 255});
         }
         int have = BagCount(p, d.name);
-        if (have > 0) DrawText(TextFormat("x%d", have), 220, y + 5, 10, UI_DIM);
+        if (have > 0) GDrawText(TextFormat("x%d", have), 220, y + 5, 10, UI_DIM);
     }
     if (n > 0) {
         const ItemDef& d = *list[g.shopSel];
@@ -3515,23 +3799,23 @@ void DrawShop(const Game& g) {
         for (size_t i = 0; i <= desc.size(); i++) {
             if (i == desc.size() || desc[i] == ' ') {
                 std::string t2 = line.empty() ? word : line + " " + word;
-                if (TextW(t2.c_str(), 10) > 236) { DrawText(line.c_str(), 372, ly, 10, UI_TEXT); ly += 12; line = word; }
+                if (TextW(t2.c_str(), 10) > 236) { GDrawText(line.c_str(), 372, ly, 10, UI_TEXT); ly += 12; line = word; }
                 else line = t2;
                 word.clear();
             } else word += desc[i];
         }
-        if (!line.empty()) DrawText(line.c_str(), 372, ly, 10, UI_TEXT);
-        DrawText(TextFormat("Price: %d coins", d.price), 372, 150, 10, Color{255, 200, 60, 255});
-        DrawText(TextFormat("In your bag: %d", BagCount(p, d.name)), 372, 164, 10, UI_DIM);
-        if (BadgeCount(g) < d.badges) DrawText(BadgeNeedText(d.badges), 372, 178, 10, Color{255, 130, 100, 255});
+        if (!line.empty()) GDrawText(line.c_str(), 372, ly, 10, UI_TEXT);
+        GDrawText(TextFormat("Price: %d coins", d.price), 372, 150, 10, Color{255, 200, 60, 255});
+        GDrawText(TextFormat("In your bag: %d", BagCount(p, d.name)), 372, 164, 10, UI_DIM);
+        if (BadgeCount(g) < d.badges) GDrawText(BadgeNeedText(d.badges), 372, 178, 10, Color{255, 130, 100, 255});
         int held = 0;
         for (const auto& m : p.mons) held += m.item == d.name;
-        if (held) DrawText(TextFormat("Held by %d of your Pokemon", held), 372, 178, 10, Color{140, 220, 255, 255});
+        if (held) GDrawText(TextFormat("Held by %d of your Pokemon", held), 372, 178, 10, Color{140, 220, 255, 255});
     }
     if (n > 0 && IsTM(*list[g.shopSel])) {   // who in the party can learn it
         const ItemDef& d = *list[g.shopSel];
         DrawPanel(362, 204, 258, 128);
-        DrawText("Your party:", 372, 210, 10, UI_DIM);
+        GDrawText("Your party:", 372, 210, 10, UI_DIM);
         auto party = TabList(p, 0);
         for (int k = 0; k < (int)party.size() && k < 6; k++) {
             const OwnedMon& m = p.mons[party[k]];
@@ -3539,20 +3823,20 @@ void DrawShop(const Game& g) {
             int si = MonSpecies(m);
             bool knows = KnowsMove(m, d.move), able = CanLearnTM(m, d.move);
             if (si >= 0) DrawSpeciesFit(si, VIEW_FRONT, x + 12, y + 26, 24, able ? WHITE : Color{90, 90, 100, 255});
-            DrawText(m.species.c_str(), x + 28, y + 4, 10, able ? UI_TEXT : UI_DIM);
-            DrawText(knows ? "LEARNED" : able ? "ABLE" : "NOT ABLE", x + 28, y + 16, 10,
+            GDrawText(m.species.c_str(), x + 28, y + 4, 10, able ? UI_TEXT : UI_DIM);
+            GDrawText(knows ? "LEARNED" : able ? "ABLE" : "NOT ABLE", x + 28, y + 16, 10,
                      knows ? Color{140, 220, 255, 255} : able ? Color{140, 230, 150, 255} : Color{150, 110, 110, 255});
         }
-        DrawText("Left/Right tab   Up/Down choose   Enter buy   Esc back", 20, 340, 10, UI_DIM);
+        GDrawText("Left/Right tab   Up/Down choose   Enter buy   Esc back", 20, 340, 10, UI_DIM);
         DrawToast(g);
         return;
     }
     DrawPanel(362, 204, 258, 72);
-    DrawText("Each Pokemon can hold one item.", 372, 212, 10, UI_DIM);
-    DrawText("Equip items and use stones in Party & Box.", 372, 226, 10, UI_DIM);
-    DrawText("More items unlock with each badge.", 372, 240, 10, UI_DIM);
-    DrawText("Balls are used up when thrown.", 372, 254, 10, UI_DIM);
-    DrawText("Left/Right tab   Up/Down choose   Enter buy   Esc back", 20, 340, 10, UI_DIM);
+    GDrawText("Each Pokemon can hold one item.", 372, 212, 10, UI_DIM);
+    GDrawText("Equip items and use stones in Party & Box.", 372, 226, 10, UI_DIM);
+    GDrawText("More items unlock with each badge.", 372, 240, 10, UI_DIM);
+    GDrawText("Balls are used up when thrown.", 372, 254, 10, UI_DIM);
+    GDrawText("Left/Right tab   Up/Down choose   Enter buy   Esc back", 20, 340, 10, UI_DIM);
     DrawToast(g);
 }
 
@@ -3626,7 +3910,7 @@ void UpdateCoopSelect(Game& g) {
 }
 
 void DrawCoopSelect(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     DrawTextCentered("CO-OP STORY", VW / 2, 12, 30, UI_GOLD);
     DrawTextCentered("Two trainers, one journey. Badges and story progress are shared;", VW / 2, 48, 10, UI_TEXT, false);
     DrawTextCentered("XP, coins, items and Pokemon stay with each trainer.", VW / 2, 60, 10, UI_TEXT, false);
@@ -3636,16 +3920,16 @@ void DrawCoopSelect(const Game& g) {
         Color pc = PlayerCol(p);
         DrawPanel(x, y, w, 200, UI_PANEL, g.coopReady[p] ? pc : UI_BORDER);
         DrawRectangle(x, y, w, 2, pc);
-        DrawText(p == 0 ? "PLAYER 1" : "PLAYER 2", x + 8, y + 8, 10, pc);
+        GDrawText(p == 0 ? "PLAYER 1" : "PLAYER 2", x + 8, y + 8, 10, pc);
         if (g.coopPick[p] >= n) {
             DrawTextShadow("< + New trainer >", x + 8, y + 24, 20, Color{140, 230, 150, 255});
-            DrawText("Start fresh: type a name, then pick", x + 8, y + 56, 10, UI_TEXT);
-            DrawText("your starter together with your partner.", x + 8, y + 70, 10, UI_TEXT);
+            GDrawText("Start fresh: type a name, then pick", x + 8, y + 56, 10, UI_TEXT);
+            GDrawText("your starter together with your partner.", x + 8, y + 70, 10, UI_TEXT);
         } else {
             Profile pr;
             LoadProfile(g.profiles[g.coopPick[p]], pr);
             DrawTextShadow(TextFormat("< %s >", pr.name.c_str()), x + 8, y + 24, 20, UI_TEXT);
-            DrawText(TextFormat("%d Pokemon   %d coins   solo stage %d", (int)pr.mons.size(), pr.coins, pr.storyStage), x + 8, y + 50, 10, UI_DIM);
+            GDrawText(TextFormat("%d Pokemon   %d coins   solo stage %d", (int)pr.mons.size(), pr.coins, pr.storyStage), x + 8, y + 50, 10, UI_DIM);
             int k = 0;
             for (const auto& m : pr.mons) {
                 if (m.boxed) continue;
@@ -3655,10 +3939,10 @@ void DrawCoopSelect(const Game& g) {
                 DrawTextCentered(TextFormat("Lv%d", m.level), cx, y + 108, 10, UI_GOLD, false);
                 if (++k >= 6) break;
             }
-            if (pr.mons.empty()) DrawText("No Pokemon yet - picks a starter first", x + 8, y + 80, 10, Color{140, 230, 150, 255});
+            if (pr.mons.empty()) GDrawText("No Pokemon yet - picks a starter first", x + 8, y + 80, 10, Color{140, 230, 150, 255});
         }
         const char* st = g.coopReady[p] ? "READY!" : TextFormat("Left/Right choose   %s confirm", ConfirmLabel(p, true));
-        DrawText(st, x + 8, y + 184, 10, g.coopReady[p] ? pc : UI_DIM);
+        GDrawText(st, x + 8, y + 184, 10, g.coopReady[p] ? pc : UI_DIM);
     }
     CoopSave cs;
     bool bothOld = g.coopPick[0] < n && g.coopPick[1] < n;
@@ -3833,7 +4117,7 @@ void UpdateCoopHub(Game& g) {
 
 namespace {
 void DrawCoopHubBase(const Game& g) {
-    ClearBackground(Color{20, 18, 32, 255});
+    DrawMenuBackdrop(Color{20, 18, 32, 255}, (float)GetTime());
     Profile pv = ProgressView(g);
     int stages = (int)Story().stages.size();
     bool done = pv.storyStage >= stages;
@@ -3843,13 +4127,13 @@ void DrawCoopHubBase(const Game& g) {
     DrawHubIcon(1, 29, 4, g.hubSel == HUB_GRAPH, g.t);
     int nx = 54;
     DrawTextShadow(g.coopP[0].name.c_str(), nx, 6, 10, UI_GOLD);
-    DrawText("&", nx + 4 + TextW(g.coopP[0].name.c_str(), 10), 6, 10, UI_DIM);
+    GDrawText("&", nx + 4 + TextW(g.coopP[0].name.c_str(), 10), 6, 10, UI_DIM);
     DrawTextShadow(g.coopP[1].name.c_str(), nx + 14 + TextW(g.coopP[0].name.c_str(), 10), 6, 10, kP2Col);
-    if (g.on.active) DrawText(TextFormat("ONLINE %dms", net::PingMs()), 226, 6, 10, Color{140, 230, 150, 255});
-    else DrawText("CO-OP", 248, 6, 10, Color{255, 150, 230, 255});
+    if (g.on.active) GDrawText(TextFormat("ONLINE %dms", net::PingMs()), 226, 6, 10, Color{140, 230, 150, 255});
+    else GDrawText("CO-OP", 248, 6, 10, Color{255, 150, 230, 255});
     std::string next = NextLine(g, pv.storyStage);
-    DrawText(next.c_str(), 10, 256, 10, done ? UI_GOLD : UI_TEXT);
-    DrawText(TextFormat("Together: %dW %dL   training wins %d", pv.wins, pv.losses, pv.trainingWins), 10, 270, 10, UI_DIM);
+    GDrawText(next.c_str(), 10, 256, 10, done ? UI_GOLD : UI_TEXT);
+    GDrawText(TextFormat("Together: %dW %dL   training wins %d", pv.wins, pv.losses, pv.trainingWins), 10, 270, 10, UI_DIM);
     std::vector<std::string> badges;
     for (const auto& st : Story().stages)
         if (st.IsGym()) badges.push_back(st.badge);
@@ -3872,11 +4156,11 @@ void DrawCoopHubBase(const Game& g) {
             mine = "Waiting for " + pn + " to come back (Esc leaves the online game).";
             theirs = o.me == 0 ? "They rejoin with your same code. Restarted? Tab: type their new code." : "Host restarted? Press Tab and type their new code.";
         }
-        DrawText(mine.c_str(), 10, 310, 10, o.myReady ? UI_GOLD : UI_DIM);
-        DrawText(theirs.c_str(), 10, 322, 10, o.partnerReady ? Color{140, 230, 150, 255} : UI_DIM);
+        GDrawText(mine.c_str(), 10, 310, 10, o.myReady ? UI_GOLD : UI_DIM);
+        GDrawText(theirs.c_str(), 10, 322, 10, o.partnerReady ? Color{140, 230, 150, 255} : UI_DIM);
     } else {
-        DrawText("Badges and story progress are shared.", 10, 310, 10, UI_DIM);
-        DrawText("XP, coins and Pokemon go to each player.", 10, 322, 10, UI_DIM);
+        GDrawText("Badges and story progress are shared.", 10, 310, 10, UI_DIM);
+        GDrawText("XP, coins and Pokemon go to each player.", 10, 322, 10, UI_DIM);
     }
 
     // Menu
@@ -3912,7 +4196,7 @@ void DrawCoopHubBase(const Game& g) {
         if (i == 1 && rare) c = Color{255, 150, 230, 255};
         if (i == 8 && partnerTrading) c = Color{140, 230, 150, 255};
         if (i == 11) c = BadgeCount(g) < 8 ? UI_DIM : (sel ? UI_GOLD : Color{255, 200, 120, 255});
-        DrawText(items[i].c_str(), rx + 8, y + 1, 10, c);
+        GDrawText(items[i].c_str(), rx + 8, y + 1, 10, c);
         if (g.on.active && (i == 0 || i == 1 || i == 11)) {   // ready count: the battle starts at 2/2
             int kind = i == 0 ? (done ? 250 : 1) : 2;
             bool r[2];
@@ -3935,7 +4219,7 @@ void DrawCoopHubBase(const Game& g) {
         }
         if (i >= 3 && i <= 7) {
             std::string tag = (sel && !g.on.active) ? "< " + wn + " >" : wn;
-            DrawText(tag.c_str(), rx + rw - 8 - TextW(tag.c_str(), 10), y + 1, 10, PlayerCol(g.coopWho));
+            GDrawText(tag.c_str(), rx + rw - 8 - TextW(tag.c_str(), 10), y + 1, 10, PlayerCol(g.coopWho));
         }
     }
 
@@ -3944,7 +4228,7 @@ void DrawCoopHubBase(const Game& g) {
         const Profile& P = g.coopP[p];
         int x = rx + p * (rw / 2 + 1), w = rw / 2 - 1, y = 178;
         DrawPanel(x, y, w, 164, UI_PANEL, PlayerCol(p));
-        DrawText(P.name.c_str(), x + 6, y + 5, 10, PlayerCol(p));
+        GDrawText(P.name.c_str(), x + 6, y + 5, 10, PlayerCol(p));
         DrawCoins(P.coins, x + w - 44, y + 4);
         int k = 0;
         for (const auto& m : P.mons) {
@@ -3953,15 +4237,15 @@ void DrawCoopHubBase(const Game& g) {
             int yy = y + 20 + k * 24;
             if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, x + 14, yy + 21, 20, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
             if (m.shiny) DrawShinyStar((float)x + 6, (float)yy + 5, 3);
-            DrawText(m.species.c_str(), x + 28, yy + 3, 10, m.hp > 0 ? UI_TEXT : UI_DIM);
-            DrawText(TextFormat("Lv%d", m.level), x + w - 30, yy + 3, 10, UI_GOLD);
+            GDrawText(m.species.c_str(), x + 28, yy + 3, 10, m.hp > 0 ? UI_TEXT : UI_DIM);
+            GDrawText(TextFormat("Lv%d", m.level), x + w - 30, yy + 3, 10, UI_GOLD);
             DrawHpBar(x + 28, yy + 15, w - 36, 3, m.hp);
             if (++k >= PARTY_SIZE) break;
         }
         int boxed = (int)P.mons.size() - PartyCount(P);
-        if (boxed > 0) DrawText(TextFormat("+%d", boxed), x + 10 + TextW(P.name.c_str(), 10), y + 5, 10, UI_DIM);   // in the Box
+        if (boxed > 0) GDrawText(TextFormat("+%d", boxed), x + 10 + TextW(P.name.c_str(), 10), y + 5, 10, UI_DIM);   // in the Box
     }
-    DrawText(g.on.active ? "Enter choose   Esc leave the online game" : "Enter choose   Left/Right whose   Esc save and leave", 10, 346, 10, UI_DIM);
+    GDrawText(g.on.active ? "Enter choose   Esc leave the online game" : "Enter choose   Left/Right whose   Esc save and leave", 10, 346, 10, UI_DIM);
     DrawToast(g);
 }
 } // namespace
@@ -3989,7 +4273,7 @@ void DrawLeaderboard(const Game& g) {
     for (int r = 0; r < 6; r++) {
         int ry = y + 72 + r * 26;
         DrawRectangle(x + 10, ry - 4, w - 20, 22, r % 2 ? Fade(UI_PANEL_LIGHT, 0.5f) : Fade(UI_INK, 0.3f));
-        DrawText(rows[r].label, x + 20, ry + 2, 10, UI_TEXT);
+        GDrawText(rows[r].label, x + 20, ry + 2, 10, UI_TEXT);
         int lead = rows[r].v[0] == rows[r].v[1] ? -1 : ((rows[r].v[0] > rows[r].v[1]) != rows[r].lowWins ? 0 : 1);
         if (lead >= 0) score[lead]++;
         for (int p = 0; p < 2; p++) {
@@ -4105,6 +4389,10 @@ void DrawHallOfFame(const Game& g) {
             DrawEllipse(cx, base, size * 0.45f, 6, Color{220, 180, 80, 255});
             BeginBlendMode(BLEND_ADDITIVE);
             DrawCircle(cx, base - size / 2, size * 0.6f * appear, Fade(Color{255, 220, 140, 255}, 0.12f));
+            if (appear < 1) {   // a camera flash as each one takes its place
+                DrawCircle(cx, base - size / 2, size * (1.2f - appear * 0.5f), Fade(WHITE, 0.5f * (1 - appear)));
+                DrawRing({(float)cx, (float)(base - size / 2)}, size * appear, size * appear + 2, 0, 360, 40, Fade(UI_GOLD, 1 - appear));
+            }
             EndBlendMode();
             int sp = SpeciesIndex(e.mons[i].first);
             float bob = std::sin(t * 2 + i) * 1.5f;

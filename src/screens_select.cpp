@@ -140,7 +140,7 @@ void UpdateRosterPick(Game& g) {
 }
 
 void DrawRosterPick(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     DrawTextCentered("WHOSE POKEMON?", VW / 2, 24, 20, UI_GOLD);
     DrawTextCentered("Free play: every Pokemon at Lv50.  A profile: its Story Mode Pokemon, levels and moves (no XP here).",
                      VW / 2, 52, 10, UI_DIM, false);
@@ -228,7 +228,7 @@ void DrawAreaPick(const Game& g) {
     DrawPanel(14, 14, 612, 328, Color{28, 40, 34, 255}, Color{120, 200, 120, 255});
     DrawRectangle(14, 14, 612, 22, Color{50, 110, 60, 255});
     DrawTextShadow("WHERE DO YOU WANT TO TRAIN?", 24, 19, 10, WHITE);
-    if (g.on.active && g.on.me != 0) DrawText("(the host picks the area)", 400, 19, 10, Color{200, 230, 200, 255});
+    if (g.on.active && g.on.me != 0) GDrawText("(the host picks the area)", 400, 19, 10, Color{200, 230, 200, 255});
     // the areas
     int rows = 14, first = std::max(0, std::min(sel - rows / 2, n - rows));
     for (int k = first; k < std::min(n, first + rows); k++) {
@@ -236,15 +236,15 @@ void DrawAreaPick(const Game& g) {
         int y = 42 + (k - first) * 21;
         bool on = k == sel, here = a == cur;
         DrawPanel(22, y, 196, 19, on ? Color{60, 120, 70, 255} : Color{36, 54, 42, 255}, on ? UI_GOLD : (here ? Color{140, 230, 150, 255} : Color{60, 90, 66, 255}));
-        DrawText(WildAreas()[a].name.c_str(), 30, y + 5, 10, on ? UI_GOLD : UI_TEXT);
-        if (here) DrawText("here", 212 - TextW("here", 10), y + 5, 10, Color{140, 230, 150, 255});
+        GDrawText(WildAreas()[a].name.c_str(), 30, y + 5, 10, on ? UI_GOLD : UI_TEXT);
+        if (here) GDrawText("here", 212 - TextW("here", 10), y + 5, 10, Color{140, 230, 150, 255});
     }
-    if (n > rows) DrawText(TextFormat("%d / %d", sel + 1, n), 22, 338 - 12, 10, UI_DIM);
+    if (n > rows) GDrawText(TextFormat("%d / %d", sel + 1, n), 22, 338 - 12, 10, UI_DIM);
     // what lives there: seen ones show, unseen ones are silhouettes
     int area = open[sel];
     auto mons = WildAreaMons(area, TrainStage(g), TrainBadges(g));
-    DrawText(WildAreas()[area].name.c_str(), 232, 44, 20, UI_GOLD);
-    DrawText("Pokemon found here", 232, 68, 10, UI_DIM);
+    GDrawText(WildAreas()[area].name.c_str(), 232, 44, 20, UI_GOLD);
+    GDrawText("Pokemon found here", 232, 68, 10, UI_DIM);
     auto seen = [&](int sp) {
         const std::string& nm = AllSpecies()[sp].name;
         for (int p = 0; p < (g.coop ? 2 : 1); p++)
@@ -260,12 +260,12 @@ void DrawAreaPick(const Game& g) {
         DrawSpeciesFit(m.species, VIEW_FRONT, x + 46, y + 38, 32, s ? WHITE : Color{12, 16, 14, 255});
         DrawTextCentered(s ? AllSpecies()[m.species].name.c_str() : "???", x + 46, y + 40, 10, s ? UI_TEXT : UI_DIM, false);
         const char* tag = m.rare ? "RARE" : (m.share >= 0.25f ? "Common" : m.share >= 0.10f ? "Uncommon" : "Rare");
-        DrawText(tag, x + 4, y + 3, 10, m.rare ? Color{255, 150, 230, 255} : UI_DIM);
-        DrawText(TextFormat("Lv%d-%d", m.lo, m.hi), x + 88 - TextW(TextFormat("Lv%d-%d", m.lo, m.hi), 10), y + 3, 10, UI_DIM);
+        GDrawText(tag, x + 4, y + 3, 10, m.rare ? Color{255, 150, 230, 255} : UI_DIM);
+        GDrawText(TextFormat("Lv%d-%d", m.lo, m.hi), x + 88 - TextW(TextFormat("Lv%d-%d", m.lo, m.hi), 10), y + 3, 10, UI_DIM);
     }
-    if (mons.size() > 16) DrawText(TextFormat("+%d more", (int)mons.size() - 16), 232, 316, 10, UI_DIM);
-    DrawText("Unseen Pokemon show as silhouettes - meet them to fill in your Pokedex.", 232, 324, 10, Color{170, 200, 170, 255});
-    DrawText("Up/Down area   Enter train here   X / Esc close", 24, 346 - 12, 10, Color{200, 230, 200, 255});
+    if (mons.size() > 16) GDrawText(TextFormat("+%d more", (int)mons.size() - 16), 232, 316, 10, UI_DIM);
+    GDrawText("Unseen Pokemon show as silhouettes - meet them to fill in your Pokedex.", 232, 324, 10, Color{170, 200, 170, 255});
+    GDrawText("Up/Down area   Enter train here   X / Esc close", 24, 346 - 12, 10, Color{200, 230, 200, 255});
 }
 } // namespace
 
@@ -629,12 +629,12 @@ static void DrawEntryInfo(const RosterEntry& e, int x, int y) {
     DrawSpeciesFit(ShinyIdx(e.species, e.shiny), VIEW_FRONT, x + 21, y + 40, 38);
     if (e.shiny) DrawShinyStar((float)x + 5, (float)y + 5, 3.5f);
     DrawTextShadow(sp.name.c_str(), x + 48, y + 1, 10, UI_TEXT);
-    DrawText(TextFormat("Lv%d", e.level), x + 52 + TextW(sp.name.c_str(), 10), y + 1, 10, UI_GOLD);
+    GDrawText(TextFormat("Lv%d", e.level), x + 52 + TextW(sp.name.c_str(), 10), y + 1, 10, UI_GOLD);
     int bx = x + 48;
     bx += DrawTypeBadge(sp.type1, bx, y + 13) + 2;
     if (sp.type2 != Type::None) DrawTypeBadge(sp.type2, bx, y + 13);
-    if (sp.floats) DrawText("hovers", x + 48, y + 28, 10, UI_DIM);
-    if (!e.item.empty()) DrawText(TextFormat("@ %s", e.item.c_str()), x + 48, y + 38, 10, Color{140, 220, 255, 255});
+    if (sp.floats) GDrawText("hovers", x + 48, y + 28, 10, UI_DIM);
+    if (!e.item.empty()) GDrawText(TextFormat("@ %s", e.item.c_str()), x + 48, y + 38, 10, Color{140, 220, 255, 255});
     int sx = x + 150;
     float mul = StatMul(e.level);
     auto sv = [&](int b) { return (int)std::lround(Scaled(b) * mul); };
@@ -647,12 +647,12 @@ static void DrawEntryInfo(const RosterEntry& e, int x, int y) {
     for (int k = 0; k < 4; k++) {
         int my = y + 48 + k * 11;
         if (k < (int)e.moves.size()) DrawMoveLine(e.moves[k], x, my, 296, false);
-        else DrawText("-", x + 10, my, 10, UI_DIM);
+        else GDrawText("-", x + 10, my, 10, UI_DIM);
     }
 }
 
 void DrawSelect(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     const auto& ros = ViewRoster(g);
     int vp = g.shared ? 0 : g.pickPhase;
     std::string head = TextFormat("CHOOSE YOUR TEAM  (1-%d)", g.teamSize);
@@ -696,14 +696,14 @@ void DrawSelect(const Game& g) {
         DrawEllipse(x + 22, y + 44, 13, 3, Fade(BLACK, 0.3f));
         DrawSpeciesFit(ShinyIdx(e.species, e.shiny), VIEW_FRONT, x + 22, y + 46, 38);
         if (e.shiny) DrawShinyStar((float)x + 6, (float)y + 6, 3.5f);
-        DrawText(sp.name.c_str(), x + 42, y + 8, 10, UI_TEXT);
+        GDrawText(sp.name.c_str(), x + 42, y + 8, 10, UI_TEXT);
         DrawTypeBadge(sp.type1, x + 42, y + 21);
-        if (e.ownedId >= 0 || e.level != FREE_PLAY_LEVEL) DrawText(TextFormat("Lv%d", e.level), x + 42, y + 35, 10, UI_GOLD);
+        if (e.ownedId >= 0 || e.level != FREE_PLAY_LEVEL) GDrawText(TextFormat("Lv%d", e.level), x + 42, y + 35, 10, UI_GOLD);
         if (IsStoryMode(g.mode)) {
             DrawHpBar(x + 42, y + 46 - 2, 52, 2, e.hpFrac);
             if (e.hpFrac <= 0) {
                 DrawRectangle(x + 1, y + 1, w - 2, h - 2, Fade(UI_INK, 0.6f));
-                DrawText("FAINTED", x + 30, y + 20, 10, Color{255, 120, 100, 255});
+                GDrawText("FAINTED", x + 30, y + 20, 10, Color{255, 120, 100, 255});
             }
         }
         for (int p = 0; p < 2; p++) {
@@ -713,7 +713,7 @@ void DrawSelect(const Game& g) {
             int slot = (int)(it - g.picks[p].begin()) + 1;
             int bx = x + w - 13 - p * 13, by = y + h - 14;
             DrawRectangle(bx, by, 11, 11, TeamColor(p));
-            DrawText(TextFormat("%d", slot), bx + 3, by + 1, 10, UI_INK);
+            GDrawText(TextFormat("%d", slot), bx + 3, by + 1, 10, UI_INK);
         }
     }
     if (rows > GRID_ROWS_VISIBLE) {
@@ -747,46 +747,46 @@ void DrawSelect(const Game& g) {
             if (g.mode == Mode::Story) {
                 const StageDef st = ActiveStage(g);
                 DrawTextShadow(st.trainer.c_str(), x + 6, y + 24, 20, UI_TEXT);
-                DrawText(st.name.c_str(), x + 6, y + 48, 10, UI_DIM);
-                DrawText(st.IsLegend() ? "1 legendary - a boss with a huge HP pool" : TextFormat("%d Pokemon", (int)std::min<size_t>(st.team.size(), MAX_TEAM_SIZE)), x + 6, y + 66, 10, st.IsLegend() ? UI_GOLD : UI_TEXT);
-                if (st.IsLegend()) DrawText("A few levels above your team", x + 6, y + 80, 10, UI_GOLD);
-                else if (st.towerFloor > 0) DrawText(TextFormat("Tower floor %d: levels scale to your team", st.towerFloor), x + 6, y + 80, 10, UI_GOLD);
-                else if (IsRematch(g) && st.IsBoss()) DrawText("REMATCH: levels scale to your team", x + 6, y + 80, 10, UI_GOLD);
-                else if (st.baseLevel > 0) DrawText(TextFormat("Levels around %d", st.baseLevel), x + 6, y + 80, 10, UI_TEXT);
-                else DrawText(TextFormat("Levels around your team %s", st.levelOffset >= 0 ? TextFormat("+%d", st.levelOffset) : TextFormat("%d", st.levelOffset)), x + 6, y + 80, 10, UI_TEXT);
-                DrawText(TextFormat("CPU skill: %s", AILevelName(st.cpu)), x + 6, y + 94, 10, UI_TEXT);
-                DrawText(TextFormat("Arena: %s", st.arena == ArenaKind::Stadium ? VenueName(st.venue.empty() ? VenueForPlace(st.name) : VenueByName(st.venue)) : ArenaName(st.arena)), x + 6, y + 108, 10, st.arena == ArenaKind::Stadium ? UI_TEXT : UI_GOLD);
-                DrawText(st.IsLegend() ? "Weaken it, then you get 3 balls to catch it" : st.towerFloor > 0 ? "Battle Tower: everyone fights at full health" : st.IsChampion() ? "The Championship!" : st.IsLeague() ? "Elite Four: lose and the League starts over"
+                GDrawText(st.name.c_str(), x + 6, y + 48, 10, UI_DIM);
+                GDrawText(st.IsLegend() ? "1 legendary - a boss with a huge HP pool" : TextFormat("%d Pokemon", (int)std::min<size_t>(st.team.size(), MAX_TEAM_SIZE)), x + 6, y + 66, 10, st.IsLegend() ? UI_GOLD : UI_TEXT);
+                if (st.IsLegend()) GDrawText("A few levels above your team", x + 6, y + 80, 10, UI_GOLD);
+                else if (st.towerFloor > 0) GDrawText(TextFormat("Tower floor %d: levels scale to your team", st.towerFloor), x + 6, y + 80, 10, UI_GOLD);
+                else if (IsRematch(g) && st.IsBoss()) GDrawText("REMATCH: levels scale to your team", x + 6, y + 80, 10, UI_GOLD);
+                else if (st.baseLevel > 0) GDrawText(TextFormat("Levels around %d", st.baseLevel), x + 6, y + 80, 10, UI_TEXT);
+                else GDrawText(TextFormat("Levels around your team %s", st.levelOffset >= 0 ? TextFormat("+%d", st.levelOffset) : TextFormat("%d", st.levelOffset)), x + 6, y + 80, 10, UI_TEXT);
+                GDrawText(TextFormat("CPU skill: %s", AILevelName(st.cpu)), x + 6, y + 94, 10, UI_TEXT);
+                GDrawText(TextFormat("Arena: %s", st.arena == ArenaKind::Stadium ? VenueName(st.venue.empty() ? VenueForPlace(st.name) : VenueByName(st.venue)) : ArenaName(st.arena)), x + 6, y + 108, 10, st.arena == ArenaKind::Stadium ? UI_TEXT : UI_GOLD);
+                GDrawText(st.IsLegend() ? "Weaken it, then you get 3 balls to catch it" : st.towerFloor > 0 ? "Battle Tower: everyone fights at full health" : st.IsChampion() ? "The Championship!" : st.IsLeague() ? "Elite Four: lose and the League starts over"
                          : st.IsGym() ? "Gym battle" : "Trainer battle: catch wild ones in training", x + 6, y + 122, 10, UI_DIM);
             } else {
                 if (g.rareBattle && g.rareSpecies >= 0) {
                     DrawTextShadow("RARE ENCOUNTER!", x + 6, y + 24, 20, Color{255, 150, 230, 255});
                     DrawRectangle(x + 200, y + 24, 80, 80, UI_PANEL_LIGHT);
                     DrawSpeciesFit(g.rareSpecies, VIEW_FRONT, x + 240, y + 102, 72);
-                    DrawText(TextFormat("A wild %s appeared!", AllSpecies()[g.rareSpecies].name.c_str()), x + 6, y + 50, 10, UI_TEXT);
-                    DrawText("It's a few levels above your team.", x + 6, y + 64, 10, UI_DIM);
-                    DrawText("Weaken it, then catch it with", x + 6, y + 82, 10, UI_GOLD);
-                    DrawText("a ball - don't knock it out!", x + 6, y + 94, 10, UI_GOLD);
-                    DrawText(TextFormat("Poke Balls: %d", BagCount(g.profile, "Poke Ball")), x + 6, y + 112, 10, UI_TEXT);
-                    DrawText(TextFormat("In %s   (X / Tab: area)", TrainAreaName(g).c_str()), x + 6, y + 126, 10, Color{140, 230, 150, 255});
+                    GDrawText(TextFormat("A wild %s appeared!", AllSpecies()[g.rareSpecies].name.c_str()), x + 6, y + 50, 10, UI_TEXT);
+                    GDrawText("It's a few levels above your team.", x + 6, y + 64, 10, UI_DIM);
+                    GDrawText("Weaken it, then catch it with", x + 6, y + 82, 10, UI_GOLD);
+                    GDrawText("a ball - don't knock it out!", x + 6, y + 94, 10, UI_GOLD);
+                    GDrawText(TextFormat("Poke Balls: %d", BagCount(g.profile, "Poke Ball")), x + 6, y + 112, 10, UI_TEXT);
+                    GDrawText(TextFormat("In %s   (X / Tab: area)", TrainAreaName(g).c_str()), x + 6, y + 126, 10, Color{140, 230, 150, 255});
                 } else {
                     DrawTextShadow("Training battle", x + 6, y + 24, 20, UI_TEXT);
-                    DrawText(TextFormat("In %s", TrainAreaName(g).c_str()), x + 6, y + 50, 10, Color{140, 230, 150, 255});
-                    DrawText(TextFormat("Up to %d wild Pokemon - never more than you bring", std::max(2, Story().trainingMaxFoes)), x + 6, y + 66, 10, UI_TEXT);
+                    GDrawText(TextFormat("In %s", TrainAreaName(g).c_str()), x + 6, y + 50, 10, Color{140, 230, 150, 255});
+                    GDrawText(TextFormat("Up to %d wild Pokemon - never more than you bring", std::max(2, Story().trainingMaxFoes)), x + 6, y + 66, 10, UI_TEXT);
                     int every = std::max(1, Story().rareEvery);
-                    DrawText(TextFormat("Training wins: %d  (every %dth battle: a rare Pokemon)", g.profile.trainingWins, every), x + 6, y + 80, 10, UI_TEXT);
-                    DrawText("Weaken a foe to try catching it after the win!", x + 6, y + 96, 10, UI_GOLD);
-                    DrawText("X / Tab: choose where to train", x + 6, y + 112, 10, UI_GOLD);
+                    GDrawText(TextFormat("Training wins: %d  (every %dth battle: a rare Pokemon)", g.profile.trainingWins, every), x + 6, y + 80, 10, UI_TEXT);
+                    GDrawText("Weaken a foe to try catching it after the win!", x + 6, y + 96, 10, UI_GOLD);
+                    GDrawText("X / Tab: choose where to train", x + 6, y + 112, 10, UI_GOLD);
                 }
             }
             continue;
         }
         if (!human) {
             if (g.mode == Mode::Doubles) {
-                DrawText("Your CPU partner and both rival CPUs", x + 6, y + 60, 10, UI_DIM);
-                DrawText("get random teams the same size as yours.", x + 6, y + 72, 10, UI_DIM);
+                GDrawText("Your CPU partner and both rival CPUs", x + 6, y + 60, 10, UI_DIM);
+                GDrawText("get random teams the same size as yours.", x + 6, y + 72, 10, UI_DIM);
             } else
-                DrawText(g.ready[0] ? "Picking..." : "Waiting for you...", x + 6, y + 60, 10, UI_DIM);
+                GDrawText(g.ready[0] ? "Picking..." : "Waiting for you...", x + 6, y + 60, 10, UI_DIM);
             continue;
         }
         bool partnerView = g.on.active && p != g.on.me;
@@ -808,8 +808,8 @@ void DrawSelect(const Game& g) {
                 int ry = ly + k * 26;
                 DrawRectangle(x + 6, ry, w - 12, 24, UI_PANEL_LIGHT);
                 DrawSpeciesFit(ShinyIdx(e.species, e.shiny), VIEW_FRONT, x + 18, ry + 23, 22);
-                DrawText(sp.name.c_str(), x + 34, ry + 2, 10, UI_TEXT);
-                DrawText(TextFormat("Lv%d", e.level), x + 38 + TextW(sp.name.c_str(), 10), ry + 2, 10, UI_GOLD);
+                GDrawText(sp.name.c_str(), x + 34, ry + 2, 10, UI_TEXT);
+                GDrawText(TextFormat("Lv%d", e.level), x + 38 + TextW(sp.name.c_str(), 10), ry + 2, 10, UI_GOLD);
                 int bx = x + 34;
                 bx += DrawTypeBadge(sp.type1, bx, ry + 12) + 2;
                 if (sp.type2 != Type::None) bx += DrawTypeBadge(sp.type2, bx, ry + 12) + 2;
@@ -817,21 +817,21 @@ void DrawSelect(const Game& g) {
                     DrawRectangle(x + w - 50 + (int)q * 10, ry + 8, 8, 8, TypeColor(e.moves[q].type));
                 }
             }
-            if (shown.empty()) DrawText("No picks yet...", x + 6, ly + 4, 10, UI_DIM);
+            if (shown.empty()) GDrawText("No picks yet...", x + 6, ly + 4, 10, UI_DIM);
             const char* st;
             if (partnerView) {
                 st = g.on.partnerPicksIn ? "Ready! Waiting for you..." : "Picking on their screen...";
                 int pc = g.on.partnerSelCursor;
                 if (!g.on.partnerPicksIn && pc >= 0 && pc < (int)pr.size())
-                    DrawText(TextFormat("Looking at: %s", AllSpecies()[pr[pc].species].name.c_str()), x + 6, y + h - 28, 10, UI_DIM);
+                    GDrawText(TextFormat("Looking at: %s", AllSpecies()[pr[pc].species].name.c_str()), x + 6, y + h - 28, 10, UI_DIM);
             } else {
                 st = "READY!";
             }
-            DrawText(st, x + 6, y + h - 14, 10, (partnerView ? g.on.partnerPicksIn : true) ? UI_GOLD : UI_DIM);
+            GDrawText(st, x + 6, y + h - 14, 10, (partnerView ? g.on.partnerPicksIn : true) ? UI_GOLD : UI_DIM);
             continue;
         }
         if (!g.shared && p != vp && !g.ready[p]) {
-            DrawText("Waiting for Player 1...", x + 6, y + 60, 10, UI_DIM);
+            GDrawText("Waiting for Player 1...", x + 6, y + 60, 10, UI_DIM);
             continue;
         }
         if (g.cursor[p] < (int)pr.size()) DrawEntryInfo(pr[g.cursor[p]], x + 6, y + 30);
@@ -847,7 +847,7 @@ void DrawSelect(const Game& g) {
             std::snprintf(buf, sizeof buf, "Pick: %s   Undo/back: %s", ConfirmLabel(p, tp), BackLabel(p, tp));
             status = buf;
         }
-        DrawText(status, x + 6, y + h - 14, 10, g.ready[p] ? UI_GOLD : UI_DIM);
+        GDrawText(status, x + 6, y + h - 14, 10, g.ready[p] ? UI_GOLD : UI_DIM);
     }
     if (g.startDelay >= 0) {
         DrawRectangle(0, 150, VW, 40, Fade(UI_INK, 0.8f));
@@ -977,7 +977,7 @@ void UpdateBattleScreen(Game& g, float dt) {
 void DrawBattleScreen(const Game& g) {
     g.battle.Draw();
     if (g.on.active) {
-        DrawText(TextFormat("%dms", net::PingMs()), VW - 34, VH - 12, 10, Fade(UI_DIM, 0.7f));
+        GDrawText(TextFormat("%dms", net::PingMs()), VW - 34, VH - 12, 10, Fade(UI_DIM, 0.7f));
         if (g.on.stallT > 0.5f) DrawTextCentered("Waiting for your partner's connection...", VW / 2, 150, 10, UI_GOLD, false);
         if (g.on.leaveAsk) {
             DrawRectangle(0, 130, VW, 50, Fade(UI_INK, 0.85f));
@@ -1035,10 +1035,10 @@ void DrawBattleScreen(const Game& g) {
     const char* items[2] = {"Resume", IsStoryMode(g.mode) ? "Leave battle (no XP)" : "Quit to title"};
     for (int i = 0; i < 2; i++) DrawMenuItem(items[i], VW / 2, 120 + i * 26, 20, g.pauseSel == i);
     DrawControlsHelp(60, 200, TwoHumans(g));
-    DrawText("Status: BRN burn, PSN/TOX poison, PAR paralysis, FRZ frozen, SLP asleep. Moves show x2 / x0.5 / x0 vs the foe.",
+    GDrawText("Status: BRN burn, PSN/TOX poison, PAR paralysis, FRZ frozen, SLP asleep. Moves show x2 / x0.5 / x0 vs the foe.",
              60, 250, 10, UI_DIM);
     if (WheelMode(g))
-        DrawText("Quick Select: hold Swap (RT), point with the right stick, A to switch.   Keys 1-6: that slot.",
+        GDrawText("Quick Select: hold Swap (RT), point with the right stick, A to switch.   Keys 1-6: that slot.",
                  60, 264, 10, Color{140, 230, 150, 255});
 }
 
@@ -1125,7 +1125,7 @@ void UpdateDoublesMenu(Game& g) {
 }
 
 void DrawDoublesMenu(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     DrawTextCentered("2v2 BATTLE", VW / 2, 30, 30, UI_GOLD);
     DrawTextCentered("Two Pokemon per team on the field at once. Each player brings 1-3.", VW / 2, 70, 10, UI_TEXT, false);
     const char* items[4] = {"You + CPU partner  vs  2 CPUs", "Player 1 + Player 2  vs  2 CPUs (co-op)",

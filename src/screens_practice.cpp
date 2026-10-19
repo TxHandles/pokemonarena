@@ -132,7 +132,7 @@ void DrawPractice(const Game& g) {
     int w = 196, x = VW / 2 - w / 2, y = 37;
     DrawRectangle(x, y, w, 26, Fade(UI_INK, 0.72f));
     const char* head = TextFormat("PRACTICE   total damage %d", (int)g.practicePeak);
-    DrawText(head, VW / 2 - TextW(head, 10) / 2, y + 2, 10, UI_GOLD);
+    GDrawText(head, VW / 2 - TextW(head, 10) / 2, y + 2, 10, UI_GOLD);
     int tw = 0;
     for (int pass = 0; pass < 2; pass++) {   // measure, then draw centred
         int dx = VW / 2 - tw / 2, start = dx;
@@ -140,7 +140,7 @@ void DrawPractice(const Game& g) {
             const Side& sd = g.battle.GetSide(s);
             if (!sd.dummy) continue;
             const SpeciesDef& sp = *sd.Cur().sp;
-            if (pass) DrawText(sp.name.c_str(), dx, y + 14, 10, UI_TEXT);
+            if (pass) GDrawText(sp.name.c_str(), dx, y + 14, 10, UI_TEXT);
             dx += TextW(sp.name.c_str(), 10) + 3;
             dx += (pass ? DrawTypeBadge(sp.type1, dx, y + 13) : TextW(TypeName(sp.type1), 10) + 6) + 2;
             if (sp.type2 != Type::None) dx += (pass ? DrawTypeBadge(sp.type2, dx, y + 13) : TextW(TypeName(sp.type2), 10) + 6) + 2;
@@ -150,7 +150,7 @@ void DrawPractice(const Game& g) {
     }
     if (!g.paused) {
         const char* hint = "Pause: next dummy / leave";
-        DrawText(hint, VW / 2 - TextW(hint, 10) / 2, y + 28, 10, Fade(UI_DIM, 0.85f));
+        GDrawText(hint, VW / 2 - TextW(hint, 10) / 2, y + 28, 10, Fade(UI_DIM, 0.85f));
         return;
     }
     DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.7f));

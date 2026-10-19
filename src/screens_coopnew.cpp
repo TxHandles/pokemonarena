@@ -93,7 +93,7 @@ void UpdateCoopSetup(Game& g) {
 }
 
 void DrawCoopSetup(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     int p = g.coopNameWho;
     DrawTextCentered("A NEW CO-OP JOURNEY", VW / 2, 40, 30, UI_GOLD);
     DrawTextCentered(TextFormat("PLAYER %d - name your trainer", p + 1), VW / 2, 96, 20, PCol(p));
@@ -179,7 +179,7 @@ void UpdateCoopStarter(Game& g) {
 }
 
 void DrawCoopStarter(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     DrawTextCentered("CHOOSE YOUR STARTERS", VW / 2, 14, 20, UI_GOLD);
     bool online = g.on.active;
     DrawTextCentered(online ? "Each of you picks one - you can't both take the same Pokemon. Your rival takes two of the others!"
@@ -216,18 +216,18 @@ void DrawCoopStarter(const Game& g) {
     for (int p = 0; p < 2; p++) {
         int x = p == 0 ? 20 : 330;
         DrawPanel(x, 250, 290, 70, UI_PANEL, locked[p] ? PCol(p) : UI_BORDER);
-        DrawText(TextFormat("%s%s", g.coopP[p].name.c_str(), online && p == g.on.me ? " (you)" : ""), x + 8, 256, 10, PCol(p));
+        GDrawText(TextFormat("%s%s", g.coopP[p].name.c_str(), online && p == g.on.me ? " (you)" : ""), x + 8, 256, 10, PCol(p));
         const char* st;
         if (taken[p] >= 0) st = TextFormat("Partner: %s", AllSpecies()[taken[p]].name.c_str());
         else if (!online && g.coopReady[p]) st = "Ready! (Back to change)";
         else if (online && p != g.on.me) st = "choosing...";
         else st = TextFormat("Left/Right choose   %s take it", online ? "Enter" : ConfirmLabel(p, true));
-        DrawText(st, x + 8, 274, 10, locked[p] ? PCol(p) : UI_DIM);
+        GDrawText(st, x + 8, 274, 10, locked[p] ? PCol(p) : UI_DIM);
         if (taken[p] < 0 && sel[p] >= 0 && sel[p] < n) {
             int idx = StarterSpecies(sel[p]);
             if (idx >= 0) {
                 std::string hint = EvolutionHint(idx);
-                DrawText(hint.c_str(), x + 8, 292, 10, UI_DIM);
+                GDrawText(hint.c_str(), x + 8, 292, 10, UI_DIM);
             }
         }
     }

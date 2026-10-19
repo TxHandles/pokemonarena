@@ -105,6 +105,7 @@ struct Game {
     // Menus
     int titleSel = 0, settingsSel = 0, pauseSel = 0, resultSel = 0, hubSel = 0;
     int titleMenu = 0;                      // title: 0 main, 1 Co-op, 2 Quick Battle
+    float screenT = 0;            // seconds since the screen last changed (menu animations)
     int bagTab = 0, bagSel = 0;             // the Bag: pocket and item
     bool areaPick = false;                  // training team select: the "where to train" menu is open
     float swapHoldT = 0;                    // solo story battles: how long Swap has been held

@@ -90,16 +90,16 @@ void DrawLogo(int cx, int top, float t) {
             if (pass == 0) {   // deep shadow
                 for (int dx = -4; dx <= 4; dx++)
                     for (int dy = -4; dy <= 6; dy++)
-                        if (dx * dx + dy * dy <= 22) DrawText(ch, xx + dx, y + dy + 2, size, deep);
+                        if (dx * dx + dy * dy <= 22) GDrawText(ch, xx + dx, y + dy + 2, size, deep);
             } else if (pass == 1) {   // blue outline
                 for (int dx = -3; dx <= 3; dx++)
                     for (int dy = -3; dy <= 3; dy++)
-                        if (dx * dx + dy * dy <= 10) DrawText(ch, xx + dx, y + dy, size, blue);
+                        if (dx * dx + dy * dy <= 10) GDrawText(ch, xx + dx, y + dy, size, blue);
             } else if (pass == 2) {
-                DrawText(ch, xx, y, size, yellow);
+                GDrawText(ch, xx, y, size, yellow);
             } else {   // the lighter top half of each letter
                 BeginScissorMode((xx - 2) * CANVAS_ZOOM, y * CANVAS_ZOOM, (widths[i] + 4) * CANVAS_ZOOM, (size / 2 - 3) * CANVAS_ZOOM);
-                DrawText(ch, xx, y, size, light);
+                GDrawText(ch, xx, y, size, light);
                 EndScissorMode();
                 if (i == 3) {   // the accent on the E
                     float ax = xx + widths[i] * 0.38f, ay = (float)y - 1;
@@ -225,7 +225,7 @@ void DrawTitle(const Game& g) {
         Color tc = sel ? Color{40, 30, 20, 255} : (back ? UI_DIM : UI_TEXT);
         DrawTextCentered(items[i].label, VW / 2, y + 6, 10, tc, false);
         bool sub = g.titleMenu == 0 && (i == 1 || i == 2);
-        if (sub) DrawText(">", x + w - 16, y + 6, 10, tc);
+        if (sub) GDrawText(">", x + w - 16, y + 6, 10, tc);
         if (sel) {
             float bob = std::sin(t * 6) * 1.5f;
             TitleBall((float)x + 12 + bob, (float)y + h / 2.0f, 6, std::sin(t * 4) * 25);
@@ -257,12 +257,12 @@ void DrawTitle(const Game& g) {
         DrawSpeciesFit(parade[i], VIEW_FRONT, x, 298 - hop, 32);
     }
     DrawRectangle(0, 318, VW, VH - 318, Fade(Color{10, 14, 30, 255}, 0.85f));
-    DrawText(g.titleMenu ? "Up/Down choose   Enter confirm   Esc / B back" : "Up/Down choose   Enter / A confirm", 12, 330, 10, UI_DIM);
+    GDrawText(g.titleMenu ? "Up/Down choose   Enter confirm   Esc / B back" : "Up/Down choose   Enter / A confirm", 12, 330, 10, UI_DIM);
     if (g.customCount > 0) {
         const char* msg = TextFormat("%d Pokemon", g.customCount);
-        DrawText(msg, VW - 12 - TextW(msg, 10), 330, 10, Color{140, 220, 150, 255});
+        GDrawText(msg, VW - 12 - TextW(msg, 10), 330, 10, Color{140, 220, 150, 255});
     }
-    DrawText("v2.0", VW - 12 - TextW("v2.0", 10), 344, 10, Fade(UI_DIM, 0.7f));
+    GDrawText("v2.0", VW - 12 - TextW("v2.0", 10), 344, 10, Fade(UI_DIM, 0.7f));
 }
 
 // ------------------------------------------------------------------ settings
@@ -327,7 +327,7 @@ void UpdateSettings(Game& g) {
 }
 
 void DrawSettings(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     DrawTextCentered("SETTINGS", VW / 2, 14, 20, UI_GOLD);
     int x = 150, w = 340;
     const char* groups[] = {"Display", "", "Sound", "", "Gameplay", "", "", "Visuals", "", "Battles", "", "", "Controls", ""};
@@ -336,12 +336,12 @@ void DrawSettings(const Game& g) {
         SettingText(i, label, value);
         int y = 38 + i * 21;
         bool sel = g.settingsSel == i;
-        if (groups[i][0]) DrawText(groups[i], 40, y + 4, 10, UI_DIM);
+        if (groups[i][0]) GDrawText(groups[i], 40, y + 4, 10, UI_DIM);
         DrawPanel(x, y, w, 20, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
-        DrawText(label, x + 10, y + 5, 10, sel ? UI_GOLD : UI_TEXT);
+        GDrawText(label, x + 10, y + 5, 10, sel ? UI_GOLD : UI_TEXT);
         if (value[0]) {
             std::string v = std::string("< ") + value + " >";
-            DrawText(v.c_str(), x + w - 10 - TextW(v.c_str(), 10), y + 5, 10, sel ? UI_GOLD : UI_TEXT);
+            GDrawText(v.c_str(), x + w - 10 - TextW(v.c_str(), 10), y + 5, 10, sel ? UI_GOLD : UI_TEXT);
         }
         if (i == 2 || i == 3) {
             int vol = i == 2 ? Cfg().masterVolume : Cfg().sfxVolume;
@@ -349,7 +349,7 @@ void DrawSettings(const Game& g) {
             DrawRectangle(x + 150, y + 8, vol, 4, UI_GOLD);
         }
     }
-    DrawText("Left/Right change   Esc back   (saved automatically)", 150, 336, 10, UI_DIM);
+    GDrawText("Left/Right change   Esc back   (saved automatically)", 150, 336, 10, UI_DIM);
 }
 
 // ------------------------------------------------------------------ controls
@@ -416,7 +416,7 @@ void UpdateControls(Game& g) {
 }
 
 void DrawControls(const Game& g) {
-    ClearBackground(Color{24, 20, 38, 255});
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     DrawTextCentered("CONTROLS", VW / 2, 10, 20, UI_GOLD);
     bool padTab = g.ctrlTab >= 3;
     int pad = g.ctrlTab - 3;
@@ -430,13 +430,13 @@ void DrawControls(const Game& g) {
     }
 
     int x = 150, w = 340, y0 = 66;
-    DrawText(padTab ? "Button" : "Key", x + 150, y0 - 2, 10, UI_DIM);
-    if (!padTab) DrawText("Alternate", x + 250, y0 - 2, 10, UI_DIM);
+    GDrawText(padTab ? "Button" : "Key", x + 150, y0 - 2, 10, UI_DIM);
+    if (!padTab) GDrawText("Alternate", x + 250, y0 - 2, 10, UI_DIM);
     for (int a = 0; a < ACT_COUNT; a++) {
         int y = y0 + 10 + a * 16;
         bool rowSel = g.ctrlRow == a + 1;
         DrawPanel(x, y, w, 15, rowSel ? UI_PANEL_LIGHT : UI_PANEL, rowSel ? UI_GOLD : Color{70, 64, 92, 255});
-        DrawText(ActName((Act)a), x + 10, y + 3, 10, rowSel ? UI_GOLD : UI_TEXT);
+        GDrawText(ActName((Act)a), x + 10, y + 3, 10, rowSel ? UI_GOLD : UI_TEXT);
         int cols = padTab ? 1 : 2;
         for (int col = 0; col < cols; col++) {
             int cx = x + 150 + col * 100;
@@ -456,16 +456,16 @@ void DrawControls(const Game& g) {
             if (cellSel) DrawRectangle(cx - 4, y + 1, 80, 14, Fade(UI_GOLD, 0.25f));
             if (cellSel && g.capturing) {
                 bool blink = ((int)(g.t * 4) % 2) == 0;
-                DrawText(padTab ? "press a button" : "press a key", cx, y + 3, 10, blink ? UI_GOLD : UI_TEXT);
+                GDrawText(padTab ? "press a button" : "press a key", cx, y + 3, 10, blink ? UI_GOLD : UI_TEXT);
             } else {
-                DrawText(label, cx, y + 3, 10, conflict ? Color{255, 110, 100, 255} : UI_TEXT);
+                GDrawText(label, cx, y + 3, 10, conflict ? Color{255, 110, 100, 255} : UI_TEXT);
             }
         }
     }
     int ry = y0 + 10 + ACT_COUNT * 16 + 4;
     DrawMenuItem("Reset this page to defaults", VW / 2, ry, 10, g.ctrlRow == ACT_COUNT + 1);
     DrawMenuItem("Back", VW / 2, ry + 16, 10, g.ctrlRow == ACT_COUNT + 2);
-    DrawText(g.capturing ? "Esc cancels   Backspace clears the binding"
+    GDrawText(g.capturing ? "Esc cancels   Backspace clears the binding"
                          : "Up/Down choose   Left/Right column or page   Enter rebind   Esc back   Red = used twice",
              40, 344, 10, UI_DIM);
     DrawToast(g);

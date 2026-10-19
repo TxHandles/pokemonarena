@@ -45,23 +45,23 @@ void DrawWherePage(const Game& g, int idx, int x, int y, int w, int h) {
     DrawPanel(x, y, w, h, Color{240, 236, 228, 255}, Color{60, 40, 50, 255});
     DrawPanel(x + 8, y + 8, 52, 52, Color{200, 225, 210, 255}, Color{90, 110, 100, 255});
     DrawSpeciesFit(idx, VIEW_FRONT, x + 34, y + 57, 46);
-    DrawText(TextFormat("No. %03d", sp.dex), x + 68, y + 10, 10, soft);
-    DrawText(sp.name.c_str(), x + 68, y + 22, 20, ink);
-    DrawText("WHERE TO FIND IT", x + w - 10 - TextW("WHERE TO FIND IT", 10), y + 10, 10, Color{190, 50, 50, 255});
+    GDrawText(TextFormat("No. %03d", sp.dex), x + 68, y + 10, 10, soft);
+    GDrawText(sp.name.c_str(), x + 68, y + 22, 20, ink);
+    GDrawText("WHERE TO FIND IT", x + w - 10 - TextW("WHERE TO FIND IT", 10), y + 10, 10, Color{190, 50, 50, 255});
     int cur = TrainingAreaIndex(g);
     if (cur >= 0) {
         std::string t = "Training now: " + WildAreas()[cur].name;
-        DrawText(t.c_str(), x + w - 10 - TextW(t.c_str(), 10), y + 24, 10, soft);
+        GDrawText(t.c_str(), x + w - 10 - TextW(t.c_str(), 10), y + 24, 10, soft);
     }
     auto spots = WildSpotsFor(idx, DexStage(g), DexBadges(g));
     int ty = y + 66;
     // column heads
     int cPlace = x + 10, cHow = x + 124, cCommon = x + 184, cLv = x + 262, cNote = x + 298;
-    DrawText("Place", cPlace, ty, 10, soft);
-    DrawText("How", cHow, ty, 10, soft);
-    DrawText("How common", cCommon, ty, 10, soft);
-    DrawText("Note", cNote, ty, 10, soft);
-    DrawText("Lv", cLv, ty, 10, soft);
+    GDrawText("Place", cPlace, ty, 10, soft);
+    GDrawText("How", cHow, ty, 10, soft);
+    GDrawText("How common", cCommon, ty, 10, soft);
+    GDrawText("Note", cNote, ty, 10, soft);
+    GDrawText("Lv", cLv, ty, 10, soft);
     DrawRectangle(x + 8, ty + 12, w - 16, 1, Color{200, 190, 190, 255});
     ty += 16;
     int N = (int)spots.size();
@@ -79,12 +79,12 @@ void DrawWherePage(const Game& g, int idx, int x, int y, int w, int h) {
         std::string place = s.place;
         while (TextW(place.c_str(), 10) > 110 && place.size() > 3) place = place.substr(0, place.size() - 4) + "...";
         if (here) DrawCircle(cPlace - 4, ry + 5, 2, green);
-        DrawText(place.c_str(), cPlace, ry, 10, c);
-        DrawText(WildMethodName(s.method).c_str(), cHow, ry, 10, c);
-        if (avail) DrawText(TextFormat("%s %d%%", HowCommon(s.share), std::max(1, (int)std::lround(s.share * 100))), cCommon, ry, 10, green);
-        else if (s.rare && s.open) DrawText("rare find", cCommon, ry, 10, Color{190, 60, 150, 255});
-        else DrawText("-", cCommon, ry, 10, lock);
-        DrawText(s.lo == s.hi ? TextFormat("%d", s.lo) : TextFormat("%d-%d", s.lo, std::min(s.hi, 100)), cLv, ry, 10, c);
+        GDrawText(place.c_str(), cPlace, ry, 10, c);
+        GDrawText(WildMethodName(s.method).c_str(), cHow, ry, 10, c);
+        if (avail) GDrawText(TextFormat("%s %d%%", HowCommon(s.share), std::max(1, (int)std::lround(s.share * 100))), cCommon, ry, 10, green);
+        else if (s.rare && s.open) GDrawText("rare find", cCommon, ry, 10, Color{190, 60, 150, 255});
+        else GDrawText("-", cCommon, ry, 10, lock);
+        GDrawText(s.lo == s.hi ? TextFormat("%d", s.lo) : TextFormat("%d-%d", s.lo, std::min(s.hi, 100)), cLv, ry, 10, c);
         std::string note;
         if (!s.open) note = "after " + s.opensAt;
         else if (!s.methodOpen) note = (s.method == "surf" ? std::string("Surf") : WildMethodName(s.method)) + ": after " + s.methodAt;
@@ -92,7 +92,7 @@ void DrawWherePage(const Game& g, int idx, int x, int y, int w, int h) {
         else if (s.rare) note = "rare finds only";
         else if (here) note = "training here";
         while (TextW(note.c_str(), 10) > x + w - 8 - cNote && note.size() > 3) note = note.substr(0, note.size() - 4) + "...";
-        DrawText(note.c_str(), cNote, ry, 10, here ? green : lock);
+        GDrawText(note.c_str(), cNote, ry, 10, here ? green : lock);
     }
     if (N == 0) {
         const std::string& n = sp.name;
@@ -106,10 +106,10 @@ void DrawWherePage(const Game& g, int idx, int x, int y, int w, int h) {
                             : "Not in the wild - evolve or trade for it.";
         DrawWrapped(special, x + 10, ty, w - 20, 10, ink);
     } else if (N > rows) {
-        DrawText(TextFormat("%d-%d of %d", first + 1, std::min(N, first + rows), N), x + w - 70, y + h - 30, 10, soft);
+        GDrawText(TextFormat("%d-%d of %d", first + 1, std::min(N, first + rows), N), x + w - 70, y + h - 30, 10, soft);
     }
-    DrawText("Levels are the games'; training battles scale to your team.", x + 10, y + h - 30, 10, soft);
-    DrawText("Enter: train here   Left/Right: other Pokemon   Esc: back", x + 10, y + h - 16, 10, Color{190, 50, 50, 255});
+    GDrawText("Levels are the games'; training battles scale to your team.", x + 10, y + h - 30, 10, soft);
+    GDrawText("Enter: train here   Left/Right: other Pokemon   Esc: back", x + 10, y + h - 16, 10, Color{190, 50, 50, 255});
 }
 
 void DrawBall(int x, int y, bool caught) {
@@ -235,9 +235,9 @@ void DrawPokedex(const Game& g) {
         if (DexHasSeen(P, nm)) seen++;
     }
     DrawTextShadow("POKeDEX", 8, 6, 10, WHITE);
-    DrawText(P.name.c_str(), 64, 7, 10, g.coop ? PCol(g.dexWho) : UI_GOLD);
+    GDrawText(P.name.c_str(), 64, 7, 10, g.coop ? PCol(g.dexWho) : UI_GOLD);
     std::string tally = TextFormat("Seen %d    Caught %d    of %d", seen, caught, (int)list.size());
-    DrawText(tally.c_str(), VW - 8 - TextW(tally.c_str(), 10), 7, 10, WHITE);
+    GDrawText(tally.c_str(), VW - 8 - TextW(tally.c_str(), 10), 7, 10, WHITE);
 
     // List
     const int rows = 19;
@@ -252,9 +252,9 @@ void DrawPokedex(const Game& g) {
         bool sel = i == g.dexSel;
         if (sel) DrawRectangle(8, y - 1, 196, 15, Color{90, 60, 110, 255});
         DrawBall(18, y + 6, c);
-        DrawText(TextFormat("%03d", sp.dex), 26, y + 2, 10, sel ? UI_GOLD : UI_DIM);
+        GDrawText(TextFormat("%03d", sp.dex), 26, y + 2, 10, sel ? UI_GOLD : UI_DIM);
         if (s) DrawSpeciesFit(idx, VIEW_FRONT, 60, y + 14, 14, WHITE, false);
-        DrawText(s ? sp.name.c_str() : "-----", 72, y + 2, 10, sel ? UI_GOLD : (s ? UI_TEXT : UI_DIM));
+        GDrawText(s ? sp.name.c_str() : "-----", 72, y + 2, 10, sel ? UI_GOLD : (s ? UI_TEXT : UI_DIM));
     }
     if (list.size() > (size_t)rows) {   // scrollbar
         float f0 = (float)g.dexScroll / list.size(), f1 = (float)(g.dexScroll + rows) / list.size();
@@ -276,20 +276,20 @@ void DrawPokedex(const Game& g) {
     DrawSpeciesFit(idx, VIEW_FRONT, x + 66, 142, 100, s ? WHITE : Color{30, 34, 40, 255});
     const Color ink{40, 34, 50, 255}, soft{100, 92, 110, 255};
     int tx = x + 134;
-    DrawText(TextFormat("No. %03d", sp.dex), tx, 38, 10, soft);
-    DrawText(s ? sp.name.c_str() : "?????", tx, 52, 20, ink);
+    GDrawText(TextFormat("No. %03d", sp.dex), tx, 38, 10, soft);
+    GDrawText(s ? sp.name.c_str() : "?????", tx, 52, 20, ink);
     if (s) {
         std::string cat = (sp.category.empty() ? std::string("Unknown") : sp.category) + " Pokemon";
-        DrawText(cat.c_str(), tx, 76, 10, soft);
+        GDrawText(cat.c_str(), tx, 76, 10, soft);
         int bx = tx;
         bx += DrawTypeBadge(sp.type1, bx, 92) + 4;
         if (sp.type2 != Type::None) DrawTypeBadge(sp.type2, bx, 92);
-        if (sp.heightDm > 0) DrawText(TextFormat("Height %.1f m", sp.heightDm / 10.0f), tx, 112, 10, ink);
-        if (sp.weightHg > 0) DrawText(TextFormat("Weight %.1f kg", sp.weightHg / 10.0f), tx + 100, 112, 10, ink);
-        if (c) { DrawBall(tx + 6, 132, true); DrawText("Caught", tx + 14, 128, 10, Color{190, 50, 50, 255}); }
-        else DrawText("Seen - catch one to learn more", tx, 128, 10, soft);
+        if (sp.heightDm > 0) GDrawText(TextFormat("Height %.1f m", sp.heightDm / 10.0f), tx, 112, 10, ink);
+        if (sp.weightHg > 0) GDrawText(TextFormat("Weight %.1f kg", sp.weightHg / 10.0f), tx + 100, 112, 10, ink);
+        if (c) { DrawBall(tx + 6, 132, true); GDrawText("Caught", tx + 14, 128, 10, Color{190, 50, 50, 255}); }
+        else GDrawText("Seen - catch one to learn more", tx, 128, 10, soft);
     } else {
-        DrawText("Not seen yet.", tx, 80, 10, soft);
+        GDrawText("Not seen yet.", tx, 80, 10, soft);
     }
     int y = 156;
     if (s) y = DrawWrapped(sp.dexEntry.empty() ? "No data." : sp.dexEntry.c_str(), x + 10, y, w - 20, 10, ink, 12) + 4;
@@ -315,7 +315,7 @@ void DrawPokedex(const Game& g) {
         } else if (!special.empty()) {
             where += "; " + special;
         }
-        DrawText("Found:", x + 10, y, 10, Color{40, 110, 60, 255});
+        GDrawText("Found:", x + 10, y, 10, Color{40, 110, 60, 255});
         y = DrawWrapped((where + "   (Enter: details)").c_str(), x + 52, y, w - 62, 10, Color{40, 110, 60, 255}, 11) + 3;
     }
     if (c) {
@@ -323,8 +323,8 @@ void DrawPokedex(const Game& g) {
         auto abLine = [&](const std::string& name, const char* label) {
             if (name.empty()) return;
             Ab a = AbilityByName(name);
-            DrawText(label, x + 10, y, 10, soft);
-            DrawText(name.c_str(), x + 56, y, 10, Color{140, 80, 20, 255});
+            GDrawText(label, x + 10, y, 10, soft);
+            GDrawText(name.c_str(), x + 56, y, 10, Color{140, 80, 20, 255});
             y = DrawWrapped(a != Ab::None ? AbilityInfo(a).desc : "", x + 66 + TextW(name.c_str(), 10), y, w - 76 - TextW(name.c_str(), 10), 10, soft, 11);
             y += 1;
         };
@@ -337,8 +337,8 @@ void DrawPokedex(const Game& g) {
         struct St { const char* n; int v; } st[6] = {{"HP", sp.hp}, {"ATK", sp.atk}, {"DEF", sp.def}, {"SpA", sp.SpAtk()}, {"SpD", sp.SpDef()}, {"SPD", sp.spd}};
         for (int k = 0; k < 6; k++) {
             int cx = sx + (k % 3) * colW, cy = y + (k / 3) * 12;
-            DrawText(st[k].n, cx, cy, 10, soft);
-            DrawText(TextFormat("%d", st[k].v), cx + 24, cy, 10, ink);
+            GDrawText(st[k].n, cx, cy, 10, soft);
+            GDrawText(TextFormat("%d", st[k].v), cx + 24, cy, 10, ink);
             float f = std::min(1.0f, st[k].v / 160.0f);
             DrawRectangle(cx + 48, cy + 3, colW - 56, 4, Color{210, 204, 196, 255});
             DrawRectangle(cx + 48, cy + 3, (int)((colW - 56) * f), 4, st[k].v >= 100 ? Color{80, 180, 90, 255} : (st[k].v >= 70 ? Color{220, 170, 50, 255} : Color{220, 110, 70, 255}));
@@ -349,18 +349,18 @@ void DrawPokedex(const Game& g) {
     if (s) {
         auto links = FamilyLinks(idx);
         if (!links.empty() && y < 330) {
-            DrawText("Evolution", x + 10, y, 10, soft);
+            GDrawText("Evolution", x + 10, y, 10, soft);
             int lx = x + 70, ly = y;
             for (const auto& l : links) {
                 if (ly > 326) break;
                 auto nm = [&](int i) { return DexHasSeen(P, AllSpecies()[i].name) ? AllSpecies()[i].name : std::string("?????"); };
                 std::string t = nm(l.first) + "  >  " + nm(l.second) + "  (" + MethodText(l.first, l.second) + ")";
-                DrawText(t.c_str(), lx, ly, 10, (l.first == idx || l.second == idx) ? ink : soft);
+                GDrawText(t.c_str(), lx, ly, 10, (l.first == idx || l.second == idx) ? ink : soft);
                 ly += 11;
             }
         }
     }
-    DrawText("Up/Down browse   Left/Right jump 10   Enter where to find it   Esc back", 8, 346, 10, Color{255, 220, 220, 255});
+    GDrawText("Up/Down browse   Left/Right jump 10   Enter where to find it   Esc back", 8, 346, 10, Color{255, 220, 220, 255});
 }
 
 // ------------------------------------------------------------------ Trading
@@ -522,7 +522,7 @@ void UpdateTrade(Game& g, float dt) {
 }
 
 void DrawTrade(const Game& g) {
-    ClearBackground(Color{18, 24, 40, 255});
+    DrawMenuBackdrop(Color{18, 24, 40, 255}, (float)GetTime());
     for (int i = 0; i < 12; i++) DrawRectangle(0, i * 30, VW, 15, Color{22, 30, 50, 255});
     bool online = g.on.active;
     DrawTextCentered("TRADE MACHINE", VW / 2, 6, 20, UI_GOLD);
@@ -533,7 +533,7 @@ void DrawTrade(const Game& g) {
         int x = p == 0 ? 6 : VW - 6 - 200, w = 200, y0 = 32;
         bool canSee = !online || p == g.on.me;
         DrawPanel(x, y0, w, 296, UI_PANEL, PCol(p));
-        DrawText(P.name.c_str(), x + 6, y0 + 5, 10, PCol(p));
+        GDrawText(P.name.c_str(), x + 6, y0 + 5, 10, PCol(p));
         if (online && p != g.on.me && !g.on.partnerInTrade) {
             DrawWrapped(("Waiting for " + P.name + " to come to the trade machine...").c_str(), x + 8, y0 + 30, w - 16, 10, UI_DIM);
             continue;
@@ -557,14 +557,14 @@ void DrawTrade(const Game& g) {
             DrawPanel(x + 4, y, w - 8, 20, off ? UI_PANEL_LIGHT : UI_PANEL, off ? PCol(p) : (cur ? UI_TEXT : Color{70, 64, 92, 255}));
             if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, x + 16, y + 19, 18);
             if (m.shiny) DrawShinyStar((float)x + 9, (float)y + 5, 3);
-            DrawText(m.species.c_str(), x + 28, y + 5, 10, cur ? UI_GOLD : UI_TEXT);
-            DrawText(TextFormat("Lv%d", m.level), x + w - 54, y + 5, 10, UI_GOLD);
-            if (m.boxed) DrawText("Box", x + w - 28, y + 5, 10, UI_DIM);
+            GDrawText(m.species.c_str(), x + 28, y + 5, 10, cur ? UI_GOLD : UI_TEXT);
+            GDrawText(TextFormat("Lv%d", m.level), x + w - 54, y + 5, 10, UI_GOLD);
+            if (m.boxed) GDrawText("Box", x + w - 28, y + 5, 10, UI_DIM);
             if (!m.item.empty()) DrawRectangle(x + 24, y + 3, 3, 3, Color{140, 220, 255, 255});
         }
         bool ready = (online && p != g.on.me) ? g.on.partnerTradeReady : g.tradeReady[p];
         const char* st = ready ? "READY!" : (offer >= 0 ? "Offering - confirm again to accept" : "Pick a Pokemon to offer");
-        DrawText(st, x + 6, y0 + 282, 10, ready ? Color{140, 230, 150, 255} : UI_DIM);
+        GDrawText(st, x + 6, y0 + 282, 10, ready ? Color{140, 230, 150, 255} : UI_DIM);
     }
     // The deal in the middle
     int cx = VW / 2, mx = 212, mw = VW - 424;
@@ -578,26 +578,26 @@ void DrawTrade(const Game& g) {
         else if (offer >= 0 && offer < (int)P.mons.size()) { m = P.mons[offer]; have = true; }
         int y = 40 + p * 142;
         if (g.tradePhase != 0) {   // the profiles already hold the result: show what was sent
-            DrawText(TextFormat("%s sends", P.name.c_str()), mx + 8, y, 10, PCol(p));
+            GDrawText(TextFormat("%s sends", P.name.c_str()), mx + 8, y, 10, PCol(p));
             int si = SpeciesIndex(g.tradeSent[p]);
             if (si >= 0 && g.tradePhase == 2) DrawSpeciesFit(si, VIEW_FRONT, mx + 34, y + 66, 50);
-            DrawText(g.tradeSent[p].c_str(), mx + 66, y + 16, 10, UI_TEXT);
+            GDrawText(g.tradeSent[p].c_str(), mx + 66, y + 16, 10, UI_TEXT);
             continue;
         }
-        DrawText(TextFormat("%s offers", P.name.c_str()), mx + 8, y, 10, PCol(p));
-        if (!have) { DrawText("...", mx + 8, y + 16, 10, UI_DIM); continue; }
+        GDrawText(TextFormat("%s offers", P.name.c_str()), mx + 8, y, 10, PCol(p));
+        if (!have) { GDrawText("...", mx + 8, y + 16, 10, UI_DIM); continue; }
         int idx = MonSpecies(m);
         if (g.tradePhase == 0 && idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, mx + 34, y + 66, 50);
         if (g.tradePhase == 0 && m.shiny) DrawShinyStar((float)mx + 12, (float)y + 22, 4);
-        DrawText(m.species.c_str(), mx + 66, y + 16, 10, UI_TEXT);
-        DrawText(TextFormat("Lv%d", m.level), mx + 66, y + 28, 10, UI_GOLD);
-        DrawText(TextFormat("%s nature", NatureName(m.nature)), mx + 106, y + 28, 10, Color{255, 200, 150, 255});
+        GDrawText(m.species.c_str(), mx + 66, y + 16, 10, UI_TEXT);
+        GDrawText(TextFormat("Lv%d", m.level), mx + 66, y + 28, 10, UI_GOLD);
+        GDrawText(TextFormat("%s nature", NatureName(m.nature)), mx + 106, y + 28, 10, Color{255, 200, 150, 255});
         std::string ab = MonAbility(m);
-        if (!ab.empty()) DrawText(("Ability: " + ab).c_str(), mx + 66, y + 40, 10, kAbility);
-        DrawText(m.item.empty() ? "No held item" : ("Holds " + m.item).c_str(), mx + 66, y + 52, 10, UI_DIM);
-        if (!m.ot.empty()) DrawText(("From " + m.ot).c_str(), mx + 66, y + 64, 10, UI_DIM);
+        if (!ab.empty()) GDrawText(("Ability: " + ab).c_str(), mx + 66, y + 40, 10, kAbility);
+        GDrawText(m.item.empty() ? "No held item" : ("Holds " + m.item).c_str(), mx + 66, y + 52, 10, UI_DIM);
+        if (!m.ot.empty()) GDrawText(("From " + m.ot).c_str(), mx + 66, y + 64, 10, UI_DIM);
         if (idx >= 0 && TradeEvolution(idx) >= 0)
-            DrawText(TextFormat("Evolves into %s when traded!", AllSpecies()[TradeEvolution(idx)].name.c_str()), mx + 8, y + 80, 10, Color{255, 150, 230, 255});
+            GDrawText(TextFormat("Evolves into %s when traded!", AllSpecies()[TradeEvolution(idx)].name.c_str()), mx + 8, y + 80, 10, Color{255, 150, 230, 255});
     }
     // Swap animation
     if (g.tradePhase == 1) {
@@ -625,6 +625,6 @@ void DrawTrade(const Game& g) {
         }
         DrawTextCentered("Enter to continue", cx, 196, 10, UI_DIM, false);
     }
-    if (online) DrawText("Up/Down choose   Enter offer, then Enter again to accept   Esc back", 8, 340, 10, UI_DIM);
-    else DrawText("Each player: Up/Down choose, Confirm to offer, Confirm again to accept, Back to undo.  Esc leave", 8, 340, 10, UI_DIM);
+    if (online) GDrawText("Up/Down choose   Enter offer, then Enter again to accept   Esc back", 8, 340, 10, UI_DIM);
+    else GDrawText("Each player: Up/Down choose, Confirm to offer, Confirm again to accept, Back to undo.  Esc leave", 8, 340, 10, UI_DIM);
 }

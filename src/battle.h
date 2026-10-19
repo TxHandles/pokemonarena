@@ -524,6 +524,7 @@ private:
     void DrawAnimUnder() const;
     void DrawAnimOver() const;
     void DrawAnimCinematic() const;
+    void DrawAnimBanners() const;   // shiny / legendary appearance banners
     void AddText(Vector2 pos, const std::string& text, Color c, float z = 24);
     void Shake(int amt, float t = 0.15f);
 

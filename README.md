@@ -263,6 +263,25 @@ cheering with signs and flags. Screens open with a Poke Ball iris; panels everyw
 shaded edges. Catching shows the Pokemon pulled in as red light, the ball dropping and bouncing, three
 shakes with a blinking button and a star burst on the click. Evolution has a swirling backdrop that speeds
 up, a white burst and sparkles around the new form.
+**Appearances and matchups** – a shiny foe or a legendary gets a banner as it enters: "A Shiny Gyarados Has
+Appeared!" with its sprite in a glowing medallion (sparkles for shinies, golden lightning for legendaries).
+Super-effective hits throw out the attacking type's emblem with a camera punch; "No effect" leaves a grey
+puff and a crossed-out ring. Trainer battles open with a VS splash: the two trainers' colours slam
+together with their names and a Poke Ball per Pokemon.
+**Battle HUD** – slanted see-through name plates; move buttons tinted by type, with a clock sweep and
+seconds left while a move recharges, and a glint when one is ready.
+**Results** – the title sweeps in, rows slide in one by one, XP bars fill (and refill with LEVEL UP! when a
+level is gained), coins count up, the Pokemon that dealt the most damage gets an MVP card, and a new
+gym badge drops into an opening badge case. The Hall of Fame flashes a camera for each Pokemon.
+**Menus** – animated backgrounds (drifting Poke Ball shapes and light bands); items slide in one after
+another when a screen opens and pop when picked. The hub's sky follows the time of day and season
+(stars and a moon at night; petals, summer motes, falling leaves or snow; fireflies on summer nights), its
+menu is a column of tiles with icons, and the lead Pokemon hops. Party & Box: sliding tabs, rows tinted by
+type, a seasonal Box wallpaper, the portrait on a type-coloured backdrop that hops when picked, and a
+hexagon chart of the stats.
+**Font** – all text uses Pixelify Sans (SIL Open Font License, see fonts/OFL.txt), baked into the exe from
+src/font_data.cpp (made by tools/embed_font.py). Every text call goes through GDrawText / GMeasureText in
+src/ui.cpp; size-10 text is drawn at 12 px so layouts keep raylib's metrics.
 Settings: **Effects intensity** (Full / Reduced: no camera moves, slow motion or big flashes / Minimal: also
 fewer particles and no cinematics) and **Screen filter** (Off / Soft glow / Retro CRT).
 

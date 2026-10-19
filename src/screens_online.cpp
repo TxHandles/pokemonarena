@@ -521,14 +521,14 @@ void DrawOnlineOverlay(const Game& g) {
     int w = 440, h = 150, x = (VW - w) / 2, y = (VH - h) / 2;
     DrawPanel(x, y, w, h, UI_PANEL, UI_GOLD);
     DrawTextCentered(("RECONNECT TO " + pn).c_str(), VW / 2, y + 10, 20, UI_GOLD);
-    DrawText((pn + "'s new connection code:").c_str(), x + 16, y + 40, 10, UI_DIM);
+    GDrawText((pn + "'s new connection code:").c_str(), x + 16, y + 40, 10, UI_DIM);
     DrawPanel(x + 16, y + 54, w - 32, 24, UI_PANEL_LIGHT, UI_GOLD);
     std::string shown = o.newCode + ((((int)(g.t * 2)) % 2) ? "_" : " ");
-    DrawText(shown.c_str(), x + 26, y + 61, 10, UI_TEXT);
+    GDrawText(shown.c_str(), x + 26, y + 61, 10, UI_TEXT);
     const std::string& code = net::MyCode();
-    DrawText("Your code:", x + 16, y + 88, 10, UI_DIM);
-    DrawText(code.empty() ? "finding it..." : code.c_str(), x + 80, y + 88, 10, code.empty() ? UI_DIM : UI_GOLD);
-    DrawText("(Ctrl+C copies - send it to them too)", x + 16, y + 101, 10, UI_DIM);
+    GDrawText("Your code:", x + 16, y + 88, 10, UI_DIM);
+    GDrawText(code.empty() ? "finding it..." : code.c_str(), x + 80, y + 88, 10, code.empty() ? UI_DIM : UI_GOLD);
+    GDrawText("(Ctrl+C copies - send it to them too)", x + 16, y + 101, 10, UI_DIM);
     DrawTextCentered("Type or Ctrl+V to paste    Enter / (A) connect    Esc / (B) cancel", VW / 2, y + h - 18, 10, UI_TEXT, false);
 }
 
@@ -1016,7 +1016,7 @@ void UpdateNetMenu(Game& g) {
 
 void DrawNetMenu(const Game& g) {
     const OnlineSession& o = g.on;
-    ClearBackground(Color{20, 22, 36, 255});
+    DrawMenuBackdrop(Color{20, 22, 36, 255}, (float)GetTime());
     DrawTextCentered("ONLINE CO-OP", VW / 2, 10, 30, UI_GOLD);
     DrawTextCentered("Play Co-op Story with a friend on another computer. Each of you uses your own profile.", VW / 2, 46, 10, UI_TEXT, false);
     if (o.page == 0) {
@@ -1026,7 +1026,7 @@ void DrawNetMenu(const Game& g) {
         for (int i = 0; i < 5; i++) DrawMenuItem(items[i], VW / 2, 74 + i * 26, 20, o.sel == i);
         DrawPanel(60, 210, 520, 110, UI_PANEL, UI_BORDER);
         int y = 218;
-        auto line = [&](const char* t, Color c) { DrawText(t, 72, y, 10, c); y += 13; };
+        auto line = [&](const char* t, Color c) { GDrawText(t, 72, y, 10, c); y += 13; };
         line("How to connect", UI_GOLD);
         line("- Internet: the host and the friend each get a connection code. Swap codes (Discord, text),", UI_TEXT);
         line("  the friend types the host's code and the host types the friend's. No router setup needed.", UI_TEXT);
@@ -1042,35 +1042,35 @@ void DrawNetMenu(const Game& g) {
     DrawTextCentered(host ? "HOSTING" : "JOINING", VW / 2, 66, 20, UI_TEXT);
     int y = 96;
     const std::string& code = net::MyCode();
-    DrawText("Your connection code:", 60, y, 10, UI_DIM);
+    GDrawText("Your connection code:", 60, y, 10, UI_DIM);
     DrawTextShadow(code.empty() ? "finding it..." : code.c_str(), 200, y - 4, 20, code.empty() ? UI_DIM : UI_GOLD);
     y += 22;
-    if (!code.empty()) DrawText("Ctrl+C copies it. Send it to your friend.", 200, y, 10, UI_DIM);
+    if (!code.empty()) GDrawText("Ctrl+C copies it. Send it to your friend.", 200, y, 10, UI_DIM);
     y += 20;
     if (host) {
         auto addrs = net::LocalAddresses();
         std::string a;
         for (const auto& s : addrs) a += (a.empty() ? "" : "   ") + s;
-        DrawText("Same network / Radmin / ZeroTier address:", 60, y, 10, UI_DIM);
-        DrawText(a.empty() ? "-" : a.c_str(), 300, y, 10, UI_TEXT);
+        GDrawText("Same network / Radmin / ZeroTier address:", 60, y, 10, UI_DIM);
+        GDrawText(a.empty() ? "-" : a.c_str(), 300, y, 10, UI_TEXT);
         y += 22;
-        DrawText("Your friend's code (lets them through your router):", 60, y, 10, UI_DIM);
+        GDrawText("Your friend's code (lets them through your router):", 60, y, 10, UI_DIM);
     } else {
-        DrawText("Host's code or address:", 60, y, 10, UI_DIM);
+        GDrawText("Host's code or address:", 60, y, 10, UI_DIM);
     }
     y += 14;
     DrawPanel(60, y, 520, 24, UI_PANEL_LIGHT, UI_GOLD);
     std::string shown = o.field + ((((int)(g.t * 2)) % 2) ? "_" : " ");
-    DrawText(shown.c_str(), 70, y + 7, 10, UI_TEXT);
+    GDrawText(shown.c_str(), 70, y + 7, 10, UI_TEXT);
     y += 34;
-    if (!host) DrawText("Type it (or Ctrl+V to paste) and press Enter. Also send the host YOUR code above.", 60, y, 10, UI_DIM);
-    else if (net::CodeLooksValid(o.field)) DrawText("Opening a path to your friend...", 60, y, 10, Color{140, 230, 150, 255});
+    if (!host) GDrawText("Type it (or Ctrl+V to paste) and press Enter. Also send the host YOUR code above.", 60, y, 10, UI_DIM);
+    else if (net::CodeLooksValid(o.field)) GDrawText("Opening a path to your friend...", 60, y, 10, Color{140, 230, 150, 255});
     y += 20;
     std::string st = net::StatusText();
     if (o.gotHello) st = "Connected! Getting ready...";
     if (!st.empty()) DrawTextCentered(st.c_str(), VW / 2, y + 10, 20, net::GetState() == net::State::Failed ? Color{255, 130, 100, 255} : UI_TEXT);
     if (!o.err.empty()) DrawTextCentered(o.err.c_str(), VW / 2, y + 40, 10, Color{255, 130, 100, 255}, false);
-    DrawText(TextFormat("Port %d (UDP)", net::DEFAULT_PORT), 60, 326, 10, UI_DIM);
+    GDrawText(TextFormat("Port %d (UDP)", net::DEFAULT_PORT), 60, 326, 10, UI_DIM);
     DrawTextCentered("Esc / (B) back", VW / 2, 340, 10, UI_DIM, false);
     DrawToast(g);
 }

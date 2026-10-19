@@ -157,17 +157,17 @@ void UpdateBag(Game& g) {
 
 void DrawBag(const Game& g) {
     // HGSS-style: teal stripes, the backpack on the left, the pocket's items on the right
-    ClearBackground(Color{40, 120, 130, 255});
+    DrawMenuBackdrop(Color{40, 120, 130, 255}, (float)GetTime());
     for (int y = 0; y < VH; y += 16) DrawRectangle(0, y, VW, 8, Color{50, 136, 146, 255});
     const Profile& p = g.profile;
     Color pc = kPocketCol[g.bagTab];
     DrawRectangle(0, 0, VW, 26, Color{24, 60, 70, 255});
     DrawRectangle(0, 26, VW, 2, pc);
     DrawTextShadow("BAG", 12, 4, 20, WHITE);
-    if (g.coop) DrawText(TextFormat("%s's Bag", p.name.c_str()), 64, 9, 10, g.coopActive == 1 ? Color{120, 230, 255, 255} : UI_GOLD);
+    if (g.coop) GDrawText(TextFormat("%s's Bag", p.name.c_str()), 64, 9, 10, g.coopActive == 1 ? Color{120, 230, 255, 255} : UI_GOLD);
     DrawCircle(VW - 66, 13, 4.5f, Color{170, 120, 20, 255});
     DrawCircle(VW - 66, 13, 3.5f, Color{255, 210, 80, 255});
-    DrawText(TextFormat("%d", p.coins), VW - 58, 9, 10, Color{255, 210, 80, 255});
+    GDrawText(TextFormat("%d", p.coins), VW - 58, 9, 10, Color{255, 210, 80, 255});
 
     // left: the backpack and pocket tabs
     DrawPanel(10, 36, 150, 290, Color{24, 60, 70, 235}, pc);
@@ -176,23 +176,23 @@ void DrawBag(const Game& g) {
         int y = 116 + i * 22;
         bool sel = g.bagTab == i;
         DrawPanel(18, y, 134, 18, sel ? kPocketCol[i] : Color{30, 70, 80, 255}, sel ? WHITE : ColorBrightness(kPocketCol[i], -0.3f));
-        DrawText(kPockets[i], 26, y + 4, 10, sel ? UI_INK : UI_TEXT);
+        GDrawText(kPockets[i], 26, y + 4, 10, sel ? UI_INK : UI_TEXT);
         int count = 0;
         for (const auto& r : Rows(g, i)) count += r.count > 0 ? r.count : 0;
         if (count > 0) {
             const char* c = TextFormat("%d", count);
-            DrawText(c, 146 - TextW(c, 10), y + 4, 10, sel ? UI_INK : UI_DIM);
+            GDrawText(c, 146 - TextW(c, 10), y + 4, 10, sel ? UI_INK : UI_DIM);
         }
     }
-    DrawText("< Left / Right >", 40, 232, 10, UI_DIM);
-    DrawText("switch pockets", 44, 244, 10, UI_DIM);
+    GDrawText("< Left / Right >", 40, 232, 10, UI_DIM);
+    GDrawText("switch pockets", 44, 244, 10, UI_DIM);
 
     // right: the items
     auto rows = Rows(g, g.bagTab);
     int n = (int)rows.size();
     DrawPanel(170, 36, 230, 290, Color{246, 244, 236, 255}, pc);
     DrawRectangle(170, 36, 230, 18, pc);
-    DrawText(kPockets[g.bagTab], 178, 40, 10, UI_INK);
+    GDrawText(kPockets[g.bagTab], 178, 40, 10, UI_INK);
     if (n == 0) {
         const char* empty[5] = {"No Poke Balls. Buy some at the Poke Mart!", "No held items. The Poke Mart sells them.",
                                 "No evolution stones.", "No TMs. The Poke Mart sells them.", ""};
@@ -212,10 +212,10 @@ void DrawBag(const Game& g) {
         else DrawKeyIcon(r.name, 186, y + 9, 1.0f);
         std::string nm = r.name;
         if (r.item && IsTM(*r.item)) nm = TextFormat("TM%02d %s", r.item->tmNo, r.item->move.c_str());
-        DrawText(nm.c_str(), 198, y + 5, 10, Color{40, 40, 50, 255});
+        GDrawText(nm.c_str(), 198, y + 5, 10, Color{40, 40, 50, 255});
         if (r.count > 0) {
             const char* c = TextFormat("x%d", r.count);
-            DrawText(c, 388 - TextW(c, 10), y + 5, 10, Color{80, 80, 90, 255});
+            GDrawText(c, 388 - TextW(c, 10), y + 5, 10, Color{80, 80, 90, 255});
         }
     }
 
@@ -246,17 +246,17 @@ void DrawBag(const Game& g) {
     }
     // who's holding what
     DrawPanel(410, 212, 220, 114, Color{24, 60, 70, 235}, pc);
-    DrawText("Held by your Pokemon", 418, 218, 10, UI_GOLD);
+    GDrawText("Held by your Pokemon", 418, 218, 10, UI_GOLD);
     int k = 0;
     for (const auto& m : p.mons) {
         if (m.item.empty()) continue;
-        if (k >= 7) { DrawText("...", 418, 232 + k * 12, 10, UI_DIM); break; }
+        if (k >= 7) { GDrawText("...", 418, 232 + k * 12, 10, UI_DIM); break; }
         int si = MonSpecies(m);
         if (si >= 0) DrawSpeciesFit(ShinyIdx(si, m.shiny), VIEW_FRONT, 424, 243 + k * 12, 11);
-        DrawText(TextFormat("%s: %s%s", m.species.c_str(), m.item.c_str(), m.boxed ? " (Box)" : ""), 434, 233 + k * 12, 10, UI_TEXT);
+        GDrawText(TextFormat("%s: %s%s", m.species.c_str(), m.item.c_str(), m.boxed ? " (Box)" : ""), 434, 233 + k * 12, 10, UI_TEXT);
         k++;
     }
-    if (k == 0) DrawText("(nobody is holding an item)", 418, 234, 10, UI_DIM);
-    DrawText("Left/Right pocket   Up/Down item   Esc / B back", 12, 340, 10, Color{220, 240, 240, 255});
+    if (k == 0) GDrawText("(nobody is holding an item)", 418, 234, 10, UI_DIM);
+    GDrawText("Left/Right pocket   Up/Down item   Esc / B back", 12, 340, 10, Color{220, 240, 240, 255});
     DrawToast(g);
 }

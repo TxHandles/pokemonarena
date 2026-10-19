@@ -3063,7 +3063,7 @@ void Battle::DrawFighter(int s) const {
         if (*tag) {
             int w = TextW(tag, 10);
             DrawRectangle(mx - w / 2 - 2, my - 10, w + 4, 10, StatusColor(f.st.major));
-            DrawText(tag, mx - w / 2, my - 10, 10, UI_INK);
+            GDrawText(tag, mx - w / 2, my - 10, 10, UI_INK);
         }
         if (IsDoubles() && !sides[s].tag.empty()) {  // who controls it
             const char* tg = sides[s].tag.c_str();
@@ -3440,6 +3440,7 @@ void Battle::Draw(bool banners) const {
     }
 
     DrawHud();
+    DrawAnimBanners();
 
     if (!banners) return;
     auto ribbon = [&](const char* msg, Color c, float in, float scale) {   // a banner sweeping across with a shine
@@ -3467,10 +3468,56 @@ void Battle::Draw(bool banners) const {
             VNorm();
         }
     };
-    if (introT > 0) {
+    bool vs = setup.trainerBattle && introT > 1.05f;
+    if (vs) {   // a trainer battle opens with a VS splash: two diagonal halves slam together
+        float u = (2.0f - introT) / 0.95f;   // 0..1
+        float in = std::min(1.0f, u / 0.22f), out = std::min(1.0f, (1 - u) / 0.15f);
+        float e = 1 - (1 - in) * (1 - in);
+        std::string names[2];
+        int balls[2] = {0, 0}, alive[2] = {0, 0};
+        for (int s = 0; s < N(); s++) {
+            int tm = sides[s].teamId & 1;
+            if (names[tm].empty()) names[tm] = sides[s].label;
+            for (const auto& m : sides[s].team) if (!m.lent) { balls[tm]++; alive[tm] += m.hp > 0; }
+        }
+        for (int tm = 0; tm < 2; tm++) {
+            Color c = TeamColor(tm);
+            float off = (1 - e) * VW * (tm ? 1 : -1) + (1 - out) * VW * (tm ? -1 : 1) * 0.0f;
+            float a = out;
+            // a slanted half
+            Vector2 p0, p1, p2, p3;
+            if (tm == 0) { p0 = {0 + off, 60}; p1 = {VW * 0.62f + off, 60}; p2 = {VW * 0.48f + off, 300}; p3 = {0 + off, 300}; }
+            else { p0 = {VW * 0.62f + off, 60}; p1 = {(float)VW + off, 60}; p2 = {(float)VW + off, 300}; p3 = {VW * 0.48f + off, 300}; }
+            Color dk = Fade(ColorBrightness(c, -0.55f), 0.92f * a), lt = Fade(ColorBrightness(c, -0.2f), 0.92f * a);
+            DrawTriangle(p0, p3, p2, dk); DrawTriangle(p0, p2, p1, dk);
+            DrawLineEx(tm == 0 ? p1 : p0, tm == 0 ? p2 : p3, 3, Fade(WHITE, 0.9f * a));
+            for (int k = 0; k < 6; k++) {   // speed lines
+                float yy = 80 + k * 36 + std::fmod(time * 200 + k * 30, 30.0f);
+                float x0 = tm == 0 ? 20 + off : VW * 0.66f + off;
+                DrawRectangle((int)(x0 + std::fmod(time * 400 + k * 90, 140.0f)), (int)yy, 60, 1, Fade(lt, 0.6f));
+            }
+            int tx = tm == 0 ? (int)(40 + off) : (int)(VW - 40 - TextW(names[tm].c_str(), 20) + off);
+            DrawTextOutlined(names[tm].c_str(), tx, tm == 0 ? 120 : 210, 20, Fade(WHITE, a), Fade(UI_INK, a));
+            for (int b = 0; b < balls[tm]; b++) {   // their Poke Balls
+                float bx = tm == 0 ? 46 + off + b * 16 : VW - 46 + off - b * 16;
+                DrawPokeBall({bx, tm == 0 ? 152.0f : 242.0f}, 5.5f, 0, 0, b < alive[tm] ? Color{226, 52, 52, 255} : Color{90, 90, 100, 255}, (unsigned char)(255 * a));
+            }
+        }
+        float pop = std::min(1.0f, std::max(0.0f, (u - 0.18f) / 0.12f));
+        if (pop > 0) {   // the VS in the middle
+            int sz = 40;
+            float wob = 1 + 0.15f * std::sin(std::min(1.0f, pop) * PI_F);
+            (void)wob;
+            DrawTextCentered("VS", VW / 2 + (int)(std::sin(time * 40) * (1 - pop) * 3), 160, sz, Fade(UI_GOLD, out));
+            VAdd();
+            VGlow({VW / 2.0f, 180}, 40 * pop, Color{255, 220, 120, 255}, 0.5f * out);
+            VNorm();
+        }
+    }
+    if (introT > 0 && !vs) {
         bool ready = introT > 0.6f;
         if (ready) {
-            float in = std::min(1.0f, (2.0f - introT) / 0.3f);
+            float in = std::min(1.0f, ((setup.trainerBattle ? 1.05f : 2.0f) - introT) / 0.3f);
             ribbon("READY...", field.kind != ArenaKind::Stadium ? GymColor(field.kind) : Color{70, 90, 170, 255}, in, 1);
         } else {
             float pop = std::min(1.0f, (0.6f - introT) / 0.12f);
@@ -3492,16 +3539,16 @@ void Battle::DrawHud() const {
         int w = TextW(lbl, 10);
         int y = field.kind != ArenaKind::Stadium ? 17 : 5;
         DrawRectangle(VW / 2 - w / 2 - 4, y - 1, w + 8, 12, Fade(UI_INK, 0.7f));
-        DrawText(lbl, VW / 2 - w / 2, y, 10, Color{170, 210, 255, 255});
+        GDrawText(lbl, VW / 2 - w / 2, y, 10, Color{170, 210, 255, 255});
     }
     if (field.kind != ArenaKind::Stadium) {
         const char* an = ArenaName(field.kind);
         int w = TextW(an, 10);
         DrawRectangle(VW / 2 - w / 2 - 4, 4, w + 8, 12, Fade(UI_INK, 0.7f));
-        DrawText(an, VW / 2 - w / 2, 5, 10, UI_GOLD);
+        GDrawText(an, VW / 2 - w / 2, 5, 10, UI_GOLD);
         if (field.kind == ArenaKind::Psychic && field.portalT < 3.0f) {
             const char* m = "portals shifting...";
-            DrawText(m, VW / 2 - TextW(m, 10) / 2, 17, 10, Color{230, 120, 240, 255});
+            GDrawText(m, VW / 2 - TextW(m, 10) / 2, 17, 10, Color{230, 120, 240, 255});
         }
     }
     // Which slots get the big move panels at the bottom: players first, then their teammates.
@@ -3529,15 +3576,32 @@ void Battle::DrawHud() const {
         int x = sd.teamId == 0 ? 4 : VW - 4 - pw;
         int y = 3 + perTeam[sd.teamId]++ * (ph + 2);
         const char* who = compact && !sd.tag.empty() ? sd.tag.c_str() : sd.label.c_str();
-        DrawPanel(x, y, pw, ph);
-        DrawRectangle(x, y, 3, ph, tc);
+        {   // a slanted, see-through name plate in the team's colour
+            float sl = 8;
+            bool left = sd.teamId == 0;
+            Vector2 a{(float)x, (float)y}, b{(float)(x + pw), (float)y}, c{(float)(x + pw), (float)(y + ph)}, d{(float)x, (float)(y + ph)};
+            if (left) b.x += sl * 0; else a.x -= 0;
+            if (left) c.x -= sl; else d.x += sl;
+            Color fill = Fade(Color{24, 22, 40, 255}, 0.78f), edge = Fade(tc, 0.9f);
+            DrawTriangle(a, d, c, fill); DrawTriangle(a, c, b, fill);
+            Color hi = Fade(ColorBrightness(tc, -0.2f), 0.35f);
+            DrawRectangleGradientV(x + 1, y + 1, pw - (int)sl - 2, ph / 2, Fade(WHITE, 0.08f), Fade(WHITE, 0.0f));
+            DrawLineEx(a, b, 1.2f, edge);
+            DrawLineEx(d, c, 1.0f, Fade(tc, 0.6f));
+            DrawLineEx(left ? b : a, left ? c : d, 1.2f, edge);
+            // the team stripe, slanted
+            float sx0 = left ? (float)x : (float)(x + pw - 5);
+            DrawTriangle({sx0, (float)y}, {sx0 + (left ? 0.0f : 2.0f), (float)(y + ph)}, {sx0 + 5 + (left ? -2.0f : 0.0f), (float)(y + ph)}, tc);
+            DrawTriangle({sx0, (float)y}, {sx0 + 5 + (left ? -2.0f : 0.0f), (float)(y + ph)}, {sx0 + 5, (float)y}, tc);
+            (void)hi;
+        }
         DrawTextShadow(who, x + 7, y + (compact ? 1 : 3), 10, tc);
         int nx = x + 9 + TextW(who, 10) + 4;
         DrawTextShadow(f.sp->name.c_str(), nx, y + (compact ? 1 : 3), 10, UI_TEXT);
         int bx = nx + TextW(f.sp->name.c_str(), 10) + 4;
         if (f.shiny) { DrawShinyStar((float)bx + 3, (float)y + (compact ? 6 : 8)); bx += 9; }
         std::string lv = "Lv" + std::to_string(f.level);
-        DrawText(lv.c_str(), bx, y + (compact ? 1 : 3), 10, UI_GOLD);
+        GDrawText(lv.c_str(), bx, y + (compact ? 1 : 3), 10, UI_GOLD);
         bx += TextW(lv.c_str(), 10) + 4;
         if (!compact) {
             bx += DrawTypeBadge(f.sp->type1, bx, y + 2) + 2;
@@ -3554,7 +3618,7 @@ void Battle::DrawHud() const {
         }
         char hpbuf[32];
         std::snprintf(hpbuf, sizeof hpbuf, "%d/%d", (int)std::ceil(f.hp), f.maxHp);
-        DrawText(hpbuf, x + 122, compact ? y + 10 : y + 16, 10, UI_TEXT);
+        GDrawText(hpbuf, x + 122, compact ? y + 10 : y + 16, 10, UI_TEXT);
 
         char sw[64];
         int nextAlive = sd.NextAlive(sd.active);
@@ -3575,7 +3639,7 @@ void Battle::DrawHud() const {
             if (hasBack) std::snprintf(sw, sizeof sw, "[%s/%s] swap", back, SwapKeyLabel(pl, tp));
             else std::snprintf(sw, sizeof sw, "[%s] swap", SwapKeyLabel(pl, tp));
         }
-        DrawText(sw, x + pw - 6 - TextW(sw, 10), compact ? y + 10 : y + 16, 10, lend >= 0 ? UI_GOLD : (sd.swapCd > 0 ? UI_DIM : UI_GOLD));
+        GDrawText(sw, x + pw - 6 - TextW(sw, 10), compact ? y + 10 : y + 16, 10, lend >= 0 ? UI_GOLD : (sd.swapCd > 0 ? UI_DIM : UI_GOLD));
 
         int n = 0;
         for (const auto& m : sd.team) n += !m.lent;
@@ -3637,36 +3701,45 @@ void Battle::DrawHud() const {
                 float fr = 1.0f - f.dodgeCd / DODGE_COOLDOWN;
                 DrawRectangle(tx0 + 4, my - 2, (int)((dw + 2) * fr), 1, Color{140, 200, 255, 255});
             }
-            DrawText(db, tx0 + 5, my - 11, 10, f.dodgeCd > 0 ? UI_DIM : Color{140, 220, 255, 255});
-            if (*jb) DrawText(jb, tx0 + 5 + dw + 10, my - 11, 10, UI_GOLD);
+            GDrawText(db, tx0 + 5, my - 11, 10, f.dodgeCd > 0 ? UI_DIM : Color{140, 220, 255, 255});
+            if (*jb) GDrawText(jb, tx0 + 5 + dw + 10, my - 11, 10, UI_GOLD);
         }
 
         const Fighter& opp = sides[sd.target >= 0 ? sd.target : AnyFoe(s)].Cur();
         for (int k = 0; k < 4; k++) {
             int sx = mx + 3 + (k % 2) * 154, sy = my + 4 + (k / 2) * 21;
             int sw2 = 152, sh = 20;
-            DrawRectangle(sx, sy, sw2, sh, UI_PANEL_LIGHT);
             if (k >= f.nMoves) {
-                DrawText("-", sx + 8, sy + 5, 10, UI_DIM);
+                DrawRectangleRounded({(float)sx, (float)sy, (float)sw2, (float)sh}, 0.35f, 6, Fade(UI_PANEL_LIGHT, 0.6f));
+                GDrawText("-", sx + 8, sy + 5, 10, UI_DIM);
                 continue;
             }
             const MoveDef& m = f.moves[k];
-            DrawRectangle(sx, sy, 3, sh, TypeColor(m.type));
+            {   // a rounded button tinted with the move's type
+                Color tcol = TypeColor(m.type);
+                Rectangle rb{(float)sx, (float)sy, (float)sw2, (float)sh};
+                Color top = ColorLerp(Color{60, 54, 86, 255}, tcol, 0.38f), bot = ColorLerp(Color{36, 32, 54, 255}, tcol, 0.22f);
+                DrawRectangleRounded(rb, 0.35f, 6, bot);
+                DrawRectangleGradientV(sx + 2, sy + 1, sw2 - 4, sh - 2, top, bot);
+                DrawRectangleRoundedLinesEx(rb, 0.35f, 6, 1.0f, Fade(ColorBrightness(tcol, 0.2f), 0.85f));
+                DrawRectangle(sx + 3, sy + 1, sw2 - 6, 1, Fade(WHITE, 0.18f));
+                DrawRectangleRounded({(float)sx, (float)sy, 3.5f, (float)sh}, 0.8f, 4, tcol);
+            }
             int tx = sx + 6;
             if (!sd.cpu && (gLocalInput < 0 || sd.input == gLocalInput)) {
                 const char* key = gLocalInput >= 0 ? AttackKeyLabel(0, k, false) : AttackKeyLabel(std::max(0, sd.input), k, setup.twoPlayer);
                 int kw = std::max(10, TextW(key, 10) + 4);
                 DrawRectangle(tx, sy + 2, kw, 10, UI_INK);
-                DrawText(key, tx + kw / 2 - TextW(key, 10) / 2, sy + 2, 10, UI_GOLD);
+                GDrawText(key, tx + kw / 2 - TextW(key, 10) / 2, sy + 2, 10, UI_GOLD);
                 tx += kw + 4;
             }
-            DrawText(m.name.c_str(), tx, sy + 1, 10, UI_TEXT);
+            GDrawText(m.name.c_str(), tx, sy + 1, 10, UI_TEXT);
 
             char info[48];
             if (IsDamaging(m)) std::snprintf(info, sizeof info, "%s %d", MoveKindName(m.kind), m.power);
             else if (m.maxUses > 0) std::snprintf(info, sizeof info, "%s  %d/%d left", MoveKindName(m.kind), m.maxUses - f.uses[k], m.maxUses);
             else std::snprintf(info, sizeof info, "%s", MoveKindName(m.kind));
-            DrawText(info, tx, sy + 10, 10, UI_DIM);
+            GDrawText(info, tx, sy + 10, 10, UI_DIM);
 
             if (IsDamaging(m) || IsStatusMove(m)) {
                 float eff = TypeEffectiveness(m.type, opp.sp->type1, opp.sp->type2);
@@ -3676,26 +3749,39 @@ void Battle::DrawHud() const {
                     else if (eff < 1) std::snprintf(eb, sizeof eb, "x%.2g", eff);
                     else std::snprintf(eb, sizeof eb, "x%d", (int)eff);
                     Color ec = eff > 1 ? UI_GOLD : (eff == 0 ? Color{240, 90, 90, 255} : UI_DIM);
-                    DrawText(eb, sx + sw2 - 4 - TextW(eb, 10), sy + 10, 10, ec);
+                    GDrawText(eb, sx + sw2 - 4 - TextW(eb, 10), sy + 10, 10, ec);
                 }
             }
 
             if (!f.HasUses(k)) {
                 DrawRectangle(sx, sy, sw2, sh, Fade(UI_INK, 0.6f));
-            } else if (f.cd[k] > 0.05f) {
+            } else if (f.cd[k] > 0.05f) {   // cooling down: dimmed, with a clock sweeping round
                 float full = m.cooldown * f.CooldownMul() * (sd.cpu ? Params(sd.level).cooldownMul : 1.0f);
                 float frac = std::min(1.0f, f.cd[k] / full);
-                DrawRectangle(sx, sy, (int)(sw2 * frac), sh, Fade(UI_INK, 0.6f));
+                DrawRectangleRounded({(float)sx, (float)sy, (float)sw2, (float)sh}, 0.35f, 6, Fade(UI_INK, 0.35f));
+                DrawRectangleRounded({(float)sx, (float)sy, sw2 * frac, (float)sh}, 0.35f, 6, Fade(UI_INK, 0.35f));
                 char cb[8];
                 std::snprintf(cb, sizeof cb, "%.1f", f.cd[k]);
-                DrawText(cb, sx + sw2 - 4 - TextW(cb, 10), sy + 1, 10, UI_TEXT);
+                Vector2 cc{(float)(sx + sw2 - 9), (float)(sy + 6)};
+                DrawCircleV(cc, 4.5f, Fade(UI_INK, 0.85f));
+                DrawCircleSector(cc, 4, -90, -90 + 360 * (1 - frac), 16, Fade(UI_GOLD, 0.9f));
+                GDrawText(cb, sx + sw2 - 16 - TextW(cb, 10), sy + 1, 10, UI_TEXT);
+            } else if (f.cd[k] <= 0 && m.cooldown > 0.5f && f.state == FState::Active) {
+                float glint = std::fmod(time * 0.6f + k * 0.25f, 2.0f);   // ready: a glint runs across now and then
+                if (glint < 1) {
+                    float gx = sx + glint * sw2;
+                    BeginBlendMode(BLEND_ADDITIVE);
+                    DrawTriangle({gx - 4, (float)(sy + sh)}, {gx + 4, (float)sy}, {gx - 1, (float)sy}, Fade(WHITE, 0.12f));
+                    DrawTriangle({gx - 4, (float)(sy + sh)}, {gx - 1, (float)sy}, {gx - 9, (float)(sy + sh)}, Fade(WHITE, 0.12f));
+                    EndBlendMode();
+                }
             }
         }
         if (IsDoubles()) {  // whose moves these are
             const char* t = sd.tag.empty() ? sd.label.c_str() : sd.tag.c_str();
             int tw = TextW(t, 10);
             DrawRectangle(mx + mw - tw - 8, my - 10, tw + 6, 10, Fade(UI_INK, 0.8f));
-            DrawText(t, mx + mw - tw - 5, my - 10, 10, sd.input == 1 ? Color{120, 230, 255, 255} : (sd.input == 0 ? UI_GOLD : tc));
+            GDrawText(t, mx + mw - tw - 5, my - 10, 10, sd.input == 1 ? Color{120, 230, 255, 255} : (sd.input == 0 ? UI_GOLD : tc));
         }
     }
 }
