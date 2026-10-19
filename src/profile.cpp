@@ -138,6 +138,7 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "ability_slot") cur->abilitySlot = std::max(0, std::min(2, iv));
             else if (k == "ot") cur->ot = v;
             else if (k == "nature") cur->nature = NatureByName(v);
+            else if (k == "shiny") cur->shiny = iv != 0;
             else if (k == "forgotten") {
                 cur->forgotten.clear();
                 std::string part;
@@ -232,6 +233,7 @@ std::string ProfileToText(const Profile& p) {
         if (m.abilitySlot >= 0) o += TextFormat("ability_slot = %d\n", m.abilitySlot);
         if (!m.ot.empty()) o += "ot = " + m.ot + "\n";
         if (m.nature >= 0) o += std::string("nature = ") + NatureName(m.nature) + "\n";
+        if (m.shiny) o += "shiny = 1\n";
     }
     return o;
 }
@@ -247,7 +249,16 @@ OwnedMon NewMon(int idx, int level) {
     for (const auto& mv : MovesAtLevel(sp, m.level)) m.moves.push_back(mv.name);
     m.abilitySlot = RollAbilitySlot(idx);
     m.nature = GetRandomValue(0, NATURE_COUNT - 1);
+    m.shiny = RollShiny();
     return m;
+}
+
+bool RollShiny() {
+    int odds = SHINY_ODDS;
+#ifdef ARENA_AUTOTEST
+    if (const char* e = std::getenv("ARENA_SHINY")) odds = std::max(1, std::atoi(e));
+#endif
+    return GetRandomValue(1, odds) == 1;
 }
 
 int RollAbilitySlot(int idx, bool allowHidden) {
@@ -300,6 +311,7 @@ CombatantSpec MonCombatant(const Profile& p, int i) {
     c.item = m.item;
     c.abilitySlot = m.abilitySlot < 0 ? 0 : m.abilitySlot;
     c.nature = m.nature < 0 ? 0 : m.nature;
+    c.shiny = m.shiny;
     return c;
 }
 

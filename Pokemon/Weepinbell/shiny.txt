@@ -1,0 +1,21 @@
+# Weepinbell - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 405828 > 507F00
+shiny = 4A4541 > 507800
+shiny = 4A9C4A > 94C600
+shiny = 585858 > 628D00
+shiny = 609838 > 95C400
+shiny = 780840 > 714C5C
+shiny = 7CCA64 > C5F53C
+shiny = 806028 > 646B00
+shiny = 88D850 > CAFA50
+shiny = A84070 > 9F7789
+shiny = B4834A > 82A300
+shiny = B8A030 > 9EA900
+shiny = B8B8B8 > CADFDF
+shiny = C1AB50 > A8B427
+shiny = F078A0 > DEB2C4
+shiny = F0E048 > D8E833
+shiny = F295A3 > EEC4D3
+shiny = F5E55A > DAFC55
+shiny = FAFAFA > EEFFB5

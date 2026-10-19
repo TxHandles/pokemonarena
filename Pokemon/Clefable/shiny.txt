@@ -1,0 +1,28 @@
+# Clefable - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 48373B > 007839
+shiny = 483838 > 007939
+shiny = 48423D > 535358
+shiny = 766148 > 3FA760
+shiny = 775F4A > 8D7468
+shiny = 783848 > B8464D
+shiny = 783849 > 84545E
+shiny = 786048 > 2DB357
+shiny = 846158 > 897679
+shiny = B19189 > B7A6AB
+shiny = C8C8C8 > D7DCE6
+shiny = D06C7E > C78C9F
+shiny = D3A094 > D5B8BA
+shiny = D75178 > F17A7B
+shiny = D85078 > F2797B
+shiny = DB517B > DA7E93
+shiny = DF909B > E9AFB6
+shiny = E18F99 > EBAEB4
+shiny = E18F9B > EBAEB6
+shiny = EE8894 > FFAA97
+shiny = F781A9 > FFA5A8
+shiny = F7C0C2 > F7D9E5
+shiny = F8BFC2 > FFDBDE
+shiny = F8C0C0 > F8D9E3
+shiny = FAFAFA > FAFFFF
+shiny = FDCBCB > FFE4EE

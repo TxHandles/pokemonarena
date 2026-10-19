@@ -1,0 +1,23 @@
+# Rhyhorn - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 2B0000
+shiny = 0A0A0A > 2F0000
+shiny = 3E3E3E > 511D01
+shiny = 3F3F3F > 531E03
+shiny = 404040 > 541F04
+shiny = 404041 > 541F04
+shiny = 525252 > 632F17
+shiny = 707070 > 8A4D32
+shiny = 73838A > 9C5D42
+shiny = 877977 > 99583C
+shiny = 882038 > 622308
+shiny = 89203C > 63230E
+shiny = 8C1F3A > 66230B
+shiny = 909090 > AE6C4F
+shiny = ABB6BD > D58F71
+shiny = B0B0B0 > D18B6C
+shiny = C8C8C8 > D79E7B
+shiny = E8E8F8 > F9C7A7
+shiny = EAE8F6 > FFC2A3
+shiny = EBE9F7 > FAC9A8
+shiny = FAFAFA > FFD2B1

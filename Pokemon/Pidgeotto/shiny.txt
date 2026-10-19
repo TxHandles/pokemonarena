@@ -1,0 +1,19 @@
+# Pidgeotto - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 604020 > 596B19
+shiny = 989898 > 97B6A8
+shiny = A020A0 > 9F7E00
+shiny = B0501F > D2B100
+shiny = B05020 > 87923C
+shiny = BD3920 > EC9300
+shiny = BD7341 > 9FAC56
+shiny = C09840 > B9B875
+shiny = C84820 > DCB700
+shiny = D08020 > AEBA5F
+shiny = DE9C29 > CEB95C
+shiny = E07070 > A5A75F
+shiny = E8E8F8 > E5FFFF
+shiny = EE6241 > AFB55E
+shiny = EEDE94 > E7F6AE
+shiny = F088E0 > FBD028
+shiny = F0D070 > E9F0A8

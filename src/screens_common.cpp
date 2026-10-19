@@ -73,11 +73,15 @@ void DrawMoveLine(const MoveDef& m, int x, int y, int w, bool details) {
 }
 
 void DrawCreatureCard(int species, int level, int x, int y, int w, int h, bool selected) {
+    bool shiny = (species & SHINY_FLAG) != 0;   // ShinyIdx(): the card shows it in shiny colours
+    const int sprite = species;
+    species &= ~SHINY_FLAG;
     const SpeciesDef& sp = AllSpecies()[species];
     DrawPanel(x, y, w, h, UI_PANEL, selected ? UI_GOLD : Color{80, 74, 104, 255});
     DrawRectangle(x + 1, y + 1, w - 2, 3, TypeColor(sp.type1));
     DrawEllipse(x + w / 2, y + h - 30, 16, 4, Fade(BLACK, 0.3f));
-    DrawSpeciesFit(species, VIEW_FRONT, x + w / 2, y + h - 28, std::min(w - 20, h - 50));
+    DrawSpeciesFit(sprite, VIEW_FRONT, x + w / 2, y + h - 28, std::min(w - 20, h - 50));
+    if (shiny) { DrawShinyStar((float)x + w - 9, (float)y + 11, 4); DrawText("Shiny!", x + w - 46, y + 7, 10, Color{255, 214, 80, 255}); }
     DrawTextCentered(sp.name.c_str(), x + w / 2, y + h - 24, 10, UI_TEXT, false);
     int bw = TextW(TypeName(sp.type1), 10) + 6 + (sp.type2 != Type::None ? TextW(TypeName(sp.type2), 10) + 8 : 0);
     int bx = x + w / 2 - bw / 2;
@@ -114,6 +118,7 @@ std::vector<RosterEntry> ProfileRoster(const Profile& p, bool partyOnly) {
         e.item = p.mons[i].item;
         e.abilitySlot = c.abilitySlot;
         e.nature = c.nature;
+        e.shiny = c.shiny;
         r.push_back(e);
     }
     return r;

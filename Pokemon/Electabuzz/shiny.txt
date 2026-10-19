@@ -1,0 +1,14 @@
+# Electabuzz - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 3E4329
+shiny = 3E3722 > 474815
+shiny = 42403E > 4D5134
+shiny = 485050 > 546146
+shiny = 5F547B > 6D6963
+shiny = 909090 > 9E9F8E
+shiny = B88810 > AC5D00
+shiny = B9A053 > BF6F06
+shiny = E8E8F8 > F8F8F0
+shiny = F0D000 > F59B32
+shiny = FAF19B > F9C738
+shiny = FEED42 > FFA919

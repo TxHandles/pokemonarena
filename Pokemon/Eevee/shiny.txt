@@ -1,0 +1,21 @@
+# Eevee - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3F3018 > 4A4E42
+shiny = 403018 > 625F58
+shiny = 4B4037 > 72706B
+shiny = 604038 > 726762
+shiny = 6E533D > 8C8881
+shiny = 765B3D > 8A8270
+shiny = 7C6038 > 9A968D
+shiny = 806030 > 6F7795
+shiny = A88040 > BFBAAE
+shiny = B78640 > C9C2B6
+shiny = B7A26D > CED3C6
+shiny = B8A060 > DBD7CB
+shiny = C09050 > C5C7B8
+shiny = DFB559 > E8EAD9
+shiny = E0D0A8 > DAE6FF
+shiny = E7CB75 > D9E1FF
+shiny = E8E8F8 > F0FEFF
+shiny = FAFAFA > F1FFFF
+shiny = FFF8D5 > EBF5FF

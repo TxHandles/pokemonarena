@@ -1,0 +1,37 @@
+# Dragonite - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 286050 > C472B2
+shiny = 296050 > C472B3
+shiny = 388070 > E692D4
+shiny = 3B7F6F > E591D3
+shiny = 3E3922 > 062200
+shiny = 403820 > 0B2100
+shiny = 403824 > 062200
+shiny = 46403C > 052A1D
+shiny = 4D8E91 > 456B4B
+shiny = 8E6737 > 295B14
+shiny = 966033 > 415B16
+shiny = 966035 > 415B16
+shiny = 979797 > 9B8D87
+shiny = 986030 > 2A5912
+shiny = 989898 > 9C8E88
+shiny = 996034 > 425C17
+shiny = 9A9A9A > 9E908A
+shiny = B88040 > 48772E
+shiny = BEA282 > B29C8D
+shiny = CA8D3F > 568439
+shiny = CBA982 > C79F8D
+shiny = CDA779 > C89D88
+shiny = D0A878 > 689A50
+shiny = D48939 > 5F9049
+shiny = D78841 > 59853A
+shiny = D88840 > 59853A
+shiny = E7C79B > E4BCA8
+shiny = E7C899 > E4BDA7
+shiny = E8C898 > 83B86C
+shiny = EEB051 > 8ABA81
+shiny = EEB14F > 8ABA81
+shiny = EFAF4F > 7DB167
+shiny = F0B050 > 77A657
+shiny = F8C15E > 8BC075
+shiny = FAECBA > F2E4CA

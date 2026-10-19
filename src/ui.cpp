@@ -129,3 +129,19 @@ int DrawWrapped(const char* text, int x, int y, int w, int size, Color c, int li
     flush();
     return y;
 }
+
+void DrawShinyStar(float x, float y, float r) {
+    Color gold{255, 214, 80, 255};
+    Vector2 c{x, y};
+    for (int k = 0; k < 4; k++) {   // four points
+        float a = k * 1.5708f;
+        Vector2 tip{x + std::cos(a) * r, y + std::sin(a) * r};
+        Vector2 s1{x + std::cos(a + 0.785f) * r * 0.32f, y + std::sin(a + 0.785f) * r * 0.32f};
+        Vector2 s2{x + std::cos(a - 0.785f) * r * 0.32f, y + std::sin(a - 0.785f) * r * 0.32f};
+        DrawTriangle(c, tip, s1, gold);
+        DrawTriangle(c, s2, tip, gold);
+        DrawTriangle(c, s1, tip, gold);
+        DrawTriangle(c, tip, s2, gold);
+    }
+    DrawCircleV(c, r * 0.25f, WHITE);
+}

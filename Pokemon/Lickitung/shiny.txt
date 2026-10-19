@@ -1,0 +1,19 @@
+# Lickitung - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 583048 > 585E00
+shiny = A0A0A0 > C5C83A
+shiny = A85888 > 9DA103
+shiny = AE5E7D > A1A607
+shiny = AF5E7B > A2A607
+shiny = B06078 > A09C1C
+shiny = B24859 > 928F00
+shiny = B76D73 > ADB117
+shiny = C5BE6A > E6EF52
+shiny = C88080 > BCB928
+shiny = D898B0 > D0CF75
+shiny = E6625A > E36574
+shiny = E8B8C8 > F1EC6E
+shiny = E8E8F8 > FFFFA7
+shiny = EC969E > DEDF4D
+shiny = F0A8A8 > E7E254
+shiny = FAFAFA > FFFF78

@@ -1,0 +1,22 @@
+# Machoke - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 43403F > 143600
+shiny = 484848 > 193E00
+shiny = 595B60 > 20500D
+shiny = 606880 > 2E5D1D
+shiny = 626781 > 395D0E
+shiny = 64677F > 4E7A30
+shiny = 696777 > 395E0D
+shiny = 808090 > 477633
+shiny = 81818F > 537727
+shiny = 8B839B > 587C2D
+shiny = A0A0C8 > 92BD75
+shiny = A19FC6 > 739748
+shiny = BEB5CC > A0CD7C
+shiny = C02840 > 0078D0
+shiny = C02842 > 2F679C
+shiny = C0293E > 587525
+shiny = C54C39 > 1988DE
+shiny = E7E9F8 > D0FFAB
+shiny = E8E8F8 > D8FFB6
+shiny = FAFAFA > E0FFBC

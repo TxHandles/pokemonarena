@@ -21,6 +21,7 @@ struct OwnedMon {
     std::string ot;                    // original trainer when received in a trade (empty = your own)
     int nature = -1;                   // natures.h (-1 = not rolled yet)
     std::vector<std::string> forgotten;   // moves it has forgotten (the Move Relearner can teach them again)
+    bool shiny = false;                // a rare shiny (sprites in its shiny colours)
 };
 
 struct Profile {
@@ -106,6 +107,8 @@ bool DeleteProfile(const std::string& name);
 bool ProfileExists(const std::string& name);
 
 OwnedMon NewMon(int speciesIndex, int level);
+constexpr int SHINY_ODDS = 512;           // 1 in this many new Pokemon are shiny (wild ones, gifts, starters)
+bool RollShiny();
 int MonSpecies(const OwnedMon& m);                 // registry index, -1 if that species is gone
 std::vector<MoveDef> MonMoves(const OwnedMon& m);  // resolved MoveDefs (unknown names skipped)
 CombatantSpec MonCombatant(const Profile& p, int monIndex);

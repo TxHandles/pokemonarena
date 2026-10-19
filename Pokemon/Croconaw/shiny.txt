@@ -1,0 +1,24 @@
+# Croconaw - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284060 > 005B3A
+shiny = 38A8C0 > 49E4B8
+shiny = 406888 > 00A076
+shiny = 484010 > 5A3900
+shiny = 4A9CC4 > 42DBB1
+shiny = 701828 > 0044A2
+shiny = 70C0E0 > 75FAC9
+shiny = 786828 > AF892F
+shiny = 7A6323 > AE852A
+shiny = 7A6423 > AF862A
+shiny = 7A6424 > AF862B
+shiny = 7FCFF6 > 80FFE5
+shiny = 805816 > 765C00
+shiny = A82840 > 3543AE
+shiny = B8A058 > CD9843
+shiny = BB2942 > 0062BD
+shiny = D03048 > 1C6ECA
+shiny = E0D078 > FAC767
+shiny = E8E8F8 > FFDFBF
+shiny = EAD868 > EBD744
+shiny = F56251 > 619AFF
+shiny = FAFAFA > FFF0C6

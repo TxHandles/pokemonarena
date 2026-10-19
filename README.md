@@ -33,6 +33,15 @@ changes. The build also copies `Pokemon/` and `story.txt` next to the exe. Saves
   random (take Charmander and he gets Squirtle or Totodile); in co-op, two of the four starters neither of
   you took, at random, and he brings both. The pick is saved with the profile / co-op save (online, the
   host picks and the guest gets it with the shared progress).
+- **Shiny Pokemon** – about 1 in 512 new Pokemon is shiny: wild ones (training, rare encounters),
+  legendaries, gifts, fossils and starters. A shiny keeps its shiny colours for good (saved with it,
+  traded with it), sparkles when it's sent out and has a gold star in battle, the party, the Box,
+  the catch screen and trades. Every Pokemon's shiny colours match the official shiny sprite:
+  `tools/shinygen.py` compares the official normal and shiny sprites (PokeAPI's sprites repo,
+  front and back) to see how each colour changes, finds each of our sprite colours on the official
+  picture (by colour and by where it sits on the body) and writes `Pokemon/<Name>/shiny.txt`, which
+  the game uses to recolour the sprites when it loads them. For a new Pokemon:
+  `python tools/shinygen.py <sprites>/sprites/pokemon <Name> --sheet check.png`.
 - **Gen 2 (first wave)** – Chikorita, Bayleef, Meganium, Cyndaquil, Quilava, Typhlosion, Totodile,
   Croconaw and Feraligatr, built like the original 151: Pokedex stats, entries, abilities, Scarlet/Violet
   level-up moves and TMs, evolutions (16/32, 14/36, 18/30). They aren't found in the wild.

@@ -1,0 +1,22 @@
+# Poliwrath - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 133000
+shiny = 0A0A0A > 183600
+shiny = 202838 > 2A5A10
+shiny = 232A37 > 385716
+shiny = 242A37 > 385816
+shiny = 333333 > 416318
+shiny = 3B5777 > 668746
+shiny = 3F3E43 > 506F2B
+shiny = 4860B8 > 7A995C
+shiny = 4B82BD > 88BA70
+shiny = 585858 > 6A8C3F
+shiny = 777FE7 > 96C47D
+shiny = 7880E8 > A1BF81
+shiny = 7DBBFC > C1F6A8
+shiny = A0A0A0 > B7D88D
+shiny = ADB4C1 > CBEDA2
+shiny = B0B0D0 > CBEBA2
+shiny = C8C8C8 > E1FFB4
+shiny = E7E7F7 > E9FFBE
+shiny = E8E8F8 > E9FFBE

@@ -1,0 +1,18 @@
+# Hitmonchan - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 383838 > 27550D
+shiny = 443E42 > 365C1A
+shiny = 473030 > 3B4F00
+shiny = 483030 > 354800
+shiny = 705038 > 5F7100
+shiny = 706880 > 69697A
+shiny = 901828 > 505A00
+shiny = 987040 > 7C8B25
+shiny = A088C8 > 99A74F
+shiny = B29186 > 9EAD4B
+shiny = C0A068 > B3C250
+shiny = D3B19A > C7D666
+shiny = E03838 > AEB046
+shiny = E4E3F8 > 99D8FF
+shiny = E8E8F8 > 9EDDFF
+shiny = FE6344 > 388DDF

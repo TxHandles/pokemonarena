@@ -1,0 +1,17 @@
+# Drowzee - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 4F0017
+shiny = 414141 > 600024
+shiny = 4D3F30 > 6A002C
+shiny = 4E3F30 > 6B002C
+shiny = 504030 > 6C002D
+shiny = 585048 > 7D143B
+shiny = 685078 > 881C47
+shiny = 6A5A52 > 8C2346
+shiny = 786820 > 6C4953
+shiny = 8B7362 > A04154
+shiny = 8B7B31 > 7F5B65
+shiny = B89828 > A17981
+shiny = C5AC31 > B5869B
+shiny = E8C850 > D0A7AE
+shiny = F6DE41 > E6B5C8

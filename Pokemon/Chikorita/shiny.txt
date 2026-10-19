@@ -1,0 +1,13 @@
+# Chikorita - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 386810 > 556800
+shiny = 409028 > 6E8E00
+shiny = 487345 > 6A7B00
+shiny = 60B957 > D4B573
+shiny = 70B050 > EDA26C
+shiny = 8BC551 > B2CC1E
+shiny = 90C040 > B0BE00
+shiny = ACFE72 > DFFF4E
+shiny = C0D870 > D9D841
+shiny = E8E8F8 > FFF6AB
+shiny = FAFAFA > FFFFAB

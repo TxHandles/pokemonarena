@@ -1,0 +1,20 @@
+# Vulpix - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 443D3A > 6C6900
+shiny = 583830 > 717E00
+shiny = 584048 > 787100
+shiny = 593830 > 706B00
+shiny = 794C38 > 627C12
+shiny = 833D38 > 887D00
+shiny = 863A38 > AE6600
+shiny = 9C5C3A > A69900
+shiny = A85018 > CC7E0C
+shiny = B85838 > B2A100
+shiny = BA7141 > C3C700
+shiny = D87030 > F8A238
+shiny = E09568 > ECED37
+shiny = E8E8F8 > FFFF5F
+shiny = F08848 > EAE82D
+shiny = F0C898 > E1FA8B
+shiny = F48A3A > FFDB2D
+shiny = FFFAE6 > FDFFD9

@@ -1,0 +1,36 @@
+# Kabutops - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 383131 > 223D0D
+shiny = 383133 > 223D0F
+shiny = 393131 > 233D0D
+shiny = 393232 > 233E0E
+shiny = 404040 > 294C1C
+shiny = 414141 > 2A4D1D
+shiny = 434144 > 2D4D20
+shiny = 583820 > 38690A
+shiny = 583821 > 396D00
+shiny = 583924 > 528800
+shiny = 5C3621 > 39690A
+shiny = 664933 > 4A7B1F
+shiny = 674833 > 4B7E00
+shiny = 674931 > 4A7B1F
+shiny = 684830 > 4A7A1F
+shiny = 694831 > 4C7E00
+shiny = 6A6778 > 686F73
+shiny = 6B6975 > 6A7171
+shiny = 806359 > 649B3A
+shiny = 876027 > 81B500
+shiny = 876029 > 689915
+shiny = 876125 > 78A924
+shiny = 886028 > 77A925
+shiny = 898F8C > 879788
+shiny = 8A6128 > 6A9A17
+shiny = 987848 > 8EC03F
+shiny = 997A49 > 9BCF2B
+shiny = 997A4B > 9BCF2C
+shiny = A6BDBB > 97BDB2
+shiny = BE9040 > B8EA45
+shiny = C0C0C8 > B3C0BE
+shiny = C1C0C5 > B3C0BC
+shiny = C1C0C7 > B4C0BD
+shiny = D2A555 > D6FF5F

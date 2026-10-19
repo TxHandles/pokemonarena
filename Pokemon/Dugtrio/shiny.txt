@@ -1,0 +1,15 @@
+# Dugtrio - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 382810 > 36251E
+shiny = 70481F > 684736
+shiny = 704820 > 71433C
+shiny = 801030 > 731F3D
+shiny = 8D5954 > 8A5663
+shiny = 982048 > 882E52
+shiny = 987838 > 9D7249
+shiny = A67F62 > AA7A65
+shiny = C8C8C8 > D7C0D0
+shiny = D04068 > BC5162
+shiny = E87898 > D77EA1
+shiny = F599A7 > E99BB4
+shiny = FAFAFA > FFF1ED

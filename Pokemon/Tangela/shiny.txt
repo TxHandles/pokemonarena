@@ -1,0 +1,16 @@
+# Tangela - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2B3232 > 004D00
+shiny = 3F3F43 > 185C10
+shiny = 404040 > 195D10
+shiny = 488890 > 30B02A
+shiny = 527BB8 > 31AA2C
+shiny = 587070 > 119B0C
+shiny = 5BACFE > 67DB5E
+shiny = 68A0A8 > 52CA44
+shiny = 7890B0 > 4DBE00
+shiny = 818181 > 3DB22A
+shiny = A8B8D0 > 7DE931
+shiny = D25C3C > D26D49
+shiny = E8E8F8 > AAFF8E
+shiny = FAFAFA > B9FF8D

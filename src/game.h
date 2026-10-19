@@ -29,6 +29,7 @@ struct RosterEntry {
     std::string item;   // held item
     int abilitySlot = 0;
     int nature = 0;
+    bool shiny = false;
 };
 
 struct ResultRow {
@@ -143,6 +144,7 @@ struct Game {
     bool legendCatchPending = false;        // a legendary was weakened: its catch comes next
     struct LegendCatch {
         int id = -1, species = -1, level = 1, abSlot = -1, nature = 0;
+        bool shiny = false;
         std::vector<std::string> moves;
         float hpFrac = 0.1f, chance = 0.3f;
         int order[2] = {0, 1};              // who throws first (the MVP) and second
@@ -173,7 +175,7 @@ struct Game {
     std::vector<int> rewardChoices;
     int rewardSel = 0;
     // Catching after a win
-    struct CatchCand { int species; int level; std::vector<std::string> moves; float hpFrac; float chance; int abSlot = 0; int nature = 0; };
+    struct CatchCand { int species; int level; std::vector<std::string> moves; float hpFrac; float chance; int abSlot = 0; int nature = 0; bool shiny = false; };
     std::vector<CatchCand> catchCands;
     bool catchPending = false;
     int catchSel = 0, catchPhase = 0, catchShakes = 0;   // phase 0 choose, 1 throw/shake, 2 result

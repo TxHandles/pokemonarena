@@ -1,0 +1,11 @@
+# Voltorb - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 701010 > 000069
+shiny = AC5252 > 0039E0
+shiny = BDBDBD > 3784EC
+shiny = C81F1F > 1608AE
+shiny = C82020 > 1608AE
+shiny = C8C8D0 > 3E8EFF
+shiny = D56241 > 004BF7
+shiny = E85050 > 482DD3
+shiny = F07070 > 005CFF

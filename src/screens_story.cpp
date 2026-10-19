@@ -639,7 +639,8 @@ void DrawStoryHub(const Game& g) {
         int idx = MonSpecies(m);
         int y = ty + 12 + i * 18;
         DrawPanel(rx, y, rw, 17);
-        if (idx >= 0) DrawSpeciesFit(idx, VIEW_FRONT, rx + 11, y + 16, 15, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
+        if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, rx + 11, y + 16, 15, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
+        if (m.shiny) DrawShinyStar((float)rx + 4, (float)y + 4, 3);
         DrawText(m.species.c_str(), rx + 24, y + 4, 10, m.hp > 0 ? UI_TEXT : UI_DIM);
         DrawText(TextFormat("Lv%d", m.level), rx + 112, y + 4, 10, UI_GOLD);
         DrawHpBar(rx + 140, y + 7, 50, 3, m.hp);
@@ -1333,7 +1334,8 @@ void DrawMyCreatures(const Game& g) {
         bool on = sel == k;
         DrawPanel(10, y, 180, 22, on ? UI_PANEL_LIGHT : UI_PANEL, on ? UI_GOLD : Color{70, 64, 92, 255});
         int idx = MonSpecies(mons[i]);
-        if (idx >= 0) DrawSpeciesFit(idx, VIEW_FRONT, 24, y + 21, 18, mons[i].hp > 0 ? WHITE : Color{90, 90, 100, 255});
+        if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, mons[i].shiny), VIEW_FRONT, 24, y + 21, 18, mons[i].hp > 0 ? WHITE : Color{90, 90, 100, 255});
+        if (mons[i].shiny) DrawShinyStar(14, (float)y + 5, 3);
         DrawText(mons[i].species.c_str(), 40, y + 6, 10, on ? UI_GOLD : UI_TEXT);
         DrawText(TextFormat("Lv%d", mons[i].level), 150, y + 3, 10, UI_GOLD);
         DrawHpBar(150, y + 15, 34, 2, mons[i].hp);
@@ -1366,7 +1368,8 @@ void DrawMyCreatures(const Game& g) {
     }
     const SpeciesDef& sp = AllSpecies()[idx];
     DrawRectangle(212, 42, 80, 80, UI_PANEL_LIGHT);
-    DrawSpeciesFit(idx, VIEW_FRONT, 252, 118, 72);
+    DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, 252, 118, 72);
+    if (m.shiny) { DrawShinyStar(220, 50, 5); DrawText("Shiny!", 228, 46, 10, Color{255, 214, 80, 255}); }
     DrawTextShadow(sp.name.c_str(), 302, 44, 20, UI_TEXT);
     int bx = 302;
     bx += DrawTypeBadge(sp.type1, bx, 68) + 2;
@@ -1777,6 +1780,7 @@ void ProcessStoryBattleEnd(Game& g) {
                 c.hpFrac = std::max(0.01f, f.hp / (float)f.maxHp);
                 c.abSlot = f.abSlot;
                 c.nature = f.nature;
+                c.shiny = f.shiny;
                 float ch = 0.35f + 0.55f * (1.0f - std::min(1.0f, c.hpFrac / 0.25f));
                 ch *= std::max(0.6f, std::min(1.3f, 1.0f + (myAvg - f.level) * 0.03f));
                 if (!IsBaseForm(c.species)) ch *= 0.8f;
@@ -2426,7 +2430,8 @@ void DrawStoryResults(const Game& g) {
             DrawRectangle(120, y, 3, rh, tc);
             DrawText(r.who == 0 ? "P1" : "P2", 102, y + 4, 10, tc);
         }
-        if (idx >= 0) DrawSpeciesFit(idx, VIEW_FRONT, 145, y + rh - 2, rh - 6, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
+        if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, 145, y + rh - 2, rh - 6, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
+        if (m.shiny) DrawShinyStar(134, (float)y + 5, 3);
         DrawText(r.name.c_str(), 172, y + 4, 10, UI_TEXT);
         std::string lv = r.levelTo > r.levelFrom ? TextFormat("Lv%d -> Lv%d", r.levelFrom, r.levelTo) : TextFormat("Lv%d", r.levelTo);
         DrawText(lv.c_str(), 290, y + 4, 10, r.levelTo > r.levelFrom ? UI_GOLD : UI_TEXT);
@@ -2505,7 +2510,7 @@ void DrawEvolve(const Game& g) {
         white = std::max(0.0f, 1.0f - (t - 3.0f) * 3);
     }
     if (show >= 0) {
-        DrawSpeciesFit(show, VIEW_FRONT, VW / 2, 200, 110);
+        DrawSpeciesFit(ShinyIdx(show, m.shiny), VIEW_FRONT, VW / 2, 200, 110);
         if (white > 0) {
             const CreatureSprites& cs = SpritesFor(show);
             const SpriteFrame& fr = cs.hasPortrait ? cs.portrait : cs.view[VIEW_FRONT][0];
@@ -2569,7 +2574,7 @@ void DrawLearnMove(const Game& g) {
     if (g.coop) DrawText(TextFormat("%s's creature", P.name.c_str()), 40, 14, 10, l.who == 0 ? UI_GOLD : Color{120, 230, 255, 255});
     int idx = MonSpecies(m);
     DrawRectangle(40, 30, 90, 90, UI_PANEL_LIGHT);
-    if (idx >= 0) DrawSpeciesFit(idx, VIEW_FRONT, 85, 116, 80);
+    if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, 85, 116, 80);
     DrawTextShadow(TextFormat("%s wants to learn", m.species.c_str()), 146, 34, 20, UI_TEXT);
     DrawTextShadow(l.move.c_str(), 146, 58, 20, UI_GOLD);
     DrawText("But it already knows four moves. Forget one to make room?", 146, 86, 10, UI_DIM);
@@ -2778,6 +2783,7 @@ void UpdateCatch(Game& g, float dt) {
             if (!c.moves.empty()) m.moves = c.moves;
             m.abilitySlot = c.abSlot;
             m.nature = c.nature;
+            m.shiny = c.shiny;
             m.hp = c.hpFrac;
             m.caught = true;
             g.catchBoxed = AddMon(P, m);
@@ -2820,7 +2826,7 @@ void DrawCatch(const Game& g) {
         int ps = g.on.partnerCatchSel;
         for (int i = 0; i < n; i++) {
             int x = x0 + i * (cw + gap);
-            DrawCreatureCard(g.catchCands[i].species, g.catchCands[i].level, x, 70, cw, 124, false);
+            DrawCreatureCard(ShinyIdx(g.catchCands[i].species, g.catchCands[i].shiny), g.catchCands[i].level, x, 70, cw, 124, false);
             DrawHpBar(x + 10, 200, cw - 20, 4, g.catchCands[i].hpFrac);
             if (ps == i) {   // the partner's cursor
                 DrawRectangleLinesEx({(float)x - 3, 67, (float)cw + 6, 130}, 2, pc);
@@ -2855,7 +2861,7 @@ void DrawCatch(const Game& g) {
         for (int i = 0; i < n; i++) {
             const auto& c = g.catchCands[i];
             int x = x0 + i * (cw + gap);
-            DrawCreatureCard(c.species, c.level, x, 56, cw, 124, g.catchSel == i);
+            DrawCreatureCard(ShinyIdx(c.species, c.shiny), c.level, x, 56, cw, 124, g.catchSel == i);
             DrawHpBar(x + 10, 186, cw - 20, 4, c.hpFrac);
             float ch = BallChance(c.chance, ball);
             DrawTextCentered(TextFormat("%d%% chance", (int)std::round(ch * 100)), x + cw / 2, 194, 10,
@@ -2889,7 +2895,7 @@ void DrawCatch(const Game& g) {
     bool inBall = t >= 0.9f && !(g.catchPhase == 2 && !g.catchOk);
     if (!inBall && !(g.catchPhase == 2 && g.catchFled)) {
         float white = (t > 0.7f && t < 0.9f) ? (t - 0.7f) / 0.2f : 0.0f;
-        DrawSpeciesFit(c.species, VIEW_FRONT, (int)mon.x, (int)mon.y + 20, 90, WHITE);
+        DrawSpeciesFit(ShinyIdx(c.species, c.shiny), VIEW_FRONT, (int)mon.x, (int)mon.y + 20, 90, WHITE);
         if (white > 0) DrawRectangle((int)mon.x - 30, (int)mon.y - 70, 60, 90, Fade(WHITE, white * 0.5f));
     }
     if (t < 0.7f) {  // the throw
@@ -3042,7 +3048,7 @@ void DrawHeal(const Game& g) {
         } else {
             const OwnedMon& m = p.mons[i - 1];
             int idx = MonSpecies(m);
-            if (idx >= 0) DrawSpeciesFit(idx, VIEW_FRONT, 100, y + 21, 18, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
+            if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, 100, y + 21, 18, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
             DrawText(m.species.c_str(), 116, y + 6, 10, sel ? UI_GOLD : UI_TEXT);
             DrawText(TextFormat("Lv%d", m.level), 226, y + 6, 10, UI_GOLD);
             if (m.boxed) DrawText("Box", 192, y + 6, 10, UI_DIM);
@@ -3415,7 +3421,7 @@ void DrawCoopSelect(const Game& g) {
                 if (m.boxed) continue;
                 int idx = MonSpecies(m);
                 int cx = x + 26 + k * 44;
-                if (idx >= 0) DrawSpeciesFit(idx, VIEW_FRONT, cx, y + 104, 36);
+                if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, cx, y + 104, 36);
                 DrawTextCentered(TextFormat("Lv%d", m.level), cx, y + 108, 10, UI_GOLD, false);
                 if (++k >= 6) break;
             }
@@ -3710,7 +3716,8 @@ void DrawCoopHubBase(const Game& g) {
             if (m.boxed) continue;
             int idx = MonSpecies(m);
             int yy = y + 20 + k * 24;
-            if (idx >= 0) DrawSpeciesFit(idx, VIEW_FRONT, x + 14, yy + 21, 20, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
+            if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, x + 14, yy + 21, 20, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
+            if (m.shiny) DrawShinyStar((float)x + 6, (float)yy + 5, 3);
             DrawText(m.species.c_str(), x + 28, yy + 3, 10, m.hp > 0 ? UI_TEXT : UI_DIM);
             DrawText(TextFormat("Lv%d", m.level), x + w - 30, yy + 3, 10, UI_GOLD);
             DrawHpBar(x + 28, yy + 15, w - 36, 3, m.hp);

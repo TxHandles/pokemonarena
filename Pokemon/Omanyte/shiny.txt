@@ -1,0 +1,17 @@
+# Omanyte - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3880A0 > A158AF
+shiny = 3C3E43 > 483E36
+shiny = 48A8D8 > C97FD9
+shiny = 504038 > 59402B
+shiny = 5698CB > BD72CC
+shiny = 78C6FF > E0AEFF
+shiny = 78C8F0 > E0AEFF
+shiny = 82713E > 8B7040
+shiny = 907048 > 957147
+shiny = A8A8B0 > CE97E4
+shiny = B09867 > B8905C
+shiny = B09868 > B89768
+shiny = B29B53 > BA9A5C
+shiny = E8C898 > EFC08B
+shiny = F6E69B > FCD68D

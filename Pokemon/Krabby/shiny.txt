@@ -1,0 +1,12 @@
+# Krabby - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 7F6751 > 7F7D6C
+shiny = A08050 > A28E67
+shiny = A84038 > 8F7D00
+shiny = B3947A > B3AB97
+shiny = BF5C42 > A8941F
+shiny = C0A880 > C4B693
+shiny = C86020 > B7A500
+shiny = E8E8F8 > F2FEFF
+shiny = F6855B > D9C04C
+shiny = F6CC9A > F6DCB3

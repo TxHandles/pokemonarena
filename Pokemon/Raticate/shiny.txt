@@ -1,0 +1,14 @@
+# Raticate - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 583F18 > 6E1700
+shiny = 584018 > 6F1800
+shiny = 883078 > 6B5A5F
+shiny = AF5F37 > AC4824
+shiny = B06038 > AD4925
+shiny = B47B41 > C15C34
+shiny = B8A870 > E57F54
+shiny = C5AC6A > AEC478
+shiny = D5A441 > E28540
+shiny = E09038 > E27649
+shiny = E0C8A8 > FFA176
+shiny = F6E694 > E2E8AF

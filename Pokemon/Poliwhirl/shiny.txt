@@ -1,0 +1,18 @@
+# Poliwhirl - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 202838 > 004F98
+shiny = 202938 > 005098
+shiny = 242A37 > 185197
+shiny = 252B36 > 1D5296
+shiny = 262B36 > 205296
+shiny = 333333 > 405A93
+shiny = 384870 > 2072C2
+shiny = 4860B8 > 4D91E9
+shiny = 4861B6 > 3F9CE9
+shiny = 5079B7 > 63A5FC
+shiny = 6395F4 > 69D2FF
+shiny = 7880E8 > 7BB6FF
+shiny = 797FE8 > 77BFFF
+shiny = B0B0CC > ACE1FF
+shiny = B0B0D0 > AAE2FF
+shiny = B2AFCE > ADE1FF

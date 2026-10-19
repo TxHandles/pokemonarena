@@ -1,0 +1,27 @@
+# Cloyster - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 323234 > 003575
+shiny = 343438 > 00377A
+shiny = 383838 > 003B7A
+shiny = 3B3B3B > 093E7D
+shiny = 3F3F42 > 004283
+shiny = 525152 > 005497
+shiny = 535353 > 035698
+shiny = 595870 > 135DA3
+shiny = 5E5E5E > 2061A5
+shiny = 5F5F5F > 2262A6
+shiny = 605878 > 1A5FA7
+shiny = 605879 > 1A5FA7
+shiny = 605977 > 1B5FA7
+shiny = 606060 > 2463A7
+shiny = 6D628B > 2E6AB4
+shiny = 8577B6 > 438FD8
+shiny = 8E70B8 > 438DD6
+shiny = 8E71B6 > 448DD7
+shiny = 8F71B9 > 448ED7
+shiny = 8F72B7 > 4E80D0
+shiny = 9070B8 > 4E7FCF
+shiny = A39DDD > 76A6F8
+shiny = BFB1E8 > 8EBAFF
+shiny = C0B0E8 > 8DBAFF
+shiny = C0B1E6 > 8DCAFF

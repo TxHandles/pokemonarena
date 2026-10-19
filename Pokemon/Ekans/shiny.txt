@@ -1,0 +1,11 @@
+# Ekans - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 603068 > 5D6802
+shiny = 706028 > 788500
+shiny = 734A6A > 707900
+shiny = 785078 > 8B8B36
+shiny = 906090 > 869226
+shiny = 9C6283 > 8A9527
+shiny = C583B4 > B9BD46
+shiny = C87FC0 > B2BA50
+shiny = C880C0 > B3BB50

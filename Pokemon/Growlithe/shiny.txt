@@ -1,0 +1,34 @@
+# Growlithe - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 463118 > 6C6F00
+shiny = 46311A > 6D6F05
+shiny = 483018 > 6F6E00
+shiny = 8A5129 > A47A28
+shiny = 8B5027 > A47A26
+shiny = 8B5124 > A47A24
+shiny = 8B5125 > A47A25
+shiny = 8D4F23 > A59B03
+shiny = 904820 > A0A000
+shiny = 9D7756 > BE9F53
+shiny = B0AFD0 > FFF579
+shiny = B0B0CE > FEF677
+shiny = B0B0D0 > FFF679
+shiny = B2531A > B8B400
+shiny = B2AFCE > FFF577
+shiny = B75118 > B9B500
+shiny = B85018 > BBAC1E
+shiny = BA501F > BBB600
+shiny = C69952 > C1A364
+shiny = C89850 > B79C60
+shiny = C97648 > C3C469
+shiny = CAA371 > BBA677
+shiny = DEC290 > DDCB98
+shiny = DEC292 > DDCB99
+shiny = E0C090 > FFFF7B
+shiny = E67846 > E7DF1D
+shiny = E77847 > E8E01E
+shiny = E87847 > E8E01F
+shiny = E87848 > EAD64F
+shiny = EFCD82 > DFD092
+shiny = F69E45 > FFFD40
+shiny = FAFAFA > FFFF5A

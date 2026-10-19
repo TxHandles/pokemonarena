@@ -1,4 +1,5 @@
 #include "story.h"
+#include "profile.h"
 #include "wild.h"
 #include "embedded.h"
 #include <algorithm>
@@ -729,6 +730,7 @@ StageDef TowerStage(int floor, uint32_t seed) {
 std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamSize) {
     if (!stage && WildActive()) {   // training: the Pokemon that live in the chosen area
         auto t = MakeWildTeam(teamSize, avg);
+        for (auto& c : t) c.shiny = RollShiny();   // wild Pokemon can be shiny
         if (!t.empty()) return t;
     }
     std::vector<std::string> entries;
@@ -800,6 +802,7 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
         c.species = idx;
         c.level = level;
         c.moves = MovesAtLevel(AllSpecies()[idx], level);
+        if (!stage) c.shiny = RollShiny();   // wild Pokemon can be shiny (trainers' can't)
         team.push_back(c);
     }
     return team;

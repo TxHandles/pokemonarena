@@ -1,0 +1,35 @@
+# Rattata - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 373057 > 5D5C03
+shiny = 373155 > 5D5D03
+shiny = 383058 > 5D5D03
+shiny = 665999 > 918C3B
+shiny = 675997 > 959B42
+shiny = 685898 > 918C3A
+shiny = 8373B4 > B2B75D
+shiny = 9E8955 > 99815D
+shiny = A08850 > 9A805A
+shiny = A18853 > 9B805C
+shiny = A38751 > 9C7F5A
+shiny = A582D7 > CCCE74
+shiny = A681D9 > CCCD74
+shiny = A682D7 > CCCE74
+shiny = A880D8 > C8BE6C
+shiny = AC8BC5 > D1D476
+shiny = B5A684 > AE9E92
+shiny = B7A980 > B0A091
+shiny = B8A77F > B09F8F
+shiny = B8A880 > B0A090
+shiny = C5BD7B > C0B395
+shiny = D93924 > 6E72C4
+shiny = D9D8DB > DDCECA
+shiny = DAD9DC > DECFCB
+shiny = DCDCE0 > E0D2CF
+shiny = DE3A1F > 7275C6
+shiny = DEDBDE > E2D1CD
+shiny = DF391D > 7275C6
+shiny = E03820 > 7275C7
+shiny = E7D9B2 > FFFF9B
+shiny = E8D8B0 > E0CFC0
+shiny = F66252 > 8893E3
+shiny = F6E694 > EEDCB5

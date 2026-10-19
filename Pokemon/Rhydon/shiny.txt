@@ -1,0 +1,27 @@
+# Rhydon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 1C1400
+shiny = 0A0A0A > 201A00
+shiny = 3E3E3E > 524D2A
+shiny = 3F381C > 4D470F
+shiny = 3F3918 > 4D4808
+shiny = 404040 > 544F2C
+shiny = 414242 > 55512E
+shiny = 7C8085 > 96906D
+shiny = 871F39 > 83462A
+shiny = 87213A > 83472B
+shiny = 87213C > 83472D
+shiny = 888888 > A09972
+shiny = 89203A > 85472B
+shiny = 898989 > A19A73
+shiny = 8A1F3A > 86462B
+shiny = B44D5F > AF6E50
+shiny = B8B8B8 > D2CAA1
+shiny = BBBEC3 > D6CEB5
+shiny = D7B155 > E2C36E
+shiny = D7B157 > E2C370
+shiny = D7B159 > E2C372
+shiny = D9D9D9 > F4EBC2
+shiny = E4E3EC > FFF4DD
+shiny = EAE7F8 > FFFADA
+shiny = FAFAFA > FFFFE2

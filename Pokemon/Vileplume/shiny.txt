@@ -1,0 +1,19 @@
+# Vileplume - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 203868 > 367139
+shiny = 305070 > 4B884D
+shiny = 407098 > 68B674
+shiny = 4685C4 > 81C184
+shiny = 782010 > 884712
+shiny = A83048 > C26807
+shiny = A85010 > C6732C
+shiny = B74156 > D3771C
+shiny = BF913F > EAAE5B
+shiny = D7606F > F6943B
+shiny = D86070 > D89941
+shiny = D8B890 > FFCF6E
+shiny = E85F67 > FE993F
+shiny = F88848 > FFAF65
+shiny = FE7B8C > FAB75D
+shiny = FEA754 > FFC14F
+shiny = FED1E2 > FFF398

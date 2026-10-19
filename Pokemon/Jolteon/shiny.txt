@@ -1,0 +1,13 @@
+# Jolteon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 898161 > 699D03
+shiny = A86820 > 639100
+shiny = C5C1B3 > ACE057
+shiny = D4B74D > A6D743
+shiny = E8A01F > 9FCB33
+shiny = E8A020 > 9FCB33
+shiny = F7C818 > B4DB32
+shiny = F8C818 > BDEC52
+shiny = F8F850 > DCFF75
+shiny = FEED41 > CEF952
+shiny = FEF6A8 > DDFF7E

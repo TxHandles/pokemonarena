@@ -1,0 +1,14 @@
+# Poliwag - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 405898 > 5575DA
+shiny = 5978AD > 7893FA
+shiny = 7697F7 > 95C3FF
+shiny = 777FE7 > 93A6FF
+shiny = 787878 > 7E94F5
+shiny = 7880E8 > 94A7FF
+shiny = 838182 > 929191
+shiny = B04068 > 7980E3
+shiny = B0B0D0 > C2C2D5
+shiny = E8E8F1 > FAFAF8
+shiny = E8E8F8 > FAFAFF
+shiny = F078A0 > B6B8FF

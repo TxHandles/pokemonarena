@@ -26,6 +26,7 @@ CombatantSpec FromEntry(const RosterEntry& e) {
     c.item = e.item;
     c.abilitySlot = e.ownedId >= 0 ? e.abilitySlot : -1;
     c.nature = e.ownedId >= 0 ? e.nature : -1;
+    c.shiny = e.shiny;
     return c;
 }
 
@@ -328,6 +329,7 @@ void StartBattleFromSelect(Game& g) {
                 c.level = std::min(MAX_LEVEL, avg + 3);
                 c.species = WildActive() ? g.rareSpecies : EvolvedFormAt(g.rareSpecies, c.level);
                 c.moves = MovesAtLevel(AllSpecies()[c.species], c.level);
+                c.shiny = RollShiny();   // the rare one can be shiny too
                 g.cpuTeam = {c};
                 // Wild creatures never come alone: a regular one tags along.
                 auto pal = MakeCpuTeam(nullptr, std::max(2, avg - 1), 1);
@@ -416,6 +418,7 @@ void StartBattleFromSelect(Game& g) {
                     c.level = std::min(MAX_LEVEL, avg2 + 6);
                     c.species = WildActive() ? g.rareSpecies : EvolvedFormAt(g.rareSpecies, c.level);
                     c.moves = MovesAtLevel(AllSpecies()[c.species], c.level);
+                    c.shiny = RollShiny();   // the rare one can be shiny too
                     cpu = {c};
                     auto pal = MakeCpuTeam(nullptr, std::min(MAX_LEVEL, avg2 + 1), 1);
                     cpu.push_back(pal[0]);
@@ -531,7 +534,8 @@ void StartBattleFromSelect(Game& g) {
 static void DrawEntryInfo(const RosterEntry& e, int x, int y) {
     const SpeciesDef& sp = AllSpecies()[e.species];
     DrawRectangle(x, y, 42, 42, UI_PANEL_LIGHT);
-    DrawSpeciesFit(e.species, VIEW_FRONT, x + 21, y + 40, 38);
+    DrawSpeciesFit(ShinyIdx(e.species, e.shiny), VIEW_FRONT, x + 21, y + 40, 38);
+    if (e.shiny) DrawShinyStar((float)x + 5, (float)y + 5, 3.5f);
     DrawTextShadow(sp.name.c_str(), x + 48, y + 1, 10, UI_TEXT);
     DrawText(TextFormat("Lv%d", e.level), x + 52 + TextW(sp.name.c_str(), 10), y + 1, 10, UI_GOLD);
     int bx = x + 48;
@@ -598,7 +602,8 @@ void DrawSelect(const Game& g) {
         DrawPanel(x, y, w, h, UI_PANEL, Color{80, 74, 104, 255});
         DrawRectangle(x + 1, y + 1, w - 2, 3, TypeColor(sp.type1));
         DrawEllipse(x + 22, y + 44, 13, 3, Fade(BLACK, 0.3f));
-        DrawSpeciesFit(e.species, VIEW_FRONT, x + 22, y + 46, 38);
+        DrawSpeciesFit(ShinyIdx(e.species, e.shiny), VIEW_FRONT, x + 22, y + 46, 38);
+        if (e.shiny) DrawShinyStar((float)x + 6, (float)y + 6, 3.5f);
         DrawText(sp.name.c_str(), x + 42, y + 8, 10, UI_TEXT);
         DrawTypeBadge(sp.type1, x + 42, y + 21);
         if (e.ownedId >= 0 || e.level != FREE_PLAY_LEVEL) DrawText(TextFormat("Lv%d", e.level), x + 42, y + 35, 10, UI_GOLD);
@@ -697,7 +702,7 @@ void DrawSelect(const Game& g) {
             int sx = x + w - 6 - (g.teamSize - s) * 23, sy = y + 4;
             DrawRectangle(sx, sy, 22, 22, UI_PANEL_LIGHT);
             RectLines(sx, sy, 22, 22, Color{90, 84, 116, 255});
-            if (s < (int)shown.size() && shown[s] >= 0 && shown[s] < (int)pr.size()) DrawSpeciesFit(pr[shown[s]].species, VIEW_FRONT, sx + 11, sy + 21, 20);
+            if (s < (int)shown.size() && shown[s] >= 0 && shown[s] < (int)pr.size()) DrawSpeciesFit(ShinyIdx(pr[shown[s]].species, pr[shown[s]].shiny), VIEW_FRONT, sx + 11, sy + 21, 20);
         }
         if (partnerView || (IsCoop(g.mode) && !g.shared && p != vp && g.ready[p])) {
             // The partner's team (online: as they pick it), so you can cover each other's weaknesses
@@ -708,7 +713,7 @@ void DrawSelect(const Game& g) {
                 const SpeciesDef& sp = AllSpecies()[e.species];
                 int ry = ly + k * 26;
                 DrawRectangle(x + 6, ry, w - 12, 24, UI_PANEL_LIGHT);
-                DrawSpeciesFit(e.species, VIEW_FRONT, x + 18, ry + 23, 22);
+                DrawSpeciesFit(ShinyIdx(e.species, e.shiny), VIEW_FRONT, x + 18, ry + 23, 22);
                 DrawText(sp.name.c_str(), x + 34, ry + 2, 10, UI_TEXT);
                 DrawText(TextFormat("Lv%d", e.level), x + 38 + TextW(sp.name.c_str(), 10), ry + 2, 10, UI_GOLD);
                 int bx = x + 34;

@@ -1,0 +1,22 @@
+# Gastly - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 00283A
+shiny = 0A0A0A > 002E40
+shiny = 2C293A > 5D1578
+shiny = 2D283A > 5D1477
+shiny = 313139 > 005172
+shiny = 323239 > 661F80
+shiny = 413E40 > 752E8E
+shiny = 484848 > 803998
+shiny = 503868 > 196981
+shiny = 705898 > 468DA8
+shiny = 7B62B4 > 549AB7
+shiny = 8870A0 > 63A8E3
+shiny = 888888 > 5BADD2
+shiny = 974F3D > 578FC1
+shiny = 980840 > 3E7286
+shiny = 9C7BD4 > 73B7D5
+shiny = A18091 > 72B5CB
+shiny = B8B8B8 > A0E7FD
+shiny = CDB7B9 > A7EBFF
+shiny = E8E8F8 > BBFFFF

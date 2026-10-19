@@ -1,0 +1,12 @@
+# Geodude - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 390000
+shiny = 0A0A0A > 3F050A
+shiny = 403020 > 623200
+shiny = 414141 > 715100
+shiny = 736A4A > A26A00
+shiny = 787060 > AA7000
+shiny = 948B6A > C98B00
+shiny = B8A880 > EDA820
+shiny = BDB48B > F7C601
+shiny = E8E8F8 > FFE86C

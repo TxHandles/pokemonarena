@@ -1,0 +1,29 @@
+# Meganium - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 485828 > 687200
+shiny = 49572C > 69710B
+shiny = 495828 > 697200
+shiny = 5E704E > 807A1D
+shiny = 652B4C > A32503
+shiny = 682850 > A42404
+shiny = 686840 > 867202
+shiny = 692A4F > A52605
+shiny = 809E56 > ACA544
+shiny = 80A058 > B4B900
+shiny = 97BC88 > D3D529
+shiny = A0B850 > D0D115
+shiny = A2B751 > D0D115
+shiny = A2B753 > D0D115
+shiny = AA5277 > E45B35
+shiny = B05078 > DC6D00
+shiny = B05276 > E75D36
+shiny = B6F686 > FFFF35
+shiny = C0D050 > EEE900
+shiny = C0D052 > EEE900
+shiny = C5B1BA > FDA85F
+shiny = C7B0BA > FFA75F
+shiny = C8B0B8 > FFA75D
+shiny = C96393 > FF724A
+shiny = CD628D > FF734A
+shiny = D06090 > F7722F
+shiny = DF668E > FF8B1A

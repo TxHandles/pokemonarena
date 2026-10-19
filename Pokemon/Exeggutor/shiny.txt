@@ -1,0 +1,18 @@
+# Exeggutor - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 385028 > 842500
+shiny = 50A828 > BB5C32
+shiny = 584840 > 947F00
+shiny = 588F77 > AA492C
+shiny = 7E655C > BF9F00
+shiny = 80D858 > EF885B
+shiny = 906038 > C19F00
+shiny = 93DE84 > EE8A55
+shiny = A0A0A0 > FDD94C
+shiny = C3AC89 > FFE856
+shiny = C85878 > DCB121
+shiny = C88858 > F6CD37
+shiny = C98958 > F7CE38
+shiny = D0A058 > FFE049
+shiny = E8E8F8 > FFFF75
+shiny = FF798B > FDE959

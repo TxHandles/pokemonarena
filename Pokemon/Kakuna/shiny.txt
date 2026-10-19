@@ -1,0 +1,11 @@
+# Kakuna - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 604828 > 2B5315
+shiny = 8B7331 > 4F8E00
+shiny = 907020 > 468000
+shiny = BD9C31 > 7DB928
+shiny = C09840 > 7CB728
+shiny = E8E8F8 > C4F2B0
+shiny = F6D529 > B1FF11
+shiny = F7D03F > AEFF0F
+shiny = F8D040 > B4EF5B

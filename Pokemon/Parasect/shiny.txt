@@ -1,0 +1,12 @@
+# Parasect - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 602818 > 63431A
+shiny = A83048 > A7592A
+shiny = A85010 > A5702A
+shiny = BF6055 > CB7946
+shiny = D86070 > D98452
+shiny = E0A020 > FFAB6A
+shiny = E8E8F8 > FFFFE8
+shiny = EE7B83 > FFAE58
+shiny = F69429 > FFCB53
+shiny = F87018 > EC9A44

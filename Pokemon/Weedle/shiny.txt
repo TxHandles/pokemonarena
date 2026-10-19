@@ -1,0 +1,13 @@
+# Weedle - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 604828 > C47313
+shiny = A07830 > FFA848
+shiny = B48339 > FFB813
+shiny = B8B8B8 > FBEF2C
+shiny = BDBDBD > FFF433
+shiny = C02840 > D58C00
+shiny = C09840 > FFCB2E
+shiny = D54A73 > FFA24F
+shiny = D5AC4A > F5E700
+shiny = F87088 > FF9ECC
+shiny = F8D040 > FFF254

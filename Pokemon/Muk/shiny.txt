@@ -1,0 +1,14 @@
+# Muk - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 664E75 > 447B26
+shiny = 685078 > 3C7121
+shiny = 685381 > 3F7425
+shiny = 786098 > 4F8435
+shiny = 7B62AC > 54883B
+shiny = 806888 > 558A37
+shiny = 947BCD > 6FA354
+shiny = B090B8 > 81B661
+shiny = BDA4CD > 93C973
+shiny = C8B0D8 > A9E285
+shiny = E8E8F8 > CDFFAA
+shiny = EAE2FA > D0F9AD

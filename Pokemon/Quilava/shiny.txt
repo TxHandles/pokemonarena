@@ -1,0 +1,18 @@
+# Quilava - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 183848 > 6C2500
+shiny = 193B4A > 6F2800
+shiny = 193C4B > 702900
+shiny = 193D4B > 712A00
+shiny = 1A3E4C > 722B00
+shiny = 205058 > 853C0F
+shiny = 287078 > A85A2C
+shiny = 308898 > C27142
+shiny = 484010 > 4A3100
+shiny = 52636F > A35326
+shiny = 628B9B > CD7849
+shiny = A09050 > A27F3B
+shiny = D0B058 > CE9F4C
+shiny = E8E8F8 > F9D5C0
+shiny = ECD979 > EFC66E
+shiny = F8D060 > F3B856

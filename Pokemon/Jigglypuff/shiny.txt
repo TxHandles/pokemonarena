@@ -1,0 +1,16 @@
+# Jigglypuff - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3A8583 > 5AB05A
+shiny = 473E3E > 594E72
+shiny = 505078 > 7B5F81
+shiny = 602840 > 743F66
+shiny = 604840 > 765875
+shiny = 65AAA3 > C5ADCD
+shiny = 904858 > 9D638B
+shiny = B26560 > AB85A4
+shiny = D07090 > D394BE
+shiny = DA8C8A > D3ACCD
+shiny = E8E8F8 > FFF5FF
+shiny = F8A8B8 > FFC5F0
+shiny = FAFAFA > FFF5FF
+shiny = FEBDAD > FFD9F9

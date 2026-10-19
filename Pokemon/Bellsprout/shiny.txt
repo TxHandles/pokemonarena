@@ -1,0 +1,15 @@
+# Bellsprout - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 405828 > 7A5F00
+shiny = 417B41 > AD7A22
+shiny = 609838 > BA9900
+shiny = 62AC4A > CCAB17
+shiny = 88D850 > FAD545
+shiny = 8BCD7B > EADF49
+shiny = B8A030 > BEA800
+shiny = CDC56A > E1CA20
+shiny = E8A3AA > FFDEF9
+shiny = EFDF48 > FEE439
+shiny = F078A0 > EFC5E2
+shiny = F0E048 > FFE53A
+shiny = F6EE4A > FFFD77

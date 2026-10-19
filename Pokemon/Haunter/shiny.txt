@@ -1,0 +1,21 @@
+# Haunter - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 110010
+shiny = 0A0A0A > 170416
+shiny = 401038 > 3E1339
+shiny = 403D45 > 4A394C
+shiny = 413139 > 472E41
+shiny = 543550 > 563453
+shiny = 602058 > 56295E
+shiny = 604868 > 654769
+shiny = 634A8A > 6A4A80
+shiny = 7B62B4 > 8463A4
+shiny = 806080 > 836082
+shiny = 989898 > A594A4
+shiny = 9A7F9D > 9F7EA0
+shiny = 9C7BD5 > A577DD
+shiny = A088A0 > A686A5
+shiny = B8B8B8 > C6B2D1
+shiny = E5ACC3 > E2ADCC
+shiny = E8E8F8 > F7E4FF
+shiny = FAFAFA > FFF5FF

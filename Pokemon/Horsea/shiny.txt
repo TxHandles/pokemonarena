@@ -1,0 +1,21 @@
+# Horsea - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 001F0E
+shiny = 0A0A0A > 072415
+shiny = 183860 > 003235
+shiny = 285888 > 005153
+shiny = 3D3D3F > 005746
+shiny = 404040 > 003B39
+shiny = 4970A2 > 2A696B
+shiny = 5CA1FB > 289BA0
+shiny = 6098C0 > 128E8F
+shiny = 75CCFE > 52BFC0
+shiny = 901010 > 00403B
+shiny = 90B8E0 > 47B0B0
+shiny = 92B8DF > 00B7A6
+shiny = A8B8D0 > 17B9A7
+shiny = C0A060 > F0887E
+shiny = D7C885 > FFACA1
+shiny = E8E8F8 > 65ECD8
+shiny = F8D0A0 > 7AD2C9
+shiny = FAFAFA > 97F6F1

@@ -1,0 +1,23 @@
+# Kingler - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = A08050 > 889335
+shiny = A08054 > 8F8936
+shiny = A08150 > 908936
+shiny = A64138 > 495210
+shiny = A83E37 > 495110
+shiny = A84038 > 4A5211
+shiny = B09866 > 9EAA4A
+shiny = B09867 > 9EAA4A
+shiny = B09868 > 9EAA4A
+shiny = C2AA92 > B2BD5F
+shiny = C87165 > 6F7837
+shiny = D7672F > 707630
+shiny = D86830 > 717730
+shiny = D86833 > 708030
+shiny = DA6733 > 718030
+shiny = E0C098 > CBD474
+shiny = E8E8F8 > EEF99D
+shiny = E8E9F6 > EEFA9B
+shiny = FEA555 > 9FB15D
+shiny = FEC083 > B4C371
+shiny = FEE3E3 > EFF99A

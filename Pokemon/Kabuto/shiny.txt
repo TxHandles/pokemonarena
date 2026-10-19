@@ -1,0 +1,15 @@
+# Kabuto - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 393131 > 00700D
+shiny = 43413F > 00821F
+shiny = 584838 > 218C07
+shiny = 78603F > 50B400
+shiny = 786040 > 50B400
+shiny = 987848 > 64C547
+shiny = 997947 > 65C645
+shiny = 9A7946 > 67C644
+shiny = 9B7A45 > 6ABC36
+shiny = A88038 > 71CF4A
+shiny = AA854F > 81E011
+shiny = DFBD72 > BAFF57
+shiny = F7DB44 > B8FF87

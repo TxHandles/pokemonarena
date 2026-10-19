@@ -1,0 +1,20 @@
+# Spearow - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 503810 > 716C00
+shiny = 805820 > 8B9F11
+shiny = 887840 > 887F4C
+shiny = 902810 > CF8A00
+shiny = A05068 > F2A916
+shiny = AC6231 > A5B52E
+shiny = B88020 > C4B62B
+shiny = B8A870 > B8B07B
+shiny = BD4A4A > AA9911
+shiny = C83818 > A89400
+shiny = CD837B > D5D050
+shiny = CD8B31 > CCDB52
+shiny = CDBD73 > E6F35A
+shiny = E87858 > ECEC30
+shiny = E8E8F8 > FFF269
+shiny = F66A52 > FFE423
+shiny = F88890 > FFED61
+shiny = FFB4A4 > FFFE49

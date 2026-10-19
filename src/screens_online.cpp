@@ -31,7 +31,7 @@ namespace {
 
 constexpr int KIND_LEGEND = 200;  // ready kinds 200..204: a legendary encounter (legend.h)
 constexpr int KIND_TOWER = 250;   // ready kind: the Battle Tower (1 story, 2 training, 3+N rematch stage N)
-constexpr uint32_t PROTOCOL = 11;   // 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower, 10: legendary encounters, 11: Gen 2 starters, the rival's two starters
+constexpr uint32_t PROTOCOL = 12;   // 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower, 10: legendary encounters, 11: Gen 2 starters, the rival's two starters, 12: shiny Pokemon
 constexpr float TICK = 1.0f / 60.0f;
 constexpr int INPUT_DELAY = 2;    // ticks: our own presses take effect this much later (33 ms)
 constexpr int MAX_AHEAD = 15;     // ticks we may run ahead of what the partner has confirmed

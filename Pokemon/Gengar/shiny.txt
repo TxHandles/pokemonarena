@@ -1,0 +1,21 @@
+# Gengar - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 000600
+shiny = 0A0A0A > 0A0F0A
+shiny = 2B2B3A > 1A2D32
+shiny = 3F3D42 > 40425A
+shiny = 503868 > 464662
+shiny = 585A6D > 475C63
+shiny = 67507F > 5E5D7B
+shiny = 685080 > 5E5E7B
+shiny = 6B5A89 > 565F76
+shiny = 8677B8 > 8484A5
+shiny = 9078A0 > 787E90
+shiny = 989898 > 859995
+shiny = 9F92D9 > 8B98BD
+shiny = B8B8B8 > A4B9B4
+shiny = B9B0C9 > A4B3BD
+shiny = D86060 > C46464
+shiny = F69CB5 > CDAAB2
+shiny = F8A8A0 > D1B3A8
+shiny = FAFAFA > E5FCF6

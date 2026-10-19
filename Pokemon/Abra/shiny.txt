@@ -1,0 +1,13 @@
+# Abra - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 423B22 > 5E4900
+shiny = 483818 > 634600
+shiny = 786038 > 92711F
+shiny = 907860 > AD894C
+shiny = 947338 > 9D737D
+shiny = AB9B2E > AFAA41
+shiny = B89828 > D3A926
+shiny = C4AC37 > E2BD38
+shiny = F6DE41 > F7EE7E
+shiny = F8D860 > FFEA64
+shiny = FAFAFA > FFFEEE

@@ -1,0 +1,19 @@
+# Sandslash - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 603F1F > 8E0001
+shiny = 604020 > 8F0002
+shiny = 7C4830 > A30013
+shiny = 886028 > BB0220
+shiny = 989898 > 907D58
+shiny = 996F43 > CF252F
+shiny = 9C9C9C > 94815C
+shiny = A06820 > 6F592F
+shiny = B0B0B0 > A8946E
+shiny = BDA150 > 9D885A
+shiny = C0A088 > B99B90
+shiny = C88830 > F54A45
+shiny = D0CB9C > D1C2AA
+shiny = E0A840 > FF6A5D
+shiny = E8E098 > E8D7B0
+shiny = E8E8F8 > ECE0EE
+shiny = F5D969 > D8C983

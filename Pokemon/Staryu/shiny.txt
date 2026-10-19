@@ -1,0 +1,13 @@
+# Staryu - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 584828 > 545F4B
+shiny = 681818 > 3C4031
+shiny = 785008 > 656D55
+shiny = 8F6344 > 757C60
+shiny = A87820 > 90987C
+shiny = ACA452 > A2B097
+shiny = B28C57 > A0AA91
+shiny = B82828 > 288CD0
+shiny = D35C49 > 36B0FD
+shiny = E06048 > 60B6FD
+shiny = F1C58E > D0DAC4

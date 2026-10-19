@@ -98,6 +98,7 @@ CombatantSpec LegendBoss(int id, int avgLevel, int brought, bool coop) {
     c.level = LegendLevel(id, avgLevel);
     c.moves = MovesAtLevel(AllSpecies()[c.species], c.level);
     // Two players hit it at once (2 on 1), so it gets more HP per Pokemon in co-op.
+    c.shiny = RollShiny();
     c.boss = 1.0f + L.hpPer * (coop ? 1.25f : 0.7f) * std::max(1, brought);
 #ifdef ARENA_AUTOTEST
     if (std::getenv("ARENA_LEG_EASY")) { c.boss = 1.0f; c.level = 5; c.hpFrac = 0.27f; c.moves = MovesAtLevel(AllSpecies()[c.species], c.level); }
@@ -283,6 +284,7 @@ void LegendBattleOver(Game& g, const Battle& b, const float damage[2]) {
     else for (int i = 0; i < f.nMoves; i++) c.moves.push_back(f.moves[i].name);
     c.abSlot = f.abSlot;
     c.nature = f.nature;
+    c.shiny = f.shiny;
     c.hpFrac = std::max(0.01f, std::min(1.0f, f.hp / (float)std::max(1, f.maxHp)));
     float base = 0.08f + 0.30f * (1.0f - std::min(1.0f, c.hpFrac / 0.25f));
     c.chance = std::max(0.03f, base * Legend(c.id).catchMul);
@@ -310,6 +312,7 @@ void Caught(Game& g) {
     if (!c.moves.empty()) m.moves = c.moves;
     m.abilitySlot = c.abSlot;
     m.nature = c.nature;
+    m.shiny = c.shiny;
     m.hp = c.hpFrac;
     m.caught = true;
     bool mine = OnlineMine(g, who);   // online: the partner adds it on their computer
@@ -440,6 +443,11 @@ void DrawLegendCatch(const Game& g) {
     const Profile& P = Prof(g, who);
     const SpeciesDef& sp = AllSpecies()[c.species];
     DrawTextCentered(TextFormat("CATCH %s!", sp.name.c_str()), VW / 2, 8, 20, tc);
+    if (c.shiny) {
+        int tw = TextW(TextFormat("CATCH %s!", sp.name.c_str()), 20);
+        DrawShinyStar(VW / 2 + tw / 2.0f + 10, 17, 5);
+        DrawText("Shiny!", VW / 2 + tw / 2 + 18, 12, 10, Color{255, 214, 80, 255});
+    }
     // the balls: one pip per throw, in the thrower's colour
     int pips = c.maxThrows;
     for (int i = 0; i < pips; i++) {
@@ -464,7 +472,7 @@ void DrawLegendCatch(const Game& g) {
         BeginBlendMode(BLEND_ADDITIVE);
         DrawCircle((int)mon.x, (int)mon.y - 30, 56 + 4 * std::sin(g.t * 3), Fade(tc, 0.15f));
         EndBlendMode();
-        DrawSpeciesFit(c.species, VIEW_FRONT, (int)mon.x, (int)mon.y + 20, 110);
+        DrawSpeciesFit(ShinyIdx(c.species, c.shiny), VIEW_FRONT, (int)mon.x, (int)mon.y + 20, 110);
         if (flash > 0) DrawRectangle((int)mon.x - 40, (int)mon.y - 90, 80, 110, Fade(WHITE, flash * 0.5f));
     }
     if (c.phase == 1) {

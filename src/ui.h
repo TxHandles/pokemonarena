@@ -27,3 +27,5 @@ void DrawReadyCount(int rightX, int y, bool p1Ready, bool p2Ready);
 void DrawStatBar(const char* label, int value, int x, int y, int barW, int natureMark = 0);  // +1 red label, -1 blue
 // Word-wrapped text; returns the y below the last line.
 int DrawWrapped(const char* text, int x, int y, int w, int size, Color c, int lineH = 12);
+// A little gold star: marks a shiny Pokemon (centre x, y; r = size).
+void DrawShinyStar(float x, float y, float r = 3.5f);

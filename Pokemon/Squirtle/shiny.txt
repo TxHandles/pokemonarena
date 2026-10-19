@@ -1,0 +1,18 @@
+# Squirtle - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 204860 > 1E5490
+shiny = 3888B8 > 6792D7
+shiny = 3F4343 > 24528B
+shiny = 47726A > 527BB8
+shiny = 53989B > 769FE0
+shiny = 58B8F0 > 97C1FF
+shiny = 76C6F3 > B4CEFF
+shiny = A00830 > 993525
+shiny = AC6524 > 4EA323
+shiny = B8B8B8 > AACAFF
+shiny = C87818 > 70B15D
+shiny = D8A830 > 89E05B
+shiny = DDCD80 > DFDC79
+shiny = E8E8F8 > DCFBFF
+shiny = F0D070 > EDE071
+shiny = F8FEFF > E0FFFF

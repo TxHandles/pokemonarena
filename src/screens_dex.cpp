@@ -555,7 +555,8 @@ void DrawTrade(const Game& g) {
             bool cur = canSee && k == g.tradeCur[p] && g.tradePhase == 0;
             bool off = order[k] == offer;
             DrawPanel(x + 4, y, w - 8, 20, off ? UI_PANEL_LIGHT : UI_PANEL, off ? PCol(p) : (cur ? UI_TEXT : Color{70, 64, 92, 255}));
-            if (idx >= 0) DrawSpeciesFit(idx, VIEW_FRONT, x + 16, y + 19, 18);
+            if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, x + 16, y + 19, 18);
+            if (m.shiny) DrawShinyStar((float)x + 9, (float)y + 5, 3);
             DrawText(m.species.c_str(), x + 28, y + 5, 10, cur ? UI_GOLD : UI_TEXT);
             DrawText(TextFormat("Lv%d", m.level), x + w - 54, y + 5, 10, UI_GOLD);
             if (m.boxed) DrawText("Box", x + w - 28, y + 5, 10, UI_DIM);
@@ -586,7 +587,8 @@ void DrawTrade(const Game& g) {
         DrawText(TextFormat("%s offers", P.name.c_str()), mx + 8, y, 10, PCol(p));
         if (!have) { DrawText("...", mx + 8, y + 16, 10, UI_DIM); continue; }
         int idx = MonSpecies(m);
-        if (g.tradePhase == 0 && idx >= 0) DrawSpeciesFit(idx, VIEW_FRONT, mx + 34, y + 66, 50);
+        if (g.tradePhase == 0 && idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, mx + 34, y + 66, 50);
+        if (g.tradePhase == 0 && m.shiny) DrawShinyStar((float)mx + 12, (float)y + 22, 4);
         DrawText(m.species.c_str(), mx + 66, y + 16, 10, UI_TEXT);
         DrawText(TextFormat("Lv%d", m.level), mx + 66, y + 28, 10, UI_GOLD);
         DrawText(TextFormat("%s nature", NatureName(m.nature)), mx + 106, y + 28, 10, Color{255, 200, 150, 255});

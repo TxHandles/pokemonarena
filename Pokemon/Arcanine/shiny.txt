@@ -1,0 +1,21 @@
+# Arcanine - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 483018 > 57442C
+shiny = 6D5843 > 7E6D57
+shiny = 7E5432 > 8A6C4D
+shiny = 874E2A > 897700
+shiny = 897050 > 9A8669
+shiny = 904820 > 966542
+shiny = B0B0D0 > CDC7D0
+shiny = B78867 > C3A183
+shiny = B85018 > B97347
+shiny = B88868 > C4A284
+shiny = C59259 > D1B92A
+shiny = CAA681 > D9BF9D
+shiny = DFBF90 > F0D7B0
+shiny = E0C090 > F1D8B0
+shiny = E8E8F8 > EDEDF2
+shiny = F86830 > F19364
+shiny = FAFAFA > FFFFF4
+shiny = FCA655 > FFFC54
+shiny = FEE2B3 > FFFBD3

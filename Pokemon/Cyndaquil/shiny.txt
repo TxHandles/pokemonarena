@@ -1,0 +1,18 @@
+# Cyndaquil - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 203050 > 651900
+shiny = 233250 > 4F0200
+shiny = 313131 > 4F0200
+shiny = 384050 > 5F140E
+shiny = 434565 > 83320A
+shiny = 484870 > 883610
+shiny = 5060A0 > A54F2A
+shiny = 525B61 > 98461A
+shiny = 584010 > 5C3900
+shiny = 6080E0 > CD704B
+shiny = 638C9C > CC7345
+shiny = A58C39 > A07F31
+shiny = A8B8D0 > FFBB6E
+shiny = D0A818 > D4A000
+shiny = EFDA77 > EDCA72
+shiny = F8D060 > F0C262

@@ -1,0 +1,14 @@
+# Charmander - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284858 > 996100
+shiny = 604020 > 9F6300
+shiny = B85820 > DB8F00
+shiny = D26140 > EF9F08
+shiny = D8A830 > DAC732
+shiny = E02828 > E08E00
+shiny = E7D395 > EEF282
+shiny = F0D070 > FFFF51
+shiny = F4912A > F8D81C
+shiny = F78838 > FFC336
+shiny = F88838 > FFC336
+shiny = FFE430 > FFEB2F

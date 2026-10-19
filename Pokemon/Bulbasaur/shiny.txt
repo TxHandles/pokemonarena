@@ -1,0 +1,21 @@
+# Bulbasaur - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303030 > 204D0A
+shiny = 313131 > 214E0B
+shiny = 3F423F > 2C5A00
+shiny = 404040 > 325E1C
+shiny = 406030 > 005600
+shiny = 409850 > 71A426
+shiny = 427239 > 518200
+shiny = 528B50 > 006429
+shiny = 60A810 > 007E0B
+shiny = 66A25C > 81B135
+shiny = 681018 > 811701
+shiny = 68D078 > A6DB5B
+shiny = 7CCE7C > 97CF3D
+shiny = 88E020 > 2EB32C
+shiny = B83018 > 5D7B00
+shiny = BD4841 > D55533
+shiny = C8C8C8 > BCE670
+shiny = E8E8F8 > DFFF91
+shiny = FAFAFA > E4FF95

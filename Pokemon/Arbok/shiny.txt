@@ -1,0 +1,10 @@
+# Arbok - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 383050 > 5E4000
+shiny = 404040 > 726100
+shiny = 6A4A73 > 866100
+shiny = 7858A8 > 9C7318
+shiny = 836283 > A17916
+shiny = 94945A > D1B600
+shiny = B080C0 > CC9D41
+shiny = B494CD > E7C433

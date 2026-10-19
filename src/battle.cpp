@@ -428,6 +428,7 @@ void Battle::Start(const BattleSetup& su) {
             f.xp = std::max(c.xp, XpForLevel(f.level));
             f.ownedId = c.ownedId;
             f.boss = c.boss;
+            f.shiny = c.shiny;
             InitAbility(f, c.abilitySlot);
             f.nature = c.nature >= 0 && c.nature < NATURE_COUNT ? c.nature : SimRand(0, NATURE_COUNT - 1);
             f.item = FindItem(c.item);
@@ -497,6 +498,10 @@ void Battle::SendOut(int s, int idx) {
     f.dir = DirFromVec(f.aim);
     AddText(f.pos, "Go! " + f.sp->name + "!", TeamColor(sides[s].teamId), 30);
     Burst(f.pos, WHITE, 14, 60, 8);
+    if (f.shiny) {   // a shiny's sparkle
+        Burst(f.pos, Color{255, 240, 150, 255}, 18, 80, 14);
+        PlaySfx(Sfx::Buff);
+    }
     f.flashFire = false;
     f.sinceAct = 99;
     AbOnEnter(s);
@@ -2850,7 +2855,7 @@ void Battle::DrawFighter(int s) const {
         else DrawEllipse((int)g.x, (int)g.y + 1, 8, 3, Fade(Color{90, 70, 50, 255}, 0.7f));
         return;
     }
-    const CreatureSprites& cs = SpritesFor(f.species);
+    const CreatureSprites& cs = SpritesFor(ShinyIdx(f.species, f.shiny));
     bool animated = cs.frames[f.dir] > 1;
     bool still = !f.CanAct() && f.state == FState::Active;
 
@@ -2911,12 +2916,25 @@ void Battle::DrawFighter(int s) const {
     if (f.dodgeT > 0) {   // a dodge: see-through, with after-images trailing behind
         for (int k = 2; k >= 1; k--) {
             Vector2 gp = ToScreen(f.pos - f.dodgeVel * (0.035f * k), z + bob);
-            DrawCreature(species, f.dir, frame, gp.x, gp.y + 2, sx, sy, Fade(Color{170, 210, 255, 255}, 0.28f / k), 0.6f);
+            DrawCreature(ShinyIdx(species, f.shiny), f.dir, frame, gp.x, gp.y + 2, sx, sy, Fade(Color{170, 210, 255, 255}, 0.28f / k), 0.6f);
         }
         tint = Fade(tint, 0.6f);
     }
-    DrawCreature(species, f.dir, frame, base.x, base.y + 2, sx, sy, tint, white);
+    DrawCreature(ShinyIdx(species, f.shiny), f.dir, frame, base.x, base.y + 2, sx, sy, tint, white);
     float h = CreatureHeight(species, f.dir) * sy;
+    if (f.shiny && (f.state == FState::Entering || (f.state == FState::Active && f.stateT < 0.9f))) {
+        // the shiny sparkle: little stars turning around it as it comes out
+        float u = f.state == FState::Entering ? f.stateT / 0.45f * 0.35f : 0.35f + f.stateT / 0.9f * 0.65f;
+        for (int k = 0; k < 6; k++) {
+            float a = k * 1.047f + u * 5.0f;
+            float r = 6 + h * 0.45f * std::min(1.0f, u * 2.2f);
+            Vector2 p{base.x + std::cos(a) * r, base.y - h * 0.5f + std::sin(a) * r * 0.75f};
+            float sz = (k % 2 ? 2.5f : 3.5f) * (1.0f - u * 0.7f);
+            Color sc = Fade(k % 2 ? Color{255, 240, 150, 255} : WHITE, 1.0f - u);
+            DrawLineEx({p.x - sz, p.y}, {p.x + sz, p.y}, 1.0f, sc);
+            DrawLineEx({p.x, p.y - sz}, {p.x, p.y + sz}, 1.0f, sc);
+        }
+    }
     if (f.state == FState::Active) VStatus(base, h, (int)f.st.major, time, (uint32_t)(s * 7919 + 17));
 
     if (f.shieldT > 0) {
@@ -3311,6 +3329,7 @@ void Battle::DrawHud() const {
         int nx = x + 9 + TextW(who, 10) + 4;
         DrawTextShadow(f.sp->name.c_str(), nx, y + (compact ? 1 : 3), 10, UI_TEXT);
         int bx = nx + TextW(f.sp->name.c_str(), 10) + 4;
+        if (f.shiny) { DrawShinyStar((float)bx + 3, (float)y + (compact ? 6 : 8)); bx += 9; }
         std::string lv = "Lv" + std::to_string(f.level);
         DrawText(lv.c_str(), bx, y + (compact ? 1 : 3), 10, UI_GOLD);
         bx += TextW(lv.c_str(), 10) + 4;

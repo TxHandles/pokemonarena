@@ -1,0 +1,26 @@
+# Jynx - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 9898B8 > E1A8D6
+shiny = 9A98B4 > E2A8D4
+shiny = AE3923 > B85C99
+shiny = B03820 > D55160
+shiny = BE5862 > ED73AB
+shiny = C09818 > C6AF7E
+shiny = C29718 > C6AE7E
+shiny = C65A7A > ED73A3
+shiny = C85878 > EE71A2
+shiny = CFB78A > E2CCA2
+shiny = EB967C > D8D497
+shiny = EF81A1 > FF9BCB
+shiny = F080A0 > FF9ACB
+shiny = F48AA4 > FFA8E1
+shiny = F65949 > EE8AC9
+shiny = F85848 > FF798C
+shiny = F8D060 > FFE7B5
+shiny = F8E020 > F0DFAB
+shiny = F8E120 > F0E0AC
+shiny = F8E8B8 > FFFCD0
+shiny = F8E8BB > F8E9C1
+shiny = F9CF62 > FFE6B5
+shiny = FDFAC6 > FEFFE4
+shiny = FE603B > F590CE

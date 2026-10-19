@@ -25,7 +25,62 @@ struct ArtEntry {
 constexpr int GW = 16, GH = 16, ART_SIZE = 18;  // 16x16 art + 1px outline
 
 std::vector<CreatureSprites> gSprites;
+std::vector<CreatureSprites> gShiny;   // the same sprites in shiny colours (empty frames: none)
 CreatureSprites gEmpty;
+
+// shiny.txt: "shiny = RRGGBB > RRGGBB" (a sprite colour > its shiny colour)
+std::map<unsigned, Color> LoadShinyMap(const std::string& dir, bool& found) {
+    std::map<unsigned, Color> m;
+    found = false;
+    std::string path = dir + "/shiny.txt";
+    if (!FileExists(path.c_str())) return m;
+    char* text = LoadFileText(path.c_str());
+    if (!text) return m;
+    found = true;
+    std::istringstream in(text);
+    UnloadFileText(text);
+    std::string line;
+    while (std::getline(in, line)) {
+        size_t h = line.find('#');
+        if (h != std::string::npos) line = line.substr(0, h);
+        size_t eq = line.find('='), gt = line.find('>');
+        if (eq == std::string::npos || gt == std::string::npos || gt < eq) continue;
+        auto hex = [](std::string s, unsigned& out) {
+            s.erase(std::remove_if(s.begin(), s.end(), [](char c) { return std::isspace((unsigned char)c) || c == '#'; }), s.end());
+            if (s.size() != 6) return false;
+            char* end = nullptr;
+            out = (unsigned)std::strtoul(s.c_str(), &end, 16);
+            return end && *end == 0;
+        };
+        unsigned a, b;
+        if (hex(line.substr(eq + 1, gt - eq - 1), a) && hex(line.substr(gt + 1), b))
+            m[a] = Color{(unsigned char)(b >> 16), (unsigned char)(b >> 8), (unsigned char)b, 255};
+    }
+    return m;
+}
+
+// Recolour a copy for the shiny sprite. Without a shiny.txt (a Pokemon added by hand), the hue
+// turns a third of the way round instead.
+Image ShinyImage(const Image& src, const std::map<unsigned, Color>& map, bool haveMap) {
+    Image img = ImageCopy(src);
+    ImageFormat(&img, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
+    Color* px = (Color*)img.data;
+    for (int i = 0; i < img.width * img.height; i++) {
+        Color& c = px[i];
+        if (c.a == 0) continue;
+        if (haveMap) {
+            auto it = map.find(((unsigned)c.r << 16) | ((unsigned)c.g << 8) | c.b);
+            if (it != map.end()) { unsigned char a = c.a; c = it->second; c.a = a; }
+        } else {
+            Vector3 hsv = ColorToHSV(c);
+            if (hsv.y < 0.15f || hsv.z < 0.15f) continue;   // greys and outlines stay
+            Color n = ColorFromHSV(std::fmod(hsv.x + 120.0f, 360.0f), hsv.y, hsv.z);
+            n.a = c.a;
+            c = n;
+        }
+    }
+    return img;
+}
 
 Color Hex(const std::string& h) {
     unsigned v = (unsigned)std::strtoul(h.c_str(), nullptr, 16);
@@ -188,7 +243,7 @@ struct FileSlot {
     std::string file;
 };
 
-bool LoadFromDir(CreatureSprites& cs, const std::string& dir, std::string& log) {
+bool LoadFromDir(CreatureSprites& cs, CreatureSprites& shiny, const std::string& dir, std::string& log) {
     FilePathList files = LoadDirectoryFiles(dir.c_str());
     // Numbered "_No" charts first: their numbers say exactly which squares are colored
     // (white ones included), and they're usually lossless PNGs. Plain copies are the fallback.
@@ -295,11 +350,16 @@ bool LoadFromDir(CreatureSprites& cs, const std::string& dir, std::string& log) 
     if (!have[VIEW_RIGHT][0]) copyView(VIEW_RIGHT, VIEW_LEFT, true, "");
     if (!have[VIEW_BACK][0]) copyView(VIEW_BACK, VIEW_FRONT, false, "no back view: using the front view");
 
+    bool haveMap = false;
+    std::map<unsigned, Color> smap = LoadShinyMap(dir, haveMap);
     int maxDim = 1;
     for (int v = 0; v < 4; v++) {
-        cs.frames[v] = have[v][1] ? 2 : 1;
+        cs.frames[v] = shiny.frames[v] = have[v][1] ? 2 : 1;
         for (int f = 0; f < cs.frames[v]; f++) {
             cs.view[v][f] = MakeFrame(views[v][f]);
+            Image si = ShinyImage(views[v][f], smap, haveMap);
+            shiny.view[v][f] = MakeFrame(si);
+            UnloadImage(si);
             maxDim = std::max(maxDim, std::max(views[v][f].width, views[v][f].height));
             UnloadImage(views[v][f]);
         }
@@ -307,10 +367,16 @@ bool LoadFromDir(CreatureSprites& cs, const std::string& dir, std::string& log) 
     if (portrait.rank >= 0) {
         cs.portrait = MakeFrame(portrait.img);
         cs.hasPortrait = true;
+        Image si = ShinyImage(portrait.img, smap, haveMap);
+        shiny.portrait = MakeFrame(si);
+        shiny.hasPortrait = true;
+        UnloadImage(si);
         UnloadImage(portrait.img);
     }
-    cs.fromFiles = true;
+    cs.fromFiles = shiny.fromFiles = true;
     cs.pixel = maxDim <= 32 ? SPRITE_PIXEL : 26.0f / maxDim;
+    if (haveMap) log += TextFormat("    shiny colours: %d from shiny.txt\n", (int)smap.size());
+    else log += "    no shiny.txt: the shiny sprite turns the colours instead\n";
     return true;
 }
 
@@ -336,13 +402,15 @@ void LoadAllSprites(std::string& log) {
     const auto& species = AllSpecies();
     gSprites.clear();
     gSprites.resize(species.size());
+    gShiny.clear();
+    gShiny.resize(species.size());
     for (size_t i = 0; i < species.size(); i++) {
         const SpeciesDef& sp = species[i];
         CreatureSprites& cs = gSprites[i];
         bool done = false;
         if (!sp.spriteDir.empty()) {
             std::string sub;
-            done = LoadFromDir(cs, sp.spriteDir, sub);
+            done = LoadFromDir(cs, gShiny[i], sp.spriteDir, sub);
             log += "  " + sp.name + " sprites from " + std::string(GetFileName(sp.spriteDir.c_str())) + "/:\n" + sub;
             if (!done) log += "    no usable images found, using " + (sp.artName.empty() ? std::string("placeholder") : "built-in art for " + sp.artName) + "\n";
         }
@@ -355,6 +423,7 @@ void LoadAllSprites(std::string& log) {
             cs.pixel = SPRITE_PIXEL;
         }
         cs.pixel = SnapScale(cs.pixel * sp.drawScale);   // Pokedex size (data.cpp)
+        gShiny[i].pixel = cs.pixel;
     }
 }
 
@@ -362,16 +431,22 @@ void UnloadAllSprites() {
     auto un = [](SpriteFrame& f) {
         if (f.w) { UnloadTexture(f.tex); UnloadTexture(f.white); }
     };
-    for (auto& cs : gSprites) {
-        for (int v = 0; v < 4; v++)
-            for (int f = 0; f < 2; f++) un(cs.view[v][f]);
-        un(cs.portrait);
-    }
+    for (auto* set : {&gSprites, &gShiny})
+        for (auto& cs : *set) {
+            for (int v = 0; v < 4; v++)
+                for (int f = 0; f < 2; f++) un(cs.view[v][f]);
+            un(cs.portrait);
+        }
     gSprites.clear();
+    gShiny.clear();
 }
 
 const CreatureSprites& SpritesFor(int speciesIndex) {
-    if (speciesIndex < 0 || speciesIndex >= (int)gSprites.size()) return gEmpty;
+    if (speciesIndex < 0) return gEmpty;
+    bool shiny = (speciesIndex & SHINY_FLAG) != 0;
+    speciesIndex &= ~SHINY_FLAG;
+    if (speciesIndex >= (int)gSprites.size()) return gEmpty;
+    if (shiny && speciesIndex < (int)gShiny.size() && gShiny[speciesIndex].view[0][0].w > 0) return gShiny[speciesIndex];
     return gSprites[speciesIndex];
 }
 

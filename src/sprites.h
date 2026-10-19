@@ -20,6 +20,11 @@ struct CreatureSprites {
     float pixel = 4.0f / 3.0f;      // logical units per sprite pixel in battle
 };
 
+// Shiny: OR this into a species index for the shiny colours (Pokemon/<Name>/shiny.txt, made by
+// tools/shinygen.py from the official shiny sprites). Only sprite drawing looks at it.
+constexpr int SHINY_FLAG = 1 << 20;
+inline int ShinyIdx(int species, bool shiny) { return species < 0 ? species : (shiny ? (species | SHINY_FLAG) : species); }
+
 void LoadAllSprites(std::string& log);  // call after InitWindow and after creature files are loaded
 void UnloadAllSprites();
 const CreatureSprites& SpritesFor(int speciesIndex);

@@ -1,0 +1,13 @@
+# Zubat - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 103840 > 002A00
+shiny = 3E4042 > 004100
+shiny = 407078 > 126000
+shiny = 4A8393 > 2B7300
+shiny = 4FB7AF > 57A02D
+shiny = 50B8B0 > 58A12E
+shiny = 604080 > 144F05
+shiny = 6AB5C5 > 5F951B
+shiny = 8860B8 > B69973
+shiny = AF7DA0 > DEC484
+shiny = C1A9CB > 68B728

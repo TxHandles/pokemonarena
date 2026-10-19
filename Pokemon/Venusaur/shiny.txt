@@ -1,0 +1,21 @@
+# Venusaur - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 297B6B > 709F09
+shiny = 3F6030 > 668400
+shiny = 406030 > 4A6A2B
+shiny = 409860 > 97B840
+shiny = 429484 > 8BB92E
+shiny = 4A734A > 5C7C3D
+shiny = 671F28 > 7A6500
+shiny = 682028 > 7B6600
+shiny = 68D8C0 > CCFB6F
+shiny = 6BBDA5 > B9D93B
+shiny = A0A0A0 > ACD34A
+shiny = A5424A > B09200
+shiny = C84880 > CBA700
+shiny = E66B73 > EAC300
+shiny = E8C070 > FFFB3A
+shiny = E8E8F8 > E8FF84
+shiny = F078A0 > F9D00F
+shiny = FFB5A5 > F9F8D5
+shiny = FFC500 > DFAE17

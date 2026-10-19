@@ -1,0 +1,20 @@
+# Starmie - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 302840 > 00294E
+shiny = 383010 > 850009
+shiny = 3F3F70 > 104467
+shiny = 404070 > 124567
+shiny = 5858C0 > 3062A4
+shiny = 67668A > 416B86
+shiny = 681818 > 730010
+shiny = 8870E8 > 557EB3
+shiny = 887ABC > 557FAF
+shiny = 8E7943 > C73D4C
+shiny = B09018 > DB626B
+shiny = B82828 > AD0234
+shiny = B9A6DB > 83AADC
+shiny = D14C49 > 0068E6
+shiny = E8B020 > EE7A83
+shiny = F05848 > 5868ED
+shiny = FEEC43 > FFB9B9
+shiny = FFB2C5 > 71AEFF

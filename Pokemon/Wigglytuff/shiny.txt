@@ -1,0 +1,15 @@
+# Wigglytuff - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3860C5 > 83599B
+shiny = 3860C6 > 83599C
+shiny = 3860C8 > 84599E
+shiny = 6DB9FB > D2A7ED
+shiny = 70B8F8 > D3A6EA
+shiny = 863953 > 774480
+shiny = 883850 > 7D467B
+shiny = B76880 > AE73AB
+shiny = B76882 > A771B0
+shiny = B86880 > AE74AB
+shiny = F098A8 > E2A4DD
+shiny = F098AA > DCA2E3
+shiny = FECBCC > FFCAFF

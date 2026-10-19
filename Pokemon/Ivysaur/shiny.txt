@@ -1,0 +1,22 @@
+# Ivysaur - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 207262 > 5C8409
+shiny = 284040 > 3B631F
+shiny = 305818 > 1E6100
+shiny = 3F4D3E > 2E5819
+shiny = 408078 > 6E9421
+shiny = 459180 > 7CA430
+shiny = 48A898 > 91B946
+shiny = 5E9D51 > 59A53A
+shiny = 60A810 > 53A800
+shiny = 682028 > 770623
+shiny = 68D0C0 > B8E16C
+shiny = 70BDA6 > 99C83C
+shiny = 88E020 > 94E800
+shiny = 904020 > A0322A
+shiny = C5525B > CAA700
+shiny = C85878 > D2921F
+shiny = C8C8D8 > BBE25A
+shiny = E8E8F8 > DCFF79
+shiny = F080A0 > FDD513
+shiny = FAFAFA > ECFF95

@@ -1,0 +1,18 @@
+# Nidoran F - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1098F0 > C079D7
+shiny = 305848 > 4F414F
+shiny = 39946A > 6B8C00
+shiny = 3B3C3F > 46273D
+shiny = 405088 > 7E368E
+shiny = 58A888 > 8A8C93
+shiny = 5E6CA2 > 75568B
+shiny = 8494C4 > 9B7DB0
+shiny = 98F0E0 > CDD2E5
+shiny = A02010 > 8C162D
+shiny = A05068 > 953F6C
+shiny = A0A0A0 > AF88A4
+shiny = ABC6FE > C8ADE6
+shiny = E8E8F8 > F8CFF1
+shiny = F07870 > DB6C81
+shiny = FAFAFA > FFE0FF

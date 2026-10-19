@@ -1,0 +1,26 @@
+# Dewgong - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 040600
+shiny = 090B0A > 0E0F00
+shiny = 0A0A0A > 0E0F00
+shiny = 302F4F > 3F3C3C
+shiny = 30304C > 353629
+shiny = 322F4F > 35362A
+shiny = 414141 > 4C4E39
+shiny = 495177 > 55564A
+shiny = 4B4F79 > 555549
+shiny = 4B5077 > 555649
+shiny = 525A6A > 5C5D4E
+shiny = 707EB3 > 999979
+shiny = 717FB6 > 838579
+shiny = 717FB8 > 8A8E99
+shiny = 7180B4 > 9B9B7A
+shiny = 737CB7 > 8A8B98
+shiny = 9C9CBD > A2A293
+shiny = B1B7D7 > BBBCAD
+shiny = B1B8D5 > BBBDAD
+shiny = C5C5D5 > D5D5C5
+shiny = E0E0EE > E4E5D3
+shiny = E0E2EF > E6E7D4
+shiny = E1E2EF > E6E7D5
+shiny = FAFAFA > FFFFE7

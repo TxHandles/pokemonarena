@@ -1,0 +1,34 @@
+# Pinsir - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 01184F
+shiny = 43413F > 1E245C
+shiny = 4F4133 > 181356
+shiny = 504033 > 181256
+shiny = 594934 > 361E67
+shiny = 5B4B35 > 381F69
+shiny = 5E523A > 2C2167
+shiny = 5F503C > 2A2066
+shiny = 5F5138 > 2B2066
+shiny = 615038 > 2B2066
+shiny = 68554D > 31266E
+shiny = 68676A > 513888
+shiny = 686868 > 523988
+shiny = 696969 > 403580
+shiny = 776852 > 44357F
+shiny = 786850 > 4D4985
+shiny = 859194 > 959772
+shiny = 909090 > 716DB0
+shiny = 919190 > BD9757
+shiny = 978061 > 604C98
+shiny = 988060 > 604D99
+shiny = 988061 > 604D99
+shiny = 9A887F > 6654A3
+shiny = C0C0D0 > F1C787
+shiny = C2C0CF > F2C787
+shiny = C2C0D1 > CFC8A9
+shiny = C6C2BD > D0CA9D
+shiny = CCB297 > 9A91D4
+shiny = E8E8F8 > C8C3FF
+shiny = EAE8F6 > CAC3FF
+shiny = EDD6B0 > BDB3F7
+shiny = FAFAFA > FFFFD6

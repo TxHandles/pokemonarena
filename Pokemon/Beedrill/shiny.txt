@@ -1,0 +1,35 @@
+# Beedrill - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 654E2A > 2B6D08
+shiny = 655126 > 286F00
+shiny = 65512A > 287007
+shiny = 65512B > 287009
+shiny = 685028 > 2F6F02
+shiny = 694E2B > 326D0A
+shiny = 838B9C > 8791A3
+shiny = 8E9090 > 929698
+shiny = 909090 > 949698
+shiny = 919092 > 959699
+shiny = 919191 > 959799
+shiny = 919192 > 959799
+shiny = 929093 > 96969A
+shiny = BB2A42 > 005BCE
+shiny = BC9929 > 81B600
+shiny = BC992A > 81B600
+shiny = BC992B > 81B603
+shiny = BC9A23 > 82B700
+shiny = BD9829 > 81B500
+shiny = C02840 > 105CCF
+shiny = C09828 > 82B600
+shiny = C12840 > 135DD0
+shiny = C12841 > 125DD0
+shiny = C55241 > 356EE2
+shiny = C5AC29 > 84CD31
+shiny = F4D042 > BBED00
+shiny = F4D145 > BBEE0D
+shiny = F5D043 > BBEE00
+shiny = F5D145 > BBEF09
+shiny = F66252 > 6388FF
+shiny = F6E631 > CAFE1F
+shiny = F8D040 > BCEE00
+shiny = FAD043 > BDEF00

@@ -1,0 +1,14 @@
+# Charmeleon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 286880 > 698768
+shiny = A0433C > C89517
+shiny = B84038 > D49D21
+shiny = C81028 > D19717
+shiny = CC4C43 > E5AC32
+shiny = D8A830 > FFEA66
+shiny = E2C39F > FFF87C
+shiny = F0D070 > FFF876
+shiny = F66D4A > FFCE52
+shiny = F76858 > FFCC53
+shiny = F86858 > FFCD53
+shiny = F9F72A > FFFC3B

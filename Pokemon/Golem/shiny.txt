@@ -1,0 +1,34 @@
+# Golem - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 47443E > 723719
+shiny = 565039 > 814210
+shiny = 574F39 > 80420F
+shiny = 575037 > 814310
+shiny = 585037 > 814310
+shiny = 585038 > 814310
+shiny = 6F5947 > 946A61
+shiny = 705749 > 946862
+shiny = 705847 > 946960
+shiny = 705848 > 946961
+shiny = 777050 > A1806E
+shiny = 777052 > A26C1D
+shiny = 787050 > A6622F
+shiny = 846D5A > AA7E75
+shiny = 8E7162 > B2837D
+shiny = 907060 > B4827B
+shiny = 907062 > B4827D
+shiny = 989898 > C9A9AB
+shiny = 999999 > CAAAAC
+shiny = 9E8F69 > C78C3D
+shiny = 9F8F67 > C88C3D
+shiny = 9F906A > C9A18C
+shiny = A09068 > C98D3E
+shiny = A0A0A0 > D1B1B3
+shiny = A28662 > C89884
+shiny = BDAC97 > EAAA5C
+shiny = BEBEBE > FABA6D
+shiny = BF997A > F0B7AE
+shiny = C09878 > E3AC9A
+shiny = C0C0C0 > FCBC6F
+shiny = C1C1C1 > FDBD70
+shiny = EDEDED > FFF7F9

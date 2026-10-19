@@ -1,0 +1,16 @@
+# Totodile - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 283860 > 006742
+shiny = 323233 > 005F36
+shiny = 404850 > 007755
+shiny = 406088 > 1A8A61
+shiny = 4A7B9B > 27AB73
+shiny = 4AA4CC > 54D399
+shiny = 5080B8 > 4BB389
+shiny = 515253 > 178357
+shiny = 70B0E8 > 7BE3B7
+shiny = 7DCEF6 > 83FFC3
+shiny = A02038 > 0055A8
+shiny = A8B8D0 > 7BF1B3
+shiny = D03048 > 1A70C6
+shiny = E8E8F8 > A3FFD6

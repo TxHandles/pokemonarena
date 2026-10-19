@@ -1,0 +1,36 @@
+# Caterpie - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3E5923 > 785609
+shiny = 405820 > 9E6200
+shiny = 405822 > 775608
+shiny = 42581C > 775607
+shiny = 505050 > 735139
+shiny = 51514B > 745236
+shiny = 525153 > 75523B
+shiny = 68952B > E19C13
+shiny = 689828 > E39F16
+shiny = 6A952A > E19C14
+shiny = 70933F > E29C18
+shiny = 7B612B > 91681F
+shiny = 7C612B > 92691F
+shiny = 806028 > BC7600
+shiny = 9CCE4A > FFE627
+shiny = A02E49 > 8A3220
+shiny = A02E4A > 8A3221
+shiny = A03048 > 8B3321
+shiny = A6993C > AF9F37
+shiny = A89543 > AF9C3B
+shiny = A89840 > A4992D
+shiny = A8E840 > FFEB65
+shiny = A9E542 > F1F031
+shiny = AAE543 > F1F032
+shiny = E64829 > D21800
+shiny = E6CE62 > EDD563
+shiny = F6E862 > F3E860
+shiny = F6EE29 > FFEF68
+shiny = F8786D > F24E33
+shiny = F87870 > EF502E
+shiny = F8E860 > FFEF6D
+shiny = F9E962 > F6E960
+shiny = FA7673 > F04E30
+shiny = FAFAFA > FFFFCF

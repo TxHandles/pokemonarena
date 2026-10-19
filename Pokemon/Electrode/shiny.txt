@@ -1,0 +1,5 @@
+# Electrode - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = C55252 > 4A5AE7
+shiny = C82020 > 3E48D0
+shiny = E65231 > 006AF5

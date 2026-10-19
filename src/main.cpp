@@ -19,6 +19,8 @@
 #ifdef ARENA_AUTOTEST
 bool gAutoPlayP1 = false;
 bool gAutoNetInput = false;   // autotest: scripted button presses in online battles
+void (*gAutoSheet)(int) = nullptr;   // autotest: draw a test sheet instead of the screen
+int gAutoSheetPage = 0;
 #include "autotest.inc"
 #endif
 
@@ -165,6 +167,9 @@ int main() {
             g.screen != Screen::CoopSelect && g.screen != Screen::CoopHub && g.screen != Screen::NetMenu)
             DrawToast(g);
         DrawOnlineOverlay(g);
+#ifdef ARENA_AUTOTEST
+        if (gAutoSheet) gAutoSheet(gAutoSheetPage);
+#endif
         if (Cfg().showFps) DrawText(TextFormat("%d FPS", GetFPS()), VW - 44, VH - 12, 10, UI_DIM);
         EndMode2D();
         EndTextureMode();

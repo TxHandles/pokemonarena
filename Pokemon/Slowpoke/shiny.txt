@@ -1,0 +1,19 @@
+# Slowpoke - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 423E3F > 6B4B59
+shiny = 602830 > 683A50
+shiny = 685010 > 6E5C01
+shiny = 985860 > 9F7685
+shiny = 9F6C5C > AC7B90
+shiny = A0A8B0 > DAACC4
+shiny = ABB0B6 > E5B4CA
+shiny = C0AA78 > C0B979
+shiny = D07880 > CA93AB
+shiny = D0A860 > E6B2C2
+shiny = D48482 > D29CB3
+shiny = E8E8F8 > FFEEFF
+shiny = F098A0 > EAB2CB
+shiny = F0D890 > FFDEEF
+shiny = F5AC9C > F8CBD9
+shiny = F6ED8B > FFF98D
+shiny = F8C0B0 > F0D4A7

@@ -83,7 +83,16 @@ STATS AND LEVELS
 
 STARTERS
   "starter = yes" makes a Pokemon one of the Story Mode starter choices.
-  Bulbasaur, Charmander and Squirtle are tagged; tag more to offer more.
+  Bulbasaur, Charmander, Squirtle, Chikorita, Cyndaquil and Totodile are tagged;
+  tag more to offer more.
+
+SHINY COLOURS (shiny.txt)
+  About 1 in 512 new Pokemon is shiny. Its sprites are recoloured from the
+  folder's shiny.txt, one colour per line:
+      shiny = 68D078 > A6DB5B      (a colour in the sprites > its shiny colour)
+  Every Pokemon in the game has one, matched to its official shiny colours.
+  A folder without a shiny.txt still works: its shiny turns the colours a third
+  of the way round the colour wheel instead.
 
 THE BUILT-IN TEST CREATURES
   Furbit, Cindercub, Ripplit, Joltelly and the others are the original test

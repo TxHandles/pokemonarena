@@ -1,0 +1,15 @@
+# Tentacool - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 286878 > 6A527F
+shiny = 384860 > 5E4D77
+shiny = 480828 > 004E0B
+shiny = 4890A0 > 9177A7
+shiny = 5889C7 > 9F8DBF
+shiny = 71BCF7 > CEBDF0
+shiny = 78C0F0 > C4A8DE
+shiny = 901858 > 2D7D38
+shiny = D35A5C > 69B667
+shiny = E03060 > 3AB870
+shiny = E8E8F8 > FFF3FF
+shiny = F5FFFF > FFF7FF
+shiny = F8A0A0 > 28D9A2

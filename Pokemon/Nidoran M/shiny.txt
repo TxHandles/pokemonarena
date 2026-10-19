@@ -1,0 +1,17 @@
+# Nidoran M - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 18A898 > 95BAD8
+shiny = 307068 > 6787A4
+shiny = 413F41 > 445D7A
+shiny = 46956B > B3614C
+shiny = 503050 > 415877
+shiny = 795471 > 697E9F
+shiny = 886098 > 798EB2
+shiny = 996A91 > 8498BC
+shiny = B070D0 > 96A9D3
+shiny = B81808 > 687295
+shiny = C04068 > 7485B1
+shiny = CA90B4 > A0BBEA
+shiny = D898F0 > BED1FB
+shiny = E8E8F8 > E7FFFF
+shiny = F66152 > 9DA9D1

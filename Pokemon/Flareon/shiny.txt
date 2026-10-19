@@ -1,0 +1,22 @@
+# Flareon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 325D71 > 60593D
+shiny = 473727 > 443F05
+shiny = 473F3D > 664C1E
+shiny = 483828 > 503801
+shiny = 504040 > 6F4D21
+shiny = 984028 > 906010
+shiny = 987830 > 9D781A
+shiny = B79F60 > B4A84E
+shiny = C04020 > A87500
+shiny = CD6A40 > C28B3B
+shiny = D85820 > C08A19
+shiny = D8A848 > DBA93E
+shiny = D8C0C0 > E8C092
+shiny = E8D898 > F8D67F
+shiny = E8E8F8 > FFF7CD
+shiny = F5D76A > FFD663
+shiny = F88048 > E6AC3F
+shiny = FAFAFA > FFFAC6
+shiny = FE8953 > E3A049
+shiny = FEF1B2 > FFF99E

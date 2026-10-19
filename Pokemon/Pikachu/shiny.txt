@@ -1,0 +1,13 @@
+# Pikachu - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 705038 > 942F1E
+shiny = 903818 > A30508
+shiny = 987038 > 945600
+shiny = B4712C > D25325
+shiny = C5A529 > C58800
+shiny = C85838 > BE4802
+shiny = C8A040 > D58716
+shiny = E8E8F8 > FFCBA7
+shiny = F66252 > E65724
+shiny = F6D631 > F8B70B
+shiny = F8D050 > F8B22A

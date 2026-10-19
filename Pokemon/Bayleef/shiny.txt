@@ -1,0 +1,16 @@
+# Bayleef - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3F5000 > 986C00
+shiny = 405000 > 655301
+shiny = 589008 > BB9800
+shiny = 605020 > 71320D
+shiny = 9BD549 > FFDC4A
+shiny = A0C050 > FFDB5B
+shiny = A89858 > C2774D
+shiny = B05078 > C2623D
+shiny = C8B858 > E49567
+shiny = D1BB61 > E9996B
+shiny = E54F4E > B25D3B
+shiny = E8D858 > FFB381
+shiny = FAFAFA > FFD6AF
+shiny = FEEE62 > FFC594

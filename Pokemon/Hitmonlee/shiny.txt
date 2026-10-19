@@ -1,0 +1,15 @@
+# Hitmonlee - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 483030 > 1C2D00
+shiny = 584828 > 264100
+shiny = 786038 > 3E5B00
+shiny = 88766E > 557000
+shiny = 887830 > 856A33
+shiny = A08050 > 6B8500
+shiny = A0A0A0 > 7B972D
+shiny = BC9D87 > 8AA321
+shiny = C8C8D0 > AFC94D
+shiny = D0B870 > 96B03D
+shiny = DAB994 > A6BF3D
+shiny = FAFAFA > E1FB7B
+shiny = FEF8B6 > DCF670

@@ -1,0 +1,29 @@
+# Zapdos - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3F3F3F > 722C1B
+shiny = 404040 > 732D1C
+shiny = 44403F > 762D1A
+shiny = 575042 > 8A3E1B
+shiny = 585040 > 8A3E18
+shiny = 696059 > A04D32
+shiny = A07048 > BE663C
+shiny = A2714B > BF673D
+shiny = B0B0D0 > CB9685
+shiny = B2AFCE > CC9583
+shiny = B67901 > BE6200
+shiny = B87800 > AF6400
+shiny = C67753 > CC473C
+shiny = E09048 > D57D2B
+shiny = E0A818 > DB910B
+shiny = E1A918 > DC920C
+shiny = E2904A > E8613F
+shiny = E7E3F9 > FEC8B1
+shiny = E8E8F8 > FFCDB0
+shiny = EDBE1C > ECA61B
+shiny = F5D100 > F6C000
+shiny = F7D000 > F9B71B
+shiny = F7D73E > FAC600
+shiny = F8D000 > F8C000
+shiny = F8D840 > FBC700
+shiny = FEF500 > FFD82E
+shiny = FF9D26 > EF8B19

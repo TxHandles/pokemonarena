@@ -1,0 +1,17 @@
+# Sandshrew - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1A2FC3 > 2B3188
+shiny = 206078 > 3B5C6F
+shiny = 604020 > 253F11
+shiny = 786858 > 44624B
+shiny = 82733C > 4D6B50
+shiny = A0A0A0 > 9D9FA4
+shiny = B19A33 > 769359
+shiny = B88828 > 698F22
+shiny = B8A888 > B0A79A
+shiny = C2BC97 > BDBAAA
+shiny = D8A838 > 88AF40
+shiny = E0D8A8 > ACD76D
+shiny = E5D451 > A8D260
+shiny = E8E8F8 > E5E7F6
+shiny = FFF5BD > F9F3D4

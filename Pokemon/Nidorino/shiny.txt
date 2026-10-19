@@ -1,0 +1,15 @@
+# Nidorino - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 18A898 > 73435E
+shiny = 307068 > 398089
+shiny = 424143 > 3B5462
+shiny = 428D66 > 529C93
+shiny = 483850 > 3E4D68
+shiny = 754F6D > 5F609C
+shiny = 886098 > 7A7CAA
+shiny = 9C6B93 > 8D87AC
+shiny = B078C8 > 9F98D5
+shiny = B0B0C0 > A3BDF7
+shiny = CA8FB3 > AEB7F4
+shiny = D898F0 > C5BAFC
+shiny = E8E8F8 > EEFDFF

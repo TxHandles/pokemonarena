@@ -1,0 +1,13 @@
+# Machop - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 383838 > 3D3604
+shiny = 424240 > 47400C
+shiny = 486068 > 554D21
+shiny = 707678 > 6F6536
+shiny = 708088 > 786D3F
+shiny = 88A8B8 > 9D9263
+shiny = 8AA29F > 978C5B
+shiny = AECEC5 > C1B682
+shiny = B09870 > 988A55
+shiny = C02840 > 695224
+shiny = E8E8F8 > E6D6A3

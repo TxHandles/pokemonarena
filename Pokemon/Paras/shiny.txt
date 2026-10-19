@@ -1,0 +1,16 @@
+# Paras - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 602818 > 740000
+shiny = A0524D > B31C19
+shiny = A83048 > D12250
+shiny = A85010 > B31C13
+shiny = A8A8A8 > CB7B5E
+shiny = BDBDBD > FF7846
+shiny = C37852 > C24F1F
+shiny = D86070 > FF5C79
+shiny = E0A028 > DAC42B
+shiny = F67BAC > FF7AA9
+shiny = F69B2C > F17305
+shiny = F6D54A > FBE04B
+shiny = F76F18 > EB4B12
+shiny = F87018 > F1543B

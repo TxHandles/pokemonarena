@@ -1,0 +1,11 @@
+# Shellder - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 383848 > 8B2D00
+shiny = 3E3D42 > 8E3500
+shiny = 4848A0 > 8E3900
+shiny = 7774C3 > C26400
+shiny = 8080C8 > CE6E00
+shiny = 9C9BF7 > F28B23
+shiny = A0A0F0 > F58E25
+shiny = C058B0 > EB7327
+shiny = E898D8 > FF972B

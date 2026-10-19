@@ -1,0 +1,14 @@
+# Oddish - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 10A030 > 4FB427
+shiny = 204828 > 006E00
+shiny = 387040 > 498627
+shiny = 407098 > 3B970D
+shiny = 4C7B42 > 59922C
+shiny = 597191 > 409B10
+shiny = 639A49 > 8BBA24
+shiny = 700010 > 005900
+shiny = 7B96BC > 62CA16
+shiny = 88C080 > 9BD96D
+shiny = 9CCE4B > C2EF38
+shiny = E64829 > A1AF38

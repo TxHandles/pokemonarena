@@ -1,0 +1,29 @@
+# Ninetales - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 583830 > 34304C
+shiny = 593831 > 35304D
+shiny = 842434 > 48404F
+shiny = 883838 > 664371
+shiny = 88383A > 4A335D
+shiny = 8A3838 > 4B335E
+shiny = 907048 > 896895
+shiny = 917049 > 6B6480
+shiny = A87C59 > 7A7390
+shiny = B7A06A > 9690AD
+shiny = B8A068 > 9690AD
+shiny = BE4169 > 875E91
+shiny = BF426A > 885F92
+shiny = C04068 > 885E92
+shiny = CCBA8A > AEA8C7
+shiny = E6B140 > B1A5BE
+shiny = E7D899 > CAC4E2
+shiny = E8D79B > CAC4E2
+shiny = E8D898 > CAC5E2
+shiny = E8E8F8 > DAC7FC
+shiny = E8E9F6 > DAC7FC
+shiny = EAE8F2 > DAC7FC
+shiny = F1AA03 > B8B0B5
+shiny = F8A800 > B3A4BA
+shiny = FAFAFA > F0F4FF
+shiny = FEED83 > E5E5ED
+shiny = FEF7AE > ECEEFA

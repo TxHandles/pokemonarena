@@ -1,0 +1,14 @@
+# Typhlosion - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 183848 > 741133
+shiny = 386078 > A3415B
+shiny = 3888A8 > CC677F
+shiny = 484010 > 443700
+shiny = 5F8494 > D47079
+shiny = 685838 > 634F23
+shiny = A89050 > 9C8339
+shiny = CFB65E > C3A84F
+shiny = D0B860 > C4AA51
+shiny = E8E8F8 > FFDBE2
+shiny = F6E683 > EDD676
+shiny = F8D060 > E7C25B

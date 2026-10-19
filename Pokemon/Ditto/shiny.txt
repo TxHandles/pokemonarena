@@ -1,0 +1,13 @@
+# Ditto - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 404040 > 00567C
+shiny = 414041 > 007094
+shiny = 6A5391 > 0075A3
+shiny = 705090 > 168FBB
+shiny = 7A59AB > 2D9BC9
+shiny = 9077B0 > 4599CA
+shiny = 9078B0 > 459ACA
+shiny = 947ACD > 58BCEC
+shiny = B890E0 > 6BB9ED
+shiny = C5A4CD > 96D0D0
+shiny = E0B0F0 > 9DF8FF

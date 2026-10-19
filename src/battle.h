@@ -54,6 +54,7 @@ struct CombatantSpec {
     int abilitySlot = -1;        // 0/1 regular, 2 hidden; -1 = pick one at random (CPU creatures)
     int nature = -1;             // natures.h; -1 = random (CPU creatures)
     float boss = 0;              // > 0: a legendary boss (HP x this, can't be knocked out: it's weakened instead)
+    bool shiny = false;          // shiny colours (and a sparkle when it's sent out)
 };
 
 // One controller slot in a battle: a player or CPU with its own creatures, one on the field at a time.
@@ -112,6 +113,7 @@ struct Fighter {
 
     int maxHp = 1;
     float boss = 0;                      // legendary boss: HP multiplier (0 = a normal creature)
+    bool shiny = false;                  // shiny colours
     float hp = 1;
     float displayHp = 1;
 

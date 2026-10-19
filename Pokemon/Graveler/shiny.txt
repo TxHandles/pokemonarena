@@ -1,0 +1,24 @@
+# Graveler - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3A3232 > 4A0000
+shiny = 3B3232 > 4A0000
+shiny = 414141 > 590F01
+shiny = 504840 > 62180B
+shiny = 504841 > 63180B
+shiny = 776F60 > 8F402D
+shiny = 777063 > 85400A
+shiny = 787060 > 744500
+shiny = 7B735A > 804300
+shiny = 8F8969 > A0571F
+shiny = 908868 > 9F561F
+shiny = 948B73 > 9B5A00
+shiny = A8A8B0 > BC7527
+shiny = AAA9AE > BD7627
+shiny = B05068 > 803C00
+shiny = B7A983 > B47B00
+shiny = B8A87F > B37A00
+shiny = B8A880 > C5763D
+shiny = BDB494 > BF8400
+shiny = E8E8F8 > FFB263
+shiny = EAE7F8 > FFB163
+shiny = FAFAFA > FFC271

@@ -62,7 +62,7 @@ struct Ar {
         v(h.contact); v(h.special); v(h.falseSwipe); v(h.forceSwap); v(h.ohko); v(h.brine); v(h.fixedDmg);
         v(h.attLevel); v(h.patchPower); v(h.patchTime); v(h.patchRadius); v(h.look); v(h.ab); v(h.moveIdx); v(h.atkStage); v(h.effects);
     }
-    void v(CombatantSpec& c) { v(c.species); v(c.level); v(c.xp); v(c.moves); v(c.ownedId); v(c.hpFrac); v(c.item); v(c.owner); v(c.abilitySlot); v(c.nature); v(c.boss); }
+    void v(CombatantSpec& c) { v(c.species); v(c.level); v(c.xp); v(c.moves); v(c.ownedId); v(c.hpFrac); v(c.item); v(c.owner); v(c.abilitySlot); v(c.nature); v(c.boss); v(c.shiny); }
     void v(SideSetup& s) { v(s.team); v(s.cpu); v(s.level); v(s.earnXp); v(s.label); v(s.team_); v(s.input); v(s.tag); }
     void v(BattleSetup& s) {
         v(s.side); v(s.twoPlayer); v(s.autoAim); v(s.trainerBattle); v(s.screenShake); v(s.damageNumbers); v(s.arena); v(s.catchable); v(s.night); v(s.daylight); v(s.weather); v(s.venue); v(s.season); v(s.practice);
@@ -84,7 +84,7 @@ struct Ar {
         v(f.st); v(f.shieldT); v(f.rechargeT); v(f.burrowed); v(f.leaping); v(f.burrowT); v(f.burrowMove); v(f.burrowTarget);
         v(f.volleyMove); v(f.volleyLeft); v(f.volleyT); v(f.evolveTo); v(f.envSpeed); v(f.envAtk); v(f.envTickT); v(f.portalCd);
         v(f.regenAcc); v(f.dashObsHit); v(f.weakened); v(f.dazeT); v(f.retired); v(f.counterT); v(f.endureT); v(f.lastHitBy);
-        v(f.lent); v(f.owner); v(f.boss);
+        v(f.lent); v(f.owner); v(f.boss); v(f.shiny);
         std::string item = f.item ? f.item->name : std::string();
         v(item);
         if (!writing) f.item = FindItem(item);

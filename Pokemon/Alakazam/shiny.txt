@@ -1,0 +1,29 @@
+# Alakazam - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 47381B > 7B004C
+shiny = 483718 > 7C004A
+shiny = 483818 > 7C004A
+shiny = 67513B > 6C350B
+shiny = 675239 > 9F1B6D
+shiny = 685038 > 6C3407
+shiny = 8E7962 > C939A2
+shiny = 8E7A64 > CA3AA3
+shiny = 906E5A > 896A26
+shiny = 907837 > 965A0F
+shiny = 907838 > 965A10
+shiny = 907860 > 8A742C
+shiny = 917835 > 975B0D
+shiny = CCB050 > D49134
+shiny = D8A830 > D88A1D
+shiny = D9A830 > D98A1D
+shiny = D9A832 > CD9400
+shiny = E8E8F8 > FDBEFF
+shiny = EAE8F6 > FFBEFF
+shiny = F7D861 > FFB74D
+shiny = F7F3C4 > FAEB91
+shiny = F8D860 > FFAEEE
+shiny = F8F0C0 > FAE88E
+shiny = F9D861 > FFB74D
+shiny = F9F3C8 > FCEB94
+shiny = FDF7A7 > FFDE72
+shiny = FEED42 > FED428

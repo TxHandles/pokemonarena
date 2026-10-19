@@ -1,0 +1,16 @@
+# Doduo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 414141 > 385F00
+shiny = 473727 > 556F00
+shiny = 483828 > 325800
+shiny = 684820 > 6D8519
+shiny = 706860 > 658A16
+shiny = 886028 > 668804
+shiny = 94624A > 829C17
+shiny = B4835A > 8FAF39
+shiny = B87F48 > A2BB36
+shiny = B88048 > 8EAD35
+shiny = C07818 > 8CA92C
+shiny = DEB47B > CAEC68
+shiny = E0B068 > C8E963
+shiny = F6D59C > F1FF85

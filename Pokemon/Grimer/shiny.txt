@@ -1,0 +1,25 @@
+# Grimer - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3F373F > 1D5700
+shiny = 3F393F > 2A611A
+shiny = 40383F > 1E5801
+shiny = 403840 > 1E5801
+shiny = 414141 > 28691A
+shiny = 665276 > 4E8730
+shiny = 665278 > 4E8731
+shiny = 685078 > 447929
+shiny = 735A94 > 5C933E
+shiny = 776196 > 619943
+shiny = 786098 > 619944
+shiny = 796098 > 629944
+shiny = 806888 > 5C913F
+shiny = 947BCD > 81B964
+shiny = AE92B7 > 89BF69
+shiny = B090B8 > 89BE69
+shiny = BDA4CD > A5DB8F
+shiny = C8AFD8 > B0DD8B
+shiny = C8B0D8 > B1DE8B
+shiny = D5C5F6 > C4F39F
+shiny = E8E8F8 > D3FFB4
+shiny = E8E9F6 > D2FFAD
+shiny = EAE8F6 > D5FFB2

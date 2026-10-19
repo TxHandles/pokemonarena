@@ -1,0 +1,10 @@
+# Metapod - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 3A0000
+shiny = 0A0A0A > 400000
+shiny = 384818 > 771500
+shiny = 688830 > C0560C
+shiny = 7B9B4A > D76923
+shiny = 9CCE4A > FF7D42
+shiny = A0D848 > FF8649
+shiny = E0E0E0 > FF9B6D

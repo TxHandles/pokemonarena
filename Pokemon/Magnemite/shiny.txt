@@ -1,0 +1,34 @@
+# Magnemite - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 4587EC > 2D2A2F
+shiny = 4789E7 > 2D2B2F
+shiny = 478AE5 > 2E2B2F
+shiny = 4888E8 > 2D2A2F
+shiny = 4888EB > 2D2B30
+shiny = 4A89D9 > 2C2A2D
+shiny = 4B89E8 > 2E2B30
+shiny = 688090 > 9C8177
+shiny = 697F8E > 9C8075
+shiny = 697F90 > 9C8077
+shiny = 69808C > 9C8174
+shiny = 6A7F8C > 9D8074
+shiny = 6A8090 > 9D8177
+shiny = 6C999E > A99987
+shiny = 6F7177 > 9C715F
+shiny = 98A8B8 > CAAA9E
+shiny = 99A9B5 > CBAB9D
+shiny = 9AA8B5 > CBAA9D
+shiny = AFB1B7 > DBB4A2
+shiny = B0B0B8 > D7BC9F
+shiny = B1B0B7 > D8BC9E
+shiny = E54140 > 212528
+shiny = E54142 > 212528
+shiny = E74140 > 222629
+shiny = E7E9F6 > FEECDD
+shiny = E8403E > 222629
+shiny = E84040 > 222629
+shiny = E8E8F8 > FFEBDF
+shiny = E8E9F4 > FFECDC
+shiny = E8E9F6 > FFECDD
+shiny = E94141 > 23272A
+shiny = EAE8F6 > FFEBDD

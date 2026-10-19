@@ -1,0 +1,36 @@
+# Persian - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3F3731 > 564A2B
+shiny = 3F382F > 564B29
+shiny = 403830 > 574B2A
+shiny = 424140 > 5B543B
+shiny = 4E3819 > 5E4D20
+shiny = 503817 > 604D1E
+shiny = 503818 > 604D1F
+shiny = 670929 > 6B3528
+shiny = 680828 > 6C3527
+shiny = 694F38 > 685F2F
+shiny = 6A0729 > 6E3528
+shiny = 906850 > 9F8057
+shiny = 90704D > A18757
+shiny = 90724C > A18956
+shiny = 90744C > A28B57
+shiny = 908048 > A59558
+shiny = 91744C > A38B57
+shiny = 9D816D > B09871
+shiny = A08068 > B2986E
+shiny = A38164 > B4996C
+shiny = A49264 > BAA870
+shiny = B84070 > B76C69
+shiny = B8416E > B76D67
+shiny = B9436F > B86E68
+shiny = BEB28C > D7C895
+shiny = BFA97A > D4C087
+shiny = C0A878 > D5BF85
+shiny = E8E8F8 > E9ECDE
+shiny = F0D87F > FFEF9C
+shiny = F0D880 > FFEF9C
+shiny = F0D881 > F0E88D
+shiny = FEEDB2 > FFFFBD
+shiny = FF6541 > F7945C
+shiny = FFFBF2 > FFFFD7

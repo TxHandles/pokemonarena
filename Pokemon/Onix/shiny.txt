@@ -1,0 +1,24 @@
+# Onix - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 212800
+shiny = 0A0A0A > 262E00
+shiny = 333333 > 4D5800
+shiny = 484A48 > 677115
+shiny = 4E4848 > 677015
+shiny = 4F4848 > 677115
+shiny = 4F484B > 687116
+shiny = 575A57 > 788227
+shiny = 626862 > 6A7D22
+shiny = 686161 > 67791E
+shiny = 686163 > 838B32
+shiny = 808080 > 86973C
+shiny = 838183 > 88993E
+shiny = 909090 > 97A84C
+shiny = 919090 > 858F2E
+shiny = 9F9F9F > 949D3C
+shiny = C0C0C0 > B6BE5C
+shiny = C5C2C5 > B9C15F
+shiny = EAE7F8 > DFE775
+shiny = EAE8F6 > E0E775
+shiny = EBE9F7 > E1E885
+shiny = FAFAFA > F8FFA6

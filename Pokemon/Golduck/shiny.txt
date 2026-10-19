@@ -1,0 +1,19 @@
+# Golduck - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303850 > 003776
+shiny = 3E3F43 > 253D71
+shiny = 404040 > 2B3E6E
+shiny = 4C77A1 > 3674C4
+shiny = 5078A8 > 3975C9
+shiny = 6DB4E0 > 69AFFF
+shiny = 78A0F8 > 689FFF
+shiny = AA4C4D > 86628E
+shiny = B0B0D0 > 8EBAFF
+shiny = BCA55D > A5AEB6
+shiny = C8B840 > DC7B7B
+shiny = E8E8F8 > C9F2FF
+shiny = F03070 > C359AB
+shiny = F5FBFC > E7F8FF
+shiny = F8C050 > F28B8C
+shiny = F8E888 > EDE4EA
+shiny = FCE8AA > EDE5FF
