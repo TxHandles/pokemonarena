@@ -35,9 +35,10 @@
 #  town      = name, x, y   (labels on the map)
 #  rare_every        = every Nth training battle is a rare creature to catch
 #  training_max_foes = most opponents in a normal training battle
-#  Rival battles (rival = yes): "rival" in a team is the rival's starter (the type that beats
-#  yours; in co-op, the starter neither of you took), evolved for its level. "rival_partner" is
-#  his Pikachu (co-op only). "rival_trio1" / "rival_trio2" are two of Growlithe, Exeggcute and
+#  Rival battles (rival = yes): "rival" in a team is the rival's starter, evolved for its level.
+#  He picks once and keeps it: alone, one of the two starters that beat yours (at random); in
+#  co-op, two of the four starters neither of you took (at random). "rival_partner" is his second
+#  starter (co-op only). "rival_trio1" / "rival_trio2" are two of Growlithe, Exeggcute and
 #  Gyarados, picked by his starter like in Red/Blue. Any team entry can end in +N / -N levels.
 #  story_rev = 3   layout version (lets old saves keep their place when stages are added)
 # ==========================================================================

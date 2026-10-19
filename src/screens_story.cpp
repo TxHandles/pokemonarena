@@ -187,6 +187,27 @@ Profile ProgressView(const Game& g) {
 int& StoryClock(Game& g) { return g.coop ? g.coopSave.clock : g.profile.clock; }
 int StoryClock(const Game& g) { return g.coop ? g.coopSave.clock : g.profile.clock; }
 
+// The rival picks his starter(s) once and keeps them for every battle (saved with the progress).
+void EnsureRival(Game& g) {
+    if (!g.coop) {
+        if (SpeciesIndex(g.profile.rival) >= 0) return;
+        int r = PickRivalSolo(ProfileStarter(g.profile));
+        if (r < 0) return;
+        g.profile.rival = AllSpecies()[r].name;
+        SaveWho(g, 0);
+        return;
+    }
+    if (SpeciesIndex(g.coopSave.rival[0]) >= 0) return;
+    if (g.on.active && g.on.me != 0) return;   // online: the host picks (it reaches the guest with the co-op save)
+    int out[2];
+    PickRivalCoop(ProfileStarter(g.coopP[0]), ProfileStarter(g.coopP[1]), out);
+    if (out[0] < 0) return;
+    g.coopSave.rival[0] = AllSpecies()[out[0]].name;
+    g.coopSave.rival[1] = out[1] >= 0 ? AllSpecies()[out[1]].name : std::string();
+    if (g.on.active) OnlineSendCoop(g);
+    else SaveCoop(g.coopSave);
+}
+
 int ProfileStarter(const Profile& p) {
     int i = SpeciesIndex(p.starter);
     if (i >= 0) return i;
@@ -414,6 +435,8 @@ void UpdateStarter(Game& g) {
     if (idx < 0) return;
     g.profile.mons.push_back(NewMon(idx, Story().startLevel));
     g.profile.starter = AllSpecies()[idx].name;
+    g.profile.rival.clear();
+    EnsureRival(g);   // the rival picks right away, against your choice
     SaveOrWarn(g);
     PlaySfx(Sfx::LevelUp);
     Toast(g, AllSpecies()[idx].name + " joined your team!");

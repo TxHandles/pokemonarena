@@ -556,28 +556,41 @@ void LoadStory(std::string& log) {
 
 namespace {
 int gRivalStarter = -1;
-bool gRivalCoop = false;
+int gRivalSecond = -1;
+std::vector<int> StarterList() {
+    std::vector<int> v;
+    for (const auto& n : Story().starters) { int i = SpeciesIndex(n); if (i >= 0) v.push_back(i); }
+    return v;
+}
 }
 
-void SetRivalContext(int rivalStarter, bool coop) {
-    gRivalStarter = rivalStarter;
-    gRivalCoop = coop;
+void SetRivalContext(int main, int second) {
+    gRivalStarter = main;
+    gRivalSecond = second;
 }
 
-int RivalStarterFor(const std::vector<int>& mine) {
-    std::vector<int> starters;
-    for (const auto& n : Story().starters) { int i = SpeciesIndex(n); if (i >= 0) starters.push_back(i); }
+int PickRivalSolo(int mine) {
+    std::vector<int> starters = StarterList();
     if (starters.empty()) return -1;
     auto beats = [](int a, int b) { return TypeEffectiveness(AllSpecies()[a].type1, AllSpecies()[b].type1, AllSpecies()[b].type2) > 1; };
-    if (mine.size() >= 2) {   // co-op: the one nobody took
-        for (int s : starters)
-            if (std::find(mine.begin(), mine.end(), s) == mine.end()) return s;
+    std::vector<int> counters, others;
+    for (int s : starters) {
+        if (s == mine) continue;
+        (mine >= 0 && beats(s, mine) ? counters : others).push_back(s);
     }
-    int me = mine.empty() ? starters[0] : mine[0];
-    for (int s : starters)
-        if (s != me && beats(s, me)) return s;
-    for (int s : starters) if (s != me) return s;
-    return starters[0];
+    const auto& from = !counters.empty() ? counters : !others.empty() ? others : starters;
+    return from[GetRandomValue(0, (int)from.size() - 1)];
+}
+
+void PickRivalCoop(int a, int b, int out[2]) {
+    std::vector<int> left;
+    for (int s : StarterList()) if (s != a && s != b) left.push_back(s);
+    out[0] = out[1] = -1;
+    if (left.empty()) return;
+    int i = GetRandomValue(0, (int)left.size() - 1);
+    out[0] = left[i];
+    left.erase(left.begin() + i);
+    if (!left.empty()) out[1] = left[GetRandomValue(0, (int)left.size() - 1)];
 }
 
 const char* SeasonName(int s) {
@@ -750,16 +763,19 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
         for (char& c : l) c = (char)std::tolower((unsigned char)c);
         if (l.rfind("rival", 0) == 0) {
             int st = gRivalStarter >= 0 ? gRivalStarter : SpeciesIndex(Story().starters.empty() ? "Pikachu" : Story().starters[0]);
-            if (l == "rival_partner") {
-                if (!gRivalCoop) continue;
-                idx = SpeciesIndex("Pikachu");
+            if (l == "rival_partner") {   // co-op: his second starter
+                if (gRivalSecond < 0) continue;
+                idx = gRivalSecond;
             } else if (l == "rival_trio1" || l == "rival_trio2") {
                 // Red/Blue: the rival's other two of Growlithe, Exeggcute and Gyarados don't share his starter's type.
+                // (In co-op he has two starters: their types are skipped too, as far as possible.)
                 std::vector<std::string> trio;
                 Type t = st >= 0 ? AllSpecies()[st].type1 : Type::Normal;
-                if (t != Type::Fire) trio.push_back("Growlithe");
-                if (t != Type::Grass) trio.push_back("Exeggcute");
-                if (t != Type::Water) trio.push_back("Gyarados");
+                Type t2 = gRivalSecond >= 0 ? AllSpecies()[gRivalSecond].type1 : Type::None;
+                const std::pair<const char*, Type> kTrio[] = {{"Growlithe", Type::Fire}, {"Exeggcute", Type::Grass}, {"Gyarados", Type::Water}};
+                for (auto& c : kTrio) if (c.second != t && c.second != t2) trio.push_back(c.first);
+                for (auto& c : kTrio)
+                    if (trio.size() < 2 && c.second != t && std::find(trio.begin(), trio.end(), std::string(c.first)) == trio.end()) trio.push_back(c.first);
                 idx = SpeciesIndex(trio[std::min(trio.size() - 1, (size_t)(l == "rival_trio1" ? 0 : 1))]);
             } else {
                 idx = st;

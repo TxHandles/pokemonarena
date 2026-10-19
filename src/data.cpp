@@ -175,6 +175,7 @@ const std::vector<SpeciesDef>& BuiltinSpeciesList() {
 
 int SpeciesIndex(const std::string& name) {
     std::string k = Squash(name);
+    if (k.empty()) return -1;
     const auto& all = AllSpecies();
     for (size_t i = 0; i < all.size(); i++)
         if (Squash(all[i].name) == k) return (int)i;

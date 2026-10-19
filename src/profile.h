@@ -52,6 +52,7 @@ struct Profile {
     int towerRuns = 0;                 // runs finished (a lost floor ends a run)
     std::vector<std::string> hof;      // Hall of Fame entries, oldest first: "partner|Species:Lv,Species:Lv,..."
     int legends = 0;                   // bit k: legendary k (legend.h) was caught - its encounter is closed
+    std::string rival;                 // the rival's starter (picked once: one of the two that beat yours)
 };
 void DexSee(Profile& p, const std::string& species);
 bool DexHasSeen(const Profile& p, const std::string& species);
@@ -83,6 +84,7 @@ struct CoopSave {
     int dojoFirst = -1;                // who picks first at the Fighting Dojo (the MVP of that battle)
     int towerFloor = 0, towerBest = 0, towerRuns = 0;   // the Battle Tower, climbed together
     int legends = 0;                   // bit k: legendary k was caught (by legendWho[k])
+    std::string rival[2];              // the rival's two starters (picked once, from the four you didn't take)
     int legendWho[5] = {-1, -1, -1, -1, -1};
 };
 bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out);   // false = none yet (out is fresh)

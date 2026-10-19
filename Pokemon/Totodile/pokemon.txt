@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Totodile
+dex  = 158
+type = Water
+
+hp         = 50
+attack     = 65
+defense    = 64
+sp_attack  = 44
+sp_defense = 48
+speed      = 43
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 9.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = yes
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Croconaw
+evolve_level = 18
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Leer
+learn = 6, Water Gun
+learn = 9, Bite
+learn = 13, Scary Face
+learn = 19, Ice Fang
+learn = 22, Flail
+learn = 27, Crunch
+learn = 30, Slash
+learn = 33, Screech
+learn = 37, Thrash
+learn = 41, Aqua Tail
+learn = 45, Superpower
+learn = 50, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Mud-Slap, Scary Face, Protect, Ice Fang
+tm = Water Pulse, Low Kick, Thief, Trailblaze, Chilling Water, Facade
+tm = Aerial Ace, Metal Claw, Icy Wind, Rock Tomb, Fling, Endure
+tm = Rain Dance, Dig, Brick Break, Shadow Claw, Ice Punch, Sleep Talk
+tm = Waterfall, Dragon Claw, Rest, Rock Slide, Swords Dance, Dragon Dance
+tm = Substitute, Crunch, Liquidation, Surf, Ice Beam, Hydro Pump
+tm = Blizzard, Water Pledge, Tera Blast, Spite, Uproar, Focus Punch
+tm = Flip Turn, Double-Edge, Endeavor, Whirlpool, Muddy Water, Breaking Swipe
+tm = Curse

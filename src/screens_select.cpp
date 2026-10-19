@@ -309,7 +309,7 @@ void StartBattleFromSelect(Game& g) {
                 su.catchable = true;
                 break;
             }
-            if (st.rival) SetRivalContext(RivalStarterFor({ProfileStarter(g.profile)}), false);
+            if (st.rival) { EnsureRival(g); SetRivalContext(SpeciesIndex(g.profile.rival), -1); }
             g.cpuTeam = MakeCpuTeam(&st, avg, MAX_TEAM_SIZE);
             b.team = g.cpuTeam;
             b.cpu = true;
@@ -383,8 +383,9 @@ void StartBattleFromSelect(Game& g) {
             } else if (g.mode == Mode::CoopStory) {
                 StageDef st = ActiveStage(g);
                 if (st.rival) {
-                    // The rival takes the starter neither player has, and brings his Pikachu too.
-                    SetRivalContext(RivalStarterFor({ProfileStarter(g.coopP[0]), ProfileStarter(g.coopP[1])}), true);
+                    // The rival brings both of his starters (two of the ones neither player took).
+                    EnsureRival(g);
+                    SetRivalContext(SpeciesIndex(g.coopSave.rival[0]), SpeciesIndex(g.coopSave.rival[1]));
                     std::vector<std::string> team = st.team;
                     bool hasPartner = false;
                     for (auto& e : team) hasPartner |= e.rfind("rival_partner", 0) == 0;

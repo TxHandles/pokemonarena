@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Quilava
+dex  = 156
+type = Fire
+
+hp         = 58
+attack     = 64
+defense    = 58
+sp_attack  = 80
+sp_defense = 65
+speed      = 80
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 19.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Typhlosion
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Smokescreen
+learn = 1, Leer
+learn = 10, Ember
+learn = 13, Quick Attack
+learn = 20, Flame Wheel
+learn = 24, Defense Curl
+learn = 31, Swift
+learn = 35, Flame Charge
+learn = 42, Lava Plume
+learn = 46, Flamethrower
+learn = 53, Inferno
+learn = 57, Rollout
+learn = 64, Double-Edge
+learn = 68, Overheat
+learn = 75, Eruption
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Fire Fang, Fire Spin, Facade, Aerial Ace
+tm = Swift, Flame Charge, Endure, Sunny Day, Dig, Brick Break
+tm = Zen Headbutt, Body Slam, Sleep Talk, Rest, Iron Head, Substitute
+tm = Will-O-Wisp, Heat Wave, Flamethrower, Play Rough, Reversal, Fire Blast
+tm = Fire Pledge, Wild Charge, Overheat, Flare Blitz, Tera Blast, Roar
+tm = Burning Jealousy, Double-Edge, Endeavor, Temper Flare, Curse

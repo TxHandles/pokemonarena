@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Chikorita
+dex  = 152
+type = Grass
+
+hp         = 45
+attack     = 49
+defense    = 65
+sp_attack  = 49
+sp_defense = 65
+speed      = 45
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 6.4      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = yes
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Bayleef
+evolve_level = 16
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Growl
+learn = 6, Razor Leaf
+learn = 9, Poison Powder
+learn = 12, Synthesis
+learn = 17, Reflect
+learn = 20, Magical Leaf
+learn = 23, Leech Seed
+learn = 28, Sweet Scent
+learn = 31, Light Screen
+learn = 34, Body Slam
+learn = 39, Safeguard
+learn = 42, Giga Drain
+learn = 45, Solar Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Mud-Slap, Protect, Trailblaze
+tm = Facade, Magical Leaf, Endure, Sunny Day, Bullet Seed, Body Slam
+tm = Sleep Talk, Seed Bomb, Reflect, Light Screen, Grass Knot, Rest
+tm = Swords Dance, Substitute, Giga Drain, Energy Ball, Encore, Helping Hand
+tm = Grassy Terrain, Grass Pledge, Leaf Storm, Solar Beam, Tera Blast, Solar Blade
+tm = Grassy Glide, Double-Edge, Curse

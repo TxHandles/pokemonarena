@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Feraligatr
+dex  = 160
+type = Water
+
+hp         = 85
+attack     = 105
+defense    = 100
+sp_attack  = 79
+sp_defense = 83
+speed      = 78
+
+size   = 1.12
+height = 2.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 88.8      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Agility
+learn = 1, Leer
+learn = 1, Scratch
+learn = 13, Bite
+learn = 15, Scary Face
+learn = 21, Ice Fang
+learn = 24, Flail
+learn = 32, Crunch
+learn = 37, Slash
+learn = 44, Screech
+learn = 51, Thrash
+learn = 59, Aqua Tail
+learn = 65, Superpower
+learn = 70, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Agility, Mud-Slap, Scary Face, Protect
+tm = Ice Fang, Water Pulse, Low Kick, Thief, Trailblaze, Chilling Water
+tm = Facade, Aerial Ace, Bulldoze, Snarl, Metal Claw, Icy Wind
+tm = Rock Tomb, Fling, Dragon Tail, Avalanche, Endure, Rain Dance
+tm = Dig, Brick Break, Shadow Claw, Psychic Fangs, Body Slam, Ice Punch
+tm = Sleep Talk, Waterfall, Dragon Claw, Stomping Tantrum, Rest, Rock Slide
+tm = Swords Dance, Dragon Dance, Substitute, Crunch, Liquidation, Surf
+tm = Helping Hand, Ice Beam, Hydro Pump, Blizzard, Water Pledge, Earthquake
+tm = Giga Impact, Hydro Cannon, Outrage, Focus Blast, Hyper Beam, Tera Blast
+tm = Roar, Spite, Uproar, Focus Punch, Flip Turn, Lash Out
+tm = Scale Shot, Double-Edge, Endeavor, Whirlpool, Muddy Water, Breaking Swipe
+tm = Curse

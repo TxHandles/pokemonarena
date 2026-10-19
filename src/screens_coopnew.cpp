@@ -182,8 +182,8 @@ void DrawCoopStarter(const Game& g) {
     ClearBackground(Color{24, 20, 38, 255});
     DrawTextCentered("CHOOSE YOUR STARTERS", VW / 2, 14, 20, UI_GOLD);
     bool online = g.on.active;
-    DrawTextCentered(online ? "Each of you picks one - you can't both take the same Pokemon. Your rival takes the one left over!"
-                            : "Each player picks one with their own controls - not the same one. Your rival takes the one left over!",
+    DrawTextCentered(online ? "Each of you picks one - you can't both take the same Pokemon. Your rival takes two of the others!"
+                            : "Each player picks one with their own controls - not the same one. Your rival takes two of the others!",
                      VW / 2, 40, 10, UI_TEXT, false);
     int n = StarterCount();
     int gap = n > 3 ? 8 : 20;

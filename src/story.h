@@ -64,8 +64,13 @@ struct StoryDef {
 
 // Rival: whose team "rival" tokens build. Set before MakeCpuTeam for a rival stage.
 // rivalStarter = species index of his starter; coop = he also has his Pikachu.
-void SetRivalContext(int rivalStarter, bool coop);
-int RivalStarterFor(const std::vector<int>& playerStarters);   // the starter that beats the first one / the one left over
+// The rival's starters for the next team that's built: "rival" = main, "rival_partner" = second
+// (co-op only; -1 when playing alone).
+void SetRivalContext(int main, int second);
+// Picked once per save: alone, one of the starters that beat yours (at random); in co-op, two of
+// the starters neither player took (at random). Returns species indexes.
+int PickRivalSolo(int mine);
+void PickRivalCoop(int a, int b, int out[2]);
 int StoryStageForRev(int stage, int fromRev);                   // an old save's stage index in the current layout
 
 // Story time. Every battle (or a Wait) moves the clock on one step: day and night alternate,

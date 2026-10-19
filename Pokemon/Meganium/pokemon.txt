@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Meganium
+dex  = 154
+type = Grass
+
+hp         = 80
+attack     = 82
+defense    = 100
+sp_attack  = 83
+sp_defense = 100
+speed      = 80
+
+size   = 1.25
+height = 1.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 100.5      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Petal Dance
+learn = 1, Tackle
+learn = 1, Petal Blizzard
+learn = 1, Razor Leaf
+learn = 1, Poison Powder
+learn = 1, Growl
+learn = 12, Synthesis
+learn = 18, Reflect
+learn = 22, Magical Leaf
+learn = 26, Leech Seed
+learn = 34, Sweet Scent
+learn = 40, Light Screen
+learn = 46, Body Slam
+learn = 54, Safeguard
+learn = 60, Giga Drain
+learn = 65, Solar Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Mud-Slap, Protect, Trailblaze
+tm = Facade, Bulldoze, Magical Leaf, Dragon Tail, Endure, Sunny Day
+tm = Bullet Seed, Zen Headbutt, Body Slam, Sleep Talk, Seed Bomb, Reflect
+tm = Light Screen, Grass Knot, Stomping Tantrum, Rest, Swords Dance, Body Press
+tm = Substitute, Giga Drain, Energy Ball, Encore, Helping Hand, Grassy Terrain
+tm = Grass Pledge, Earthquake, Giga Impact, Frenzy Plant, Outrage, Leaf Storm
+tm = Hyper Beam, Solar Beam, Tera Blast, Knock Off, Solar Blade, Weather Ball
+tm = Grassy Glide, Double-Edge, Endeavor, Petal Blizzard, Curse

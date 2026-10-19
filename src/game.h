@@ -382,5 +382,6 @@ bool StartGymRematch(Game& g, int stage);   // from the Map: false (with a toast
 int BadgeCount(const Game& g);
 int& StoryClock(Game& g);                   // shared time of day / season (co-op save or profile)
 int StoryClock(const Game& g);
+void EnsureRival(Game& g);                 // the rival picks his starter(s) once per save
 int ProfileStarter(const Profile& p);       // species index of the starter they chose (-1 unknown)
 void StoryTimeStep(Game& g, bool announce); // one step of time (a battle or a Wait)

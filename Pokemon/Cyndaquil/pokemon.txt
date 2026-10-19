@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Cyndaquil
+dex  = 155
+type = Fire
+
+hp         = 39
+attack     = 52
+defense    = 43
+sp_attack  = 60
+sp_defense = 50
+speed      = 65
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 7.9      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = yes
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Quilava
+evolve_level = 14
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Leer
+learn = 6, Smokescreen
+learn = 10, Ember
+learn = 13, Quick Attack
+learn = 19, Flame Wheel
+learn = 22, Defense Curl
+learn = 28, Flame Charge
+learn = 31, Swift
+learn = 37, Lava Plume
+learn = 40, Flamethrower
+learn = 46, Inferno
+learn = 49, Rollout
+learn = 55, Double-Edge
+learn = 58, Overheat
+learn = 64, Eruption
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Fire Fang, Fire Spin, Facade, Aerial Ace
+tm = Swift, Flame Charge, Endure, Sunny Day, Dig, Zen Headbutt
+tm = Body Slam, Sleep Talk, Rest, Iron Head, Substitute, Will-O-Wisp
+tm = Heat Wave, Flamethrower, Play Rough, Reversal, Fire Blast, Fire Pledge
+tm = Wild Charge, Overheat, Flare Blitz, Tera Blast, Roar, Burning Jealousy
+tm = Double-Edge, Temper Flare, Curse

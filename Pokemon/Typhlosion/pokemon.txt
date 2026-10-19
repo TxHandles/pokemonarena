@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Typhlosion
+dex  = 157
+type = Fire
+
+hp         = 78
+attack     = 84
+defense    = 78
+sp_attack  = 109
+sp_defense = 85
+speed      = 100
+
+size   = 1.12
+height = 1.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 79.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Gyro Ball
+learn = 1, Eruption
+learn = 1, Double-Edge
+learn = 1, Smokescreen
+learn = 1, Ember
+learn = 1, Leer
+learn = 13, Quick Attack
+learn = 20, Flame Wheel
+learn = 24, Defense Curl
+learn = 31, Swift
+learn = 35, Flame Charge
+learn = 43, Lava Plume
+learn = 48, Flamethrower
+learn = 56, Inferno
+learn = 61, Rollout
+learn = 74, Overheat
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Fire Fang, Low Kick, Confuse Ray, Fire Spin
+tm = Facade, Aerial Ace, Bulldoze, Hex, Swift, Rock Tomb
+tm = Flame Charge, Night Shade, Fling, Endure, Sunny Day, Dig
+tm = Brick Break, Zen Headbutt, Shadow Claw, Body Slam, Fire Punch, Thunder Punch
+tm = Sleep Talk, Stomping Tantrum, Rest, Rock Slide, Iron Head, Substitute
+tm = Will-O-Wisp, Shadow Ball, Heat Wave, Flamethrower, Play Rough, Calm Mind
+tm = Helping Hand, Reversal, Fire Blast, Fire Pledge, Wild Charge, Earthquake
+tm = Giga Impact, Blast Burn, Overheat, Focus Blast, Hyper Beam, Flare Blitz
+tm = Solar Beam, Tera Blast, Roar, Spite, Gyro Ball, Focus Punch
+tm = Burning Jealousy, Poltergeist, Double-Edge, Endeavor, Temper Flare, Scorching Sands
+tm = Throat Chop, Curse

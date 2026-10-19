@@ -27,6 +27,15 @@ changes. The build also copies `Pokemon/` and `story.txt` next to the exe. Saves
   32 stages from `story.txt`: three trainers before each of 8 gyms (Brock, Misty, Lt. Surge, Erika,
   Koga, Sabrina, Blaine, Giovanni). Gyms give badges. Wins unlock new base-form creatures and coins.
   After the eighth badge: the rival on Route 22, Victory Road, then the Pokemon League.
+- **Starters and the rival** – six starters to choose from: Bulbasaur, Charmander, Squirtle, Chikorita,
+  Cyndaquil and Totodile (solo, local co-op and online co-op). The rival picks once and keeps his choice
+  for every rival battle, the Championship included: alone, one of the two starters that beat yours, at
+  random (take Charmander and he gets Squirtle or Totodile); in co-op, two of the four starters neither of
+  you took, at random, and he brings both. The pick is saved with the profile / co-op save (online, the
+  host picks and the guest gets it with the shared progress).
+- **Gen 2 (first wave)** – Chikorita, Bayleef, Meganium, Cyndaquil, Quilava, Typhlosion, Totodile,
+  Croconaw and Feraligatr, built like the original 151: Pokedex stats, entries, abilities, Scarlet/Violet
+  level-up moves and TMs, evolutions (16/32, 14/36, 18/30). They aren't found in the wild.
 - **The Pokemon League** – the Elite Four (Lorelei, Bruno, Agatha, Lance) and the Champion (the rival)
   with their FireRed/LeafGreen teams, each in their own arena. They're fought as one run: lose to any
   of them and the challenge starts over from Lorelei (the Healing Center stays open between rooms).
