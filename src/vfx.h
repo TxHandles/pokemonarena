@@ -26,7 +26,7 @@ enum class Impact : uint8_t { Pow, Fire, Spark, Splash, Leaves, Frost, Debris, P
 enum class MeleeAnim : uint8_t { Arc, Claw, Fist, Kick, Bite, Chop, Poke, Whip };
 
 // Beam decoration
-enum class BeamDeco : uint8_t { Plain, Fire, Ice, Psy, Bubbles, Solar, Hyper, Wind, Electric, Dark, Rainbow, Water, Gem, Drain };
+enum class BeamDeco : uint8_t { Plain, Fire, Ice, Psy, Bubbles, Solar, Hyper, Wind, Electric, Dark, Rainbow, Water, Gem, Drain, Inferno, BlueFire, Torrent, Draconic };
 
 // Special casting effects
 enum class Cast : uint8_t { None, Explosion, Discharge, Sparkle, Flames, Quake, Sound, Powder, Sky };
@@ -64,7 +64,8 @@ void VAdd();                                            // additive blending on
 void VNorm();                                           // normal blending
 void VGlow(Vector2 p, float r, Color c, float alpha);   // soft light (additive)
 void VSoft(Vector2 p, float r, Color c, float alpha);   // soft blob (normal)
-void VShadow(Vector2 p, float rx, float ry, float alpha);   // soft contact shadow on the floor
+void VShadow(Vector2 p, float rx, float ry, float alpha);
+void VSmoke(Vector2 p, float size, Color c, float alpha, float rotDeg);   // a soft smoke puff (normal blend)   // soft contact shadow on the floor
 void VRingE(Vector2 c, float rx, float ry, float thick, Color col, int segs = 40);  // ellipse ring
 void VBolt(Vector2 a, Vector2 b, uint32_t seed, float width, Color c, float alpha, int branches);
 void VExplosion(Vector2 p, float r, float t, Impact im, uint32_t seed);

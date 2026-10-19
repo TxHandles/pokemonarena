@@ -512,7 +512,15 @@ private:
     void DrawParticles() const;
     void DrawWeatherFloor() const;   // wet floor and puddles, snow cover, sun glare
     void DrawTimeOfDay() const;      // night darkens the arena, day brightens it
-    void DrawWeatherSky() const;     // rain, snow, sand and sunlight in the air, over everything on the field
+    void DrawWeatherSky() const;
+    // Battle animation (battle_anim.cpp): visual only, never part of the battle state
+    void AnimTick() const;
+    void AnimPose(int s, Vector2& off, float& sx, float& sy, float& lift) const;
+    float AnimCamera(Vector2& focus) const;
+    float AnimGhost(int s, Vector2& back) const;   // lunge after-images: strength, offset
+    void DrawAnimUnder() const;
+    void DrawAnimOver() const;
+    void DrawAnimCinematic() const;     // rain, snow, sand and sunlight in the air, over everything on the field
     void AddText(Vector2 pos, const std::string& text, Color c, float z = 24);
     void Shake(int amt, float t = 0.15f);
 

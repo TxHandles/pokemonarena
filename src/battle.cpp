@@ -8,6 +8,7 @@
 #include "sprites.h"
 #include "ui.h"
 #include "vec.h"
+#include "rlgl.h"
 
 namespace {
 
@@ -1660,6 +1661,8 @@ void Battle::Execute(int s, int mi, bool first, const MoveDef* override) {
             fx.radius = m.radius;
             fx.maxLife = 0.35f;
             fx.col = tc;
+            fx.look = h.look;
+            fx.type = m.type;
             fxs.push_back(fx);
             float half = m.radius * DEG2RAD;
             {
@@ -2860,8 +2863,22 @@ void Battle::DrawFighter(int s) const {
     if (f.state == FState::Benched || f.state == FState::Fainted) return;
     if (f.burrowed && !f.leaping) {
         Vector2 g = ToScreen(f.pos);
-        if (f.moves[f.burrowMove].type == Type::Flying) DrawEllipse((int)g.x, (int)g.y + 1, 7, 2.5f, Fade(BLACK, 0.3f));
-        else DrawEllipse((int)g.x, (int)g.y + 1, 8, 3, Fade(Color{90, 70, 50, 255}, 0.7f));
+        if (f.moves[f.burrowMove].type == Type::Flying) {   // high in the sky: a shadow sweeping the ground, a glint above
+            VShadow(g, 9, 3.2f, 0.7f);
+            float bl = 0.5f + 0.5f * std::sin(time * 12);
+            VAdd();
+            VGlow({g.x, (float)FLOOR_Y - 8}, 5 + bl * 2, Color{220, 235, 255, 255}, 0.6f);
+            VNorm();
+        } else {   // underground: a moving mound of earth throwing up clods
+            DrawEllipse((int)g.x, (int)g.y + 1, 11, 4, Fade(Color{70, 52, 36, 255}, 0.8f));
+            DrawEllipse((int)g.x, (int)g.y - 1, 8, 3.5f, Color{128, 98, 66, 255});
+            DrawEllipse((int)g.x - 2, (int)g.y - 2, 4, 1.6f, Color{160, 128, 90, 255});
+            for (int k = 0; k < 4; k++) {
+                float ph = std::fmod(time * 3 + k * 0.25f, 1.0f);
+                Vector2 p{g.x + (k - 1.5f) * 4, g.y - 2 - std::sin(ph * PI_F) * 7};
+                DrawRectangleV(p, {1.6f, 1.6f}, Fade(Color{110, 82, 54, 255}, 1 - ph * 0.5f));
+            }
+        }
         return;
     }
     const CreatureSprites& cs = SpritesFor(ShinyIdx(f.species, f.shiny));
@@ -2913,7 +2930,10 @@ void Battle::DrawFighter(int s) const {
         z += jz;
         bob = 0;
     }
-    Vector2 base = ToScreen(f.pos, z + bob);
+    Vector2 poseOff{0, 0};
+    float poseLift = 0;
+    if (f.state == FState::Active) AnimPose(s, poseOff, sx, sy, poseLift);
+    Vector2 base = ToScreen(f.pos, z + bob + poseLift) + poseOff;
     if (f.hitstun > 0) base.x += ((int)(time * 60) % 2) ? 1.0f : -1.0f;
     Color tint = Fade(WHITE, alpha);
     if (f.st.major == Status::Freeze) tint = Fade(Color{170, 220, 255, 255}, alpha);
@@ -2928,6 +2948,13 @@ void Battle::DrawFighter(int s) const {
             DrawCreature(ShinyIdx(species, f.shiny), f.dir, frame, gp.x, gp.y + 2, sx, sy, Fade(Color{170, 210, 255, 255}, 0.28f / k), 0.6f);
         }
         tint = Fade(tint, 0.6f);
+    }
+    {
+        Vector2 back{0, 0};
+        float gh = f.state == FState::Active ? AnimGhost(s, back) : 0.0f;
+        if (gh > 0.05f)   // after-images trailing a lunge
+            for (int k = 2; k >= 1; k--)
+                DrawCreature(ShinyIdx(species, f.shiny), f.dir, frame, base.x + back.x * k, base.y + 2 + back.y * k, sx, sy, Fade(WHITE, 0.3f * gh / k), 0.5f);
     }
     DrawCreature(ShinyIdx(species, f.shiny), f.dir, frame, base.x, base.y + 2, sx, sy, tint, white);
     float h = CreatureHeight(species, f.dir) * sy;
@@ -2946,11 +2973,23 @@ void Battle::DrawFighter(int s) const {
     }
     if (f.state == FState::Active) VStatus(base, h, (int)f.st.major, time, (uint32_t)(s * 7919 + 17));
 
-    if (f.shieldT > 0) {
-        float r = h * 0.62f + 3;
-        Color sc = Fade(Color{150, 220, 255, 255}, 0.35f + 0.25f * std::sin(time * 20));
-        DrawEllipse((int)base.x, (int)(base.y - h * 0.45f), r, r * 0.95f, Fade(sc, 0.25f));
-        EllipsePix(base.x, base.y - h * 0.45f, r, r * 0.95f, sc);
+    if (f.shieldT > 0) {   // a shimmering barrier of hexagons
+        float r = h * 0.62f + 4;
+        Vector2 c{base.x, base.y - h * 0.45f};
+        float pulse = 0.5f + 0.5f * std::sin(time * 9);
+        Color sc{150, 225, 255, 255};
+        DrawEllipse((int)c.x, (int)c.y, r, r * 0.95f, Fade(sc, 0.16f + 0.06f * pulse));
+        VAdd();
+        for (int k = 0; k < 14; k++) {   // hex cells over the dome, brightening in a sweep
+            float an = k * 0.4488f + time * 0.6f;
+            float ring = (k % 2) ? 0.55f : 0.85f;
+            Vector2 p{c.x + std::cos(an) * r * ring, c.y + std::sin(an) * r * 0.95f * ring};
+            float sw = 0.5f + 0.5f * std::sin(time * 6 - k * 0.9f);
+            DrawPolyLinesEx(p, 6, 3.2f, 30, 0.7f, Fade(sc, 0.25f + 0.55f * sw));
+        }
+        VRingE(c, r, r * 0.95f, 1.4f, Fade(sc, 0.75f + 0.25f * pulse), 36);
+        DrawEllipse((int)(c.x - r * 0.35f), (int)(c.y - r * 0.45f), r * 0.28f, r * 0.14f, Fade(WHITE, 0.45f));   // a glint
+        VNorm();
     }
     if (f.weakened && f.dazeT > 0) {
         for (int i = 0; i < 4; i++) {
@@ -2999,10 +3038,22 @@ void Battle::DrawFighter(int s) const {
 }
 
 void Battle::Draw(bool banners) const {
+    AnimTick();
+    Vector2 camFocus{VW / 2.0f, 170};
+    float camZoom = AnimCamera(camFocus);
+    bool cam = camZoom > 0.001f;
+    if (cam) {   // a punch-in toward big hits and big moves (the HUD stays put)
+        rlDrawRenderBatchActive();
+        rlPushMatrix();
+        rlTranslatef(camFocus.x, camFocus.y, 0);
+        rlScalef(1 + camZoom, 1 + camZoom, 1);
+        rlTranslatef(-camFocus.x, -camFocus.y, 0);
+    }
     DrawBattleArena(time, hype);
     DrawFieldFloor();
     DrawWeatherFloor();
     DrawPuddles();
+    DrawAnimUnder();
 
     for (const auto& h : hazards) {
         Color c = TypeColor(h.hit.type);
@@ -3015,7 +3066,11 @@ void Battle::Draw(bool banners) const {
         }
         if (h.trap) {  // a small, half-hidden trap
             bool armed = h.armT <= 0;
-            float ta = armed ? 0.45f + 0.15f * std::sin(time * 4 + h.pos.x) : 0.8f;
+            float ta = armed ? 0.6f + 0.2f * std::sin(time * 4 + h.pos.x) : 0.9f;
+            VShadow(sp, 7, 2.6f, 0.5f);
+            VAdd();
+            VGlow(sp, 6, c, 0.25f * ta);
+            VNorm();
             if (armed && AbOnField(Ab::Illuminate)) ta = 0.95f;
             for (int k = 0; k < 4; k++) {
                 float ang = k * PI_F / 2 + PI_F / 4;
@@ -3041,8 +3096,11 @@ void Battle::Draw(bool banners) const {
             continue;
         }
         if (h.patch) {  // burning spot / puddle
-            DrawEllipse((int)sp.x, (int)sp.y, h.radius * pulse, h.radius * DEPTH * pulse, Fade(ColorBrightness(c, -0.3f), 0.45f * a));
+            bool wet = h.hit.type == Type::Water || h.hit.type == Type::Ice;
+            DrawEllipse((int)sp.x, (int)sp.y, h.radius * pulse, h.radius * DEPTH * pulse, Fade(ColorBrightness(c, wet ? 0.05f : -0.3f), (wet ? 0.38f : 0.45f) * a));
             DrawEllipse((int)sp.x, (int)sp.y, h.radius * 0.55f, h.radius * 0.55f * DEPTH, Fade(ColorBrightness(c, 0.3f), 0.5f * a));
+            DrawEllipse((int)(sp.x - h.radius * 0.25f), (int)(sp.y - h.radius * DEPTH * 0.25f), h.radius * 0.3f, h.radius * 0.12f, Fade(WHITE, (wet ? 0.45f : 0.2f) * a));   // a sheen
+            EllipsePix(sp.x, sp.y, h.radius * pulse, h.radius * DEPTH * pulse, Fade(ColorBrightness(c, 0.35f), 0.5f * a));
         } else {   // a lingering zone: a tinted pool of its type, a turning rune ring, a pulse inside
             float R = h.radius * pulse;
             DrawEllipse((int)sp.x, (int)sp.y, R, R * DEPTH, Fade(ColorBrightness(c, -0.35f), 0.22f * a));
@@ -3101,7 +3159,18 @@ void Battle::Draw(bool banners) const {
         Vector2 sp = ToScreen(p.target);
         float u = std::min(1.0f, p.t / p.dur);
         float k = 1.2f - u * 0.4f;
-        EllipsePix(sp.x, sp.y, p.radius * k, p.radius * DEPTH * k, Fade(Color{255, 80, 60, 255}, 0.4f + u * 0.5f));
+        VShadow(sp, p.radius * (0.3f + 0.6f * u), p.radius * DEPTH * (0.3f + 0.6f * u), 0.35f + 0.5f * u);   // the shadow of what's coming
+        Color mc = TypeColor(p.hit.type);
+        VAdd();
+        VRingE(sp, p.radius * k, p.radius * DEPTH * k, 1.2f, Fade(mc, 0.35f + u * 0.55f), 28);
+        float sp2 = time * 2;
+        for (int q = 0; q < 4; q++) {   // a turning target mark
+            float an = sp2 + q * PI_F / 2;
+            Vector2 a{sp.x + std::cos(an) * p.radius * k * 0.75f, sp.y + std::sin(an) * p.radius * DEPTH * k * 0.75f};
+            Vector2 b{sp.x + std::cos(an) * p.radius * k * 1.1f, sp.y + std::sin(an) * p.radius * DEPTH * k * 1.1f};
+            DrawLineEx(a, b, 1.2f, Fade(WHITE, 0.4f + u * 0.5f));
+        }
+        VNorm();
     }
     for (const auto& p : projs) {  // landing spots of arena hazards (lava globs)
         if (!p.lob || p.hit.side >= 0) continue;
@@ -3237,26 +3306,71 @@ void Battle::Draw(bool banners) const {
         Vector2 tang{-std::sin(h.orbitAngle), std::cos(h.orbitAngle) * DEPTH};
         VProjectile(o, tang, h.radius * 0.8f, time * 8 + h.orbitAngle, time, GetLook(h.hit.look, h.hit.type), (uint32_t)(h.orbitAngle * 100));
     }
-    for (const auto& fx : fxs) {  // breath / spray cones
+    for (const auto& fx : fxs) {  // breath / spray cones: a billowing flow of the element
         if (fx.kind != FxKind::Cone) continue;
         float t = fx.life / fx.maxLife;
         float half = fx.radius * DEG2RAD;
-        float reach = fx.len * std::min(1.0f, 0.4f + t * 1.5f);
-        Vector2 o = ToScreen(fx.pos + fx.dir * 6.0f, 8);
-        int seg = 8;
-        for (int k = 0; k < seg; k++) {
-            Vector2 d1 = Rot(fx.dir, -half + 2 * half * k / seg), d2 = Rot(fx.dir, -half + 2 * half * (k + 1) / seg);
-            Vector2 p1 = ToScreen(fx.pos + d1 * reach, 8), p2 = ToScreen(fx.pos + d2 * reach, 8);
-            DrawTriangle(o, p2, p1, Fade(fx.col, 0.28f * (1 - t)));
-            DrawTriangle(o, p1, p2, Fade(fx.col, 0.28f * (1 - t)));
+        const Look& L = GetLook(fx.look, fx.type);
+        Type ty = fx.type;
+        bool sound = L.cast == Cast::Sound;
+        if (sound) {   // sound: arcs rolling outward
+            VAdd();
+            for (int k = 0; k < 4; k++) {
+                float u = std::fmod(t * 1.6f + k * 0.25f, 1.0f);
+                float R = 8 + u * fx.len;
+                float base = std::atan2(fx.dir.y, fx.dir.x);
+                Vector2 prev = ToScreen(fx.pos + Vector2{std::cos(base - half), std::sin(base - half)} * R, 8);
+                for (int i = 1; i <= 10; i++) {
+                    float an = base - half + 2 * half * i / 10;
+                    Vector2 q = ToScreen(fx.pos + Vector2{std::cos(an), std::sin(an)} * R, 8);
+                    DrawLineEx(prev, q, 1.6f * (1 - u) + 0.4f, Fade(k % 2 ? WHITE : L.glow, (1 - u) * (1 - t * 0.6f)));
+                    prev = q;
+                }
+            }
+            VNorm();
+            continue;
         }
-        Vector2 e1 = ToScreen(fx.pos + Rot(fx.dir, -half) * reach, 8), e2 = ToScreen(fx.pos + Rot(fx.dir, half) * reach, 8);
-        DrawLineEx(e1, e2, 1, Fade(ColorBrightness(fx.col, 0.4f), 0.7f * (1 - t)));
+        bool fire = ty == Type::Fire, gas = ty == Type::Poison || L.trail == PK::Smoke, dust = ty == Type::Ground || ty == Type::Rock;
+        bool cold = ty == Type::Ice || ty == Type::Water;
+        Color hot = fire ? Color{255, 240, 190, 255} : cold ? Color{240, 250, 255, 255} : L.core;
+        Color mid = fire ? Color{255, 165, 45, 255} : cold ? Color{150, 210, 255, 255} : L.glow;
+        Color out = fire ? Color{230, 75, 25, 255} : gas ? ColorBrightness(L.glow, -0.25f) : dust ? Color{170, 140, 100, 255} : ColorBrightness(L.glow, -0.2f);
+        uint32_t sd = (uint32_t)(fx.pos.x * 7 + fx.pos.y * 13) + (uint32_t)(fx.dir.x * 1000);
+        const int N = 64;
+        float gfade = t < 0.75f ? 1.0f : (1 - t) / 0.25f;
+        for (int pass = 0; pass < 2; pass++) {
+            if (pass == 1) { if (gas || dust) break; VAdd(); }
+            for (int i = 0; i < N; i++) {
+                float e = VRand(sd, i) * 0.55f;
+                float u = (t - e) / 0.45f;
+                if (u < 0 || u > 1) continue;
+                float lane = (VRand(sd, i + 100) * 2 - 1) * half * 0.95f;
+                float wob = std::sin(time * 14 + i) * 0.06f;
+                Vector2 wp = fx.pos + Rot(fx.dir, lane * (0.35f + 0.65f * u) + wob) * (6 + u * fx.len);
+                Vector2 q = ToScreen(wp, 8 + (fire || gas ? u * u * 6 : 0));
+                float r = 2.2f + u * fx.len * std::sin(half) * 0.32f;
+                Color c = u < 0.2f ? hot : u < 0.6f ? ColorLerp(mid, out, (u - 0.2f) / 0.4f) : out;
+                float al = (1 - u * u) * gfade;
+                if (pass == 0) {
+                    if (gas || dust) VSmoke(q, r * 2.0f, c, 0.55f * al, time * 30 + i * 40);
+                    else VSoft(q, r, c, (fire ? 0.75f : 0.55f) * al);
+                } else {
+                    VGlow(q, r * 0.7f, u < 0.35f ? hot : mid, 0.55f * al);
+                }
+            }
+            VNorm();
+        }
     }
 
     DrawParticles();
+    DrawAnimOver();
 
     DrawWeatherSky();
+    if (cam) {
+        rlDrawRenderBatchActive();
+        rlPopMatrix();
+    }
+    DrawAnimCinematic();
 
     for (const auto& t : texts) {
         Vector2 sp = ToScreen(t.pos, t.z);

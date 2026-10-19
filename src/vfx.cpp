@@ -205,7 +205,7 @@ Look TypeLook(Type t) {
     Look L;
     switch (t) {
         case Type::Fire:     L.shape = Shape::Fireball; L.core = C(255, 236, 150); L.glow = C(255, 110, 30); L.trail = PK::Flame; L.impact = Impact::Fire; L.beam = BeamDeco::Fire; L.trailRate = 0.9f; break;
-        case Type::Water:    L.shape = Shape::Droplet; L.core = C(200, 235, 255); L.glow = C(60, 140, 255); L.trail = PK::Drop; L.impact = Impact::Splash; L.beam = BeamDeco::Water; break;
+        case Type::Water:    L.shape = Shape::Droplet; L.core = C(200, 235, 255); L.glow = C(60, 140, 255); L.trail = PK::Drop; L.impact = Impact::Splash; L.beam = BeamDeco::Torrent; break;
         case Type::Electric: L.shape = Shape::ElecOrb; L.core = C(255, 255, 210); L.glow = C(255, 220, 40); L.trail = PK::Spark; L.impact = Impact::Spark; L.beam = BeamDeco::Electric; L.trailRate = 0.8f; break;
         case Type::Grass:    L.shape = Shape::Leaf; L.core = C(150, 235, 90); L.glow = C(80, 210, 60); L.trail = PK::Leaf; L.impact = Impact::Leaves; L.beam = BeamDeco::Solar; L.trailRate = 0.35f; break;
         case Type::Ice:      L.shape = Shape::Shard; L.core = C(225, 250, 255); L.glow = C(120, 215, 255); L.trail = PK::Snow; L.impact = Impact::Frost; L.beam = BeamDeco::Ice; break;
@@ -217,7 +217,7 @@ Look TypeLook(Type t) {
         case Type::Bug:      L.shape = Shape::Needle; L.core = C(220, 245, 130); L.glow = C(150, 195, 40); L.trail = PK::Glow; L.impact = Impact::Bug; L.beam = BeamDeco::Rainbow; break;
         case Type::Rock:     L.shape = Shape::Rock; L.core = C(205, 185, 150); L.glow = C(150, 125, 90); L.trail = PK::Debris; L.impact = Impact::Debris; L.beam = BeamDeco::Gem; L.trailRate = 0.3f; break;
         case Type::Ghost:    L.shape = Shape::ShadowOrb; L.core = C(90, 40, 130); L.glow = C(170, 100, 255); L.trail = PK::Wisp; L.impact = Impact::Shadow; L.beam = BeamDeco::Dark; break;
-        case Type::Dragon:   L.shape = Shape::Orb; L.core = C(210, 190, 255); L.glow = C(110, 70, 250); L.trail = PK::Glow; L.impact = Impact::Dragon; L.beam = BeamDeco::Plain; break;
+        case Type::Dragon:   L.shape = Shape::Orb; L.core = C(210, 190, 255); L.glow = C(110, 70, 250); L.trail = PK::Glow; L.impact = Impact::Dragon; L.beam = BeamDeco::Draconic; break;
         case Type::Dark:     L.shape = Shape::ShadowOrb; L.core = C(40, 30, 55); L.glow = C(130, 80, 160); L.trail = PK::Smoke; L.impact = Impact::Shadow; L.beam = BeamDeco::Dark; L.trailRate = 0.4f; break;
         case Type::Steel:    L.shape = Shape::Gem; L.core = C(240, 242, 250); L.glow = C(160, 185, 210); L.trail = PK::Spark; L.impact = Impact::Metal; L.beam = BeamDeco::Gem; L.trailRate = 0.4f; break;
         case Type::Fairy:    L.shape = Shape::Star; L.core = C(255, 230, 250); L.glow = C(255, 140, 210); L.trail = PK::Star; L.impact = Impact::Fairy; L.beam = BeamDeco::Rainbow; L.trailRate = 0.4f; break;
@@ -306,7 +306,8 @@ Look BuildLook(const std::string& n, Type t, MoveKind k) {
     if (is("Fire Blast")) { L.size = 1.7f; L.boom = true; L.boomR = 44; }
     if (is("Flamethrower")) { L.beamW = 1.25f; }
     if (is("Overheat") || is("Blue Flare")) { L.beamW = 1.6f; }
-    if (is("Blue Flare")) { L.glow = C(60, 140, 255); L.core = C(200, 230, 255); }
+    if (is("Overheat")) { L.beam = BeamDeco::Inferno; L.core = C(255, 250, 220); L.glow = C(255, 140, 40); }
+    if (is("Blue Flare")) { L.glow = C(60, 140, 255); L.core = C(200, 230, 255); L.beam = BeamDeco::BlueFire; L.impact = Impact::Frost; }
     if (is("Will-O-Wisp") || is("Mystical Fire") || is("Infernal Parade")) { L.shape = Shape::Wisp; L.core = C(150, 200, 255); L.glow = C(70, 120, 255); L.trail = PK::Wisp; }
     if (is("Eruption") || is("Pyro Ball") || is("Sacred Fire") || is("Flame Burst")) { L.boom = true; L.boomR = std::max(L.boomR, 30.0f); }
     if (is("Lava Plume") || is("Burn Up") || is("Fire Spin") || is("Magma Storm")) { L.cast = Cast::Flames; }
@@ -648,6 +649,12 @@ void VSoft(Vector2 p, float r, Color c, float alpha) {
     Tex(T_GLOW, p, r * 2, 0, c, Clamp01(alpha));
 }
 
+void VSmoke(Vector2 p, float size, Color c, float alpha, float rotDeg) {
+    if (alpha <= 0.003f) return;
+    VNorm();
+    Tex(T_SMOKE, p, size, rotDeg, c, Clamp01(alpha));
+}
+
 void VShadow(Vector2 p, float rx, float ry, float alpha) {
     if (alpha <= 0.003f || !gLoaded) return;
     VNorm();
@@ -776,6 +783,162 @@ void VBeam(Vector2 a, Vector2 b, float width, float t, float time, const Look& L
     Color glow = L.glow, core = L.core;
     float flick = 0.85f + 0.15f * std::sin(time * 60);
 
+    if (L.beam == BeamDeco::Fire || L.beam == BeamDeco::Inferno || L.beam == BeamDeco::BlueFire) {   // a flowing stream of fire
+        int style = L.beam == BeamDeco::Inferno ? 1 : L.beam == BeamDeco::BlueFire ? 2 : 0;
+        // palette: hot centre, body, outer flame, tail
+        Color hot = style == 2 ? C(235, 245, 255) : C(255, 245, 200);
+        Color mid = style == 2 ? C(110, 185, 255) : style == 1 ? C(255, 205, 95) : C(255, 175, 50);
+        Color out = style == 2 ? C(60, 125, 255) : style == 1 ? C(255, 120, 35) : C(240, 90, 25);
+        Color tail = style == 2 ? C(70, 80, 210) : C(225, 70, 25);
+        float widen = style == 1 ? 0.9f : style == 2 ? 0.65f : 1.0f;
+        float speed = style == 2 ? 3.6f : style == 1 ? 2.0f : 2.6f;
+        int N = std::max(26, std::min(110, (int)(len / (style == 2 ? 2.2f : 2.6f))));
+        float flow = time * speed;
+        float grow = Clamp01(env * 1.6f + 0.2f);
+        auto puff = [&](int i, float& u, Vector2& q, float& r) {
+            u = std::fmod(i / (float)N + flow + VRand(seed, i) * 0.03f, 1.0f);
+            float reach = u * len * (0.25f + 0.75f * grow);
+            float turb = style == 2 ? 0.35f : style == 1 ? 1.0f : 0.7f;
+            float wob = std::sin(time * 17 + i * 1.73f) * 0.6f + std::sin(time * 9.3f + i * 0.61f) * 0.4f;
+            q = a + d * reach + n * (wob * w * turb * (0.2f + u * 1.4f));
+            q.y -= u * u * w * (style == 2 ? 1.2f : 2.2f);   // flames curl upward as they go
+            r = w * widen * (1.5f + u * 2.1f) * (0.85f + 0.3f * VRand(seed, i + 300));
+        };
+        auto colAt = [&](float u) {
+            if (u < 0.12f) return Mix(hot, mid, u / 0.12f);
+            if (u < 0.5f) return Mix(mid, out, (u - 0.12f) / 0.38f);
+            return Mix(out, tail, (u - 0.5f) / 0.5f);
+        };
+        VNorm();   // the solid flame body, so it reads as fire on any floor; smoke at the tail
+        for (int i = 0; i < N; i++) {
+            float u, r; Vector2 q;
+            puff(i, u, q, r);
+            float fade = env * (u > 0.82f ? (1 - u) / 0.18f : 1.0f);
+            Color body = Mix(u < 0.15f ? mid : colAt(u), out, 0.25f);
+            Tex(T_GLOW, q, r * 1.9f, 0, body, (u < 0.1f ? 0.6f : 0.85f) * fade * (u > 0.6f ? 1.0f - (u - 0.6f) * 1.2f : 1.0f));
+            Tex(T_GLOW, q, r * 1.15f, 0, Mix(mid, hot, 0.2f), 0.75f * fade * (1 - u * 0.8f));   // its bright heart, opaque so the floor can't tint it
+            if (u > 0.72f && style != 2) Tex(T_SMOKE, q + Vector2{0, -r * 0.8f}, r * 2.2f, (time * 40 + i * 30), C(80, 70, 64), 0.07f * env * (1 - u) / 0.28f);
+        }
+        VAdd();
+        for (int i = N - 1; i >= 0; i--) {
+            float u, r; Vector2 q;
+            puff(i, u, q, r);
+            float fade = env * flick * (u > 0.8f ? (1 - u) / 0.2f : 1.0f);
+            Tex(T_GLOW, q, r * 1.1f, 0, Mix(colAt(u), mid, 0.35f), 0.4f * fade);
+            if (u < 0.5f) Tex(T_GLOW, q, r * 0.6f, 0, hot, 0.5f * fade * (1 - u / 0.5f));
+        }
+        if (style == 1) {   // Overheat: heat pulses racing down the stream, and haze
+            for (int k = 0; k < 3; k++) {
+                float u = std::fmod(time * 1.6f + k / 3.0f, 1.0f);
+                Vector2 q = a + d * (u * len * grow);
+                float rr = w * (0.8f + u * 0.9f);
+                VRingE(q + Vector2{0, -u * u * w * 2.2f}, rr * 0.4f, rr, 1.2f, Fade(C(255, 230, 160), 0.8f * env * (1 - u)), 20);
+            }
+            for (int k = 0; k < 6; k++) {
+                float u = std::fmod(VRand(seed, 700 + k) + time * 0.9f, 1.0f);
+                Vector2 q = a + d * (u * len) + Vector2{0, -w * (3 + u * 5)};
+                DrawLineEx(q - d * 6.0f, q + d * 6.0f, 0.6f, Fade(WHITE, 0.25f * env * std::sin(u * PI_F)));
+            }
+        }
+        int embers = style == 1 ? 26 : 14;
+        for (int i = 0; i < embers; i++) {   // embers (Blue Flare: white sparks) flying off the stream
+            float u = std::fmod(VRand(seed, 600 + i) + time * (style == 2 ? 1.9f : 1.3f), 1.0f);
+            Vector2 q = a + d * (u * len) + n * ((VRand(seed, 620 + i) - 0.5f) * w * 5 * u) + Vector2{0, -u * w * (style == 2 ? 6.0f : 4.0f)};
+            Color ec = style == 2 ? (i % 2 ? WHITE : C(150, 210, 255)) : C(255, 210, 120);
+            Tex(T_GLOW, q, style == 2 ? 1.8f : 2.4f, 0, ec, env * (1 - u) * std::fabs(std::sin(time * 20 + i)));
+        }
+        if (style == 2)   // blue wisps rising off the flames
+            for (int k = 0; k < 8; k++) {
+                float ph = std::fmod(time * 1.4f + VRand(seed, 650 + k), 1.0f);
+                Vector2 q = a + d * (VRand(seed, 660 + k) * len) + Vector2{std::sin(time * 6 + k) * 3, -w * 2 - ph * 22};
+                Tex(T_GLOW, q, 5 * (1 - ph) + 2, 0, C(120, 180, 255), 0.5f * env * (1 - ph));
+            }
+        VGlow(a, w * widen * 3.6f, out, 0.9f * env);
+        VGlow(a, w * widen * 2.0f, hot, env);
+        VGlow(b, w * widen * 3.2f, mid, 0.6f * env);
+        VNorm();
+        return;
+    }
+    if (L.beam == BeamDeco::Torrent || L.beam == BeamDeco::Bubbles) {   // a gushing torrent of water
+        bool bubbles = L.beam == BeamDeco::Bubbles;
+        Color deep = C(30, 95, 210), mid = C(80, 165, 255), foam = C(235, 248, 255);
+        int N = std::max(26, std::min(100, (int)(len / 2.6f)));
+        float flow = time * 3.4f;
+        float grow = Clamp01(env * 1.6f + 0.2f);
+        float tw = bubbles ? 0.6f : 1.0f;
+        auto puff = [&](int i, float& u, Vector2& q, float& r) {
+            u = std::fmod(i / (float)N + flow + VRand(seed, i) * 0.03f, 1.0f);
+            float wob = std::sin(time * 21 + i * 1.3f) * 0.5f + std::sin(time * 11 + i * 0.7f) * 0.5f;
+            q = a + d * (u * len * (0.25f + 0.75f * grow)) + n * (wob * w * 0.35f * (0.3f + u));
+            r = w * tw * (1.3f + u * 0.9f) * (0.85f + 0.3f * VRand(seed, i + 300));
+        };
+        VNorm();
+        for (int i = 0; i < N; i++) {
+            float u, r; Vector2 q;
+            puff(i, u, q, r);
+            float fade = env * (u > 0.9f ? (1 - u) / 0.1f : 1.0f);
+            Tex(T_GLOW, q, r * 2.0f, 0, deep, 0.75f * fade);
+            Tex(T_GLOW, q, r * 1.3f, 0, mid, 0.85f * fade);
+            Tex(T_GLOW, q - Vector2{0, r * 0.35f}, r * 0.75f, 0, foam, 0.7f * fade * (0.5f + 0.5f * std::sin(i * 2.3f + time * 9)));   // white water on top
+        }
+        VAdd();
+        for (int k = 0; k < 10; k++) {   // fast streaks running down the jet
+            float u = std::fmod(k / 10.0f + time * 4.5f, 1.0f);
+            Vector2 p = a + d * (u * len * grow) + n * ((VRand(seed, 500 + k) - 0.5f) * w * 1.2f);
+            DrawLineEx(p, p + d * (8 + w * 3), 0.8f, Fade(WHITE, 0.8f * env));
+        }
+        VNorm();
+        for (int k = 0; k < 14; k++) {   // spray flying off the sides and at the far end
+            float u = std::fmod(VRand(seed, 520 + k) + time * 2.0f, 1.0f);
+            float along = k < 9 ? VRand(seed, 540 + k) : 1.0f;
+            Vector2 p = a + d * (along * len * grow) + n * ((VRand(seed, 560 + k) - 0.5f) * w * (2 + u * 8)) + Vector2{0, -std::sin(u * PI_F) * w * 3};
+            DrawCircleV(p, 0.9f + VRand(seed, 580 + k) * 0.8f, Fade(k % 3 ? mid : foam, env * (1 - u)));
+        }
+        if (bubbles)
+            for (int i = 0; i < 16; i++) {
+                float u = std::fmod(i / 16.0f + time * 1.5f, 1.0f);
+                Vector2 q = a + d * (u * len) + n * (std::sin(i * 2.7f + time * 6) * w * 1.6f);
+                Tex(T_BUBBLE, q, w * (1.6f + VRand(seed, i) * 1.6f), 0, C(170, 220, 255), env);
+            }
+        VGlow(a, w * 2.6f, mid, 0.8f * env);
+        VGlow(b, w * 3.4f, foam, 0.7f * env);
+        VNorm();
+        return;
+    }
+    if (L.beam == BeamDeco::Draconic) {   // two streams of dragon energy twisting around each other
+        Color c1 = glow, c2 = Mix(glow, C(80, 220, 255), 0.6f);
+        int N = std::max(30, std::min(110, (int)(len / 2.4f)));
+        float grow = Clamp01(env * 1.6f + 0.2f);
+        VNorm();
+        for (int pass = 0; pass < 2; pass++) {
+            if (pass == 1) VAdd();
+            for (int strand = 0; strand < 2; strand++) {
+                for (int i = 0; i < N; i++) {
+                    float u = (i + std::fmod(time * 30, 1.0f)) / N;
+                    if (u > grow) continue;
+                    float ph = u * len * 0.07f - time * 14 + strand * PI_F;
+                    float amp = w * (1.1f + u * 0.8f);
+                    Vector2 q = a + d * (u * len) + n * (std::sin(ph) * amp);
+                    bool front = std::cos(ph) > 0;
+                    float r = w * (front ? 1.25f : 0.95f);
+                    Color cc = strand ? c2 : c1;
+                    if (pass == 0) Tex(T_GLOW, q, r * 2.2f, 0, Deepen(cc), 0.55f * env);
+                    else Tex(T_GLOW, q, r * 1.6f, 0, front ? Mix(cc, WHITE, 0.35f) : cc, (front ? 0.7f : 0.4f) * env);
+                }
+            }
+        }
+        VLine(a, a + d * (len * grow), std::max(0.8f, w * 0.7f), WHITE, 0.8f * env);   // the white-hot core
+        for (int k = 0; k < 10; k++) {   // glinting scales
+            float u = std::fmod(VRand(seed, 700 + k) + time * 1.1f, 1.0f) * grow;
+            Vector2 q = a + d * (u * len) + n * ((VRand(seed, 720 + k) - 0.5f) * w * 4);
+            DrawPoly(q, 4, 1.4f + std::fabs(std::sin(time * 13 + k)) * 1.4f, 45, Fade(WHITE, env));
+        }
+        VGlow(a, w * 3.4f, c1, 0.9f * env);
+        VGlow(a, w * 1.6f, WHITE, env);
+        VGlow(b, w * 3.8f, c2, 0.8f * env);
+        VNorm();
+        return;
+    }
     if (L.beam == BeamDeco::Dark) {
         VNorm();
         VLine(a, b, w * 4.5f, glow, 0.6f * env);
@@ -1092,7 +1255,9 @@ void VProjectile(Vector2 sp, Vector2 vel, float radius, float spin, float time, 
         } break;
         case Shape::Seed: {
             VNorm();
-            Tex(T_SEED, sp, r * 2.4f, Deg(d) + 90, C(200, 170, 110), 1);
+            VGlow(sp, r * 2.2f, glow, 0.45f);
+            VNorm();
+            Tex(T_SEED, sp, r * 3.4f, Deg(d) + 90, C(200, 170, 110), 1);
         } break;
         case Shape::SoundRing: {
             VNorm();

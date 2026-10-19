@@ -230,6 +230,27 @@ Shots leave a tapered motion streak, hits flash with a shock ring, stat moves sh
 colour (Attack red, Defence blue, Speed green) rising through a column of light, healing shows green crosses,
 and everything casts a soft contact shadow.
 
+**Battle animation (src/battle_anim.cpp)** – a visual-only layer on top of every move (it never touches the
+battle itself, so online games stay in step). The user shows body language for the move's kind: it crouches
+and trembles while winding up as energy gathers into it, recoils and stretches when it fires a shot or beam,
+lunges with after-images and speed lines into melee moves, and hops and swells for bursts, waves, weather and
+stat moves. Every move gets a casting circle on the ground in its type's colour and a flourish themed on its
+type (flames, spray, crackling arcs, spiralling leaves, frost, dust, feathers, psychic motes, wisps, smoke,
+glints, sparkles...) sized by its power; shots get a muzzle flash. The attacker's element splashes off
+whatever it hits, and the target flinches. Hits that take a big bite of HP get an impact frame (a flash, a
+ring and radial speed lines) and the camera punches in toward them, more for a knockout. The strongest moves
+(120+ power, 100+ beams, Explosion) get a cinematic: the field dims, letterbox bars close in and energy rushes
+into the user during the wind-up. Camera moves follow the Screen shake setting.
+
+Beams flow rather than sit as bars: Flamethrower is a rolling stream of fire (white-hot at the mouth,
+orange to red as it curls upward, embers and smoke), Overheat a broader blazing stream with heat pulses and
+haze, Blue Flare a fast, tight sapphire stream with white sparks and rising blue wisps, Hydro Pump and other
+Water beams a gushing torrent with white water, streaks and spray, Dragon beams two streams twisting around a
+white-hot core. Breath and spray moves (Inferno, Frost Breath, Belch, Sand Attack...) billow out as a cone of
+their element; sound cones roll out as arcs. Protect shows a shimmering hex barrier, Dig a moving mound of
+earth, Fly a shadow sweeping the ground, teleports flash where they leave and land, and falling attacks
+(Rock Slide, Blizzard, Draco Meteor) cast a growing shadow with a turning target mark.
+
 ## Arena floors and weather (src/arena.cpp, src/battle_vfx.cpp)
 
 Battle floors are baked once per battle at full canvas resolution (1920x1080, on a few threads) from

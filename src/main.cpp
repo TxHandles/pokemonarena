@@ -12,6 +12,7 @@
 #include "embedded.h"
 #include "game.h"
 #include "raylib.h"
+#include "rlgl.h"
 #include "settings.h"
 #include "sprites.h"
 #include "ui.h"
@@ -186,7 +187,13 @@ int main() {
         float dw = CW * sc, dh = CH * sc;
         Rectangle src{0, 0, (float)CW, -(float)CH};
         Rectangle dst{std::floor((GetScreenWidth() - dw) / 2), std::floor((GetScreenHeight() - dh) / 2), dw, dh};
+        // The canvas's colours are already final: copy them without blending. (Translucent drawing
+        // lowers the canvas's alpha, which would otherwise darken everything see-through.)
+        rlDrawRenderBatchActive();
+        rlDisableColorBlend();
         DrawTexturePro(target.texture, src, dst, {0, 0}, 0, WHITE);
+        rlDrawRenderBatchActive();
+        rlEnableColorBlend();
         EndDrawing();
 #ifdef ARENA_AUTOTEST
         if (AutoTestStep(g, dt)) break;
