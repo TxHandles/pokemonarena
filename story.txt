@@ -4,13 +4,13 @@
 #  Starters are the Pokemon with "starter = yes" in their pokemon.txt.
 #  (A "starters = A, B, C" line here is only used if none are tagged.)
 #  start_level = their level
-#  training_reward_every = training-battle wins per new creature
+#  training_reward_every = training-battle wins per new Pokemon
 #
 #  Each [stage] is one trainer battle, unlocked in order:
 #    name    = place name           trainer = who you fight
 #    say     = their line before the battle
-#    team    = creature names, "random", or "random <Type>" (comma separated).
-#              The team is used as written (1-6 creatures).
+#    team    = Pokemon names, "random", or "random <Type>" (comma separated).
+#              The team is used as written (1-6 Pokemon).
 #    lv      = the level this battle is built for (like the games: Brock ~13, Giovanni ~48).
 #              Your team's level only nudges it a little (-2 .. +3). Without lv, 'level' below is used.
 #    level   = CPU levels relative to your team's average (e.g. -2, 0, +3), only used without lv
@@ -33,7 +33,7 @@
 #  map_image = picture shown as the Story Mode map (next to this file);
 #              without one the game draws a simple map.
 #  town      = name, x, y   (labels on the map)
-#  rare_every        = every Nth training battle is a rare creature to catch
+#  rare_every        = every Nth training battle is a rare Pokemon to catch
 #  training_max_foes = most opponents in a normal training battle
 #  Rival battles (rival = yes): "rival" in a team is the rival's starter, evolved for its level.
 #  He picks once and keeps it: alone, one of the two starters that beat yours (at random); in

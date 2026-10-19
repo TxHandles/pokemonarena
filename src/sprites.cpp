@@ -457,6 +457,14 @@ void DrawCreature(int idx, int view, int frame, float x, float bottom, float sx,
     if (whiteAmount > 0) DrawFrame(fr, true, x, bottom, cs.pixel * sx, cs.pixel * sy, Fade(WHITE, whiteAmount * tint.a / 255.0f));
 }
 
+void DrawCreatureReflect(int idx, int view, int frame, float x, float feet, float sx, float sy, Color tint) {
+    const CreatureSprites& cs = SpritesFor(idx);
+    const SpriteFrame& fr = cs.view[view][frame % std::max(1, cs.frames[view])];
+    if (fr.w == 0) return;
+    float w = fr.w * cs.pixel * sx, h = fr.h * cs.pixel * sy;
+    DrawTexturePro(fr.tex, Rectangle{0, 0, (float)fr.w, -(float)fr.h}, Rectangle{Snap(x - w / 2), Snap(feet), w, h}, {0, 0}, 0, tint);
+}
+
 float CreatureHeight(int idx, int view) {
     const CreatureSprites& cs = SpritesFor(idx);
     return cs.view[view][0].h * cs.pixel;

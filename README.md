@@ -251,6 +251,21 @@ their element; sound cones roll out as arcs. Protect shows a shimmering hex barr
 earth, Fly a shadow sweeping the ground, teleports flash where they leave and land, and falling attacks
 (Rock Slide, Blizzard, Draco Meteor) cast a growing shadow with a turning target mark.
 
+**Presentation** – Pokemon are thrown out in a Poke Ball that arcs in and pops open in a flash, and are
+recalled as red light into the ball. They breathe while standing, step with a little spring, reflect in
+water, puddles and ice, and the winners hop about under falling confetti. HP bars drain with a red trail
+showing the damage just taken and pulse when low; damage numbers pop out (super-effective hits bigger).
+READY / FIGHT / WIN banners sweep in with a shine, the opening camera sweeps across the field, and the
+final knockout plays out in slow motion (offline). Outdoor scenery comes alive: clouds drift, the sea
+glints, embers rise from volcanoes, leaves or petals blow across the field by season, butterflies in summer,
+cave drips and crystal glints, blinking lab lights and flickering candles. Gym crowds have proper fans
+cheering with signs and flags. Screens open with a Poke Ball iris; panels everywhere have rounded,
+shaded edges. Catching shows the Pokemon pulled in as red light, the ball dropping and bouncing, three
+shakes with a blinking button and a star burst on the click. Evolution has a swirling backdrop that speeds
+up, a white burst and sparkles around the new form.
+Settings: **Effects intensity** (Full / Reduced: no camera moves, slow motion or big flashes / Minimal: also
+fewer particles and no cinematics) and **Screen filter** (Off / Soft glow / Retro CRT).
+
 ## Arena floors and weather (src/arena.cpp, src/battle_vfx.cpp)
 
 Battle floors are baked once per battle at full canvas resolution (1920x1080, on a few threads) from

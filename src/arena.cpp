@@ -12,6 +12,7 @@ Texture2D gMenuTex{}, gBattleTex{};
 bool gBattleLoaded = false;
 ArenaKind gBattleKind = ArenaKind::Stadium;
 Venue gBattleVenue = Venue::Stadium;
+int gBattleSeason = -1;
 unsigned int gRng = 1234567u;
 
 int R(int n) {
@@ -1277,6 +1278,7 @@ void SetBattleArena(ArenaKind kind, const Field& f) {
     gBattleLoaded = true;
     gBattleKind = kind;
     gBattleVenue = f.venue;
+    gBattleSeason = f.season;
 }
 
 void UnloadArena() {
@@ -1419,19 +1421,32 @@ void DrawGymStadium(float time, ArenaKind kind, float hype, int top, int bottom)
         int y = top + r * 9;
         float scale = 0.6f + 0.4f * r / std::max(1, tiers - 1);   // farther rows are smaller
         DrawRectangle(0, y + 7, VW, 2, Color{60, 50, 80, 255});
-        int count = (int)(VW / (5.0f * scale));
+        int count = (int)(VW / (6.0f * scale));
         for (int i = 0; i < count; i++) {
-            float x = i * 5.0f * scale + H01(i, r) * 3;
-            float jump = std::max(0.0f, std::sin(time * (5 + H01(i, r + 11) * 5) + i * 0.7f + r)) * (0.5f + hype * 2.0f) * scale;
-            int hy = y - (int)jump;
+            float x = i * 6.0f * scale + H01(i, r) * 3;
+            float ph = time * (5 + H01(i, r + 11) * 5) + i * 0.7f + r;
+            float jump = std::max(0.0f, std::sin(ph)) * (0.5f + hype * 2.4f) * scale;
+            float hy = y - jump;
             Color sh = shirts[(int)(H01(i, r + 2) * 9) % 9];
-            int w = std::max(2, (int)(3 * scale));
-            DrawRectangle((int)x, hy + 3, w, 4, Fade(sh, 0.7f + 0.3f * scale));
-            DrawRectangle((int)x + w / 3, hy + 1, std::max(1, w - 1), 2, Color{230, 190, 150, 255});
-            if (H01(i, r + 6) > 0.9f) {
+            Color skin = H01(i, r + 4) > 0.5f ? Color{236, 196, 156, 255} : Color{176, 124, 90, 255};
+            float bw = 3.4f * scale, bh = 4.2f * scale;
+            float fade = 0.65f + 0.35f * scale;
+            DrawRectangleRounded({x - bw / 2, hy + 2.4f * scale, bw, bh}, 0.5f, 4, Fade(sh, fade));          // body
+            DrawCircleV({x, hy + 1.2f * scale}, 1.4f * scale, Fade(skin, fade));                                // head
+            bool armsUp = jump > 0.6f * scale || H01(i, r + 6) > 0.8f;
+            if (armsUp) {   // cheering
+                DrawLineEx({x - bw / 2, hy + 3 * scale}, {x - bw / 2 - 1.2f * scale, hy - 0.8f * scale}, std::max(0.5f, 0.8f * scale), Fade(skin, fade));
+                DrawLineEx({x + bw / 2, hy + 3 * scale}, {x + bw / 2 + 1.2f * scale, hy - 0.8f * scale}, std::max(0.5f, 0.8f * scale), Fade(skin, fade));
+            }
+            float pick = H01(i, r + 8);
+            if (pick > 0.93f) {   // a sign held up high
+                float wv = std::sin(time * 4 + i) * 0.8f;
+                DrawRectangleRec({x - 4 * scale + wv, hy - 5 * scale, 8 * scale, 4.5f * scale}, team);
+                DrawRectangleRec({x - 3 * scale + wv, hy - 3.6f * scale, 6 * scale, 1.2f * scale}, WHITE);
+            } else if (pick > 0.86f) {   // a flag
                 float wv = std::sin(time * 6 + i) * 2;
-                DrawRectangle((int)x + w, hy - 5, 1, 7, Color{100, 80, 60, 255});
-                DrawTriangle({x + w + 1, hy - 5.0f}, {x + w + 1, hy - 1.0f}, {x + w + 8 + wv, hy - 3.0f}, team);
+                DrawLineEx({x + bw / 2, hy + 3 * scale}, {x + bw / 2, hy - 5 * scale}, 0.6f, Color{100, 80, 60, 255});
+                DrawTriangle({x + bw / 2, hy - 5 * scale}, {x + bw / 2, hy - 1.5f * scale}, {x + bw / 2 + 7 * scale + wv, hy - 3.2f * scale}, team);
             }
         }
     }
@@ -1455,9 +1470,115 @@ void DrawGymStadium(float time, ArenaKind kind, float hype, int top, int bottom)
     EndBlendMode();
 }
 
+namespace {
+float HF(int i, int k) { return Hash2(i * 131 + 7, k * 71 + 13); }
+
+// The scenery comes alive: clouds drift, water glints, embers rise, leaves and petals blow across
+// the field, lab lights blink. Purely for looks.
+void DrawAmbience(float time, Venue v, int season, ArenaKind lair) {
+    float sx = gShake.x, sy = gShake.y;
+    bool outdoor = v == Venue::Route || v == Venue::Park || v == Venue::Forest || v == Venue::Mountain || v == Venue::Beach ||
+                   v == Venue::Bridge || v == Venue::Ship || v == Venue::City;
+    if (lair == ArenaKind::Faraway) { outdoor = true; v = Venue::Forest; }
+    if (lair == ArenaKind::Ember) v = Venue::Volcano;
+    if (lair == ArenaKind::Seafoam) v = Venue::IceCave;
+    if (lair == ArenaKind::Unknown) v = Venue::Cave;
+    if (lair == ArenaKind::PowerPlant) v = Venue::Hideout;
+    if (outdoor && v != Venue::Forest) {   // clouds drifting across the sky
+        for (int i = 0; i < 6; i++) {
+            float x = std::fmod(HF(i, 1) * (VW + 160) + time * (4 + HF(i, 2) * 5), (float)(VW + 160)) - 80 + sx;
+            float y = 4 + HF(i, 3) * (FLOOR_Y - 18) + sy;
+            float w = 22 + HF(i, 4) * 26;
+            Color cc = season == 2 ? Color{255, 236, 220, 255} : Color{255, 255, 255, 255};
+            DrawEllipse((int)x, (int)y, w, w * 0.22f, Fade(cc, 0.45f));
+            DrawEllipse((int)(x - w * 0.3f), (int)(y - 2), w * 0.45f, w * 0.18f, Fade(cc, 0.5f));
+            DrawEllipse((int)(x + w * 0.25f), (int)(y - 1), w * 0.5f, w * 0.2f, Fade(cc, 0.45f));
+        }
+    }
+    if (v == Venue::Beach || v == Venue::Bridge || v == Venue::Ship) {   // the sea glinting
+        for (int i = 0; i < 26; i++) {
+            float x = std::fmod(HF(i, 5) * VW + time * (6 + HF(i, 6) * 6), (float)VW) + sx;
+            float y = FLOOR_Y - 2 - HF(i, 7) * 8 + sy;
+            float a = 0.5f + 0.5f * std::sin(time * 3 + i * 1.7f);
+            DrawRectangleV({x, y}, {2.5f, 0.7f}, Fade(WHITE, 0.7f * a));
+        }
+    }
+    if (v == Venue::Volcano) {   // embers rising, a heat glow
+        BeginBlendMode(BLEND_ADDITIVE);
+        for (int i = 0; i < 40; i++) {
+            float ph = std::fmod(time * (0.25f + HF(i, 8) * 0.3f) + HF(i, 9), 1.0f);
+            float x = HF(i, 10) * VW + std::sin(time * 1.5f + i) * 8 + sx;
+            float y = FLOOR_BOTTOM - ph * (FLOOR_BOTTOM + 10) + sy;
+            DrawCircleV({x, y}, 0.8f + HF(i, 11), Fade(Color{255, 150, 60, 255}, 0.8f * std::sin(ph * 3.14159f)));
+        }
+        DrawRectangleGradientV(0, FLOOR_Y - 10, VW, 30, Fade(Color{255, 90, 30, 255}, 0.12f + 0.04f * std::sin(time * 2)), Fade(Color{255, 90, 30, 255}, 0));
+        EndBlendMode();
+    }
+    if (v == Venue::Forest || ((v == Venue::Route || v == Venue::Park) && (season == 0 || season == 2))) {   // leaves or petals blowing across
+        int n = v == Venue::Forest ? 16 : 10;
+        for (int i = 0; i < n; i++) {
+            float ph = std::fmod(time * (0.05f + HF(i, 12) * 0.04f) + HF(i, 13), 1.0f);
+            float x = -20 + ph * (VW + 40) + sx;
+            float y = FLOOR_Y + HF(i, 14) * (FLOOR_BOTTOM - FLOOR_Y - 20) + std::sin(time * 2 + i) * 10 + sy;
+            float r = time * 3 + i;
+            Color lc = season == 0 ? Color{250, 190, 215, 255} : season == 2 ? (i % 2 ? Color{220, 110, 40, 255} : Color{240, 170, 60, 255}) : Color{110, 170, 70, 255};
+            Vector2 d{std::cos(r) * 2.2f, std::sin(r) * 1.0f};
+            DrawTriangle({x - d.x, y - d.y}, {x + d.y, y - d.x * 0.4f}, {x + d.x, y + d.y}, lc);
+            DrawTriangle({x - d.x, y - d.y}, {x + d.x, y + d.y}, {x + d.y, y - d.x * 0.4f}, lc);
+        }
+    }
+    if ((v == Venue::Route || v == Venue::Park) && season == 1) {   // butterflies in summer
+        for (int i = 0; i < 4; i++) {
+            float x = std::fmod(HF(i, 15) * VW + time * 12 + std::sin(time * 0.7f + i) * 40, (float)VW) + sx;
+            float y = FLOOR_Y + 20 + HF(i, 16) * 200 + std::sin(time * 1.3f + i * 2) * 14 + sy;
+            float flap = std::fabs(std::sin(time * 14 + i));
+            Color bc = i % 2 ? Color{255, 240, 120, 255} : WHITE;
+            DrawEllipse((int)(x - 1.5f), (int)y, 1.6f * flap + 0.3f, 1.4f, bc);
+            DrawEllipse((int)(x + 1.5f), (int)y, 1.6f * flap + 0.3f, 1.4f, bc);
+        }
+    }
+    if (season == 3 && outdoor) {   // a little snow drifting even on a clear day
+        for (int i = 0; i < 40; i++) {
+            float ph = std::fmod(time * (0.04f + HF(i, 17) * 0.03f) + HF(i, 18), 1.0f);
+            DrawCircleV({HF(i, 19) * VW + std::sin(time + i) * 6 + sx, ph * FLOOR_BOTTOM + sy}, 0.8f, Fade(WHITE, 0.8f));
+        }
+    }
+    if (v == Venue::Cave || v == Venue::IceCave) {   // drips and glinting crystals
+        for (int i = 0; i < 8; i++) {
+            float ph = std::fmod(time * 0.5f + HF(i, 20), 1.0f);
+            float x = HF(i, 21) * VW + sx;
+            DrawRectangleV({x, FLOOR_Y - 8 + ph * 18 + sy}, {0.7f, 1.6f}, Fade(Color{180, 220, 255, 255}, 0.7f * (1 - ph)));
+        }
+        BeginBlendMode(BLEND_ADDITIVE);
+        for (int i = 0; i < 10; i++) {
+            float tw = std::pow(std::max(0.0f, std::sin(time * (1 + HF(i, 22)) + i * 2.1f)), 8.0f);
+            DrawCircleV({HF(i, 23) * VW + sx, 4 + HF(i, 24) * (FLOOR_Y - 8) + sy}, 2.5f, Fade(lair == ArenaKind::Unknown ? Color{210, 150, 255, 255} : Color{150, 220, 255, 255}, 0.7f * tw));
+        }
+        EndBlendMode();
+    }
+    if (v == Venue::Lab || v == Venue::Office || v == Venue::Hideout) {   // blinking lights
+        for (int i = 0; i < 12; i++) {
+            bool on = std::sin(time * (2 + HF(i, 25) * 4) + i * 3) > 0.2f;
+            if (!on) continue;
+            Color lc = i % 3 == 0 ? Color{120, 255, 140, 255} : i % 3 == 1 ? Color{255, 90, 80, 255} : Color{120, 190, 255, 255};
+            DrawRectangle((int)(HF(i, 26) * VW + sx), (int)(6 + HF(i, 27) * (FLOOR_Y - 14) + sy), 2, 1, lc);
+        }
+    }
+    if (v == Venue::Tower || v == Venue::Mansion) {   // candle flicker
+        BeginBlendMode(BLEND_ADDITIVE);
+        for (int x = 40; x < VW; x += 90) {
+            float f = 0.6f + 0.4f * std::sin(time * 9 + x) * std::sin(time * 5.3f + x * 0.3f);
+            DrawCircleV({(float)x + 1.5f + sx, FLOOR_Y - 14 + sy}, 7 * f, Fade(Color{200, 160, 255, 255}, 0.18f * f));
+        }
+        EndBlendMode();
+    }
+}
+} // namespace
+
 void DrawBattleArena(float time, float hype) {
     if (!gBattleLoaded) { DrawArena(time); return; }
     DrawTexturePro(gBattleTex, {0, 0, (float)gBattleTex.width, (float)gBattleTex.height}, {gShake.x, gShake.y, (float)VW, (float)VH}, {0, 0}, 0, WHITE);
+    DrawAmbience(time, gBattleKind == ArenaKind::Stadium ? gBattleVenue : Venue::Stadium, gBattleSeason, IsLegendArena(gBattleKind) ? gBattleKind : ArenaKind::Stadium);
     if (IsLegendArena(gBattleKind)) return;   // a legendary's lair: no crowd, no torches
     if (gBattleVenue == Venue::Stadium) DrawTorches(time, gBattleKind);
     if (gBattleKind != ArenaKind::Stadium) DrawGymSpectacle(time, gBattleKind, hype);

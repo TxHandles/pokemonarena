@@ -11,7 +11,7 @@
 
 namespace {
 
-constexpr int SET_N = 12;
+constexpr int SET_N = 14;
 
 const char* kTabs[] = {"Keyboard - 1 player", "Keyboard - 2P Player 1", "Keyboard - 2P Player 2", "Gamepad 1", "Gamepad 2"};
 constexpr int TAB_N = 5;
@@ -278,10 +278,12 @@ static void SettingText(int i, char* label, char* value) {
         case 4: std::sprintf(label, "Auto-aim"); std::sprintf(value, "%s", onoff(c.autoAim)); break;
         case 5: std::sprintf(label, "Screen shake"); std::sprintf(value, "%s", onoff(c.screenShake)); break;
         case 6: std::sprintf(label, "Damage numbers"); std::sprintf(value, "%s", onoff(c.damageNumbers)); break;
-        case 7: std::sprintf(label, "Team size"); std::sprintf(value, "%d", c.teamSize); break;
-        case 8: std::sprintf(label, "CPU skill (Quick Battle / Training)"); std::sprintf(value, "%s", AILevelName(c.cpuLevel)); break;
-        case 9: std::sprintf(label, "Arena (Quick Battle / 2 Players)"); std::sprintf(value, "%s", c.quickArena < 0 ? "Random" : c.quickArena < ARENA_COUNT ? ArenaName((ArenaKind)c.quickArena) : VenueName((Venue)(c.quickArena - ARENA_COUNT + 1))); break;
-        case 10: std::sprintf(label, "Controls..."); value[0] = 0; break;
+        case 7: std::sprintf(label, "Effects intensity"); std::sprintf(value, "%s", c.fxLevel == 0 ? "Full" : c.fxLevel == 1 ? "Reduced" : "Minimal"); break;
+        case 8: std::sprintf(label, "Screen filter"); std::sprintf(value, "%s", c.screenFilter == 0 ? "Off" : c.screenFilter == 1 ? "Soft glow" : "Retro CRT"); break;
+        case 9: std::sprintf(label, "Team size"); std::sprintf(value, "%d", c.teamSize); break;
+        case 10: std::sprintf(label, "CPU skill (Quick Battle / Training)"); std::sprintf(value, "%s", AILevelName(c.cpuLevel)); break;
+        case 11: std::sprintf(label, "Arena (Quick Battle / 2 Players)"); std::sprintf(value, "%s", c.quickArena < 0 ? "Random" : c.quickArena < ARENA_COUNT ? ArenaName((ArenaKind)c.quickArena) : VenueName((Venue)(c.quickArena - ARENA_COUNT + 1))); break;
+        case 12: std::sprintf(label, "Controls..."); value[0] = 0; break;
         default: std::sprintf(label, "Back"); value[0] = 0; break;
     }
 }
@@ -303,10 +305,12 @@ void UpdateSettings(Game& g) {
         case 4: c.autoAim = !c.autoAim; break;
         case 5: c.screenShake = !c.screenShake; break;
         case 6: c.damageNumbers = !c.damageNumbers; break;
-        case 7: c.teamSize = ((c.teamSize - 1 + step + MAX_TEAM_SIZE) % MAX_TEAM_SIZE) + 1; break;
-        case 8: c.cpuLevel = (AILevel)(((int)c.cpuLevel + step + 3) % 3); break;
-        case 9: { const int n = ARENA_COUNT + VENUE_COUNT - 1 + 1; c.quickArena = ((c.quickArena + 1 + step + n) % n) - 1; } break;
-        case 10:
+        case 7: c.fxLevel = (c.fxLevel + step + 3) % 3; break;
+        case 8: c.screenFilter = (c.screenFilter + step + 3) % 3; break;
+        case 9: c.teamSize = ((c.teamSize - 1 + step + MAX_TEAM_SIZE) % MAX_TEAM_SIZE) + 1; break;
+        case 10: c.cpuLevel = (AILevel)(((int)c.cpuLevel + step + 3) % 3); break;
+        case 11: { const int n = ARENA_COUNT + VENUE_COUNT - 1 + 1; c.quickArena = ((c.quickArena + 1 + step + n) % n) - 1; } break;
+        case 12:
             changed = false;
             if (in.confirm) { g.ctrlTab = 0; g.ctrlRow = 1; g.ctrlCol = 0; g.capturing = false; g.screen = Screen::Controls; }
             break;
@@ -326,11 +330,11 @@ void DrawSettings(const Game& g) {
     ClearBackground(Color{24, 20, 38, 255});
     DrawTextCentered("SETTINGS", VW / 2, 14, 20, UI_GOLD);
     int x = 150, w = 340;
-    const char* groups[] = {"Display", "", "Sound", "", "Gameplay", "", "", "", "", "", "Controls", ""};
+    const char* groups[] = {"Display", "", "Sound", "", "Gameplay", "", "", "Visuals", "", "Battles", "", "", "Controls", ""};
     for (int i = 0; i < SET_N; i++) {
         char label[64], value[32];
         SettingText(i, label, value);
-        int y = 42 + i * 23;
+        int y = 38 + i * 21;
         bool sel = g.settingsSel == i;
         if (groups[i][0]) DrawText(groups[i], 40, y + 4, 10, UI_DIM);
         DrawPanel(x, y, w, 20, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});

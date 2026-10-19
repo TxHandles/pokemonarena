@@ -1,6 +1,8 @@
 #include "ui.h"
 #include <algorithm>
 #include <cmath>
+#include "vec.h"
+#include <cmath>
 #include <cstdio>
 #include <string>
 
@@ -60,21 +62,69 @@ void EllipsePix(float cx, float cy, float rx, float ry, Color c) {
     }
 }
 
+// Panels: a soft drop shadow, a gentle top-to-bottom gradient, rounded corners, a lit top edge.
+// Every screen uses these, so this is the game's whole panel style.
 void DrawPanel(int x, int y, int w, int h, Color fill, Color border) {
-    DrawRectangle(x, y, w, h, fill);
-    RectLines(x, y, w, h, border);
-    DrawRectangle(x + 1, y + 1, w - 2, 1, Fade(WHITE, 0.08f));
+    if (w <= 2 || h <= 2) { DrawRectangle(x, y, w, h, fill); return; }
+    float r = std::min(4.0f, std::min(w, h) * 0.3f);
+    float rr = r / (std::min(w, h) * 0.5f);
+    Rectangle rc{(float)x, (float)y, (float)w, (float)h};
+    if (fill.a > 120) DrawRectangleRounded({rc.x + 1, rc.y + 1.5f, rc.width, rc.height}, rr, 6, Fade(BLACK, 0.28f * fill.a / 255.0f));
+    DrawRectangleRounded(rc, rr, 6, fill);
+    Color top = ColorBrightness(fill, 0.10f), bot = ColorBrightness(fill, -0.10f);
+    top.a = bot.a = (unsigned char)(fill.a * 0.9f);
+    if (h > 2 * r) DrawRectangleGradientV(x + 1, (int)(y + r * 0.5f), w - 2, (int)(h - r), top, bot);
+    DrawRectangleRoundedLinesEx(rc, rr, 6, 1.0f, border);
+    DrawRectangleRoundedLinesEx({rc.x + 1, rc.y + 1, rc.width - 2, rc.height - 2}, rr, 6, 0.34f, Fade(WHITE, 0.10f));
+    DrawRectangle(x + (int)r, y + 1, w - 2 * (int)r, 1, Fade(WHITE, 0.16f));
 }
 
-void DrawHpBar(int x, int y, int w, int h, float frac) {
-    if (frac < 0) frac = 0;
-    if (frac > 1) frac = 1;
-    Color c = frac > 0.5f ? Color{96, 216, 96, 255} : (frac > 0.2f ? Color{240, 200, 60, 255} : Color{232, 72, 64, 255});
-    DrawRectangle(x - 1, y - 1, w + 2, h + 2, UI_INK);
-    DrawRectangle(x, y, w, h, Color{60, 56, 72, 255});
-    int fw = (int)(w * frac + 0.5f);
-    DrawRectangle(x, y, fw, h, c);
-    if (h > 2) DrawRectangle(x, y, fw, 1, ColorBrightness(c, 0.35f));
+void DrawHpBar(int x, int y, int w, int h, float frac) { DrawHpBarFx(x, y, w, h, frac, frac, 0); }
+
+// The HP bar: a dark trough, a red trail showing damage just taken, the bar in green / yellow /
+// red with a gloss line and segment ticks, pulsing when low.
+void DrawHpBarFx(int x, int y, int w, int h, float frac, float trail, float time) {
+    frac = std::max(0.0f, std::min(1.0f, frac));
+    trail = std::max(frac, std::min(1.0f, trail));
+    Color c = frac > 0.5f ? Color{88, 214, 104, 255} : (frac > 0.2f ? Color{246, 196, 52, 255} : Color{236, 68, 60, 255});
+    if (frac <= 0.2f && frac > 0 && time > 0) c = ColorBrightness(c, 0.25f * (0.5f + 0.5f * std::sin(time * 10)));
+    float r = h > 3 ? 0.5f : 0.3f;
+    DrawRectangleRounded({(float)x - 1, (float)y - 1, (float)w + 2, (float)h + 2}, r, 4, UI_INK);
+    DrawRectangle(x, y, w, h, Color{52, 48, 66, 255});
+    float tw = w * trail, fw = w * frac;
+    if (tw > fw + 0.2f) DrawRectangleV({x + fw, (float)y}, {tw - fw, (float)h}, Color{255, 120, 90, 255});
+    if (fw > 0.2f) {
+        DrawRectangleV({(float)x, (float)y}, {fw, (float)h}, c);
+        if (h > 2) {
+            DrawRectangleV({(float)x, (float)y}, {fw, std::max(0.67f, h * 0.34f)}, ColorBrightness(c, 0.35f));
+            DrawRectangleV({(float)x, (float)y + h - 0.67f}, {fw, 0.67f}, ColorBrightness(c, -0.3f));
+        }
+    }
+    if (w >= 60 && h >= 4)   // tick marks every tenth
+        for (int k = 1; k < 10; k++) DrawRectangleV({x + w * k / 10.0f, (float)y}, {0.34f, (float)h}, Fade(UI_INK, 0.35f));
+}
+
+// A Poke Ball: red top, white bottom, black band and button. 'open' 0..1 lifts the top half.
+void DrawPokeBall(Vector2 c, float r, float rotDeg, float open, Color top, unsigned char alpha) {
+    Color ink{20, 18, 30, alpha}, white{244, 244, 248, alpha};
+    top.a = alpha;
+    Vector2 d{std::cos(rotDeg * DEG2RAD), std::sin(rotDeg * DEG2RAD)};
+    Vector2 up{d.y, -d.x};
+    Vector2 lift = up * (open * r * 0.9f);
+    DrawCircleV(c, r + std::max(0.6f, r * 0.1f), ink);
+    DrawCircleSector(c, r, rotDeg, 180 + rotDeg, 24, white);
+    DrawCircleSector(c, r * 0.92f, rotDeg + 20, 160 + rotDeg, 16, ColorBrightness(white, -0.12f));
+    if (open > 0) {
+        DrawCircleV(c, r * 0.8f, Color{255, 255, 255, alpha});   // light pouring out
+        DrawCircleV(c + lift, r + std::max(0.6f, r * 0.1f), ink);
+    }
+    DrawCircleSector(c + lift, r, -180 + rotDeg, rotDeg, 24, top);
+    DrawCircleV(c + lift - up * (r * 0.45f) - d * (r * 0.35f), r * 0.22f, Fade(WHITE, 0.55f * alpha / 255.0f));   // shine
+    DrawLineEx(c + lift - d * r, c + lift + d * r, std::max(0.6f, r * 0.18f), ink);
+    if (open <= 0) {
+        DrawCircleV(c, r * 0.34f, ink);
+        DrawCircleV(c, r * 0.21f, white);
+    }
 }
 
 void DrawReadyCount(int rightX, int y, bool r0, bool r1) {

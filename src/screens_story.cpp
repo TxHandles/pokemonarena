@@ -97,16 +97,7 @@ void DrawCoins(int coins, int x, int y) {
     DrawText(TextFormat("%d", coins), x + 12, y + 1, 10, kCoin);
 }
 
-void DrawPokeBall(float x, float y, float r, float rot, Color top = Color{230, 60, 60, 255}) {
-    Vector2 c{x, y};
-    DrawCircleV(c, r + 1, UI_INK);
-    DrawCircleSector(c, r, -180 + rot, 0 + rot, 16, top);
-    DrawCircleSector(c, r, 0 + rot, 180 + rot, 16, Color{240, 240, 240, 255});
-    Vector2 d{std::cos(rot * DEG2RAD), std::sin(rot * DEG2RAD)};
-    DrawLineEx(c - d * r, c + d * r, std::max(1.0f, r * 0.25f), UI_INK);
-    DrawCircleV(c, r * 0.35f, UI_INK);
-    DrawCircleV(c, r * 0.22f, WHITE);
-}
+void DrawPokeBall(float x, float y, float r, float rot, Color top = Color{230, 60, 60, 255}) { ::DrawPokeBall(Vector2{x, y}, r, rot, 0, top); }
 
 } // namespace
 
@@ -352,7 +343,7 @@ void UpdateProfileSelect(Game& g) {
     }
     std::string problems;
     if (!LoadProfile(g.profiles[g.profSel], g.profile, &problems)) { Toast(g, "Could not load that profile"); return; }
-    if (!problems.empty()) Toast(g, "Some creatures in this save are missing from the Pokemon folder");
+    if (!problems.empty()) Toast(g, "Some Pokemon in this save are missing from the Pokemon folder");
     if (ProfileRoster(g.profile).empty()) {
         g.starterSel = 0;
         g.screen = Screen::Starter;
@@ -364,7 +355,7 @@ void UpdateProfileSelect(Game& g) {
 void DrawProfileSelect(const Game& g) {
     ClearBackground(Color{24, 20, 38, 255});
     DrawTextCentered("STORY MODE", VW / 2, 16, 30, UI_GOLD);
-    DrawTextCentered("Choose a profile. Each one keeps its own creatures, levels and story progress.", VW / 2, 52, 10, UI_DIM, false);
+    DrawTextCentered("Choose a profile. Each one keeps its own Pokemon, levels and story progress.", VW / 2, 52, 10, UI_DIM, false);
     int n = (int)g.profiles.size();
     for (int i = 0; i <= n; i++) {
         int y = 76 + i * 26;
@@ -375,7 +366,7 @@ void DrawProfileSelect(const Game& g) {
             Profile p;
             LoadProfile(g.profiles[i], p);
             DrawText(p.name.c_str(), VW / 2 - 140, y + 6, 10, sel ? UI_GOLD : UI_TEXT);
-            const char* info = TextFormat("%d creature%s   stage %d/%d   %dW %dL", (int)p.mons.size(), p.mons.size() == 1 ? "" : "s",
+            const char* info = TextFormat("%d Pokemon   stage %d/%d   %dW %dL", (int)p.mons.size(),
                                           std::min(p.storyStage, (int)Story().stages.size()), (int)Story().stages.size(), p.wins, p.losses);
             DrawText(info, VW / 2 + 140 - TextW(info, 10), y + 6, 10, UI_DIM);
         } else {
@@ -791,7 +782,7 @@ void DrawMap(const Game& g) {
     DrawText(st.trainer.c_str(), x + 8, 54, 10, st.IsGym() ? UI_GOLD : UI_TEXT);
     DrawText(beaten ? "Beaten" : (isNext ? "Up next" : "Locked"), x + 8, 70, 10,
              beaten ? Color{120, 230, 130, 255} : (isNext ? WHITE : UI_DIM));
-    DrawText(TextFormat("%d creature%s", (int)st.team.size(), st.team.size() > 1 ? "s" : ""), x + 8, 86, 10, UI_TEXT);
+    DrawText(TextFormat("%d Pokemon", (int)st.team.size()), x + 8, 86, 10, UI_TEXT);
     DrawText(TextFormat("Arena: %s", ArenaName(st.arena)), x + 8, 100, 10, UI_TEXT);
     if (st.IsBoss()) {
         if (st.IsGym()) {
@@ -991,14 +982,14 @@ void DrawStageIntro(const Game& g) {
     DrawPanel(60, 150, 520, ph, UI_PANEL, UI_BORDER);
     for (size_t i = 0; i < lines.size(); i++) DrawTextCentered(lines[i].c_str(), VW / 2, 160 + (int)i * 12, 10, UI_TEXT, false);
     int foes = g.coop ? std::min(MAX_TEAM_SIZE, std::max(3, (int)st.team.size() + 2)) : (int)std::min<size_t>(st.team.size(), MAX_TEAM_SIZE);
-    DrawTextCentered(TextFormat("%d creature%s   CPU skill %s%s", foes, foes > 1 ? "s" : "", AILevelName(st.cpu), g.coop ? "   2v2 co-op battle" : ""),
+    DrawTextCentered(TextFormat("%d Pokemon   CPU skill %s%s", foes, AILevelName(st.cpu), g.coop ? "   2v2 co-op battle" : ""),
                      VW / 2, 214, 10, UI_TEXT, false);
     if (st.arena != ArenaKind::Stadium) {
         DrawTextCentered(ArenaName(st.arena), VW / 2, 234, 20, UI_GOLD);
         DrawTextCentered(ArenaTwist(st.arena), VW / 2, 258, 10, Color{150, 200, 240, 255}, false);
     }
     if (st.IsGym()) DrawTextCentered(TextFormat("Win the %s Badge!", st.badge.c_str()), VW / 2, 276, 10, BadgeColor(st.badge), false);
-    else if (st.Catchable()) DrawTextCentered("Weaken their creatures (don't knock them out) for a chance to catch one.", VW / 2, 252, 10, UI_DIM, false);
+    else if (st.Catchable()) DrawTextCentered("Weaken their Pokemon (don't knock them out) for a chance to catch one.", VW / 2, 252, 10, UI_DIM, false);
     else if (!st.snorlax) DrawTextCentered("A trainer's Pokemon can't be caught - find new ones in training battles.", VW / 2, 252, 10, UI_DIM, false);
     DrawTextCentered("Enter: choose your team     Esc: back", VW / 2, 300, 10, UI_DIM, false);
 }
@@ -1428,9 +1419,9 @@ void DrawMyCreatures(const Game& g) {
         return;
     }
     if (n == 0) {
-        DrawText(g.boxTab == 1 ? "Your Box is empty." : "No creatures in the party.", 16, 58, 10, UI_DIM);
+        DrawText(g.boxTab == 1 ? "Your Box is empty." : "No Pokemon in the party.", 16, 58, 10, UI_DIM);
         if (g.boxTab == 1) {
-            DrawText("Creatures you catch or receive", 16, 74, 10, UI_DIM);
+            DrawText("Pokemon you catch or receive", 16, 74, 10, UI_DIM);
             DrawText("go here when your party is full.", 16, 86, 10, UI_DIM);
         }
         DrawText("Left/Right switch tab   Esc back", 212, 340, 10, UI_DIM);
@@ -1816,8 +1807,8 @@ void ProcessStoryBattleEnd(Game& g) {
             for (const auto& e : g.evoQueue) queued |= e.mon == i && e.who == w;
             if (to >= 0 && !queued && OnlineMine(g, w)) g.evoQueue.push_back({i, to, w});
         }
-        if (wiped) g.resultLines.push_back(coop ? P.name + "'s team was wiped out - their creatures trust them a little less."
-                                                : "Your team was wiped out - your creatures trust you a little less.");
+        if (wiped) g.resultLines.push_back(coop ? P.name + "'s team was wiped out - their Pokemon trust them a little less."
+                                                : "Your team was wiped out - your Pokemon trust you a little less.");
         // The first time one of your Pokemon loves you completely, a Pokemon fan gives you an Eevee.
         if (OnlineMine(g, w) && !P.eeveeGift) {
             const OwnedMon* best = nullptr;
@@ -2456,7 +2447,7 @@ void AdvanceStoryQueues(Game& g) {
         if (g.rewardChoices.empty()) {
             g.rewardsPending--;
             if (!g.rewardWho.empty()) g.rewardWho.erase(g.rewardWho.begin());
-            Toast(g, "You've collected every creature!");
+            Toast(g, "You've collected every Pokemon!");
             continue;
         }
         g.rewardSel = 0;
@@ -2545,8 +2536,8 @@ void DrawStoryResults(const Game& g) {
     if (g.legendCatchPending) { DrawTextCentered(g.coop ? "The legendary is weakened - time to take turns throwing balls!" : "The legendary is weakened - you have 3 balls to catch it!", VW / 2, y + 6, 10, UI_GOLD, false); y += 12; }
     if (g.catchPending) { DrawTextCentered(g.coop ? "Weakened foes are still here - time for the catch draft!" : "A weakened foe is still here - try to catch it!", VW / 2, y + 6, 10, UI_GOLD, false); y += 12; }
     if (!g.evoQueue.empty()) { DrawTextCentered("Something is happening...", VW / 2, y + 8, 10, UI_GOLD, false); y += 14; }
-    if (!g.learnQueue.empty()) { DrawTextCentered("A creature wants to learn a new move!", VW / 2, y + 8, 10, UI_GOLD, false); y += 14; }
-    if (g.rewardsPending > 0) DrawTextCentered(g.coop ? "You can each choose a new creature!" : "You can choose a new creature!", VW / 2, y + 8, 10, UI_GOLD, false);
+    if (!g.learnQueue.empty()) { DrawTextCentered("A Pokemon wants to learn a new move!", VW / 2, y + 8, 10, UI_GOLD, false); y += 14; }
+    if (g.rewardsPending > 0) DrawTextCentered(g.coop ? "You can each choose a new Pokemon!" : "You can choose a new Pokemon!", VW / 2, y + 8, 10, UI_GOLD, false);
     if (!g.won) DrawTextCentered(g.tower ? "XP from knockouts is kept. Train up and start a new run!" : "XP from knockouts is kept. Heal up, train and try again!", VW / 2, 322, 10, UI_DIM, false);
     DrawTextCentered("Enter to continue", VW / 2, 340, 10, UI_DIM, false);
 }
@@ -2586,14 +2577,43 @@ void DrawEvolve(const Game& g) {
     if (e.mon < 0 || e.mon >= (int)P.mons.size()) return;
     const OwnedMon& m = P.mons[e.mon];
     float t = g.evoT;
-    if (g.coop) DrawTextCentered(TextFormat("%s's creature", P.name.c_str()), VW / 2, 20, 10, e.who == 0 ? UI_GOLD : Color{120, 230, 255, 255}, false);
-    // Rays
-    for (int i = 0; i < 24; i++) {
-        float a = i * 6.2831853f / 24 + t * 0.4f;
-        Vector2 c{VW / 2.0f, 150};
-        Vector2 p{c.x + std::cos(a) * 400, c.y + std::sin(a) * 400};
-        DrawLineEx(c, p, 3, Fade(Color{120, 160, 255, 255}, 0.08f + 0.04f * std::sin(t * 3 + i)));
+    if (g.coop) DrawTextCentered(TextFormat("%s's Pokemon", P.name.c_str()), VW / 2, 20, 10, e.who == 0 ? UI_GOLD : Color{120, 230, 255, 255}, false);
+    // A swirling backdrop: rays turning faster as it nears, rising motes, rings pulsing outward
+    Vector2 cc{VW / 2.0f, 150};
+    float build = std::min(1.0f, t / 3.0f);
+    DrawRectangleGradientV(0, 0, VW, VH, Color{16, 14, 40, 255}, Color{8, 6, 18, 255});
+    BeginBlendMode(BLEND_ADDITIVE);
+    for (int i = 0; i < 28; i++) {
+        float a = i * 6.2831853f / 28 + t * (0.3f + build * 1.4f);
+        Vector2 p{cc.x + std::cos(a) * 420, cc.y + std::sin(a) * 420};
+        Vector2 p2{cc.x + std::cos(a + 0.05f) * 420, cc.y + std::sin(a + 0.05f) * 420};
+        DrawTriangle(cc, p2, p, Fade(Color{120, 170, 255, 255}, 0.05f + 0.05f * build + 0.03f * std::sin(t * 3 + i)));
     }
+    for (int k = 0; k < 4; k++) {
+        float u = std::fmod(t * 0.7f + k * 0.25f, 1.0f);
+        DrawRing(cc, 30 + u * 220, 32 + u * 220, 0, 360, 64, Fade(Color{170, 210, 255, 255}, 0.25f * (1 - u)));
+    }
+    for (int i = 0; i < 40; i++) {
+        float ph = std::fmod(t * (0.3f + (i % 7) * 0.05f) + i * 0.137f, 1.0f);
+        float x = std::fmod(i * 97.3f, (float)VW);
+        DrawCircleV({x + std::sin(t + i) * 6, VH - ph * (VH + 20)}, 1.2f + (i % 3) * 0.5f, Fade(Color{200, 230, 255, 255}, 0.6f * std::sin(ph * 3.14159f)));
+    }
+    DrawCircleV(cc, 60 + build * 40 + std::sin(t * 6) * 4, Fade(Color{150, 190, 255, 255}, 0.12f + build * 0.12f));
+    if (t >= 3.0f && t < 3.6f) {   // the burst as it evolves
+        float u = (t - 3.0f) / 0.6f;
+        DrawRectangle(0, 0, VW, VH, Fade(WHITE, 0.6f * (1 - u)));
+        DrawRing(cc, u * 300, u * 300 + 6, 0, 360, 72, Fade(WHITE, 1 - u));
+        for (int i = 0; i < 16; i++) {
+            float a = i * 6.2832f / 16;
+            DrawLineEx({cc.x + std::cos(a) * u * 80, cc.y + std::sin(a) * u * 80}, {cc.x + std::cos(a) * (u * 80 + 40), cc.y + std::sin(a) * (u * 80 + 40)}, 2, Fade(UI_GOLD, 1 - u));
+        }
+    }
+    EndBlendMode();
+    if (t > 3.0f)   // sparkles around the new form
+        for (int i = 0; i < 6; i++) {
+            float a = i * 1.047f + t * 1.5f;
+            DrawShinyStar(cc.x + std::cos(a) * 70, cc.y + 20 + std::sin(a) * 40, 2.5f + 1.5f * std::sin(t * 5 + i));
+        }
     int from = SpeciesIndex(m.species);
     int show = from;
     float white = 0;
@@ -2667,7 +2687,7 @@ void DrawLearnMove(const Game& g) {
     const Profile& P = Prof(g, l.who);
     if (l.mon < 0 || l.mon >= (int)P.mons.size()) return;
     const OwnedMon& m = P.mons[l.mon];
-    if (g.coop) DrawText(TextFormat("%s's creature", P.name.c_str()), 40, 14, 10, l.who == 0 ? UI_GOLD : Color{120, 230, 255, 255});
+    if (g.coop) DrawText(TextFormat("%s's Pokemon", P.name.c_str()), 40, 14, 10, l.who == 0 ? UI_GOLD : Color{120, 230, 255, 255});
     int idx = MonSpecies(m);
     DrawRectangle(40, 30, 90, 90, UI_PANEL_LIGHT);
     if (idx >= 0) DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, 85, 116, 80);
@@ -2723,7 +2743,7 @@ void DrawReward(const Game& g) {
     ClearBackground(Color{24, 20, 38, 255});
     int who = g.rewardWho.empty() ? 0 : g.rewardWho.front();
     const Profile& P = Prof(g, who);
-    DrawTextCentered(g.coop ? TextFormat("%s: CHOOSE A NEW CREATURE", P.name.c_str()) : "CHOOSE A NEW CREATURE", VW / 2, 20, 20,
+    DrawTextCentered(g.coop ? TextFormat("%s: CHOOSE A NEW POKEMON", P.name.c_str()) : "CHOOSE A NEW POKEMON", VW / 2, 20, 20,
                      g.coop && who == 1 ? Color{120, 230, 255, 255} : UI_GOLD);
     DrawTextCentered(TextFormat("It joins at level %d.", NewMonLevel(P)), VW / 2, 46, 10, UI_TEXT, false);
     int n = (int)g.rewardChoices.size();
@@ -2916,7 +2936,7 @@ void DrawCatch(const Game& g) {
     if (watching && g.catchPhase == 0) {
         Color pc = (g.catchWho == 0 ? UI_GOLD : Color{120, 230, 255, 255});
         DrawTextCentered("CATCH DRAFT", VW / 2, 14, 20, UI_GOLD);
-        DrawTextCentered(TextFormat("%s is choosing which creature to catch...", P.name.c_str()), VW / 2, 40, 10, pc, false);
+        DrawTextCentered(TextFormat("%s is choosing which Pokemon to catch...", P.name.c_str()), VW / 2, 40, 10, pc, false);
         int cw = std::min(150, 560 / std::max(1, n)), gap = 10;
         int x0 = VW / 2 - (n * cw + (n - 1) * gap) / 2;
         int ps = g.on.partnerCatchSel;
@@ -2948,8 +2968,8 @@ void DrawCatch(const Game& g) {
     }
     const ItemDef* ball = balls.empty() ? nullptr : balls[std::min(g.ballSel, (int)balls.size() - 1)];
     if (g.catchPhase == 0) {
-        DrawTextCentered("CATCH A CREATURE", VW / 2, 14, 20, UI_GOLD);
-        DrawTextCentered(g.coop ? "Pick one creature (your partner can't take the same one) and one of your balls."
+        DrawTextCentered("CATCH A POKEMON", VW / 2, 14, 20, UI_GOLD);
+        DrawTextCentered(g.coop ? "Pick one Pokemon (your partner can't take the same one) and one of your balls."
                          : (n > 1 ? "Pick one weakened foe and a ball. Lower HP = easier catch." : "Throw a ball! Lower HP = easier catch."),
                          VW / 2, 40, 10, UI_TEXT, false);
         int cw = std::min(150, 560 / std::max(1, n)), gap = 10;
@@ -2980,7 +3000,7 @@ void DrawCatch(const Game& g) {
                 DrawText(nm.substr(0, nm.find(' ')).c_str(), bx + 10, by + 1, 10, sel ? UI_GOLD : UI_DIM);
             }
         }
-        DrawTextCentered("Left/Right creature   Up/Down ball   Enter throw   Esc leave", VW / 2, 340, 10, UI_DIM, false);
+        DrawTextCentered("Left/Right Pokemon   Up/Down ball   Enter throw   Esc leave", VW / 2, 340, 10, UI_DIM, false);
         return;
     }
     const auto& c = g.catchCands[0];
@@ -2989,10 +3009,23 @@ void DrawCatch(const Game& g) {
     Vector2 from{120, 320};
     float resultAt = 1.3f + g.catchShakes * 0.6f;
     bool inBall = t >= 0.9f && !(g.catchPhase == 2 && !g.catchOk);
+    {   // a spotlight on the ground
+        BeginBlendMode(BLEND_ADDITIVE);
+        DrawEllipse((int)mon.x, (int)mon.y + 20, 70, 16, Fade(Color{255, 240, 200, 255}, 0.10f));
+        DrawEllipse((int)mon.x, (int)mon.y + 20, 44, 10, Fade(Color{255, 240, 200, 255}, 0.10f));
+        EndBlendMode();
+    }
     if (!inBall && !(g.catchPhase == 2 && g.catchFled)) {
         float white = (t > 0.7f && t < 0.9f) ? (t - 0.7f) / 0.2f : 0.0f;
-        DrawSpeciesFit(ShinyIdx(c.species, c.shiny), VIEW_FRONT, (int)mon.x, (int)mon.y + 20, 90, WHITE);
-        if (white > 0) DrawRectangle((int)mon.x - 30, (int)mon.y - 70, 60, 90, Fade(WHITE, white * 0.5f));
+        float shrink = (t > 0.7f && t < 0.9f && g.catchPhase != 2) ? 1 - (t - 0.7f) / 0.2f : 1.0f;
+        int box = std::max(4, (int)(90 * shrink));
+        DrawSpeciesFit(ShinyIdx(c.species, c.shiny), VIEW_FRONT, (int)mon.x, (int)mon.y + 20 - (int)((1 - shrink) * 20), box, WHITE);
+        if (white > 0) {   // pulled into the ball as red light
+            BeginBlendMode(BLEND_ADDITIVE);
+            for (int k = -2; k <= 2; k++) DrawLineEx({mon.x + k * 4 * shrink, mon.y - 10 * shrink}, {mon.x, mon.y + 18}, 2, Fade(Color{255, 90, 80, 255}, white * 0.8f));
+            DrawCircleV({mon.x, mon.y - 5}, 30 * shrink + 6, Fade(Color{255, 120, 100, 255}, white * 0.35f));
+            EndBlendMode();
+        }
     }
     if (t < 0.7f) {  // the throw
         float u = t / 0.7f;
@@ -3001,18 +3034,43 @@ void DrawCatch(const Game& g) {
         DrawPokeBall(p.x, p.y, 6, u * 720);
     } else {
         Vector2 ground{mon.x, mon.y + 18};
-        float rot = 0;
+        float rot = 0, squash = 0;
         if (g.catchPhase == 1 && t > 1.1f) {
             float k = std::fmod(t - 1.1f, 0.6f);
-            if (k < 0.3f) rot = std::sin(k / 0.3f * PI * 2) * 25;
+            if (k < 0.3f) { rot = std::sin(k / 0.3f * PI * 2) * 30; squash = std::sin(k / 0.3f * PI) * 0.12f; }
+            // the button blinks red while it decides
+            if (k < 0.12f) {
+                BeginBlendMode(BLEND_ADDITIVE);
+                DrawCircleV({ground.x, ground.y - 9}, 6, Fade(Color{255, 80, 70, 255}, 0.6f));
+                EndBlendMode();
+            }
         }
+        if (t < 1.1f && t >= 0.7f) {   // dropping to the ground with a bounce
+            float u = (t - 0.7f) / 0.4f;
+            ground.y -= std::fabs(std::cos(u * PI * 1.5f)) * (1 - u) * 26;
+        }
+        DrawEllipse((int)mon.x, (int)mon.y + 28, 12, 3, Fade(BLACK, 0.4f));
+        (void)squash;
         if (g.catchPhase == 2 && !g.catchOk) {
             float u = std::min(1.0f, (t - resultAt) / 0.3f);
             DrawPokeBall(ground.x - 20 * u, ground.y + 10 * u, 6, 0);
         } else {
-            DrawPokeBall(ground.x, ground.y, 6, rot);
-            if (g.catchPhase == 2 && g.catchOk)
-                for (int i = 0; i < 3; i++) DrawRectangle((int)ground.x - 14 + i * 12, (int)ground.y - 16 - (int)(std::fmod(t * 20 + i * 5, 8)), 2, 2, UI_GOLD);
+            ::DrawPokeBall({ground.x, ground.y}, 9, rot, 0, Color{230, 60, 60, 255});
+            if (g.catchPhase == 2 && g.catchOk) {   // the click: a star burst and sparkles
+                float u = std::min(1.0f, (t - resultAt) / 0.6f);
+                BeginBlendMode(BLEND_ADDITIVE);
+                for (int i = 0; i < 8; i++) {
+                    float a = i * PI / 4 + 0.3f;
+                    float r0 = 10 + u * 34, r1 = r0 + 8 * (1 - u);
+                    DrawLineEx({ground.x + std::cos(a) * r0, ground.y + std::sin(a) * r0 * 0.8f}, {ground.x + std::cos(a) * r1, ground.y + std::sin(a) * r1 * 0.8f}, 2, Fade(UI_GOLD, 1 - u));
+                }
+                DrawCircleV(ground, 26 * (1 - u) + 4, Fade(Color{255, 240, 180, 255}, 0.4f * (1 - u)));
+                EndBlendMode();
+                for (int i = 0; i < 3; i++) {
+                    float ph = std::fmod(t * 1.5f + i * 0.33f, 1.0f);
+                    DrawShinyStar(ground.x - 16 + i * 16, ground.y - 18 - ph * 16, 3.5f * (1 - ph) + 1);
+                }
+            }
         }
     }
     const SpeciesDef& sp = AllSpecies()[c.species];
@@ -3315,9 +3373,9 @@ void UpdateShop(Game& g) {
     SaveOrWarn(g);
     PlaySfx(Sfx::Heal);
     Toast(g, IsBall(d) ? "Bought a " + d.name + "!"
-             : IsStone(d) ? "Bought a " + d.name + "! Use it on a creature in Party & Box."
+             : IsStone(d) ? "Bought a " + d.name + "! Use it on a Pokemon in Party & Box."
              : IsTM(d) ? "Bought " + d.name + "! Teach it in Party & Box (Use a TM)."
-                          : "Bought " + d.name + "! Give it to a creature in Party & Box.");
+                          : "Bought " + d.name + "! Give it to a Pokemon in Party & Box.");
 }
 
 namespace {
@@ -3468,7 +3526,7 @@ void DrawShop(const Game& g) {
         if (BadgeCount(g) < d.badges) DrawText(BadgeNeedText(d.badges), 372, 178, 10, Color{255, 130, 100, 255});
         int held = 0;
         for (const auto& m : p.mons) held += m.item == d.name;
-        if (held) DrawText(TextFormat("Held by %d of your creatures", held), 372, 178, 10, Color{140, 220, 255, 255});
+        if (held) DrawText(TextFormat("Held by %d of your Pokemon", held), 372, 178, 10, Color{140, 220, 255, 255});
     }
     if (n > 0 && IsTM(*list[g.shopSel])) {   // who in the party can learn it
         const ItemDef& d = *list[g.shopSel];
@@ -3490,7 +3548,7 @@ void DrawShop(const Game& g) {
         return;
     }
     DrawPanel(362, 204, 258, 72);
-    DrawText("Each creature can hold one item.", 372, 212, 10, UI_DIM);
+    DrawText("Each Pokemon can hold one item.", 372, 212, 10, UI_DIM);
     DrawText("Equip items and use stones in Party & Box.", 372, 226, 10, UI_DIM);
     DrawText("More items unlock with each badge.", 372, 240, 10, UI_DIM);
     DrawText("Balls are used up when thrown.", 372, 254, 10, UI_DIM);
@@ -3818,7 +3876,7 @@ void DrawCoopHubBase(const Game& g) {
         DrawText(theirs.c_str(), 10, 322, 10, o.partnerReady ? Color{140, 230, 150, 255} : UI_DIM);
     } else {
         DrawText("Badges and story progress are shared.", 10, 310, 10, UI_DIM);
-        DrawText("XP, coins and creatures go to each player.", 10, 322, 10, UI_DIM);
+        DrawText("XP, coins and Pokemon go to each player.", 10, 322, 10, UI_DIM);
     }
 
     // Menu

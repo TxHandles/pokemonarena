@@ -363,6 +363,7 @@ public:
 
     bool Finished() const;  // result decided, banner shown, nobody mid-evolution
     int Winner() const { return winner; }   // 0 or 1, 2 = draw, -1 = still going
+    float AnimTimeScale() const;   // < 1 just after the final knockout (offline slow motion; battle_anim.cpp)
     const Side& GetSide(int s) const { return sides[s]; }
     int NumSlots() const { return (int)sides.size(); }
     std::vector<const Fighter*> TeamFighters(int team) const;   // every creature on a team, all slots
@@ -512,15 +513,17 @@ private:
     void DrawParticles() const;
     void DrawWeatherFloor() const;   // wet floor and puddles, snow cover, sun glare
     void DrawTimeOfDay() const;      // night darkens the arena, day brightens it
-    void DrawWeatherSky() const;
+    void DrawWeatherSky() const;     // rain, snow, sand and sunlight in the air, over everything on the field
     // Battle animation (battle_anim.cpp): visual only, never part of the battle state
     void AnimTick() const;
     void AnimPose(int s, Vector2& off, float& sx, float& sy, float& lift) const;
     float AnimCamera(Vector2& focus) const;
     float AnimGhost(int s, Vector2& back) const;   // lunge after-images: strength, offset
+    float AnimHpTrail(int s) const;      // the HP bar's damage trail (fraction)
+    float AnimSinceWin() const;          // seconds since the battle was decided
     void DrawAnimUnder() const;
     void DrawAnimOver() const;
-    void DrawAnimCinematic() const;     // rain, snow, sand and sunlight in the air, over everything on the field
+    void DrawAnimCinematic() const;
     void AddText(Vector2 pos, const std::string& text, Color c, float z = 24);
     void Shake(int amt, float t = 0.15f);
 

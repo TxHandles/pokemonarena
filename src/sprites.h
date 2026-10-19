@@ -32,6 +32,7 @@ const CreatureSprites& SpritesFor(int speciesIndex);
 // Battle drawing. Feet at (x, bottom). sx/sy squash for send-out/faint animations.
 void DrawCreature(int speciesIndex, int view, int frame, float x, float bottom, float sx, float sy,
                   Color tint, float whiteAmount);
+void DrawCreatureReflect(int speciesIndex, int view, int frame, float x, float feet, float sx, float sy, Color tint);   // upside down below the feet
 float CreatureHeight(int speciesIndex, int view);  // in logical units
 
 // Menu drawing: fit the creature (portrait if it has one and usePortrait) into a box, crisp.

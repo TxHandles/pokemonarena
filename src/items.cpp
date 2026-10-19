@@ -21,7 +21,7 @@ std::vector<ItemDef> Build() {
         v.push_back(d);
     };
     // Poke Balls
-    add("Poke Ball", ItemFx::Ball, 1.0f, 20, 0, "A ball for catching weakened creatures.");
+    add("Poke Ball", ItemFx::Ball, 1.0f, 20, 0, "A ball for catching weakened Pokemon.");
     add("Great Ball", ItemFx::Ball, 1.5f, 60, 2, "Catch rate x1.5.");
     add("Ultra Ball", ItemFx::Ball, 2.0f, 150, 5, "Catch rate x2.");
     add("Master Ball", ItemFx::Ball, 0.0f, 2500, 8, "Never fails.");

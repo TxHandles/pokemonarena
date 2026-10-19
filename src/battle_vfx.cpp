@@ -9,6 +9,7 @@
 #include "vec.h"
 #include "vfx.h"
 #include "rlgl.h"
+#include "settings.h"
 
 namespace {
 
@@ -512,7 +513,7 @@ void Battle::DrawFxTop(const Fx& fx) const {
             VNorm();
         } break;
         case FxKind::Flash: {
-            float a = (1 - t) * (fx.radius >= 60 ? 0.28f : 0.18f);
+            float a = (1 - t) * (fx.radius >= 60 ? 0.28f : 0.18f) * (Cfg().fxLevel == 0 ? 1.0f : Cfg().fxLevel == 1 ? 0.35f : 0.0f);
             VAdd();
             DrawRectangle(0, 0, VW, FLOOR_BOTTOM + 4, Fade(fx.col, a));
             VNorm();
@@ -787,7 +788,7 @@ void Battle::DrawWeatherSky() const {
             if (storm > 10.5f) {
                 float f = storm < 10.6f ? 1.0f : storm < 10.68f ? 0.2f : storm < 10.75f ? 0.8f : 1.0f - (storm - 10.75f) / 0.25f;
                 VAdd();
-                DrawRectangle(0, 0, VW, (int)bottom, Fade(Color{200, 210, 255, 255}, 0.16f * f * fade));
+                DrawRectangle(0, 0, VW, (int)bottom, Fade(Color{200, 210, 255, 255}, 0.16f * f * fade * (Cfg().fxLevel == 0 ? 1.0f : 0.3f)));
                 VNorm();
             }
         } break;

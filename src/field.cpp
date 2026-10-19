@@ -75,7 +75,7 @@ const char* ArenaName(ArenaKind k) { return kNames[(int)k]; }
 
 const char* ArenaTwist(ArenaKind k) {
     switch (k) {
-        case ArenaKind::Rock: return "Stone pillars block shots. Heavy creatures can smash them and hurl them across the field.";
+        case ArenaKind::Rock: return "Stone pillars block shots. Heavy Pokemon can smash them and hurl them across the field.";
         case ArenaKind::Water: return "Mostly water: Water types speed up, others slow down, flyers hover over it. Electric hits shock the whole pool!";
         case ArenaKind::Electric: return "Tesla coils zap anyone close by - but Electric types near a coil get stronger and faster.";
         case ArenaKind::Grass: return "Trees block shots, heavy hits knock them down, Fire burns them. Grass types power up in the tall grass.";

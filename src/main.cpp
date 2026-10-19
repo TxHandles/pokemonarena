@@ -121,6 +121,17 @@ int main() {
             case Screen::Shop: UpdateShop(g); break;
         }
 
+        // Screen changes open with a Poke Ball iris.
+        static Screen lastScreen = g.screen;
+        static float transT = 0;
+        if (g.screen != lastScreen) {
+            bool minor = (lastScreen == Screen::Battle && g.screen == Screen::BattleStats) || (lastScreen == Screen::Settings) || (g.screen == Screen::Settings) ||
+                         (lastScreen == Screen::Controls) || (g.screen == Screen::Controls);
+            if (!minor) transT = 0.42f;
+            lastScreen = g.screen;
+        }
+        transT = std::max(0.0f, transT - GetFrameTime());
+
         BeginTextureMode(target);
         ClearBackground(BLACK);
         BeginMode2D(cam);
@@ -174,6 +185,15 @@ int main() {
 #ifdef ARENA_AUTOTEST
         if (gAutoSheet) gAutoSheet(gAutoSheetPage);
 #endif
+        if (transT > 0) {
+            float u = 1 - transT / 0.42f;
+            float e = u * u * (3 - 2 * u);
+            float R = 4 + e * 400;
+            Vector2 c{VW / 2.0f, VH / 2.0f};
+            DrawRing(c, R, 500, 0, 360, 64, Color{12, 10, 22, 255});
+            DrawRing(c, R - 2.5f, R, 0, 360, 64, Fade(Color{226, 52, 52, 255}, 1 - e));
+            if (u < 0.35f) DrawPokeBall(c, 18 * (1 - u / 0.35f) + 2, u * 600, u / 0.35f);
+        }
         if (Cfg().showFps) DrawText(TextFormat("%d FPS", GetFPS()), VW - 44, VH - 12, 10, UI_DIM);
         EndMode2D();
         EndTextureMode();
@@ -194,6 +214,25 @@ int main() {
         DrawTexturePro(target.texture, src, dst, {0, 0}, 0, WHITE);
         rlDrawRenderBatchActive();
         rlEnableColorBlend();
+        if (Cfg().screenFilter == 1) {   // soft glow: the picture again, spread out and added faintly
+            SetTextureFilter(target.texture, TEXTURE_FILTER_BILINEAR);
+            BeginBlendMode(BLEND_ADDITIVE);
+            float o = 2.5f * sc;
+            const Vector2 offs[4] = {{o, 0}, {-o, 0}, {0, o}, {0, -o}};
+            for (const Vector2& d : offs)
+                DrawTexturePro(target.texture, src, Rectangle{dst.x + d.x, dst.y + d.y, dst.width, dst.height}, {0, 0}, 0, Fade(WHITE, 0.045f));
+            EndBlendMode();
+        } else if (Cfg().screenFilter == 2) {   // retro CRT: scanlines, a soft vignette and a glassy sheen
+            int step = std::max(2, (int)std::round(sc * 1.0f));
+            for (int y = (int)dst.y; y < (int)(dst.y + dst.height); y += step * 2)
+                DrawRectangle((int)dst.x, y, (int)dst.width, std::max(1, step / 2 + 1), Fade(BLACK, 0.22f));
+            int vw = (int)(dst.width * 0.12f), vh = (int)(dst.height * 0.14f);
+            DrawRectangleGradientH((int)dst.x, (int)dst.y, vw, (int)dst.height, Fade(BLACK, 0.4f), Fade(BLACK, 0));
+            DrawRectangleGradientH((int)(dst.x + dst.width - vw), (int)dst.y, vw, (int)dst.height, Fade(BLACK, 0), Fade(BLACK, 0.4f));
+            DrawRectangleGradientV((int)dst.x, (int)dst.y, (int)dst.width, vh, Fade(BLACK, 0.35f), Fade(BLACK, 0));
+            DrawRectangleGradientV((int)dst.x, (int)(dst.y + dst.height - vh), (int)dst.width, vh, Fade(BLACK, 0), Fade(BLACK, 0.35f));
+            DrawRectangleGradientV((int)dst.x, (int)dst.y, (int)dst.width, (int)(dst.height * 0.3f), Fade(WHITE, 0.035f), Fade(WHITE, 0));
+        }
         EndDrawing();
 #ifdef ARENA_AUTOTEST
         if (AutoTestStep(g, dt)) break;

@@ -127,7 +127,7 @@ bool ParseMoveSpec(const std::string& val, MoveDef& out, std::string& err) {
 // Parse one creature.txt into 'sp'. Returns false if it is unusable.
 bool ParseCreatureFile(const std::string& path, SpeciesDef& sp, std::string& replaces, std::string& log) {
     char* text = LoadFileText(path.c_str());
-    if (!text) { log += "    could not read creature.txt\n"; return false; }
+    if (!text) { log += "    could not read Pokemon.txt\n"; return false; }
     std::istringstream ss(text);
     UnloadFileText(text);
 
@@ -311,7 +311,7 @@ void LoadCustomCreatures(std::string& log) {
     std::string root = CreaturesDir();
     log += "Pokemon folder: " + root + "\n\n";
     if (!DirectoryExists(root.c_str())) {
-        log += "  (folder not found - only the built-in creatures are available)\n";
+        log += "  (folder not found - only the built-in Pokemon are available)\n";
         ApplyDexData();
         return;
     }
@@ -337,7 +337,7 @@ void LoadCustomCreatures(std::string& log) {
             if (idx >= 0 && images) {
                 reg[idx].spriteDir = dir;
                 reg[idx].custom = true;
-                log += "  no creature.txt: new sprites for " + reg[idx].name + "\n\n";
+                log += "  no Pokemon.txt: new sprites for " + reg[idx].name + "\n\n";
             } else {
                 log += "  skipped: no pokemon.txt in this folder\n\n";
             }
@@ -359,7 +359,7 @@ void LoadCustomCreatures(std::string& log) {
             else if (idx >= 0 && reg[idx].name == probe.name) sp = reg[idx];
             else sp = SpeciesDef();
             if (!probeReplaces.empty() && idx < 0)
-                log += "  'replaces = " + probeReplaces + "' does not match any creature, adding as new\n";
+                log += "  'replaces = " + probeReplaces + "' does not match any Pokemon, adding as new\n";
         }
         std::string oldName = sp.name;
         sp.name.clear();

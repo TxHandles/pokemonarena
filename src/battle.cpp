@@ -2893,14 +2893,42 @@ void Battle::DrawFighter(int s) const {
 
     float sx = 1, sy = 1, alpha = 1, white = f.flash > 0 ? 0.85f : 0.0f;
     int species = f.species;
-    if (f.state == FState::Entering) {
-        float u = std::min(1.0f, f.stateT / 0.3f);
-        sx = sy = u;
-        white = std::max(white, 1.0f - std::min(1.0f, f.stateT / 0.45f));
-    } else if (f.state == FState::Recalling) {
-        float u = 1.0f - std::min(1.0f, f.stateT / 0.35f);
-        sx = sy = u;
+    const float side = sides[s].teamId == 0 ? -1.0f : 1.0f;
+    if (f.state == FState::Entering) {   // a Poke Ball arcs in, pops open in a flash, and out it comes
+        const float THROW = 0.2f;
+        Vector2 g = ToScreen(f.pos);
+        if (f.stateT < THROW) {
+            float u = f.stateT / THROW;
+            Vector2 from = ToScreen(f.pos + Vector2{side * 70, 0}, 34), to = ToScreen(f.pos, 7);
+            Vector2 p{from.x + (to.x - from.x) * u, from.y + (to.y - from.y) * u - std::sin(u * PI_F) * 26};
+            VShadow({p.x, g.y + 1}, 4, 1.6f, 0.5f * u);
+            DrawPokeBall(p, 3.6f, u * 720 * -side);
+            return;
+        }
+        float u = std::min(1.0f, (f.stateT - THROW) / 0.25f);
+        float back = 1 + 0.25f * std::sin(u * PI_F);   // a little overshoot as it bursts out
+        sx = sy = u * back;
+        white = std::max(white, 1.0f - u * 0.8f);
+        float k = 1 - u;
+        DrawPokeBall({g.x, g.y - 4 - u * 4}, 3.6f, 0, 1.0f, Color{226, 52, 52, 255}, (unsigned char)(255 * k));
+        VAdd();
+        VGlow({g.x, g.y - 8}, 14 + u * 12, Color{255, 250, 230, 255}, 0.9f * k);
+        DrawRectangleGradientV((int)g.x - 5, (int)g.y - 40, 10, 38, Fade(WHITE, 0), Fade(Color{255, 245, 220, 255}, 0.7f * k));
+        VRingE({g.x, g.y}, 6 + u * 20, (6 + u * 20) * DEPTH, 1.5f * k + 0.3f, Fade(WHITE, k), 28);
+        VNorm();
+    } else if (f.state == FState::Recalling) {   // pulled back as red light into the ball
+        float u = std::min(1.0f, f.stateT / 0.35f);
+        sx = sy = 1.0f - u;
         white = 1;
+        Vector2 g = ToScreen(f.pos);
+        float hh = CreatureHeight(species, f.dir);
+        Vector2 ball = ToScreen(f.pos + Vector2{side * 26, 0}, 14 + u * 10);
+        VAdd();
+        for (int k2 = -1; k2 <= 1; k2++)
+            DrawLineEx(ball, {g.x + k2 * 3.0f * (1 - u), g.y - hh * 0.5f * (1 - u)}, 1.6f, Fade(Color{255, 90, 80, 255}, 0.8f));
+        VGlow({g.x, g.y - hh * 0.4f}, 10 * (1 - u) + 4, Color{255, 80, 70, 255}, 0.8f);
+        VNorm();
+        DrawPokeBall(ball, 3.6f, 0, 1.0f - u);
     } else if (f.state == FState::Fainting) {
         float u = std::min(1.0f, f.stateT / 0.8f);
         sy = 1.0f - u * 0.6f;
@@ -2948,6 +2976,21 @@ void Battle::DrawFighter(int s) const {
             DrawCreature(ShinyIdx(species, f.shiny), f.dir, frame, gp.x, gp.y + 2, sx, sy, Fade(Color{170, 210, 255, 255}, 0.28f / k), 0.6f);
         }
         tint = Fade(tint, 0.6f);
+    }
+    {   // a reflection in water, puddles and ice
+        bool water = field.IsWater(f.pos);
+        bool ice = false;
+        for (const Puddle& pd : field.puddles)
+            if (pd.Contains(f.pos)) { if (pd.ice > 0) ice = true; else water = true; }
+        Venue vn = field.venue;
+        if (field.kind == ArenaKind::Ice || field.kind == ArenaKind::Seafoam || (field.kind == ArenaKind::Stadium && vn == Venue::IceCave) || field.kind == ArenaKind::Champion) ice = true;
+        if ((water || ice) && f.state != FState::Fainting && !f.burrowed) {
+            float groundY = ToScreen(f.pos).y + 2;
+            float lifted = base.y - ToScreen(f.pos).y;   // negative when up in the air
+            float wx = water ? std::sin(time * 3 + f.pos.y) * 0.8f : 0;
+            Color rt = water ? Color{150, 200, 255, 255} : Color{220, 240, 255, 255};
+            DrawCreatureReflect(ShinyIdx(species, f.shiny), f.dir, frame, base.x + wx, groundY - lifted, sx, sy * 0.85f, Fade(rt, (water ? 0.3f : 0.22f) * alpha));
+        }
     }
     {
         Vector2 back{0, 0};
@@ -3013,10 +3056,7 @@ void Battle::DrawFighter(int s) const {
 
     if (f.state == FState::Active || f.state == FState::Entering) {
         int bx = (int)base.x - 10, by = (int)(base.y - h - 5);
-        DrawRectangle(bx - 1, by - 1, 22, 4, UI_INK);
-        float frac = f.displayHp / f.maxHp;
-        Color hc = frac > 0.5f ? Color{96, 216, 96, 255} : (frac > 0.2f ? Color{240, 200, 60, 255} : Color{232, 72, 64, 255});
-        DrawRectangle(bx, by, (int)(20 * frac + 0.5f), 2, hc);
+        DrawHpBarFx(bx, by, 20, 2, f.displayHp / f.maxHp, AnimHpTrail(s), time);
         Color tc = TeamColor(sides[s].teamId);
         int mx = (int)base.x, my = by - 6;
         const char* tag = StatusShort(f.st.major);
@@ -3375,22 +3415,73 @@ void Battle::Draw(bool banners) const {
     for (const auto& t : texts) {
         Vector2 sp = ToScreen(t.pos, t.z);
         float a = t.life < t.maxLife * 0.7f ? 1.0f : (t.maxLife - t.life) / (t.maxLife * 0.3f);
+        bool number = !t.text.empty() && t.text.find_first_not_of("0123456789+-") == std::string::npos;
+        if (number) {   // damage numbers: pop out big, hop to the side, settle
+            uint32_t hsh = 0;
+            for (char ch : t.text) hsh = hsh * 31 + (unsigned char)ch;
+            float drift = ((int)((t.pos.x * 7 + t.pos.y * 3 + hsh) ) % 2 ? 1.0f : -1.0f) * (6 + (hsh % 5));
+            float u = std::min(1.0f, t.life / 0.35f);
+            float hop = std::sin(u * PI_F) * 7;
+            bool big = t.col.r == UI_GOLD.r && t.col.g == UI_GOLD.g;   // super effective
+            int size = big || t.life < 0.08f ? 20 : 10;
+            int w = TextW(t.text.c_str(), size);
+            int x = (int)(sp.x + drift * u) - w / 2;
+            x = std::max(2, std::min(VW - w - 2, x));
+            int y = std::max(34, (int)(sp.y - hop - (size - 10)));
+            DrawTextOutlined(t.text.c_str(), x + 1, y + 1, size, Fade(UI_INK, a * 0.6f), Fade(UI_INK, a * 0.6f));
+            DrawTextOutlined(t.text.c_str(), x, y, size, Fade(t.col, a), Fade(UI_INK, a));
+            continue;
+        }
         int w = TextW(t.text.c_str(), 10);
         int x = std::max(2, std::min(VW - w - 2, (int)sp.x - w / 2));
-        DrawTextOutlined(t.text.c_str(), x, std::max(34, (int)sp.y), 10, Fade(t.col, a), Fade(UI_INK, a));
+        float pop = std::min(1.0f, t.life / 0.12f);
+        int y = std::max(34, (int)(sp.y + (1 - pop) * 4));
+        DrawTextOutlined(t.text.c_str(), x, y, 10, Fade(t.col, a * pop), Fade(UI_INK, a * pop));
     }
 
     DrawHud();
 
     if (!banners) return;
+    auto ribbon = [&](const char* msg, Color c, float in, float scale) {   // a banner sweeping across with a shine
+        float e = 1 - (1 - in) * (1 - in) * (1 - in);
+        int size = 30;
+        int tw = TextW(msg, size);
+        float bw = (tw + 70) * e, cx = VW / 2.0f, cy = 160;
+        Color dk = ColorBrightness(c, -0.55f);
+        DrawRectangleV({cx - bw / 2 - 10, cy - 20 + 3}, {bw + 20, 40}, Fade(BLACK, 0.35f));
+        DrawTriangle({cx - bw / 2 - 18, cy}, {cx - bw / 2, cy + 20}, {cx - bw / 2, cy - 20}, dk);
+        DrawTriangle({cx + bw / 2 + 18, cy}, {cx + bw / 2, cy - 20}, {cx + bw / 2, cy + 20}, dk);
+        DrawRectangleGradientV((int)(cx - bw / 2), (int)cy - 20, (int)bw, 40, ColorBrightness(c, -0.15f), dk);
+        DrawRectangle((int)(cx - bw / 2), (int)cy - 20, (int)bw, 2, ColorBrightness(c, 0.4f));
+        DrawRectangle((int)(cx - bw / 2), (int)cy + 18, (int)bw, 2, ColorBrightness(c, -0.7f));
+        if (e > 0.85f) {
+            int sz = (int)(size * scale);
+            DrawTextCentered(msg, (int)cx, (int)cy - sz / 2 - 1, sz, WHITE);
+        }
+        float sh = std::fmod(time * 0.8f, 1.6f);   // the shine
+        if (sh < 1) {
+            float x0 = cx - bw / 2 + sh * bw;
+            VAdd();
+            DrawTriangle({x0 - 6, cy + 20}, {x0 + 10, cy - 20}, {x0 + 2, cy - 20}, Fade(WHITE, 0.25f));
+            DrawTriangle({x0 - 6, cy + 20}, {x0 + 2, cy - 20}, {x0 - 14, cy + 20}, Fade(WHITE, 0.25f));
+            VNorm();
+        }
+    };
     if (introT > 0) {
-        const char* msg = introT > 0.6f ? "READY..." : "FIGHT!";
-        DrawTextCentered(msg, VW / 2, 145, 30, introT > 0.6f ? UI_TEXT : UI_GOLD);
+        bool ready = introT > 0.6f;
+        if (ready) {
+            float in = std::min(1.0f, (2.0f - introT) / 0.3f);
+            ribbon("READY...", field.kind != ArenaKind::Stadium ? GymColor(field.kind) : Color{70, 90, 170, 255}, in, 1);
+        } else {
+            float pop = std::min(1.0f, (0.6f - introT) / 0.12f);
+            ribbon("FIGHT!", Color{220, 60, 50, 255}, 1, 1.0f);
+            (void)pop;
+        }
     }
     if (winner >= 0) {
         std::string msg = winner == 2 ? "DRAW!" : TeamLabel(winner) + " WIN" + (TeamLabel(winner).find(" & ") != std::string::npos ? "!" : "S!");
-        Color c = winner == 2 ? UI_TEXT : TeamColor(winner);
-        DrawTextCentered(msg.c_str(), VW / 2, 145, 30, c);
+        Color c = winner == 2 ? Color{110, 100, 140, 255} : TeamColor(winner);
+        ribbon(msg.c_str(), c, std::min(1.0f, AnimSinceWin() / 0.35f), 1);
     }
 }
 
@@ -3453,7 +3544,7 @@ void Battle::DrawHud() const {
             if (f.sp->type2 != Type::None) DrawTypeBadge(f.sp->type2, bx, y + 2);
         }
         int hy = compact ? y + 13 : y + 17;
-        DrawHpBar(x + 7, hy, 110, compact ? 4 : 5, f.displayHp / f.maxHp);
+        DrawHpBarFx(x + 7, hy, 110, compact ? 4 : 5, f.displayHp / f.maxHp, AnimHpTrail(s), time);
         if (sd.earnXp) {  // XP toward the next level
             int lo = XpForLevel(f.level), hi = XpForLevel(f.level + 1);
             float xf = f.level >= MAX_LEVEL ? 1.0f : (float)(f.xp - lo) / std::max(1, hi - lo);

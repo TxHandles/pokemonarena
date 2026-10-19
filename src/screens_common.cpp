@@ -23,10 +23,14 @@ void DrawToast(const Game& g) {
 }
 
 void DrawMenuItem(const char* text, int cx, int y, int size, bool selected, bool dim) {
-    if (selected) {
-        int w = TextW(text, size) + 24;
-        DrawRectangle(cx - w / 2, y - 3, w, size + 4, Fade(UI_PANEL_LIGHT, 0.9f));
-        RectLines(cx - w / 2, y - 3, w, size + 4, UI_GOLD);
+    if (selected) {   // a rounded pill with a Poke Ball cursor
+        int w = TextW(text, size) + 30;
+        Rectangle rc{(float)(cx - w / 2), (float)(y - 3), (float)w, (float)(size + 5)};
+        DrawRectangleRounded({rc.x + 1, rc.y + 1.5f, rc.width, rc.height}, 0.6f, 8, Fade(BLACK, 0.3f));
+        DrawRectangleRounded(rc, 0.6f, 8, Fade(UI_PANEL_LIGHT, 0.95f));
+        DrawRectangleRoundedLinesEx(rc, 0.6f, 8, 1.0f, UI_GOLD);
+        float bob = std::sin(GetTime() * 6) * 1.0f;
+        DrawPokeBall({rc.x - 2 + bob, rc.y + rc.height / 2}, 4.2f, (float)std::sin(GetTime() * 4) * 20);
     }
     DrawTextCentered(text, cx, y, size, selected ? UI_GOLD : (dim ? UI_DIM : UI_TEXT));
 }

@@ -22,6 +22,8 @@ void RectLines(int x, int y, int w, int h, Color c);
 void EllipsePix(float cx, float cy, float rx, float ry, Color c);
 void DrawPanel(int x, int y, int w, int h, Color fill = UI_PANEL, Color border = UI_BORDER);
 void DrawHpBar(int x, int y, int w, int h, float frac);
+void DrawHpBarFx(int x, int y, int w, int h, float frac, float trail, float time);   // with a damage trail, pulsing when low
+void DrawPokeBall(Vector2 c, float r, float rotDeg, float open = 0, Color top = Color{226, 52, 52, 255}, unsigned char alpha = 255);
 // Co-op: two pips (player 1 gold, player 2 cyan) and "READY n/2", right-aligned at rightX.
 void DrawReadyCount(int rightX, int y, bool p1Ready, bool p2Ready);
 void DrawStatBar(const char* label, int value, int x, int y, int barW, int natureMark = 0);  // +1 red label, -1 blue

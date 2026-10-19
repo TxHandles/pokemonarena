@@ -141,8 +141,8 @@ void UpdateRosterPick(Game& g) {
 
 void DrawRosterPick(const Game& g) {
     ClearBackground(Color{24, 20, 38, 255});
-    DrawTextCentered("WHOSE CREATURES?", VW / 2, 24, 20, UI_GOLD);
-    DrawTextCentered("Free play: every creature at Lv50.  A profile: its Story Mode creatures, levels and moves (no XP here).",
+    DrawTextCentered("WHOSE POKEMON?", VW / 2, 24, 20, UI_GOLD);
+    DrawTextCentered("Free play: every Pokemon at Lv50.  A profile: its Story Mode Pokemon, levels and moves (no XP here).",
                      VW / 2, 52, 10, UI_DIM, false);
     int players = HumanPickers(g);
     for (int p = 0; p < players; p++) {
@@ -664,7 +664,7 @@ void DrawSelect(const Game& g) {
             const StageDef st = ActiveStage(g);
             int want = std::min(MAX_TEAM_SIZE, std::max(3, (int)st.team.size() + 2));
             if (st.IsLegend()) vs = TextFormat("vs %s - 2 on 1, it has a huge HP pool. Weaken it to catch it!", st.trainer.c_str());
-            else vs = TextFormat("vs %s - %d creatures%s", st.trainer.c_str(), want,
+            else vs = TextFormat("vs %s - %d Pokemon%s", st.trainer.c_str(), want,
                             st.towerFloor > 0 ? TextFormat(" - Battle Tower floor %d", st.towerFloor)
                             : IsRematch(g) && st.IsBoss() ? " - REMATCH (scaled to your level)"
                             : st.IsGym() ? TextFormat(" - %s Badge", st.badge.c_str()) : st.IsChampion() ? " - CHAMPIONSHIP" : st.IsLeague() ? " - Elite Four" : "");
@@ -748,7 +748,7 @@ void DrawSelect(const Game& g) {
                 const StageDef st = ActiveStage(g);
                 DrawTextShadow(st.trainer.c_str(), x + 6, y + 24, 20, UI_TEXT);
                 DrawText(st.name.c_str(), x + 6, y + 48, 10, UI_DIM);
-                DrawText(st.IsLegend() ? "1 legendary - a boss with a huge HP pool" : TextFormat("%d creature%s", (int)std::min<size_t>(st.team.size(), MAX_TEAM_SIZE), st.team.size() > 1 ? "s" : ""), x + 6, y + 66, 10, st.IsLegend() ? UI_GOLD : UI_TEXT);
+                DrawText(st.IsLegend() ? "1 legendary - a boss with a huge HP pool" : TextFormat("%d Pokemon", (int)std::min<size_t>(st.team.size(), MAX_TEAM_SIZE)), x + 6, y + 66, 10, st.IsLegend() ? UI_GOLD : UI_TEXT);
                 if (st.IsLegend()) DrawText("A few levels above your team", x + 6, y + 80, 10, UI_GOLD);
                 else if (st.towerFloor > 0) DrawText(TextFormat("Tower floor %d: levels scale to your team", st.towerFloor), x + 6, y + 80, 10, UI_GOLD);
                 else if (IsRematch(g) && st.IsBoss()) DrawText("REMATCH: levels scale to your team", x + 6, y + 80, 10, UI_GOLD);
@@ -774,7 +774,7 @@ void DrawSelect(const Game& g) {
                     DrawText(TextFormat("In %s", TrainAreaName(g).c_str()), x + 6, y + 50, 10, Color{140, 230, 150, 255});
                     DrawText(TextFormat("Up to %d wild Pokemon - never more than you bring", std::max(2, Story().trainingMaxFoes)), x + 6, y + 66, 10, UI_TEXT);
                     int every = std::max(1, Story().rareEvery);
-                    DrawText(TextFormat("Training wins: %d  (every %dth battle: a rare creature)", g.profile.trainingWins, every), x + 6, y + 80, 10, UI_TEXT);
+                    DrawText(TextFormat("Training wins: %d  (every %dth battle: a rare Pokemon)", g.profile.trainingWins, every), x + 6, y + 80, 10, UI_TEXT);
                     DrawText("Weaken a foe to try catching it after the win!", x + 6, y + 96, 10, UI_GOLD);
                     DrawText("X / Tab: choose where to train", x + 6, y + 112, 10, UI_GOLD);
                 }
@@ -963,7 +963,7 @@ void UpdateBattleScreen(Game& g, float dt) {
         }
         return;
     }
-    g.battle.Update(dt, in);
+    g.battle.Update(g.on.active ? dt : dt * g.battle.AnimTimeScale(), in);
     if (g.battle.Finished()) {
         gShake = {0, 0};
         if (IsStoryMode(g.mode)) ProcessStoryBattleEnd(g);
@@ -1127,11 +1127,11 @@ void UpdateDoublesMenu(Game& g) {
 void DrawDoublesMenu(const Game& g) {
     ClearBackground(Color{24, 20, 38, 255});
     DrawTextCentered("2v2 BATTLE", VW / 2, 30, 30, UI_GOLD);
-    DrawTextCentered("Two creatures per team on the field at once. Each player brings 1-3.", VW / 2, 70, 10, UI_TEXT, false);
+    DrawTextCentered("Two Pokemon per team on the field at once. Each player brings 1-3.", VW / 2, 70, 10, UI_TEXT, false);
     const char* items[4] = {"You + CPU partner  vs  2 CPUs", "Player 1 + Player 2  vs  2 CPUs (co-op)",
                             "Player 1 + CPU  vs  Player 2 + CPU", "Back"};
     for (int i = 0; i < 4; i++) DrawMenuItem(items[i], VW / 2, 110 + i * 30, 20, g.doublesSel == i);
     DrawTextCentered("Aim: walk toward the foe you want to hit. Your target has brackets around it.", VW / 2, 250, 10, UI_DIM, false);
-    DrawTextCentered("If your creatures all faint, press Swap to take over one of your partner's benched ones.", VW / 2, 264, 10, UI_DIM, false);
+    DrawTextCentered("If your Pokemon all faint, press Swap to take over one of your partner's benched ones.", VW / 2, 264, 10, UI_DIM, false);
     DrawTextCentered("Enter choose   Esc back", VW / 2, 330, 10, UI_DIM, false);
 }

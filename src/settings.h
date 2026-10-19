@@ -20,6 +20,8 @@ struct Settings {
     bool autoAim = true;
     bool screenShake = true;
     bool damageNumbers = true;
+    int fxLevel = 0;              // effects intensity: 0 full, 1 reduced (no camera moves or big flashes), 2 minimal
+    int screenFilter = 0;         // 0 off, 1 soft glow, 2 retro CRT
     int teamSize = 6;
     int quickArena = -1;          // Quick Battle / 2P arena: -1 random, else an ArenaKind
     AILevel cpuLevel = AILevel::Normal;

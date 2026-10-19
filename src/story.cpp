@@ -545,7 +545,7 @@ void LoadStory(std::string& log) {
     if (!ok.empty()) gStory.starters.clear();  // tags win over a starters = line
     for (const auto& s : gStory.starters) {
         if (SpeciesIndex(s) >= 0) ok.push_back(AllSpecies()[SpeciesIndex(s)].name);
-        else log += "  starter '" + s + "' is not a known creature, skipped\n";
+        else log += "  starter '" + s + "' is not a known Pokemon, skipped\n";
     }
     if (ok.empty()) {
         for (int i = 0; i < (int)AllSpecies().size() && ok.size() < 3; i++)

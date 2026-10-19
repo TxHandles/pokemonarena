@@ -12,6 +12,7 @@
 #include "arena.h"
 #include "battle.h"
 #include "rlgl.h"
+#include "settings.h"
 #include "sprites.h"
 #include "vec.h"
 #include "vfx.h"
@@ -36,6 +37,7 @@ struct SlotAnim {
     Color chargeCol = WHITE;
     float hitT = -99, hitAmt = 0;
     Vector2 lastPos{0, 0};
+    float trail = 1;           // HP bar damage trail
     bool havePos = false;
     Vector2 hitFrom{0, 0};
 };
@@ -67,6 +69,7 @@ SlotAnim gSA[MAX_SLOTS];
 std::vector<Ev> gEv;
 std::vector<VPart> gVP;
 float gLastT = -1;
+float gWinT = -99;          // when the battle was decided (-99 = not yet)
 const void* gLastBattle = nullptr;
 uint32_t gSeed = 12345;
 
@@ -91,6 +94,7 @@ bool Lunge(MoveKind k) { return k == MoveKind::Melee || k == MoveKind::Dash || k
 
 // The type's cast flourish around the user: particles themed on the element, scaled by power.
 void Flourish(Type t, Vector2 at, float k, Vector2 aim, Color glow) {
+    if (Cfg().fxLevel >= 2) k *= 0.45f;
     auto ring = [&](PK kind, int n, float spd, float up, float life, float size, Color c, bool grav = false, float drag = 2.5f) {
         for (int i = 0; i < n; i++) {
             Vector2 d = RndDir();
@@ -201,6 +205,7 @@ void Battle::AnimTick() const {
         for (auto& sa : gSA) sa = SlotAnim();
         gEv.clear();
         gVP.clear();
+        gWinT = -99;
     }
     float dt = fresh ? 0 : now - gLastT;
     bool rewind = dt < 0;   // online rollback re-ran a little: just re-read the field
@@ -302,13 +307,37 @@ void Battle::AnimTick() const {
             }
         }
     }
+    for (int s = 0; s < N() && s < MAX_SLOTS; s++) {   // HP bar trails: hold a moment, then slide down
+        const Fighter& f = sides[s].Cur();
+        SlotAnim& sa = gSA[s];
+        float fr = f.displayHp / std::max(1, f.maxHp);
+        if (fresh || rewind || fr >= sa.trail || sa.species != f.species) sa.trail = fr;
+        else if (now - sa.hitT > 0.45f) sa.trail = std::max(fr, sa.trail - dt * 0.7f);
+    }
+    if (winner >= 0 && gWinT < -50) {
+        gWinT = now;
+        if (winner < 2 && !fresh) {   // confetti over the arena
+            const Color cs[] = {Cc(255, 90, 90), Cc(255, 210, 70), Cc(90, 200, 255), Cc(120, 230, 120), Cc(240, 130, 230), WHITE};
+            for (int i = 0; i < 120; i++) {
+                VPart& p = Add(PK::Petal, Vector2{Rnd(20, ARENA_W - 20), Rnd(20, ARENA_H - 40)}, Rnd(120, 260), Vector2{Rnd(-20, 20), Rnd(-10, 10)}, Rnd(-20, 10), Rnd(2.2f, 3.4f), Rnd(1.4f, 2.2f), cs[i % 6]);
+                p.grav = true;
+                p.drag = 0.8f;
+                p.spin = Rnd(-9, 9);
+            }
+        }
+    }
+    if (winner < 0) gWinT = -99;
     for (auto it = gVP.begin(); it != gVP.end();) {   // the visual particles
         VPart& p = *it;
         p.life -= dt;
         if (p.life <= 0) { it = gVP.erase(it); continue; }
         p.wp += p.wv * dt;
         p.z += p.vz * dt;
-        if (p.grav) { p.vz -= 220 * dt; if (p.z < 0) { p.z = 0; p.vz *= -0.3f; p.wv = p.wv * 0.6f; } }
+        if (p.grav) {
+            p.vz -= (p.kind == PK::Petal ? 60.0f : 220.0f) * dt;   // confetti flutters down
+            if (p.kind == PK::Petal) { p.vz = std::max(p.vz, -45.0f); p.wv.x += std::sin(now * 4 + p.rot) * 30 * dt; }
+            if (p.z < 0) { p.z = 0; p.vz *= -0.3f; p.wv = p.wv * 0.6f; }
+        }
         float dr = std::max(0.0f, 1 - p.drag * dt);
         p.wv = p.wv * dr;
         if (!p.grav) p.vz *= dr;
@@ -324,10 +353,25 @@ void Battle::AnimTick() const {
 void Battle::AnimPose(int s, Vector2& off, float& sx, float& sy, float& lift) const {
     off = {0, 0};
     lift = 0;
+    (void)0;
     if (s >= MAX_SLOTS) return;
     const Fighter& f = sides[s].Cur();
     const SlotAnim& sa = gSA[s];
     float now = time;
+    if (!f.moving && !f.dashing) {   // breathing
+        float b = std::sin(now * 2.6f + s * 1.7f);
+        sy *= 1 + 0.03f * b;
+        sx *= 1 - 0.012f * b;
+    } else if (f.moving) {   // a springy step
+        float st = std::fabs(std::sin(f.animT * 9));
+        sy *= 1 + 0.04f * st;
+        sx *= 1 - 0.03f * st;
+    }
+    if (winner >= 0 && winner < 2 && sides[s].teamId == winner && gWinT > -50) {   // the winner celebrates
+        float hop = std::fabs(std::sin((now - gWinT) * 7));
+        lift += hop * 6;
+        sy *= 1 + 0.08f * hop;
+    }
     if (f.pendingMove >= 0 && f.windupT > 0 && sa.chargeT > -50) {   // crouched, trembling, gathering power
         float c = Clamp01((now - sa.chargeT) / 0.25f);
         float pulse = 0.5f + 0.5f * std::sin(now * 30);
@@ -374,12 +418,33 @@ float Battle::AnimGhost(int s, Vector2& back) const {
     return std::sin(u * PI_F);
 }
 
+float Battle::AnimHpTrail(int s) const {
+    if (s < 0 || s >= MAX_SLOTS) return 0;
+    return gSA[s].trail;
+}
+float Battle::AnimSinceWin() const { return gWinT < -50 ? 0.0f : time - gWinT; }
+float Battle::AnimTimeScale() const {
+    if (gWinT < -50 || Cfg().fxLevel >= 1) return 1;
+    float u = (time - gWinT) / 0.9f;   // the final knockout plays out in slow motion, then eases back
+    if (u >= 1) return 1;
+    return 0.3f + 0.7f * u * u;
+}
+
 // ---------------------------------------------------------------- Camera
 
 float Battle::AnimCamera(Vector2& focus) const {
-    if (!setup.screenShake) return 0;
+    if (!setup.screenShake || Cfg().fxLevel >= 1) return 0;
     float now = time, zoom = 0, wsum = 0;
     Vector2 fsum{0, 0};
+    if (introT > 0) {   // the opening: a slow sweep across the field, easing out as the fight starts
+        float u = 1 - std::min(1.0f, introT / 2.0f);   // 0 -> 1
+        float z = 0.16f * (1 - u) * (1 - u);
+        Vector2 a = ToScreen({ARENA_W * 0.25f, ARENA_H * 0.5f}), b = ToScreen({ARENA_W * 0.75f, ARENA_H * 0.5f});
+        float e = u * u * (3 - 2 * u);
+        fsum = Vector2{a.x + (b.x - a.x) * e, a.y} * z;
+        zoom += z;
+        wsum += z;
+    }
     for (const Ev& e : gEv) {
         if (e.cam <= 0) continue;
         float u = (now - e.t) / e.dur;
@@ -392,7 +457,7 @@ float Battle::AnimCamera(Vector2& focus) const {
     }
     if (wsum <= 0) return 0;
     focus = fsum * (1 / wsum);
-    return std::min(0.11f, zoom);
+    return std::min(0.17f, zoom);
 }
 
 // ---------------------------------------------------------------- Drawing
@@ -514,7 +579,7 @@ void Battle::DrawAnimOver() const {
                 bool ko = e.kind == EV_KO;
                 float k = 1 - u;
                 VAdd();
-                if (u < 0.18f) DrawRectangle(0, 0, VW, FLOOR_BOTTOM + 8, Fade(WHITE, (ko ? 0.28f : 0.16f) * (1 - u / 0.18f)));
+                if (u < 0.18f && Cfg().fxLevel == 0) DrawRectangle(0, 0, VW, FLOOR_BOTTOM + 8, Fade(WHITE, (ko ? 0.28f : 0.16f) * (1 - u / 0.18f)));
                 float R = 10 + (ko ? 70 : 40) * std::sin(Clamp01(u * 2) * PI_F / 2);
                 VRingE(c, R, R * 0.8f, 2.2f * k, Fade(e.col, 0.9f * k), 40);
                 if (ko) VRingE(c, R * 0.7f, R * 0.56f, 1.2f * k, Fade(Color{255, 200, 120, 255}, 0.8f * k), 40);
@@ -539,11 +604,11 @@ void Battle::DrawAnimOver() const {
 void Battle::DrawAnimCinematic() const {
     float now = time;
     for (const Ev& e : gEv) {
-        if (e.kind != EV_ULTIMATE) continue;
+        if (e.kind != EV_ULTIMATE || Cfg().fxLevel >= 2) continue;
         float u = (now - e.t) / e.dur;
         if (u < 0 || u > 1) continue;
         float in = Clamp01(u / 0.15f), out = Clamp01((1 - u) / 0.3f);
-        float a = in * out;
+        float a = in * out * (Cfg().fxLevel == 1 ? 0.5f : 1.0f);
         Vector2 c = ToScreen(e.wpos, e.z);
         DrawRectangle(0, 0, VW, FLOOR_BOTTOM + 8, Fade(Color{8, 6, 20, 255}, 0.32f * a));
         VAdd();

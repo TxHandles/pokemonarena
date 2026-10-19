@@ -149,6 +149,8 @@ void LoadSettings() {
         else if (k == "auto_aim") gCfg.autoAim = bv;
         else if (k == "screen_shake") gCfg.screenShake = bv;
         else if (k == "damage_numbers") gCfg.damageNumbers = bv;
+        else if (k == "effects_intensity") gCfg.fxLevel = iv < 0 ? 0 : (iv > 2 ? 2 : iv);
+        else if (k == "screen_filter") gCfg.screenFilter = iv < 0 ? 0 : (iv > 2 ? 2 : iv);
         else if (k == "settings_version") version = iv;
         else if (k == "team_size") gCfg.teamSize = iv < 1 ? 1 : (iv > MAX_TEAM_SIZE ? MAX_TEAM_SIZE : iv);
         else if (k == "quick_arena") gCfg.quickArena = iv < -1 ? -1 : (iv >= ARENA_COUNT + VENUE_COUNT - 1 ? ARENA_COUNT - 1 : iv);
@@ -213,6 +215,7 @@ void SaveSettings() {
     std::snprintf(buf, sizeof buf, "fullscreen = %d\nshow_fps = %d\n", gCfg.fullscreen, gCfg.showFps); o += buf;
     std::snprintf(buf, sizeof buf, "master_volume = %d\neffects_volume = %d\n", gCfg.masterVolume, gCfg.sfxVolume); o += buf;
     std::snprintf(buf, sizeof buf, "auto_aim = %d\nscreen_shake = %d\ndamage_numbers = %d\n", gCfg.autoAim, gCfg.screenShake, gCfg.damageNumbers); o += buf;
+    std::snprintf(buf, sizeof buf, "effects_intensity = %d\nscreen_filter = %d\n", gCfg.fxLevel, gCfg.screenFilter); o += buf;
     std::snprintf(buf, sizeof buf, "team_size = %d\ncpu_level = %d\nquick_arena = %d\n", gCfg.teamSize, (int)gCfg.cpuLevel, gCfg.quickArena); o += buf;
     for (int l = 0; l < LAYOUT_COUNT; l++)
         for (int a = 0; a < ACT_COUNT; a++) {
