@@ -141,6 +141,8 @@ struct Game {
     int pickPhase = 0;          // when not shared: 0 = P1 picking, 1 = P2 picking
     int cursor[2] = {0, 0}, scroll[2] = {0, 0};
     std::vector<int> picks[2];
+    int selBox[2] = {-1, -1};     // Story team select: the Box is open (cursor in it), -1 = closed
+    int selBoxScroll[2] = {0, 0};
     bool ready[2] = {false, false};
     float startDelay = -1;
     int teamSize = 2;

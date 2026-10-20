@@ -166,6 +166,8 @@ void BeginTeamSelect(Game& g) {
         g.ready[p] = false;
         g.cursor[p] = 0;
         g.scroll[p] = 0;
+        g.selBox[p] = -1;
+        g.selBoxScroll[p] = 0;
     }
     if (IsCoop(g.mode)) {
         for (int p = 0; p < 2; p++) g.roster[p] = ProfileRoster(g.coopP[p], true);
@@ -269,6 +271,148 @@ void DrawAreaPick(const Game& g) {
 }
 } // namespace
 
+// ------------------------------------------------------------------ the Box (Story team select)
+// Swap a Box Pokemon with the party Pokemon under the cursor, right on the team screen, to bring
+// the right types for the next battle. STRONG / WEAK marks show the matchup against the stage's foes.
+namespace {
+Profile& SelProfile(Game& g, int p) { return IsCoop(g.mode) ? g.coopP[p] : g.profile; }
+const Profile& SelProfile(const Game& g, int p) { return IsCoop(g.mode) ? g.coopP[p] : g.profile; }
+
+bool SelBoxAllowed(const Game& g, int p) {
+    return IsStoryMode(g.mode) && !(g.on.active && p != g.on.me);
+}
+
+// Box Pokemon (profile indexes), in collection order.
+std::vector<int> SelBoxList(const Game& g, int p) {
+    std::vector<int> v;
+    const Profile& P = SelProfile(g, p);
+    for (int i = 0; i < (int)P.mons.size(); i++)
+        if (P.mons[i].boxed && MonSpecies(P.mons[i]) >= 0) v.push_back(i);
+    return v;
+}
+
+// The species the next battle's foes use (named team entries; the legendary), for the matchup marks.
+std::vector<int> SelFoes(const Game& g) {
+    std::vector<int> v;
+    if (g.mode != Mode::Story && g.mode != Mode::CoopStory) {
+        if (g.rareBattle && g.rareSpecies >= 0) v.push_back(g.rareSpecies);
+        return v;
+    }
+    const StageDef st = ActiveStage(g);
+    if (st.IsLegend()) { int i = SpeciesIndex(st.trainer); if (i >= 0) v.push_back(i); }
+    for (std::string e : st.team) {
+        size_t sp = e.find_last_of(' ');
+        if (sp != std::string::npos && sp + 1 < e.size() && (e[sp + 1] == '+' || e[sp + 1] == '-')) e = e.substr(0, sp);
+        if (size_t s2 = e.find(" shiny"); s2 != std::string::npos) e = e.substr(0, s2);
+        int i = SpeciesIndex(e);
+        if (i >= 0) v.push_back(i);
+    }
+    return v;
+}
+
+// +1: one of its moves hits a foe super effectively; -1 bit: a foe's type hits it super effectively.
+int SelMatchup(int species, const std::vector<MoveDef>& moves, const std::vector<int>& foes) {
+    if (foes.empty() || species < 0) return 0;
+    const SpeciesDef& me = AllSpecies()[species];
+    bool strong = false, weak = false;
+    for (int f : foes) {
+        const SpeciesDef& fs = AllSpecies()[f];
+        for (const auto& m : moves) if (IsDamaging(m) && TypeEffectiveness(m.type, fs.type1, fs.type2) > 1) strong = true;
+        if (TypeEffectiveness(fs.type1, me.type1, me.type2) > 1 || (fs.type2 != Type::None && TypeEffectiveness(fs.type2, me.type1, me.type2) > 1)) weak = true;
+    }
+    return (strong ? 1 : 0) | (weak ? 2 : 0);
+}
+
+void DrawMatchupMarks(int mu, int x, int y) {   // a green up arrow = strong, a red down arrow = weak
+    if (mu & 1) DrawTriangle({(float)x + 4, (float)y}, {(float)x, (float)y + 6}, {(float)x + 8, (float)y + 6}, Color{110, 230, 120, 255});
+    if (mu & 2) DrawTriangle({(float)x + 10, (float)y}, {(float)x + 14, (float)y + 6}, {(float)x + 18, (float)y}, Color{255, 110, 100, 255});
+}
+
+constexpr int BOX_COLS = 5, BOX_ROWS = 3;
+
+// The Box is open for player p: move, swap, close. Returns after handling the input.
+void UpdateSelBox(Game& g, int p, const PlayerInput& in, bool boxKey) {
+    auto list = SelBoxList(g, p);
+    int n = (int)list.size();
+    int& c = g.selBox[p];
+    if (in.back || boxKey || n == 0) { c = -1; PlaySfx(Sfx::MenuBack); return; }
+    int col = c % BOX_COLS, row = c / BOX_COLS, rows = (n + BOX_COLS - 1) / BOX_COLS;
+    if (in.left) col = (col + BOX_COLS - 1) % BOX_COLS;
+    if (in.right) col = (col + 1) % BOX_COLS;
+    if (in.up) row = (row + rows - 1) % rows;
+    if (in.down) row = (row + 1) % rows;
+    if (in.left || in.right || in.up || in.down) {
+        c = std::max(0, std::min(n - 1, row * BOX_COLS + col));
+        int r = c / BOX_COLS;
+        if (r < g.selBoxScroll[p]) g.selBoxScroll[p] = r;
+        if (r >= g.selBoxScroll[p] + BOX_ROWS) g.selBoxScroll[p] = r - BOX_ROWS + 1;
+        PlaySfx(Sfx::MenuMove);
+    }
+    if (!in.confirm) return;
+    auto& ros = g.roster[g.shared ? 0 : p];
+    int cur = g.cursor[p];
+    if (cur < 0 || cur >= (int)ros.size() || ros[cur].ownedId < 0) return;
+    Profile& P = SelProfile(g, p);
+    int a = ros[cur].ownedId, b = list[std::max(0, std::min(n - 1, c))];
+    std::string inName = P.mons[b].species, outName = P.mons[a].species;
+    std::swap(P.mons[a], P.mons[b]);   // the Box Pokemon takes the party slot, so the picks stay put
+    P.mons[a].boxed = false;
+    P.mons[b].boxed = true;
+    ros = ProfileRoster(P, true);
+    if (g.tower) for (auto& e : ros) e.hpFrac = 1;
+    auto& pk = g.picks[p];
+    bool unpicked = false;
+    if (IsStoryMode(g.mode) && !g.tower && cur < (int)ros.size() && ros[cur].hpFrac <= 0) {   // a fainted one can't be picked
+        auto it = std::find(pk.begin(), pk.end(), cur);
+        if (it != pk.end()) { pk.erase(it); unpicked = true; }
+    }
+    if (IsCoop(g.mode)) { if (OnlineMine(g, p)) SaveProfile(P); if (g.on.active) OnlineSendProfile(g); }
+    else if (!SaveProfile(P)) Toast(g, "Could not save the profile!");
+    c = -1;
+    PlaySfx(Sfx::MenuOk);
+    Toast(g, inName + " joined the party. " + outName + " went to the Box." + (unpicked ? " (It has fainted, so it was taken off the team.)" : ""));
+}
+
+void DrawSelBox(const Game& g, int p) {
+    auto list = SelBoxList(g, p);
+    const Profile& P = SelProfile(g, p);
+    auto foes = SelFoes(g);
+    const auto& ros = g.roster[g.shared ? 0 : p];
+    int cur = g.cursor[p];
+    DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.7f));
+    int x0 = 10, y0 = 28, w = VW - 20, h = 196;
+    DrawPanel(x0, y0, w, h, Color{30, 36, 54, 255}, Color{120, 160, 230, 255});
+    DrawRectangle(x0, y0, w, 20, Color{50, 74, 120, 255});
+    std::string out = cur >= 0 && cur < (int)ros.size() ? AllSpecies()[ros[cur].species].name : "?";
+    DrawTextShadow(TextFormat("BOX - swap with %s", out.c_str()), x0 + 8, y0 + 5, 10, WHITE);
+    GDrawText(foes.empty() ? "" : "green up = strong vs this foe   red down = weak to it", x0 + w - 8 - TextW("green up = strong vs this foe   red down = weak to it", 10), y0 + 5, 10, Color{200, 220, 255, 255});
+    int sc = g.selBoxScroll[p];
+    for (int k = 0; k < (int)list.size(); k++) {
+        int r = k / BOX_COLS;
+        if (r < sc || r >= sc + BOX_ROWS) continue;
+        int i = list[k];
+        CombatantSpec cs = MonCombatant(P, i);
+        const SpeciesDef& sp = AllSpecies()[cs.species];
+        int x = x0 + 6 + (k % BOX_COLS) * 122, y = y0 + 26 + (r - sc) * 54, cw = 118, ch = 50;
+        bool on = k == g.selBox[p];
+        DrawPanel(x, y, cw, ch, on ? Color{60, 80, 130, 255} : UI_PANEL, on ? UI_GOLD : Color{80, 74, 104, 255});
+        DrawRectangle(x + 1, y + 1, cw - 2, 3, TypeColor(sp.type1));
+        DrawSpeciesFit(ShinyIdx(cs.species, cs.shiny), VIEW_FRONT, x + 21, y + 46, 36);
+        GDrawText(sp.name.c_str(), x + 40, y + 7, 10, UI_TEXT);
+        int bx = x + 40 + DrawTypeBadge(sp.type1, x + 40, y + 20) + 2;
+        if (sp.type2 != Type::None) DrawTypeBadge(sp.type2, bx, y + 20);
+        GDrawText(TextFormat("Lv%d", cs.level), x + 40, y + 34, 10, UI_GOLD);
+        DrawMatchupMarks(SelMatchup(cs.species, cs.moves, foes), x + cw - 22, y + 36);
+        DrawHpBar(x + 40, y + 46, 52, 2, P.mons[i].hp);
+        if (P.mons[i].hp <= 0) GDrawText("FAINTED", x + 40, y + 34, 10, Color{255, 120, 100, 255});
+    }
+    int rows = ((int)list.size() + BOX_COLS - 1) / BOX_COLS;
+    if (sc > 0) DrawTextCentered("^ more ^", VW / 2, y0 + 20, 10, UI_DIM, false);
+    if (sc + BOX_ROWS < rows) DrawTextCentered("v more v", VW / 2, y0 + h - 12, 10, UI_DIM, false);
+    GDrawText(TextFormat("%d in the Box   Enter: swap in   R / Esc: close", (int)list.size()), x0 + 8, y0 + h - 12, 10, Color{200, 220, 255, 255});
+}
+} // namespace
+
 void UpdateSelect(Game& g, float dt) {
     if (g.areaPick) { UpdateAreaPick(g); return; }
     if (TrainingSelect(g) && MenuSortPressed()) {   // X / Tab: choose where to train
@@ -288,6 +432,13 @@ void UpdateSelect(Game& g, float dt) {
         PlayerInput in = (players == 1 || online) ? MenuInput() : ReadInput(p, true);
         if (online && g.on.picksSent) continue;  // locked in and sent: waiting for the battle
         int& c = g.cursor[p];
+        bool boxKey = in.filter || ((players != 1 && !online) && (IsKeyPressed(KEY_R) || (IsGamepadAvailable(p) && IsGamepadButtonPressed(p, GAMEPAD_BUTTON_RIGHT_FACE_UP))));
+        if (g.selBox[p] >= 0) { UpdateSelBox(g, p, in, boxKey); continue; }
+        if (boxKey && !g.ready[p] && SelBoxAllowed(g, p)) {
+            if (SelBoxList(g, p).empty()) Toast(g, "Your Box is empty.");
+            else if (c < n && ros[c].ownedId >= 0) { g.selBox[p] = 0; g.selBoxScroll[p] = 0; PlaySfx(Sfx::MenuOk); }
+            continue;
+        }
         if (!g.ready[p]) {
             int col = c % GRID_COLS, row = c / GRID_COLS;
             bool moved = in.left || in.right || in.up || in.down;
@@ -405,6 +556,47 @@ void StartBattleFromSelect(Game& g) {
             su.trainerBattle = true;
             su.arena = st.arena;
             su.catchable = st.Catchable();
+            if (st.dbl) {
+                // A double battle: the foes come out two at a time, and a teammate fights beside you -
+                // the stage's partner trainer (Lance), or else your own Pokemon, run by the CPU.
+                SideSetup me = a, foe1 = b, foe2 = b;
+                foe1.team.clear(); foe2.team.clear();
+                for (int i = 0; i < (int)g.cpuTeam.size(); i++) (i % 2 == 0 ? foe1 : foe2).team.push_back(g.cpuTeam[i]);
+                foe2.tag = "CPU 2";
+                size_t amp = st.trainer.find(" & ");
+                if (amp != std::string::npos) {   // "Twins Eli & Anne": each foe slot shows its own trainer
+                    std::string first = st.trainer.substr(0, amp), second = st.trainer.substr(amp + 3);
+                    size_t sp = first.find_last_of(' ');
+                    if (second.find(' ') == std::string::npos && sp != std::string::npos) second = first.substr(0, sp + 1) + second;
+                    foe1.label = first;
+                    foe2.label = second;
+                }
+                SideSetup ally;
+                ally.cpu = true;
+                ally.level = AILevel::Hard;
+                ally.team_ = 0;
+                if (!st.partner.empty()) {
+                    StageDef ps = st;
+                    ps.team = st.partnerTeam.empty() ? std::vector<std::string>{"random", "random", "random"} : st.partnerTeam;
+                    ps.rival = false;
+                    ally.team = MakeCpuTeam(&ps, avg, MAX_TEAM_SIZE);
+                    ally.label = st.partner;
+                    ally.tag = "ALLY";
+                    ally.earnXp = false;
+                } else if (me.team.size() >= 2) {   // your 2nd, 4th and 6th picks fight beside you
+                    std::vector<CombatantSpec> mine;
+                    for (int i = 0; i < (int)me.team.size(); i++) (i % 2 == 0 ? mine : ally.team).push_back(me.team[i]);
+                    me.team = mine;
+                    ally.label = "Partner";
+                    ally.tag = "CPU";
+                    ally.earnXp = true;
+                }
+                su.side.clear();
+                su.side.push_back(me);
+                if (!ally.team.empty()) su.side.push_back(ally);
+                su.side.push_back(foe1);
+                if (!foe2.team.empty()) su.side.push_back(foe2);
+            }
         } break;
         case Mode::Training:
             su.catchable = true;
@@ -533,6 +725,12 @@ void StartBattleFromSelect(Game& g) {
                 c.cpu = true;
                 c.level = k == 0 ? lvA : lvB;
                 c.label = label;
+                if (size_t amp = label.find(" & "); amp != std::string::npos && g.legend < 0) {   // "Twins Eli & Anne": one trainer per slot
+                    std::string first = label.substr(0, amp), second = label.substr(amp + 3);
+                    size_t sp = first.find_last_of(' ');
+                    if (second.find(' ') == std::string::npos && sp != std::string::npos) second = first.substr(0, sp + 1) + second;
+                    c.label = k == 0 ? first : second;
+                }
                 c.tag = g.legend >= 0 ? "LEGEND" : "CPU";
                 c.team_ = 1;
                 v.push_back(c);
@@ -690,6 +888,7 @@ void DrawSelect(const Game& g) {
     int n = (int)ros.size();
     int rows = (n + GRID_COLS - 1) / GRID_COLS;
     int scroll = g.scroll[vp];
+    auto foes = IsStoryMode(g.mode) ? SelFoes(g) : std::vector<int>{};
     for (int i = 0; i < n; i++) {
         int r = i / GRID_COLS;
         if (r < scroll || r >= scroll + GRID_ROWS_VISIBLE) continue;
@@ -704,6 +903,7 @@ void DrawSelect(const Game& g) {
         GDrawText(sp.name.c_str(), x + 42, y + 8, 10, UI_TEXT);
         DrawTypeBadge(sp.type1, x + 42, y + 21);
         if (e.ownedId >= 0 || e.level != FREE_PLAY_LEVEL) GDrawText(TextFormat("Lv%d", e.level), x + 42, y + 35, 10, UI_GOLD);
+        if (IsStoryMode(g.mode)) DrawMatchupMarks(SelMatchup(e.species, e.moves, foes), x + 74, y + 37);
         if (IsStoryMode(g.mode)) {
             DrawHpBar(x + 42, y + 46 - 2, 52, 2, e.hpFrac);
             if (e.hpFrac <= 0) {
@@ -751,7 +951,7 @@ void DrawSelect(const Game& g) {
         if (p == 1 && IsStoryMode(g.mode) && !IsCoop(g.mode)) {
             if (g.mode == Mode::Story) {
                 const StageDef st = ActiveStage(g);
-                DrawTextShadow(st.trainer.c_str(), x + 6, y + 24, 20, UI_TEXT);
+                DrawTextShadow(st.trainer.c_str(), x + 6, y + 24 + (TextW(st.trainer.c_str(), 20) > w - 12 ? 6 : 0), TextW(st.trainer.c_str(), 20) > w - 12 ? 10 : 20, UI_TEXT);
                 GDrawText(st.name.c_str(), x + 6, y + 48, 10, UI_DIM);
                 GDrawText(st.IsLegend() ? "1 legendary - a boss with a huge HP pool" : TextFormat("%d Pokemon", (int)std::min<size_t>(st.team.size(), MAX_TEAM_SIZE)), x + 6, y + 66, 10, st.IsLegend() ? UI_GOLD : UI_TEXT);
                 if (st.IsLegend()) GDrawText("A few levels above your team", x + 6, y + 80, 10, UI_GOLD);
@@ -761,6 +961,8 @@ void DrawSelect(const Game& g) {
                 else GDrawText(TextFormat("Levels around your team %s", st.levelOffset >= 0 ? TextFormat("+%d", st.levelOffset) : TextFormat("%d", st.levelOffset)), x + 6, y + 80, 10, UI_TEXT);
                 GDrawText(TextFormat("CPU skill: %s", AILevelName(st.cpu)), x + 6, y + 94, 10, UI_TEXT);
                 GDrawText(TextFormat("Arena: %s", st.arena == ArenaKind::Stadium ? VenueName(st.venue.empty() ? VenueForPlace(st.name) : VenueByName(st.venue)) : ArenaName(st.arena)), x + 6, y + 108, 10, st.arena == ArenaKind::Stadium ? UI_TEXT : UI_GOLD);
+                if (st.dbl) GDrawText(!st.partner.empty() ? TextFormat("DOUBLE BATTLE: %s fights with you!", st.partner.c_str())
+                                                          : "DOUBLE BATTLE: picks 2, 4 and 6 fight beside you", x + 6, y + 136, 10, UI_GOLD);
                 GDrawText(st.IsLegend() ? "Weaken it, then you get 3 balls to catch it" : st.towerFloor > 0 ? "Battle Tower: everyone fights at full health" : st.IsChampion() ? "The Championship!" : st.IsLeague() ? "Elite Four: lose and the League starts over"
                          : st.IsGym() ? "Gym battle" : "Trainer battle: catch wild ones in training", x + 6, y + 122, 10, UI_DIM);
             } else {
@@ -846,10 +1048,10 @@ void DrawSelect(const Game& g) {
         if (g.ready[p]) status = "READY!";
         else if ((int)g.picks[p].size() >= g.teamSize) status = "Team full - confirm again to lock in";
         else if (!g.picks[p].empty()) {
-            std::snprintf(buf, sizeof buf, "Pick: %s   Lock in now: %s   Undo: %s", ConfirmLabel(p, tp), SwapKeyLabel(p, tp), BackLabel(p, tp));
+            std::snprintf(buf, sizeof buf, "Pick: %s   Lock in now: %s   Undo: %s%s", ConfirmLabel(p, tp), SwapKeyLabel(p, tp), BackLabel(p, tp), SelBoxAllowed(g, p) ? "   Box: R" : "");
             status = buf;
         } else {
-            std::snprintf(buf, sizeof buf, "Pick: %s   Undo/back: %s", ConfirmLabel(p, tp), BackLabel(p, tp));
+            std::snprintf(buf, sizeof buf, "Pick: %s   Undo/back: %s%s", ConfirmLabel(p, tp), BackLabel(p, tp), SelBoxAllowed(g, p) ? "   Box: R" : "");
             status = buf;
         }
         GDrawText(status, x + 6, y + h - 14, 10, g.ready[p] ? UI_GOLD : UI_DIM);
@@ -859,6 +1061,7 @@ void DrawSelect(const Game& g) {
         DrawTextCentered("BATTLE START!", VW / 2, 160, 20, UI_GOLD);
     }
     if (g.areaPick) DrawAreaPick(g);
+    for (int p = 0; p < 2; p++) if (g.selBox[p] >= 0) { DrawSelBox(g, p); break; }
 }
 
 // ------------------------------------------------------------------ battle

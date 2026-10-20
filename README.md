@@ -137,6 +137,13 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
 - **Party & Box** – a profile carries up to 6 creatures in its party; the rest wait in the Box.
   Only the party can be brought into battle. Catches and rewards go to the Box when the party is full.
   A Pokemon in the Box can be released into the wild (its held item goes back to the Bag).
+  On the Story team screen (**Choose your team**), **R** (gamepad Y) opens the Box: pick a Box Pokemon and
+  it swaps into the party slot under the cursor, so you can bring the right types. Green up / red down
+  arrows on every card show whether it's strong against the next battle's foes or weak to them.
+- **Double battles in Story** – some trainers fight two at a time: the Route 8 twins and the Celadon Park
+  twins in Kanto, the Dragon's Den twins in Johto, and Ariana with a Rocket Grunt, where Lance fights
+  beside you. Alone, your 2nd, 4th and 6th picks fight beside you, run by the CPU (they still earn XP);
+  in co-op it's the usual 2v2. story.txt: `double = yes`, or `partner = Lance` + `partner_team = ...`.
 - **2v2 Battle** – four creatures on the field: you + CPU vs 2 CPUs, P1 + P2 vs 2 CPUs, or P1 + CPU vs
   P2 + CPU. Each player brings 1–3. Attacks go at the foe you face; a player whose team is out can
   press Swap to take over a benched creature of their partner's.
@@ -162,7 +169,7 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
   real Pokedex entry, category, height, weight, abilities, base stats and evolution family (dexdata.inc,
   generated from the PokeAPI/pokemondb data). Seen/caught lists are saved in the profile.
 - **Abilities** – every Pokemon has one of its species' real abilities (hidden ability 1 in 20), kept
-  through evolution and shown in Party & Box. All 132 abilities the first 251 use are in
+  through evolution and shown in Party & Box. All the abilities the first 386 use are in
   (src/abilities.*, src/battle_ab.cpp), translated to real-time battles: Intimidate, Levitate, Static,
   Swift Swim, Sturdy, Flash Fire, Volt Absorb, Synchronize, Neutralizing Gas, Imposter and so on.
   Gen 2 added Huge Power, Sand Stream, Drizzle, Shadow Tag, Speed Boost, Moody, Contrary, Magic Bounce,

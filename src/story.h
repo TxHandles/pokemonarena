@@ -26,6 +26,9 @@ struct StageDef {
     int legend = 0;                 // > 0: legendary encounter id+1 (made by LegendStage)
     int region = 0;                 // which region's story it belongs to (0 Kanto, 1 Johto...)
     bool join = false;              // a wild boss (Sudowoodo, the Red Gyarados): beat it and it joins you
+    bool dbl = false;               // a double battle: the foes fight two at a time (alone, a CPU teammate fights beside you)
+    std::string partner;            // a double battle where this trainer fights beside you (alone): "Lance"
+    std::vector<std::string> partnerTeam;   // the partner's Pokemon (same format as team)
     bool IsLegend() const { return legend > 0; }
     bool IsGym() const { return !badge.empty(); }
     bool IsLeague() const { return league > 0; }

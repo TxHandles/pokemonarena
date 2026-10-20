@@ -40,6 +40,10 @@
 #  co-op, two of the starters neither of you took (seven of the nine) (at random). "rival_partner" is his second
 #  starter (co-op only). "rival_trio1" / "rival_trio2" are two of Growlithe, Exeggcute and
 #  Gyarados, picked by his starter like in Red/Blue. Any team entry can end in +N / -N levels.
+#  double = yes    a double battle: the foes fight two at a time. Alone, your 2nd, 4th and 6th picks
+#                   fight beside you (the CPU runs them); in co-op it is the usual 2v2.
+#  partner = Lance  a double battle where this trainer fights beside you instead (alone);
+#  partner_team = Gyarados, Dragonite +1   his Pokemon (same format as team)
 #  story_rev = 3   layout version (lets old saves keep their place when stages are added)
 # ==========================================================================
 
@@ -253,9 +257,11 @@ cpu = normal
 [stage]
 name = Route 8
 map = 830, 404
-trainer = Gambler Sid
-say = I'll bet my coins on this one!
-team = Growlithe, Vulpix, Meowth +1
+trainer = Twins Eli & Anne
+say = Eli: We're twins, so we battle together! Anne: Two against two - grab a partner!
+# FireRed/LeafGreen's Route 8 twins (Clefairy and Jigglypuff): a double battle
+team = Clefairy, Jigglypuff, Clefairy +1, Jigglypuff +1
+double = yes
 level = 0
 lv = 24
 cpu = normal
@@ -263,9 +269,11 @@ cpu = normal
 [stage]
 name = Celadon Park
 map = 500, 404
-trainer = Beauty Rosa
-say = My flowers bloom brightest in battle.
-team = Oddish, Bellsprout, Bulbasaur +1
+trainer = Twins Jo & Zoe
+say = Jo: Erika taught us that flowers bloom in pairs! Zoe: So we'll battle you in a pair, too!
+# HeartGold/SoulSilver's Celadon Gym twins (Victreebel and Vileplume), here at their earlier stages: a double battle
+team = Bellsprout, Oddish, Weepinbell +1, Gloom +1
+double = yes
 level = 1
 lv = 25
 cpu = normal
@@ -844,9 +852,12 @@ venue = hideout
 [stage]
 name = Rocket Hideout B3
 map = 782, 258
-trainer = Rocket Executive Ariana
-say = You've come all the way to the generator room? How tiresome. Let me show you how Team Rocket deals with pests.
-team = Arbok -2, Gloom -2, Murkrow +1
+trainer = Rocket Executive Ariana & Rocket Grunt
+say = Ariana: You've come all the way to the generator room? How tiresome. Lance: I'll handle the grunt's Pokemon - you take her! Together!
+# HeartGold/SoulSilver: Ariana (Arbok, Gloom, Murkrow) and a Grunt, with Lance fighting beside you (Pokemon from his own team)
+team = Arbok -2, Golbat -3, Gloom -2, Raticate -3, Murkrow +1
+partner = Lance
+partner_team = Gyarados -1, Aerodactyl -1, Dragonite +1
 lv = 74
 cpu = hard
 venue = hideout
@@ -941,9 +952,11 @@ badge = Rising
 [stage]
 name = Dragon's Den
 map = 944, 214
-trainer = Cooltrainer Darin
-say = The Elder of the Dragon clan is watching. Pass his test and Clair will have to give you the Rising Badge!
-team = Dratini -3, Dragonair -1, Seadra +1
+trainer = Twins Clea & Gil
+say = Clea: The Elder of the Dragon clan is watching! Gil: Pass our test and Clair will have to give you the Rising Badge!
+# HeartGold/SoulSilver's Dragon's Den twins (Dratini and Dratini), with Dragonair from the den: a double battle
+team = Dratini -3, Dratini -3, Dragonair -1, Dragonair +1
+double = yes
 lv = 78
 cpu = hard
 venue = cave

@@ -520,6 +520,9 @@ void Parse(const char* text, StoryDef& st, std::string& log) {
             else if (k == "venue") cur->venue = v;
             else if (k == "league") cur->league = std::max(0, std::min(5, std::atoi(v.c_str())));
             else if (k == "join") cur->join = !IsNo(v);
+            else if (k == "double") cur->dbl = !IsNo(v);
+            else if (k == "partner") { cur->partner = v; cur->dbl = true; }
+            else if (k == "partner_team") cur->partnerTeam = SplitList(v);
             else if (k == "coins" || k == "prize") cur->coins = std::max(0, std::atoi(v.c_str()));
             else if (k == "map") {
                 auto parts = SplitList(v);
