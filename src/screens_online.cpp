@@ -31,7 +31,7 @@ namespace {
 
 constexpr int KIND_LEGEND = 200;  // ready kinds 200..204: a legendary encounter (legend.h)
 constexpr int KIND_TOWER = 250;   // ready kind: the Battle Tower (1 story, 2 training, 3+N rematch stage N)
-constexpr uint32_t PROTOCOL = 19;   // 19: Hoenn (May, post-game battles, new arenas and legendaries), 18: Johto (regions, Johto starters, six new arenas), 17: Gen 2 Pokemon 161-251 and their abilities, 16: rolling moves and gym centerpieces, 15: sweeping beams, tethers, grapples and throws (battle state), 14: the legendaries moved to a Map tab (hub items renumbered), 13: new battle effects (particle kinds), 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower, 10: legendary encounters, 11: Gen 2 starters, the rival's two starters, 12: shiny Pokemon
+constexpr uint32_t PROTOCOL = 20;   // 20: free region order (regions played in any order), 19: Hoenn (May, post-game battles, new arenas and legendaries), 18: Johto (regions, Johto starters, six new arenas), 17: Gen 2 Pokemon 161-251 and their abilities, 16: rolling moves and gym centerpieces, 15: sweeping beams, tethers, grapples and throws (battle state), 14: the legendaries moved to a Map tab (hub items renumbered), 13: new battle effects (particle kinds), 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower, 10: legendary encounters, 11: Gen 2 starters, the rival's two starters, 12: shiny Pokemon
 constexpr float TICK = 1.0f / 60.0f;
 constexpr int INPUT_DELAY = 2;    // ticks: our own presses take effect this much later (33 ms)
 constexpr int MAX_AHEAD = 15;     // ticks we may run ahead of what the partner has confirmed
@@ -161,6 +161,8 @@ void SendCoop(const CoopSave& c) {
     w.str(c.rival3[0]).str(c.rival3[1]);
     w.i32((int)c.postDone.size());
     for (const auto& e : c.postDone) w.str(e);
+    w.i32((int)c.regionOrder.size());   // the regions in the order this journey plays them (the host chooses)
+    for (int r : c.regionOrder) w.i32(r);
     w.Send();
 }
 
@@ -196,6 +198,7 @@ const char* ActivityName(Screen s) {
         case Screen::StageIntro: return "getting ready for the battle";
         case Screen::Settings: case Screen::Controls: return "in the settings";
         case Screen::CoopStarter: return "choosing a starter";
+        case Screen::RegionChoose: return "choosing a region";
         case Screen::Catch: return "catching";
         case Screen::Trade: return "at the trade machine";
         case Screen::Pokedex: return "reading their Pokedex";
@@ -647,6 +650,19 @@ void OnlinePoll(Game& g) {
                         if (r.ok && !e.empty() && g.coopSave.postDone.insert(e).second) statsChanged = true;
                     }
                     c.postDone = g.coopSave.postDone;
+                    int no = r.i32();   // the region order only grows: a longer one that starts the same wins
+                    std::vector<int> ord;
+                    for (int i = 0; i < no && i < 16 && r.ok; i++) ord.push_back(r.i32());
+                    auto& mine = g.coopSave.regionOrder;
+                    if (r.ok && ord.size() > mine.size() && std::equal(mine.begin(), mine.end(), ord.begin())) {
+                        statsChanged = true;
+                        bool wasNew = mine.empty();
+                        mine = ord;
+                        if (!mine.empty()) g.journeyRegion = mine[0];
+                        ApplyRegionOrder(mine);
+                        if (wasNew && g.screen == Screen::CoopStarter && !g.regionPick && !CoopNeedsStarter(g)) EnterStoryHub(g);   // both already have Pokemon
+                    }
+                    c.regionOrder = g.coopSave.regionOrder;
                 }
                 if (statsChanged) SaveCoop(g.coopSave);
                 if (MoreProgress(c, g.coopSave)) { g.coopSave = c; SaveCoop(g.coopSave); }
@@ -665,7 +681,9 @@ void OnlinePoll(Game& g) {
                     o.myReady = o.partnerReady = 0;
                     g.rareSpecies = -1;
                     Toast(g, "Connected to " + g.coopP[Other(g)].name + "!");
-                    if (CoopNeedsStarter(g)) { g.coopStarterSel[0] = g.coopStarterSel[1] = 0; g.screen = Screen::CoopStarter; }
+                    if (!g.coopSave.regionOrder.empty()) g.journeyRegion = g.coopSave.regionOrder[0];
+                    if (g.coopSave.regionOrder.empty() && o.me == 0) BeginRegionChoose(g, 2);   // a new journey: the host picks where it starts
+                    else if (CoopNeedsStarter(g) || g.coopSave.regionOrder.empty()) { g.coopStarterSel[0] = g.coopStarterSel[1] = 0; g.screen = Screen::CoopStarter; }
                     else EnterStoryHub(g);
                 }
             } break;

@@ -102,6 +102,19 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
   Institute, Beldum after Wallace. Ten legendaries on the Map's Legendary tab: Regirock, Regice and
   Registeel and Rayquaza after the Rain Badge, Latias, Latios, Groudon and Kyogre after Wallace, Jirachi after
   you beat Steven, Deoxys once Rayquaza is caught. `wild.txt` has 20 Hoenn training areas.
+- **Start anywhere** – a new story (or co-op journey) begins on a region screen: pick Kanto, Johto or
+  Hoenn and get that region's own three starters at level 5 (Kanto: Bulbasaur, Charmander, Squirtle;
+  Johto: Chikorita, Cyndaquil, Totodile; Hoenn: Treecko, Torchic, Mudkip), with that region's rival
+  taking the one that beats yours. When a region's Champion falls, the hub's first item becomes
+  **Choose your next region!** and you pick any region you haven't played; its professor gives you its
+  starter and its rival picks theirs. **Difficulty follows the order, not the region**: whatever you play
+  first uses the Map 1 curve (Kanto's levels: a Lv5 starter, Brock ~13 ... the Champion ~63), the second
+  Map 2 (Johto's: a Lv60 starter, levels 60-88), the third Map 3 (Hoenn's: a Lv85+ starter, floors 80-90).
+  Trainers, the starter gift, wild Pokemon and legendaries all follow the region's place in your order.
+  Legendaries only appear once you've reached their region (and their badges count only that region's).
+  In co-op, player 1 (online: the host) chooses. Old saves keep the usual order and pick at the next
+  region. The order is saved as `region_order` in the profile / co-op save; `dex = 252-386` and
+  `levels = 80-98` in a `[region]` block set its starters (by Pokedex number) and level band.
 - **Battle Tower** – after the Championship, the hub's first item. Endless floors of trainers: their
   levels climb with the floor (your team's average −1, +1 every 4 floors), the CPU plays Hard from floor
   5, both sides bring 3 (4 from floor 10, 5 from 20, 6 from 30), every 5th floor is fought in a gym arena

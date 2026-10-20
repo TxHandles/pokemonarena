@@ -8,7 +8,11 @@ The file name is the leader's name, matched against the "trainer =" line in stor
     Blaine.png   Giovanni.png
     Falkner.png  Bugsy.png    Whitney.png    Morty.png    Chuck.png    Jasmine.png    Pryce.png    Clair.png
     Roxanne.png  Brawly.png   Wattson.png    Flannery.png Norman.png   Winona.png     Tate.png     Liza.png
-    Juan.png     Wallace.png  (Hoenn; they show up once the Hoenn campaign is in)
+    Juan.png     Wallace.png  (Hoenn)
+    Roark.png    Gardenia.png Maylene.png    Wake.png     Fantina.png  Byron.png      Candice.png  Volkner.png
+                              (Sinnoh; they show up once the Sinnoh campaign is in)
+    Cilan.png Chili.png Cress.png Lenora.png Burgh.png Elesa.png Clay.png Skyla.png Brycen.png Drayden.png Iris.png
+    Cheren.png Roxie.png Marlon.png   (Unova, Black/White and Black 2/White 2; once the Unova campaign is in)
 
 Use a PNG with a transparent background, facing the camera or to the left (they stand on the
 right of the screen). Any size works; around 80 pixels tall matches the others.

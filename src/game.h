@@ -13,7 +13,8 @@ enum class Screen {
     ProfileSelect, NameEntry, Starter, StoryHub, MyCreatures, StageIntro,
     RosterPick, Select, Battle, Results,
     StoryResults, Evolve, LearnMove, Reward, Catch, Heal, Map, Shop, DoublesMenu,
-    CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame, Legends, LegendCatch, Bag
+    CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame, Legends, LegendCatch, Bag,
+    RegionChoose
 };
 
 enum class Mode { Quick, TwoPlayer, Watch, Story, Training, Doubles, CoopStory, CoopTraining };
@@ -125,7 +126,11 @@ struct Game {
     std::string nameBuf;
     Profile profile;            // the Story Mode profile in use
     int starterSel = 0;
-    int regionPick = 0;         // > 0: the starter screens are that region's gift on arriving (1 Johto: Elm, 2 Hoenn: Birch)
+    int regionPick = 0;         // > 0: the starter screens are region (regionPick - 1)'s gift on arriving (Elm in Johto, Birch in Hoenn...)
+    bool newJourney = false;    // that gift is a new story's first partner (Back: choose the region again)
+    int journeyRegion = 0;      // a new co-op journey: the region it starts in (the starter screen's Pokemon)
+    int regionSel = 0;          // the region screen's cursor
+    int regionFor = 0;          // what it's choosing: 0 a new story's first region, 1 the next region, 2 a new co-op journey's, 3 co-op's next
     float regionRevealT = -1;   // >= 0: the rival has just taken their starters (shown, then the hub)
     std::string cardTitle, cardText, cardMon;   // a story card waiting to be read (cardTitle empty = none)
     int cardFor = -2;           // the stage whose pre-battle card was shown (-2 none)
@@ -316,6 +321,7 @@ void UpdateRevive(Game& g);          void DrawRevive(const Game& g);
 void UpdateCoopSetup(Game& g);       void DrawCoopSetup(const Game& g);
 void UpdateBattleStats(Game& g);     void DrawBattleStats(const Game& g);
 void UpdateCoopStarter(Game& g);     void DrawCoopStarter(const Game& g);
+void CoopContinueSetup(Game& g);     // a new journey's region chosen: names, starters, then CoopBeginJourney
 void CoopBeginJourney(Game& g);      // both profiles chosen and have a starter: open the co-op save, go to the hub
 bool CoopNeedsStarter(const Game& g); // someone in the co-op session has no Pokemon yet
 void OnlineSendCursor(int sel);
@@ -355,8 +361,16 @@ struct StageDef ActiveStage(const Game& g);   // the trainer of the battle being
 bool StoryDone(const Game& g);                // every region's story is done (Johto too)
 int CurStage(const Game& g);                  // the next story battle (solo or co-op)
 bool RegionDone(const Game& g, int region);   // that region's Champion is beaten
-bool KantoDone(const Game& g);                // the Kanto Champion is beaten: the Battle Tower is open, Johto awaits
-int NeedsRegionStarter(const Game& g);        // a new region reached (1 Johto, 2 Hoenn), but someone hasn't got its starter yet (0 = no)
+bool KantoDone(const Game& g);                // the first region's Champion is beaten: the Battle Tower is open
+int RegionBadgeCount(const Game& g, int region);   // that region's badges won
+int NeedsRegionStarter(const Game& g);        // the story is in a region someone hasn't got its starter from yet (-1 = no)
+inline int PickedRegion(const Game& g) { return g.regionPick - 1; }
+std::vector<int> StarterPool(const Game& g);   // the starter screen's Pokemon (the region's own three)
+bool CanChooseRegion(const Game& g);           // a region is done and another is waiting to be chosen
+std::vector<int> RegionsLeft(const Game& g);   // the regions not played yet
+void BeginRegionChoose(Game& g, int forWhat);  // to the region screen
+void ApplySaveOrder(Game& g);            // lay the story out in the active save's region order
+void UpdateRegionChoose(Game& g);    void DrawRegionChoose(const Game& g);
 void BeginRegionStarter(Game& g);              // to the starter screen for that region's gift
 int RegionGiftLevel(const Game& g, int region, int who = 0);
 std::string RegionRivalName(int region);                          // "Silver", "May"

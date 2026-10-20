@@ -87,6 +87,7 @@ int main() {
             case Screen::ProfileSelect: UpdateProfileSelect(g); break;
             case Screen::NameEntry: UpdateNameEntry(g); break;
             case Screen::Starter: UpdateStarter(g); break;
+            case Screen::RegionChoose: UpdateRegionChoose(g); break;
             case Screen::StoryHub: UpdateStoryHub(g); break;
             case Screen::MyCreatures: UpdateMyCreatures(g); break;
             case Screen::StageIntro: UpdateStageIntro(g); break;
@@ -146,6 +147,7 @@ int main() {
             case Screen::ProfileSelect: DrawProfileSelect(g); break;
             case Screen::NameEntry: DrawNameEntry(g); break;
             case Screen::Starter: DrawStarter(g); break;
+            case Screen::RegionChoose: DrawRegionChoose(g); break;
             case Screen::StoryHub: DrawStoryHub(g); break;
             case Screen::MyCreatures: DrawMyCreatures(g); break;
             case Screen::StageIntro: DrawStageIntro(g); break;

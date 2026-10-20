@@ -124,7 +124,7 @@ const Profile& Prof(const Game& g, int who) {
 }
 
 // ---- Training areas (wild.txt): any area the story has reached
-int TrainStage(const Game& g) { return g.coop ? g.coopSave.storyStage : g.profile.storyStage; }
+int TrainStage(const Game& g) { return ProgressStageFor(g.coop ? g.coopSave.storyStage : g.profile.storyStage); }
 int TrainBadges(const Game& g) { return (int)(g.coop ? g.coopSave.badges.size() : g.profile.badges.size()); }
 int TrainArea(const Game& g) { return ResolveWildArea(g.coop ? g.coopSave.trainArea : g.profile.trainArea, TrainStage(g)); }
 std::string TrainAreaName(const Game& g) {
@@ -195,13 +195,17 @@ int StoryClock(const Game& g) { return g.coop ? g.coopSave.clock : g.profile.clo
 // The rival picks their starter(s) once and keeps them for every battle (saved with the progress).
 // Kanto: Blue, against your first starter. Johto: Silver, against Professor Elm's gift. Hoenn: May, against Birch's.
 void EnsureRival(Game& g, int region) {
+    auto starterOf = [&](const Profile& p) {
+        int s = SpeciesIndex(RegionStarter(p, region));
+        return s >= 0 || region != 0 ? s : ProfileStarter(p);   // old Kanto saves: the first Pokemon
+    };
     bool gift = region >= 1;
     if (!g.coop) {
         std::string& rv = RegionRival(g.profile, region);
         if (SpeciesIndex(rv) >= 0) return;
-        int mine = gift ? SpeciesIndex(RegionStarter(g.profile, region)) : ProfileStarter(g.profile);
+        int mine = starterOf(g.profile);
         if (gift && mine < 0) return;
-        int r = PickRivalSolo(mine);
+        int r = PickRivalSolo(mine, region);
         if (r < 0) return;
         rv = AllSpecies()[r].name;
         SaveWho(g, 0);
@@ -210,11 +214,11 @@ void EnsureRival(Game& g, int region) {
     std::string* rv = CoopRival(g.coopSave, region);
     if (SpeciesIndex(rv[0]) >= 0) return;
     if (g.on.active && g.on.me != 0) return;   // online: the host picks (it reaches the guest with the co-op save)
-    int a = gift ? SpeciesIndex(RegionStarter(g.coopP[0], region)) : ProfileStarter(g.coopP[0]);
-    int b = gift ? SpeciesIndex(RegionStarter(g.coopP[1], region)) : ProfileStarter(g.coopP[1]);
+    int a = starterOf(g.coopP[0]);
+    int b = starterOf(g.coopP[1]);
     if (gift && (a < 0 || b < 0)) return;
     int out[2];
-    PickRivalCoop(a, b, out);
+    PickRivalCoop(a, b, out, region);
     if (out[0] < 0) return;
     rv[0] = AllSpecies()[out[0]].name;
     rv[1] = out[1] >= 0 ? AllSpecies()[out[1]].name : std::string();
@@ -254,16 +258,49 @@ bool RegionDone(const Game& g, int r) {
     const auto& R = RegionInfo(r);
     return R.end > R.first && CurStage(g) >= R.end;
 }
-bool KantoDone(const Game& g) { return RegionCount() > 1 ? RegionDone(g, 0) : StoryDone(g); }
+bool KantoDone(const Game& g) { return RegionCount() > 1 ? RegionDone(g, RegionOrder().empty() ? 0 : RegionOrder()[0]) : StoryDone(g); }
+int RegionBadgeCount(const Game& g, int region) {
+    const auto& have = g.coop ? g.coopSave.badges : g.profile.badges;
+    int n = 0;
+    for (const auto& s : Story().stages)
+        if (s.region == region && s.IsGym() && std::find(have.begin(), have.end(), s.badge) != have.end()) n++;
+    return n;
+}
 int NeedsRegionStarter(const Game& g) {
     int cur = CurStage(g);
-    for (int r = std::min(RegionCount() - 1, 2); r >= 1; r--) {
-        const auto& R = RegionInfo(r);
-        if (R.end <= R.first || cur < R.first) continue;
-        if (g.coop) return (RegionStarter(g.coopP[0], r).empty() || RegionStarter(g.coopP[1], r).empty()) ? r : 0;
-        return RegionStarter(g.profile, r).empty() ? r : 0;
+    if (cur >= (int)Story().stages.size() || BetweenRegions(cur)) return -1;
+    int r = ActiveRegion(cur);
+    if (!RegionChosen(r)) return -1;
+    auto missing = [&](const Profile& p) {
+        if (!RegionStarter(p, r).empty()) return false;
+        if (r == 0 && ProfileStarter(p) >= 0 && RegionSlot(0) == 0) return false;   // an old Kanto save: its first Pokemon
+        return true;
+    };
+    if (g.coop) return (missing(g.coopP[0]) || missing(g.coopP[1])) ? r : -1;
+    return missing(g.profile) ? r : -1;
+}
+std::vector<int> StarterPool(const Game& g) {
+    if (g.regionPick) return RegionStarters(PickedRegion(g));
+    if (g.coop || g.screen == Screen::CoopStarter) return RegionStarters(g.journeyRegion);
+    return RegionStarters(0);
+}
+std::vector<int> RegionsLeft(const Game&) {
+    std::vector<int> v;
+    for (int r = 0; r < RegionCount(); r++)
+        if (!RegionChosen(r) && RegionInfo(r).end > RegionInfo(r).first) v.push_back(r);
+    return v;
+}
+bool CanChooseRegion(const Game& g) { return BetweenRegions(CurStage(g)) && !RegionsLeft(g).empty(); }
+void ApplySaveOrder(Game& g) {
+    std::vector<int>& order = g.coop ? g.coopSave.regionOrder : g.profile.regionOrder;
+    int stage = g.coop ? g.coopSave.storyStage : g.profile.storyStage;
+    bool started = g.coop ? (stage > 0 || g.coopSave.wins + g.coopSave.losses + g.coopSave.trainingWins > 0) : (!g.profile.mons.empty() || stage > 0);
+    if (order.empty() && started) {   // a save from before region order (or made without one): the usual order, as far as it got
+        ApplyRegionOrder({});
+        if (g.coop) order = DeriveRegionOrder(stage, {true, !g.coopSave.rival2[0].empty(), !g.coopSave.rival3[0].empty()});
+        else order = DeriveRegionOrder(stage, {true, !g.profile.starter2.empty(), !g.profile.starter3.empty()});
     }
-    return 0;
+    ApplyRegionOrder(order);
 }
 int RegionGiftLevel(const Game& g, int region, int who) {
     const auto& R = RegionInfo(region);
@@ -275,12 +312,12 @@ int RegionGiftLevel(const Game& g, int region, int who) {
     return std::max(R.startLevel, std::min(MAX_LEVEL, avg + R.startAvg));
 }
 void BeginRegionStarter(Game& g) {
-    g.regionPick = std::max(1, NeedsRegionStarter(g));
+    g.regionPick = std::max(0, NeedsRegionStarter(g)) + 1;
     g.regionRevealT = -1;
     if (g.coop) {
         g.coopReady[0] = g.coopReady[1] = false;
         g.coopStarterSel[0] = 0;
-        g.coopStarterSel[1] = std::min(1, std::max(0, (int)Story().starters.size() - 1));
+        g.coopStarterSel[1] = std::min(1, std::max(0, (int)StarterPool(g).size() - 1));
         g.screen = Screen::CoopStarter;
     } else {
         g.starterSel = 0;
@@ -336,8 +373,10 @@ std::string NextLine(const Game& g, int storyStage) {
         int best = g.coop ? g.coopSave.towerBest : g.profile.towerBest;
         return best > 0 ? TextFormat("Champion! Battle Tower record: floor %d", best) : "Champion! The Battle Tower is open - how high can you climb?";
     }
-    if (int r = NeedsRegionStarter(g))
-        return TextFormat("%s Champion! A new journey awaits in %s - travel there from the menu.", RegionInfo(r - 1).name.c_str(), RegionInfo(r).name.c_str());
+    if (CanChooseRegion(g))
+        return TextFormat("%s Champion! Choose where your journey goes next from the menu.", RegionInfo(ActiveRegion(storyStage)).name.c_str());
+    if (int r = NeedsRegionStarter(g); r >= 0)
+        return TextFormat("A new journey awaits in %s - travel there from the menu.", RegionInfo(r).name.c_str());
     const StageDef& st = stages[storyStage];
     std::string l = "Next: " + st.trainer + "  -  " + st.name;
     int lp = LeagueProgress(storyStage);
@@ -353,6 +392,7 @@ void OpenHealingCenter(Game& g) {
 }
 
 void EnterStoryHub(Game& g) {
+    ApplySaveOrder(g);   // the story laid out in this save's region order
     g.tower = false;
     g.legend = -1;
     if (g.coop) {
@@ -404,8 +444,7 @@ void UpdateProfileSelect(Game& g) {
     if (!LoadProfile(g.profiles[g.profSel], g.profile, &problems)) { Toast(g, "Could not load that profile"); return; }
     if (!problems.empty()) Toast(g, "Some Pokemon in this save are missing from the Pokemon folder");
     if (ProfileRoster(g.profile).empty()) {
-        g.starterSel = 0;
-        g.screen = Screen::Starter;
+        BeginRegionChoose(g, 0);   // a story not started yet: where it begins, then the first partner
     } else {
         EnterStoryHub(g);
     }
@@ -468,8 +507,7 @@ void UpdateNameEntry(Game& g) {
         Toast(g, "You'll pick your starter together once you're connected.");
         return;
     }
-    g.starterSel = 0;
-    g.screen = Screen::Starter;
+    BeginRegionChoose(g, 0);
 }
 
 void DrawNameEntry(const Game& g) {
@@ -487,21 +525,27 @@ void DrawNameEntry(const Game& g) {
 
 void UpdateStarter(Game& g) {
     PlayerInput in = MenuInput();
-    int n = (int)Story().starters.size();
+    std::vector<int> pool = StarterPool(g);
+    int n = (int)pool.size();
     if (n == 0) { EnterStoryHub(g); return; }
+    g.starterSel = std::max(0, std::min(n - 1, g.starterSel));
     if (in.left) { g.starterSel = (g.starterSel + n - 1) % n; PlaySfx(Sfx::MenuMove); }
     if (in.right) { g.starterSel = (g.starterSel + 1) % n; PlaySfx(Sfx::MenuMove); }
-    if (g.regionPick) {   // the professor's gift on arriving in a new region (Elm in Johto, Birch in Hoenn)
-        int r = g.regionPick;
+    if (g.regionPick) {   // the professor's gift on arriving in a region (Elm in Johto, Birch in Hoenn) - or a new story's first partner
+        int r = PickedRegion(g);
         if (g.regionRevealT >= 0) {   // the rival has taken theirs: on to the region
             g.regionRevealT += GetFrameTime();
-            if (g.regionRevealT > 2.5f && (in.confirm || in.back)) { g.regionPick = 0; g.regionRevealT = -1; EnterStoryHub(g); }
+            if (g.regionRevealT > 2.5f && (in.confirm || in.back)) { g.regionPick = 0; g.regionRevealT = -1; g.newJourney = false; EnterStoryHub(g); }
             return;
         }
-        if (in.back) { g.regionPick = 0; EnterStoryHub(g); return; }
+        if (in.back) {
+            g.regionPick = 0;
+            if (g.newJourney) { BeginRegionChoose(g, 0); return; }
+            EnterStoryHub(g);
+            return;
+        }
         if (!in.confirm) return;
-        int idx = SpeciesIndex(Story().starters[g.starterSel]);
-        if (idx < 0) return;
+        int idx = pool[g.starterSel];
         bool boxed = AddMon(g.profile, NewMon(idx, RegionGiftLevel(g, r)));
         RegionStarter(g.profile, r) = AllSpecies()[idx].name;
         RegionRival(g.profile, r).clear();
@@ -513,13 +557,14 @@ void UpdateStarter(Game& g) {
         g.regionRevealT = 0;
         return;
     }
-    if (in.back) { g.screen = Screen::ProfileSelect; g.profiles = ListProfiles(); return; }
+    if (in.back) { BeginRegionChoose(g, 0); return; }
     if (!in.confirm) return;
-    int idx = SpeciesIndex(Story().starters[g.starterSel]);
-    if (idx < 0) return;
+    int idx = pool[g.starterSel];
     g.profile.mons.push_back(NewMon(idx, Story().startLevel));
     g.profile.starter = AllSpecies()[idx].name;
     g.profile.rival.clear();
+    if (g.profile.regionOrder.empty()) g.profile.regionOrder = {0};
+    ApplySaveOrder(g);
     EnsureRival(g);   // the rival picks right away, against your choice
     SaveOrWarn(g);
     PlaySfx(Sfx::LevelUp);
@@ -545,7 +590,7 @@ std::string RegionWatchLine(int r, bool coop, int left) {
     static const char* kWords[] = {"none", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
     std::string n = left >= 0 && left <= 10 ? kWords[left] : std::to_string(left);
     if (coop) {
-        std::string w = !R.watchCoop.empty() ? R.watchCoop : "A red-haired boy lurks by the lab window... he'll grab two of the {left} you don't take.";
+        std::string w = !R.watchCoop.empty() ? R.watchCoop : "A red-haired boy lurks by the lab window... he'll grab what you two leave behind - and one more.";
         return Fill(w, "{left}", n);
     }
     return !R.watch.empty() ? R.watch : "A red-haired boy is watching the lab window... he'll take one that beats yours.";
@@ -557,7 +602,7 @@ std::string RegionIntroLine(int r, const std::string& who, int level) {
 }
 
 void DrawRivalReveal(const Game& g, const std::vector<std::string>& yours, const std::vector<std::string>& his) {
-    int region = std::max(1, g.regionPick);
+    int region = std::max(0, PickedRegion(g));
     const auto& R = RegionInfo(region);
     Color rc = RivalColor(region);
     float u = std::max(0.0f, g.regionRevealT);
@@ -610,9 +655,10 @@ void DrawRivalReveal(const Game& g, const std::vector<std::string>& yours, const
 
 void DrawStarter(const Game& g) {
     DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
-    int lvl = g.regionPick ? RegionGiftLevel(g, g.regionPick) : Story().startLevel;
+    int lvl = g.regionPick ? RegionGiftLevel(g, PickedRegion(g)) : Story().startLevel;
+    std::vector<int> pool = StarterPool(g);
     if (g.regionPick) {
-        int r = g.regionPick;
+        int r = PickedRegion(g);
         DrawTextCentered(("WELCOME TO " + Upper(RegionInfo(r).name)).c_str(), VW / 2, 14, 20, UI_GOLD);
         DrawTextCentered(RegionIntroLine(r, g.profile.name, lvl).c_str(), VW / 2, 40, 10, UI_TEXT, false);
         DrawTextCentered(RegionWatchLine(r, false, 0).c_str(), VW / 2, 54, 10, UI_DIM, false);
@@ -621,17 +667,16 @@ void DrawStarter(const Game& g) {
         DrawTextCentered("CHOOSE YOUR FIRST PARTNER", VW / 2, 20, 20, UI_GOLD);
         DrawTextCentered(TextFormat("Welcome, %s! Your partner starts at level %d.", g.profile.name.c_str(), Story().startLevel), VW / 2, 46, 10, UI_TEXT, false);
     }
-    int n = (int)Story().starters.size();
+    int n = (int)pool.size();
     int gap = n > 3 ? 8 : 20;
     int cw = std::min(150, (620 - (n - 1) * gap) / std::max(1, n));
     int x0 = VW / 2 - (n * cw + (n - 1) * gap) / 2;
     for (int i = 0; i < n; i++) {
-        int idx = SpeciesIndex(Story().starters[i]);
-        if (idx < 0) continue;
+        int idx = pool[i];
         int x = x0 + i * (cw + gap);
         DrawCreatureCard(idx, lvl, x, 70, cw, 130, g.starterSel == i);
     }
-    int idx = SpeciesIndex(Story().starters[g.starterSel]);
+    int idx = g.starterSel >= 0 && g.starterSel < n ? pool[g.starterSel] : -1;
     if (idx >= 0) {
         const SpeciesDef& sp = AllSpecies()[idx];
         DrawPanel(120, 212, 400, 120);
@@ -641,7 +686,7 @@ void DrawStarter(const Game& g) {
         std::string hint = EvolutionHint(idx);
         if (!hint.empty()) GDrawText(hint.c_str(), 130, 318, 10, UI_GOLD);
     }
-    DrawTextCentered(g.regionPick ? "Left/Right choose   Enter confirm   Esc: not yet" : "Left/Right choose   Enter confirm", VW / 2, 342, 10, UI_DIM, false);
+    DrawTextCentered(g.regionPick && !g.newJourney ? "Left/Right choose   Enter confirm   Esc: not yet" : "Left/Right choose   Enter confirm   Esc: back", VW / 2, 342, 10, UI_DIM, false);
     DrawToast(g);
 }
 
@@ -757,7 +802,8 @@ void UpdateStoryHub(Game& g) {
     PlaySfx(Sfx::MenuOk);
     int stages = (int)Story().stages.size();
     bool tower = StoryDone(g) || (KantoDone(g) && g.hubTower);
-    if (g.hubSel == 0 && !tower && NeedsRegionStarter(g)) { BeginRegionStarter(g); return; }
+    if (g.hubSel == 0 && !tower && CanChooseRegion(g)) { BeginRegionChoose(g, 1); return; }
+    if (g.hubSel == 0 && !tower && NeedsRegionStarter(g) >= 0) { BeginRegionStarter(g); return; }
     if (((g.hubSel == 0 && !tower) || g.hubSel == 1) && HealthyCount(g.profile) == 0) {
         Toast(g, "Your whole team has fainted! Visit the Healing Center first.");
         OpenHealingCenter(g);
@@ -840,7 +886,8 @@ std::string CoopFirstLabel(const Game& g, bool tower, int storyStage) {
     bool swap = KantoDone(g) && !StoryDone(g);
     std::string s;
     if (tower) s = TextFormat("Battle Tower 2v2: floor %d  (best %d)", g.coopSave.towerFloor + 1, g.coopSave.towerBest);
-    else if (int r = NeedsRegionStarter(g)) s = "Travel to " + RegionInfo(r).name + " together!";
+    else if (CanChooseRegion(g)) s = g.on.active && g.on.me != 0 ? "The host picks the next region..." : "Choose the next region!";
+    else if (int r = NeedsRegionStarter(g); r >= 0) s = "Travel to " + RegionInfo(r).name + " together!";
     else s = LeagueProgress(storyStage) >= 0 ? (StageRegion(storyStage) >= 1 ? RegionInfo(StageRegion(storyStage)).name + " League (2v2)" : "Pokemon League (2v2)") : "Story battle (2v2)";
     return swap ? "< " + s + " >" : s;
 }
@@ -848,7 +895,8 @@ std::string HubFirstLabel(const Game& g, bool tower, int storyStage, int towerFl
     bool swap = KantoDone(g) && !StoryDone(g);
     std::string s;
     if (tower) s = TextFormat("Battle Tower: floor %d  (best %d)", towerFloor + 1, towerBest);
-    else if (int r = NeedsRegionStarter(g)) s = "Travel to " + RegionInfo(r).name + "!";
+    else if (CanChooseRegion(g)) s = "Choose your next region!";
+    else if (int r = NeedsRegionStarter(g); r >= 0) s = "Travel to " + RegionInfo(r).name + "!";
     else s = LeagueProgress(storyStage) >= 0 ? (StageRegion(storyStage) >= 1 ? RegionInfo(StageRegion(storyStage)).name + " League" : "Pokemon League") : "Story battle";
     return swap ? "< " + s + " >" : s;
 }
@@ -968,7 +1016,7 @@ void DrawStoryHub(const Game& g) {
     DrawCoins(p.coins, rx, 6);
     GDrawText(TextFormat("%dW %dL", p.wins, p.losses), rx + 60, 7, 10, UI_DIM);
     std::vector<std::string> badges;   // this region's
-    int hubRegion = StageRegion(std::min(p.storyStage, std::max(0, stages - 1)));
+    int hubRegion = ActiveRegion(p.storyStage);
     for (const auto& st : Story().stages)
         if (st.IsGym() && st.region == hubRegion) badges.push_back(st.badge);
     for (size_t i = 0; i < badges.size(); i++) DrawBadge(badges[i], rx + rw - 6 - (int)(badges.size() - 1 - i) * 14, 12, HasBadge(p, badges[i]));
@@ -1147,7 +1195,7 @@ void UpdateMap(Game& g) {
         return;
     }
     // Browse the regions reached so far (Johto's map shows once you've got there).
-    int maxSel = std::min(n - 1, RegionInfo(StageRegion(std::min(CurStage(g), n - 1))).end - 1);
+    int maxSel = std::min(n - 1, RegionInfo(ActiveRegion(CurStage(g))).end - 1);
     if (maxSel < 0) maxSel = n - 1;
     g.mapSel = std::min(g.mapSel, maxSel);
     if (in.up) { g.mapSel = std::max(0, g.mapSel - 1); PlaySfx(Sfx::MenuMove); }
@@ -2495,19 +2543,15 @@ void ProcessStoryBattleEnd(Game& g) {
             StoryGifts(g, beat);
             if (beat.IsLeague() && !beat.IsChampion()) g.resultLines.push_back(beat.trainer + " is beaten! On to the next room...");
             if (beat.IsChampion()) {
-                if (beat.region == 0) {
-                    g.resultLines.push_back(coop ? "You're the new Pokemon League Champions!" : "You're the new Pokemon League Champion!");
-                    g.resultLines.push_back("The Battle Tower is now open - see how high you can climb!");
-                } else {
-                    g.resultLines.push_back(TextFormat(coop ? "You're the %s Champions!" : "You're the %s Champion!", RegionInfo(beat.region).name.c_str()));
-                }
+                if (beat.region == 0) g.resultLines.push_back(coop ? "You're the new Pokemon League Champions!" : "You're the new Pokemon League Champion!");
+                else g.resultLines.push_back(TextFormat(coop ? "You're the %s Champions!" : "You're the %s Champion!", RegionInfo(beat.region).name.c_str()));
+                if (RegionSlot(beat.region) == 0) g.resultLines.push_back("The Battle Tower is now open - see how high you can climb!");
                 for (int i = RegionInfo(beat.region).first; i < RegionInfo(beat.region).end; i++)   // the post-game challenge (Red, Steven)
                     if (Story().stages[i].postgame && i > g.stageIdx)
                         g.resultLines.push_back("A challenge waits on the Map: " + Story().stages[i].trainer + " at " + Story().stages[i].name + "!");
-                int nr = beat.region + 1;
-                if (nr < RegionCount() && RegionInfo(nr).end > RegionInfo(nr).first)
-                    g.resultLines.push_back("A new region awaits: travel to " + RegionInfo(nr).name + " from the menu!");
-                else if (stage >= (int)Story().stages.size() && beat.region > 0)
+                if (!RegionsLeft(g).empty())
+                    g.resultLines.push_back("A new region awaits: choose where to go next from the menu!");
+                else if (stage >= (int)Story().stages.size() && RegionCount() > 1)
                     g.resultLines.push_back("You've done it all - every region's League is yours!");
             }
         } else if (storyBattle && g.stageIdx < (int)Story().stages.size() && Story().stages[g.stageIdx].postgame &&
@@ -2659,7 +2703,7 @@ int StageNamed(const char* key) {   // first story stage whose name contains key
 int FossilSpecies(const std::string& f) {
     return SpeciesIndex(f == "Dome Fossil" ? "Kabuto" : f == "Old Amber" ? "Aerodactyl" : "Omanyte");
 }
-int ProgressStage(const Game& g) { return g.coop ? g.coopSave.storyStage : g.profile.storyStage; }
+int ProgressStage(const Game& g) { return ProgressStageFor(g.coop ? g.coopSave.storyStage : g.profile.storyStage); }
 const char* const* PickOptions(int kind) { return kind == 1 ? kDojo : kFossils; }
 std::string& PickField(Profile& P, int kind) { return kind == 1 ? P.dojo : P.fossil; }
 const std::string& PickField(const Profile& P, int kind) { return kind == 1 ? P.dojo : P.fossil; }
@@ -4383,20 +4427,28 @@ void UpdateCoopSelect(Game& g) {
             if (!g.coopNew[p]) LoadProfile(g.profiles[g.coopPick[p]], g.coopP[p]);
         }
         g.coopReady[0] = g.coopReady[1] = false;
-        if (anyNew) {   // type the new trainers' names first
-            g.coopNameWho = g.coopNew[0] ? 0 : 1;
-            while (GetCharPressed()) {}
-            g.screen = Screen::CoopSetup;
-            return;
-        }
-        if (g.coopP[0].mons.empty() || g.coopP[1].mons.empty()) {
-            g.coopStarterSel[0] = 0;
-            g.coopStarterSel[1] = std::min(1, (int)Story().starters.size() - 1);
-            g.screen = Screen::CoopStarter;
-            return;
-        }
-        CoopBeginJourney(g);
+        CoopSave had;
+        if (anyNew || !LoadCoop(g.coopP[0].name, g.coopP[1].name, had)) { BeginRegionChoose(g, 2); return; }   // a new journey: where it starts
+        g.journeyRegion = had.regionOrder.empty() ? 0 : had.regionOrder[0];
+        CoopContinueSetup(g);
     }
+}
+
+// After the region is chosen (or for a journey that already has one): names, starters, then the hub.
+void CoopContinueSetup(Game& g) {
+    if (g.coopNew[0] || g.coopNew[1]) {   // type the new trainers' names first
+        g.coopNameWho = g.coopNew[0] ? 0 : 1;
+        while (GetCharPressed()) {}
+        g.screen = Screen::CoopSetup;
+        return;
+    }
+    if (g.coopP[0].mons.empty() || g.coopP[1].mons.empty()) {
+        g.coopStarterSel[0] = 0;
+        g.coopStarterSel[1] = std::min(1, (int)RegionStarters(g.journeyRegion).size() - 1);
+        g.screen = Screen::CoopStarter;
+        return;
+    }
+    CoopBeginJourney(g);
 }
 
 void DrawCoopSelect(const Game& g) {
@@ -4451,6 +4503,7 @@ void CoopBeginJourney(Game& g) {
     bool existed = LoadCoop(g.coopP[0].name, g.coopP[1].name, g.coopSave);
     g.coopSave.p[0] = g.coopP[0].name;
     g.coopSave.p[1] = g.coopP[1].name;
+    if (g.coopSave.regionOrder.empty()) g.coopSave.regionOrder = {g.journeyRegion};   // a new journey starts where they chose
     if (!existed) SaveCoop(g.coopSave);
     g.coop = true;
     g.coopActive = -1;
@@ -4497,7 +4550,12 @@ void UpdateCoopHub(Game& g) {
     int stages = (int)Story().stages.size();
     if (online && (g.hubSel == 0 || g.hubSel == 1 || g.hubSel == 8) && OnlineWaiting(g)) return;
     bool tower = g.hubSel == 0 && (StoryDone(g) || (KantoDone(g) && g.hubTower));
-    if (g.hubSel == 0 && !tower && NeedsRegionStarter(g)) {   // off to Johto: Professor Elm's starters (host first, then player 2)
+    if (g.hubSel == 0 && !tower && CanChooseRegion(g)) {   // a region is done: player 1 (online: the host) picks the next
+        if (online && g.on.me != 0) { Toast(g, g.coopP[0].name + " picks the next region."); return; }
+        BeginRegionChoose(g, 3);
+        return;
+    }
+    if (g.hubSel == 0 && !tower && NeedsRegionStarter(g) >= 0) {   // off to a new region: the professor's starters (host first, then player 2)
         if (online) OnlineSetReady(g, 0);
         BeginRegionStarter(g);
         return;
@@ -4631,7 +4689,7 @@ void DrawCoopHubBase(const Game& g) {
     GDrawText(next.c_str(), 10, 256, 10, done ? UI_GOLD : UI_TEXT);
     GDrawText(TextFormat("Together: %dW %dL   training wins %d", pv.wins, pv.losses, pv.trainingWins), 10, 270, 10, UI_DIM);
     std::vector<std::string> badges;   // this region's
-    int hubRegion = StageRegion(std::min(pv.storyStage, std::max(0, stages - 1)));
+    int hubRegion = ActiveRegion(pv.storyStage);
     for (const auto& st : Story().stages)
         if (st.IsGym() && st.region == hubRegion) badges.push_back(st.badge);
     for (size_t i = 0; i < badges.size(); i++) DrawBadge(badges[i], 16 + (int)i * 16, 294, HasBadge(pv, badges[i]));

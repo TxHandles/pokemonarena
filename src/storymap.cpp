@@ -174,7 +174,7 @@ void DrawLeagueMark(const StageDef& st, int x, int y, bool beaten, float r) {
 void DrawStoryMap(const Profile& p, int x, int y, int w, int h, float t, bool townLabels, int focusStage, int region) {
     const auto& stages = Story().stages;
     int n = (int)stages.size();
-    if (region < 0) region = focusStage >= 0 ? StageRegion(focusStage) : StageRegion(std::min(p.storyStage, std::max(0, n - 1)));
+    if (region < 0) region = focusStage >= 0 ? StageRegion(focusStage) : ActiveRegion(p.storyStage);
     region = std::max(0, std::min(RegionCount() - 1, region));
     const auto& R = RegionInfo(region);
     bool hasMap = region < (int)gMaps.size() && gMaps[region].has;

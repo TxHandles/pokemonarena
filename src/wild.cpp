@@ -1,6 +1,7 @@
 #include "wild.h"
 #include <algorithm>
 #include <cctype>
+#include <cmath>
 #include <cstdlib>
 #include <map>
 #include <sstream>
@@ -24,10 +25,33 @@ std::string Low(std::string s) { for (char& c : s) c = (char)std::tolower((unsig
 int StageIndexOf(const std::string& name) {
     if (name.empty()) return 0;
     if (name == "@done") return (int)Story().stages.size();
-    std::string l = Low(name);
-    for (int i = 0; i < (int)Story().stages.size(); i++)
-        if (Low(Story().stages[i].name) == l) return i;
-    return 0;   // unknown stage: open from the start
+    int i = StageIndexByName(name);   // follows the save's region order
+    return i >= 0 ? i : 0;            // unknown stage: open from the start
+}
+// The region an area belongs to (its levels move with that region's place in the order).
+int AreaRegion(int area) {
+    if (area < 0 || area >= (int)gAreas.size()) return 0;
+    int r = StageNameRegion(gAreas[area].unlock);
+    return r >= 0 ? r : 0;
+}
+// A region's wild levels, lowest and highest (as written).
+void WildBand(int region, int& lo, int& hi) {
+    lo = MAX_LEVEL; hi = 0;
+    for (int a = 0; a < (int)gAreas.size(); a++) {
+        if (AreaRegion(a) != region) continue;
+        for (const auto& e : gAreas[a].mons) { if (e.rare) continue; lo = std::min(lo, e.lo); hi = std::max(hi, e.hi); }
+    }
+    if (hi <= 0) { lo = 2; hi = 60; }
+}
+// A wild level moved to the levels of the region's place in the order (Hoenn first: Route 101 at Kanto's Route 1 levels).
+int SlotWild(int region, int level) {
+    int tr = LevelTemplateRegion(region);
+    if (tr == region) return level;
+    int alo, ahi, blo, bhi;
+    WildBand(region, alo, ahi);
+    WildBand(tr, blo, bhi);
+    float f = (float)(level - alo) / std::max(1, ahi - alo);
+    return std::max(2, std::min(MAX_LEVEL, (int)std::lround(blo + f * (bhi - blo))));
 }
 
 bool MethodOpen(const std::string& m, int storyStage) {
@@ -222,8 +246,8 @@ std::vector<WildSpot> WildSpotsFor(int species, int storyStage, int badges) {
             auto it = gMethodUnlock.find(e.method);
             if (it != gMethodUnlock.end()) w.methodAt = it->second;
             w.rate = e.rate;
-            w.lo = e.lo;
-            w.hi = e.hi;
+            w.lo = SlotWild(AreaRegion(a), e.lo);
+            w.hi = SlotWild(AreaRegion(a), e.hi);
             w.badges = e.badges;
             w.rare = e.rare;
             if (open && w.methodOpen && badges >= e.badges && !e.rare && total > 0) {
@@ -272,8 +296,9 @@ std::vector<CombatantSpec> MakeWildTeam(int n, int avg) {
         c.species = pick->species;   // as found in the games: no evolving to the team's level
         // Near the team's level, but an early route never turns into a late-game challenge.
         int lvl = avg + GetRandomValue(-1, 1);
-        lvl = std::min(lvl, pick->hi + 8);
-        lvl = std::max(lvl, pick->lo);
+        int reg = AreaRegion(gCtxArea);
+        lvl = std::min(lvl, SlotWild(reg, pick->hi) + 8);
+        lvl = std::max(lvl, SlotWild(reg, pick->lo));
         c.level = std::max(2, std::min(MAX_LEVEL, lvl));
         c.moves = MovesAtLevel(AllSpecies()[c.species], c.level);
         team.push_back(c);
@@ -334,6 +359,7 @@ std::vector<WildAreaMon> WildAreaMons(int area, int storyStage, int badges) {
         row->lo = std::min(row->lo, p.e->lo);
         row->hi = std::max(row->hi, p.e->hi);
     }
+    for (auto& r : v) { r.lo = SlotWild(AreaRegion(area), r.lo); r.hi = SlotWild(AreaRegion(area), r.hi); }
     std::stable_sort(v.begin(), v.end(), [](const WildAreaMon& a, const WildAreaMon& b) {
         if (a.rare != b.rare) return !a.rare;
         return a.share > b.share;

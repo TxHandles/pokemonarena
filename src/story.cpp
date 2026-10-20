@@ -484,6 +484,12 @@ void Parse(const char* text, StoryDef& st, std::string& log) {
             else if (k == "watch_coop") reg->watchCoop = v;
             else if (k == "reveal") reg->reveal = v;
             else if (k == "reveal_quote") reg->revealQuote = v;
+            else if (k == "dex" || k == "levels") {
+                size_t dash = v.find('-');
+                int lo = std::atoi(v.c_str()), hi = dash == std::string::npos ? lo : std::atoi(v.c_str() + dash + 1);
+                if (k == "dex") { reg->dexLo = lo; reg->dexHi = hi; }
+                else { reg->bandLo = std::max(1, lo); reg->bandHi = std::max(reg->bandLo + 1, std::min(MAX_LEVEL, hi)); }
+            }
             else if (k == "town") {
                 auto parts = SplitList(v);
                 if (parts.size() >= 3) reg->towns.push_back({parts[0], (float)std::atof(parts[1].c_str()), (float)std::atof(parts[2].c_str())});
@@ -598,6 +604,186 @@ int StageRegion(int stage) {
     return gStory.stages[stage].region;
 }
 
+// ------------------------------------------------------------------ free region order
+
+namespace {
+StoryDef gNatural;               // the story as written (regions in their usual order)
+std::vector<int> gOrder{0};      // the regions chosen, in the order played
+std::vector<int> gApplied;       // what the layout was last built from
+
+// The stages of a region as written.
+std::vector<const StageDef*> NaturalStages(int r) {
+    std::vector<const StageDef*> v;
+    for (const auto& s : gNatural.stages) if (s.region == r) v.push_back(&s);
+    return v;
+}
+// The order cleaned up: known regions with stages, each once.
+std::vector<int> CleanOrder(const std::vector<int>& order) {
+    std::vector<int> out;
+    int nr = (int)gNatural.regions.size();
+    for (int r : order) {
+        if (r < 0 || r >= nr || std::find(out.begin(), out.end(), r) != out.end()) continue;
+        if (NaturalStages(r).empty()) continue;
+        out.push_back(r);
+    }
+    return out;
+}
+// The region whose levels a place in the order plays at.
+int TemplateFor(int slot) {
+    int last = 0;
+    for (int r = 0; r < (int)gNatural.regions.size(); r++) if (!NaturalStages(r).empty()) last = r;
+    return std::max(0, std::min(slot, last));
+}
+} // namespace
+
+void ApplyRegionOrder(const std::vector<int>& order0) {
+    if (gNatural.stages.empty()) return;
+    std::vector<int> order = CleanOrder(order0);
+    std::vector<int> full = order;
+    for (int r = 0; r < (int)gNatural.regions.size(); r++)
+        if (std::find(full.begin(), full.end(), r) == full.end() && !NaturalStages(r).empty()) full.push_back(r);
+    gOrder = order.empty() ? std::vector<int>{full.empty() ? 0 : full[0]} : order;
+    if (full == gApplied && !gStory.stages.empty()) return;
+    gApplied = full;
+    gStory.stages.clear();
+    gStory.regions = gNatural.regions;
+    for (int slot = 0; slot < (int)full.size(); slot++) {
+        int r = full[slot];
+        int tr = TemplateFor(slot);
+        auto mine = NaturalStages(r);
+        auto tmpl = NaturalStages(tr);
+        std::vector<const StageDef*> tMain, tPost;
+        for (auto* s : tmpl) (s->postgame ? tPost : tMain).push_back(s);
+        int nMain = 0;
+        for (auto* s : mine) nMain += !s->postgame;
+        auto& R = gStory.regions[r];
+        R.first = (int)gStory.stages.size();
+        int j = 0;
+        for (auto* s : mine) {
+            StageDef st = *s;
+            if (tr != r && !tMain.empty()) {   // this place in the order plays at the template region's levels
+                const StageDef* t;
+                if (s->postgame) t = !tPost.empty() ? tPost[0] : tMain.back();
+                else {
+                    float f = nMain > 1 ? (float)j / (nMain - 1) : 0.0f;
+                    t = tMain[(size_t)std::lround(f * (tMain.size() - 1))];
+                    j++;
+                }
+                st.baseLevel = t->baseLevel;
+                st.floor = t->floor;
+                if (st.baseLevel <= 0 && st.floor <= 0 && s->baseLevel > 0) st.levelOffset = 0;   // a built-for-a-level stage now follows your team
+            } else if (!s->postgame) j++;
+            gStory.stages.push_back(st);
+        }
+        R.end = (int)gStory.stages.size();
+        const auto& T = gNatural.regions[tr];
+        R.startLevel = T.startLevel;
+        R.startAvg = T.startAvg;
+    }
+    // Regions without stages sit at the end (empty).
+    for (auto& R : gStory.regions)
+        if (std::find(full.begin(), full.end(), (int)(&R - &gStory.regions[0])) == full.end()) R.first = R.end = (int)gStory.stages.size();
+}
+
+const std::vector<int>& RegionOrder() { return gOrder; }
+int RegionSlot(int region) {
+    for (int i = 0; i < (int)gOrder.size(); i++) if (gOrder[i] == region) return i;
+    return -1;
+}
+bool RegionChosen(int region) { return RegionSlot(region) >= 0; }
+int ActiveRegion(int storyStage) {
+    int last = gOrder.empty() ? 0 : gOrder.back();
+    if (storyStage >= RegionInfo(last).end) return last;
+    return StageRegion(storyStage);
+}
+bool BetweenRegions(int storyStage) {
+    int last = gOrder.empty() ? 0 : gOrder.back();
+    return storyStage >= RegionInfo(last).end && storyStage < (int)gStory.stages.size();
+}
+int ProgressStageFor(int storyStage) {
+    return BetweenRegions(storyStage) ? RegionInfo(gOrder.back()).end - 1 : storyStage;
+}
+int SlotGiftLevelBase(int slot) { return gNatural.regions.empty() ? 5 : gNatural.regions[TemplateFor(slot)].startLevel; }
+
+std::vector<int> RegionStarters(int region) {
+    const auto& R = RegionInfo(region);
+    std::vector<int> v;
+    for (const auto& n : gStory.starters) {
+        int i = SpeciesIndex(n);
+        if (i < 0) continue;
+        int d = AllSpecies()[i].dex;
+        if (R.dexHi <= 0 || (d >= R.dexLo && d <= R.dexHi)) v.push_back(i);
+    }
+    if (v.empty())   // nothing in its range: every starter
+        for (const auto& n : gStory.starters) if (SpeciesIndex(n) >= 0) v.push_back(SpeciesIndex(n));
+    std::stable_sort(v.begin(), v.end(), [](int a, int b) { return AllSpecies()[a].dex < AllSpecies()[b].dex; });
+    return v;
+}
+
+int StageNameRegion(const std::string& name) {
+    std::string l = name;
+    for (char& c : l) c = (char)std::tolower((unsigned char)c);
+    for (const auto& s : gNatural.stages) {
+        std::string n = s.name;
+        for (char& c : n) c = (char)std::tolower((unsigned char)c);
+        if (n == l) return s.region;
+    }
+    return -1;
+}
+int StageIndexByName(const std::string& name) {
+    std::string l = name;
+    for (char& c : l) c = (char)std::tolower((unsigned char)c);
+    int r = -1, off = 0;
+    for (const auto& s : gNatural.stages) {   // the first one as written (two regions both have a Victory Road)
+        std::string n = s.name;
+        for (char& c : n) c = (char)std::tolower((unsigned char)c);
+        if (n == l) { r = s.region; break; }
+    }
+    if (r < 0) return -1;
+    for (const auto& s : gNatural.stages) {
+        if (s.region != r) continue;
+        std::string n = s.name;
+        for (char& c : n) c = (char)std::tolower((unsigned char)c);
+        if (n == l) break;
+        off++;
+    }
+    return RegionInfo(r).first + off;
+}
+
+int LevelTemplateRegion(int region) {
+    int slot = RegionSlot(region);
+    if (slot < 0) slot = (int)gOrder.size();
+    return TemplateFor(slot);
+}
+int SlotLevel(int region, int level) {
+    if (gNatural.regions.empty() || region < 0 || region >= (int)gNatural.regions.size()) return level;
+    int slot = RegionSlot(region);
+    if (slot < 0) {   // not chosen yet: where it would come next
+        slot = (int)gOrder.size();
+    }
+    int tr = TemplateFor(slot);
+    if (tr == region) return level;
+    const auto& A = gNatural.regions[region];
+    const auto& B = gNatural.regions[tr];
+    float f = (float)(level - A.bandLo) / std::max(1, A.bandHi - A.bandLo);
+    int out = (int)std::lround(B.bandLo + f * (B.bandHi - B.bandLo));
+    return std::max(2, std::min(MAX_LEVEL, out));
+}
+
+std::vector<int> DeriveRegionOrder(int storyStage, const std::vector<bool>& has) {
+    // Old saves played the usual order: every region the story has entered (or whose starter was given).
+    std::vector<int> v;
+    for (int r = 0; r < (int)gNatural.regions.size(); r++) {
+        int first = -1;
+        for (int i = 0; i < (int)gNatural.stages.size(); i++) if (gNatural.stages[i].region == r) { first = i; break; }
+        if (first < 0) continue;
+        bool in = r == 0 || storyStage > first || (r < (int)has.size() && has[r]);
+        if (in) v.push_back(r);
+    }
+    if (v.empty()) v.push_back(0);
+    return v;
+}
+
 void LoadStory(std::string& log) {
     std::string path = DataDir() + "story.txt";
     char* text = LoadFileText(path.c_str());
@@ -624,6 +810,37 @@ void LoadStory(std::string& log) {
     }
     gStory.starters = ok;
     if (gStory.stages.empty()) Parse(kDefaultStory, gStory, log);
+    // Each region's starters and level band (story.txt can set them with dex = / levels =).
+    static const int kDex[][2] = {{1, 151}, {152, 251}, {252, 386}, {387, 493}, {494, 649}};
+    for (int r = 0; r < (int)gStory.regions.size(); r++) {
+        auto& R = gStory.regions[r];
+        if (R.dexHi <= 0 && r < 5) { R.dexLo = kDex[r][0]; R.dexHi = kDex[r][1]; }
+        bool setBand = R.bandLo != 5 || R.bandHi != 60;
+        if (!setBand) {
+            int lo = MAX_LEVEL, hi = 0;
+            for (const auto& s : gStory.stages) {
+                if (s.region != r || s.postgame) continue;
+                int l = s.baseLevel > 0 ? s.baseLevel : s.floor > 0 ? s.floor : 0;
+                if (l <= 0) continue;
+                lo = std::min(lo, l);
+                hi = std::max(hi, s.baseLevel > 0 ? l : std::min(MAX_LEVEL, l + 10));
+            }
+            if (hi > 0) { R.bandLo = r == 0 ? std::min(lo, R.startLevel) : lo; R.bandHi = std::max(lo + 1, hi); }
+        }
+    }
+    if (!gStory.regions.empty()) {   // Kanto's welcome, for when you arrive there later
+        auto& K = gStory.regions[0];
+        if (K.rivalName.empty()) K.rivalName = "Blue";
+        if (K.intro.empty()) K.intro = "Professor Oak in Pallet Town has a Pokemon for you, {name}! It starts at level {level}.";
+        if (K.watch.empty()) K.watch = "Oak's grandson Blue is leaning on the lab table... he'll take one that beats yours.";
+        if (K.watchCoop.empty()) K.watchCoop = "Oak's grandson Blue is leaning on the lab table... he'll take whatever you two leave behind.";
+        if (K.reveal.empty()) K.reveal = "Blue swaggered over and took {mons}.";
+        if (K.revealQuote.empty()) K.revealQuote = "Gramps says I can have one too. Mine beats yours - want to find out?";
+    }
+    gNatural = gStory;
+    gApplied.clear();
+    gStory.stages.clear();
+    ApplyRegionOrder({});
 }
 
 namespace {
@@ -641,8 +858,9 @@ void SetRivalContext(int main, int second) {
     gRivalSecond = second;
 }
 
-int PickRivalSolo(int mine) {
-    std::vector<int> starters = StarterList();
+int PickRivalSolo(int mine, int region) {
+    std::vector<int> starters = RegionStarters(region);
+    if (starters.size() < 2) starters = StarterList();
     if (starters.empty()) return -1;
     auto beats = [](int a, int b) { return TypeEffectiveness(AllSpecies()[a].type1, AllSpecies()[b].type1, AllSpecies()[b].type2) > 1; };
     std::vector<int> counters, others;
@@ -654,15 +872,22 @@ int PickRivalSolo(int mine) {
     return from[GetRandomValue(0, (int)from.size() - 1)];
 }
 
-void PickRivalCoop(int a, int b, int out[2]) {
+void PickRivalCoop(int a, int b, int out[2], int region) {
+    std::vector<int> pool = RegionStarters(region);
+    if (pool.size() < 2) pool = StarterList();
     std::vector<int> left;
-    for (int s : StarterList()) if (s != a && s != b) left.push_back(s);
+    for (int s : pool) if (s != a && s != b) left.push_back(s);
     out[0] = out[1] = -1;
+    if (left.empty()) left = pool;
     if (left.empty()) return;
     int i = GetRandomValue(0, (int)left.size() - 1);
     out[0] = left[i];
     left.erase(left.begin() + i);
-    if (!left.empty()) out[1] = left[GetRandomValue(0, (int)left.size() - 1)];
+    if (!left.empty()) { out[1] = left[GetRandomValue(0, (int)left.size() - 1)]; return; }
+    // Only one was left (a region's three starters): the second is one of yours - the one that beats the other.
+    auto beats = [](int x, int y) { return x >= 0 && y >= 0 && TypeEffectiveness(AllSpecies()[x].type1, AllSpecies()[y].type1, AllSpecies()[y].type2) > 1; };
+    if (a >= 0 && b >= 0 && a != b) out[1] = beats(a, b) ? a : beats(b, a) ? b : (GetRandomValue(0, 1) ? a : b);
+    else out[1] = a >= 0 ? a : b;
 }
 
 const char* SeasonName(int s) {
@@ -865,7 +1090,19 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
         int idx = -1;
         std::string l = e;
         for (char& c : l) c = (char)std::tolower((unsigned char)c);
-        if (l.rfind("rival", 0) == 0) {
+        if (l == "assistant") {
+            // The professor's assistant (Dawn): the region's starter that yours beats - the one neither you nor the rival took.
+            int reg = stage ? stage->region : 0;
+            std::vector<int> pool = RegionStarters(reg);
+            int beatenByRival = -1;
+            for (int s2 : pool)
+                if (gRivalStarter >= 0 && s2 != gRivalStarter &&
+                    TypeEffectiveness(AllSpecies()[gRivalStarter].type1, AllSpecies()[s2].type1, AllSpecies()[s2].type2) > 1) beatenByRival = s2;
+            for (int s2 : pool) if (s2 != gRivalStarter && s2 != beatenByRival && s2 != gRivalSecond) { idx = s2; break; }
+            if (idx < 0 && !pool.empty()) idx = pool[GetRandomValue(0, (int)pool.size() - 1)];
+            if (idx < 0) idx = RandomBase(Type::Normal, true);
+            idx = EvolvedFormAt(idx, evoAt > 0 ? evoAt : level);
+        } else if (l.rfind("rival", 0) == 0) {
             int st = gRivalStarter >= 0 ? gRivalStarter : SpeciesIndex(Story().starters.empty() ? "Pikachu" : Story().starters[0]);
             if (l == "rival_partner") {   // co-op: his second starter
                 if (gRivalSecond < 0) continue;
@@ -881,16 +1118,20 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
                 for (auto& c : kTrio)
                     if (trio.size() < 2 && c.second != t && std::find(trio.begin(), trio.end(), std::string(c.first)) == trio.end()) trio.push_back(c.first);
                 idx = SpeciesIndex(trio[std::min(trio.size() - 1, (size_t)(l == "rival_trio1" ? 0 : 1))]);
-            } else if (l == "rival_hoenn1" || l == "rival_hoenn2") {
+            } else if (l == "rival_hoenn1" || l == "rival_hoenn2" || l == "rival_sinnoh1" || l == "rival_sinnoh2") {
                 // Emerald: May's two partners are the two of Wingull, Lotad and Slugma that don't share her starter's type.
+                // Platinum: Barry's are two of Buizel, Ponyta and Roselia the same way.
+                bool sinnoh = l.rfind("rival_sinnoh", 0) == 0;
                 std::vector<std::string> two;
                 Type t = st >= 0 ? AllSpecies()[st].type1 : Type::Normal;
                 Type t2 = gRivalSecond >= 0 ? AllSpecies()[gRivalSecond].type1 : Type::None;
-                const std::pair<const char*, Type> kLines[] = {{"Wingull", Type::Water}, {"Lotad", Type::Grass}, {"Slugma", Type::Fire}};
+                const std::pair<const char*, Type> kHoenn[] = {{"Wingull", Type::Water}, {"Lotad", Type::Grass}, {"Slugma", Type::Fire}};
+                const std::pair<const char*, Type> kSinnoh[] = {{"Buizel", Type::Water}, {"Roselia", Type::Grass}, {"Ponyta", Type::Fire}};
+                const auto& kLines = sinnoh ? kSinnoh : kHoenn;
                 for (auto& c : kLines) if (c.second != t && c.second != t2) two.push_back(c.first);
                 for (auto& c : kLines)
                     if (two.size() < 2 && c.second != t && std::find(two.begin(), two.end(), std::string(c.first)) == two.end()) two.push_back(c.first);
-                idx = SpeciesIndex(two[std::min(two.size() - 1, (size_t)(l == "rival_hoenn1" ? 0 : 1))]);
+                idx = SpeciesIndex(two[std::min(two.size() - 1, (size_t)(l.back() == '1' ? 0 : 1))]);
             } else {
                 idx = st;
             }

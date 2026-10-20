@@ -24,6 +24,14 @@ void ReadSet(const std::string& v, std::set<std::string>& out) {
         if (!part.empty()) out.insert(part);
     }
 }
+// An old save (no region order): it was laid out in the usual order - fix its place in that layout.
+static void FixOldLayout(int& stage, int& rev, std::set<std::string>& done, bool oldPost) {
+    std::vector<int> keep = RegionOrder();
+    ApplyRegionOrder({});
+    if (rev < Story().rev) { stage = StoryStageForRev(stage, rev); rev = Story().rev; }
+    FixPostgame(stage, done, oldPost);
+    ApplyRegionOrder(keep);
+}
 std::string JoinSet(const std::set<std::string>& s) {
     std::string o;
     for (const auto& e : s) o += (o.empty() ? "" : " | ") + e;
@@ -38,6 +46,23 @@ std::string FileNameFor(const std::string& name) {
 }
 
 } // namespace
+
+std::string JoinOrder(const std::vector<int>& v) {
+    std::string o;
+    for (size_t i = 0; i < v.size(); i++) o += (i ? ", " : "") + std::to_string(v[i]);
+    return o;
+}
+std::vector<int> ReadOrder(const std::string& v) {
+    std::vector<int> o;
+    std::string part;
+    std::istringstream ss(v);
+    while (std::getline(ss, part, ',')) {
+        size_t a = part.find_first_not_of(" \t");
+        if (a == std::string::npos) continue;
+        o.push_back(std::atoi(part.c_str() + a));
+    }
+    return o;
+}
 
 std::string SavesDir() {
     std::string d = DataDir() + "saves";
@@ -75,6 +100,7 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
     std::string line;
     bool sawBag = false;
     int postV = 0;
+    bool hasOrder = false;
     while (std::getline(ss, line)) {
         line = Trim(line);
         if (line.empty() || line[0] == '#') continue;
@@ -112,6 +138,7 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "starter3") out.starter3 = v;
             else if (k == "rival3") out.rival3 = v;
             else if (k == "post_v") postV = iv;
+            else if (k == "region_order") { out.regionOrder = ReadOrder(v); hasOrder = true; }
             else if (k == "post_done") ReadSet(v, out.postDone);
             else if (k == "wins") out.wins = iv;
             else if (k == "losses") out.losses = iv;
@@ -192,8 +219,11 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
     FixParty(out);
     DexRegisterOwned(out);
     if (out.storyRev <= 0) out.storyRev = out.mons.empty() ? Story().rev : 1;
-    if (out.storyRev < Story().rev) { out.storyStage = StoryStageForRev(out.storyStage, out.storyRev); out.storyRev = Story().rev; }
-    FixPostgame(out.storyStage, out.postDone, postV == 0);
+    if (!hasOrder) {   // from before free region order: the usual order, as far as it has got
+        FixOldLayout(out.storyStage, out.storyRev, out.postDone, postV == 0);
+        if (!out.mons.empty() || out.storyStage > 0)
+            out.regionOrder = DeriveRegionOrder(out.storyStage, {!out.starter.empty(), !out.starter2.empty(), !out.starter3.empty()});
+    }
     return true;
 }
 
@@ -226,6 +256,7 @@ std::string ProfileToText(const Profile& p) {
     if (!p.starter3.empty()) o += "starter3 = " + p.starter3 + "\n";
     if (!p.rival3.empty()) o += "rival3 = " + p.rival3 + "\n";
     o += "post_v = 1\n";
+    o += "region_order = " + JoinOrder(p.regionOrder) + "\n";
     if (!p.postDone.empty()) o += "post_done = " + JoinSet(p.postDone) + "\n";
     std::string bd;
     for (size_t i = 0; i < p.badges.size(); i++) bd += (i ? " | " : "") + p.badges[i];
@@ -459,6 +490,7 @@ bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out) {
     UnloadFileText(text);
     std::string line;
     int postV = 0;
+    bool hasOrder = false;
     while (std::getline(ss, line)) {
         line = Trim(line);
         if (line.empty() || line[0] == '#') continue;
@@ -481,6 +513,7 @@ bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out) {
         else if (k == "rival2") { size_t c = v.find(','); out.rival2[0] = Trim(v.substr(0, c)); out.rival2[1] = c == std::string::npos ? "" : Trim(v.substr(c + 1)); }
         else if (k == "rival3") { size_t c = v.find(','); out.rival3[0] = Trim(v.substr(0, c)); out.rival3[1] = c == std::string::npos ? "" : Trim(v.substr(c + 1)); }
         else if (k == "post_v") postV = iv;
+        else if (k == "region_order") { out.regionOrder = ReadOrder(v); hasOrder = true; }
         else if (k == "post_done") ReadSet(v, out.postDone);
         else if (k == "run1" || k == "run2") {
             CoopSave::RunStats& r = out.run[k == "run2" ? 1 : 0];
@@ -497,8 +530,10 @@ bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out) {
         }
     }
     if (out.storyRev <= 0) out.storyRev = 1;
-    if (out.storyRev < Story().rev) { out.storyStage = StoryStageForRev(out.storyStage, out.storyRev); out.storyRev = Story().rev; }
-    FixPostgame(out.storyStage, out.postDone, postV == 0);
+    if (!hasOrder) {   // from before free region order
+        FixOldLayout(out.storyStage, out.storyRev, out.postDone, postV == 0);
+        out.regionOrder = DeriveRegionOrder(out.storyStage, {true, !out.rival2[0].empty(), !out.rival3[0].empty()});
+    }
     return true;
 }
 
@@ -517,6 +552,7 @@ bool SaveCoop(const CoopSave& c) {
     if (!c.rival2[0].empty()) o += "rival2 = " + c.rival2[0] + ", " + c.rival2[1] + "\n";
     if (!c.rival3[0].empty()) o += "rival3 = " + c.rival3[0] + ", " + c.rival3[1] + "\n";
     o += "post_v = 1\n";
+    o += "region_order = " + JoinOrder(c.regionOrder) + "\n";
     if (!c.postDone.empty()) o += "post_done = " + JoinSet(c.postDone) + "\n";
     o += "# leaderboard: KOs, damage, caught, MVP battles, fainted, battles\n";
     for (int p = 0; p < 2; p++)

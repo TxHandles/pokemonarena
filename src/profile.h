@@ -59,6 +59,7 @@ struct Profile {
     std::string starter3;              // Hoenn: the starter Professor Birch gave you
     std::string rival3;                // Hoenn: May's starter
     std::set<std::string> postDone;    // optional post-game battles beaten (their stage names: "Mt. Silver")
+    std::vector<int> regionOrder;      // the regions in the order this story plays them (empty: a new story, not chosen yet)
 };
 // A region's starter gift and its rival's pick (region 1 Johto, 2 Hoenn; 0 = the first starter / Blue).
 std::string& RegionStarter(Profile& p, int region);
@@ -101,9 +102,12 @@ struct CoopSave {
     std::string rival2[2];             // Johto: Silver's two starters (from the four the players didn't take there)
     std::string rival3[2];             // Hoenn: May's two
     std::set<std::string> postDone;    // optional post-game battles beaten together
+    std::vector<int> regionOrder;      // the regions in the order this journey plays them (empty: not chosen yet)
 };
 std::string* CoopRival(CoopSave& c, int region);   // the rival's two picks for a region
 const std::string* CoopRival(const CoopSave& c, int region);
+std::string JoinOrder(const std::vector<int>& v);   // "2, 0"
+std::vector<int> ReadOrder(const std::string& v);
 bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out);   // false = none yet (out is fresh)
 bool SaveCoop(const CoopSave& c);
 int HealCost(const OwnedMon& m);       // coins to fully heal (revive costs more)

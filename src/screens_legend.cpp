@@ -54,7 +54,7 @@ int PartyAvg(const Game& g) {
     return n ? sum / n : 5;
 }
 int SpeciesOf(int id) { return SpeciesIndex(Legend(id).species); }
-int LegendLevel(int id, int avg) { return std::max(1, std::min(MAX_LEVEL, std::max(Legend(id).minLevel, avg + Legend(id).bonus))); }
+int LegendLevel(int id, int avg) { return std::max(1, std::min(MAX_LEVEL, std::max(SlotLevel(Legend(id).region, Legend(id).minLevel), avg + Legend(id).bonus))); }
 int HubLegendItem(const Game&) { return 2; }   // the legendaries are a tab on the hub's Map
 } // namespace
 
@@ -76,15 +76,16 @@ bool LegendOpen(const Game& g, int id, std::string* why) {
         if (why) *why = g.coop ? Prof(g, by).name + " caught it - it's gone from " + L.place + "." : std::string("You caught it - it's gone from ") + L.place + ".";
         return false;
     }
+    if (!RegionChosen(L.region)) { if (why) *why = "Travel to " + RegionInfo(L.region).name + " first."; return false; }
     switch (L.unlock) {
         case LegendUnlock::Badges8:
-            if (BadgeCount(g) < 8) { if (why) *why = "Collect all 8 badges first."; return false; }
+            if (RegionBadgeCount(g, L.region) < 8) { if (why) *why = "Collect all 8 " + RegionInfo(L.region).name + " badges first."; return false; }
             break;
         case LegendUnlock::Champion:
-            if (!KantoDone(g)) { if (why) *why = "Only the Pokemon League Champion may enter."; return false; }
+            if (!RegionDone(g, L.region)) { if (why) *why = "Only the " + RegionInfo(L.region).name + " Champion may enter."; return false; }
             break;
         case LegendUnlock::AfterMewtwo:
-            if (!KantoDone(g) || LegendCaughtBy(g, 3) < 0) { if (why) *why = "You need the Old Sea Map. It's said to turn up once Mewtwo is caught..."; return false; }
+            if (!RegionDone(g, L.region) || LegendCaughtBy(g, 3) < 0) { if (why) *why = "You need the Old Sea Map. It's said to turn up once Mewtwo is caught..."; return false; }
             break;
         case LegendUnlock::AfterStage: {
             int at = -1;
@@ -221,7 +222,7 @@ void DrawLegends(const Game& g) {
         std::string why;
         bool open = LegendOpen(g, i, &why);
         int by = LegendCaughtBy(g, i);
-        bool known = open || by >= 0 || L.unlock == LegendUnlock::Badges8 || (L.unlock == LegendUnlock::Champion && BadgeCount(g) >= 8) || KantoDone(g);
+        bool known = open || by >= 0 || L.unlock == LegendUnlock::Badges8 || (L.unlock == LegendUnlock::Champion && RegionBadgeCount(g, L.region) >= 8) || RegionDone(g, L.region);
         if (L.region >= 1) known = open || by >= 0 || StoryDone(g) || (L.unlock != LegendUnlock::AfterStage && L.unlock != LegendUnlock::AfterCatch) ||
                                    (L.unlock == LegendUnlock::AfterStage && std::string(L.after) != "Champion's Room" && std::string(L.after) != "Meteor Falls");
         int ph = rowH - 2;

@@ -87,6 +87,8 @@ struct StoryDef {
         std::string watchCoop;      // the same in co-op (%s = how many they choose from)
         std::string reveal;         // what happens when the rival takes theirs (%s = their Pokemon)
         std::string revealQuote;    // and what the rival says
+        int dexLo = 0, dexHi = 0;   // its starters: the "starter = yes" Pokemon with Pokedex numbers in this range
+        int bandLo = 5, bandHi = 60;   // the levels its story usually runs through (wild areas and legends follow them)
     };
     std::vector<Region> regions;
 };
@@ -95,6 +97,28 @@ int StageRegion(int stage);           // the region a stage index belongs to (pa
 int RegionCount();
 const StoryDef::Region& RegionInfo(int region);
 
+// Free region order. Every save plays the regions in its own order (you can start anywhere, and
+// pick the next one when a region's Champion falls). The story's stages are laid out in that
+// order - the regions not chosen yet come after, in their usual order - so a stage index is a
+// place on that save's road. A region's levels follow its place in the order, not the region:
+// whichever comes first plays like Kanto ("Map 1": a level 5 starter), the second like Johto, and
+// so on (its trainers, starter gift, wild Pokemon and legendaries).
+void ApplyRegionOrder(const std::vector<int>& order);   // empty = the usual order
+const std::vector<int>& RegionOrder();       // the chosen regions, in order (as applied)
+int RegionSlot(int region);                  // its place in the order: 0 = Map 1 (-1: not chosen yet)
+bool RegionChosen(int region);
+int ActiveRegion(int storyStage);            // the region the story is in (just after a Champion: that region)
+bool BetweenRegions(int storyStage);         // a region is finished and the next one isn't chosen yet
+int ProgressStageFor(int storyStage);        // for "has the story reached X": between regions, the last one's end
+int SlotGiftLevelBase(int slot);             // the level a starter given at that place in the order starts at (alone: Map 1 = 5)
+std::vector<int> RegionStarters(int region); // that region's starters (species indexes, Pokedex order)
+int StageIndexByName(const std::string& name);   // a stage by name in the current layout (the first region that has it, -1 none)
+int StageNameRegion(const std::string& name);    // which region a stage name belongs to (-1 none)
+int SlotLevel(int region, int level);
+int LevelTemplateRegion(int region);         // whose levels that region plays at (itself in the usual order)        // a level from that region's usual band, moved to the band of its place in the order
+// An old save (no order saved): the regions it has reached, in the usual order.
+std::vector<int> DeriveRegionOrder(int storyStage, const std::vector<bool>& hasRegionStarter);
+
 // Rival: whose team "rival" tokens build. Set before MakeCpuTeam for a rival stage.
 // rivalStarter = species index of his starter; coop = he also has his Pikachu.
 // The rival's starters for the next team that's built: "rival" = main, "rival_partner" = second
@@ -102,8 +126,8 @@ const StoryDef::Region& RegionInfo(int region);
 void SetRivalContext(int main, int second);
 // Picked once per save: alone, one of the starters that beat yours (at random); in co-op, two of
 // the starters neither player took (at random). Returns species indexes.
-int PickRivalSolo(int mine);
-void PickRivalCoop(int a, int b, int out[2]);
+int PickRivalSolo(int mine, int region = 0);
+void PickRivalCoop(int a, int b, int out[2], int region = 0);
 int StoryStageForRev(int stage, int fromRev);                   // an old save's stage index in the current layout
 // Post-game battles (postgame = yes) sit off the main road: the story's next stage skips them.
 // oldSave: a save from before they were optional - the ones it had passed were beaten.

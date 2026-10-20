@@ -14,10 +14,13 @@ namespace {
 const Color kP2{120, 230, 255, 255};
 Color PCol(int p) { return p == 0 ? UI_GOLD : kP2; }
 
-int StarterCount() { return (int)Story().starters.size(); }
-int StarterSpecies(int i) { return i >= 0 && i < StarterCount() ? SpeciesIndex(Story().starters[i]) : -1; }
+const Game* gPoolGame = nullptr;   // whose starter screen is up (its region's Pokemon)
+std::vector<int> Pool() { return gPoolGame ? StarterPool(*gPoolGame) : RegionStarters(0); }
+int StarterCount() { return (int)Pool().size(); }
+int StarterSpecies(int i) { auto p = Pool(); return i >= 0 && i < (int)p.size() ? p[i] : -1; }
 
 void GoStarters(Game& g) {
+    gPoolGame = &g;
     g.coopReady[0] = g.coopReady[1] = false;
     g.coopStarterSel[0] = 0;
     g.coopStarterSel[1] = std::min(1, std::max(0, StarterCount() - 1));
@@ -28,7 +31,8 @@ void GoStarters(Game& g) {
 int TakenStarter(const Game& g, int who) {
     const Profile& P = g.coopP[who];
     if (P.mons.empty()) return -1;
-    int s = P.starter.empty() ? -1 : SpeciesIndex(P.starter);
+    int s = SpeciesIndex(RegionStarter(P, g.journeyRegion));
+    if (s < 0 && g.journeyRegion == 0) s = SpeciesIndex(P.starter);
     return s >= 0 ? s : MonSpecies(P.mons[0]);
 }
 
@@ -36,7 +40,7 @@ void GiveStarter(Game& g, int who, int sp) {
     Profile& P = g.coopP[who];
     P.mons.clear();
     P.mons.push_back(NewMon(sp, Story().startLevel));
-    P.starter = AllSpecies()[sp].name;
+    RegionStarter(P, g.journeyRegion) = AllSpecies()[sp].name;   // a journey can start in any region
     if (P.bag["Poke Ball"] < START_BALLS) P.bag["Poke Ball"] = START_BALLS;
     SaveProfile(P);
 }
@@ -111,10 +115,10 @@ void DrawCoopSetup(const Game& g) {
 // One at a time: the host (player 1) picks, then player 2, then Silver takes two of the ones left.
 
 namespace {
-int JohtoTaken(const Game& g, int who) { return SpeciesIndex(RegionStarter(g.coopP[who], std::max(1, g.regionPick))); }
+int JohtoTaken(const Game& g, int who) { return SpeciesIndex(RegionStarter(g.coopP[who], std::max(0, PickedRegion(g)))); }
 void GiveJohtoStarter(Game& g, int who, int sp) {
     Profile& P = g.coopP[who];
-    int r = std::max(1, g.regionPick);
+    int r = std::max(0, PickedRegion(g));
     AddMon(P, NewMon(sp, RegionGiftLevel(g, r, who)));
     RegionStarter(P, r) = AllSpecies()[sp].name;
     DexRegisterOwned(P);
@@ -126,7 +130,7 @@ static void UpdateJohtoCoopStarter(Game& g) {
     int n = StarterCount();
     bool online = g.on.active;
     int a = JohtoTaken(g, 0), b = JohtoTaken(g, 1);
-    int region = std::max(1, g.regionPick);
+    int region = std::max(0, PickedRegion(g));
     if (a >= 0 && b >= 0) {   // both chosen: the rival takes theirs, then on to the new region
         EnsureRival(g, region);
         if (SpeciesIndex(CoopRival(g.coopSave, region)[0]) < 0) return;   // online guest: waiting for the host's pick to arrive
@@ -168,13 +172,13 @@ static void UpdateJohtoCoopStarter(Game& g) {
 }
 
 static void DrawJohtoCoopStarter(const Game& g) {
-    int region = std::max(1, g.regionPick);
+    int region = std::max(0, PickedRegion(g));
     int lvA = RegionGiftLevel(g, region, 0), lvB = RegionGiftLevel(g, region, 1);
     DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     std::string title = "WELCOME TO " + RegionInfo(region).name;
     for (char& c : title) c = (char)std::toupper((unsigned char)c);
     DrawTextCentered(title.c_str(), VW / 2, 12, 20, UI_GOLD);
-    std::string prof = region >= 2 ? "Professor Birch" : "Professor Elm";
+    std::string prof = region == 0 ? "Professor Oak" : region >= 2 ? "Professor Birch" : "Professor Elm";
     DrawTextCentered((lvA == lvB ? TextFormat("%s has a Pokemon for each of you (level %d). %s picks first, then %s - and then...", prof.c_str(), lvA,
                                               g.coopP[0].name.c_str(), g.coopP[1].name.c_str())
                                  : TextFormat("%s has a Pokemon for each of you (levels %d and %d). %s picks first, then %s - and then...", prof.c_str(), lvA, lvB,
@@ -227,6 +231,7 @@ static void DrawJohtoCoopStarter(const Game& g) {
 // ------------------------------------------------------------------ choosing starters together
 
 void UpdateCoopStarter(Game& g) {
+    gPoolGame = &g;
     if (g.regionPick) { UpdateJohtoCoopStarter(g); return; }
     int n = StarterCount();
     if (n == 0) {   // no starters defined: just go
@@ -234,13 +239,14 @@ void UpdateCoopStarter(Game& g) {
         return;
     }
     bool online = g.on.active;
+    if (online && g.coopSave.regionOrder.empty()) return;   // the host is still choosing where the journey starts
     if (online) {
         int me = g.on.me, other = 1 - me;
         int mine = TakenStarter(g, me), theirs = TakenStarter(g, other);
         if (mine >= 0 && theirs >= 0) {
             if (mine == theirs && me == 1) {   // both took the same one at once: the host keeps it
                 g.coopP[me].mons.clear();
-                g.coopP[me].starter.clear();
+                RegionStarter(g.coopP[me], g.journeyRegion).clear();
                 SaveProfile(g.coopP[me]);
                 OnlineSendProfile(g);
                 Toast(g, g.coopP[other].name + " took " + AllSpecies()[theirs].name + " first - pick another!");
@@ -298,10 +304,17 @@ void UpdateCoopStarter(Game& g) {
 }
 
 void DrawCoopStarter(const Game& g) {
+    gPoolGame = &g;
     if (g.regionPick) { DrawJohtoCoopStarter(g); return; }
     DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
-    DrawTextCentered("CHOOSE YOUR STARTERS", VW / 2, 14, 20, UI_GOLD);
     bool online = g.on.active;
+    if (online && g.coopSave.regionOrder.empty()) {
+        DrawTextCentered("A NEW JOURNEY", VW / 2, 120, 20, UI_GOLD);
+        DrawTextCentered((g.coopP[0].name + " is choosing the region your journey starts in...").c_str(), VW / 2, 160, 10, UI_TEXT, false);
+        DrawToast(g);
+        return;
+    }
+    DrawTextCentered(("CHOOSE YOUR STARTERS - " + RegionInfo(g.journeyRegion).name).c_str(), VW / 2, 14, 20, UI_GOLD);
     DrawTextCentered(online ? "Each of you picks one - you can't both take the same Pokemon. Your rival takes two of the others!"
                             : "Each player picks one with their own controls - not the same one. Your rival takes two of the others!",
                      VW / 2, 40, 10, UI_TEXT, false);
@@ -324,7 +337,7 @@ void DrawCoopStarter(const Game& g) {
         if (idx < 0) continue;
         int x = x0 + i * (cw + gap);
         bool any = sel[0] == i || sel[1] == i;
-        DrawCreatureCard(idx, Story().startLevel, x, 70, cw, 130, any);
+        DrawCreatureCard(idx, Story().startLevel, x, 70, cw, 130, any);   // a new journey: level 5 wherever it starts
         for (int p = 0; p < 2; p++) {
             if (sel[p] != i) continue;
             int mx = x + cw / 2 + (sel[0] == sel[1] ? (p == 0 ? -22 : 22) : 0);
