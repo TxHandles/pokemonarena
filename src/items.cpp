@@ -85,6 +85,7 @@ std::vector<ItemDef> Build() {
     add("Assault Vest", ItemFx::DefMul, 1.25f, 500, 6, "DEF +25%.");
     add("Life Orb", ItemFx::LifeOrb, 1.3f, 700, 7, "Damage +30%, but each attack costs a little HP.");
     add("Choice Band", ItemFx::ChoiceBand, 1.35f, 700, 7, "ATK +35%, but cooldowns 15% longer.");
+    add("Exp. All", ItemFx::ExpAll, 0.5f, 5000, 0, "Co-op: when you beat wild Pokemon on your own while walking around, your partner's party shares in it - half your XP, split between them. Stays in your Bag.");
     // Fossils from Mt. Moon (revived at the Cinnabar Lab)
     add("Helix Fossil", ItemFx::KeyItem, 0, 0, 99, "A fossil of an ancient spiral-shelled Pokemon. The Cinnabar Lab can revive it.", Type::Rock);
     add("Dome Fossil", ItemFx::KeyItem, 0, 0, 99, "A fossil of an ancient Pokemon with a domed shell. The Cinnabar Lab can revive it.", Type::Rock);
@@ -128,5 +129,5 @@ const ItemDef* FindItem(const std::string& name) {
 
 bool IsBall(const ItemDef& d) { return d.fx == ItemFx::Ball; }
 bool IsStone(const ItemDef& d) { return d.fx == ItemFx::Stone; }
-bool IsHoldable(const ItemDef& d) { return d.fx != ItemFx::Ball && d.fx != ItemFx::Stone && d.fx != ItemFx::TM && d.fx != ItemFx::KeyItem; }
+bool IsHoldable(const ItemDef& d) { return d.fx != ItemFx::Ball && d.fx != ItemFx::Stone && d.fx != ItemFx::TM && d.fx != ItemFx::KeyItem && d.fx != ItemFx::ExpAll; }
 bool IsTM(const ItemDef& d) { return d.fx == ItemFx::TM; }

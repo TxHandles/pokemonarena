@@ -155,7 +155,10 @@ bool SetTrainArea(Game& g, int area) {
     Toast(g, "Training battles now happen in " + slot + ".");
     return true;
 }
-void SetTrainingWild(Game& g) { SetWildContext(TrainArea(g), TrainStage(g), TrainBadges(g)); }
+void SetTrainingWild(Game& g) {
+    int area = g.ow.wildBattle && WildAreaIndex(g.ow.wildArea) >= 0 ? WildAreaIndex(g.ow.wildArea) : TrainArea(g);   // tall grass: that route's own
+    SetWildContext(area, TrainStage(g), TrainBadges(g));
+}
 // A new rare find for the current training area (after the area changed on the team screen).
 void RepickRare(Game& g) {
     SetTrainingWild(g);
@@ -402,11 +405,15 @@ void EnterStoryHub(Game& g) {
             OnlineSendProfile(g);
         }
         g.mode = Mode::CoopStory;
+        g.ow.wildBattle = false;
+        if (g.ow.active) { g.screen = Screen::World; return; }   // walking around: back on the map
         g.hubSel = 0;
         g.screen = Screen::CoopHub;
         return;
     }
     g.mode = Mode::Story;
+    g.ow.wildBattle = false;
+    if (g.ow.active) { g.screen = Screen::World; g.ow.w[0].fadeT = 0.35f; return; }   // walking around: back on the map
     g.hubSel = 0;
     g.screen = Screen::StoryHub;
 }
@@ -793,7 +800,7 @@ void DrawStoryCard(const Game& g) {
 void UpdateStoryHub(Game& g) {
     if (UpdateStoryCard(g)) return;
     PlayerInput in = MenuInput();
-    const int N = 11;
+    const int N = 12;
     if (HubNav(g, in, N, false)) return;
     if (g.hubSel == 1 && (in.left || in.right)) { CycleTrainArea(g, in.left ? -1 : 1); SaveOrWarn(g); return; }
     if (g.hubSel == 0 && (in.left || in.right) && KantoDone(g) && !StoryDone(g)) { g.hubTower = !g.hubTower; PlaySfx(Sfx::MenuMove); return; }
@@ -817,22 +824,9 @@ void UpdateStoryHub(Game& g) {
             g.rareBattle = false;
             g.screen = Screen::StageIntro;
             break;
-        case 1: {
-            g.stageIdx = -1;
-            g.mode = Mode::Training;
-            g.rareBattle = NextTrainingIsRare(g.profile);
-            SetTrainingWild(g);
-            if (g.rareBattle && g.rareSpecies < 0) {
-                std::vector<std::string> owned;
-                int sum = 0, n = 0;
-                for (const auto& m : g.profile.mons) {
-                    owned.push_back(m.species);
-                    if (!m.boxed) { sum += m.level; n++; }
-                }
-                g.rareSpecies = PickRareSpecies(owned, n ? sum / n : 5);
-            }
-            BeginTeamSelect(g);
-        } break;
+        case 1:
+            StartTrainingBattle(g);
+            break;
         case 2:
             g.mapSel = std::min(g.profile.storyStage, stages - 1);
             g.screen = Screen::Map;
@@ -866,6 +860,9 @@ void UpdateStoryHub(Game& g) {
             break;
         case 9:
             StartPractice(g);
+            break;
+        case 10:
+            EnterWorld(g);
             break;
         case HUB_GEAR:
             g.settingsSel = 0;
@@ -1029,7 +1026,7 @@ void DrawStoryHub(const Game& g) {
     for (const auto& m : p.mons) hurt += (!m.boxed && m.hp < 0.999f) ? 1 : 0;
     int dexCaught = 0;
     for (const auto& sp : AllSpecies()) if (sp.dex > 0 && sp.custom && DexHasCaught(p, sp.name)) dexCaught++;
-    std::string items[11] = {
+    std::string items[12] = {
         HubFirstLabel(g, tower, p.storyStage, p.towerFloor, p.towerBest),
         (rare ? "RARE in " : "Training: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
         MapHubLabel(g),
@@ -1040,20 +1037,21 @@ void DrawStoryHub(const Game& g) {
         TextFormat("Pokedex (%d caught)", dexCaught),
         IsNight(p.clock) ? "Wait until morning" : "Wait until night",
         "Practice arena",
+        "Walk around (test): " + WorldPlaceName(g),
         "Save and quit",
     };
-    for (int i = 0; i < 11; i++) {
-        int y = 26 + i * 16;
+    for (int i = 0; i < 12; i++) {
+        int y = 26 + i * 15;
         bool sel = g.hubSel == i;
         Color c = sel ? UI_GOLD : UI_TEXT;
         if (i == 1 && rare) c = Color{255, 150, 230, 255};
         if (i == 2 && items[2].size() > 3) c = sel ? UI_GOLD : Color{255, 200, 120, 255};   // legendaries waiting
-        DrawHubTile(i == 10 ? 11 : i, items[i].c_str(), rx, y, rw, sel, c, UiEnterT(i, 0.03f), (float)GetTime());
+        DrawHubTile(i == 11 ? 11 : i == 10 ? 2 : i, items[i].c_str(), rx, y, rw, sel, c, UiEnterT(i, 0.03f), (float)GetTime());
     }
     DrawTimePanel(p.clock, 402, 30);
 
     // Team
-    int ty = 26 + 11 * 16 + 8;
+    int ty = 26 + 12 * 15 + 8;
     std::vector<const OwnedMon*> party;
     for (const auto& m : p.mons) if (!m.boxed) party.push_back(&m);
     GDrawText(TextFormat("Party (%d/%d)", (int)party.size(), PARTY_SIZE), rx, ty, 10, UI_DIM);
@@ -4123,7 +4121,7 @@ std::vector<const ItemDef*> ShopList(int tab) {
     std::vector<const ItemDef*> v;
     for (const auto& d : ItemList()) {
         if (d.badges >= 99) continue;   // story and Game Corner items
-        if ((tab == 0 && IsBall(d)) || (tab == 1 && IsHoldable(d)) || (tab == 2 && IsStone(d)) || (tab == 3 && IsTM(d))) v.push_back(&d);
+        if ((tab == 0 && IsBall(d)) || (tab == 1 && (IsHoldable(d) || d.fx == ItemFx::ExpAll)) || (tab == 2 && IsStone(d)) || (tab == 3 && IsTM(d))) v.push_back(&d);
     }
     return v;
 }
@@ -4185,9 +4183,16 @@ void UpdateShop(Game& g) {
     const ItemDef& d = *list[g.shopSel];
     Profile& p = g.profile;
     if (BadgeCount(g) < d.badges) { Toast(g, std::string(BadgeNeedText(d.badges)) + " to buy this."); PlaySfx(Sfx::MenuBack); return; }
+    if (d.fx == ItemFx::ExpAll && BagCount(p, d.name) > 0) { Toast(g, "You already have the Exp. All."); PlaySfx(Sfx::MenuBack); return; }
     if (p.coins < d.price) { Toast(g, "Not enough coins!"); PlaySfx(Sfx::MenuBack); return; }
     p.coins -= d.price;
     BagAdd(p, d.name);
+    if (d.fx == ItemFx::ExpAll) {
+        SaveOrWarn(g);
+        PlaySfx(Sfx::Heal);
+        Toast(g, "Bought the Exp. All! In co-op, your partner shares the XP of your solo wild battles.");
+        return;
+    }
     SaveOrWarn(g);
     PlaySfx(Sfx::Heal);
     Toast(g, IsBall(d) ? "Bought a " + d.name + "!"
@@ -4386,6 +4391,8 @@ void OpenFor(Game& g, int who) {  // load one player's profile for Shop / Healin
 }
 } // namespace
 
+void CoopOpenFor(Game& g, int who) { OpenFor(g, who); }
+
 void StartCoopFlow(Game& g) {
     g.profiles = ListProfiles();
     int n = (int)g.profiles.size();
@@ -4524,7 +4531,7 @@ void UpdateCoopHub(Game& g) {
         if (in.confirm || in.back) { g.showBoard = false; PlaySfx(Sfx::MenuBack); }
         return;
     }
-    const int N = 12;
+    const int N = 13;
     if (HubNav(g, in, N, true)) return;
     bool online = g.on.active;
     if (online) g.coopWho = g.on.me;  // online: your own Shop / Healing Center / Party & Box / Bag / Pokedex
@@ -4591,23 +4598,9 @@ void UpdateCoopHub(Game& g) {
             g.rareBattle = false;
             g.screen = Screen::StageIntro;
             break;
-        case 1: {
-            g.stageIdx = -1;
-            g.mode = Mode::CoopTraining;
-            g.rareBattle = NextTrainingIsRare(g.coopSave.trainingWins);
-            SetTrainingWild(g);
-            if (g.rareBattle && g.rareSpecies < 0) {
-                std::vector<std::string> owned;
-                int sum = 0, n = 0;
-                for (int p = 0; p < 2; p++)
-                    for (const auto& m : g.coopP[p].mons) {
-                        owned.push_back(m.species);
-                        if (!m.boxed) { sum += m.level; n++; }
-                    }
-                g.rareSpecies = PickRareSpecies(owned, n ? sum / n : 5);
-            }
-            BeginTeamSelect(g);
-        } break;
+        case 1:
+            StartCoopTrainingBattle(g);
+            break;
         case 2:
             g.mapSel = std::min(g.coopSave.storyStage, stages - 1);
             if (online && g.on.partnerReady >= 3 && g.on.partnerReady != 250 && g.on.partnerReady - 3 < stages) g.mapSel = g.on.partnerReady - 3;   // join their rematch
@@ -4657,6 +4650,9 @@ void UpdateCoopHub(Game& g) {
             break;
         case 10:
             StartPractice(g);
+            break;
+        case 11:
+            EnterWorld(g);
             break;
         case HUB_GEAR:
             g.settingsSel = 0;
@@ -4725,7 +4721,7 @@ void DrawCoopHubBase(const Game& g) {
     int left = every - (g.coopSave.trainingWins % every) - 1;
     const std::string& wn = g.coopP[g.coopWho].name;
     bool partnerTrading = g.on.active && g.on.partnerInTrade;
-    std::string items[12] = {
+    std::string items[13] = {
         CoopFirstLabel(g, done || (KantoDone(g) && g.hubTower), pv.storyStage),
         (rare ? "RARE 2v2 in " : "Training 2v2: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
         MapHubLabel(g),
@@ -4737,11 +4733,12 @@ void DrawCoopHubBase(const Game& g) {
         partnerTrading ? "Trade (your partner is waiting!)" : "Trade Pokemon",
         IsNight(g.coopSave.clock) ? "Wait until morning" : "Wait until night",
         "Practice arena",
+        "Walk around (test): " + WorldPlaceName(g),
         "Save and quit",
     };
     DrawTimePanel(g.coopSave.clock, 304, 30);
     bool partnerHere = g.on.active && g.on.partnerCursor >= 0 && (g.on.partnerActivity.empty() || g.on.partnerActivity == "in the hub");
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 13; i++) {
         int y = 6 + i * 12;
         bool sel = g.hubSel == i;
         DrawPanel(rx, y, rw, 11, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
@@ -4963,4 +4960,41 @@ void DrawHallOfFame(const Game& g) {
         }
     }
     DrawTextCentered(n > 1 ? "Left/Right: older / newer entries     Enter: continue" : "Enter: continue", VW / 2, 340, 10, UI_DIM, false);
+}
+
+// A training battle in the current training area: a rare one every few wins.
+void StartTrainingBattle(Game& g) {
+    g.stageIdx = -1;
+    g.mode = Mode::Training;
+    g.rareBattle = NextTrainingIsRare(g.profile);
+    SetTrainingWild(g);
+    if (g.rareBattle && g.rareSpecies < 0) {
+        std::vector<std::string> owned;
+        int sum = 0, n = 0;
+        for (const auto& m : g.profile.mons) {
+            owned.push_back(m.species);
+            if (!m.boxed) { sum += m.level; n++; }
+        }
+        g.rareSpecies = PickRareSpecies(owned, n ? sum / n : 5);
+    }
+    BeginTeamSelect(g);
+}
+
+// A 2v2 training battle for both co-op players (the hub, or teaming up in tall grass).
+void StartCoopTrainingBattle(Game& g) {
+    g.stageIdx = -1;
+    g.mode = Mode::CoopTraining;
+    g.rareBattle = NextTrainingIsRare(g.coopSave.trainingWins);
+    SetTrainingWild(g);
+    if (g.rareBattle && g.rareSpecies < 0) {
+        std::vector<std::string> owned;
+        int sum = 0, n = 0;
+        for (int p = 0; p < 2; p++)
+            for (const auto& m : g.coopP[p].mons) {
+                owned.push_back(m.species);
+                if (!m.boxed) { sum += m.level; n++; }
+            }
+        g.rareSpecies = PickRareSpecies(owned, n ? sum / n : 5);
+    }
+    BeginTeamSelect(g);
 }

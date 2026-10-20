@@ -27,7 +27,7 @@ int Pocket(const ItemDef& d) {
     if (IsBall(d)) return 0;
     if (IsStone(d)) return 2;
     if (IsTM(d)) return 3;
-    if (d.fx == ItemFx::KeyItem) return 4;
+    if (d.fx == ItemFx::KeyItem || d.fx == ItemFx::ExpAll) return 4;
     return 1;
 }
 
@@ -102,7 +102,7 @@ void DrawItemIcon(const ItemDef& d, float cx, float cy, float s) {
         DrawCircleV({cx, cy}, 6 * s, ColorBrightness(TypeColor(d.type), -0.35f));
         DrawCircleV({cx, cy}, 4.5f * s, TypeColor(d.type));
         DrawCircleV({cx, cy}, 1.5f * s, UI_INK);
-    } else if (d.fx == ItemFx::KeyItem) {
+    } else if (d.fx == ItemFx::KeyItem || d.fx == ItemFx::ExpAll) {
         DrawPoly({cx, cy}, 5, 5.5f * s, 0, Color{120, 100, 80, 255});
         DrawPoly({cx, cy}, 5, 4.0f * s, 0, Color{200, 180, 140, 255});
     } else if (d.fx == ItemFx::TypeBoost) {

@@ -105,6 +105,8 @@ struct CoopSave {
     std::string rival3[2];             // Hoenn: May's two
     std::set<std::string> postDone;    // optional post-game battles beaten together
     std::vector<int> regionOrder;      // the regions in the order this journey plays them (empty: not chosen yet)
+    std::string owMap[2];              // the overworld: where each player is (empty: not been there yet)
+    int owX[2] = {0, 0}, owY[2] = {0, 0}, owFace[2] = {0, 0};
 };
 std::string* CoopRival(CoopSave& c, int region);   // the rival's two picks for a region
 const std::string* CoopRival(const CoopSave& c, int region);

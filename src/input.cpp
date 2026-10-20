@@ -51,11 +51,14 @@ bool MenuPadPressed(int p, Act a) {
 }
 } // namespace
 
+int gInputOnly = -1;   // see input.h
+
 PlayerInput ReadInput(int p, bool twoPlayer) {
 #ifdef ARENA_AUTOTEST
     if (gAutoPadOn && p == 0) return gAutoPad;
 #endif
     PlayerInput in;
+    if (gInputOnly >= 0 && p != gInputOnly) return in;
     int lay = Layout(p, twoPlayer);
     float x = 0, y = 0;
 
@@ -141,7 +144,6 @@ PlayerInput ReadInput(int p, bool twoPlayer) {
 int gAutoMenu = 0;   // autotest: one scripted menu press (1 up, 2 down, 4 left, 8 right, 16 confirm, 32 back)
 #endif
 PlayerInput MenuInput() {
-    PlayerInput a = ReadInput(0, false), b = ReadInput(1, true);
     PlayerInput m;
 #ifdef ARENA_AUTOTEST
     if (gAutoMenu) {
@@ -152,6 +154,14 @@ PlayerInput MenuInput() {
         return m;
     }
 #endif
+    if (gInputOnly >= 0) {   // split screen: only this player's keys / pad
+        PlayerInput p = ReadInput(gInputOnly, true);
+        m.up = p.up; m.down = p.down; m.left = p.left; m.right = p.right;
+        m.confirm = p.confirm; m.back = p.back;
+        m.swap = p.swap || p.swapPrev; m.pause = p.pause;
+        return m;
+    }
+    PlayerInput a = ReadInput(0, false), b = ReadInput(1, true);
     m.up = a.up || b.up || IsKeyPressed(KEY_UP);
     m.down = a.down || b.down || IsKeyPressed(KEY_DOWN);
     m.left = a.left || b.left || IsKeyPressed(KEY_LEFT);

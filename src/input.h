@@ -24,6 +24,8 @@ struct PlayerInput {
 PlayerInput ReadInput(int player, bool twoPlayer);
 // Combined navigation for menus: either player, any layout, plus Enter/Space/Esc/Backspace/arrows.
 PlayerInput MenuInput();
+// Split screen: while one player's own little game runs, only their keys count (-1: everyone's).
+extern int gInputOnly;
 bool MenuSortPressed();
 
 // On-screen labels for a player's bindings (gamepad names if they last used a gamepad).

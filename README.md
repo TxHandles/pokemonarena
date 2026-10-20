@@ -225,6 +225,27 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
   out of the Host / Join pages. Testing aid: ARENA_NET_LAG_MS=80 delays every message.
 - **Stalemates** – if no one loses HP for 30 s (or a battle passes 200 s), sudden death starts.
 
+## Walking around (overworld, test build)
+
+"Walk around (test)" in the Story / co-op menu puts you on the map: your room in Pallet Town, Route 1
+and Viridian City so far (the maps are FireRed/LeafGreen rips in World/, with their walls, tall grass,
+ledges, doors, signs and people in World/world.txt). Arrows walk, Shift runs, Enter talks / reads, Esc
+goes back to the menu (your place is saved).
+
+- Story trainers stand on the map and challenge you when they spot you (Blue in Oak's Lab, the
+  Youngster on Route 1, Blue at Viridian's west exit when the story is there).
+- Tall grass: wild Pokemon from that route (one at a time).
+- The Pokemon Center Nurse heals, the Mart clerk sells; your lead Pokemon follows you; black out and
+  you're back home with Mom.
+- Local co-op: split screen (Red and Leaf). Each player's wild battle, Healing Center and Mart run in
+  their own half on their own keys while the other keeps walking. Story battles pull both players in.
+- Online co-op: each walks on their own screen and sees the other. Wild battles are your own; stand
+  next to your partner while they battle and press Enter to watch it live. A story trainer that spots
+  one of you calls the other over and starts the 2-player battle.
+- Team up: face your partner and press Enter (online they say yes / no). Teamed up, tall grass is a
+  2v2 wild battle for both of you.
+- Exp. All (Mart, 5000 coins): in co-op, your partner's party gets half the XP of your solo wild battles.
+
 ## Levels and evolution
 
 - Species use real Pokedex base stats (`sp_attack`/`sp_defense` optional, averaged in); battle

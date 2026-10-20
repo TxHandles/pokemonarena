@@ -29,6 +29,7 @@ enum class ItemFx {
     TM,             // Technical Machine: teaches `move` (used up), from Party & Box
     KeyItem,        // story items (fossils): not sold, not held
     ConfuseGuard,   // confusion wears off much sooner (Yellow Flute)
+    ExpAll,         // a Bag item: co-op, your partner's party gets value x the XP of your solo wild battles
 };
 
 struct ItemDef {

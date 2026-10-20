@@ -31,14 +31,18 @@ namespace {
 
 constexpr int KIND_LEGEND = 200;  // ready kinds 200..204: a legendary encounter (legend.h)
 constexpr int KIND_TOWER = 250;   // ready kind: the Battle Tower (1 story, 2 training, 3+N rematch stage N)
-constexpr uint32_t PROTOCOL = 20;   // 20: free region order (regions played in any order), 19: Hoenn (May, post-game battles, new arenas and legendaries), 18: Johto (regions, Johto starters, six new arenas), 17: Gen 2 Pokemon 161-251 and their abilities, 16: rolling moves and gym centerpieces, 15: sweeping beams, tethers, grapples and throws (battle state), 14: the legendaries moved to a Map tab (hub items renumbered), 13: new battle effects (particle kinds), 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower, 10: legendary encounters, 11: Gen 2 starters, the rival's two starters, 12: shiny Pokemon
+constexpr uint32_t PROTOCOL = 22;   // 22: watching your partner's own battle, 21: the overworld (walking, the partner's position, story battles found on foot), 20: free region order (regions played in any order), 19: Hoenn (May, post-game battles, new arenas and legendaries), 18: Johto (regions, Johto starters, six new arenas), 17: Gen 2 Pokemon 161-251 and their abilities, 16: rolling moves and gym centerpieces, 15: sweeping beams, tethers, grapples and throws (battle state), 14: the legendaries moved to a Map tab (hub items renumbered), 13: new battle effects (particle kinds), 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower, 10: legendary encounters, 11: Gen 2 starters, the rival's two starters, 12: shiny Pokemon
 constexpr float TICK = 1.0f / 60.0f;
 constexpr int INPUT_DELAY = 2;    // ticks: our own presses take effect this much later (33 ms)
 constexpr int MAX_AHEAD = 15;     // ticks we may run ahead of what the partner has confirmed
 
 enum Msg : uint8_t {
     M_HELLO = 1, M_PROFILE, M_COOP, M_READY, M_GO, M_PICKS, M_CANCEL, M_BATTLE, M_INPUT, M_HASH,
-    M_RESYNC_REQ, M_RESYNC, M_CATCH, M_LEAVE_BATTLE, M_ACTIVITY, M_BYE, M_TRADE, M_TRADE_GO, M_CURSOR, M_FOSSIL, M_PICKVIEW, M_CATCHSEL, M_THROW
+    M_RESYNC_REQ, M_RESYNC, M_CATCH, M_LEAVE_BATTLE, M_ACTIVITY, M_BYE, M_TRADE, M_TRADE_GO, M_CURSOR, M_FOSSIL, M_PICKVIEW, M_CATCHSEL, M_THROW,
+    M_OWPOS, M_OWFIGHT,  // the overworld: where you walk, a story battle your partner should come to
+    M_WATCH, M_WSTATE, M_WSTEP, M_WEND,  // watching your partner's own battle
+    M_TEAM,                              // teaming up while walking around
+    M_XPSHARE                            // the Exp. All: XP for your party from your partner's wild battle
 };
 
 // ---- message packing
@@ -205,6 +209,7 @@ const char* ActivityName(Screen s) {
         case Screen::Legends: return "reading about Legendary Pokemon";
         case Screen::Bag: return "looking in their Bag";
         case Screen::LegendCatch: return "catching a legendary";
+        case Screen::World: return "walking around";
         default: return "busy";
     }
 }
@@ -324,6 +329,14 @@ void OnlineSendThrow(int species, int level, bool ok, int shakes, bool fled) {
     W(M_THROW).i32(species).i32(level).u8(ok).u8((uint8_t)shakes).u8(fled).Send();
 }
 void OnlineSendFossil(const std::string& choice) { W(M_FOSSIL).str(choice).Send(); }
+void OnlineSendWorldPos(bool here, int map, int x, int y, int face) { W(M_OWPOS).u8(here).i32(map).i32(x).i32(y).u8(face).Send(); }
+void OnlineSendWorldFight(int stage, int map, int x, int y, const std::string& trainer) { W(M_OWFIGHT).i32(stage).i32(map).i32(x).i32(y).str(trainer).Send(); }
+void OnlineSendWatch(bool on) { W(M_WATCH).u8(on).Send(); }
+void OnlineSendWatchState(const Battle& b) { W(M_WSTATE).str(Compress(SaveBattle(b))).Send(); }
+void OnlineSendWatchStep(float dt, const PlayerInput* in) { W w(M_WSTEP); w.f32(dt); PackInput(w, in[0]); PackInput(w, in[1]); w.Send(); }
+void OnlineSendXpShare(int xp) { W(M_XPSHARE).i32(xp).Send(); }
+void OnlineSendTeam(int what) { W(M_TEAM).u8(what).Send(); }
+void OnlineSendWatchEnd() { W(M_WEND).Send(); }
 void OnlineSendCursor(int sel) { W(M_CURSOR).u8((uint8_t)sel).Send(); }
 
 void OnlineSetReady(Game& g, int kind) {
@@ -353,7 +366,8 @@ void OnlineLeave(Game& g, const std::string& why) {
 // Host: both picked the same battle in the hub -> everyone to team select.
 static void HostMaybeGo(Game& g) {
     OnlineSession& o = g.on;
-    if (o.me != 0 || o.myReady == 0 || o.myReady != o.partnerReady || g.screen != Screen::CoopHub) return;
+    bool free = g.screen == Screen::CoopHub || (g.screen == Screen::World && !g.ow.sub[0]);   // (walking around: story battles found on foot)
+    if (o.me != 0 || o.myReady == 0 || o.myReady != o.partnerReady || !free) return;
     int kind = o.myReady;
     int stages = (int)Story().stages.size();
     bool legend = kind >= KIND_LEGEND && kind < KIND_LEGEND + LEGEND_COUNT;   // 200+id: a legendary encounter
@@ -826,6 +840,30 @@ void OnlinePoll(Game& g) {
                     Toast(g, g.coopP[Other(g)].name + " left the battle.");
                 }
                 break;
+            case M_OWPOS: {
+                bool here = r.u8() != 0;
+                int map = r.i32(), x = r.i32(), y = r.i32(), face = r.u8();
+                if (!r.ok) break;
+                if (here) WorldPartnerPos(g, map, x, y, face);
+                else g.ow.w[1].here = false;
+            } break;
+            case M_WATCH: WorldWatchRequest(g, r.u8() != 0); break;
+            case M_WSTATE: { std::string st = Decompress(r.str()); if (r.ok) WorldWatchState(g, st); } break;
+            case M_WSTEP: {
+                float dt = r.f32();
+                PlayerInput in[2];
+                in[0] = UnpackInput(r);
+                in[1] = UnpackInput(r);
+                if (r.ok) WorldWatchStep(g, dt, in);
+            } break;
+            case M_WEND: WorldWatchEnd(g); break;
+            case M_TEAM: WorldTeamMsg(g, r.u8()); break;
+            case M_XPSHARE: { int xp = r.i32(); if (r.ok) WorldXpShare(g, xp); } break;
+            case M_OWFIGHT: {
+                int stage = r.i32(), map = r.i32(), x = r.i32(), y = r.i32();
+                std::string trainer = r.str();
+                if (r.ok) WorldPartnerFight(g, stage, map, x, y, trainer);
+            } break;
             case M_BYE:
                 OnlineLeave(g, (g.coop ? g.coopP[Other(g)].name : std::string("Your friend")) + " left the game. Your progress is saved.");
                 return;
@@ -837,11 +875,13 @@ void OnlinePoll(Game& g) {
     static int lastCursor = -1;
     if (o.reconnecting) return;   // nothing to send until they're back
     if (o.resend) { o.resend = false; lastScreen = Screen::Title; lastCursor = -1; }
-    if (g.screen != lastScreen) {
-        lastScreen = g.screen;
+    // (walking around, your own battle / Healing Center / Mart is what you're doing)
+    Screen shown = g.screen == Screen::World && g.ow.sub[0] ? g.ow.sub[0]->screen : g.screen;
+    if (shown != lastScreen) {
+        lastScreen = shown;
         lastCursor = -1;
-        W(M_ACTIVITY).str(ActivityName(g.screen)).Send();
-        if (g.screen != Screen::CoopHub && o.myReady != 0 && g.screen != Screen::Select) OnlineSetReady(g, 0);
+        W(M_ACTIVITY).str(ActivityName(shown)).Send();
+        if (shown != Screen::CoopHub && shown != Screen::World && o.myReady != 0 && shown != Screen::Select) OnlineSetReady(g, 0);
     }
     // Our highlighted creature in the catch draft, so the partner can watch us choose.
     if (g.screen == Screen::Catch && g.catchWho == o.me && g.catchPhase == 0) {

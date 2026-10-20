@@ -505,6 +505,12 @@ bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out) {
         else if (k == "story_rev") out.storyRev = iv;
         else if (k == "clock") out.clock = std::max(0, iv);
         else if (k == "train_area") out.trainArea = v;
+        else if (k == "ow_pos0" || k == "ow_pos1") {   // map|x|y|face
+            int p = k.back() - '0';
+            size_t bar = v.find('|');
+            out.owMap[p] = v.substr(0, bar);
+            if (bar != std::string::npos) std::sscanf(v.c_str() + bar + 1, "%d|%d|%d", &out.owX[p], &out.owY[p], &out.owFace[p]);
+        }
         else if (k == "wins") out.wins = iv;
         else if (k == "losses") out.losses = iv;
         else if (k == "training_wins") out.trainingWins = iv;
@@ -546,6 +552,8 @@ bool SaveCoop(const CoopSave& c) {
     o += TextFormat("story_stage = %d\nwins = %d\nlosses = %d\ntraining_wins = %d\n", c.storyStage, c.wins, c.losses, c.trainingWins);
     o += TextFormat("story_rev = %d\nclock = %d\n", c.storyRev > 0 ? c.storyRev : Story().rev, c.clock);
     if (!c.trainArea.empty()) o += "train_area = " + c.trainArea + "\n";
+    for (int p = 0; p < 2; p++)
+        if (!c.owMap[p].empty()) o += "ow_pos" + std::to_string(p) + " = " + c.owMap[p] + "|" + std::to_string(c.owX[p]) + "|" + std::to_string(c.owY[p]) + "|" + std::to_string(c.owFace[p]) + "\n";
     o += TextFormat("snorlax_who = %d %d\ndojo_first = %d\n", c.snorlaxWho[0], c.snorlaxWho[1], c.dojoFirst);
     o += TextFormat("tower = %d %d %d\n", c.towerFloor, c.towerBest, c.towerRuns);
     o += TextFormat("legends = %d", c.legends);

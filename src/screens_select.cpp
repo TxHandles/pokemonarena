@@ -518,6 +518,10 @@ void StartBattleFromSelect(Game& g) {
     a.level = Cfg().cpuLevel;
     a.earnXp = IsStoryMode(g.mode);
     a.label = SideName(g, 0);
+    if (g.ow.inputPlayer >= 0) {   // local co-op: a player's own battle in their half of the screen, on their keys
+        a.input = g.ow.inputPlayer;
+        su.twoPlayer = true;
+    }
 
     SideSetup& b = su.side[1];
     b.label = SideName(g, 1);
@@ -611,7 +615,7 @@ void StartBattleFromSelect(Game& g) {
                 g.cpuTeam = {c};
                 // A regular one tags along - unless you brought just one Pokemon (never more wild
                 // Pokemon than you have).
-                if (g.picks[0].size() >= 2) {
+                if (g.picks[0].size() >= 2 && !g.ow.wildBattle) {
                     auto pal = MakeCpuTeam(nullptr, std::max(2, avg - 1), 1);
                     if (!pal.empty()) g.cpuTeam.push_back(pal[0]);
                 }
@@ -620,7 +624,7 @@ void StartBattleFromSelect(Game& g) {
                 su.arena = ArenaKind::Stadium;   // wild battles happen out in the world (venue below)
             } else {
                 // never more wild Pokemon than you brought
-                int foes = std::max(1, std::min((int)g.picks[0].size(), Story().trainingMaxFoes));
+                int foes = g.ow.wildBattle ? 1 : std::max(1, std::min((int)g.picks[0].size(), Story().trainingMaxFoes));   // tall grass: one at a time
                 g.cpuTeam = MakeCpuTeam(nullptr, avg, foes);
                 b.level = Cfg().cpuLevel;
                 b.label = "Wild";
@@ -720,7 +724,7 @@ void StartBattleFromSelect(Game& g) {
                     su.arena = ArenaKind::Stadium;
                 } else {
                     int total = (int)(v[0].team.size() + v[1].team.size());
-                    int foes = std::min(4, std::max(1, total - 1));   // never more wild Pokemon than the two of you brought
+                    int foes = g.ow.wildBattle ? std::min(2, total) : std::min(4, std::max(1, total - 1));   // never more wild Pokemon than the two of you brought (tall grass, teamed up: two)
                     cpu = MakeCpuTeam(nullptr, avg2, foes);
                     label = "Wild";
                 }
@@ -1146,6 +1150,8 @@ bool UpdateWheel(Game& g, PlayerInput& p, float dt) {
 }
 } // namespace
 
+void (*gBattleStepHook)(const Battle&, float, const PlayerInput*) = nullptr;
+
 void UpdateBattleScreen(Game& g, float dt) {
     if (OnlineBattleUpdate(g, dt)) return;
     bool tp = TwoHumans(g);
@@ -1179,7 +1185,9 @@ void UpdateBattleScreen(Game& g, float dt) {
         }
         return;
     }
-    g.battle.Update(g.on.active ? dt : dt * g.battle.AnimTimeScale(), in);
+    float stepDt = g.on.active ? dt : dt * g.battle.AnimTimeScale();
+    g.battle.Update(stepDt, in);
+    if (gBattleStepHook && !g.on.active) gBattleStepHook(g.battle, stepDt, in);   // the overworld: a partner is watching
     if (g.battle.Finished()) {
         gShake = {0, 0};
         if (IsStoryMode(g.mode)) ProcessStoryBattleEnd(g);

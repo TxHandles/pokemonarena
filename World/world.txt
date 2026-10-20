@@ -1,0 +1,277 @@
+# The overworld (test build): Pallet Town, Route 1, Viridian City.
+# Grid: . walk  # solid  g tall grass  v ledge (hop down)
+# door = x y action (walk into it)   sign/spot = x y (face it, press Enter)
+# npc = x y sprite facing sight action   (sight > 0: a trainer who walks up when you pass)
+sprites = player rival oak mom daisy nurse clerk youngster oldman leaf
+
+[map]
+name = Pallet Town
+image = pallet.png
+wild = 
+connect = north Route 1 0
+door = 6 7 warp|Your House 1F|4|8
+door = 15 7 warp|Blue's House|4|8
+door = 16 13 warp|Oak's Lab|6|12
+sign = 5 14 PALLET TOWN|Shades of your journey await!
+sign = 9 11 TRAINER TIPS|Press Enter to talk to people and read signs.
+sign = 4 6 Your house.
+sign = 13 6 Blue's house.
+sign = 16 16 OAK POKEMON RESEARCH LAB
+grid:
+############..##########
+############..##########
+##....................##
+##...#####....#####...##
+##...#####....#####...##
+##...#####....#####...##
+##..######...######...##
+##..######...######...##
+##....................##
+##...........#######..##
+##...........#######..##
+##...#####...#######..##
+##...........#######..##
+##...........#######..##
+##...#................##
+##....................##
+##...........######...##
+##.....####...........##
+##.....####...........##
+########################
+
+[map]
+name = Your House 1F
+image = house1f.png
+wild = 
+indoor = yes
+door = 11 2 warp|Your House 2F|10|2
+door = 3 9 warp|Pallet Town|6|8
+door = 4 9 warp|Pallet Town|6|8
+npc = 9 5 mom left 0 talk|Mom: All boys leave home someday. Take care out there!
+grid:
+#############
+#############
+#####.#....##
+#..........##
+#....####....
+#....####....
+##..........#
+##..........#
+#............
+###DD########
+
+[map]
+name = Your House 2F
+image = house2f.png
+wild = 
+indoor = yes
+door = 9 2 warp|Your House 1F|10|2
+start = 4 4
+spot = 1 1 msg|It's your PC. Your Pokemon are stored in the Box - use Party & Box from the menu.
+spot = 6 4 msg|A game console. It's not the time for that!
+grid:
+############
+############
+######..##..
+#.......##..
+#.....#.....
+###...#.....
+###...#.....
+#...........
+#...........
+
+[map]
+name = Blue's House
+image = rivalhouse.png
+wild = 
+indoor = yes
+door = 3 9 warp|Pallet Town|15|8
+door = 4 9 warp|Pallet Town|15|8
+npc = 9 5 daisy left 0 talk|Daisy: Hi! My brother is out training. He's always trying to beat you!
+grid:
+#############
+#############
+#####.#....##
+#............
+#....####....
+#....####....
+##..........#
+##..........#
+#............
+###DD########
+
+[map]
+name = Oak's Lab
+image = oaklab.png
+wild = 
+indoor = yes
+door = 6 13 warp|Pallet Town|16|14
+npc = 6 3 oak down 0 talk|Prof. Oak: The world is full of Pokemon! Go out and meet them all!
+npc = 5 5 rival down 6 trainer|Oak's Lab|Blue: Hold it! Let's check out our Pokemon! Come on, I'll take you on!|Blue: What? Unbelievable! I picked the wrong Pokemon!
+grid:
+#############
+#############
+######...####
+###..........
+###.....###..
+.##.....###..
+.............
+.............
+#####...#####
+#####...#####
+.............
+#...........#
+#...........#
+######D######
+
+[map]
+name = Route 1
+image = route1.png
+wild = Route 1
+connect = south Pallet Town 0
+connect = north Viridian City 12
+sign = 9 31 ROUTE 1|PALLET TOWN - VIRIDIAN CITY
+npc = 18 23 youngster left 4 trainer|Route 1|Hey! You're a trainer, right? Let's battle!|You're pretty strong... I'll train harder!
+npc = 17 12 clerk down 0 talk|Hi! I work at a Pokemon Mart. Come and see us in Viridian City!
+grid:
+##########....##########
+##########....##########
+##....................##
+##......##............##
+##......##............##
+##vvvvvv##vvvvvv......##
+##......##gggggggggggg##
+##......##gggggggggggg##
+##......##gggggggggggg##
+##......##gggggggggggg##
+##vvvvvv##gggggggggggg##
+##......##............##
+##....................##
+##..............gggggg##
+####......######gggggg##
+####vvvvvv######gggggg##
+####......######gggggg##
+##..............gggggg##
+##....................##
+##....................##
+##vv.vvvv..vvvvvvvvvvv##
+##....................##
+##....................##
+##....................##
+############gggggg....##
+############gggggg....##
+############ggggggvvvv##
+##..........gggggg....##
+##..........gggggg....##
+##....................##
+##....................##
+##vvvv...#vvvvvvvvvvvv##
+##..ggggggg......ggggg##
+##..ggggggg......ggggg##
+##ggggggg......ggggg..##
+##ggggggg...gg.ggggg..##
+############gg##########
+############gg##########
+############gg##########
+############gg##########
+
+[map]
+name = Viridian City
+image = viridian.png
+wild = Viridian City
+connect = south Route 1 -12
+north = msg|Route 2 lies north. It isn't built yet in this test.
+west = msg|Route 22 lies west. It isn't built yet in this test.
+door = 26 26 warp|Viridian Pokemon Center|7|8
+door = 36 19 warp|Viridian Mart|4|7
+door = 36 10 msg|The Gym's doors are locked. The Leader is away.
+door = 37 10 msg|The Gym's doors are locked. The Leader is away.
+door = 25 11 msg|Nobody answers the door.
+door = 24 18 msg|Nobody answers the door.
+sign = 23 1 ROUTE 2|VIRIDIAN CITY - PEWTER CITY
+sign = 20 16 TRAINER TIPS|Trainers you pass on the road will battle you as soon as they spot you!
+sign = 20 31 VIRIDIAN CITY|The Eternally Green Paradise
+sign = 32 10 VIRIDIAN CITY POKEMON GYM|The doors are locked...
+npc = 2 18 rival right 5 trainer|Route 22|Blue: Hey! Wait up! Let's see how strong your Pokemon got!|Blue: What? I lost again?!
+npc = 30 28 oldman left 0 talk|Ahh, I've had my coffee now. I feel great!
+grid:
+###################.....########################
+###################....#########################
+###################.....########################
+###################.....########################
+###################.....####..............######
+########..########........................######
+########.##########..............######...######
+########.###########.............######...######
+########.##########.....#####....######...######
+########.###########...######....######...######
+########.##########.....#####...#######...######
+########.###########...######.............######
+########.##########........##vvvvvvvvvvvvv######
+########.###########......................######
+########.##########.......................######
+######...###########....########################
+.........##########.#..#####......####....######
+........................####......####....######
+.......................#####......####....######
+.........................###......####....######
+#######...................................######
+#######.................#####.............######
+###########.............#####.............######
+###########.##..........#####.............######
+###########.##..........#####.............######
+#######.....##..........#####.............######
+#######....######.......#####.............######
+#######....######.........................######
+#######....######.........................######
+#######....######.........................######
+#######vv#v######v#v...vvvvvvvvvvvvvvvvvvv######
+#######.............#.....................######
+#######...................................######
+##############............................######
+##############............................######
+######################....######################
+######################....######################
+######################....######################
+######################....######################
+######################....######################
+
+[map]
+name = Viridian Pokemon Center
+image = pokecenter.png
+wild = 
+indoor = yes
+door = 7 9 warp|Viridian City|26|27
+npc = 7 2 nurse down 0 heal|Welcome to our Pokemon Center!
+grid:
+###############
+###############
+############..#
+....#######....
+...............
+##.........##..
+##.........##.#
+##.........##.#
+...............
+#######D#######
+
+[map]
+name = Viridian Mart
+image = mart.png
+wild = 
+indoor = yes
+door = 4 8 warp|Viridian City|36|20
+npc = 1 3 clerk down 0 shop|Hi there! May I help you?
+spot = 0 4 shopmsg|Hi there! May I help you?
+spot = 1 4 shopmsg|Hi there! May I help you?
+spot = 2 4 shopmsg|Hi there! May I help you?
+grid:
+###########
+###########
+##.#...####
+#..#.......
+####...##.#
+.##....##.#
+.##....##.#
+...........
+####D######

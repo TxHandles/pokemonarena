@@ -5,6 +5,7 @@
 #include "input.h"
 #include "profile.h"
 #include "story.h"
+#include "overworld.h"
 #include <deque>
 #include <map>
 
@@ -14,7 +15,7 @@ enum class Screen {
     RosterPick, Select, Battle, Results,
     StoryResults, Evolve, LearnMove, Reward, Catch, Heal, Map, Shop, DoublesMenu,
     CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame, Legends, LegendCatch, Bag,
-    RegionChoose
+    RegionChoose, World
 };
 
 enum class Mode { Quick, TwoPlayer, Watch, Story, Training, Doubles, CoopStory, CoopTraining };
@@ -275,6 +276,7 @@ struct Game {
     Screen practiceBack = Screen::StoryHub; // the hub the practice arena was opened from
     float practicePeak = 0;                 // practice: total damage dealt to the dummies
     OnlineSession on;
+    OwState ow;                   // the overworld (overworld.cpp)
     // Pokedex
     int dexSel = 0, dexScroll = 0, dexWho = 0;
     bool dexWhere = false;        // Pokedex: the 'where to find it' page
@@ -392,6 +394,8 @@ void OpenTrade(Game& g);
 void ApplyTrade(Game& g, const int idx[2], const OwnedMon mon[2]);
 std::string MonToText(const OwnedMon& m);
 bool MonFromText(const std::string& text, OwnedMon& out);
+void StartTrainingBattle(Game& g);  // a training battle in the current training area (the team screen first)
+void StartCoopTrainingBattle(Game& g);   // the same, 2v2 for both co-op players
 void SetTrainingWild(Game& g);      // training battles use the chosen area's wild Pokemon (wild.h)
 int TrainingAreaIndex(const Game& g);
 bool SetTrainArea(Game& g, int area);
