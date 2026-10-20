@@ -1,0 +1,15 @@
+# Mega Pinsir - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 313131 > 756000
+shiny = 504030 > 59406C
+shiny = 525252 > 9D842C
+shiny = 605038 > 5B4666
+shiny = 786850 > 716576
+shiny = 7B7B7B > C2A262
+shiny = 846342 > 46347D
+shiny = 8C8473 > CDAC69
+shiny = 988060 > A189AB
+shiny = A58463 > 564DA7
+shiny = B5733A > 644A94
+shiny = BDBDB5 > F5D095
+shiny = C5AD8C > 958CCE

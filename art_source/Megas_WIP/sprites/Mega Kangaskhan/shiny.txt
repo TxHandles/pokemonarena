@@ -1,0 +1,20 @@
+# Mega Kangaskhan - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 313131 > 354900
+shiny = 403020 > 373331
+shiny = 484848 > 51653D
+shiny = 525252 > 596C21
+shiny = 6F6F6F > AB7EB6
+shiny = 706F6F > 87A44C
+shiny = 707070 > 87A44C
+shiny = 717170 > AB7EB6
+shiny = 785038 > 68615E
+shiny = 7B6B5A > 727261
+shiny = 846352 > 776D5A
+shiny = 8484B5 > A984AA
+shiny = A5A5DE > D5A5D3
+shiny = B57B6B > A18876
+shiny = B87870 > 9C9C9C
+shiny = C0BCDD > D8B3DD
+shiny = C1BDDD > D8B3DD
+shiny = CE9C7B > BFAD8E

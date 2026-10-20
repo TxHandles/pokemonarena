@@ -1,0 +1,9 @@
+# Mega Dragonite - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 286050 > 662A5F
+shiny = 2878A8 > 006EC2
+shiny = 388070 > 85487D
+shiny = 58B0D8 > 79B4EB
+shiny = 986030 > 3167B1
+shiny = D88840 > 6D94E0
+shiny = F0B050 > A6C8F3

@@ -1,0 +1,17 @@
+Mega Evolution in battle - decisions (user, Oct 20)
+- Unlock: the Pokemon holds its Mega Stone (a held item: Venusaurite, Charizardite X / Y, Blastoisinite,
+  Beedrillite, Pidgeotite, Alakazite, Slowbronite, Gengarite, Kangaskhanite, Pinsirite, Gyaradosite,
+  Aerodactylite, Mewtwonite X / Y).
+- Trigger: a Mega button while the holder is out; once per battle per player (co-op: each player once).
+  Once Mega it stays Mega for the rest of the battle (swapping out and back in keeps the Mega form).
+- CPU: some bosses Mega Evolve where it fits (post-game rematches, Battle Tower bosses).
+- Stones: sold in the shop (expensive) after the player's first Champion.
+- Defaults (not asked): official Mega base stats, types and abilities; moves unchanged; Megas' sprites and
+  shiny colours from sprites/<Mega>/; online: the Mega press is part of the synced input.
+- Animation: a short pause (~1 s) with a rainbow glow and burst, then the Mega form appears.
+- Price: 5000 coins per stone (same tier as Exp. All).
+- Usable everywhere: story and gym battles (rematches, League), wild / training, Battle Tower, legendary lairs.
+- Pokedex: no new entries; the base Pokemon's Dex page shows its Mega form(s).
+- Control: its own key (keyboard M; a controller shoulder / thumbstick button), shown on the HUD when a Mega is ready.
+- No level requirement: holding the stone is enough.
+- The Mega Stone is the held item (no other item on a Mega holder).

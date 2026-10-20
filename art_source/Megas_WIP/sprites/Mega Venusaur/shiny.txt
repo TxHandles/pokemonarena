@@ -1,0 +1,22 @@
+# Mega Venusaur - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 297B84 > 008746
+shiny = 313131 > 153C01
+shiny = 3A7363 > 4A7739
+shiny = 3A847B > 639924
+shiny = 406030 > 326031
+shiny = 409860 > 879840
+shiny = 525252 > 385E24
+shiny = 52947B > 73A933
+shiny = 529CA5 > 29AA65
+shiny = 60A810 > 30A810
+shiny = 682028 > 684D20
+shiny = 68D8C0 > 93D868
+shiny = 6BC5C5 > A8EB43
+shiny = 73BD94 > 95E349
+shiny = 88E020 > 4BE020
+shiny = 94734A > 9E574A
+shiny = A5424A > B57000
+shiny = C84880 > B6A02A
+shiny = F078A0 > F0DB78
+shiny = F7848C > F1D400

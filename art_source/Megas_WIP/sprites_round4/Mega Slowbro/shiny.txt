@@ -1,0 +1,9 @@
+# Mega Slowbro - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333232 > 432000
+shiny = 525752 > 654400
+shiny = 90937A > A77D28
+shiny = BCCABA > E0B25C
+shiny = CD877D > B48330
+shiny = FEADA4 > B9A4FF
+shiny = FEFEFE > FFEE88

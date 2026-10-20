@@ -1,0 +1,12 @@
+# Mega Starmie - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 302840 > 002D48
+shiny = 383010 > 680000
+shiny = 404070 > 0D4570
+shiny = 5858C0 > 2A5BAC
+shiny = 681818 > 452D34
+shiny = 8870E8 > 5F7DD2
+shiny = B09018 > B73B35
+shiny = B82828 > 226CC3
+shiny = E8B020 > E46054
+shiny = F05848 > A73433

@@ -2344,3 +2344,743 @@ cpu = hard
 catch = no
 arena = sinnohchampion
 postgame = yes
+
+# ==========================================================================
+#  UNOVA - follows Pokemon Black, from Nuvema Town to N's Castle, then the post-game.
+#  Professor Juniper's gift box holds a fifth starter, at your team's average -3 (at least start_level).
+#  Cheren ("rival") takes the one that beats yours; Bianca ("rival2") gets the one left (co-op: Cheren's
+#  second pick). "rival_monkey" / "rival2_monkey": each rival's elemental monkey - the one their starter
+#  beats (Pansage, Pansear or Panpour). "@N" evolves them the way they'd be at level N in Black.
+#  Every stage is "level = +N" over your average, with a floor (94 rising to 98).
+#  After the Elite Four: N's Castle. Reshiram joins you, N holds the title (league = 5), and Ghetsis is
+#  the real finale (finale = yes: the Champion message and Hall of Fame wait for him).
+# ==========================================================================
+[region]
+name = Unova
+map_image = unova.png
+start_level = 94
+start_avg = -3
+rival = Cheren
+dex = 494-649
+intro = Professor Juniper's gift box is waiting in your room, {name}: three Pokemon, one each for you, Cheren and Bianca. You get first pick - it's level {level}.
+watch = Cheren is reading the type chart over your shoulder... he'll take the one that beats yours. Bianca gets the last.
+watch_coop = Cheren is reading the type chart over your shoulders... he'll take the one you leave. Bianca grabs one of yours when Juniper isn't looking.
+reveal = Cheren took {mons}, and Bianca took the one that was left. Your two oldest friends are your rivals now!
+reveal_quote = I'm going to become the Champion. Let's see which of us gets stronger, starting right now.
+town = Nuvema Town, 1695, 1190
+town = Accumula Town, 1695, 1055
+town = Striaton City, 1695, 920
+town = Nacrene City, 1500, 920
+town = Castelia City, 990, 1025
+town = Nimbasa City, 990, 670
+town = Driftveil City, 543, 670
+town = Mistralton City, 290, 540
+town = Icirrus City, 543, 350
+town = Opelucid City, 990, 350
+town = Pokemon League, 1245, 160
+town = Lacunosa Town, 1440, 350
+town = Undella Town, 1695, 540
+town = Black City, 1440, 670
+town = Humilau City, 1760, 285
+town = Virbank City, 480, 990
+
+# ---------------------------------------------------------------- Chapter 1: Nuvema Town to Striaton City
+[stage]
+name = Nuvema Town
+map = 1720, 1205
+trainer = Cheren & Bianca
+card_pokemon = Snivy
+card = Nuvema Town | A gift box from Professor Juniper is waiting in your bedroom. Cheren, the bookworm who wants to be Champion, and Bianca, who had to argue with her father to travel at all, come over to choose with you. Bianca can't wait - she wants a battle right here, right now.
+story = Your room is about to get wrecked. Bianca and Cheren take one side of the rug, you take the other.
+say = Okay, okay! Let's battle - both of us against you! Cheren, don't think so much!
+team = Purrloin -1, rival@5 +1, Lillipup -1, rival2@5 +1
+level = 0
+floor = 94
+cpu = normal
+catch = no
+double = yes
+rival = yes
+venue = city
+
+[stage]
+name = Accumula Town
+map = 1695, 1055
+trainer = N
+card_pokemon = Purrloin
+card = Accumula Town | In the town square a man in a long robe gives a speech: people should liberate their Pokemon. His followers wear knight-like uniforms and call themselves Team Plasma. The man's name is Ghetsis. As the crowd breaks up, a young man with green hair steps in front of you. "Your Pokemon... it said something just now."
+say = I'm N. I want to hear more of your Pokemon's voice. Are they truly happy with you? Let's find out.
+team = Pidove -1, Tympole -1, Purrloin +1
+level = 0
+floor = 94
+cpu = normal
+catch = no
+venue = city
+
+[stage]
+name = Route 2
+map = 1695, 990
+trainer = Rival Bianca
+story = Bianca is waiting on Route 2, and she's already got a second Pokemon.
+say = I caught a Pokemon! Well, two, sort of. My dad thinks I should go home, so I have to show him I can do this!
+team = Lillipup -1, Munna -1, rival2@7 +1
+level = 0
+floor = 94
+cpu = normal
+catch = no
+venue = route
+
+[stage]
+name = Dreamyard
+map = 1630, 860
+trainer = Team Plasma Grunts
+story = In the ruins of the Dreamyard, two Team Plasma grunts are kicking a Munna to make it release Dream Mist.
+say = We're liberating this Munna... from its dreams! Get lost, kid - two of us, one of you!
+card_after = The Dreamyard | A girl who saw everything gives you a Pokemon to thank you: an elemental monkey. "There's a Gym in Striaton run by three brothers. This one should help."
+gift = monkey
+team = Patrat, Sandile, Purrloin, Trubbish
+level = 0
+floor = 94
+cpu = normal
+double = yes
+venue = park
+
+[stage]
+name = Striaton Trainers' School
+map = 1730, 900
+trainer = Rival Cheren
+story = Cheren has been studying at the Trainers' School in Striaton. He'd like a practice battle before the Gym.
+say = Type matchups, stats, moves - I've studied them all. Now let me see if the theory holds up.
+team = Purrloin -1, Pidove -1, rival@8 +1
+level = 0
+floor = 94
+cpu = normal
+catch = no
+rival = yes
+venue = city
+
+[stage]
+name = Striaton Gym
+map = 1695, 920
+trainer = Leaders Cilan, Chili & Cress
+story = The Striaton Gym is a restaurant run by three brothers. Today, all three want to serve you a battle - at once.
+say = Welcome to the Striaton Restaurant! I'm Cilan, this is Chili, and this is Cress. Today's special: a battle against all three of us!
+team = Lillipup -1, Lillipup -1, Lillipup -1, Pansage +1, Pansear +1, Panpour +1
+level = 0
+floor = 94
+cpu = hard
+double = yes
+arena = striaton
+badge = Trio
+
+# ---------------------------------------------------------------- Chapter 2: Route 3, Wellspring Cave and Nacrene City
+[stage]
+name = Route 3
+map = 1600, 935
+trainer = Rival Cheren
+story = At the fork by the Day Care, Cheren catches up. He's caught two new Pokemon.
+say = I've raised my team carefully since Striaton. I won't lose to you again.
+team = Purrloin -1, Pidove -1, rival_monkey@14 -1, rival@14 +1
+level = 0
+floor = 94
+cpu = normal
+catch = no
+rival = yes
+venue = route
+
+[stage]
+name = Wellspring Cave
+map = 1560, 870
+trainer = Team Plasma Grunts
+story = The Dreamyard grunts have stolen a little girl's Pokemon and fled into Wellspring Cave. Cheren goes in with you.
+say = Liberating Pokemon from children is our noble mission! Two against two - fine by us!
+team = Patrat, Purrloin, Patrat, Sandile
+level = 1
+floor = 94
+cpu = normal
+double = yes
+partner = Cheren
+partner_team = Purrloin -1, Pidove -1, rival@14 +1
+venue = cave
+
+[stage]
+name = Nacrene City
+map = 1530, 940
+trainer = N
+story = Outside the Nacrene Museum, N is waiting. He says he wants to change the world by freeing every Pokemon.
+say = I hear the voices of Pokemon. They suffer, trapped in Poke Balls. Show me - how does your team truly feel?
+team = Pidove, Tympole, Timburr
+level = 1
+floor = 94
+cpu = normal
+catch = no
+venue = city
+
+[stage]
+name = Nacrene Gym
+map = 1500, 920
+trainer = Leader Lenora
+story = Nacrene's Gym is inside the museum's library. Its Leader is the museum's director.
+say = I'm Lenora, curator of the Nacrene Museum and its Gym Leader. Let me research how you battle - Normal types are the honest test!
+team = Herdier -2, Audino -1, Kangaskhan -1, Sawsbuck -1, Watchog +1
+level = 1
+floor = 94
+cpu = hard
+arena = normal
+badge = Basic
+
+# ---------------------------------------------------------------- Chapter 3: Pinwheel Forest and Castelia City
+[stage]
+name = Pinwheel Forest
+map = 1440, 990
+trainer = Team Plasma Grunt
+story = Team Plasma stole the Dragon Skull from Lenora's museum. In Pinwheel Forest, the grunt carrying it blocks your way.
+say = This old skull belongs to Team Plasma now! Lord Ghetsis needs it to find the hero's dragon!
+card_after = The Dragon Skull | Burgh and Lenora arrive as a robed man steps out of the trees: Gorm, one of Team Plasma's Seven Sages. Outnumbered, he hands back the skull - and smiles as if he got what he came for.
+team = Patrat -1, Patrat -1, Sandile +1
+level = 1
+floor = 95
+cpu = normal
+venue = forest
+
+[stage]
+name = Castelia City
+map = 1030, 1050
+trainer = Team Plasma Grunts
+story = Grunts have snatched Bianca's Munna in the streets of Castelia. Burgh, the city's Gym Leader, runs with you after them.
+say = A Munna, freed from its trainer! That's our good deed for the day. Out of our way!
+team = Sandile, Sandile, Purrloin, Trubbish
+level = 1
+floor = 95
+cpu = normal
+double = yes
+partner = Burgh
+partner_team = Whirlipede -1, Dwebble -1, Leavanny +1
+venue = city
+
+[stage]
+name = Castelia Gym
+map = 990, 1025
+trainer = Leader Burgh
+story = The Castelia Gym is full of honey walls - push through them to reach the artist who leads it.
+say = I'm Burgh, artist and Gym Leader. Bug Pokemon inspire my art. Let's create a masterpiece together - in battle!
+team = Whirlipede -2, Dwebble -2, Accelgor -1, Escavalier -1, Durant -1, Leavanny +1
+level = 1
+floor = 95
+cpu = hard
+arena = bug
+badge = Insect
+
+[stage]
+name = Castelia Gate
+map = 1010, 960
+trainer = Rival Bianca
+story = At the gate north of Castelia, Bianca is waiting with her Munna back - and a lot more confidence.
+say = Thank you for saving Munna! Now let me show you how strong we've gotten - no holding back!
+team = Herdier -1, rival2_monkey@18 -1, Munna -1, rival2@20 +1
+level = 1
+floor = 95
+cpu = normal
+catch = no
+venue = city
+
+# ---------------------------------------------------------------- Chapter 4: Route 4, the Desert Resort and Nimbasa City
+[stage]
+name = Route 4
+map = 990, 860
+trainer = Rival Cheren
+story = A sandstorm blows over Route 4. Cheren is waiting, his scarf pulled up over his face.
+say = What does it mean to be strong? I think it means winning. So let's battle.
+team = Pidove -1, Liepard -1, rival_monkey@20 -1, rival@22 +1
+level = 1
+floor = 95
+cpu = normal
+catch = no
+venue = route
+
+[stage]
+name = Desert Resort
+map = 865, 800
+trainer = The Sleeping Statue
+story = Stone Darmanitan statues line the steps of Relic Castle in the Desert Resort. One of them is warmer than the others...
+say = One of the stone statues by the castle steps... just blinked. It stretches, glowing red-hot!
+card_after = A Fossil | At the castle's entrance a hiker shows you two fossils he dug out of the sand. He lets you keep one, and the Nacrene Museum brings it back to life.
+gift = Tirtouga or Archen
+team = Darmanitan +1
+level = 2
+floor = 95
+cpu = hard
+catch = no
+reward = no
+join = yes
+venue = beach
+
+[stage]
+name = Nimbasa City
+map = 960, 690
+trainer = Team Plasma Grunt
+story = In Nimbasa, Team Plasma grunts are harassing an old man. When you arrive they run off into the amusement park.
+say = We were just teaching that old man about liberation. Now we'll teach you!
+team = Watchog, Trubbish, Sandile
+level = 2
+floor = 95
+cpu = normal
+venue = city
+
+[stage]
+name = Nimbasa Ferris Wheel
+map = 1030, 690
+trainer = N
+card_pokemon = Zoroark
+card = The Ferris Wheel | N catches up with you in the amusement park and asks you to ride the Ferris wheel with him. At the top, he tells you the truth: he is the King of Team Plasma. Ghetsis asked him to become a hero alongside a legendary Pokemon - and change the world.
+say = The Ferris wheel's motion is a collection of mathematical formulas. I like it. Now - let me hear your Pokemon one more time.
+team = Sandile, Scraggy, Darumaka, Sigilyph +1
+level = 2
+floor = 95
+cpu = hard
+catch = no
+venue = park
+
+[stage]
+name = Nimbasa Gym
+map = 990, 670
+trainer = Leader Elesa
+story = The Nimbasa Gym is a roller coaster lit like a runway. Elesa is a model as well as a Gym Leader.
+say = I'm Elesa, the shining Gym Leader! My Electric types will dazzle you - keep up if you can!
+team = Emolga -2, Emolga -2, Stunfisk -1, Galvantula -1, Eelektross -1, Zebstrika +1
+level = 2
+floor = 95
+cpu = hard
+arena = nimbasa
+badge = Bolt
+
+# ---------------------------------------------------------------- Chapter 5: Route 5 and Driftveil City
+[stage]
+name = Route 5
+map = 800, 670
+trainer = Rival Cheren
+story = On Route 5, Champion Alder is talking with Cheren. Alder asks why Cheren wants to be strong. Cheren doesn't have a good answer - so he asks you for a battle instead.
+say = The Champion says strength isn't everything. I'll prove I'm strong first, and worry about the rest after.
+team = Liepard -1, Tranquill -1, rival_monkey@24 -1, rival@26 +1
+level = 2
+floor = 96
+cpu = normal
+catch = no
+venue = route
+
+[stage]
+name = Cold Storage
+map = 600, 700
+trainer = Team Plasma Grunts
+story = Clay, Driftveil's Gym Leader, says Team Plasma grunts are hiding in the Cold Storage warehouses. Cheren comes with you.
+say = Brrr... you found us. Fine! We'll warm up by beating you two!
+team = Watchog, Scraggy, Sandile, Watchog
+level = 2
+floor = 96
+cpu = normal
+double = yes
+partner = Cheren
+partner_team = Liepard -1, Tranquill -1, rival@26 +1
+venue = hideout
+
+[stage]
+name = Cold Storage Sage
+map = 625, 715
+trainer = Sage Zinzolin
+story = Deep in the warehouse, a robed man is complaining about the cold. He is one of the Seven Sages.
+say = So cold... and now a child. I am Zinzolin of the Seven Sages. My Pokemon thrive in the cold - let me show you.
+card_after = Released | Clay arrests Zinzolin and the grunts. But in Driftveil's square, Ghetsis appears with a smile - and reminds Clay that Team Plasma once helped him. Clay lets them all go. "A debt's a debt," he grumbles.
+team = Cryogonal -1, Cryogonal -1, Weavile +1
+level = 2
+floor = 96
+cpu = hard
+catch = no
+venue = hideout
+
+[stage]
+name = Driftveil Gym
+map = 543, 670
+trainer = Leader Clay
+story = Clay's Gym is deep in a mine - a lift takes you down to where he waits.
+say = I'm Clay, and I dug this town out of the ground myself. My Ground types are tough as bedrock. Bring it on!
+team = Krokorok -2, Palpitoad -2, Sandslash -1, Claydol -1, Golurk -1, Excadrill +1
+level = 2
+floor = 96
+cpu = hard
+arena = ground
+badge = Quake
+
+[stage]
+name = Driftveil City
+map = 515, 650
+trainer = Rival Bianca
+story = Bianca is waiting outside Driftveil on the way to Route 6. Her father came all the way here to take her home - and she said no.
+say = My dad says I'm not strong enough. So I'm going to battle you, and show him he's wrong!
+team = Herdier -1, rival2_monkey@26 -1, Musharna -1, rival2@28 +1
+level = 2
+floor = 96
+cpu = normal
+catch = no
+venue = city
+
+# ---------------------------------------------------------------- Chapter 6: Chargestone Cave, Route 7 and Mistralton City
+[stage]
+name = Chargestone Cave
+map = 480, 560
+trainer = Team Plasma Grunt
+story = Chargestone Cave crackles with floating electric rocks. A grunt is draining them.
+say = We're liberating the electricity in these stones. And you're interfering!
+card_after = The Shadow Triad | Three figures in black appear out of nowhere: the Shadow Triad, Ghetsis's ninjas. "Lord N wishes to see you. Follow us." They vanish, and the path to N lies ahead.
+team = Sandile -1, Scraggy -1, Watchog +1
+level = 2
+floor = 96
+cpu = normal
+venue = cave
+
+[stage]
+name = Chargestone Depths
+map = 455, 520
+trainer = N
+card_pokemon = Zekrom
+card = Chargestone Cave | Near the exit, N is waiting among the floating stones. He tells you about the legendary dragons of Unova: Reshiram, who seeks truth, and Zekrom, who seeks ideals. He means to awaken one of them.
+say = I will make Zekrom my friend. Then everyone will see that my ideals are right. Now - let me see your truth.
+team = Boldore, Ferroseed, Joltik, Klink +1
+level = 3
+floor = 96
+cpu = hard
+catch = no
+venue = cave
+
+[stage]
+name = Route 7
+map = 330, 470
+trainer = Rival Cheren
+story = Cheren is waiting in the tall grass of Route 7. He's thought about Alder's question.
+say = I still don't know what strength is for. Maybe this battle will tell me.
+team = Unfezant -1, Liepard -1, rival_monkey@33 -1, rival@35 +1
+level = 3
+floor = 96
+cpu = normal
+catch = no
+venue = route
+
+[stage]
+name = Mistralton Gym
+map = 290, 540
+trainer = Leader Skyla
+story = Mistralton's Gym is a cargo hangar full of cannons that fire you across the room.
+say = I'm Skyla, pilot and Gym Leader! Let's see if you can keep up with my Flying types up in the sky!
+team = Swoobat -2, Unfezant -2, Skarmory -1, Braviary -1, Mandibuzz -1, Swanna +1
+level = 3
+floor = 96
+cpu = hard
+arena = mistralton
+badge = Jet
+
+# ---------------------------------------------------------------- Chapter 7: Twist Mountain, Icirrus City and Dragonspiral Tower
+[stage]
+name = Twist Mountain
+map = 350, 415
+trainer = Ace Trainer Caroll
+story = Snow is falling on Twist Mountain. An Ace Trainer blocks the narrow path through the mine.
+say = The mountain twists, and so will your strategy! I've been waiting for a real challenger.
+team = Vanillish, Gothorita, Duosion +1
+level = 3
+floor = 97
+cpu = normal
+venue = icecave
+
+[stage]
+name = Icirrus Gym
+map = 543, 350
+trainer = Leader Brycen
+story = Icirrus Gym's floor is sheets of ice. Brycen, a former movie star, waits at the end.
+say = I am Brycen. I left the movies to train my Ice types, and their cold will freeze your will. Come!
+team = Vanillish -2, Cryogonal -2, Dewgong -1, Walrein -1, Weavile -1, Beartic +1
+level = 3
+floor = 97
+cpu = hard
+arena = ice
+badge = Freeze
+
+[stage]
+name = Dragonspiral Tower
+map = 480, 285
+trainer = Team Plasma Grunts
+story = Team Plasma has broken through the wall of Dragonspiral Tower. Cheren runs in beside you.
+say = Lord N is climbing to the top! We'll hold you here - for the King of Team Plasma!
+card_after = Zekrom | At the top of the tower, a black dragon stands in a storm of lightning. N climbs onto its back. "Zekrom has chosen me. Find the other dragon, and come to the Pokemon League. Then we'll see whose ideals win." Zekrom roars, and they're gone.
+card_pokemon = Zekrom
+team = Watchog, Krokorok, Liepard, Scraggy
+level = 3
+floor = 97
+cpu = normal
+double = yes
+partner = Cheren
+partner_team = Unfezant -1, Liepard -1, rival@35 +1
+venue = tower
+
+# ---------------------------------------------------------------- Chapter 8: Relic Castle and Route 8
+[stage]
+name = Relic Castle
+map = 865, 780
+trainer = Team Plasma Grunt
+story = Ghetsis's men are digging deep in Relic Castle for the stone that holds the other dragon.
+say = The Light Stone is ours! Lord Ghetsis will see to it - you won't get past me!
+card_after = The Light Stone | In the deepest room, Ghetsis says the stone here is a fake - and walks away laughing. Back at the Nacrene Museum, Lenora gives you the real thing: the Light Stone, which was in her museum all along. "Whoever holds it, Reshiram will judge."
+card_pokemon = Reshiram
+team = Watchog -1, Krokorok -1, Krokorok +1
+level = 3
+floor = 97
+cpu = normal
+venue = beach
+
+[stage]
+name = Tubeline Bridge
+map = 680, 330
+trainer = Rival Bianca
+story = The marshes of Route 8 are wet and grey. Bianca is waiting at the edge of Tubeline Bridge.
+say = I'm not the same as before! I've decided I'm going to be strong - for my Pokemon, and for me!
+team = Stoutland -1, rival2_monkey@38 -1, Musharna -1, rival2@40 +1
+level = 3
+floor = 97
+cpu = normal
+catch = no
+venue = route
+
+# ---------------------------------------------------------------- Chapter 9: Opelucid City, Route 10 and Victory Road
+[stage]
+name = Opelucid Gym
+map = 990, 350
+trainer = Leader Drayden
+story = In Opelucid, Ghetsis tells a crowd that N has found the hero's dragon. The mayor - and Gym Leader - tells you the legend of the two dragons, and waits for you at the top of his Gym.
+say = I am Drayden. Dragons and people once lived as one. Show me whether your bond with your Pokemon can stand against my dragons!
+card_after = The Legend Badge | Professor Juniper meets you outside the Gym and presses a Master Ball into your hand. "For the dragon. You'll know when." Somewhere over Unova, a sudden gale blows across the sky.
+team = Fraxure -2, Druddigon -2, Flygon -1, Altaria -1, Hydreigon -1, Haxorus +1
+level = 4
+floor = 97
+cpu = hard
+arena = dragon
+badge = Legend
+
+[stage]
+name = Route 10
+map = 1100, 280
+trainer = Veteran Chester
+story = Route 10 leads to the Badge Check Gates and Victory Road. A veteran trainer wants to test you first.
+say = Eight badges? Ha! I've battled more trainers than you've met. Let's see what you've learned!
+team = Beartic, Seismitoad, Escavalier +1
+level = 4
+floor = 97
+cpu = hard
+venue = route
+
+[stage]
+name = Badge Check Gates
+map = 1160, 240
+trainer = Rival Cheren
+story = At the Badge Check Gates, Cheren is waiting. He wants one more battle before the League - to know where he stands.
+say = I still haven't found what strength is for. But I know I want to be strong enough to stand next to you. Let's battle.
+team = Unfezant -1, Liepard -1, rival_monkey@43 -1, rival@45 +1
+level = 4
+floor = 97
+cpu = hard
+catch = no
+venue = city
+
+# ---------------------------------------------------------------- The Pokemon League
+[stage]
+name = Shauntal's Room
+map = 1245, 160
+trainer = Elite Four Shauntal
+story = The Unova League. Four rooms, one run. Shauntal, a novelist, writes about every trainer she battles.
+say = I'm Shauntal of the Elite Four. I write novels about my opponents... I wonder how your chapter will end?
+team = Cofagrigus -1, Jellicent -1, Golurk -1, Froslass -1, Drifblim -1, Chandelure +1
+level = 4
+floor = 98
+cpu = hard
+arena = ghost
+league = 1
+
+[stage]
+name = Grimsley's Room
+map = 1225, 150
+trainer = Elite Four Grimsley
+say = I'm Grimsley. Life is a serious battle, and you have to use what tools you're given. Let's see who wins this bet.
+team = Scrafty -1, Liepard -1, Krookodile -1, Sharpedo -1, Drapion -1, Bisharp +1
+level = 4
+floor = 98
+cpu = hard
+arena = dark
+league = 2
+
+[stage]
+name = Caitlin's Room
+map = 1265, 150
+trainer = Elite Four Caitlin
+say = I'm Caitlin. Do try to wake me up with a good battle - I've been sleeping, waiting for someone worth it.
+team = Reuniclus -1, Musharna -1, Sigilyph -1, Bronzong -1, Metagross -1, Gothitelle +1
+level = 5
+floor = 98
+cpu = hard
+arena = psychic
+league = 3
+
+[stage]
+name = Marshal's Room
+map = 1245, 140
+trainer = Elite Four Marshal
+say = I am Marshal, Alder's student. My Fighting types train every day. Show me your full strength!
+team = Throh -1, Sawk -1, Conkeldurr -1, Breloom -1, Toxicroak -1, Mienshao +1
+level = 5
+floor = 98
+cpu = hard
+arena = fighting
+league = 4
+
+# ---------------------------------------------------------------- N's Castle
+[stage]
+name = N's Castle
+map = 1270, 130
+trainer = The Hero's Dragon
+card_pokemon = Reshiram
+card = N's Castle | The League shakes. Behind it, a castle rises out of the earth and swallows the Champion's room. N has already beaten Alder - he holds the title now. The Gym Leaders arrive to hold off the Sages, and you climb to the throne room, where the Light Stone in your bag starts to burn white-hot.
+story = The Light Stone flies from your bag and blazes. A white dragon unfolds in front of N's throne - and turns its eyes on you.
+say = Reshiram rears up, surrounded by white flame. It wants to see your truth for itself!
+team = Reshiram +1
+level = 5
+floor = 98
+cpu = hard
+catch = no
+reward = no
+join = yes
+arena = throneroom
+
+[stage]
+name = King N
+map = 1285, 140
+trainer = King N
+story = Two heroes, two dragons, and one battle for the future of Unova.
+say = I have beaten the Champion. Reshiram has chosen you. Now - whose ideals and whose truth will win? This battle decides the future of Unova!
+team = Carracosta, Vanilluxe, Archeops, Zoroark, Klinklang, Zekrom +1
+level = 5
+floor = 98
+cpu = hard
+catch = no
+arena = throneroom
+league = 5
+
+[stage]
+name = Ghetsis
+map = 1300, 130
+trainer = Ghetsis
+story = N stands frozen - he lost. Ghetsis steps forward and drops the act: N was only ever a puppet, raised to make everyone else give up their Pokemon so that Team Plasma alone would have them.
+say = I am Ghetsis of Team Plasma, and I will rule this world! You meddling child - I'll crush you myself, here and now!
+card_after = The End of Team Plasma | Alder and Cheren burst in and take Ghetsis away. N looks at you for a long time. "You and your Pokemon showed me something I'd never seen." He climbs onto Zekrom and flies off over Unova. Alder is waiting, smiling, back at the League.
+team = Cofagrigus, Bouffalant, Seismitoad, Bisharp, Eelektross, Hydreigon +1
+level = 5
+floor = 98
+cpu = hard
+catch = no
+arena = throneroom
+finale = yes
+
+# ---------------------------------------------------------------- Post-game (from the Map)
+[stage]
+name = Champion's Room
+map = 1245, 175
+trainer = Champion Alder
+card = The Champion's Room | The castle has sunk back into the earth. Alder is waiting in his room, ready for a real battle - Champion to Champion.
+say = I'm Alder, the Champion. I lost to N, and I've thought hard about what strength means. Let me show you what I learned!
+card_after = A Warm Egg | A Pokemon Ranger on Route 18 gives you an Egg that's warm to the touch. It hatches into a tiny fire moth - a Larvesta, like Alder's Volcarona once was.
+gift = Larvesta
+team = Accelgor -1, Bouffalant -1, Druddigon -1, Vanilluxe -1, Escavalier -1, Volcarona +1
+level = 6
+floor = 98
+cpu = hard
+catch = no
+arena = unovachampion
+postgame = yes
+
+[stage]
+name = Undella Town
+map = 1695, 540
+trainer = Cynthia
+story = Undella Town is a summer resort. The Sinnoh Champion is staying at her villa here.
+say = I'm Cynthia. I came to Unova to study its myths - but I'd much rather have a battle. Ready?
+team = Spiritomb -1, Eelektross -1, Milotic -1, Braviary -1, Lucario -1, Garchomp +1
+level = 6
+floor = 98
+cpu = hard
+catch = no
+arena = sinnohchampion
+postgame = yes
+
+[stage]
+name = Victory Road Summit
+map = 1200, 190
+trainer = Cheren
+story = Cheren trains at the top of Victory Road every day now. He's found his answer: he wants to help people find their own strength.
+say = I've decided to become a teacher. But first - one more battle, as rivals.
+team = Liepard -1, rival_monkey@60 -1, Unfezant -1, Gigalith -1, Haxorus -1, rival@65 +1
+level = 6
+floor = 98
+cpu = hard
+catch = no
+venue = mountain
+postgame = yes
+
+[stage]
+name = Bianca's House
+map = 1720, 1175
+trainer = Bianca
+story = Bianca is back in Nuvema Town, helping Professor Juniper with her research. Her father finally said he's proud of her.
+say = I'm going to be the professor's assistant! But I still want to battle you - for old times' sake!
+team = Stoutland -1, Musharna -1, Mienshao -1, Chandelure -1, rival2_monkey@60 -1, rival2@65 +1
+level = 6
+floor = 98
+cpu = hard
+catch = no
+venue = city
+postgame = yes
+
+[stage]
+name = Opelucid City
+map = 1010, 330
+trainer = Iris
+story = Two years on, the girl from Drayden's Gym has grown into the strongest Dragon trainer in Unova - Iris, who would one day be Champion.
+say = I'm Iris! My dragons and I trained super hard to be Champions. Let's have a battle we'll both remember!
+team = Hydreigon -1, Druddigon -1, Archeops -1, Aggron -1, Lapras -1, Haxorus +1
+level = 6
+floor = 98
+cpu = hard
+catch = no
+arena = dragon
+postgame = yes
+
+[stage]
+name = Virbank Gym
+map = 480, 990
+trainer = Leader Roxie
+story = In Virbank City, a Gym Leader plays bass in a punk band between battles. Her Gym is also a concert hall.
+say = I'm Roxie! My Poison types and I are gonna rock this place - and you're the opening act!
+team = Koffing -1, Whirlipede -1, Garbodor -1, Amoonguss -1, Toxicroak -1, Scolipede +1
+level = 6
+floor = 98
+cpu = hard
+catch = no
+arena = poison
+postgame = yes
+
+[stage]
+name = Humilau Gym
+map = 1760, 285
+trainer = Leader Marlon
+story = Humilau City floats on the sea. Its Gym Leader spends his days surfing - and his Water types ride the waves with him.
+say = I'm Marlon! The sea's my home, and its waves are my strength. Let's see if you can swim with me!
+team = Carracosta -1, Wailord -1, Mantine -1, Kingdra -1, Starmie -1, Jellicent +1
+level = 6
+floor = 98
+cpu = hard
+catch = no
+arena = water
+postgame = yes

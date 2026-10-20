@@ -1293,3 +1293,173 @@ pokemon = walk, Numel, 10, 96-100
 pokemon = walk, Camerupt, 10, 96-100
 pokemon = walk, Banette, 5, 96-100
 pokemon = walk, Raticate, 5, 96-100
+
+# ==========================================================================
+#  UNOVA (Pokemon Black encounter tables). Levels follow the story's level range there.
+# ==========================================================================
+
+[Routes 1 and 2 (Unova)]
+unlock = Nuvema Town
+pokemon = walk, Patrat, 35, 94-97
+pokemon = walk, Lillipup, 35, 94-97
+pokemon = walk, Purrloin, 30, 94-97
+pokemon = surf, Basculin, 100, 94-97
+
+[Dreamyard]
+unlock = Dreamyard
+pokemon = walk, Munna, 30, 94-97
+pokemon = walk, Patrat, 35, 94-97
+pokemon = walk, Purrloin, 35, 94-97
+pokemon = walk, Musharna, 3, 95-97, rare
+
+[Route 3 and Wellspring Cave]
+unlock = Route 3
+pokemon = walk, Pidove, 20, 94-97
+pokemon = walk, Blitzle, 20, 94-97
+pokemon = walk, Patrat, 15, 94-97
+pokemon = walk, Purrloin, 15, 94-97
+pokemon = walk, Woobat, 10, 94-97
+pokemon = walk, Roggenrola, 10, 94-97
+pokemon = walk, Drilbur, 10, 94-97
+
+[Pinwheel Forest]
+unlock = Pinwheel Forest
+pokemon = walk, Sewaddle, 15, 95-98
+pokemon = walk, Venipede, 15, 95-98
+pokemon = walk, Tympole, 10, 95-98
+pokemon = walk, Timburr, 10, 95-98
+pokemon = walk, Cottonee, 10, 95-98
+pokemon = walk, Petilil, 10, 95-98
+pokemon = walk, Throh, 10, 95-98
+pokemon = walk, Sawk, 10, 95-98
+pokemon = walk, Pidove, 10, 95-98
+
+[Route 4 and the Desert Resort]
+unlock = Route 4
+pokemon = walk, Sandile, 20, 95-98
+pokemon = walk, Darumaka, 15, 95-98
+pokemon = walk, Scraggy, 15, 95-98
+pokemon = walk, Sigilyph, 10, 95-98
+pokemon = walk, Dwebble, 15, 95-98
+pokemon = walk, Maractus, 10, 95-98
+pokemon = walk, Yamask, 15, 95-98
+
+[Relic Castle]
+unlock = Desert Resort
+pokemon = walk, Sandile, 50, 95-98
+pokemon = walk, Yamask, 50, 95-98
+pokemon = walk, Tirtouga, 4, 96-98, rare
+pokemon = walk, Archen, 4, 96-98, rare
+
+[Routes 5 and 16, Lostlorn Forest]
+unlock = Route 5
+pokemon = walk, Minccino, 15, 96-99
+pokemon = walk, Gothita, 15, 96-99
+pokemon = walk, Solosis, 15, 96-99
+pokemon = walk, Liepard, 15, 96-99
+pokemon = walk, Trubbish, 15, 96-99
+pokemon = walk, Venipede, 10, 96-99
+pokemon = walk, Swadloon, 15, 96-99
+pokemon = walk, Zorua, 3, 97-99, rare
+
+[Route 6 and Driftveil Drawbridge]
+unlock = Driftveil Gym
+pokemon = walk, Deerling, 20, 96-99
+pokemon = walk, Karrablast, 15, 96-99
+pokemon = walk, Shelmet, 15, 96-99
+pokemon = walk, Foongus, 15, 96-99
+pokemon = walk, Swadloon, 15, 96-99
+pokemon = walk, Ducklett, 20, 96-99
+pokemon = surf, Ducklett, 100, 96-99
+
+[Chargestone Cave]
+unlock = Chargestone Cave
+pokemon = walk, Joltik, 20, 96-99
+pokemon = walk, Ferroseed, 20, 96-99
+pokemon = walk, Klink, 15, 96-99
+pokemon = walk, Tynamo, 15, 96-99
+pokemon = walk, Boldore, 15, 96-99
+pokemon = walk, Drilbur, 15, 96-99
+
+[Route 7 and Celestial Tower]
+unlock = Route 7
+pokemon = walk, Tranquill, 15, 96-99
+pokemon = walk, Zebstrika, 15, 96-99
+pokemon = walk, Deerling, 15, 96-99
+pokemon = walk, Foongus, 15, 96-99
+pokemon = walk, Watchog, 15, 96-99
+pokemon = walk, Elgyem, 10, 96-99
+pokemon = walk, Litwick, 15, 96-99
+
+[Mistralton Cave]
+unlock = Mistralton Gym
+pokemon = walk, Boldore, 35, 97-100
+pokemon = walk, Woobat, 35, 97-100
+pokemon = walk, Drilbur, 30, 97-100
+pokemon = walk, Axew, 4, 98-100, rare
+
+[Twist Mountain]
+unlock = Twist Mountain
+pokemon = walk, Boldore, 25, 97-100
+pokemon = walk, Gurdurr, 25, 97-100
+pokemon = walk, Woobat, 25, 97-100
+pokemon = walk, Cubchoo, 25, 97-100
+pokemon = walk, Cryogonal, 4, 98-100, rare
+
+[Moor of Icirrus and Route 8]
+unlock = Icirrus Gym
+pokemon = walk, Palpitoad, 20, 97-100
+pokemon = walk, Stunfisk, 20, 97-100
+pokemon = walk, Karrablast, 15, 97-100
+pokemon = walk, Shelmet, 15, 97-100
+pokemon = walk, Croagunk, 10, 97-100
+pokemon = walk, Seismitoad, 10, 97-100
+pokemon = surf, Frillish, 50, 97-100
+pokemon = surf, Alomomola, 50, 97-100
+
+[Dragonspiral Tower (Unova)]
+unlock = Dragonspiral Tower
+pokemon = walk, Golett, 30, 97-100
+pokemon = walk, Mienfoo, 30, 97-100
+pokemon = walk, Druddigon, 20, 97-100
+pokemon = walk, Tranquill, 20, 97-100
+
+[Route 9 and Tubeline Bridge]
+unlock = Tubeline Bridge
+pokemon = walk, Garbodor, 20, 98-100
+pokemon = walk, Pawniard, 20, 98-100
+pokemon = walk, Liepard, 20, 98-100
+pokemon = walk, Minccino, 20, 98-100
+pokemon = walk, Gothorita, 20, 98-100
+
+[Route 10 and Victory Road (Unova)]
+unlock = Route 10
+pokemon = walk, Amoonguss, 10, 98-100
+pokemon = walk, Throh, 10, 98-100
+pokemon = walk, Sawk, 10, 98-100
+pokemon = walk, Bouffalant, 15, 98-100
+pokemon = walk, Rufflet, 15, 98-100
+pokemon = walk, Vullaby, 15, 98-100
+pokemon = walk, Durant, 10, 98-100
+pokemon = walk, Heatmor, 15, 98-100
+pokemon = walk, Deino, 4, 99-100, rare
+pokemon = walk, Larvesta, 3, 99-100, rare
+
+[Giant Chasm and Route 13]
+unlock = Ghetsis
+pokemon = walk, Clefairy, 15, 98-100
+pokemon = walk, Lunatone, 10, 98-100
+pokemon = walk, Solrock, 10, 98-100
+pokemon = walk, Ditto, 15, 98-100
+pokemon = walk, Piloswine, 20, 98-100
+pokemon = walk, Delibird, 10, 98-100
+pokemon = walk, Sneasel, 20, 98-100
+
+[Undella Bay and Route 14]
+unlock = Undella Town
+pokemon = walk, Mienshao, 30, 98-100
+pokemon = walk, Golett, 30, 98-100
+pokemon = walk, Swanna, 40, 98-100
+pokemon = surf, Mantine, 30, 98-100
+pokemon = surf, Frillish, 40, 98-100
+pokemon = surf, Jellicent, 30, 98-100

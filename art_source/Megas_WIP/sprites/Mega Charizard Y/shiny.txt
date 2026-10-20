@@ -1,0 +1,16 @@
+# Mega Charizard Y - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284858 > 641B20
+shiny = 3A6B84 > 810029
+shiny = 408080 > 912F56
+shiny = 4A84BD > A12243
+shiny = 603000 > 2C243B
+shiny = 904020 > 4E4A66
+shiny = B5423A > 494A5A
+shiny = C85828 > 6A648C
+shiny = D6635A > 656678
+shiny = D6B563 > A9A5B6
+shiny = F79473 > 898C9D
+shiny = F7DE94 > D0C6D9
+shiny = F87838 > 8980B0
+shiny = FF9C31 > 8478A3

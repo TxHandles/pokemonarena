@@ -118,15 +118,32 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
   torn space), Heatran, Regigigas (once the three Regis are caught), Cresselia, Darkrai on Newmoon Island
   (Dark Void clouds), Shaymin, Arceus in the Hall of Origin (once Dialga, Palkia and Giratina are caught),
   Manaphy and Phione. `wild.txt` has 21 Sinnoh training areas.
+- **Unova** – the fifth region, on the Unova town map (`unova.png`). Professor Juniper's gift box holds
+  Snivy, Tepig and Oshawott; Cheren takes the one that beats yours and Bianca gets the one left (co-op:
+  Cheren's second pick goes to her). Each rival also has an elemental monkey (`rival_monkey`,
+  `rival2_monkey`: the one their starter beats), and the Dreamyard girl gives you yours (`gift = monkey`).
+  50 battles follow Black from Nuvema Town: the Striaton brothers as one double, Lenora, Burgh, Elesa, Clay,
+  Skyla, Brycen and Drayden, N four times, Team Plasma and Zinzolin, the Darmanitan statue (it joins you)
+  and a fossil, the Elite Four (Shauntal, Grimsley, Caitlin, Marshal), then N's Castle: Reshiram joins you,
+  King N holds the title, and Ghetsis is the real finale (`finale = yes`: the Champion message and Hall of
+  Fame wait for him). Post-game on the Map: Champion Alder, Cynthia in Undella, Cheren, Bianca, Iris, and
+  Roxie and Marlon as extra gym challenges. Five new arenas: the **Striaton Restaurant** (grill, fountain
+  and herb-bed tables; ring the bell to rotate them), the **Nimbasa Gym** (coaster trains on the tracks, the
+  runway, a track switch), the **Mistralton Gym** (cannon pads that fire you across the hangar, a
+  propeller), the **Plasma Throne Room** (white flame and blue lightning, the Twin Pillars) and **Alder's
+  Hall** (braziers and the great brazier's sunshine). Thirteen legendaries: the Swords of Justice and
+  Keldeo, Tornadus, Thundurus and Landorus (new lair: the Abundant Shrine), Zekrom at Dragonspiral Tower and
+  Kyurem in the Giant Chasm (new lairs), Victini, Volcarona, Meloetta and Genesect. `wild.txt` has 18
+  Unova training areas.
 - **Start anywhere** – a new story (or co-op journey) begins on a region screen: pick Kanto, Johto,
-  Hoenn or Sinnoh and get that region's own three starters at level 5 (Kanto: Bulbasaur, Charmander, Squirtle;
-  Johto: Chikorita, Cyndaquil, Totodile; Hoenn: Treecko, Torchic, Mudkip; Sinnoh: Turtwig, Chimchar, Piplup), with that region's rival
+  Hoenn, Sinnoh or Unova and get that region's own three starters at level 5 (Kanto: Bulbasaur, Charmander, Squirtle;
+  Johto: Chikorita, Cyndaquil, Totodile; Hoenn: Treecko, Torchic, Mudkip; Sinnoh: Turtwig, Chimchar, Piplup; Unova: Snivy, Tepig, Oshawott), with that region's rival
   taking the one that beats yours. When a region's Champion falls, the hub's first item becomes
   **Choose your next region!** and you pick any region you haven't played; its professor gives you its
   starter and its rival picks theirs. **Difficulty follows the order, not the region**: whatever you play
   first uses the Map 1 curve (Kanto's levels: a Lv5 starter, Brock ~13 ... the Champion ~63), the second
   Map 2 (Johto's: a Lv60 starter, levels 60-88), the third Map 3 (Hoenn's: a Lv85+ starter, floors 80-90), the fourth Map 4
-  (Sinnoh's: a Lv90 starter, floors 88-96).
+  (Sinnoh's: a Lv90 starter, floors 88-96) and the fifth Map 5 (Unova's: a Lv94 starter, floors 94-98).
   Trainers, the starter gift, wild Pokemon and legendaries all follow the region's place in your order.
   Legendaries only appear once you've reached their region (and their badges count only that region's).
   In co-op, player 1 (online: the host) chooses. Old saves keep the usual order and pick at the next

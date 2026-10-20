@@ -1,0 +1,19 @@
+# Mega Blastoise - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303858 > 4B476A
+shiny = 3A638C > 926AAA
+shiny = 482808 > 1A341A
+shiny = 527BAD > C3A3E2
+shiny = 6170A9 > 7972B3
+shiny = 6B4A29 > 336C29
+shiny = 7BADEF > F9D7FF
+shiny = 805008 > 295C2F
+shiny = 8A94E8 > A997EB
+shiny = 8C633A > 749541
+shiny = 988850 > 987A50
+shiny = B07018 > 428248
+shiny = B5844A > 98B961
+shiny = C8A850 > C89050
+shiny = CEB552 > C4B256
+shiny = F0C850 > F0A950
+shiny = F7E694 > FFD68F

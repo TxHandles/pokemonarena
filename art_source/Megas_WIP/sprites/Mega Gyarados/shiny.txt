@@ -1,0 +1,21 @@
+# Mega Gyarados - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1E3250 > 50211F
+shiny = 313131 > C0A06F
+shiny = 3B5E8F > 8B3A3B
+shiny = 3E8AF6 > F6413E
+shiny = 49AFF9 > F94963
+shiny = 4A6BC5 > C60038
+shiny = 4A94E6 > F05273
+shiny = 525252 > CB0028
+shiny = 636363 > E20037
+shiny = 73C5FF > F75458
+shiny = 7B7B7B > FF314D
+shiny = 8C7B4A > B5A175
+shiny = 8F8654 > 6D3839
+shiny = AD4A3A > 753A33
+shiny = BDBDBD > A80A30
+shiny = C5AD6B > B6A8A7
+shiny = D64A3A > A63E39
+shiny = E9D565 > E96866
+shiny = F7DE7B > E7D7D3
