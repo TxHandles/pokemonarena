@@ -1,0 +1,21 @@
+# Chingling - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333232 > 3C451E
+shiny = 404040 > 49532C
+shiny = 525251 > 5C663C
+shiny = 585858 > 5E5F43
+shiny = 881818 > AC4800
+shiny = 886820 > 877F23
+shiny = B8A141 > BBB84D
+shiny = C03838 > DD6F07
+shiny = C0C8D0 > C1E7D8
+shiny = D09828 > CBB33F
+shiny = D46249 > DB763C
+shiny = E0E8F0 > DCFFFF
+shiny = E2E8F2 > E2FFF9
+shiny = E3E8F3 > DDFFFF
+shiny = F66B42 > FFAE29
+shiny = F8C000 > ECE230
+shiny = F8E008 > F4FE40
+shiny = F8F898 > FCFF9B
+shiny = FEE639 > FAFF54

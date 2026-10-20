@@ -1,0 +1,15 @@
+# Darkrai - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2DC0AD > 7FCAC0
+shiny = 3098C0 > 846BB1
+shiny = 323232 > 2A114B
+shiny = 333333 > 2B124C
+shiny = 404050 > 3A205D
+shiny = 515151 > 3E1E81
+shiny = 606878 > 624586
+shiny = 73735B > 6E4E8D
+shiny = 983040 > 582F6F
+shiny = C0C0E0 > D0D3E9
+shiny = F04124 > E72189
+shiny = F84840 > EE2D92
+shiny = FF7241 > FF4CA4

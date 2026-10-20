@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Phione
+dex  = 489
+type = Water
+
+hp         = 80
+attack     = 80
+defense    = 80
+sp_attack  = 80
+sp_defense = 80
+speed      = 80
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 3.1      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 9, Charm
+learn = 16, Supersonic
+learn = 24, Bubble Beam
+learn = 31, Acid Armor
+learn = 39, Whirlpool
+learn = 46, Water Pulse
+learn = 54, Aqua Ring
+learn = 61, Dive
+learn = 69, Rain Dance
+learn = 75, Take Heart
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Water Pulse, Disarming Voice, Chilling Water, Facade
+tm = Swift, Icy Wind, Fling, Endure, Rain Dance, Zen Headbutt
+tm = U-turn, Sleep Talk, Waterfall, Dazzling Gleam, Grass Knot, Rest
+tm = Substitute, Liquidation, Surf, Helping Hand, Baton Pass, Ice Beam
+tm = Hydro Pump, Blizzard, Tera Blast, Haze, Knock Off, Scald
+tm = Weather Ball, Flip Turn, Psych Up, Whirlpool, Alluring Voice

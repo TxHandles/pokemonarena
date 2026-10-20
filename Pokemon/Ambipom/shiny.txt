@@ -1,0 +1,16 @@
+# Ambipom - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 383060 > 930058
+shiny = 684098 > B93179
+shiny = 7259A3 > CF498C
+shiny = 937ACC > F76EAF
+shiny = 9868C8 > EC62A6
+shiny = A08060 > BE7868
+shiny = A880F0 > FF7CBF
+shiny = C84868 > CD0068
+shiny = C8B080 > C6B1A7
+shiny = D4B362 > F4AA7D
+shiny = D5575E > BC6B7D
+shiny = D8C890 > FFBE9F
+shiny = E8D8A0 > E8D8CA
+shiny = F5DC8C > F3DDC0

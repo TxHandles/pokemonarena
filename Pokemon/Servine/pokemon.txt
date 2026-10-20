@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Servine
+dex  = 496
+type = Grass
+
+hp         = 60
+attack     = 60
+defense    = 75
+sp_attack  = 60
+sp_defense = 75
+speed      = 83
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 16.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Serperior
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Wrap
+learn = 1, Vine Whip
+learn = 1, Tackle
+learn = 1, Leer
+learn = 13, Growth
+learn = 16, Magical Leaf
+learn = 20, Leech Seed
+learn = 24, Mega Drain
+learn = 28, Slam
+learn = 32, Leaf Blade
+learn = 36, Coil
+learn = 40, Giga Drain
+learn = 44, Gastro Acid
+learn = 48, Leaf Storm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Trailblaze, Facade, Aerial Ace, Swift
+tm = Magical Leaf, Endure, Sunny Day, Bullet Seed, Sleep Talk, Seed Bomb
+tm = Reflect, Light Screen, Grass Knot, Rest, Taunt, Swords Dance
+tm = Substitute, Giga Drain, Energy Ball, Calm Mind, Helping Hand, Grassy Terrain
+tm = Grass Pledge, Leaf Storm, Solar Beam, Tera Blast, Knock Off, Grassy Glide
+tm = Double-Edge, Petal Blizzard

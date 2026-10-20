@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Petilil
+dex  = 548
+type = Grass
+
+hp         = 45
+attack     = 35
+defense    = 50
+sp_attack  = 70
+sp_defense = 50
+speed      = 30
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 6.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Lilligant, Sun Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growth
+learn = 1, Absorb
+learn = 3, Helping Hand
+learn = 6, Stun Spore
+learn = 9, Mega Drain
+learn = 12, Charm
+learn = 15, Magical Leaf
+learn = 18, Sleep Powder
+learn = 21, Giga Drain
+learn = 24, Leech Seed
+learn = 27, After You
+learn = 30, Energy Ball
+learn = 33, Synthesis
+learn = 36, Sunny Day
+learn = 39, Entrainment
+learn = 42, Leaf Storm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Trailblaze, Facade, Magical Leaf, Endure
+tm = Sunny Day, Bullet Seed, Sleep Talk, Seed Bomb, Grass Knot, Rest
+tm = Substitute, Giga Drain, Energy Ball, Encore, Helping Hand, Pollen Puff
+tm = Leaf Storm, Solar Beam, Tera Blast, Grassy Glide

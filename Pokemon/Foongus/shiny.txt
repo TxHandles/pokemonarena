@@ -1,0 +1,14 @@
+# Foongus - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 393639 > 432F22
+shiny = 5F3F28 > 404F27
+shiny = 702828 > 402871
+shiny = 836859 > 688265
+shiny = 932F2F > 682FEC
+shiny = 932F70 > A83D43
+shiny = B18F83 > B38970
+shiny = BFAC93 > C6A483
+shiny = D3BBAC > D9B498
+shiny = DA4F47 > A65EFF
+shiny = EB7799 > FB8682
+shiny = EE6353 > A07DE9

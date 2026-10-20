@@ -1,0 +1,17 @@
+# Trubbish - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0081E3 > 5A90B4
+shiny = 123F28 > 002542
+shiny = 215F3F > 1E405F
+shiny = 3F815F > 405F81
+shiny = 42513F > 1B3959
+shiny = 473F2F > 3D4F2F
+shiny = 639463 > 567293
+shiny = 685747 > 5F6847
+shiny = 81B262 > 738EAE
+shiny = 8E7453 > 83865A
+shiny = 9B8168 > 939A69
+shiny = B62870 > 9B6461
+shiny = BACAB2 > B5C3CC
+shiny = BC8B7B > AEA87B
+shiny = EE759C > E3F466

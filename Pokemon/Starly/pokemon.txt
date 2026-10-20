@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Starly
+dex  = 396
+type = Normal / Flying
+
+hp         = 40
+attack     = 55
+defense    = 30
+sp_attack  = 30
+sp_defense = 30
+speed      = 60
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 2.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Staravia
+evolve_level = 14
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Growl
+learn = 5, Quick Attack
+learn = 9, Wing Attack
+learn = 13, Double Team
+learn = 17, Endeavor
+learn = 21, Whirlwind
+learn = 25, Aerial Ace
+learn = 29, Take Down
+learn = 33, Agility
+learn = 37, Brave Bird
+learn = 41, Final Gambit
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Acrobatics, Thief, Facade
+tm = Aerial Ace, Swift, Air Cutter, Endure, Sunny Day, Rain Dance
+tm = U-turn, Air Slash, Sleep Talk, Rest, Fly, Substitute
+tm = Tailwind, Heat Wave, Helping Hand, Hurricane, Brave Bird, Tera Blast
+tm = Uproar, Dual Wingbeat, Double-Edge, Endeavor, Feather Dance

@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Froakie
+dex  = 656
+type = Water
+
+hp         = 41
+attack     = 56
+defense    = 40
+sp_attack  = 62
+sp_defense = 44
+speed      = 71
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 7.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = yes
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Frogadier
+evolve_level = 16
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Pound
+learn = 5, Water Gun
+learn = 8, Quick Attack
+learn = 10, Lick
+learn = 14, Water Pulse
+learn = 18, Smokescreen
+learn = 21, Round
+learn = 25, Fling
+learn = 29, Smack Down
+learn = 35, Substitute
+learn = 39, Bounce
+learn = 43, Double Team
+learn = 48, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Water Pulse, Acrobatics, Thief
+tm = Trailblaze, Chilling Water, Facade, Aerial Ace, Swift, Icy Wind
+tm = Mud Shot, Rock Tomb, Fling, Endure, Rain Dance, Snowscape
+tm = Dig, False Swipe, U-turn, Sleep Talk, Waterfall, Grass Knot
+tm = Rest, Rock Slide, Taunt, Spikes, Toxic Spikes, Substitute
+tm = Liquidation, Surf, Helping Hand, Ice Beam, Hydro Pump, Blizzard
+tm = Water Pledge, Tera Blast, Smack Down

@@ -1,0 +1,18 @@
+# Drapion - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 482F4F > 651413
+shiny = 483050 > 5E0027
+shiny = 502048 > 570020
+shiny = 5F466D > 812E28
+shiny = 609AA2 > C97363
+shiny = 673F6F > 78163B
+shiny = 683F70 > 812C28
+shiny = 684070 > 79173C
+shiny = 788088 > AD4F68
+shiny = 8058A8 > A24844
+shiny = 9060A0 > A23F5F
+shiny = 955496 > BF573D
+shiny = A085BD > C35E7C
+shiny = A888C8 > C96381
+shiny = CE98D3 > FF649A
+shiny = E8E8F8 > FFD9B1

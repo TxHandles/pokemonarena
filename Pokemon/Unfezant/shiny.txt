@@ -1,0 +1,21 @@
+# Unfezant - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1F8D62 > 257E73
+shiny = 414041 > 583F25
+shiny = 424242 > 594127
+shiny = 57AF7B > 599F8D
+shiny = 5D6D60 > 82684B
+shiny = 6A6A6A > 81816A
+shiny = 8D8D8D > AA8C6F
+shiny = 9F7C19 > 4F6A65
+shiny = A3A3AA > BCBCA8
+shiny = ACAEAB > C5C7AC
+shiny = B84B86 > 864FAD
+shiny = CB1340 > A230A9
+shiny = CFCFCF > E9E9CF
+shiny = E2E2F6 > FFE2C4
+shiny = E9D64B > F7D3A6
+shiny = F62C62 > C24EC8
+shiny = F689A4 > 94899A
+shiny = F6BB1F > EA9600
+shiny = F6BB25 > EA9600

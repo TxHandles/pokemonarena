@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Cobalion
+dex  = 638
+type = Steel / Fighting
+
+hp         = 91
+attack     = 90
+defense    = 129
+sp_attack  = 90
+sp_defense = 72
+speed      = 108
+
+size   = 1.29
+height = 2.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 250.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Work Up
+learn = 1, Quick Attack
+learn = 1, Helping Hand
+learn = 1, Leer
+learn = 7, Metal Claw
+learn = 14, Quick Guard
+learn = 21, Double Kick
+learn = 28, Retaliate
+learn = 35, Metal Burst
+learn = 42, Take Down
+learn = 49, Sacred Sword
+learn = 56, Swords Dance
+learn = 63, Iron Head
+learn = 70, Close Combat
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Facade, Aerial Ace, Metal Claw
+tm = Swift, Endure, Volt Switch, Sunny Day, Rain Dance, Sandstorm
+tm = Smart Strike, False Swipe, Brick Break, Zen Headbutt, Air Slash, Body Slam
+tm = Sleep Talk, Reflect, Thunder Wave, Poison Jab, Rest, Taunt
+tm = Swords Dance, Body Press, Flash Cannon, Iron Head, Substitute, Iron Defense
+tm = X-Scissor, Aura Sphere, Stealth Rock, Heavy Slam, Calm Mind, Helping Hand
+tm = Reversal, Stone Edge, Giga Impact, Focus Blast, Hyper Beam, Close Combat
+tm = Steel Beam, Tera Blast, Roar, Vacuum Wave, Psych Up, Double-Edge
+tm = Coaching, Metal Sound, Upper Hand

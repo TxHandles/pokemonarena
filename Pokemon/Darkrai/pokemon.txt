@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Darkrai
+dex  = 491
+type = Dark
+
+hp         = 70
+attack     = 90
+defense    = 90
+sp_attack  = 135
+sp_defense = 90
+speed      = 125
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 50.5      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Disable
+learn = 11, Quick Attack
+learn = 20, Hypnosis
+learn = 29, Sucker Punch
+learn = 38, Night Shade
+learn = 47, Double Team
+learn = 57, Haze
+learn = 66, Dark Void
+learn = 75, Nasty Plot
+learn = 84, Dream Eater
+learn = 93, Dark Pulse
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Confuse Ray, Thief, Charge Beam, Facade
+tm = Hex, Snarl, Swift, Icy Wind, Rock Tomb, Night Shade
+tm = Fling, Endure, Sunny Day, Rain Dance, Psyshock, Brick Break
+tm = Shadow Claw, Foul Play, Sleep Talk, Drain Punch, Thunder Wave, Poison Jab
+tm = Rest, Rock Slide, Taunt, Swords Dance, Dark Pulse, Substitute
+tm = X-Scissor, Will-O-Wisp, Trick, Shadow Ball, Psychic, Calm Mind
+tm = Ice Beam, Nasty Plot, Blizzard, Sludge Bomb, Giga Impact, Focus Blast
+tm = Hyper Beam, Thunder, Tera Blast, Haze, Spite, Knock Off
+tm = Focus Punch, Lash Out, Psych Up, Throat Chop, Curse

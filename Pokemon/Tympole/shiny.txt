@@ -1,0 +1,5 @@
+# Tympole - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1890D8 > F3A300
+shiny = A4CEF5 > FFE98B
+shiny = D89850 > F3C258

@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Luxio
+dex  = 404
+type = Electric
+
+hp         = 60
+attack     = 85
+defense    = 49
+sp_attack  = 60
+sp_defense = 49
+speed      = 60
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 30.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Luxray
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Charge
+learn = 1, Tackle
+learn = 1, Leer
+learn = 1, Thunder Shock
+learn = 12, Bite
+learn = 18, Spark
+learn = 24, Roar
+learn = 31, Volt Switch
+learn = 36, Scary Face
+learn = 42, Thunder Wave
+learn = 48, Crunch
+learn = 54, Discharge
+learn = 60, Swagger
+learn = 68, Wild Charge
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Scary Face, Protect, Fire Fang, Thunder Fang
+tm = Ice Fang, Confuse Ray, Thief, Trailblaze, Charge Beam, Facade
+tm = Snarl, Swift, Endure, Volt Switch, Sunny Day, Rain Dance
+tm = Psychic Fangs, Sleep Talk, Electro Ball, Light Screen, Thunder Wave, Rest
+tm = Eerie Impulse, Substitute, Crunch, Thunderbolt, Play Rough, Helping Hand
+tm = Electric Terrain, Wild Charge, Thunder, Tera Blast, Roar, Charge
+tm = Double-Edge, Electroweb

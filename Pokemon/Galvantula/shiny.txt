@@ -1,0 +1,24 @@
+# Galvantula - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 182941 > 001829
+shiny = 29397A > 102951
+shiny = 29397B > 102952
+shiny = 302820 > 010E00
+shiny = 3952B4 > 28427E
+shiny = 454344 > 172829
+shiny = 4B5B97 > 184563
+shiny = 6020A8 > 002E50
+shiny = 625959 > 323A3A
+shiny = 6A5A00 > 6A5200
+shiny = 736A6A > 414A4A
+shiny = 7391E3 > 607CB1
+shiny = 806008 > 7C5200
+shiny = 9A887B > 626B5F
+shiny = 9C839C > 626A62
+shiny = BDACAE > 858E83
+shiny = BE9C40 > DE942A
+shiny = C8B040 > EDA730
+shiny = E8E8F8 > 9FA0DA
+shiny = F5D96C > F7D060
+shiny = FAFAFA > AFAFE9
+shiny = FFDE52 > FFD552

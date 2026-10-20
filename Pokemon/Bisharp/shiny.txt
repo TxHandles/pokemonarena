@@ -1,0 +1,21 @@
+# Bisharp - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303858 > 262831
+shiny = 404040 > 2E3027
+shiny = 46423F > 333226
+shiny = 5E5F5B > 3047A7
+shiny = 606070 > 4D4D56
+shiny = 681818 > 302859
+shiny = 787878 > 4F5FC7
+shiny = 903040 > 2D379A
+shiny = 9A3930 > 3B3EA0
+shiny = A8A0B0 > 989877
+shiny = A9A4B3 > A8A596
+shiny = BE9547 > 8676FF
+shiny = C03030 > 4E3FDB
+shiny = CECBC6 > CDCBB0
+shiny = D8D8D8 > CCCDA8
+shiny = E0B840 > E1E047
+shiny = E8E8F8 > E9E8D9
+shiny = F5D043 > F6F94A
+shiny = FAFAFA > FAFAE0

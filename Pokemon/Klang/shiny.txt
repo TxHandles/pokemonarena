@@ -1,0 +1,22 @@
+# Klang - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1C8E9F > 6DAF35
+shiny = 21818A > 60A226
+shiny = 21A4B6 > 61D61E
+shiny = 285757 > 2E3528
+shiny = 3E3E3E > 343110
+shiny = 3F3F3F > 353211
+shiny = 414041 > 373313
+shiny = 417F82 > 68612B
+shiny = 686881 > 574849
+shiny = 6D7A7A > 696A46
+shiny = 84C4CD > AAEA6C
+shiny = 8A8A8A > 837955
+shiny = 919899 > 8B8763
+shiny = 9B9BA4 > 938B6B
+shiny = A4ADBA > A09C7E
+shiny = A9B5B4 > A5A37C
+shiny = CDD5D5 > CBBB80
+shiny = D0DAEC > D1C187
+shiny = D7D8E7 > D1C187
+shiny = E5E5F7 > DFCE93

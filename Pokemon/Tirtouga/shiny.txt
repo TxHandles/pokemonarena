@@ -1,0 +1,14 @@
+# Tirtouga - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 215273 > 18946A
+shiny = 3173AD > 39B49C
+shiny = 363636 > 32262C
+shiny = 3A3D47 > 352834
+shiny = 45455E > 42354A
+shiny = 4A9CDE > 68DFC6
+shiny = 555575 > 503F58
+shiny = 575872 > 54475D
+shiny = 6684B5 > 51B8A7
+shiny = 717394 > 6C5C77
+shiny = 7CB5EE > 80E9D7
+shiny = B8DBFF > ABFFFD

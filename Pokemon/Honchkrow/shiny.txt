@@ -1,0 +1,20 @@
+# Honchkrow - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284068 > 983680
+shiny = 2D353C > 89286F
+shiny = 2E3640 > 8B2973
+shiny = 333232 > 8C2164
+shiny = 385870 > B04F96
+shiny = 387AAC > D572BC
+shiny = 43637A > BD5BA2
+shiny = 535353 > B04D91
+shiny = 707070 > D26CB1
+shiny = 781018 > 9A2A73
+shiny = A80808 > BA4489
+shiny = A8A8B0 > FFA8EF
+shiny = BBBBBB > F1BBF1
+shiny = C09800 > FF94FF
+shiny = C8C8C8 > FFC8FF
+shiny = E8E8F8 > FFDCFF
+shiny = F8E008 > FFCBFF
+shiny = FAFAFA > FFCBFF

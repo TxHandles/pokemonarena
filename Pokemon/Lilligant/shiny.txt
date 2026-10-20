@@ -1,0 +1,22 @@
+# Lilligant - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284F28 > 004A63
+shiny = 2FA42F > 62BDC5
+shiny = 3F793F > 1A718A
+shiny = 475721 > 525818
+shiny = 5A9231 > 6F922A
+shiny = 683719 > 583739
+shiny = 6B8539 > 75872D
+shiny = 8FB94C > A5B855
+shiny = 93AC57 > A3AC58
+shiny = B6572F > B45193
+shiny = B69B47 > B0A142
+shiny = BFEC70 > D0EC73
+shiny = BFEC71 > D0EC74
+shiny = BFEC72 > D0EC74
+shiny = C0BEE9 > CBC5B4
+shiny = C6F48B > D8F487
+shiny = D06420 > C761A1
+shiny = F6A83E > FFA6DB
+shiny = FF5F2F > FA7DB7
+shiny = FFAC93 > FFAEEB

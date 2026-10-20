@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Lilligant
+dex  = 549
+type = Grass
+
+hp         = 70
+attack     = 60
+defense    = 75
+sp_attack  = 110
+sp_defense = 75
+speed      = 90
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 16.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Petal Dance
+learn = 1, Giga Drain
+learn = 1, Growth
+learn = 1, Charm
+learn = 1, Petal Blizzard
+learn = 1, Helping Hand
+learn = 1, Leaf Storm
+learn = 1, Sleep Powder
+learn = 1, Absorb
+learn = 1, Stun Spore
+learn = 1, Leech Seed
+learn = 1, Sunny Day
+learn = 1, After You
+learn = 1, Teeter Dance
+learn = 1, Energy Ball
+learn = 1, Quiver Dance
+learn = 1, Mega Drain
+learn = 1, Synthesis
+learn = 1, Entrainment
+learn = 5, Magical Leaf
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Trailblaze, Facade, Magical Leaf, Endure
+tm = Sunny Day, Bullet Seed, Sleep Talk, Seed Bomb, Light Screen, Grass Knot
+tm = Rest, Swords Dance, Substitute, Giga Drain, Energy Ball, Encore
+tm = Helping Hand, Pollen Puff, Grassy Terrain, Giga Impact, Leaf Storm, Hyper Beam
+tm = Solar Beam, Tera Blast, Solar Blade, Weather Ball, Grassy Glide, Psych Up
+tm = Petal Blizzard, Alluring Voice

@@ -1,0 +1,8 @@
+# Drilbur - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 373737 > 813555
+shiny = 3F3F4F > 8F3E5E
+shiny = 474341 > 934260
+shiny = 575757 > A75877
+shiny = 7786D2 > E294B1
+shiny = EE6D94 > FD95B8

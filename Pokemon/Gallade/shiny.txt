@@ -1,0 +1,22 @@
+# Gallade - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 004810 > 003BA1
+shiny = 086818 > 2957C1
+shiny = 186860 > 255ACC
+shiny = 189030 > 5B7BE9
+shiny = 18B8C8 > 85A4FF
+shiny = 30B040 > 7D97FF
+shiny = 468363 > 5374E8
+shiny = 484850 > 003C92
+shiny = 4A4943 > 173C85
+shiny = 59AB7B > 7E98FF
+shiny = 68C8E0 > B2CED2
+shiny = 802038 > 764039
+shiny = 888898 > A488AF
+shiny = 88C0B1 > CCCACB
+shiny = A04454 > B96214
+shiny = A9BABA > CCB9D7
+shiny = C0C0C8 > DEC1E1
+shiny = D0D0E0 > EED1F9
+shiny = E8E8F8 > CCF2FF
+shiny = FAFAFA > FFFDFC

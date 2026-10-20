@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Vanillite
+dex  = 582
+type = Ice
+
+hp         = 36
+attack     = 50
+defense    = 50
+sp_attack  = 65
+sp_defense = 60
+speed      = 44
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.7      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Vanillish
+evolve_level = 35
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Harden
+learn = 1, Astonish
+learn = 4, Taunt
+learn = 8, Mist
+learn = 12, Icy Wind
+learn = 16, Avalanche
+learn = 20, Hail
+learn = 24, Icicle Spear
+learn = 28, Uproar
+learn = 32, Acid Armor
+learn = 36, Mirror Coat
+learn = 40, Ice Beam
+learn = 44, Blizzard
+learn = 48, Sheer Cold
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Icy Wind, Avalanche, Endure, Rain Dance
+tm = Sleep Talk, Light Screen, Rest, Taunt, Imprison, Flash Cannon
+tm = Substitute, Iron Defense, Hyper Voice, Ice Beam, Blizzard, Icicle Spear
+tm = Uproar

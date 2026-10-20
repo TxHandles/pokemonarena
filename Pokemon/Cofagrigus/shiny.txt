@@ -1,0 +1,25 @@
+# Cofagrigus - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 010030
+shiny = 0B0B0B > 050C37
+shiny = 195F70 > 7A4689
+shiny = 206A7B > 835294
+shiny = 213F3F > 501D3F
+shiny = 288AA4 > A270B5
+shiny = 294A4A > 5A294A
+shiny = 2F2F37 > 2E2F5F
+shiny = 393941 > 39396A
+shiny = 3C5D77 > 7C498C
+shiny = 414142 > 414072
+shiny = 5F4F19 > 564F7D
+shiny = 5F9BA5 > B782C7
+shiny = 63645C > 666396
+shiny = 707070 > 507077
+shiny = AC7928 > 6A8282
+shiny = C39245 > 959FAC
+shiny = E1E4E1 > E6E2E6
+shiny = FAFAFA > FFF8FF
+shiny = FDD441 > D2DDE5
+shiny = FF895A > BBA6DA
+shiny = FFB628 > ADC2BE
+shiny = FFBD31 > C5CDD5

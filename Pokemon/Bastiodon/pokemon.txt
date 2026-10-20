@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Bastiodon
+dex  = 411
+type = Rock / Steel
+
+hp         = 60
+attack     = 52
+defense    = 168
+sp_attack  = 47
+sp_defense = 138
+speed      = 30
+
+size   = 1.16
+height = 1.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 149.5      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Block
+learn = 1, Tackle
+learn = 1, Taunt
+learn = 1, Metal Sound
+learn = 1, Protect
+learn = 15, Take Down
+learn = 19, Iron Defense
+learn = 24, Swagger
+learn = 28, Ancient Power
+learn = 36, Endure
+learn = 43, Metal Burst
+learn = 51, Iron Head
+learn = 58, Heavy Slam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Trailblaze, Facade
+tm = Bulldoze, Rock Tomb, Avalanche, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, Dig, Foul Play, Body Slam, Sleep Talk, Reflect
+tm = Rock Blast, Stomping Tantrum, Rest, Rock Slide, Taunt, Body Press
+tm = Flash Cannon, Iron Head, Power Gem, Substitute, Iron Defense, Stealth Rock
+tm = Heavy Slam, Flamethrower, Thunderbolt, Earth Power, Reversal, Ice Beam
+tm = Fire Blast, Blizzard, Earthquake, Stone Edge, Giga Impact, Outrage
+tm = Hyper Beam, Thunder, Steel Beam, Tera Blast, Roar, Sand Tomb
+tm = Smack Down, Double-Edge, Scorching Sands, Meteor Beam, Metal Sound, Curse
+tm = Hard Press

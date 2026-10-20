@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Crustle
+dex  = 558
+type = Bug / Rock
+
+hp         = 70
+attack     = 105
+defense    = 125
+sp_attack  = 65
+sp_defense = 75
+speed      = 45
+
+size   = 1.18
+height = 1.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 200.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Fury Cutter
+learn = 1, Smack Down
+learn = 1, Sand Attack
+learn = 1, Withdraw
+learn = 12, Bug Bite
+learn = 16, Flail
+learn = 20, Slash
+learn = 24, Rock Slide
+learn = 28, Stealth Rock
+learn = 32, Rock Blast
+learn = 38, X-Scissor
+learn = 44, Rock Polish
+learn = 50, Shell Smash
+learn = 56, Rock Wrecker
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Rock Tomb, Endure, Sandstorm
+tm = Dig, Shadow Claw, Sleep Talk, Rock Blast, Poison Jab, Stomping Tantrum
+tm = Rest, Rock Slide, Swords Dance, Body Press, Spikes, Substitute
+tm = Iron Defense, X-Scissor, Stealth Rock, Heavy Slam, Earthquake, Stone Edge
+tm = Giga Impact, Hyper Beam, Solar Beam, Sand Tomb, Solar Blade

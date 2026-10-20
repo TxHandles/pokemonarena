@@ -1,0 +1,17 @@
+# Gurdurr - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 424040 > 4F470C
+shiny = 68243F > A5080F
+shiny = 682847 > A71319
+shiny = 928179 > 998B4D
+shiny = 933F79 > D23F38
+shiny = 938179 > AA9259
+shiny = A26D80 > 938247
+shiny = A42137 > 6F5A1E
+shiny = BAA088 > BCAB6A
+shiny = BF5FAC > E45346
+shiny = BFB6A4 > DFC588
+shiny = CF5FAC > EC594B
+shiny = DD77C1 > FF6D5C
+shiny = E2D0B9 > EBDA96
+shiny = E5E5F7 > FFEEAE

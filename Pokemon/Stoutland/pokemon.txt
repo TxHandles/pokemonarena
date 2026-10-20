@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Stoutland
+dex  = 508
+type = Normal
+
+hp         = 85
+attack     = 110
+defense    = 90
+sp_attack  = 45
+sp_defense = 90
+speed      = 80
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 61.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Work Up
+learn = 1, Tackle
+learn = 1, Ice Fang
+learn = 1, Leer
+learn = 1, Thunder Fang
+learn = 1, Bite
+learn = 1, Fire Fang
+learn = 12, Retaliate
+learn = 19, Baby-Doll Eyes
+learn = 24, Play Rough
+learn = 30, Crunch
+learn = 38, Take Down
+learn = 46, Helping Hand
+learn = 54, Reversal
+learn = 62, Roar
+learn = 70, Last Resort
+learn = 78, Giga Impact
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Fire Fang, Thunder Fang, Ice Fang, Facade
+tm = Snarl, Rock Tomb, Endure, Sunny Day, Rain Dance, Dig
+tm = Psychic Fangs, Sleep Talk, Thunder Wave, Stomping Tantrum, Rest, Iron Head
+tm = Substitute, Crunch, Shadow Ball, Hyper Voice, Surf, Thunderbolt
+tm = Play Rough, Helping Hand, Reversal, Wild Charge, Giga Impact, Hyper Beam
+tm = Thunder, Uproar

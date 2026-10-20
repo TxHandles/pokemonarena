@@ -1,0 +1,19 @@
+# Gabite - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 090909 > 000059
+shiny = 283060 > 000E83
+shiny = 385078 > 342BA4
+shiny = 3E3C42 > 1C188A
+shiny = 506FB8 > 4243CE
+shiny = 5070B8 > 5F4CCE
+shiny = 6890C0 > 7E67EA
+shiny = 698FC2 > 7E67EA
+shiny = 6B6BBD > 634DD0
+shiny = 7888D0 > 5959ED
+shiny = 7D8DD3 > 6C60F1
+shiny = 803010 > 963800
+shiny = B0B0E8 > AD8CFF
+shiny = B5BFFA > BA99FF
+shiny = B84018 > C94F00
+shiny = BB6768 > B2655F
+shiny = F47348 > FF822F

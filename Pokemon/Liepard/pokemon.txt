@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Liepard
+dex  = 510
+type = Dark
+
+hp         = 64
+attack     = 88
+defense    = 50
+sp_attack  = 88
+sp_defense = 50
+speed      = 106
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 37.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Sand Attack
+learn = 1, Scratch
+learn = 1, Fake Out
+learn = 12, Fury Swipes
+learn = 16, Torment
+learn = 23, Assurance
+learn = 28, Hone Claws
+learn = 34, Sucker Punch
+learn = 40, Nasty Plot
+learn = 46, Night Slash
+learn = 52, Play Rough
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Protect, Thief, Facade, Snarl
+tm = Swift, Endure, Sunny Day, Rain Dance, U-turn, Shadow Claw
+tm = Foul Play, Sleep Talk, Seed Bomb, Grass Knot, Thunder Wave, Rest
+tm = Taunt, Dark Pulse, Gunk Shot, Substitute, Trick, Shadow Ball
+tm = Hyper Voice, Encore, Play Rough, Baton Pass, Nasty Plot, Giga Impact
+tm = Hyper Beam, Throat Chop

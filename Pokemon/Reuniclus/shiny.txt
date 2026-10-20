@@ -1,0 +1,30 @@
+# Reuniclus - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 000032
+shiny = 285736 > 35487B
+shiny = 285737 > 35487B
+shiny = 365536 > 273770
+shiny = 367575 > 435393
+shiny = 37814F > 5B6DA3
+shiny = 4FAC70 > 8394CC
+shiny = 578879 > 6878B2
+shiny = 658935 > 6C77AB
+shiny = 84C69E > A2B1ED
+shiny = 93B681 > 99A5DF
+shiny = 975536 > 44A884
+shiny = 97B975 > A7A86C
+shiny = 9B4747 > 3BD1CA
+shiny = B95536 > 5DE6DA
+shiny = B99775 > 56A80C
+shiny = BF4747 > A14D3A
+shiny = BF9B57 > 9697CF
+shiny = C6FFE3 > DCF5C3
+shiny = C87968 > 71D3AF
+shiny = CAFCB2 > DBF2A3
+shiny = D0ECBF > DAE4A7
+shiny = DA5757 > 74F7EE
+shiny = DAB670 > B0B1EB
+shiny = DC5575 > 74F9F3
+shiny = DCB975 > A1D177
+shiny = FAFAFA > FDF5D3
+shiny = FF9F92 > 8CFFFF

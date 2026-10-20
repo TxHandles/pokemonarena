@@ -1,0 +1,22 @@
+# Zoroark - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 000050
+shiny = 0A0A0A > 000056
+shiny = 0B0B0B > 000057
+shiny = 101010 > 07035B
+shiny = 212837 > 400E17
+shiny = 283040 > 49171F
+shiny = 287979 > 995802
+shiny = 304050 > 59262D
+shiny = 308080 > A15F0C
+shiny = 3F0B21 > 00026E
+shiny = 702137 > 362192
+shiny = 782840 > 3E279A
+shiny = 9B434D > 6142B8
+shiny = 9FB1C2 > D39599
+shiny = A40B37 > 5732A7
+shiny = A81040 > 702FC3
+shiny = A8B8C8 > DC9C9F
+shiny = D35A63 > A35FF6
+shiny = E5E5F7 > FFCBCF
+shiny = E8E8F8 > FFCED0

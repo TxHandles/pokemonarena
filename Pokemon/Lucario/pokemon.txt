@@ -1,0 +1,70 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Lucario
+dex  = 448
+type = Fighting / Steel
+
+hp         = 70
+attack     = 110
+defense    = 70
+sp_attack  = 115
+sp_defense = 70
+speed      = 90
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 54.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Aura Sphere
+learn = 1, Quick Attack
+learn = 1, Screech
+learn = 1, Feint
+learn = 1, Helping Hand
+learn = 1, Rock Smash
+learn = 1, Detect
+learn = 1, Reversal
+learn = 1, Copycat
+learn = 1, Final Gambit
+learn = 1, Vacuum Wave
+learn = 1, Metal Claw
+learn = 1, Life Dew
+learn = 12, Counter
+learn = 16, Work Up
+learn = 20, Force Palm
+learn = 24, Calm Mind
+learn = 28, Metal Sound
+learn = 32, Quick Guard
+learn = 36, Bone Rush
+learn = 40, Swords Dance
+learn = 44, Heal Pulse
+learn = 48, Meteor Mash
+learn = 52, Dragon Pulse
+learn = 56, Extreme Speed
+learn = 60, Close Combat
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Water Pulse, Low Kick
+tm = Trailblaze, Facade, Aerial Ace, Bulldoze, Metal Claw, Swift
+tm = Rock Tomb, Low Sweep, Fling, Endure, Sunny Day, Rain Dance
+tm = Dig, Brick Break, Zen Headbutt, Shadow Claw, Bulk Up, Body Slam
+tm = Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Metronome, Poison Jab
+tm = Rest, Rock Slide, Swords Dance, Flash Cannon, Dark Pulse, Substitute
+tm = Iron Defense, Crunch, Aura Sphere, Shadow Ball, Dragon Pulse, Psychic
+tm = Calm Mind, Helping Hand, Reversal, Nasty Plot, Earthquake, Stone Edge
+tm = Giga Impact, Focus Blast, Hyper Beam, Close Combat, Steel Beam, Tera Blast
+tm = Roar, Vacuum Wave, Focus Punch, Psych Up, Coaching, Metal Sound
+tm = Upper Hand

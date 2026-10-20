@@ -1,0 +1,22 @@
+# Watchog - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 353434 > 482C50
+shiny = 4F212F > 531E45
+shiny = 535251 > 684A6F
+shiny = 682837 > 682850
+shiny = 797057 > 827740
+shiny = 797979 > 907199
+shiny = 8A2F2F > 863353
+shiny = 9B5239 > 9F4F69
+shiny = 9C8B76 > A6925F
+shiny = AC9357 > BE8B91
+shiny = B67937 > 24AB49
+shiny = B6B6B6 > C6C684
+shiny = D0714A > D17084
+shiny = DABF79 > 68EA83
+shiny = E5E5F7 > F8F7B5
+shiny = EFCEAD > F6D799
+shiny = F53F3F > F47541
+shiny = F5AC21 > 86E09E
+shiny = F76451 > E18249
+shiny = FCCB29 > 9AF8B4

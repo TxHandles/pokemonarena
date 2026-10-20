@@ -1,0 +1,16 @@
+# Whirlipede - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 363645 > 1C1835
+shiny = 433E42 > 322E3F
+shiny = 594A85 > 392C65
+shiny = 7C6E7B > 5C4C6D
+shiny = 8B61E4 > 6040A7
+shiny = 8B899F > 6E658C
+shiny = 9F7536 > 92002F
+shiny = AB4C5C > 7C4651
+shiny = ADACC4 > 8B7EAA
+shiny = B14586 > 4E907F
+shiny = B69A58 > B70C4B
+shiny = C09CFF > 9474CC
+shiny = CBA855 > C92756
+shiny = FFEE41 > E5D57E

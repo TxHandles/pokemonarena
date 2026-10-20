@@ -1,0 +1,20 @@
+# Krokorok - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 262526 > E0CF53
+shiny = 3F3922 > 2C2718
+shiny = 403922 > 210900
+shiny = 443F3E > FFF274
+shiny = 636363 > FFFF83
+shiny = 75716E > FFFF82
+shiny = 845B0E > 362200
+shiny = 957954 > 62483A
+shiny = A54140 > FFFE7E
+shiny = A97F41 > 584121
+shiny = A98041 > 584122
+shiny = AD8E63 > 634C2E
+shiny = BD9668 > 6D5536
+shiny = E07D97 > 798AD3
+shiny = E5BD7D > 927755
+shiny = EA6A6A > 7C584D
+shiny = ECECF6 > FFFF84
+shiny = FDFBEB > C5AB8C

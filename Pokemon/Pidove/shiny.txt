@@ -1,0 +1,14 @@
+# Pidove - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 433F3F > 374870
+shiny = 4D4D4D > 5B6363
+shiny = 6C6051 > 5C6A93
+shiny = 757575 > 7D869D
+shiny = 848181 > 929999
+shiny = A4A4A4 > ADB6CF
+shiny = B7B6B4 > C7CFCE
+shiny = E492A3 > DEABB5
+shiny = F6B82D > C8CAEE
+shiny = F78E8E > F5769F
+shiny = F7B120 > F8C796
+shiny = FAFAFA > FFFFFF

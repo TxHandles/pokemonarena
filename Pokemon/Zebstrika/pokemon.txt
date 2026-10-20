@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Zebstrika
+dex  = 523
+type = Electric
+
+hp         = 75
+attack     = 100
+defense    = 63
+sp_attack  = 80
+sp_defense = 63
+speed      = 116
+
+size   = 1.12
+height = 1.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 79.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Thunder Wave
+learn = 1, Quick Attack
+learn = 1, Charge
+learn = 1, Tail Whip
+learn = 11, Shock Wave
+learn = 18, Flame Charge
+learn = 25, Spark
+learn = 31, Stomp
+learn = 36, Discharge
+learn = 42, Agility
+learn = 47, Wild Charge
+learn = 53, Thrash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Low Kick, Trailblaze, Charge Beam
+tm = Facade, Bulldoze, Swift, Flame Charge, Endure, Volt Switch
+tm = Sunny Day, Rain Dance, Smart Strike, Body Slam, Sleep Talk, Electro Ball
+tm = Light Screen, Thunder Wave, Rest, Taunt, Eerie Impulse, Substitute
+tm = Thunderbolt, Helping Hand, Baton Pass, Electric Terrain, Wild Charge, Giga Impact
+tm = Overheat, Hyper Beam, Thunder, Tera Blast, Roar, Charge
+tm = High Horsepower, Uproar, Double-Edge, Endeavor, Supercell Slam, Electroweb

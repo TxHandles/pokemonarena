@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Lopunny
+dex  = 428
+type = Normal
+
+hp         = 65
+attack     = 76
+defense    = 84
+sp_attack  = 54
+sp_defense = 96
+speed      = 105
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 33.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Mirror Coat
+learn = 1, Pound
+learn = 1, Magic Coat
+learn = 1, Defense Curl
+learn = 1, Baby-Doll Eyes
+learn = 1, Splash
+learn = 12, After You
+learn = 16, Quick Attack
+learn = 20, Double Kick
+learn = 24, Charm
+learn = 28, Baton Pass
+learn = 32, Headbutt
+learn = 36, Agility
+learn = 40, Entrainment
+learn = 44, Flatter
+learn = 48, Bounce
+learn = 52, Healing Wish
+learn = 56, High Jump Kick
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Agility, Protect, Low Kick, Acrobatics
+tm = Facade, Swift, Low Sweep, Fling, Endure, Sunny Day
+tm = Rain Dance, Dig, U-turn, Fire Punch, Thunder Punch, Ice Punch
+tm = Sleep Talk, Drain Punch, Grass Knot, Thunder Wave, Rest, Substitute
+tm = Aura Sphere, Shadow Ball, Hyper Voice, Encore, Thunderbolt, Play Rough
+tm = Helping Hand, Baton Pass, Reversal, Ice Beam, Blizzard, Giga Impact
+tm = Focus Blast, Hyper Beam, Thunder, Close Combat, Solar Beam, Uproar

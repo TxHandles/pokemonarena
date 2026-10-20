@@ -1,0 +1,13 @@
+# Durant - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 424242 > 41312D
+shiny = 444140 > 42302B
+shiny = 5F615E > 5F4F48
+shiny = 63635A > 625A4F
+shiny = 848473 > 9B7C64
+shiny = 8B887F > A2806D
+shiny = BDBDBD > D6B5A4
+shiny = C7C1BC > DDB9A5
+shiny = D5D6CF > F0CDC1
+shiny = D66342 > CB6848
+shiny = E9EAEA > FFE2D0

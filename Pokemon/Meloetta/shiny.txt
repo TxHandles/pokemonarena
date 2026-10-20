@@ -1,0 +1,18 @@
+# Meloetta - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 05A3AF > 519DB1
+shiny = 333433 > 2D343C
+shiny = 4294AA > 528FAA
+shiny = 49494D > 434957
+shiny = 616161 > 5B616D
+shiny = 695069 > 5C536E
+shiny = 6D652B > 425D6E
+shiny = 6F8F47 > 5F7E90
+shiny = 88C663 > 83BDAC
+shiny = 89A2AF > 839FB5
+shiny = 91C151 > 82BAA7
+shiny = 9EA5A8 > 6AAAAF
+shiny = A6A6A6 > 99A5B3
+shiny = B0FA5C > B2EDD6
+shiny = C0B4C3 > B6B5CC
+shiny = C5D278 > 98D4A3

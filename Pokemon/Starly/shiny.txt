@@ -1,0 +1,21 @@
+# Starly - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 313131 > 422819
+shiny = 333333 > 442A1B
+shiny = 484848 > 5B3F2E
+shiny = 4B4444 > 5B3B2B
+shiny = 4C4343 > 5B3A2A
+shiny = 515151 > 654737
+shiny = 606058 > 745640
+shiny = 656359 > 826243
+shiny = 686867 > 7D5E4C
+shiny = 686868 > 87674E
+shiny = 948473 > B08357
+shiny = B8B8B8 > DCB79C
+shiny = BDB5AD > D9B496
+shiny = C07000 > C39500
+shiny = D66342 > D09B00
+shiny = D8D8D8 > EEE9D0
+shiny = E8E8F8 > FFE7D6
+shiny = F79429 > F7BD31
+shiny = F8A820 > FCAD47

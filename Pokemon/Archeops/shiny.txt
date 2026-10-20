@@ -1,0 +1,21 @@
+# Archeops - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 086858 > 2F509A
+shiny = 0F2F67 > 004A3A
+shiny = 103068 > 074030
+shiny = 10A090 > 2A7FF2
+shiny = 147A90 > 0061D2
+shiny = 25C2BD > 5B9FFF
+shiny = 2B9AD1 > 20B19B
+shiny = 305098 > 037160
+shiny = 3080F0 > 04A191
+shiny = 984848 > 984827
+shiny = A0B080 > ED8C34
+shiny = A8644C > B35500
+shiny = C88038 > D47010
+shiny = CF9A5B > EA842A
+shiny = D85048 > D94F27
+shiny = E07268 > DB754B
+shiny = F0C860 > FFAC4E
+shiny = F5CF8E > FFB67D
+shiny = F8C878 > FFB06E

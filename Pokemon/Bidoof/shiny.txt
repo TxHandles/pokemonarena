@@ -1,0 +1,19 @@
+# Bidoof - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333232 > 57512C
+shiny = 383830 > 5B5729
+shiny = 483820 > 665911
+shiny = 525251 > 79734B
+shiny = 585040 > 7C7232
+shiny = 6A5949 > 8F626F
+shiny = 8B6238 > A78834
+shiny = 981828 > AC443C
+shiny = B08040 > CCA845
+shiny = B38452 > CEAC61
+shiny = B8B8C0 > EADEAA
+shiny = C0A040 > E1C74F
+shiny = C8A060 > E6C773
+shiny = E8D080 > FFF798
+shiny = E8E8F8 > FFFFCE
+shiny = F46251 > FF8A71
+shiny = F5E58B > F6ECB3

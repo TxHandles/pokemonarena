@@ -1,0 +1,19 @@
+# Patrat - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 262526 > 121A20
+shiny = 333332 > 1E272C
+shiny = 3E2720 > 251E1F
+shiny = 525251 > 615F42
+shiny = 625A22 > 4B4D33
+shiny = 9A6428 > 775C40
+shiny = A37541 > 95856C
+shiny = AD8E63 > B39E65
+shiny = C4BB98 > A7AC9E
+shiny = C8A176 > CCB279
+shiny = DDA53C > C8B697
+shiny = E0C8AE > EAD8A8
+shiny = E34220 > 9C8068
+shiny = ECECF6 > FFFCE1
+shiny = F44A38 > DD7A46
+shiny = F5CA43 > DDCA81
+shiny = FECB29 > FFDC61

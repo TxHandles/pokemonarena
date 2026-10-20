@@ -1,0 +1,25 @@
+# Reshiram - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 343438 > 382C52
+shiny = 3D3D42 > 42355C
+shiny = 3E3E42 > 43365C
+shiny = 434343 > 483B5F
+shiny = 54547A > 594D8A
+shiny = 5D6F83 > 696699
+shiny = 5F5F84 > 655795
+shiny = 6996D7 > 8C95C9
+shiny = 74909E > 8486B7
+shiny = 7F99A7 > 8F8FC0
+shiny = A7AEB6 > B1A4D4
+shiny = AFB1FB > B9AAFF
+shiny = B5D1E7 > C6C6FF
+shiny = BA2A3D > A5396A
+shiny = BBBBCA > C3B2E6
+shiny = C2C2CF > CAB9EC
+shiny = E34220 > CC5067
+shiny = EAEAF5 > F3E0FF
+shiny = ECECF6 > F5E2FF
+shiny = F46125 > DF6974
+shiny = F6CAAE > F3C3DF
+shiny = FE5F28 > E96877
+shiny = FE5F29 > E96877

@@ -1,0 +1,19 @@
+# Audino - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1257A4 > 005841
+shiny = 2E60AC > 635880
+shiny = 5F573F > 72563D
+shiny = 683F3F > 472859
+shiny = 9B9B9B > A969BA
+shiny = A3745A > AC775D
+shiny = C75F68 > 93499B
+shiny = C7AC79 > D7AC82
+shiny = DA818A > AF65B8
+shiny = DD8595 > A077B1
+shiny = E4B87C > EFBA8A
+shiny = E5E5F7 > F7DDE1
+shiny = EEEDEC > FEB8FF
+shiny = F5E3A4 > FDDBAE
+shiny = FAA8B6 > C096D2
+shiny = FAFAFA > FFC5FF
+shiny = FEECB6 > FFE4BD

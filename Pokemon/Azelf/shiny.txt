@@ -1,0 +1,19 @@
+# Azelf - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 204070 > 002386
+shiny = 2058A8 > 9F7622
+shiny = 3070B0 > 384DBB
+shiny = 3A73A5 > B68D35
+shiny = 487FD0 > 2563CF
+shiny = 4880D0 > CB9E49
+shiny = 4A84C5 > 2A66D0
+shiny = 6B84B5 > B9773F
+shiny = 7080B0 > CD9F47
+shiny = 73ADE6 > 618BFA
+shiny = 8CA5D6 > F5C46A
+shiny = 90B8D0 > E3CD82
+shiny = 9C4242 > 1D42A0
+shiny = ADCEFF > FFE69D
+shiny = B0D0F8 > FFE89E
+shiny = E8E8F8 > FFFDAF
+shiny = FAFAFA > FFFDAE

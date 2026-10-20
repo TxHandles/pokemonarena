@@ -1,0 +1,22 @@
+# Regigigas - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284030 > 004D00
+shiny = 286848 > 007120
+shiny = 409848 > 334B6A
+shiny = 40A098 > 36A0A0
+shiny = 428C5A > 36953F
+shiny = 605028 > 2B2F58
+shiny = 6BB573 > 61BE63
+shiny = 787888 > 5A7F8C
+shiny = 848473 > 678A84
+shiny = 9C7B42 > 5B5A86
+shiny = A88828 > 454E6C
+shiny = A8A8C0 > 87B0C0
+shiny = BDA542 > 5D6685
+shiny = BDBDBD > 9EC4C8
+shiny = D04830 > D3665F
+shiny = D66342 > DD7B70
+shiny = E8E8F8 > C8F0FE
+shiny = F8D028 > 696FB6
+shiny = FAFAFA > EAFFFF
+shiny = FFE63A > 7880C8

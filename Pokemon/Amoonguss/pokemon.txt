@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Amoonguss
+dex  = 591
+type = Grass / Poison
+
+hp         = 114
+attack     = 85
+defense    = 70
+sp_attack  = 85
+sp_defense = 80
+speed      = 30
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 10.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Stun Spore
+learn = 1, Growth
+learn = 1, Absorb
+learn = 1, Astonish
+learn = 12, Mega Drain
+learn = 16, Synthesis
+learn = 20, Clear Smog
+learn = 24, Sweet Scent
+learn = 28, Giga Drain
+learn = 32, Ingrain
+learn = 36, Toxic
+learn = 42, Rage Powder
+learn = 48, Solar Beam
+learn = 54, Spore
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Facade, Hex, Magical Leaf, Venoshock
+tm = Endure, Sunny Day, Rain Dance, Bullet Seed, Foul Play, Body Slam
+tm = Sleep Talk, Seed Bomb, Grass Knot, Stomping Tantrum, Rest, Substitute
+tm = Giga Drain, Energy Ball, Pollen Puff, Grassy Terrain, Sludge Bomb, Giga Impact
+tm = Leaf Storm, Hyper Beam, Solar Beam, Tera Blast, Toxic

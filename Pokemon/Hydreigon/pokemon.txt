@@ -1,0 +1,64 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Hydreigon
+dex  = 635
+type = Dark / Dragon
+
+hp         = 92
+attack     = 105
+defense    = 90
+sp_attack  = 125
+sp_defense = 90
+speed      = 98
+
+size   = 1.25
+height = 1.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 160.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tri Attack
+learn = 1, Tackle
+learn = 1, Focus Energy
+learn = 1, Double Hit
+learn = 1, Dragon Breath
+learn = 1, Bite
+learn = 12, Roar
+learn = 16, Assurance
+learn = 20, Headbutt
+learn = 24, Work Up
+learn = 28, Slam
+learn = 32, Crunch
+learn = 36, Scary Face
+learn = 40, Dragon Pulse
+learn = 44, Body Slam
+learn = 48, Hyper Voice
+learn = 54, Dragon Rush
+learn = 60, Nasty Plot
+learn = 68, Outrage
+learn = 76, Hyper Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Fire Fang, Thunder Fang, Ice Fang
+tm = Acrobatics, Thief, Fire Spin, Facade, Bulldoze, Snarl
+tm = Rock Tomb, Dragon Tail, Endure, Sunny Day, Rain Dance, Zen Headbutt
+tm = U-turn, Body Slam, Sleep Talk, Reflect, Thunder Wave, Stomping Tantrum
+tm = Rest, Rock Slide, Taunt, Flash Cannon, Dark Pulse, Fly
+tm = Dragon Dance, Substitute, Crunch, Tailwind, Dragon Pulse, Stealth Rock
+tm = Hyper Voice, Heat Wave, Surf, Flamethrower, Helping Hand, Earth Power
+tm = Nasty Plot, Fire Blast, Hydro Pump, Earthquake, Stone Edge, Giga Impact
+tm = Outrage, Focus Blast, Hyper Beam, Draco Meteor, Tera Blast, Roar
+tm = Spite, Dual Wingbeat, Lash Out, Scale Shot, Psych Up, Throat Chop
+tm = Breaking Swipe, Dragon Cheer

@@ -1,0 +1,64 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Delphox
+dex  = 655
+type = Fire / Psychic
+
+hp         = 75
+attack     = 69
+defense    = 72
+sp_attack  = 114
+sp_defense = 100
+speed      = 104
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 39.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Mystical Fire
+learn = 1, Ember
+learn = 1, Shadow Ball
+learn = 1, Scratch
+learn = 1, Tail Whip
+learn = 1, Switcheroo
+learn = 1, Howl
+learn = 1, Role Play
+learn = 1, Future Sight
+learn = 14, Flame Charge
+learn = 18, Psybeam
+learn = 22, Fire Spin
+learn = 28, Light Screen
+learn = 38, Psyshock
+learn = 45, Flamethrower
+learn = 51, Will-O-Wisp
+learn = 57, Psychic
+learn = 62, Sunny Day
+learn = 68, Magic Room
+learn = 74, Fire Blast
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Agility, Mud-Slap, Protect, Low Kick
+tm = Psybeam, Confuse Ray, Thief, Fire Spin, Facade, Hex
+tm = Swift, Mud Shot, Flame Charge, Stored Power, Night Shade, Endure
+tm = Sunny Day, Rain Dance, Psyshock, Zen Headbutt, Foul Play, Fire Punch
+tm = Thunder Punch, Sleep Talk, Reflect, Light Screen, Dazzling Gleam, Metronome
+tm = Grass Knot, Rest, Imprison, Skill Swap, Substitute, Will-O-Wisp
+tm = Trick, Shadow Ball, Hyper Voice, Heat Wave, Psychic, Encore
+tm = Flamethrower, Calm Mind, Helping Hand, Psychic Terrain, Nasty Plot, Fire Blast
+tm = Fire Pledge, Giga Impact, Blast Burn, Overheat, Focus Blast, Trick Room
+tm = Hyper Beam, Flare Blitz, Solar Beam, Tera Blast, Burning Jealousy, Psych Up
+tm = Scorching Sands, Future Sight, Expanding Force, Psychic Noise

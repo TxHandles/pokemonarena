@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Tepig
+dex  = 498
+type = Fire
+
+hp         = 65
+attack     = 63
+defense    = 45
+sp_attack  = 45
+sp_defense = 45
+speed      = 45
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 9.9      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = yes
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Pignite
+evolve_level = 17
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 3, Tail Whip
+learn = 7, Ember
+learn = 9, Endure
+learn = 13, Defense Curl
+learn = 15, Flame Charge
+learn = 19, Smog
+learn = 21, Rollout
+learn = 25, Take Down
+learn = 27, Heat Crash
+learn = 31, Assurance
+learn = 33, Flamethrower
+learn = 37, Head Smash
+learn = 39, Roar
+learn = 43, Flare Blitz
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Trailblaze, Fire Spin, Facade
+tm = Rock Tomb, Flame Charge, Endure, Sunny Day, Dig, Zen Headbutt
+tm = Body Slam, Fire Punch, Sleep Talk, Grass Knot, Stomping Tantrum, Rest
+tm = Taunt, Substitute, Will-O-Wisp, Heat Wave, Heavy Slam, Flamethrower
+tm = Helping Hand, Fire Blast, Fire Pledge, Wild Charge, Overheat, Flare Blitz
+tm = Solar Beam, Tera Blast, Roar, Gyro Ball, Heat Crash, Double-Edge
+tm = Endeavor, Temper Flare, Curse

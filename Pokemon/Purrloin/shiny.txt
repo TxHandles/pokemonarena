@@ -1,0 +1,11 @@
+# Purrloin - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 05B155 > 68A936
+shiny = 451A50 > 151638
+shiny = 5A4A8F > 2E588A
+shiny = 6D456D > 455575
+shiny = 8D6AB3 > 627BB0
+shiny = 925F92 > 5C567A
+shiny = D4658E > 9C84A1
+shiny = EB6B98 > B48CAB
+shiny = FFF7FF > D9FFFF

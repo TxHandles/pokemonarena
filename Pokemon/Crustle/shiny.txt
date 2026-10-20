@@ -1,0 +1,21 @@
+# Crustle - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 000412
+shiny = 000100 > 000512
+shiny = 524444 > 2F343E
+shiny = 602000 > 371B13
+shiny = 604040 > 4E4143
+shiny = 7F603F > 575047
+shiny = 806040 > 585048
+shiny = 83635D > 59545A
+shiny = A0A080 > 7C8B84
+shiny = A87657 > 775A4F
+shiny = C06040 > 895A51
+shiny = C08000 > 7A8C09
+shiny = C0A47B > 938372
+shiny = E08040 > 839543
+shiny = E0C040 > A6D255
+shiny = E5E5F7 > BED0E7
+shiny = F99459 > 98AA57
+shiny = FDFAD7 > D4D4C7
+shiny = FECB41 > C0D155

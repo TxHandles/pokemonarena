@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Timburr
+dex  = 532
+type = Fighting
+
+hp         = 75
+attack     = 80
+defense    = 55
+sp_attack  = 25
+sp_defense = 35
+speed      = 35
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 12.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Gurdurr
+evolve_level = 25
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Pound
+learn = 1, Leer
+learn = 4, Low Kick
+learn = 8, Rock Throw
+learn = 12, Focus Energy
+learn = 16, Bulk Up
+learn = 20, Rock Slide
+learn = 24, Slam
+learn = 28, Scary Face
+learn = 32, Dynamic Punch
+learn = 36, Hammer Arm
+learn = 40, Stone Edge
+learn = 44, Superpower
+learn = 48, Focus Punch
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Low Kick, Thief, Facade
+tm = Rock Tomb, Low Sweep, Fling, Endure, Sunny Day, Rain Dance
+tm = Dig, Brick Break, Bulk Up, Fire Punch, Thunder Punch, Ice Punch
+tm = Sleep Talk, Drain Punch, Grass Knot, Poison Jab, Rest, Rock Slide
+tm = Taunt, Substitute, Helping Hand, Reversal, Stone Edge, Focus Blast
+tm = Close Combat, Tera Blast, Smack Down, Knock Off, Focus Punch, Double-Edge
+tm = Coaching, Curse

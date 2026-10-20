@@ -1,0 +1,25 @@
+# Bouffalant - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 18140F > 220000
+shiny = 282119 > 2E070C
+shiny = 3E3628 > 463F37
+shiny = 3F3728 > 474037
+shiny = 4A4741 > 4C4749
+shiny = 5F3F21 > 5E2620
+shiny = 736142 > 796B59
+shiny = 879090 > 677070
+shiny = 887370 > 8E7E7D
+shiny = 895E27 > 883E27
+shiny = 8A5F28 > 884632
+shiny = 93794F > B38160
+shiny = 939B9B > 727A7A
+shiny = A48121 > A25921
+shiny = AA9D85 > A99D95
+shiny = B69B70 > BB8070
+shiny = BD9544 > C0744B
+shiny = D29115 > CC7844
+shiny = E4D7C1 > EAC6C9
+shiny = F5D093 > F4C0AD
+shiny = FFBF3F > FC9E5D
+shiny = FFCE3F > FFFF4F
+shiny = FFF5C7 > FFE3D8

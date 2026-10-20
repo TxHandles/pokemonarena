@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Tornadus
+dex  = 641
+type = Flying
+
+hp         = 79
+attack     = 115
+defense    = 70
+sp_attack  = 125
+sp_defense = 80
+speed      = 111
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 63.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Gust
+learn = 1, Astonish
+learn = 5, Leer
+learn = 10, Swagger
+learn = 15, Bite
+learn = 20, Air Cutter
+learn = 25, Agility
+learn = 30, Tailwind
+learn = 35, Air Slash
+learn = 40, Crunch
+learn = 45, Extrasensory
+learn = 50, Uproar
+learn = 55, Hammer Arm
+learn = 60, Rain Dance
+learn = 65, Hurricane
+learn = 70, Thrash
+learn = 77, Bleakwind Storm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Acrobatics, Thief
+tm = Chilling Water, Facade, Icy Wind, Air Cutter, Fling, Endure
+tm = Sunny Day, Rain Dance, Sandstorm, Snowscape, Brick Break, U-turn
+tm = Foul Play, Bulk Up, Air Slash, Body Slam, Sleep Talk, Metronome
+tm = Grass Knot, Rest, Taunt, Dark Pulse, Fly, Substitute
+tm = Crunch, Tailwind, Heat Wave, Psychic, Reversal, Nasty Plot
+tm = Sludge Bomb, Giga Impact, Focus Blast, Hurricane, Hyper Beam, Tera Blast
+tm = Smack Down, Knock Off, Uproar, Weather Ball, Lash Out, Sludge Wave

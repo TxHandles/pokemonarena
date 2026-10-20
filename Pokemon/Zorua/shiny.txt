@@ -1,0 +1,18 @@
+# Zorua - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0B3C55 > 352B2F
+shiny = 0E0F29 > 190000
+shiny = 22235A > 33142D
+shiny = 3BAB94 > 799373
+shiny = 3F3F42 > 433023
+shiny = 464675 > 543648
+shiny = 5F5F84 > 694F56
+shiny = 622622 > 0071C0
+shiny = 676872 > 6E574E
+shiny = 8B8FAC > 967D7E
+shiny = 8D2841 > 3E87DB
+shiny = B76578 > A35E59
+shiny = C0BEE9 > CAACB5
+shiny = CA4C5E > 7AB3FF
+shiny = ECECF6 > FF6381
+shiny = FAFAFA > FFE6D4

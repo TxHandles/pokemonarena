@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Golurk
+dex  = 623
+type = Ground / Ghost
+
+hp         = 89
+attack     = 124
+defense    = 80
+sp_attack  = 55
+sp_defense = 80
+speed      = 55
+
+size   = 1.36
+height = 2.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 330.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Defense Curl
+learn = 1, Pound
+learn = 1, High Horsepower
+learn = 1, Astonish
+learn = 12, Shadow Punch
+learn = 16, Curse
+learn = 20, Night Shade
+learn = 24, Stomping Tantrum
+learn = 28, Iron Defense
+learn = 32, Mega Punch
+learn = 36, Shadow Ball
+learn = 40, Heavy Slam
+learn = 46, Phantom Force
+learn = 52, Hammer Arm
+learn = 58, Earthquake
+learn = 64, Dynamic Punch
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Low Kick, Confuse Ray, Thief
+tm = Charge Beam, Facade, Bulldoze, Hex, Icy Wind, Rock Tomb
+tm = Low Sweep, Night Shade, Fling, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, Dig, Brick Break, Zen Headbutt, Body Slam, Fire Punch
+tm = Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Reflect, Grass Knot
+tm = Stomping Tantrum, Rest, Rock Slide, Body Press, Imprison, Flash Cannon
+tm = Fly, Substitute, Iron Defense, Trick, Shadow Ball, Stealth Rock
+tm = Psychic, Heavy Slam, Thunderbolt, Helping Hand, Earth Power, Ice Beam
+tm = Earthquake, Stone Edge, Phantom Force, Giga Impact, Focus Blast, Hyper Beam
+tm = Close Combat, Solar Beam, Tera Blast, Gravity, Smack Down, Gyro Ball
+tm = Knock Off, High Horsepower, Heat Crash, Focus Punch, Poltergeist, Psych Up
+tm = Double-Edge, Scorching Sands, Curse, Hard Press

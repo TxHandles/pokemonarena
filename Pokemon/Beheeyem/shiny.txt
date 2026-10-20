@@ -1,0 +1,22 @@
+# Beheeyem - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 206229 > 325A37
+shiny = 209C39 > 107BA4
+shiny = 39B420 > 008BCD
+shiny = 453F3C > 3C3C39
+shiny = 51804A > 405F69
+shiny = 624129 > 524131
+shiny = 695E51 > 5F5954
+shiny = 9FE483 > ADD99E
+shiny = A4624A > 9C625A
+shiny = A47A5B > A2776A
+shiny = C5A47B > C69F8D
+shiny = CD0000 > A43E2C
+shiny = DD9B7A > C49B8A
+shiny = DDB799 > CBB3A4
+shiny = DE9C7B > D69B8E
+shiny = E6C5A4 > D5C1B0
+shiny = E6CD00 > A4E600
+shiny = EE5031 > D244F5
+shiny = EECEB3 > DDCABD
+shiny = F6D66A > B1F22C

@@ -1,0 +1,25 @@
+# Emboar - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 5D0000 > 232E3D
+shiny = 6F1309 > 313B4B
+shiny = 6F130A > 313B4B
+shiny = 70120B > 313B4B
+shiny = 704F05 > 223889
+shiny = 875602 > 364295
+shiny = 9B2F28 > 5A6AB3
+shiny = A55A31 > 667282
+shiny = AC8119 > 4DB2E4
+shiny = AE431A > 9E5520
+shiny = B54418 > 6A8CD4
+shiny = B64719 > C26308
+shiny = CF6A3C > 909DE8
+shiny = E09C29 > ACD3E6
+shiny = E32821 > E46016
+shiny = E98204 > 7CCEF7
+shiny = E98205 > 7CCEF7
+shiny = EC5719 > F27B18
+shiny = EC8104 > A4C5D8
+shiny = EC8105 > 7DCEF7
+shiny = ECB604 > C1E9F9
+shiny = ECB605 > C1E9F9
+shiny = FBD429 > D8FFFF

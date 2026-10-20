@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Hawlucha
+dex  = 701
+type = Fighting / Flying
+
+hp         = 78
+attack     = 92
+defense    = 75
+sp_attack  = 74
+sp_defense = 63
+speed      = 118
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 21.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Hone Claws
+learn = 4, Wing Attack
+learn = 8, Detect
+learn = 12, Aerial Ace
+learn = 16, Encore
+learn = 20, Feather Dance
+learn = 24, Brick Break
+learn = 28, Bounce
+learn = 32, Taunt
+learn = 36, Roost
+learn = 40, Swords Dance
+learn = 44, Flying Press
+learn = 48, High Jump Kick
+learn = 52, Endeavor
+learn = 56, Sky Attack
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Low Kick, Acrobatics, Thief
+tm = Trailblaze, Facade, Aerial Ace, Swift, Rock Tomb, Low Sweep
+tm = Fling, Endure, Sunny Day, Rain Dance, Dig, False Swipe
+tm = Brick Break, Zen Headbutt, U-turn, Bulk Up, Body Slam, Fire Punch
+tm = Thunder Punch, Sleep Talk, Drain Punch, Grass Knot, Poison Jab, Rest
+tm = Rock Slide, Taunt, Swords Dance, Body Press, Fly, Iron Head
+tm = Substitute, X-Scissor, Encore, Helping Hand, Baton Pass, Reversal
+tm = Stone Edge, Giga Impact, Focus Blast, Hyper Beam, Brave Bird, Close Combat
+tm = Tera Blast, Lunge, Uproar, Focus Punch, Dual Wingbeat, Endeavor
+tm = Coaching, Feather Dance, Throat Chop, Upper Hand

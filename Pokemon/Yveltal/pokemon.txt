@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Yveltal
+dex  = 717
+type = Dark / Flying
+
+hp         = 126
+attack     = 131
+defense    = 95
+sp_attack  = 131
+sp_defense = 98
+speed      = 99
+
+size   = 1.50
+height = 5.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 203.0      # Pokedex weight in kg
+hovers = yes
+heavy  = yes
+winged = yes
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Gust
+learn = 1, Double Team
+learn = 5, Taunt
+learn = 10, Snarl
+learn = 15, Disable
+learn = 20, Sucker Punch
+learn = 25, Tailwind
+learn = 30, Roost
+learn = 35, Air Slash
+learn = 40, Dark Pulse
+learn = 45, Psychic
+learn = 50, Oblivion Wing
+learn = 55, Phantom Force
+learn = 60, Foul Play
+learn = 65, Dragon Rush
+learn = 70, Hurricane
+learn = 75, Focus Blast
+learn = 80, Sky Attack
+learn = 85, Hyper Beam
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Acrobatics, Thief, Facade, Snarl, Swift
+tm = Endure, Sunny Day, Rain Dance, Zen Headbutt, U-turn, Shadow Claw
+tm = Foul Play, Air Slash, Body Slam, Sleep Talk, Dragon Claw, Rest
+tm = Rock Slide, Taunt, Dark Pulse, Fly, Substitute, Shadow Ball
+tm = Hyper Voice, Heat Wave, Psychic, Phantom Force, Giga Impact, Focus Blast
+tm = Hurricane, Hyper Beam

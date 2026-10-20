@@ -1,0 +1,21 @@
+# Gliscor - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 202858 > 003E63
+shiny = 323233 > 222221
+shiny = 343434 > 242422
+shiny = 404040 > 2F302E
+shiny = 525252 > 40413F
+shiny = 606068 > 4E4E51
+shiny = 60606A > 4E4F52
+shiny = 606070 > 4F4F56
+shiny = 7272CC > 5996CE
+shiny = 8888D0 > 5BA3D8
+shiny = 907000 > 8C6900
+shiny = 939BED > 82BDF6
+shiny = 98A8E0 > 8BC7FD
+shiny = A8A8A8 > 82C0CA
+shiny = B68559 > 94765A
+shiny = BA5353 > EBDB45
+shiny = EBE529 > F4DA1D
+shiny = F56252 > FFFD63
+shiny = F8D838 > F8CE43

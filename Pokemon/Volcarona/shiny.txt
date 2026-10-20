@@ -1,0 +1,32 @@
+# Volcarona - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0D1907 > 543900
+shiny = 12200B > 594200
+shiny = 18B6F6 > 00F167
+shiny = 375340 > 506275
+shiny = 3B8DA9 > 4A5C97
+shiny = 3D3D42 > 4A4D71
+shiny = 3E3E42 > 4C4E71
+shiny = 415E4B > 5B6D81
+shiny = 423F40 > 514F6F
+shiny = 4597B1 > 5C519F
+shiny = 559775 > 536298
+shiny = 707274 > 8283A6
+shiny = 751900 > 855502
+shiny = 7ACAF2 > 34FF7A
+shiny = 7F6A60 > 8C7D98
+shiny = 84CFF3 > 9485DA
+shiny = 971900 > 9F7000
+shiny = 97B9B9 > 9FD7E0
+shiny = A0C1DB > 8791D1
+shiny = A4503C > BE9200
+shiny = B93636 > BD8E00
+shiny = B9ACBD > C9C0EF
+shiny = B9B9B9 > B9DAE3
+shiny = C8C2BD > C7E4EA
+shiny = CF4B2D > D2A011
+shiny = D89113 > FECC3F
+shiny = DC7500 > E6B708
+shiny = ECECF6 > E2FFFF
+shiny = ED5F3B > EDB730
+shiny = F89C47 > FFDA40

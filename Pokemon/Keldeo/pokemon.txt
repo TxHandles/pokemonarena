@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Keldeo
+dex  = 647
+type = Water / Fighting
+
+hp         = 91
+attack     = 72
+defense    = 90
+sp_attack  = 129
+sp_defense = 90
+speed      = 108
+
+size   = 1.12
+height = 1.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 48.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Work Up
+learn = 1, Helping Hand
+learn = 1, Leer
+learn = 1, Secret Sword
+learn = 1, Aqua Jet
+learn = 7, Bubble Beam
+learn = 14, Quick Guard
+learn = 21, Double Kick
+learn = 28, Retaliate
+learn = 35, Aqua Tail
+learn = 42, Take Down
+learn = 49, Sacred Sword
+learn = 56, Swords Dance
+learn = 63, Hydro Pump
+learn = 70, Close Combat
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Water Pulse, Low Kick, Trailblaze, Chilling Water
+tm = Facade, Aerial Ace, Swift, Icy Wind, Endure, Sunny Day
+tm = Rain Dance, Smart Strike, False Swipe, Brick Break, Air Slash, Sleep Talk
+tm = Reflect, Poison Jab, Rest, Taunt, Swords Dance, Substitute
+tm = X-Scissor, Liquidation, Aura Sphere, Surf, Calm Mind, Helping Hand
+tm = Baton Pass, Reversal, Hydro Pump, Stone Edge, Giga Impact, Focus Blast
+tm = Hyper Beam, Close Combat, Tera Blast, Roar, Vacuum Wave, Flip Turn
+tm = Pain Split, Psych Up, Double-Edge, Muddy Water, Coaching, Upper Hand

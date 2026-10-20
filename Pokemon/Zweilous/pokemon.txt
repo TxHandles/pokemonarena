@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Zweilous
+dex  = 634
+type = Dark / Dragon
+
+hp         = 72
+attack     = 85
+defense    = 70
+sp_attack  = 65
+sp_defense = 70
+speed      = 58
+
+size   = 1.12
+height = 1.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 50.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Hydreigon
+evolve_level = 64
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Dragon Breath
+learn = 1, Tackle
+learn = 1, Bite
+learn = 1, Focus Energy
+learn = 1, Double Hit
+learn = 12, Roar
+learn = 16, Assurance
+learn = 20, Headbutt
+learn = 24, Work Up
+learn = 28, Slam
+learn = 32, Crunch
+learn = 36, Scary Face
+learn = 40, Dragon Pulse
+learn = 44, Body Slam
+learn = 48, Hyper Voice
+learn = 54, Dragon Rush
+learn = 60, Nasty Plot
+learn = 66, Outrage
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Fire Fang, Thunder Fang, Ice Fang
+tm = Thief, Facade, Snarl, Dragon Tail, Endure, Sunny Day
+tm = Rain Dance, Zen Headbutt, Body Slam, Sleep Talk, Thunder Wave, Stomping Tantrum
+tm = Rest, Taunt, Dark Pulse, Substitute, Crunch, Dragon Pulse
+tm = Hyper Voice, Helping Hand, Earth Power, Nasty Plot, Outrage, Draco Meteor
+tm = Tera Blast, Roar, Spite, Lash Out, Psych Up, Dragon Cheer

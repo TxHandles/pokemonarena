@@ -1,0 +1,20 @@
+# Heatmor - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 272727 > 00010F
+shiny = 453627 > 221314
+shiny = 494543 > 26232A
+shiny = 602000 > 2B0B00
+shiny = 604040 > 20151C
+shiny = 804040 > 44282A
+shiny = 806040 > 392C27
+shiny = 85655A > 593F44
+shiny = 8E877A > 4A4D53
+shiny = A08080 > 544956
+shiny = AD9E89 > 646364
+shiny = C04040 > 743533
+shiny = CB6E45 > 7D4541
+shiny = CDB294 > 7F7673
+shiny = E08040 > 976644
+shiny = E0C040 > F04738
+shiny = ECECF6 > C5BDCF
+shiny = F7C24B > FA4E3F

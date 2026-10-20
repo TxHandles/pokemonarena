@@ -1,0 +1,19 @@
+# Maractus - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 003636 > 4D0025
+shiny = 195536 > 6D003D
+shiny = 197575 > 90285D
+shiny = 369736 > 638F3C
+shiny = 4E5444 > 770044
+shiny = 55DC75 > A1D348
+shiny = 66A067 > 74A115
+shiny = 757500 > B13071
+shiny = 7F2550 > 9F7400
+shiny = 9AE183 > B2DF54
+shiny = B69F43 > B29E4F
+shiny = B85086 > D8A419
+shiny = B93675 > CC9700
+shiny = DC55B9 > F3B93A
+shiny = DCDC00 > BEE44F
+shiny = FB9EB6 > FFEC64
+shiny = FCEE44 > F77DB6

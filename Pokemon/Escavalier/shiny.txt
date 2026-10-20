@@ -1,0 +1,25 @@
+# Escavalier - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 192F4F > 313501
+shiny = 282828 > 2B2E00
+shiny = 285FFF > 37BEAB
+shiny = 326AFF > 40C7B2
+shiny = 4593F6 > 8399BE
+shiny = 564443 > 564D37
+shiny = 790505 > 880054
+shiny = 8A8A93 > 929259
+shiny = 8C867C > 918E70
+shiny = B61947 > B70A7D
+shiny = B69312 > 7B9C00
+shiny = BC3F59 > C72B8C
+shiny = BEBEBE > C6C6AD
+shiny = BF4700 > AA3400
+shiny = BFBFBF > C7C78A
+shiny = C9C4BE > CFCCB0
+shiny = EC2147 > DB3998
+shiny = EEF0F6 > F7F8E2
+shiny = F58AA3 > FF79F2
+shiny = F6DA6A > C8EA2F
+shiny = FAFAFA > FFFFE7
+shiny = FFA63C > A3BE33
+shiny = FFDA12 > CAEB25

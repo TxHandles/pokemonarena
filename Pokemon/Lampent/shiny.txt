@@ -1,0 +1,13 @@
+# Lampent - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3E3E3E > 473E2C
+shiny = 3F3F3F > 483F2D
+shiny = 414043 > 494031
+shiny = 636ED2 > A06BD7
+shiny = 6A6A6A > 736A58
+shiny = 795FE3 > AB5FE0
+shiny = 797979 > 827967
+shiny = 8A80D7 > 9B84A4
+shiny = A8B6F6 > BFB7C8
+shiny = AA8C13 > 3C7584
+shiny = FFE878 > 07C8F7

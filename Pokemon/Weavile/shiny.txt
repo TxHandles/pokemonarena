@@ -1,0 +1,23 @@
+# Weavile - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303858 > B23982
+shiny = 303859 > 834172
+shiny = 303959 > A34067
+shiny = 313A5B > 854374
+shiny = 384870 > C64D95
+shiny = 4060A0 > E469B2
+shiny = 600818 > 8E6A0F
+shiny = 606287 > E96DB3
+shiny = 6878AF > FF84CC
+shiny = 6878B0 > E190B9
+shiny = 802E39 > B28933
+shiny = 8F91B3 > FFABD2
+shiny = 980820 > B68930
+shiny = A0283F > C39640
+shiny = A02840 > C39640
+shiny = A8B8C8 > FFC4F7
+shiny = BD415A > DFAF59
+shiny = C83048 > DFAD55
+shiny = F0B040 > DDB051
+shiny = FD585F > FFEB63
+shiny = FFCA31 > EBC357

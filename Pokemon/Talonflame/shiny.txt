@@ -1,0 +1,10 @@
+# Talonflame - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 48433E > 6C401B
+shiny = 666557 > 8E6332
+shiny = AB9880 > CC9A64
+shiny = AC6542 > BD4139
+shiny = E3C3B5 > F7C99F
+shiny = F3DA55 > FFD996
+shiny = FAFAFA > FFF5BE
+shiny = FE734B > FF554D

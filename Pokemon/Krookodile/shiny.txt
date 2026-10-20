@@ -1,0 +1,13 @@
+# Krookodile - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 191921 > AD9542
+shiny = 262526 > ECD35F
+shiny = 423E3F > FFF47E
+shiny = 472119 > 3F2F0D
+shiny = 812836 > 614A29
+shiny = 812837 > 614A29
+shiny = A04D5B > 826947
+shiny = A54140 > 7C663E
+shiny = BF4747 > 8C734A
+shiny = D56981 > AA8D6A
+shiny = E37068 > B1966C

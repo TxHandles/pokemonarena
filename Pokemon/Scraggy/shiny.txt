@@ -1,0 +1,16 @@
+# Scraggy - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 948255 > 71671B
+shiny = A87818 > AA6100
+shiny = A88058 > 866D3E
+shiny = B83030 > A4270E
+shiny = C37723 > B75300
+shiny = D89010 > D47B09
+shiny = D8B878 > B7A164
+shiny = DE5D20 > B5678C
+shiny = E06060 > B76B95
+shiny = F8C048 > D0AB4D
+shiny = F8D880 > FFBD68
+shiny = FAFAFA > E6E0C7
+shiny = FEB528 > FC9E2B
+shiny = FFFF9C > E7E38F

@@ -1,0 +1,18 @@
+# Spiritomb - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 407040 > 7A0091
+shiny = 413626 > 46194C
+shiny = 453722 > 481B4D
+shiny = 463721 > 491B4C
+shiny = 483820 > 4C1B4B
+shiny = 605860 > 508D81
+shiny = 67535B > 2B8B95
+shiny = 68A848 > B435C5
+shiny = 783868 > 247F85
+shiny = 83CF78 > DB5FED
+shiny = 90C858 > D859E5
+shiny = A870A8 > 62B8BF
+shiny = C48CB5 > 7FD4D9
+shiny = C890D0 > 86DBEB
+shiny = D0F078 > FF84FF
+shiny = DDA7C9 > 9CF0FD

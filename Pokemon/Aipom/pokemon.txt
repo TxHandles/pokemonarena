@@ -24,7 +24,8 @@ starter = no
 # "evo" = learned when it evolves into this Pokemon
 
 # ---- EVOLUTION (Story Mode) ----------------------------------------------
-# (does not evolve)
+evolves_to   = Ambipom
+evolve_level = 32   # (once it learns Double Hit, in the games)
 
 # ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
 # "evo" = learned when it evolves into this Pokemon

@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Skuntank
+dex  = 435
+type = Poison / Dark
+
+hp         = 103
+attack     = 93
+defense    = 67
+sp_attack  = 71
+sp_defense = 61
+speed      = 84
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 38.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Flamethrower
+learn = 1, Feint
+learn = 1, Scratch
+learn = 1, Poison Gas
+learn = 1, Smokescreen
+learn = 12, Fury Swipes
+learn = 15, Focus Energy
+learn = 18, Bite
+learn = 21, Venoshock
+learn = 24, Screech
+learn = 27, Toxic
+learn = 30, Sucker Punch
+learn = 33, Memento
+learn = 38, Night Slash
+learn = 43, Belch
+learn = 48, Explosion
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Acid Spray, Thief, Trailblaze
+tm = Fire Spin, Facade, Poison Tail, Hex, Snarl, Swift
+tm = Venoshock, Endure, Sunny Day, Rain Dance, Dig, Shadow Claw
+tm = Foul Play, Body Slam, Sleep Talk, Poison Jab, Rest, Taunt
+tm = Toxic Spikes, Dark Pulse, Gunk Shot, Substitute, Crunch, Shadow Ball
+tm = Flamethrower, Play Rough, Helping Hand, Nasty Plot, Fire Blast, Sludge Bomb
+tm = Giga Impact, Hyper Beam, Tera Blast, Roar, Haze, Toxic
+tm = Knock Off, Super Fang, Burning Jealousy, Lash Out, Double-Edge, Endeavor
+tm = Temper Flare, Sludge Wave, Throat Chop

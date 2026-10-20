@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Dialga
+dex  = 483
+type = Steel / Dragon
+
+hp         = 100
+attack     = 120
+defense    = 120
+sp_attack  = 150
+sp_defense = 100
+speed      = 90
+
+size   = 1.50
+height = 5.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 683.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Metal Claw
+learn = 1, Scary Face
+learn = 8, Dragon Breath
+learn = 16, Ancient Power
+learn = 24, Slash
+learn = 32, Flash Cannon
+learn = 40, Dragon Claw
+learn = 48, Aura Sphere
+learn = 56, Power Gem
+learn = 64, Metal Burst
+learn = 72, Earth Power
+learn = 80, Iron Tail
+learn = 88, Roar of Time
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Facade, Bulldoze, Metal Claw
+tm = Swift, Rock Tomb, Dragon Tail, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, Brick Break, Shadow Claw, Bulk Up, Body Slam, Sleep Talk
+tm = Dragon Claw, Thunder Wave, Stomping Tantrum, Rest, Rock Slide, Body Press
+tm = Flash Cannon, Iron Head, Power Gem, Substitute, Iron Defense, Trick
+tm = Aura Sphere, Dragon Pulse, Stealth Rock, Hyper Voice, Heavy Slam, Flamethrower
+tm = Thunderbolt, Earth Power, Ice Beam, Fire Blast, Blizzard, Earthquake
+tm = Stone Edge, Giga Impact, Outrage, Overheat, Focus Blast, Trick Room
+tm = Hyper Beam, Thunder, Draco Meteor, Steel Beam, Tera Blast, Roar
+tm = Gravity, Scale Shot, Psych Up, Breaking Swipe, Metal Sound

@@ -1,0 +1,64 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Beartic
+dex  = 614
+type = Ice
+
+hp         = 95
+attack     = 130
+defense    = 80
+sp_attack  = 70
+sp_defense = 80
+speed      = 50
+
+size   = 1.34
+height = 2.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 260.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Icicle Crash
+learn = 1, Powder Snow
+learn = 1, Charm
+learn = 1, Growl
+learn = 1, Endure
+learn = 1, Fury Swipes
+learn = 1, Aqua Jet
+learn = 9, Icy Wind
+learn = 12, Play Nice
+learn = 15, Brine
+learn = 18, Frost Breath
+learn = 21, Slash
+learn = 24, Flail
+learn = 27, Swagger
+learn = 30, Snowscape
+learn = 33, Thrash
+learn = 36, Rest
+learn = 41, Blizzard
+learn = 46, Sheer Cold
+learn = 51, Superpower
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Mud-Slap, Scary Face, Protect, Ice Fang
+tm = Water Pulse, Low Kick, Thief, Trailblaze, Chilling Water, Facade
+tm = Aerial Ace, Bulldoze, Snarl, Metal Claw, Icy Wind, Mud Shot
+tm = Rock Tomb, Fling, Avalanche, Endure, Rain Dance, Snowscape
+tm = Dig, Brick Break, Shadow Claw, Bulk Up, Body Slam, Ice Punch
+tm = Sleep Talk, Grass Knot, Rest, Rock Slide, Taunt, Swords Dance
+tm = Body Press, Substitute, X-Scissor, Crunch, Liquidation, Heavy Slam
+tm = Encore, Surf, Play Rough, Reversal, Ice Beam, Blizzard
+tm = Earthquake, Stone Edge, Giga Impact, Focus Blast, Hyper Beam, Close Combat
+tm = Tera Blast, Roar, Icicle Spear, Focus Punch, Double-Edge, Endeavor
+tm = Throat Chop, Curse, Hard Press

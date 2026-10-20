@@ -1,0 +1,20 @@
+# Hippopotas - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 494A40
+shiny = 433F3D > 5A574A
+shiny = 463721 > 58562D
+shiny = 483820 > 4A4630
+shiny = 785843 > 898145
+shiny = 885838 > 94795C
+shiny = 888888 > A2A397
+shiny = 908038 > A59D6A
+shiny = 997B52 > ACA55B
+shiny = B87850 > C19C7A
+shiny = B8B8C0 > BFC9C5
+shiny = C3AB6B > DAD36C
+shiny = CABCA3 > E4E7A6
+shiny = D0B038 > E3D082
+shiny = D0B050 > CFC180
+shiny = E0C870 > E0D99B
+shiny = E6D58A > E8E5AF
+shiny = E8E8F8 > F0F9FA

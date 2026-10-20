@@ -1,0 +1,11 @@
+# Rufflet - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3F5768 > 8F4F1E
+shiny = 414145 > 7F3700
+shiny = 5F798A > B6713E
+shiny = 686B91 > AF6839
+shiny = A43F3F > DB601F
+shiny = DA4F4F > EE7429
+shiny = E59F0B > CED242
+shiny = E5B341 > DBE053
+shiny = E65052 > F6792F

@@ -38,6 +38,8 @@ struct Profile {
     int storyRev = 0;                  // story layout this save's stage index belongs to
     int clock = 0;                     // Story time: +1 per battle or wait. Odd = night; season = (clock / 4) % 4
     std::string trainArea;             // where training battles happen (a wild.txt area; empty = the newest)
+    std::string owMap;                 // the overworld: where you are (empty: not been there yet)
+    int owX = 0, owY = 0, owFace = 0;
     std::string fossil;                // fossil chosen after Mt. Moon ("Helix Fossil" / "Dome Fossil"), empty = not yet
     bool fossilRevived = false;        // the Cinnabar Lab brought it back
     bool eeveeGift = false;            // got the Eevee for maxing a Pokemon's friendship

@@ -1,0 +1,8 @@
+# Trevenant - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 424140 > 8C9196
+shiny = 46845A > BA3C3A
+shiny = 57AE7A > E34142
+shiny = 6C5D4A > A8AAAB
+shiny = 8A736F > CCCFD3
+shiny = BFA47C > FDFFFF

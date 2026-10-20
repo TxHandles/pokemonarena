@@ -1,0 +1,12 @@
+# Cherrim - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 286010 > 007725
+shiny = 379340 > 00B348
+shiny = 402848 > 1C3A56
+shiny = 48BD57 > 1FDD65
+shiny = 504060 > 33506E
+shiny = 509818 > 24B934
+shiny = 704088 > 445D7F
+shiny = 7366BB > 5F7BA1
+shiny = 877AEB > 67BBE0
+shiny = 9848C0 > 60749C

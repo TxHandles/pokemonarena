@@ -26,7 +26,7 @@ starter = no
 # "evo" = learned when it evolves into this Pokemon
 
 # ---- EVOLUTION (Story Mode) ----------------------------------------------
-# (does not evolve)
+evolve_item = Magnezone, Thunder Stone
 
 # ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
 # "evo" = learned when it evolves into this Pokemon

@@ -1,0 +1,18 @@
+# Hydreigon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 211921 > 302021
+shiny = 2F4F93 > 505F27
+shiny = 372F37 > 473737
+shiny = 414041 > 504841
+shiny = 474747 > 5B4E49
+shiny = 4C71BD > 628B3A
+shiny = 4F79C7 > 79894F
+shiny = 524B43 > 635349
+shiny = 571937 > 301859
+shiny = 63625D > 736A5F
+shiny = 728FE6 > 93A267
+shiny = 812157 > 593193
+shiny = 9B9592 > AB9E94
+shiny = B64770 > 9B59BB
+shiny = BC4989 > A05EC3
+shiny = E3DADA > F3E4DB

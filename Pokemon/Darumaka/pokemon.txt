@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Darumaka
+dex  = 554
+type = Fire
+
+hp         = 70
+attack     = 90
+defense    = 45
+sp_attack  = 15
+sp_defense = 45
+speed      = 50
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 37.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Darmanitan
+evolve_level = 35
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Ember
+learn = 4, Taunt
+learn = 8, Bite
+learn = 12, Incinerate
+learn = 16, Work Up
+learn = 20, Fire Fang
+learn = 24, Headbutt
+learn = 28, Fire Punch
+learn = 32, Uproar
+learn = 36, Belly Drum
+learn = 40, Flare Blitz
+learn = 44, Thrash
+learn = 48, Superpower
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Fire Fang, Thief, Fire Spin, Facade, Rock Tomb
+tm = Fling, Endure, Sunny Day, Dig, Brick Break, Zen Headbutt
+tm = U-turn, Fire Punch, Sleep Talk, Grass Knot, Rest, Rock Slide
+tm = Taunt, Substitute, Will-O-Wisp, Heat Wave, Encore, Flamethrower
+tm = Fire Blast, Overheat, Flare Blitz, Solar Beam, Gyro Ball, Uproar

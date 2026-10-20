@@ -1,0 +1,24 @@
+# Amoonguss - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 413131 > 313131
+shiny = 413E3E > 474429
+shiny = 624A41 > 524A41
+shiny = 7C6354 > 6B6356
+shiny = 8B735A > 8B7C4D
+shiny = 9C9483 > A49C7B
+shiny = A69797 > AB9F80
+shiny = AC3162 > 462FB4
+shiny = ACA299 > B2AA84
+shiny = BCB1B1 > C3B999
+shiny = C6628C > 6D52DC
+shiny = CDC5C5 > D5CDAC
+shiny = D2586D > 6F4ED6
+shiny = D2D2DD > DEDABF
+shiny = DD528B > 7252DE
+shiny = DE528B > 7352DE
+shiny = DE8BA4 > D19D8B
+shiny = E29FBF > DAAFA1
+shiny = E6E4D4 > EFEBC0
+shiny = E77289 > 8764F0
+shiny = FAFAFA > FFFFDE
+shiny = FFACCD > F2BEB0

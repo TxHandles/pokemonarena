@@ -1,0 +1,19 @@
+# Darmanitan - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3F3F47 > 413537
+shiny = 453C39 > 453229
+shiny = 472F19 > 32090E
+shiny = 571212 > 440222
+shiny = 811221 > 43121A
+shiny = 818193 > A0607B
+shiny = 9E4446 > 813B55
+shiny = A41912 > 752B45
+shiny = AC703F > 936040
+shiny = B2A8A2 > CA86A0
+shiny = B60000 > C5004D
+shiny = E15A4D > AD5F77
+shiny = EC0A0B > EC0A68
+shiny = EC9B5F > D19472
+shiny = ECC70B > EFA5B1
+shiny = FAA453 > DE9D70
+shiny = FEE644 > FFF67E

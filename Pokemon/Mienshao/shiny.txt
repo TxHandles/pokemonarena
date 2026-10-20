@@ -1,0 +1,21 @@
+# Mienshao - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 413E42 > 44444D
+shiny = 46313D > 310917
+shiny = 544264 > 3E3C65
+shiny = 684A8C > 801B68
+shiny = 806BA4 > A03E86
+shiny = 8462AC > 9C3983
+shiny = A42224 > 3B007D
+shiny = AC8AC4 > C661A8
+shiny = B098CE > E965AE
+shiny = B49E9C > 9D96AD
+shiny = B59C57 > 8448CA
+shiny = BD488B > A33882
+shiny = BFB9B4 > C2C1C5
+shiny = E3D5D3 > CDCBE4
+shiny = E4D6D4 > E5DFE5
+shiny = E8E8F8 > EDF0FF
+shiny = EDD58C > BF7EFF
+shiny = FAFAFA > FCFFFF
+shiny = FCAE64 > E3B9A0

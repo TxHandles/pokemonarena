@@ -1,0 +1,20 @@
+# Pignite - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2F2F2F > 1E3C45
+shiny = 333232 > 233F48
+shiny = 3F3F3F > 7D4E00
+shiny = 472821 > 273040
+shiny = 525251 > 5A3930
+shiny = 68570B > 574F80
+shiny = 702F21 > 705020
+shiny = 7A5962 > 586176
+shiny = AC8A19 > 7062ED
+shiny = B64F28 > B48B28
+shiny = BFA49B > 9FA9BE
+shiny = C3682F > D28F00
+shiny = C7372F > DF7CC6
+shiny = D64242 > EB87DB
+shiny = EC6821 > E89E17
+shiny = ECBF2F > A08EE9
+shiny = F58B29 > FFB532
+shiny = FDD441 > B3A1FD

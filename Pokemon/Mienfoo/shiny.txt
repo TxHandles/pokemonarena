@@ -1,0 +1,16 @@
+# Mienfoo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 46403E > 002EA7
+shiny = 583820 > 4E4635
+shiny = 787878 > 757662
+shiny = 877867 > 70706C
+shiny = 903848 > 363EBE
+shiny = A06840 > 806454
+shiny = B5A443 > B4AC91
+shiny = C09860 > B1A690
+shiny = C83878 > 5F57E0
+shiny = DA677E > 7E72FD
+shiny = E0C868 > C8C6A7
+shiny = E0CD54 > CBC9A8
+shiny = F8E8A0 > F9F0D7
+shiny = FDF479 > EFEDCB

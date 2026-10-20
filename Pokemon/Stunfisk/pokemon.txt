@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Stunfisk
+dex  = 618
+type = Ground / Electric
+
+hp         = 109
+attack     = 66
+defense    = 84
+sp_attack  = 81
+sp_defense = 99
+speed      = 32
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 11.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Mud-Slap
+learn = 1, Thunder Shock
+learn = 1, Water Gun
+learn = 5, Endure
+learn = 10, Mud Shot
+learn = 15, Revenge
+learn = 20, Charge
+learn = 25, Sucker Punch
+learn = 30, Electric Terrain
+learn = 35, Bounce
+learn = 40, Muddy Water
+learn = 45, Discharge
+learn = 50, Flail
+learn = 55, Fissure
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Mud Shot, Rock Tomb, Endure
+tm = Rain Dance, Sandstorm, Dig, Foul Play, Sleep Talk, Thunder Wave
+tm = Stomping Tantrum, Rest, Rock Slide, Eerie Impulse, Substitute, Stealth Rock
+tm = Surf, Thunderbolt, Earth Power, Electric Terrain, Sludge Bomb, Earthquake
+tm = Stone Edge, Thunder, Scald, Uproar, Muddy Water, Electroweb
+tm = Sludge Wave

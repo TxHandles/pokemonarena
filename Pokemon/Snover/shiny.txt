@@ -1,0 +1,15 @@
+# Snover - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 304838 > 00165D
+shiny = 307840 > 41703F
+shiny = 309848 > 4A53A0
+shiny = 3C816E > 374394
+shiny = 3D403C > 353D2D
+shiny = 403818 > 3B3721
+shiny = 404040 > 3D3F3C
+shiny = 42413F > 3F403B
+shiny = 5AB58B > 696FC4
+shiny = 605038 > 5A4F41
+shiny = 806828 > 6F6732
+shiny = A88838 > 948748
+shiny = B49C73 > A3A46D

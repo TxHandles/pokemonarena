@@ -1,0 +1,10 @@
+# Sigilyph - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 217081 > C0220E
+shiny = 2F9B3F > 614A18
+shiny = 3FA4E3 > F68400
+shiny = 6A9763 > 715B3A
+shiny = 77CDFD > FFAB31
+shiny = 937012 > 78911E
+shiny = FFBF04 > C1E256
+shiny = FFCE41 > CBED63

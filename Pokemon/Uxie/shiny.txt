@@ -1,0 +1,17 @@
+# Uxie - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 6B84B5 > D0A24A
+shiny = 7080B0 > CD9F47
+shiny = 887858 > AF6F2D
+shiny = 8CA5D6 > F5C46A
+shiny = 90B8D0 > E3CD82
+shiny = 9C8442 > BF7C1E
+shiny = ADCEFF > FFE69D
+shiny = B0D0F8 > FFEE90
+shiny = BDA542 > E39C28
+shiny = C09858 > E19037
+shiny = DEC552 > EEAA4C
+shiny = F0C858 > FFC046
+shiny = F8A898 > FFA46C
+shiny = FAFAFA > FFFDAE
+shiny = FFE663 > FFCA62

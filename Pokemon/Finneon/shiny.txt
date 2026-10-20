@@ -1,0 +1,19 @@
+# Finneon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303840 > 3A3F32
+shiny = 303D40 > 544529
+shiny = 303E40 > 54452A
+shiny = 304840 > 555029
+shiny = 313132 > 393824
+shiny = 486060 > 766649
+shiny = 4F545A > 6F5E42
+shiny = 627A83 > 938164
+shiny = 6888A0 > 98905F
+shiny = 7AB3DC > C1B988
+shiny = 9BD5FE > FAD8B1
+shiny = A0D0D8 > DDD59E
+shiny = A84070 > C62A56
+shiny = DE6D94 > FC5F80
+shiny = F078A0 > BEA875
+shiny = F8B8D0 > DCD4AD
+shiny = FAFAFA > FFFCE1

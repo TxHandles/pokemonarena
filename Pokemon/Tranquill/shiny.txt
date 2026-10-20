@@ -1,0 +1,23 @@
+# Tranquill - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 272727 > 215B26
+shiny = 2D2D2D > 29622C
+shiny = 3D2E20 > 3A3F26
+shiny = 423F41 > 3F7740
+shiny = 4D4D4D > 4D864D
+shiny = 6B6B6B > 6DA76C
+shiny = 757575 > 659D65
+shiny = 7E6536 > 6EA564
+shiny = 8A939B > 81BC83
+shiny = 979797 > 87C787
+shiny = A88620 > 7FB370
+shiny = B15555 > 884E8F
+shiny = C8694E > 6DA05F
+shiny = CBD7D5 > C4FFC4
+shiny = D0194B > 5A8449
+shiny = D4D4D4 > C5FFC3
+shiny = E5E5F7 > D2FFD2
+shiny = F392A1 > CB93D6
+shiny = F7366D > AC6BDD
+shiny = FAFAFA > CDFFCD
+shiny = FFDF33 > D2FFBB

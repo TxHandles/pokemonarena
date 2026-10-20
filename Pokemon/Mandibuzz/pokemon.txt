@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Mandibuzz
+dex  = 630
+type = Dark / Flying
+
+hp         = 110
+attack     = 65
+defense    = 105
+sp_attack  = 55
+sp_defense = 95
+speed      = 80
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 39.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Bone Rush
+learn = 1, Sky Attack
+learn = 1, Gust
+learn = 1, Leer
+learn = 1, Flatter
+learn = 1, Toxic
+learn = 1, Pluck
+learn = 18, Tailwind
+learn = 24, Knock Off
+learn = 30, Iron Defense
+learn = 36, Whirlwind
+learn = 42, Air Slash
+learn = 48, Dark Pulse
+learn = 57, Nasty Plot
+learn = 64, Defog
+learn = 72, Attract
+learn = 80, Brave Bird
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Scary Face, Protect, Acrobatics, Thief
+tm = Facade, Aerial Ace, Snarl, Swift, Rock Tomb, Air Cutter
+tm = Endure, Sunny Day, Rain Dance, Sandstorm, U-turn, Foul Play
+tm = Air Slash, Sleep Talk, Rest, Taunt, Dark Pulse, Fly
+tm = Substitute, Iron Defense, Tailwind, Shadow Ball, Heat Wave, Nasty Plot
+tm = Giga Impact, Hurricane, Hyper Beam, Brave Bird, Tera Blast, Toxic
+tm = Spite, Knock Off, Uproar, Dual Wingbeat, Lash Out, Psych Up
+tm = Double-Edge, Feather Dance, Throat Chop

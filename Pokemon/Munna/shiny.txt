@@ -1,0 +1,14 @@
+# Munna - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 827FA7 > A2984F
+shiny = 87485F > 887845
+shiny = 9E63E9 > 999141
+shiny = BD8CA6 > BDAF62
+shiny = DC698A > A99E41
+shiny = DE6598 > A99E42
+shiny = E5AEC2 > D6CF6F
+shiny = EC8EA6 > C4BA5B
+shiny = ECECF6 > FFFF9D
+shiny = EED1EB > F2EC8B
+shiny = FDBBCB > E7DF7D
+shiny = FED8E7 > FCFFFF

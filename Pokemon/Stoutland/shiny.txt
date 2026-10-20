@@ -1,0 +1,18 @@
+# Stoutland - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2C2C43 > 1A2521
+shiny = 3D3D5D > 2B3636
+shiny = 464140 > 5C4242
+shiny = 4D4D4D > 31523E
+shiny = 54627F > 446855
+shiny = 553D12 > 363111
+shiny = 555582 > 3D5E4E
+shiny = 6D868E > 94868A
+shiny = 738BA2 > 9B8B99
+shiny = 864D36 > 5D462F
+shiny = A87E3D > 8A5F00
+shiny = AC8654 > 926600
+shiny = B9B9B9 > C29016
+shiny = D4864D > A37F54
+shiny = E5C286 > D29D1B
+shiny = E6D59A > E1AB2D

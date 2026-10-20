@@ -1,0 +1,16 @@
+# Joltik - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 000C00
+shiny = 0B0B0B > 001400
+shiny = 284FBF > 7126BB
+shiny = 452E00 > 383D00
+shiny = 575FE3 > B33FD4
+shiny = 684705 > 585800
+shiny = 6A72A9 > 8859A2
+shiny = 7B95F6 > E372FF
+shiny = 846C1D > 6D7509
+shiny = B97E00 > A39300
+shiny = BFA122 > A6AA27
+shiny = C7A405 > B6B511
+shiny = F5DA36 > DCE24B
+shiny = FEE651 > E6EE5E

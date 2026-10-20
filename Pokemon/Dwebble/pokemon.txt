@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Dwebble
+dex  = 557
+type = Bug / Rock
+
+hp         = 50
+attack     = 65
+defense    = 85
+sp_attack  = 35
+sp_defense = 35
+speed      = 55
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 14.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Crustle
+evolve_level = 34
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Fury Cutter
+learn = 1, Sand Attack
+learn = 4, Withdraw
+learn = 8, Smack Down
+learn = 12, Bug Bite
+learn = 16, Flail
+learn = 20, Slash
+learn = 24, Rock Slide
+learn = 28, Stealth Rock
+learn = 32, Rock Blast
+learn = 36, X-Scissor
+learn = 40, Rock Polish
+learn = 44, Shell Smash
+learn = 48, Rock Wrecker
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Rock Tomb, Endure, Sandstorm
+tm = Dig, Shadow Claw, Sleep Talk, Rock Blast, Poison Jab, Rest
+tm = Rock Slide, Swords Dance, Spikes, Substitute, Iron Defense, X-Scissor
+tm = Stealth Rock, Earthquake, Stone Edge, Solar Beam, Sand Tomb

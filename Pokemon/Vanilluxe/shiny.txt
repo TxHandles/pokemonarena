@@ -1,0 +1,8 @@
+# Vanilluxe - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 20527B > 333C84
+shiny = 2962AC > 424CAA
+shiny = 4D91C7 > 6A78CD
+shiny = 6CA6EC > 858DED
+shiny = 6EB3E0 > 8B98EA
+shiny = 89DFFE > ADC2FF

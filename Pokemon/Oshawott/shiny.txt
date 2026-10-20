@@ -1,0 +1,24 @@
+# Oshawott - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 194F57 > 0F4D97
+shiny = 198A93 > 5983D4
+shiny = 213747 > 183F3F
+shiny = 21B6BF > 83ABFF
+shiny = 28375F > 1F4757
+shiny = 2E365D > 244656
+shiny = 3F3F3F > 0B438B
+shiny = 3F5FA4 > 407092
+shiny = 507995 > 5379CB
+shiny = 518BFD > 7D8CC2
+shiny = 525252 > 2F56A1
+shiny = 52CCC4 > 94C3FF
+shiny = 6D6D6D > 737B4E
+shiny = 814F28 > 5457C0
+shiny = 818193 > 89897B
+shiny = B36F2B > BE766A
+shiny = B9CAD8 > CED7A7
+shiny = BF8A21 > D58B7C
+shiny = BFBFC7 > C7CF9E
+shiny = ECC779 > F3C7AC
+shiny = FAFAFA > FAFAEA
+shiny = FCFD6A > FFF9B8

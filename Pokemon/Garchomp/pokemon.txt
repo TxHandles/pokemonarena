@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Garchomp
+dex  = 445
+type = Dragon / Ground
+
+hp         = 108
+attack     = 130
+defense    = 95
+sp_attack  = 80
+sp_defense = 85
+speed      = 102
+
+size   = 1.12
+height = 1.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 95.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Crunch
+learn = 1, Sand Tomb
+learn = 1, Tackle
+learn = 1, Sand Attack
+learn = 1, Dragon Breath
+learn = 18, Bulldoze
+learn = 27, Bite
+learn = 34, Slash
+learn = 42, Dragon Claw
+learn = 52, Dig
+learn = 62, Sandstorm
+learn = 72, Take Down
+learn = 82, Dragon Rush
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Fire Fang, Thunder Fang, Facade
+tm = Aerial Ace, Bulldoze, Metal Claw, Swift, Mud Shot, Rock Tomb
+tm = Fling, Dragon Tail, Endure, Sunny Day, Rain Dance, Sandstorm
+tm = Dig, False Swipe, Brick Break, Shadow Claw, Body Slam, Sleep Talk
+tm = Dragon Claw, Poison Jab, Stomping Tantrum, Rest, Rock Slide, Swords Dance
+tm = Spikes, Iron Head, Power Gem, Substitute, Crunch, Liquidation
+tm = Dragon Pulse, Stealth Rock, Surf, Flamethrower, Helping Hand, Earth Power
+tm = Fire Blast, Earthquake, Stone Edge, Giga Impact, Outrage, Hyper Beam
+tm = Draco Meteor, Tera Blast, Sand Tomb, Scale Shot, Double-Edge, Scorching Sands
+tm = Breaking Swipe, Dragon Cheer

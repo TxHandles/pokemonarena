@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Gothitelle
+dex  = 576
+type = Psychic
+
+hp         = 70
+attack     = 55
+defense    = 95
+sp_attack  = 95
+sp_defense = 110
+speed      = 65
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 44.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Pound
+learn = 1, Tickle
+learn = 1, Confusion
+learn = 1, Play Nice
+learn = 12, Psybeam
+learn = 16, Charm
+learn = 20, Psyshock
+learn = 24, Hypnosis
+learn = 28, Fake Tears
+learn = 35, Psych Up
+learn = 40, Psychic
+learn = 48, Flatter
+learn = 56, Future Sight
+learn = 64, Magic Room
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Protect, Psybeam, Thief, Facade
+tm = Swift, Rock Tomb, Low Sweep, Stored Power, Fling, Endure
+tm = Rain Dance, Psyshock, Brick Break, Zen Headbutt, Foul Play, Body Slam
+tm = Sleep Talk, Reflect, Light Screen, Metronome, Grass Knot, Thunder Wave
+tm = Rest, Rock Slide, Taunt, Imprison, Dark Pulse, Skill Swap
+tm = Substitute, Trick, Shadow Ball, Energy Ball, Psychic, Thunderbolt
+tm = Calm Mind, Helping Hand, Psychic Terrain, Nasty Plot, Giga Impact, Focus Blast
+tm = Trick Room, Hyper Beam, Tera Blast, Gravity, Psych Up, Future Sight
+tm = Expanding Force, Psychic Noise

@@ -1,0 +1,23 @@
+# Grotle - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 343433 > 003846
+shiny = 385038 > 4A5B33
+shiny = 40A030 > 6F9F48
+shiny = 484848 > 1B4C56
+shiny = 488B51 > 6B9555
+shiny = 4B4841 > 1D4C55
+shiny = 4C4840 > 1E4C55
+shiny = 525251 > 27565F
+shiny = 60B050 > CAD819
+shiny = 685848 > 137865
+shiny = 80C830 > A4D15B
+shiny = 86BE6B > A1BF77
+shiny = 987038 > 42967E
+shiny = 9E813C > 4FA48A
+shiny = A0E070 > FFFF54
+shiny = A8B0C8 > C8A29E
+shiny = C89018 > 67AD95
+shiny = D5BE2B > 86D2B7
+shiny = E0B828 > 87D0B5
+shiny = E8E8F8 > A5EDFD
+shiny = FAFAFA > B9FFFF

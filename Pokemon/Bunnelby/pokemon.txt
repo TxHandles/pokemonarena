@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Bunnelby
+dex  = 659
+type = Normal
+
+hp         = 38
+attack     = 36
+defense    = 38
+sp_attack  = 32
+sp_defense = 36
+speed      = 57
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Diggersby
+evolve_level = 20
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Mud-Slap
+learn = 1, Leer
+learn = 3, Tackle
+learn = 6, Laser Focus
+learn = 9, Quick Attack
+learn = 12, Mud Shot
+learn = 15, Flail
+learn = 18, Double Kick
+learn = 21, Bulldoze
+learn = 24, Dig
+learn = 27, Bounce
+learn = 30, Take Down
+learn = 33, Swords Dance
+learn = 36, Earthquake
+learn = 39, Super Fang
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Thief, Facade, Bulldoze, Mud Shot
+tm = Rock Tomb, Fling, Endure, Sandstorm, Dig, Brick Break
+tm = U-turn, Bulk Up, Sleep Talk, Grass Knot, Rest, Rock Slide
+tm = Swords Dance, Spikes, Iron Head, Substitute, Surf, Wild Charge
+tm = Sludge Bomb, Earthquake, Stone Edge

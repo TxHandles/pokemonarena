@@ -26,7 +26,8 @@ starter = no
 # "evo" = learned when it evolves into this Pokemon
 
 # ---- EVOLUTION (Story Mode) ----------------------------------------------
-# (does not evolve)
+evolves_to   = Lickilicky
+evolve_level = 33   # (once it learns Rollout, in the games)
 
 # ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
 # "evo" = learned when it evolves into this Pokemon

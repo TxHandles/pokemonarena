@@ -1,0 +1,19 @@
+# Conkeldurr - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 4B1828 > 4B0621
+shiny = 4F2F19 > 541F1D
+shiny = 682745 > 6F090F
+shiny = 682847 > 6F0A10
+shiny = 725460 > 7C4455
+shiny = 815F4F > 894F4F
+shiny = 933F79 > C12328
+shiny = A42137 > B8101B
+shiny = A5785C > AB6962
+shiny = BF5FAC > F0504B
+shiny = BF9368 > C68269
+shiny = C14D64 > DF4038
+shiny = E2B39C > EAA295
+shiny = E5E5F7 > FFBFA6
+shiny = EE957C > E9897B
+shiny = F68DA4 > FF866C
+shiny = FAFAFA > FFE5E4

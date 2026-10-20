@@ -1,0 +1,23 @@
+# Lucario - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303758 > 726B01
+shiny = 303858 > 726C00
+shiny = 343434 > 344D55
+shiny = 386890 > A39B1E
+shiny = 424040 > 425A62
+shiny = 484848 > 48626B
+shiny = 4888C0 > 5FA3CE
+shiny = 5C6060 > 557989
+shiny = 606060 > 617B84
+shiny = 69889D > C8BD40
+shiny = 6EB2DD > F9FF89
+shiny = 70B8F0 > FEFF8F
+shiny = 786028 > A49900
+shiny = 981830 > 952956
+shiny = A8B8C8 > FFFF8A
+shiny = B08838 > D7C73B
+shiny = E8B850 > FFFA6C
+shiny = E8E8F8 > FFFF81
+shiny = ECDE94 > 87AEDA
+shiny = FAFAFA > FFFF80
+shiny = FF5552 > F96AA2

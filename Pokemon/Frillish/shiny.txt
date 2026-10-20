@@ -1,0 +1,18 @@
+# Frillish - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2F4F5F > 2F4737
+shiny = 2F57BF > 015D55
+shiny = 3C424D > 004F3A
+shiny = 4F9BBF > 419383
+shiny = 79D0FF > 75C7B6
+shiny = 83B1FD > 63C2AD
+shiny = 878FB2 > 7D8980
+shiny = 9BD2FC > 7EDEC5
+shiny = ACBFE3 > 73BFAD
+shiny = B8DBFF > DFD9B1
+shiny = C5E4FE > 95F3D8
+shiny = D0E3FF > 98F4D9
+shiny = DA210B > DA00D1
+shiny = E32F57 > E322E2
+shiny = E5E5F7 > F1E8BE
+shiny = FAFAFA > FFFBCF

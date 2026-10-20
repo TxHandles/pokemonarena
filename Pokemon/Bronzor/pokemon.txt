@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Bronzor
+dex  = 436
+type = Steel / Psychic
+
+hp         = 57
+attack     = 24
+defense    = 86
+sp_attack  = 24
+sp_defense = 86
+speed      = 23
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 60.5      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Bronzong
+evolve_level = 33
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Confusion
+learn = 1, Tackle
+learn = 4, Confuse Ray
+learn = 8, Payback
+learn = 12, Imprison
+learn = 16, Gyro Ball
+learn = 20, Hypnosis
+learn = 24, Safeguard
+learn = 28, Extrasensory
+learn = 32, Heavy Slam
+learn = 36, Iron Defense
+learn = 40, Metal Sound
+learn = 44, Future Sight
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Confuse Ray, Charge Beam, Facade, Bulldoze
+tm = Hex, Rock Tomb, Stored Power, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, Psyshock, Zen Headbutt, Body Slam, Sleep Talk, Reflect
+tm = Light Screen, Rock Blast, Grass Knot, Stomping Tantrum, Rest, Rock Slide
+tm = Imprison, Flash Cannon, Skill Swap, Iron Head, Power Gem, Substitute
+tm = Iron Defense, Trick, Shadow Ball, Stealth Rock, Psychic, Heavy Slam
+tm = Ice Spinner, Calm Mind, Helping Hand, Psychic Terrain, Earthquake, Trick Room
+tm = Solar Beam, Steel Beam, Tera Blast, Gravity, Gyro Ball, Psych Up
+tm = Future Sight, Expanding Force, Metal Sound

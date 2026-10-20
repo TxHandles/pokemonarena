@@ -1,0 +1,12 @@
+# Luxray - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 4080A8 > AE9022
+shiny = 484018 > 39210A
+shiny = 50A8D8 > D0B954
+shiny = 6CAED8 > D9C15B
+shiny = 80C0E8 > ECD369
+shiny = 907010 > 9A471A
+shiny = BB9E48 > C8754A
+shiny = D09020 > B06600
+shiny = F8D018 > EC9A2B
+shiny = FECF43 > EE9B30

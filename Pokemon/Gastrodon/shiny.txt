@@ -1,0 +1,21 @@
+# Gastrodon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 3C3F2A
+shiny = 433E3F > 4C4A36
+shiny = 483028 > 4A3F24
+shiny = 704838 > 6E5939
+shiny = 795B38 > 796B3E
+shiny = 907830 > 90692D
+shiny = 986080 > DA6158
+shiny = A0683F > A19238
+shiny = A06840 > 9A7B4B
+shiny = A07F42 > A08F52
+shiny = B8B8C8 > C5C7B8
+shiny = C878A8 > FF8278
+shiny = C8A000 > C4902F
+shiny = D3768B > FF8275
+shiny = E898D8 > E0B3BF
+shiny = EDE74D > F5D35F
+shiny = F8D058 > F5C05F
+shiny = FE94A3 > FFA494
+shiny = FFFFDD > FFFFA3

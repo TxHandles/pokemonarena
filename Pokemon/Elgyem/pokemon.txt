@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Elgyem
+dex  = 605
+type = Psychic
+
+hp         = 55
+attack     = 55
+defense    = 55
+sp_attack  = 85
+sp_defense = 55
+speed      = 30
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 9.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Beheeyem
+evolve_level = 42
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Confusion
+learn = 6, Imprison
+learn = 12, Teleport
+learn = 18, Psybeam
+learn = 24, Power Split
+learn = 24, Guard Split
+learn = 30, Headbutt
+learn = 36, Zen Headbutt
+learn = 43, Recover
+learn = 48, Calm Mind
+learn = 54, Wonder Room
+learn = 60, Psychic
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Thief, Facade, Rock Tomb, Stored Power
+tm = Endure, Rain Dance, Psyshock, Zen Headbutt, Sleep Talk, Reflect
+tm = Light Screen, Thunder Wave, Rest, Rock Slide, Imprison, Dark Pulse
+tm = Skill Swap, Substitute, Trick, Shadow Ball, Energy Ball, Psychic
+tm = Thunderbolt, Calm Mind, Nasty Plot, Trick Room, Uproar

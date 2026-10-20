@@ -1,0 +1,21 @@
+# Riolu - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303858 > 7E8418
+shiny = 386890 > A39B1E
+shiny = 3F3F42 > 3F5962
+shiny = 454545 > 7F7900
+shiny = 464646 > 807A00
+shiny = 484848 > 827C04
+shiny = 4888C0 > C7BC44
+shiny = 4B78B9 > BAAF38
+shiny = 505870 > 9FA82F
+shiny = 606060 > 617B84
+shiny = 70B8F0 > FAED73
+shiny = 71727C > B5AA2A
+shiny = 72A4F6 > F4FA86
+shiny = 786028 > A49900
+shiny = 981830 > A5195F
+shiny = A8B8C8 > FFF272
+shiny = BDC4D5 > B7D5E8
+shiny = DBC66A > 7BB4CC
+shiny = EE6152 > F5699F

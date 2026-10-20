@@ -1,0 +1,16 @@
+# Accelgor - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 193675 > 28283B
+shiny = 36B936 > FF4E7A
+shiny = 444241 > 42413B
+shiny = 555575 > 4A4646
+shiny = 5575B9 > 5D6478
+shiny = 646F7C > 5A5E52
+shiny = 751936 > 765100
+shiny = 7996BD > 929390
+shiny = 94DE81 > FF7BA6
+shiny = B93675 > 89424C
+shiny = CA6874 > CC9C3F
+shiny = DC3675 > C18D34
+shiny = FAFAFA > FAF8F1
+shiny = FE848D > FFD963

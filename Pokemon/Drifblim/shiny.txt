@@ -1,0 +1,22 @@
+# Drifblim - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 768000
+shiny = 404040 > 868F00
+shiny = 423F47 > 8B8E00
+shiny = 584078 > 9B9A00
+shiny = 585870 > BAA42C
+shiny = 681018 > 215A21
+shiny = 686880 > BEBD1B
+shiny = 7268AD > C8C42E
+shiny = 7F60B8 > E7D71F
+shiny = 8060B8 > E8D71F
+shiny = 808098 > A4995A
+shiny = 887838 > CFCD1D
+shiny = 9484C7 > FFF845
+shiny = 9878E0 > FFF346
+shiny = A8A0C8 > FFFD65
+shiny = C4C2D8 > FFFF6B
+shiny = D0B058 > 42C1F7
+shiny = D81028 > 56B56A
+shiny = E5DB34 > 51CDE8
+shiny = F66152 > 7BDF92

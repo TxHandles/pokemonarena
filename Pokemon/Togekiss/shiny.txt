@@ -1,0 +1,18 @@
+# Togekiss - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 28A8F8 > ABB07F
+shiny = 403F40 > 4A4C18
+shiny = 404040 > 4A4D19
+shiny = 4C73BA > 7381A4
+shiny = 687880 > 82844E
+shiny = 6A4D4D > 6F5E55
+shiny = 6BB2E2 > C4AE8F
+shiny = 9098B0 > A7A771
+shiny = A4BDBC > C6C88D
+shiny = A8B8CF > C5C68E
+shiny = A8B8D0 > C5C68E
+shiny = C56240 > BC7E5E
+shiny = DEF3E8 > F5FFF0
+shiny = E84048 > 3F9DF2
+shiny = E8E8F8 > FAF9BE
+shiny = FAFAFA > FFFFF5

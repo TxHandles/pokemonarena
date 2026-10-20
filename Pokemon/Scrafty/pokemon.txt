@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Scrafty
+dex  = 560
+type = Dark / Fighting
+
+hp         = 65
+attack     = 90
+defense    = 115
+sp_attack  = 45
+sp_defense = 115
+speed      = 58
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 30.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Headbutt
+learn = 1, Leer
+learn = 1, Low Kick
+learn = 1, Payback
+learn = 12, Sand Attack
+learn = 16, Facade
+learn = 20, Torment
+learn = 24, Beat Up
+learn = 28, Scary Face
+learn = 32, Brick Break
+learn = 36, Swagger
+learn = 42, Crunch
+learn = 48, High Jump Kick
+learn = 54, Focus Punch
+learn = 60, Head Smash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Scary Face, Protect, Low Kick, Acid Spray
+tm = Thief, Trailblaze, Facade, Snarl, Rock Tomb, Low Sweep
+tm = Fling, Dragon Tail, Endure, Sunny Day, Rain Dance, Dig
+tm = Brick Break, Zen Headbutt, Foul Play, Bulk Up, Body Slam, Fire Punch
+tm = Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Dragon Claw, Metronome
+tm = Grass Knot, Poison Jab, Rest, Rock Slide, Taunt, Swords Dance
+tm = Dark Pulse, Iron Head, Dragon Dance, Substitute, Iron Defense, Crunch
+tm = Dragon Pulse, Encore, Amnesia, Helping Hand, Reversal, Sludge Bomb
+tm = Stone Edge, Giga Impact, Outrage, Focus Blast, Hyper Beam, Close Combat
+tm = Tera Blast, Roar, Spite, Smack Down, Knock Off, Super Fang
+tm = Uproar, Focus Punch, Lash Out, Double-Edge, Endeavor, Coaching
+tm = Throat Chop, Curse, Upper Hand

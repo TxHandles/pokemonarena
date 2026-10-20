@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Piplup
+dex  = 393
+type = Water
+
+hp         = 53
+attack     = 51
+defense    = 53
+sp_attack  = 61
+sp_defense = 56
+speed      = 40
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = yes
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Prinplup
+evolve_level = 16
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Pound
+learn = 4, Growl
+learn = 8, Water Gun
+learn = 11, Charm
+learn = 15, Peck
+learn = 18, Bubble Beam
+learn = 22, Swagger
+learn = 25, Fury Attack
+learn = 29, Brine
+learn = 32, Whirlpool
+learn = 36, Mist
+learn = 39, Drill Peck
+learn = 43, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Agility, Protect, Water Pulse, Disarming Voice, Chilling Water
+tm = Facade, Aerial Ace, Swift, Icy Wind, Rock Tomb, Fling
+tm = Endure, Rain Dance, Snowscape, Brick Break, Sleep Talk, Waterfall
+tm = Grass Knot, Rest, Substitute, Liquidation, Surf, Ice Spinner
+tm = Helping Hand, Ice Beam, Hydro Pump, Blizzard, Water Pledge, Tera Blast
+tm = Haze, Weather Ball, Flip Turn, Psych Up, Whirlpool, Triple Axel
+tm = Feather Dance

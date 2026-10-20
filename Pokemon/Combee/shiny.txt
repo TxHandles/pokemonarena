@@ -1,0 +1,11 @@
+# Combee - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 986810 > 911E03
+shiny = A85830 > 963B21
+shiny = C0A740 > D2602F
+shiny = C86828 > B1340B
+shiny = C89018 > CB5020
+shiny = E8B038 > F06F3C
+shiny = F39C2E > DE6433
+shiny = F6F229 > FFA264
+shiny = F8D878 > FF905C

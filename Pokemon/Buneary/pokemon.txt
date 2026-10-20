@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Buneary
+dex  = 427
+type = Normal
+
+hp         = 55
+attack     = 66
+defense    = 44
+sp_attack  = 44
+sp_defense = 56
+speed      = 85
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_friendship = Lopunny, 160
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Pound
+learn = 1, Splash
+learn = 4, Defense Curl
+learn = 8, Baby-Doll Eyes
+learn = 12, After You
+learn = 16, Quick Attack
+learn = 20, Double Kick
+learn = 24, Charm
+learn = 28, Baton Pass
+learn = 32, Headbutt
+learn = 36, Agility
+learn = 40, Entrainment
+learn = 44, Flatter
+learn = 48, Bounce
+learn = 52, Healing Wish
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Agility, Protect, Low Kick, Facade
+tm = Swift, Low Sweep, Fling, Endure, Sunny Day, Rain Dance
+tm = Dig, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch
+tm = Grass Knot, Thunder Wave, Rest, Substitute, Shadow Ball, Hyper Voice
+tm = Encore, Thunderbolt, Play Rough, Helping Hand, Baton Pass, Ice Beam
+tm = Solar Beam, Uproar

@@ -1,0 +1,33 @@
+# Whimsicott - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 04131F
+shiny = 000100 > 04141F
+shiny = 0B0B0B > 0C1925
+shiny = 123F12 > 0040B9
+shiny = 193600 > 0038AF
+shiny = 2E2E2E > 1E242D
+shiny = 367536 > 3875C5
+shiny = 377037 > 3270C1
+shiny = 42413F > 55505F
+shiny = 472F21 > 463F44
+shiny = 479B3F > 8795FF
+shiny = 4A874A > 328ABC
+shiny = 4D4D44 > 615C65
+shiny = 553636 > 3A2F38
+shiny = 5F4F37 > 5F5E5E
+shiny = 6D5F4F > 81746D
+shiny = 6FB95A > 6CB9EB
+shiny = 8A5F37 > 867269
+shiny = 979736 > 979C66
+shiny = A48A4F > B7A180
+shiny = A67A43 > 7B695A
+shiny = BFAC81 > BFBDB4
+shiny = CAB394 > C8C5C3
+shiny = D1C3A5 > E8DBCB
+shiny = DC7500 > DB9F00
+shiny = E2D9C7 > FBF1E8
+shiny = E37900 > AC714B
+shiny = E3DAC7 > FCF2E9
+shiny = E5E5F7 > EAE9FC
+shiny = F6F5DB > FFFFF2
+shiny = FAFAFA > FFFEFF

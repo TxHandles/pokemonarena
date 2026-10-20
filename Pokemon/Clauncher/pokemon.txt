@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Clauncher
+dex  = 692
+type = Water
+
+hp         = 50
+attack     = 53
+defense    = 62
+sp_attack  = 58
+sp_defense = 63
+speed      = 44
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 8.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Clawitzer
+evolve_level = 37
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Splash
+learn = 1, Water Gun
+learn = 10, Flail
+learn = 15, Aqua Jet
+learn = 20, Smack Down
+learn = 25, Hone Claws
+learn = 30, Water Pulse
+learn = 35, Swords Dance
+learn = 40, Aura Sphere
+learn = 45, Bounce
+learn = 50, Muddy Water
+learn = 55, Crabhammer
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Water Pulse, Thief, Pounce
+tm = Chilling Water, Facade, Icy Wind, Mud Shot, Venoshock, Endure
+tm = Rain Dance, U-turn, Sleep Talk, Waterfall, Rest, Rock Slide
+tm = Swords Dance, Flash Cannon, Dark Pulse, Substitute, Liquidation, Aura Sphere
+tm = Dragon Pulse, Surf, Helping Hand, Ice Beam, Hydro Pump, Blizzard
+tm = Tera Blast, Smack Down, Weather Ball, Flip Turn, Muddy Water, Sludge Wave

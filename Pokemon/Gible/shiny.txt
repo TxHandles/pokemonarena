@@ -1,0 +1,15 @@
+# Gible - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2E353B > 002143
+shiny = 2F353B > 002143
+shiny = 305858 > 004061
+shiny = 3C3C3F > 0E2849
+shiny = 508888 > 2E6D91
+shiny = 567B92 > 2C6293
+shiny = 68A8A8 > 3B95D6
+shiny = 6A9BB3 > 2F8CCE
+shiny = 70D0FE > 5BB2F5
+shiny = 88C0D8 > 69A4D9
+shiny = 989898 > 418FCF
+shiny = B84018 > AE941D
+shiny = E0E0E0 > 92D6FF

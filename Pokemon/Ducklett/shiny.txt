@@ -1,0 +1,23 @@
+# Ducklett - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0A3D4D > 493D64
+shiny = 1281A4 > 8D4E9D
+shiny = 21ACDA > B776C8
+shiny = 283F68 > 530F61
+shiny = 2CC4D7 > DA959E
+shiny = 333334 > 521220
+shiny = 3FCBDB > EE95C5
+shiny = 5183F5 > A15BB5
+shiny = 525253 > 76333D
+shiny = 5F5F37 > 5F4027
+shiny = 617996 > 9E5863
+shiny = 7AB3DC > D78E99
+shiny = 93E2EB > FFB6BE
+shiny = 93E3EC > FFB0E0
+shiny = A49B57 > BB8228
+shiny = A4D5FE > FCB0BB
+shiny = C2B16D > D6993F
+shiny = E5E5F7 > FFE7FF
+shiny = E8DD31 > EDDE31
+shiny = F5F53F > FEF543
+shiny = FAFAFA > FFD1FF

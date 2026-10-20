@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Unfezant
+dex  = 521
+type = Normal / Flying
+
+hp         = 80
+attack     = 115
+defense    = 80
+sp_attack  = 65
+sp_defense = 55
+speed      = 93
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 29.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Quick Attack
+learn = 1, Gust
+learn = 1, Leer
+learn = 12, Taunt
+learn = 16, Air Cutter
+learn = 20, Swagger
+learn = 26, Feather Dance
+learn = 36, Detect
+learn = 42, Air Slash
+learn = 50, Roost
+learn = 58, Tailwind
+learn = 66, Sky Attack
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Facade, Swift, Endure, Sunny Day
+tm = Rain Dance, U-turn, Air Slash, Sleep Talk, Rest, Taunt
+tm = Fly, Substitute, Heat Wave, Giga Impact, Hurricane, Hyper Beam
+tm = Brave Bird, Uproar

@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Azelf
+dex  = 482
+type = Psychic
+
+hp         = 75
+attack     = 125
+defense    = 70
+sp_attack  = 125
+sp_defense = 70
+speed      = 115
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 0.3      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Confusion
+learn = 1, Rest
+learn = 7, Swift
+learn = 14, Detect
+learn = 21, Psybeam
+learn = 28, Imprison
+learn = 35, Extrasensory
+learn = 42, Nasty Plot
+learn = 49, Psychic
+learn = 56, Uproar
+learn = 63, Future Sight
+learn = 70, Last Resort
+learn = 77, Explosion
+learn = 84, Mystical Power
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Mud-Slap, Protect, Water Pulse, Acrobatics, Psybeam, Charge Beam
+tm = Facade, Swift, Draining Kiss, Stored Power, Fling, Endure
+tm = Sunny Day, Rain Dance, Sandstorm, Psyshock, Zen Headbutt, U-turn
+tm = Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Reflect
+tm = Light Screen, Dazzling Gleam, Metronome, Grass Knot, Thunder Wave, Rest
+tm = Taunt, Imprison, Skill Swap, Substitute, Trick, Shadow Ball
+tm = Stealth Rock, Energy Ball, Psychic, Encore, Flamethrower, Thunderbolt
+tm = Play Rough, Calm Mind, Helping Hand, Baton Pass, Nasty Plot, Fire Blast
+tm = Giga Impact, Trick Room, Hyper Beam, Thunder, Tera Blast, Knock Off
+tm = Uproar, Psych Up, Double-Edge, Endeavor, Future Sight, Expanding Force

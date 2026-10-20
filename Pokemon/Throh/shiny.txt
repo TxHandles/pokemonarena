@@ -1,0 +1,19 @@
+# Throh - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 1D1D1D
+shiny = 0B0B0B > 232323
+shiny = 2F2F2F > 474848
+shiny = 42403F > 5B5A59
+shiny = 514D44 > 6A6762
+shiny = 571212 > 582A12
+shiny = 868171 > 788871
+shiny = 8A8179 > 829076
+shiny = 985750 > C75808
+shiny = A42828 > B34300
+shiny = BFB6A4 > B7C6A4
+shiny = C6C2BB > B8CAB7
+shiny = CE6972 > EF762E
+shiny = DA4F4F > E66C21
+shiny = E5E5F7 > D8EDE9
+shiny = ECE3D0 > E4F4D1
+shiny = F6F5EF > E8FDEA

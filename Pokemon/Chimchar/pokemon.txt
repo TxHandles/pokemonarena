@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Chimchar
+dex  = 390
+type = Fire
+
+hp         = 44
+attack     = 58
+defense    = 44
+sp_attack  = 58
+sp_defense = 44
+speed      = 61
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 6.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = yes
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Monferno
+evolve_level = 14
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Leer
+learn = 7, Ember
+learn = 9, Taunt
+learn = 15, Fury Swipes
+learn = 17, Flame Wheel
+learn = 23, Nasty Plot
+learn = 25, Torment
+learn = 31, Facade
+learn = 33, Fire Spin
+learn = 39, Acrobatics
+learn = 41, Slack Off
+learn = 47, Flamethrower
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Agility, Mud-Slap, Protect, Low Kick
+tm = Acrobatics, Thief, Fire Spin, Facade, Swift, Rock Tomb
+tm = Flame Charge, Low Sweep, Fling, Endure, Sunny Day, Dig
+tm = Brick Break, Zen Headbutt, U-turn, Shadow Claw, Bulk Up, Fire Punch
+tm = Thunder Punch, Sleep Talk, Metronome, Grass Knot, Poison Jab, Rest
+tm = Rock Slide, Taunt, Swords Dance, Gunk Shot, Substitute, Will-O-Wisp
+tm = Stealth Rock, Heat Wave, Encore, Flamethrower, Helping Hand, Nasty Plot
+tm = Fire Blast, Fire Pledge, Overheat, Flare Blitz, Tera Blast, Knock Off
+tm = Vacuum Wave, Uproar, Focus Punch, Burning Jealousy, Psych Up, Double-Edge
+tm = Endeavor, Temper Flare

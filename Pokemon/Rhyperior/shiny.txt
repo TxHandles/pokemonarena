@@ -1,0 +1,21 @@
+# Rhyperior - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 787A61
+shiny = 402818 > 747358
+shiny = 494341 > 8C8D74
+shiny = 585048 > 95967A
+shiny = 707070 > B6B89C
+shiny = 806055 > B6B498
+shiny = 882038 > 938A6F
+shiny = 887068 > C4C4A8
+shiny = 904612 > 8F813F
+shiny = 904810 > 908240
+shiny = 909098 > E0E2C7
+shiny = 9A867D > DBDABE
+shiny = C0C0C8 > FFFFE6
+shiny = C6C1BA > FFFFE4
+shiny = CE6B44 > DFD5B4
+shiny = D04820 > C2A846
+shiny = E8E8F8 > FFFFE6
+shiny = FAFAFA > FFFFE5
+shiny = FD8853 > FFFF64

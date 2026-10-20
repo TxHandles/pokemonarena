@@ -1,0 +1,20 @@
+# Lopunny - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 383020 > 4D0028
+shiny = 5D5041 > 742349
+shiny = 5E5040 > 752348
+shiny = 605040 > 785D6A
+shiny = 6F4F39 > 835D67
+shiny = 806038 > 956E6E
+shiny = 905058 > 9D6380
+shiny = 907840 > A24D6D
+shiny = 9E8261 > B59095
+shiny = A88058 > BC8F90
+shiny = B27852 > C2898C
+shiny = C2B080 > DC83A4
+shiny = C8A868 > D87E9D
+shiny = D07878 > D98EA7
+shiny = E8D8A8 > FFAACB
+shiny = F7E5AD > FEB3AB
+shiny = F9857B > C27371
+shiny = FAFAFA > FFCBF0

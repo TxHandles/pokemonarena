@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Cubchoo
+dex  = 613
+type = Ice
+
+hp         = 55
+attack     = 70
+defense    = 40
+sp_attack  = 60
+sp_defense = 40
+speed      = 40
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 8.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Beartic
+evolve_level = 37
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Powder Snow
+learn = 1, Growl
+learn = 3, Endure
+learn = 6, Fury Swipes
+learn = 9, Icy Wind
+learn = 12, Play Nice
+learn = 15, Brine
+learn = 18, Frost Breath
+learn = 21, Slash
+learn = 24, Flail
+learn = 27, Charm
+learn = 30, Snowscape
+learn = 33, Thrash
+learn = 36, Rest
+learn = 39, Blizzard
+learn = 42, Sheer Cold
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Mud-Slap, Protect, Ice Fang, Water Pulse
+tm = Low Kick, Thief, Trailblaze, Chilling Water, Facade, Aerial Ace
+tm = Bulldoze, Snarl, Metal Claw, Icy Wind, Mud Shot, Rock Tomb
+tm = Fling, Avalanche, Endure, Rain Dance, Snowscape, Dig
+tm = Shadow Claw, Body Slam, Ice Punch, Sleep Talk, Grass Knot, Rest
+tm = Rock Slide, Taunt, Body Press, Substitute, X-Scissor, Crunch
+tm = Liquidation, Heavy Slam, Encore, Surf, Play Rough, Ice Beam
+tm = Blizzard, Tera Blast, Icicle Spear, Focus Punch, Endeavor

@@ -1,0 +1,21 @@
+# Roserade - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 104018 > 1A4A00
+shiny = 286898 > 676C70
+shiny = 307828 > 478100
+shiny = 3F4540 > 1B4200
+shiny = 484848 > 27460B
+shiny = 4D8D45 > 659517
+shiny = 50A8E8 > A4AAB0
+shiny = 60A848 > 79B122
+shiny = 6678A0 > 66836E
+shiny = 881048 > 843FA7
+shiny = 8CDC8B > BEF264
+shiny = 90C068 > 97CD42
+shiny = A0B0B0 > 97ADAB
+shiny = A88038 > 9D921E
+shiny = B0B8CB > A5B7C0
+shiny = C84070 > BA6FDB
+shiny = C8D8D8 > BFD5D3
+shiny = E8B840 > BEE452
+shiny = EEDA41 > E9E945

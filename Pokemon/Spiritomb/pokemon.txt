@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Spiritomb
+dex  = 442
+type = Ghost / Dark
+
+hp         = 50
+attack     = 92
+defense    = 108
+sp_attack  = 92
+sp_defense = 108
+speed      = 35
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 108.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Confuse Ray
+learn = 1, Night Shade
+learn = 5, Shadow Sneak
+learn = 10, Spite
+learn = 15, Payback
+learn = 20, Nasty Plot
+learn = 25, Hex
+learn = 30, Memento
+learn = 35, Sucker Punch
+learn = 40, Curse
+learn = 45, Shadow Ball
+learn = 50, Dark Pulse
+learn = 55, Hypnosis
+learn = 60, Dream Eater
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Psybeam, Confuse Ray, Thief, Facade
+tm = Hex, Snarl, Icy Wind, Rock Tomb, Stored Power, Night Shade
+tm = Endure, Sunny Day, Rain Dance, Psyshock, Foul Play, Body Slam
+tm = Sleep Talk, Rest, Taunt, Imprison, Dark Pulse, Skill Swap
+tm = Substitute, Will-O-Wisp, Trick, Shadow Ball, Psychic, Calm Mind
+tm = Helping Hand, Nasty Plot, Phantom Force, Giga Impact, Trick Room, Hyper Beam
+tm = Tera Blast, Toxic, Spite, Burning Jealousy, Poltergeist, Lash Out
+tm = Pain Split, Curse

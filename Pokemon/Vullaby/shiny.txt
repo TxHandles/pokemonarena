@@ -1,0 +1,19 @@
+# Vullaby - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 473737 > 5D4039
+shiny = 523C37 > 684539
+shiny = 5D5D5D > 50556E
+shiny = 797068 > 986840
+shiny = 82635C > 986E60
+shiny = 828581 > AE8466
+shiny = AC9B79 > 9C939A
+shiny = AEA8A1 > CFB1A2
+shiny = B93D55 > BA5A5B
+shiny = C72812 > C35133
+shiny = CD3C4A > CC2F5C
+shiny = D39497 > D3996F
+shiny = D47597 > E06697
+shiny = EB93A8 > F76AA5
+shiny = ECECBF > DFE2E4
+shiny = FD9CB6 > FF74B2
+shiny = FFEDC5 > F2E7DF

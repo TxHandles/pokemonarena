@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Blitzle
+dex  = 522
+type = Electric
+
+hp         = 45
+attack     = 60
+defense    = 32
+sp_attack  = 50
+sp_defense = 32
+speed      = 76
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 29.8      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Zebstrika
+evolve_level = 27
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Quick Attack
+learn = 4, Tail Whip
+learn = 8, Charge
+learn = 11, Shock Wave
+learn = 15, Thunder Wave
+learn = 18, Flame Charge
+learn = 22, Spark
+learn = 25, Stomp
+learn = 29, Discharge
+learn = 33, Agility
+learn = 35, Wild Charge
+learn = 40, Thrash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Low Kick, Trailblaze, Charge Beam
+tm = Facade, Swift, Flame Charge, Endure, Volt Switch, Sunny Day
+tm = Rain Dance, Smart Strike, Body Slam, Sleep Talk, Electro Ball, Light Screen
+tm = Thunder Wave, Rest, Eerie Impulse, Substitute, Thunderbolt, Helping Hand
+tm = Baton Pass, Electric Terrain, Wild Charge, Thunder, Tera Blast, Charge
+tm = Uproar, Double-Edge, Endeavor, Supercell Slam, Electroweb

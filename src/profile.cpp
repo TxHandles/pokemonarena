@@ -120,6 +120,8 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "clock") out.clock = std::max(0, iv);
             else if (k == "starter") out.starter = v;
             else if (k == "train_area") out.trainArea = v;
+            else if (k == "ow_map") out.owMap = v;
+            else if (k == "ow_pos") std::sscanf(v.c_str(), "%d %d %d", &out.owX, &out.owY, &out.owFace);
             else if (k == "fossil") out.fossil = v;
             else if (k == "fossil_revived") out.fossilRevived = iv != 0;
             else if (k == "eevee_gift") out.eeveeGift = iv != 0;
@@ -238,6 +240,7 @@ std::string ProfileToText(const Profile& p) {
     o += TextFormat("story_stage = %d\nwins = %d\nlosses = %d\ntraining_wins = %d\ncoins = %d\n", p.storyStage, p.wins, p.losses, p.trainingWins, p.coins);
     o += TextFormat("story_rev = %d\nclock = %d\n", p.storyRev > 0 ? p.storyRev : Story().rev, p.clock);
     if (!p.trainArea.empty()) o += "train_area = " + p.trainArea + "\n";
+    if (!p.owMap.empty()) o += "ow_map = " + p.owMap + "\now_pos = " + std::to_string(p.owX) + " " + std::to_string(p.owY) + " " + std::to_string(p.owFace) + "\n";
     if (!p.fossil.empty()) o += "fossil = " + p.fossil + TextFormat("\nfossil_revived = %d\n", p.fossilRevived ? 1 : 0);
     if (p.eeveeGift) o += "eevee_gift = 1\n";
     if (p.amber) o += TextFormat("old_amber = %d\n", p.amberRevived ? 2 : 1);

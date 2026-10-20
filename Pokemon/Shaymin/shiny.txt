@@ -1,0 +1,18 @@
+# Shaymin - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 285838 > 1F564F
+shiny = 2BA21C > 009B7C
+shiny = 309848 > 3D9080
+shiny = 333333 > 302D32
+shiny = 404040 > 3D3A3F
+shiny = 427339 > 00735D
+shiny = 525251 > 4F4C50
+shiny = 789870 > 4E998D
+shiny = 808098 > 7E798E
+shiny = 8ED60D > 54D2AD
+shiny = A0D070 > 81CDBA
+shiny = A8A8D0 > A7A2C0
+shiny = B6B6B6 > B3AEB5
+shiny = E8E8F8 > E5E0F1
+shiny = F0C000 > 93CFB7
+shiny = F1E715 > 83F1CA

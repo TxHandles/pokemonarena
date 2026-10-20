@@ -1,0 +1,12 @@
+# Woobat - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 363D4D > 3D4575
+shiny = 3D5D6D > 3F8300
+shiny = 453F45 > 444857
+shiny = 659FB9 > 83C743
+shiny = 696969 > 6A727F
+shiny = 738193 > 8089BF
+shiny = 74ACE3 > 96D757
+shiny = 7E3D45 > 407900
+shiny = 9FD4EE > BBE49A
+shiny = A2DBFC > C1EBA2

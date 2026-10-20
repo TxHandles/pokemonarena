@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Scraggy
+dex  = 559
+type = Dark / Fighting
+
+hp         = 50
+attack     = 75
+defense    = 70
+sp_attack  = 35
+sp_defense = 70
+speed      = 48
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 11.8      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Scrafty
+evolve_level = 39
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leer
+learn = 1, Low Kick
+learn = 4, Payback
+learn = 8, Headbutt
+learn = 12, Sand Attack
+learn = 16, Facade
+learn = 20, Torment
+learn = 24, Beat Up
+learn = 28, Scary Face
+learn = 32, Brick Break
+learn = 36, Swagger
+learn = 40, Crunch
+learn = 44, High Jump Kick
+learn = 48, Focus Punch
+learn = 52, Head Smash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Scary Face, Protect, Low Kick, Acid Spray
+tm = Thief, Trailblaze, Facade, Snarl, Rock Tomb, Low Sweep
+tm = Fling, Dragon Tail, Endure, Sunny Day, Rain Dance, Dig
+tm = Brick Break, Zen Headbutt, Foul Play, Bulk Up, Fire Punch, Thunder Punch
+tm = Ice Punch, Sleep Talk, Drain Punch, Dragon Claw, Grass Knot, Poison Jab
+tm = Rest, Rock Slide, Taunt, Dark Pulse, Iron Head, Dragon Dance
+tm = Substitute, Iron Defense, Crunch, Dragon Pulse, Encore, Amnesia
+tm = Helping Hand, Sludge Bomb, Stone Edge, Focus Blast, Close Combat, Tera Blast
+tm = Roar, Smack Down, Knock Off, Super Fang, Uproar, Focus Punch
+tm = Lash Out, Double-Edge, Endeavor, Coaching, Throat Chop, Curse
+tm = Upper Hand

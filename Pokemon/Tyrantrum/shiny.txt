@@ -1,0 +1,7 @@
+# Tyrantrum - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 7F2C37 > 214CA0
+shiny = A24B45 > 4D68C0
+shiny = A66F75 > 6282DE
+shiny = BA4889 > 6778C2
+shiny = E7AE41 > DFE1DE

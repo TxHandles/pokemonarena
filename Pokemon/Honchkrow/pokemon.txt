@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Honchkrow
+dex  = 430
+type = Dark / Flying
+
+hp         = 100
+attack     = 125
+defense    = 52
+sp_attack  = 105
+sp_defense = 52
+speed      = 71
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 27.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Quash
+learn = 1, Wing Attack
+learn = 1, Astonish
+learn = 1, Haze
+learn = 1, Night Slash
+learn = 1, Sucker Punch
+learn = 25, Swagger
+learn = 35, Nasty Plot
+learn = 45, Foul Play
+learn = 55, Dark Pulse
+learn = 65, Comeuppance
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Acrobatics, Confuse Ray
+tm = Thief, Chilling Water, Facade, Aerial Ace, Hex, Snarl
+tm = Icy Wind, Air Cutter, Night Shade, Endure, Sunny Day, Rain Dance
+tm = U-turn, Foul Play, Air Slash, Sleep Talk, Thunder Wave, Rest
+tm = Taunt, Dark Pulse, Fly, Substitute, Tailwind, Shadow Ball
+tm = Heat Wave, Psychic, Calm Mind, Helping Hand, Nasty Plot, Giga Impact
+tm = Hurricane, Hyper Beam, Brave Bird, Tera Blast, Haze, Spite
+tm = Uproar, Dual Wingbeat, Lash Out, Psych Up, Double-Edge, Endeavor
+tm = Feather Dance, Psychic Noise

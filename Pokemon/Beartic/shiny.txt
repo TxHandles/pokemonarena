@@ -1,0 +1,25 @@
+# Beartic - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 000019
+shiny = 0B0B0B > 00001A
+shiny = 373737 > 23263B
+shiny = 37575F > 2A435E
+shiny = 37819B > 3A6A91
+shiny = 494842 > 353648
+shiny = 4A7CA8 > 446799
+shiny = 5C5F5D > 824893
+shiny = 5F6868 > A856B9
+shiny = 68B6C7 > 6C9DC0
+shiny = 899496 > 767F99
+shiny = 93E3F5 > 96C9EE
+shiny = 979FB1 > 7C98C6
+shiny = A4BDBC > 94A6BF
+shiny = ACBFC7 > 94B7E0
+shiny = B4FFFF > B5E4FF
+shiny = BCEDFD > B4D4F8
+shiny = D9F4FE > C9DCFD
+shiny = DAF4FE > C4EBFF
+shiny = DAF5FF > CADDFE
+shiny = E4F3FE > D0DCFE
+shiny = E5E5F7 > CDCFF5
+shiny = FAFAFA > E2E3FF

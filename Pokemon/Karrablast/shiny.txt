@@ -1,0 +1,14 @@
+# Karrablast - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 192F4F > 005343
+shiny = 285FFF > 00A48D
+shiny = 2F4779 > 00705F
+shiny = 3984E4 > 20BC9E
+shiny = 4781FF > 2CBFA4
+shiny = 685719 > 476817
+shiny = AC9312 > 62B100
+shiny = EEF0F6 > C4FF51
+shiny = F0CA2C > A1EC00
+shiny = FAFAFA > CFFF53
+shiny = FFA63C > A7C83B
+shiny = FFDA12 > B1FC05

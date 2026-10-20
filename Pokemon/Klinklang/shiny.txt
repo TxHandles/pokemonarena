@@ -1,0 +1,28 @@
+# Klinklang - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1C8E9F > 6DAF35
+shiny = 203636 > 3C2705
+shiny = 21818A > 776C4A
+shiny = 21A4B6 > 978C69
+shiny = 285757 > 524726
+shiny = 417F82 > 68612B
+shiny = 5A5A62 > 524A42
+shiny = 5E5E67 > 564E47
+shiny = 5F5F68 > 575134
+shiny = 606080 > 68583A
+shiny = 63AAB3 > 6FE029
+shiny = 686872 > 605851
+shiny = 686881 > 705F40
+shiny = 696967 > 605A36
+shiny = 8A8A8A > 81796B
+shiny = 93928C > 89816F
+shiny = 9B9BA4 > 938B6B
+shiny = A4ADBA > A09C7E
+shiny = A9AEAA > A29D75
+shiny = C0DCC0 > CBBD7F
+shiny = D0DAEC > D1C187
+shiny = DFDFDD > D7C68B
+shiny = E06040 > E569A0
+shiny = E5E5F7 > DFCE93
+shiny = EF7A86 > 9C844C
+shiny = FAFAFA > F2E1A4

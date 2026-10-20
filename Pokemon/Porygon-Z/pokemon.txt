@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Porygon-Z
+dex  = 474
+type = Normal
+
+hp         = 85
+attack     = 80
+defense    = 70
+sp_attack  = 135
+sp_defense = 75
+speed      = 90
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 34.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Trick Room
+learn = 1, Tackle
+learn = 1, Defense Curl
+learn = 1, Magnet Rise
+learn = 1, Conversion
+learn = 1, Nasty Plot
+learn = 1, Recycle
+learn = 15, Thunder Shock
+learn = 20, Psybeam
+learn = 25, Conversion 2
+learn = 30, Agility
+learn = 35, Recover
+learn = 40, Discharge
+learn = 45, Tri Attack
+learn = 50, Double-Edge
+learn = 55, Lock-On
+learn = 60, Zap Cannon
+learn = 65, Hyper Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Psybeam, Thief, Charge Beam
+tm = Facade, Swift, Icy Wind, Endure, Sunny Day, Rain Dance
+tm = Psyshock, Zen Headbutt, Foul Play, Sleep Talk, Thunder Wave, Rest
+tm = Dark Pulse, Eerie Impulse, Substitute, Trick, Shadow Ball, Psychic
+tm = Thunderbolt, Ice Beam, Nasty Plot, Blizzard, Giga Impact, Trick Room
+tm = Hyper Beam, Thunder, Solar Beam, Tera Blast, Charge, Gravity
+tm = Uproar, Double-Edge, Electroweb

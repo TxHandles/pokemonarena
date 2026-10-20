@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Patrat
+dex  = 504
+type = Normal
+
+hp         = 45
+attack     = 55
+defense    = 39
+sp_attack  = 35
+sp_defense = 39
+speed      = 42
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 11.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Watchog
+evolve_level = 20
+
+# ---- LEVEL-UP MOVES (Ultra Sun/Ultra Moon) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 3, Leer
+learn = 6, Bite
+learn = 8, Bide
+learn = 11, Detect
+learn = 13, Sand Attack
+learn = 16, Crunch
+learn = 18, Hypnosis
+learn = 21, Super Fang
+learn = 23, After You
+learn = 26, Focus Energy
+learn = 28, Work Up
+learn = 31, Hyper Fang
+learn = 33, Nasty Plot
+learn = 36, Mean Look
+learn = 38, Baton Pass
+learn = 41, Slam
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Fling, Sunny Day, Rain Dance, Sleep Talk
+tm = Grass Knot, Rest, Swords Dance, Substitute, Shadow Ball, Thunderbolt
+tm = Toxic

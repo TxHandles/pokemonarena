@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Meloetta
+dex  = 648
+type = Normal / Psychic
+
+hp         = 100
+attack     = 77
+defense    = 77
+sp_attack  = 128
+sp_defense = 128
+speed      = 90
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 6.5      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Round
+learn = 1, Quick Attack
+learn = 1, Sing
+learn = 1, Confusion
+learn = 21, Teeter Dance
+learn = 26, Acrobatics
+learn = 31, Psybeam
+learn = 36, Echoed Voice
+learn = 43, U-turn
+learn = 50, Relic Song
+learn = 57, Psychic
+learn = 64, Hyper Voice
+learn = 71, Role Play
+learn = 78, Close Combat
+learn = 85, Perish Song
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Protect, Low Kick, Acrobatics, Psybeam
+tm = Disarming Voice, Facade, Swift, Low Sweep, Fling, Endure
+tm = Sunny Day, Rain Dance, Psyshock, Brick Break, Zen Headbutt, U-turn
+tm = Shadow Claw, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch
+tm = Light Screen, Dazzling Gleam, Metronome, Grass Knot, Thunder Wave, Rest
+tm = Swords Dance, Skill Swap, Substitute, Trick, Shadow Ball, Hyper Voice
+tm = Energy Ball, Psychic, Thunderbolt, Play Rough, Calm Mind, Helping Hand
+tm = Baton Pass, Reversal, Stone Edge, Giga Impact, Focus Blast, Trick Room
+tm = Hyper Beam, Thunder, Close Combat, Tera Blast, Gravity, Knock Off
+tm = Focus Punch, Psych Up, Triple Axel, Coaching, Alluring Voice

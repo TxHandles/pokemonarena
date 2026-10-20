@@ -1,0 +1,19 @@
+# Lillipup - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 413D3C > 4F4A2F
+shiny = 454D65 > 856E58
+shiny = 4D4D4D > 81682F
+shiny = 553D12 > 825F1B
+shiny = 6A6B8B > 669787
+shiny = 864D36 > AE753E
+shiny = A4674B > B68540
+shiny = A87E3D > AC8F4A
+shiny = C53831 > C13BB7
+shiny = C9AA66 > FED27C
+shiny = D44D4D > D34EC9
+shiny = D4864D > E2A74D
+shiny = D88C5C > FFB96F
+shiny = E5C286 > ECD38F
+shiny = E5E5F7 > D6FFF6
+shiny = F6D593 > FEE69E
+shiny = FDFFF8 > FFFCB6

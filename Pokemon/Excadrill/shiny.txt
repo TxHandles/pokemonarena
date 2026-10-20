@@ -1,0 +1,24 @@
+# Excadrill - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 56001A
+shiny = 0B0B0B > 5E0020
+shiny = 211912 > 591226
+shiny = 372821 > 702738
+shiny = 434040 > A33356
+shiny = 4F3F37 > 8C404F
+shiny = 575757 > 4E5074
+shiny = 5E4E4E > BA4668
+shiny = 793737 > 9A4758
+shiny = 84615D > D8607F
+shiny = 959189 > 8C89AD
+shiny = 9B9B9B > 9393BC
+shiny = A44747 > 2D9CB6
+shiny = B63737 > 389CB5
+shiny = C2606A > 50B8D4
+shiny = C7BFBB > BDB7DF
+shiny = D0D0D0 > C8C8F3
+shiny = E5E5F7 > FFDAF9
+shiny = EC7970 > E7AD74
+shiny = EC9381 > F6BE83
+shiny = F689A4 > FFA9BA
+shiny = FAFAFA > FFE7F5

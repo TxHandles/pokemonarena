@@ -1,0 +1,13 @@
+# Infernape - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 40484F
+shiny = 404040 > 4E565D
+shiny = 5E5E5A > 6D7579
+shiny = 684838 > A70042
+shiny = 803820 > 9F1B41
+shiny = C04020 > B80848
+shiny = CA793E > DD4367
+shiny = D09800 > B8AF61
+shiny = E07050 > E3456B
+shiny = F8D000 > EAE18D
+shiny = FDC938 > E8DE8C

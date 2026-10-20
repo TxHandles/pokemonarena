@@ -1,0 +1,18 @@
+# Dusknoir - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 0B3253
+shiny = 434241 > 224162
+shiny = 505050 > 304F72
+shiny = 56554B > 395471
+shiny = 716F5C > 476D7F
+shiny = 787878 > 627E8F
+shiny = 986007 > 7E635D
+shiny = 986008 > 937C07
+shiny = A0A0A0 > 89A7B4
+shiny = BDAE43 > C2C54C
+shiny = C5C1BA > ADC9D2
+shiny = C88010 > BF9F22
+shiny = D06060 > DF557B
+shiny = F0B000 > EBD43A
+shiny = FC8641 > FF7B98
+shiny = FDD046 > FDF262

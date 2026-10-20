@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Joltik
+dex  = 595
+type = Bug / Electric
+
+hp         = 50
+attack     = 47
+defense    = 50
+sp_attack  = 57
+sp_defense = 50
+speed      = 65
+
+size   = 0.85
+height = 0.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 0.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Galvantula
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Fury Cutter
+learn = 1, Absorb
+learn = 4, Electroweb
+learn = 8, Bug Bite
+learn = 12, String Shot
+learn = 16, Thunder Wave
+learn = 20, Electro Ball
+learn = 24, Agility
+learn = 28, Sucker Punch
+learn = 32, Slash
+learn = 37, Discharge
+learn = 40, Screech
+learn = 44, Gastro Acid
+learn = 48, Bug Buzz
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Struggle Bug, Thief, Pounce, Charge Beam
+tm = Facade, Swift, Endure, Volt Switch, Rain Dance, Sleep Talk
+tm = Electro Ball, Light Screen, Thunder Wave, Poison Jab, Rest, Leech Life
+tm = Substitute, X-Scissor, Giga Drain, Energy Ball, Thunderbolt, Helping Hand
+tm = Wild Charge, Bug Buzz, Thunder, Tera Blast, Bug Bite, Lunge
+tm = Electroweb, Skitter Smack

@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Riolu
+dex  = 447
+type = Fighting
+
+hp         = 40
+attack     = 70
+defense    = 40
+sp_attack  = 35
+sp_defense = 40
+speed      = 60
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 20.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_friendship = Lucario, 160, day   # very friendly, during the day
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Quick Attack
+learn = 1, Endure
+learn = 4, Feint
+learn = 8, Metal Claw
+learn = 12, Counter
+learn = 16, Work Up
+learn = 20, Rock Smash
+learn = 24, Vacuum Wave
+learn = 28, Screech
+learn = 32, Quick Guard
+learn = 36, Force Palm
+learn = 40, Swords Dance
+learn = 44, Helping Hand
+learn = 48, Copycat
+learn = 52, Final Gambit
+learn = 56, Reversal
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Low Kick, Trailblaze, Facade
+tm = Aerial Ace, Bulldoze, Metal Claw, Swift, Rock Tomb, Low Sweep
+tm = Fling, Endure, Sunny Day, Rain Dance, Dig, Brick Break
+tm = Zen Headbutt, Shadow Claw, Bulk Up, Thunder Punch, Ice Punch, Sleep Talk
+tm = Drain Punch, Poison Jab, Rest, Rock Slide, Swords Dance, Substitute
+tm = Crunch, Helping Hand, Reversal, Nasty Plot, Earthquake, Focus Blast
+tm = Close Combat, Tera Blast, Vacuum Wave, Focus Punch, Psych Up, Coaching
+tm = Upper Hand

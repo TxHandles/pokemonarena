@@ -1,0 +1,19 @@
+# Budew - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 203810 > 1E4000
+shiny = 205008 > 255700
+shiny = 3D523B > 3A532A
+shiny = 404040 > 7B2C8A
+shiny = 407008 > 467800
+shiny = 4C7C3D > B064BB
+shiny = 589010 > 629712
+shiny = 6BA83B > 87B22E
+shiny = 907020 > BC64BD
+shiny = 90C868 > 9BD061
+shiny = 95CF4F > B1DA4A
+shiny = A8D890 > E0E17F
+shiny = ADB362 > A8BF59
+shiny = C89810 > DC90EF
+shiny = CEF6B3 > FFFFA0
+shiny = D8D038 > D1D74A
+shiny = F7E773 > EEEF76

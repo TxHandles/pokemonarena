@@ -1,0 +1,17 @@
+# Golett - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 004040 > 101813
+shiny = 206080 > 315464
+shiny = 208080 > 447171
+shiny = 4688AC > 5A7B90
+shiny = 60A0C0 > 7192A5
+shiny = 80C0C0 > 8DB1B1
+shiny = 85C6D3 > 93B7BF
+shiny = 897553 > 746C55
+shiny = A08040 > 897649
+shiny = B88948 > 9D8053
+shiny = C0A040 > B29759
+shiny = E0C080 > C8B487
+shiny = E0E080 > C0EC25
+shiny = F2F467 > EEE68D
+shiny = F6EA18 > EFDD6B

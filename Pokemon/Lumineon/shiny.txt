@@ -1,0 +1,17 @@
+# Lumineon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0A0A0A > 241500
+shiny = 303840 > 504126
+shiny = 333333 > 4F3C18
+shiny = 486060 > 766649
+shiny = 49596A > 736247
+shiny = 525252 > 6E5C3F
+shiny = 586878 > 827155
+shiny = 6090B8 > A8977C
+shiny = 627A83 > 938164
+shiny = 7AB3DC > D7B691
+shiny = 9BD4FD > ECDABD
+shiny = A0D0D8 > F3D2A8
+shiny = A84070 > 8A6D54
+shiny = E4729B > BF9F83
+shiny = FAFAFA > FFFCE1

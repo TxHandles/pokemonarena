@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Excadrill
+dex  = 530
+type = Ground / Steel
+
+hp         = 110
+attack     = 135
+defense    = 60
+sp_attack  = 50
+sp_defense = 65
+speed      = 88
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 40.4      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Horn Drill
+learn = 1, Hone Claws
+learn = 1, Mud-Slap
+learn = 1, Scratch
+learn = 1, Rapid Spin
+learn = 12, Fury Swipes
+learn = 16, Metal Claw
+learn = 20, Sandstorm
+learn = 24, Crush Claw
+learn = 28, Rock Slide
+learn = 34, Dig
+learn = 40, Swords Dance
+learn = 46, Drill Run
+learn = 52, Earthquake
+learn = 58, Fissure
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Facade, Aerial Ace
+tm = Bulldoze, Metal Claw, Mud Shot, Rock Tomb, Fling, Endure
+tm = Sunny Day, Sandstorm, Smart Strike, Dig, Brick Break, Shadow Claw
+tm = Body Slam, Sleep Talk, Rock Blast, Poison Jab, Stomping Tantrum, Rest
+tm = Rock Slide, Swords Dance, Iron Head, Substitute, Iron Defense, X-Scissor
+tm = Drill Run, Stealth Rock, Helping Hand, Earth Power, Earthquake, Giga Impact
+tm = Focus Blast, Hyper Beam, Steel Beam, Tera Blast, Sand Tomb, High Horsepower
+tm = Double-Edge, Scorching Sands, Throat Chop, Metal Sound, Curse

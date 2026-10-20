@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Buizel
+dex  = 418
+type = Water
+
+hp         = 55
+attack     = 65
+defense    = 35
+sp_attack  = 60
+sp_defense = 30
+speed      = 85
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 29.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Floatzel
+evolve_level = 26
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 4, Growl
+learn = 7, Soak
+learn = 11, Quick Attack
+learn = 15, Water Gun
+learn = 18, Bite
+learn = 21, Swift
+learn = 24, Aqua Jet
+learn = 27, Double Hit
+learn = 31, Whirlpool
+learn = 35, Liquidation
+learn = 38, Aqua Tail
+learn = 41, Agility
+learn = 45, Hydro Pump
+learn = 49, Wave Crash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Mud-Slap, Protect, Ice Fang, Water Pulse
+tm = Low Kick, Thief, Chilling Water, Facade, Swift, Icy Wind
+tm = Rock Tomb, Low Sweep, Fling, Endure, Rain Dance, Dig
+tm = Brick Break, Bulk Up, Ice Punch, Sleep Talk, Waterfall, Rest
+tm = Taunt, Substitute, Crunch, Liquidation, Surf, Ice Spinner
+tm = Helping Hand, Baton Pass, Ice Beam, Hydro Pump, Blizzard, Tera Blast
+tm = Roar, Focus Punch, Flip Turn, Whirlpool

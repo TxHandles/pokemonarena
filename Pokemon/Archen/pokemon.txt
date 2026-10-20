@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Archen
+dex  = 566
+type = Rock / Flying
+
+hp         = 55
+attack     = 112
+defense    = 45
+sp_attack  = 74
+sp_defense = 45
+speed      = 70
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 9.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Archeops
+evolve_level = 37
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Quick Attack
+learn = 1, Leer
+learn = 3, Rock Throw
+learn = 6, Wing Attack
+learn = 9, Dragon Breath
+learn = 12, Ancient Power
+learn = 15, Pluck
+learn = 18, Quick Guard
+learn = 21, U-turn
+learn = 24, Rock Slide
+learn = 27, Scary Face
+learn = 30, Crunch
+learn = 33, Agility
+learn = 36, Tailwind
+learn = 39, Dragon Claw
+learn = 42, Thrash
+learn = 45, Endeavor
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Scary Face, Protect, Acrobatics, Facade, Bulldoze
+tm = Swift, Rock Tomb, Endure, Sandstorm, Dig, Zen Headbutt
+tm = U-turn, Shadow Claw, Sleep Talk, Rock Blast, Dragon Claw, Rest
+tm = Rock Slide, Taunt, Substitute, Iron Defense, Crunch, Dragon Pulse
+tm = Stealth Rock, Heat Wave, Earth Power, Earthquake, Stone Edge, Uproar

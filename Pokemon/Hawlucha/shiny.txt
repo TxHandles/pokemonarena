@@ -1,0 +1,8 @@
+# Hawlucha - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 45825F > 493C88
+shiny = 5BCA8B > 8778C8
+shiny = BD4D52 > 565857
+shiny = BFCED8 > 9C0033
+shiny = FAFAFA > CE3F57
+shiny = FBB74F > C5ED5E

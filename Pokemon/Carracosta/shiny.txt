@@ -1,0 +1,18 @@
+# Carracosta - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 293139 > 081818
+shiny = 293862 > 0D1644
+shiny = 293962 > 000D24
+shiny = 39739C > 314A7B
+shiny = 3F3F41 > 001415
+shiny = 414A5A > 102931
+shiny = 4A94D5 > 527BA4
+shiny = 525A6A > 183939
+shiny = 585A72 > 142C39
+shiny = 627197 > 1E4055
+shiny = 627383 > 20414A
+shiny = 6495BB > 6D96B3
+shiny = 7BB5EE > 789BC0
+shiny = 7D85AA > 605D8D
+shiny = A4CDD5 > 8BBDC5
+shiny = AED6C6 > 6C9A92

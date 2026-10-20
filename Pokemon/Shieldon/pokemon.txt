@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Shieldon
+dex  = 410
+type = Rock / Steel
+
+hp         = 30
+attack     = 42
+defense    = 118
+sp_attack  = 42
+sp_defense = 88
+speed      = 30
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 57.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Bastiodon
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Protect
+learn = 6, Taunt
+learn = 10, Metal Sound
+learn = 15, Take Down
+learn = 19, Iron Defense
+learn = 24, Swagger
+learn = 28, Ancient Power
+learn = 33, Endure
+learn = 37, Metal Burst
+learn = 42, Iron Head
+learn = 46, Heavy Slam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Trailblaze, Facade
+tm = Bulldoze, Rock Tomb, Endure, Sunny Day, Rain Dance, Sandstorm
+tm = Dig, Body Slam, Sleep Talk, Rock Blast, Stomping Tantrum, Rest
+tm = Rock Slide, Taunt, Flash Cannon, Iron Head, Power Gem, Substitute
+tm = Iron Defense, Stealth Rock, Heavy Slam, Flamethrower, Thunderbolt, Earth Power
+tm = Ice Beam, Fire Blast, Blizzard, Earthquake, Stone Edge, Thunder
+tm = Steel Beam, Tera Blast, Roar, Sand Tomb, Smack Down, Double-Edge
+tm = Scorching Sands, Metal Sound, Curse, Hard Press

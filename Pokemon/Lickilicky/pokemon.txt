@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Lickilicky
+dex  = 463
+type = Normal
+
+hp         = 110
+attack     = 85
+defense    = 95
+sp_attack  = 80
+sp_defense = 95
+speed      = 50
+
+size   = 1.23
+height = 1.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 140.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Lick
+learn = 1, Defense Curl
+learn = 1, Supersonic
+learn = 1, Rollout
+learn = 18, Wrap
+learn = 24, Disable
+learn = 30, Stomp
+learn = 36, Knock Off
+learn = 42, Screech
+learn = 48, Slam
+learn = 54, Power Whip
+learn = 60, Belly Drum
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Bulldoze, Icy Wind, Rock Tomb
+tm = Fling, Endure, Sunny Day, Rain Dance, Sandstorm, Dig
+tm = Brick Break, Zen Headbutt, Body Slam, Fire Punch, Thunder Punch, Ice Punch
+tm = Sleep Talk, Stomping Tantrum, Rest, Rock Slide, Swords Dance, Body Press
+tm = Substitute, Shadow Ball, Surf, Flamethrower, Thunderbolt, Amnesia
+tm = Helping Hand, Ice Beam, Fire Blast, Hydro Pump, Blizzard, Earthquake
+tm = Giga Impact, Focus Blast, Hyper Beam, Thunder, Solar Beam, Gyro Ball
+tm = Whirlpool, Muddy Water

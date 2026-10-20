@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Chandelure
+dex  = 609
+type = Ghost / Fire
+
+hp         = 60
+attack     = 55
+defense    = 90
+sp_attack  = 145
+sp_defense = 90
+speed      = 80
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 34.3      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Smog
+learn = 1, Confuse Ray
+learn = 1, Imprison
+learn = 1, Inferno
+learn = 1, Ember
+learn = 1, Overheat
+learn = 1, Minimize
+learn = 1, Pain Split
+learn = 1, Night Shade
+learn = 1, Shadow Ball
+learn = 1, Memento
+learn = 1, Hex
+learn = 1, Fire Spin
+learn = 1, Will-O-Wisp
+learn = 1, Astonish
+learn = 1, Curse
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Confuse Ray, Thief, Trailblaze, Fire Spin, Facade
+tm = Hex, Flame Charge, Night Shade, Endure, Sunny Day, Sleep Talk
+tm = Rest, Taunt, Imprison, Dark Pulse, Substitute, Will-O-Wisp
+tm = Trick, Shadow Ball, Heat Wave, Energy Ball, Psychic, Flamethrower
+tm = Calm Mind, Fire Blast, Giga Impact, Overheat, Trick Room, Hyper Beam
+tm = Flare Blitz, Solar Beam, Tera Blast, Haze, Spite, Burning Jealousy
+tm = Poltergeist, Lash Out, Pain Split, Psych Up, Temper Flare, Skitter Smack
+tm = Curse

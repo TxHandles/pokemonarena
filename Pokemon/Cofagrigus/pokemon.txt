@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Cofagrigus
+dex  = 563
+type = Ghost
+
+hp         = 58
+attack     = 50
+defense    = 145
+sp_attack  = 95
+sp_defense = 105
+speed      = 30
+
+size   = 1.12
+height = 1.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 76.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Shadow Claw
+learn = 1, Astonish
+learn = 1, Haze
+learn = 1, Protect
+learn = 1, Scary Face
+learn = 1, Night Shade
+learn = 12, Disable
+learn = 16, Will-O-Wisp
+learn = 20, Crafty Shield
+learn = 24, Hex
+learn = 28, Mean Look
+learn = 32, Grudge
+learn = 38, Curse
+learn = 44, Shadow Ball
+learn = 50, Dark Pulse
+learn = 56, Power Split
+learn = 56, Guard Split
+learn = 62, Destiny Bond
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Fake Tears, Scary Face, Protect, Thief, Facade, Hex
+tm = Endure, Rain Dance, Zen Headbutt, Shadow Claw, Sleep Talk, Grass Knot
+tm = Rest, Body Press, Toxic Spikes, Imprison, Dark Pulse, Skill Swap
+tm = Substitute, Iron Defense, Will-O-Wisp, Trick, Shadow Ball, Energy Ball
+tm = Psychic, Calm Mind, Nasty Plot, Phantom Force, Giga Impact, Trick Room
+tm = Hyper Beam

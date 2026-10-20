@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Haxorus
+dex  = 612
+type = Dragon
+
+hp         = 76
+attack     = 147
+defense    = 90
+sp_attack  = 60
+sp_defense = 70
+speed      = 97
+
+size   = 1.25
+height = 1.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 105.5      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leer
+learn = 1, Scratch
+learn = 1, Bite
+learn = 1, False Swipe
+learn = 9, Assurance
+learn = 12, Taunt
+learn = 15, Slash
+learn = 18, Dragon Claw
+learn = 21, Scary Face
+learn = 24, Crunch
+learn = 27, Dragon Dance
+learn = 30, Breaking Swipe
+learn = 33, Focus Energy
+learn = 36, Dragon Pulse
+learn = 41, Swords Dance
+learn = 46, Outrage
+learn = 53, Guillotine
+learn = 60, Giga Impact
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Low Kick, Trailblaze, Facade
+tm = Aerial Ace, Bulldoze, Snarl, Swift, Rock Tomb, Low Sweep
+tm = Fling, Dragon Tail, Endure, Sunny Day, Rain Dance, Dig
+tm = False Swipe, Brick Break, Shadow Claw, Body Slam, Sleep Talk, Dragon Claw
+tm = Grass Knot, Poison Jab, Stomping Tantrum, Rest, Rock Slide, Taunt
+tm = Swords Dance, Iron Head, Dragon Dance, Substitute, X-Scissor, Crunch
+tm = Dragon Pulse, Surf, Reversal, Earthquake, Giga Impact, Outrage
+tm = Focus Blast, Hyper Beam, Close Combat, Draco Meteor, Tera Blast, Roar
+tm = Scale Shot, Double-Edge, Endeavor, Breaking Swipe, Dragon Cheer

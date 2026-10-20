@@ -1,0 +1,20 @@
+# Toxicroak - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 282848 > 295257
+shiny = 3060C0 > 64909B
+shiny = 333333 > 325B5C
+shiny = 3850A8 > 56818B
+shiny = 403F44 > 40686F
+shiny = 4D69AC > 5EB3B8
+shiny = 5880D0 > 76CBD2
+shiny = 701820 > 841959
+shiny = 7191E6 > 8ADFE6
+shiny = 808080 > 83AEAF
+shiny = A83038 > AF427D
+shiny = AB404F > CC478B
+shiny = D1CCC6 > D2FEFF
+shiny = D85840 > F066A5
+shiny = D8A000 > FF97C4
+shiny = F3633F > FF77B5
+shiny = F8D838 > FFC8F9
+shiny = FAFAFA > E9E9FA

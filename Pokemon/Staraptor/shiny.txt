@@ -1,0 +1,25 @@
+# Staraptor - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333332 > 3B230E
+shiny = 343434 > 3C2410
+shiny = 363636 > 3E2612
+shiny = 484141 > 452020
+shiny = 484848 > 523722
+shiny = 5A5551 > 62442C
+shiny = 675F5F > A37452
+shiny = 681018 > 560C00
+shiny = 686060 > A47553
+shiny = 7D6857 > 7F5737
+shiny = 908080 > 966E57
+shiny = 909090 > C2A788
+shiny = 938372 > BD9B72
+shiny = ADA59B > BA9E90
+shiny = C07000 > DFA614
+shiny = C8C8C8 > EEE1C0
+shiny = CE6B3B > EA9447
+shiny = D8D8D8 > FFF1D0
+shiny = DADADB > FFF1C9
+shiny = DADADC > FFF1CA
+shiny = E03020 > BC3F17
+shiny = F4AB31 > FFD12F
+shiny = F8A820 > FFD02C

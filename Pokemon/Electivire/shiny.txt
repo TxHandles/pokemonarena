@@ -1,0 +1,14 @@
+# Electivire - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 585858 > 5F4D54
+shiny = 656964 > 6C5E60
+shiny = 705818 > 633000
+shiny = B7880F > A55600
+shiny = B88810 > A55700
+shiny = BC9B44 > B66512
+shiny = EE5131 > C83504
+shiny = F06070 > D04237
+shiny = F0D000 > E79F07
+shiny = F5D86A > F0A723
+shiny = F6E8A9 > FFB43A
+shiny = F8E878 > FDB332

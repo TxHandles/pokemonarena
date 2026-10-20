@@ -1,0 +1,20 @@
+# Dewott - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 194F57 > 046D54
+shiny = 19818A > 39AA92
+shiny = 212F5F > 782E70
+shiny = 274555 > 246352
+shiny = 284781 > 93478A
+shiny = 284F68 > 2E7966
+shiny = 2E2E3D > 00513A
+shiny = 2E365D > 803576
+shiny = 323333 > 05562E
+shiny = 406992 > 4B9591
+shiny = 47B6B6 > 68E0C1
+shiny = 5091D3 > C28FD5
+shiny = 84D6EF > 81F2E7
+shiny = BF474F > AD8E6A
+shiny = BF8A21 > EF95CC
+shiny = ECCC81 > EFCED5
+shiny = ECD081 > EFD2D5
+shiny = FAFAFA > D7FFE9

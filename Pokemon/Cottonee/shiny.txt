@@ -1,0 +1,20 @@
+# Cottonee - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 388018 > C57100
+shiny = 50B020 > F89D24
+shiny = 52914F > DC830D
+shiny = 606868 > 7E5914
+shiny = 68D048 > FFBB46
+shiny = 6CC366 > FFB141
+shiny = 70847F > DE733F
+shiny = 8FA6A5 > ADB599
+shiny = 90B0A0 > BCB79D
+shiny = A8C8B8 > C9D6B0
+shiny = BBD0CA > D9DFBF
+shiny = C07F4A > AD7E33
+shiny = C0E0D0 > EDE7CD
+shiny = D8F7E0 > F8FFD9
+shiny = D8F8E0 > F8FFD9
+shiny = E6F8FE > FEFFE8
+shiny = E85838 > DA804C
+shiny = E8E8F8 > FFFAE7

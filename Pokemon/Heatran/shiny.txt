@@ -1,0 +1,18 @@
+# Heatran - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 401828 > 6B0022
+shiny = 7F7F88 > 8F7740
+shiny = 808088 > 907841
+shiny = 884040 > B11E00
+shiny = 8C4A3A > BA2802
+shiny = 9C9C9C > AC9359
+shiny = AF6757 > E04C23
+shiny = B06858 > E24D24
+shiny = B5633A > DF4A1E
+shiny = BDBDBD > CDC5AC
+shiny = C07800 > F25C27
+shiny = C0C0D0 > D4B87E
+shiny = DE8431 > F3861C
+shiny = E89800 > EA8F00
+shiny = E8E8F8 > F8F0ED
+shiny = FFA531 > FF9D26

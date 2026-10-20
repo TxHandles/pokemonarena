@@ -1,0 +1,24 @@
+# Cobalion - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 01A9BD > 1168B3
+shiny = 0B7E89 > 004489
+shiny = 0F273D > 000633
+shiny = 195D9F > 002F75
+shiny = 277EB9 > 27588E
+shiny = 3B4645 > 001B56
+shiny = 3E3E42 > 242422
+shiny = 3FA3CB > 4B77AD
+shiny = 40A3CB > 4B77AD
+shiny = 5D3A06 > 444502
+shiny = 636363 > 194372
+shiny = 71624E > 003676
+shiny = 845B0E > 727C2D
+shiny = 8B8285 > 5D585A
+shiny = 9D9D9D > 76886E
+shiny = 9DBFBC > 9FD5BA
+shiny = C1C1CE > 9AAC98
+shiny = C2C2CF > 9BAD99
+shiny = D89113 > C0B84E
+shiny = ECECF6 > 8BB4FF
+shiny = F0B466 > C1E56B
+shiny = F5CA43 > E1ED79

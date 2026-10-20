@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Zoroark
+dex  = 571
+type = Dark
+
+hp         = 60
+attack     = 105
+defense    = 60
+sp_attack  = 120
+sp_defense = 60
+speed      = 105
+
+size   = 1.12
+height = 1.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 81.1      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Night Slash
+learn = 1, Hone Claws
+learn = 1, U-turn
+learn = 1, Leer
+learn = 1, Torment
+learn = 1, Scratch
+learn = 12, Fury Swipes
+learn = 20, Taunt
+learn = 24, Knock Off
+learn = 28, Fake Tears
+learn = 34, Agility
+learn = 40, Imprison
+learn = 46, Night Daze
+learn = 52, Nasty Plot
+learn = 58, Foul Play
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Agility, Scary Face, Protect, Low Kick
+tm = Confuse Ray, Thief, Facade, Aerial Ace, Hex, Snarl
+tm = Swift, Low Sweep, Night Shade, Fling, Endure, Sunny Day
+tm = Rain Dance, Dig, Brick Break, U-turn, Shadow Claw, Foul Play
+tm = Body Slam, Sleep Talk, Grass Knot, Rest, Taunt, Swords Dance
+tm = Imprison, Dark Pulse, Substitute, Crunch, Trick, Shadow Ball
+tm = Hyper Voice, Psychic, Flamethrower, Calm Mind, Helping Hand, Nasty Plot
+tm = Sludge Bomb, Giga Impact, Focus Blast, Hyper Beam, Tera Blast, Roar
+tm = Toxic, Spite, Knock Off, Burning Jealousy, Lash Out, Pain Split
+tm = Psych Up, Skitter Smack, Throat Chop

@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Victini
+dex  = 494
+type = Psychic / Fire
+
+hp         = 100
+attack     = 100
+defense    = 100
+sp_attack  = 100
+sp_defense = 100
+speed      = 100
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 4.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Quick Attack
+learn = 1, Flame Charge
+learn = 1, V-create
+learn = 1, Focus Energy
+learn = 1, Confusion
+learn = 7, Work Up
+learn = 14, Incinerate
+learn = 21, Stored Power
+learn = 28, Headbutt
+learn = 35, Endure
+learn = 42, Zen Headbutt
+learn = 49, Inferno
+learn = 56, Reversal
+learn = 63, Searing Shot
+learn = 70, Double-Edge
+learn = 77, Flare Blitz
+learn = 84, Overheat
+learn = 91, Final Gambit
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Fire Spin, Facade, Swift, Stored Power, Fling
+tm = Endure, Sunny Day, Psyshock, Brick Break, Zen Headbutt, U-turn
+tm = Fire Punch, Thunder Punch, Sleep Talk, Light Screen, Dazzling Gleam, Grass Knot
+tm = Thunder Wave, Rest, Taunt, Skill Swap, Substitute, Will-O-Wisp
+tm = Trick, Shadow Ball, Heat Wave, Energy Ball, Psychic, Encore
+tm = Flamethrower, Thunderbolt, Helping Hand, Baton Pass, Reversal, Fire Blast
+tm = Wild Charge, Giga Impact, Overheat, Focus Blast, Trick Room, Hyper Beam
+tm = Flare Blitz, Thunder, Solar Beam, Uproar, Future Sight

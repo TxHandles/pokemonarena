@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Drifloon
+dex  = 425
+type = Ghost / Flying
+
+hp         = 90
+attack     = 50
+defense    = 34
+sp_attack  = 60
+sp_defense = 44
+speed      = 70
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 1.2      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Drifblim
+evolve_level = 28
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Astonish
+learn = 1, Minimize
+learn = 4, Gust
+learn = 8, Focus Energy
+learn = 12, Payback
+learn = 16, Hex
+learn = 20, Shadow Ball
+learn = 24, Swallow
+learn = 24, Stockpile
+learn = 24, Spit Up
+learn = 29, Self-Destruct
+learn = 32, Destiny Bond
+learn = 36, Baton Pass
+learn = 40, Tailwind
+learn = 44, Explosion
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Acrobatics, Psybeam, Thief, Facade, Aerial Ace
+tm = Hex, Swift, Icy Wind, Air Cutter, Stored Power, Night Shade
+tm = Endure, Sunny Day, Rain Dance, Sleep Talk, Thunder Wave, Rest
+tm = Imprison, Fly, Skill Swap, Substitute, Will-O-Wisp, Trick
+tm = Tailwind, Shadow Ball, Psychic, Thunderbolt, Amnesia, Calm Mind
+tm = Helping Hand, Baton Pass, Phantom Force, Trick Room, Thunder, Tera Blast
+tm = Haze, Spite, Gyro Ball, Knock Off, Weather Ball, Pain Split
+tm = Temper Flare, Curse

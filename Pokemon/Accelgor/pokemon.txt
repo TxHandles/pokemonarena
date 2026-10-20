@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Accelgor
+dex  = 617
+type = Bug
+
+hp         = 80
+attack     = 70
+defense    = 40
+sp_attack  = 100
+sp_defense = 60
+speed      = 145
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 25.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Yawn
+learn = 1, Guard Swap
+learn = 1, Acid Armor
+learn = 1, Body Slam
+learn = 1, Curse
+learn = 1, Water Shuriken
+learn = 1, Acid
+learn = 1, Absorb
+learn = 1, Double Team
+learn = 1, Quick Attack
+learn = 1, Acid Spray
+learn = 12, Mega Drain
+learn = 16, Struggle Bug
+learn = 20, Swift
+learn = 24, Agility
+learn = 28, Giga Drain
+learn = 32, Power Swap
+learn = 36, U-turn
+learn = 40, Recover
+learn = 44, Bug Buzz
+learn = 48, Final Gambit
+learn = 52, Toxic
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Facade, Swift, Mud Shot, Venoshock
+tm = Endure, Rain Dance, Sandstorm, U-turn, Body Slam, Sleep Talk
+tm = Drain Punch, Rest, Spikes, Toxic Spikes, Leech Life, Substitute
+tm = Giga Drain, Energy Ball, Encore, Baton Pass, Reversal, Sludge Bomb
+tm = Giga Impact, Focus Blast, Bug Buzz, Hyper Beam

@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Electivire
+dex  = 466
+type = Electric
+
+hp         = 75
+attack     = 123
+defense    = 67
+sp_attack  = 95
+sp_defense = 85
+speed      = 95
+
+size   = 1.25
+height = 1.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 138.6      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Charge
+learn = 1, Quick Attack
+learn = 1, Leer
+learn = 1, Thunder Shock
+learn = 12, Swift
+learn = 16, Shock Wave
+learn = 20, Thunder Wave
+learn = 24, Screech
+learn = 28, Thunder Punch
+learn = 34, Discharge
+learn = 40, Low Kick
+learn = 46, Thunderbolt
+learn = 52, Light Screen
+learn = 58, Thunder
+learn = 64, Giga Impact
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Low Kick, Thief, Trailblaze, Charge Beam
+tm = Facade, Bulldoze, Swift, Rock Tomb, Low Sweep, Fling
+tm = Endure, Volt Switch, Rain Dance, Dig, Brick Break, Bulk Up
+tm = Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Electro Ball
+tm = Reflect, Light Screen, Metronome, Thunder Wave, Stomping Tantrum, Rest
+tm = Rock Slide, Taunt, Eerie Impulse, Substitute, Psychic, Flamethrower
+tm = Thunderbolt, Helping Hand, Electric Terrain, Wild Charge, Earthquake, Giga Impact
+tm = Focus Blast, Hyper Beam, Thunder, Tera Blast, Charge, Knock Off
+tm = Uproar, Focus Punch, Weather Ball, Double-Edge, Supercell Slam, Electroweb
+tm = Metal Sound

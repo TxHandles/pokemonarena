@@ -1,0 +1,22 @@
+# Porygon-Z - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 104060 > 7E4860
+shiny = 2878A8 > C0A0AE
+shiny = 4098C0 > D89EB7
+shiny = 528CFF > E3BED4
+shiny = 52B5FF > FFDFF1
+shiny = 601830 > 0011A0
+shiny = 703050 > 0023B8
+shiny = 90E8F8 > FFDCF3
+shiny = A83F68 > 363FDC
+shiny = A84068 > 373FDD
+shiny = A87030 > A28B2E
+shiny = ADDEFF > FFD8F1
+shiny = C54252 > 3779E0
+shiny = D89030 > FDCDCE
+shiny = E06070 > 7362FF
+shiny = EF636B > 6699FF
+shiny = F0A0A8 > A08EFF
+shiny = F7A5A5 > FFE9F4
+shiny = F7F729 > F9FF56
+shiny = F8D038 > F0E84F

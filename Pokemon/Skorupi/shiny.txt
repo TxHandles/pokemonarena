@@ -1,0 +1,11 @@
+# Skorupi - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 383850 > 541E00
+shiny = 3C3E46 > 552600
+shiny = 484890 > 890000
+shiny = 5860B0 > A70D18
+shiny = 5DA8BF > E55A52
+shiny = 6E6ECC > BC2936
+shiny = 7880D0 > CD3B41
+shiny = 8F99F9 > EE574B
+shiny = 98A0E0 > F15C4B

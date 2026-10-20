@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Herdier
+dex  = 507
+type = Normal
+
+hp         = 65
+attack     = 80
+defense    = 65
+sp_attack  = 35
+sp_defense = 65
+speed      = 60
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 14.7      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Stoutland
+evolve_level = 32
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Work Up
+learn = 1, Tackle
+learn = 1, Leer
+learn = 1, Bite
+learn = 12, Retaliate
+learn = 19, Baby-Doll Eyes
+learn = 24, Play Rough
+learn = 30, Crunch
+learn = 36, Take Down
+learn = 42, Helping Hand
+learn = 48, Reversal
+learn = 54, Roar
+learn = 60, Last Resort
+learn = 66, Giga Impact
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Fire Fang, Thunder Fang, Ice Fang, Facade
+tm = Snarl, Rock Tomb, Endure, Sunny Day, Rain Dance, Dig
+tm = Psychic Fangs, Sleep Talk, Thunder Wave, Rest, Substitute, Crunch
+tm = Shadow Ball, Hyper Voice, Surf, Thunderbolt, Play Rough, Helping Hand
+tm = Reversal, Wild Charge, Giga Impact, Uproar

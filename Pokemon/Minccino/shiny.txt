@@ -1,0 +1,17 @@
+# Minccino - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 262526 > 411429
+shiny = 3D3D42 > 402434
+shiny = 3E3E42 > 5D2E44
+shiny = 414141 > 5E3242
+shiny = 7F6A60 > 9A5B6A
+shiny = 878887 > AA7888
+shiny = 8B8285 > AC7289
+shiny = A54140 > A7394F
+shiny = ACADAC > D19DAD
+shiny = BBB1A5 > DEA1AF
+shiny = C2C2CF > E9B2CB
+shiny = C4C5C4 > EAB5C5
+shiny = C78495 > D7789A
+shiny = CB4F6D > C94B73
+shiny = FAFAFA > FFE9FB

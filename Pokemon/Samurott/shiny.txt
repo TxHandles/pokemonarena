@@ -1,0 +1,30 @@
+# Samurott - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 192F57 > 212037
+shiny = 194F93 > 373E66
+shiny = 332E2E > 551C22
+shiny = 333332 > 471503
+shiny = 362E2E > 571B22
+shiny = 383030 > 4A0F00
+shiny = 3F3F3F > 552114
+shiny = 447FBE > 395B84
+shiny = 4F6868 > 2B464C
+shiny = 525252 > 303237
+shiny = 6F5736 > 8F4636
+shiny = 705030 > 8C3F31
+shiny = 705737 > 8F4637
+shiny = 799B9B > BBB37A
+shiny = 8C7F58 > B36E58
+shiny = A08848 > AF674E
+shiny = A1BCC2 > E0D69C
+shiny = A48A4F > B36955
+shiny = B9C2CB > 949BA7
+shiny = BAC0CC > BFBF8E
+shiny = BEBFC7 > BFBF8D
+shiny = BFBFC7 > C0BF8D
+shiny = C8AE68 > C0806A
+shiny = D0B870 > E39579
+shiny = D0BF70 > CF8E77
+shiny = E0D8B0 > E8A691
+shiny = E6DBB3 > FFB69C
+shiny = EEDD8B > EEAB92

@@ -1,0 +1,23 @@
+# Lickilicky - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 3F4300
+shiny = 0A0A0A > 464900
+shiny = 453E3E > 869600
+shiny = 483030 > 7B8A00
+shiny = 505050 > 94AA24
+shiny = 984058 > AFA32E
+shiny = 9B404A > B1B616
+shiny = A0A0A0 > F5ED76
+shiny = A85888 > C9CE3D
+shiny = B1A5A4 > FFFF71
+shiny = C0506F > CDBD49
+shiny = C05070 > CDBD4A
+shiny = C56267 > D8C852
+shiny = C8C8D0 > FEFF73
+shiny = D088A8 > F9FD6A
+shiny = D87890 > F0DF6A
+shiny = D9B744 > FFE08D
+shiny = E8B8C8 > FFFF72
+shiny = E8E8F8 > FFFF8C
+shiny = F892A0 > FFFF70
+shiny = FDF6F8 > FEFF72

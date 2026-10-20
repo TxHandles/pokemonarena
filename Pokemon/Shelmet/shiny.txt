@@ -1,0 +1,17 @@
+# Shelmet - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 29315A > 4D4545
+shiny = 313131 > 49452A
+shiny = 398341 > 70954C
+shiny = 434041 > 5B553A
+shiny = 527C5B > 7C8F5C
+shiny = 5A5A7B > 797169
+shiny = 71697F > 86817D
+shiny = 80BE8B > FB6583
+shiny = 888D8D > A7A485
+shiny = 9494AC > B4AC9C
+shiny = B4204A > BD8B20
+shiny = C0BFBF > D8D7C5
+shiny = C5C5D5 > E6DEC7
+shiny = F1819C > F1A997
+shiny = FF4A7B > F3887B

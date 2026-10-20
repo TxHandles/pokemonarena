@@ -1,0 +1,22 @@
+# Torterra - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 286028 > 376129
+shiny = 333333 > 374022
+shiny = 343433 > 384122
+shiny = 409858 > 6F9861
+shiny = 40B050 > 67AE5C
+shiny = 448139 > 699752
+shiny = 473C31 > 4A4A1E
+shiny = 483C31 > 4B4A1E
+shiny = 4A3D30 > 4D4B1E
+shiny = 504030 > 524F1F
+shiny = 55534F > 576832
+shiny = 585858 > 5B6D3B
+shiny = 58B840 > 98CA7E
+shiny = 62AC59 > 91C179
+shiny = 68D040 > AEE091
+shiny = 780010 > 643E00
+shiny = 786030 > 727720
+shiny = A07840 > 969235
+shiny = A87D47 > BCBD2F
+shiny = E44B29 > BFB525

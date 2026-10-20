@@ -1,0 +1,11 @@
+# Tynamo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 043338
+shiny = 70798A > 0C3041
+shiny = 849CB6 > 5D9BB1
+shiny = 8A1900 > 732A5B
+shiny = C73F00 > C5425C
+shiny = D46283 > D66687
+shiny = F38A8A > FA88A5
+shiny = F6F62A > FFA129
+shiny = FFD000 > FB8701

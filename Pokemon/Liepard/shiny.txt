@@ -1,0 +1,23 @@
+# Liepard - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 057037 > 095850
+shiny = 28192F > 2F0000
+shiny = 362E27 > 2E2410
+shiny = 443E43 > 3E0000
+shiny = 4A8C72 > 337671
+shiny = 4F3768 > 460017
+shiny = 4F470B > 302700
+shiny = 78578A > 6D2335
+shiny = 79578A > 671428
+shiny = 7A5066 > 5F0B1F
+shiny = 817005 > 69581A
+shiny = 986396 > 813444
+shiny = B62F79 > 6E1028
+shiny = B88F48 > A38C54
+shiny = C79B12 > 8C7B43
+shiny = E37093 > A6505E
+shiny = E5E5F7 > F1959B
+shiny = F38A9F > B65761
+shiny = F5D036 > BDAB6E
+shiny = FAFAFA > FFA8AC
+shiny = FECD41 > BFAB6F

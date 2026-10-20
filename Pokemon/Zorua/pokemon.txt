@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Zorua
+dex  = 570
+type = Dark
+
+hp         = 40
+attack     = 65
+defense    = 40
+sp_attack  = 80
+sp_defense = 40
+speed      = 65
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 12.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Zoroark
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leer
+learn = 1, Scratch
+learn = 4, Torment
+learn = 8, Hone Claws
+learn = 12, Fury Swipes
+learn = 16, Scary Face
+learn = 20, Taunt
+learn = 24, Knock Off
+learn = 28, Fake Tears
+learn = 32, Agility
+learn = 36, Imprison
+learn = 40, Night Daze
+learn = 44, Nasty Plot
+learn = 48, Foul Play
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Agility, Scary Face, Protect, Confuse Ray
+tm = Thief, Facade, Hex, Snarl, Swift, Night Shade
+tm = Fling, Endure, Sunny Day, Rain Dance, Dig, U-turn
+tm = Shadow Claw, Foul Play, Sleep Talk, Grass Knot, Rest, Taunt
+tm = Swords Dance, Imprison, Dark Pulse, Substitute, Trick, Shadow Ball
+tm = Hyper Voice, Encore, Calm Mind, Helping Hand, Nasty Plot, Sludge Bomb
+tm = Tera Blast, Roar, Spite, Knock Off, Burning Jealousy, Lash Out
+tm = Pain Split, Psych Up, Skitter Smack

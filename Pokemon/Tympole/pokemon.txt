@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Tympole
+dex  = 535
+type = Water
+
+hp         = 50
+attack     = 50
+defense    = 40
+sp_attack  = 50
+sp_defense = 40
+speed      = 64
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 4.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Palpitoad
+evolve_level = 25
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Echoed Voice
+learn = 1, Growl
+learn = 4, Acid
+learn = 8, Supersonic
+learn = 12, Mud Shot
+learn = 16, Round
+learn = 20, Bubble Beam
+learn = 24, Flail
+learn = 28, Uproar
+learn = 32, Aqua Ring
+learn = 36, Hyper Voice
+learn = 40, Muddy Water
+learn = 44, Rain Dance
+learn = 48, Hydro Pump
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Icy Wind, Mud Shot, Endure, Rain Dance
+tm = Sleep Talk, Rest, Substitute, Hyper Voice, Surf, Earth Power
+tm = Hydro Pump, Sludge Bomb, Scald, Uproar, Weather Ball, Muddy Water
+tm = Sludge Wave

@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Landorus
+dex  = 645
+type = Ground / Flying
+
+hp         = 89
+attack     = 125
+defense    = 90
+sp_attack  = 115
+sp_defense = 80
+speed      = 101
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 68.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Smack Down
+learn = 1, Sand Tomb
+learn = 5, Leer
+learn = 10, Block
+learn = 15, Bulldoze
+learn = 20, Rock Tomb
+learn = 30, Imprison
+learn = 35, Rock Slide
+learn = 40, Earth Power
+learn = 45, Extrasensory
+learn = 50, Stone Edge
+learn = 55, Hammer Arm
+learn = 60, Sandstorm
+learn = 65, Earthquake
+learn = 70, Outrage
+learn = 75, Fissure
+learn = 80, Sandsear Storm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Facade, Bulldoze
+tm = Mud Shot, Rock Tomb, Fling, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, Dig, Brick Break, U-turn, Bulk Up, Body Slam
+tm = Sleep Talk, Grass Knot, Stomping Tantrum, Rest, Rock Slide, Taunt
+tm = Swords Dance, Imprison, Fly, Substitute, Crunch, Stealth Rock
+tm = Psychic, Calm Mind, Earth Power, Nasty Plot, Sludge Bomb, Earthquake
+tm = Stone Edge, Giga Impact, Outrage, Focus Blast, Hyper Beam, Tera Blast
+tm = Sand Tomb, Gravity, Smack Down, Weather Ball, Sludge Wave, Scorching Sands

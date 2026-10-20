@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Lillipup
+dex  = 506
+type = Normal
+
+hp         = 45
+attack     = 60
+defense    = 45
+sp_attack  = 25
+sp_defense = 45
+speed      = 55
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 4.1      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Herdier
+evolve_level = 16
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Leer
+learn = 4, Work Up
+learn = 8, Bite
+learn = 12, Retaliate
+learn = 17, Baby-Doll Eyes
+learn = 20, Play Rough
+learn = 24, Crunch
+learn = 28, Take Down
+learn = 32, Helping Hand
+learn = 36, Reversal
+learn = 40, Roar
+learn = 44, Last Resort
+learn = 48, Giga Impact
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Fire Fang, Thunder Fang, Ice Fang, Facade
+tm = Snarl, Rock Tomb, Endure, Sunny Day, Rain Dance, Dig
+tm = Psychic Fangs, Sleep Talk, Thunder Wave, Rest, Substitute, Crunch
+tm = Shadow Ball, Hyper Voice, Thunderbolt, Play Rough, Helping Hand, Reversal
+tm = Wild Charge, Giga Impact, Uproar

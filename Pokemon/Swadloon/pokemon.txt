@@ -1,0 +1,48 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Swadloon
+dex  = 541
+type = Bug / Grass
+
+hp         = 55
+attack     = 63
+defense    = 90
+sp_attack  = 50
+sp_defense = 80
+speed      = 42
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 7.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_friendship = Leavanny, 160
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Protect
+learn = 1, Razor Leaf
+learn = 1, Bug Bite
+learn = 1, Tackle
+learn = 1, String Shot
+learn = 22, Struggle Bug
+learn = 29, Endure
+learn = 31, Sticky Web
+learn = 36, Bug Buzz
+learn = 43, Flail
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Struggle Bug, Trailblaze, Pounce
+tm = Facade, Magical Leaf, Endure, Sunny Day, Rain Dance, Sleep Talk
+tm = Seed Bomb, Light Screen, Grass Knot, Rest, Substitute, Iron Defense
+tm = Giga Drain, Energy Ball, Baton Pass, Grassy Terrain, Bug Buzz, Solar Beam
+tm = Tera Blast, Bug Bite, Lunge, Grassy Glide, Electroweb, Skitter Smack

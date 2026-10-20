@@ -1,0 +1,22 @@
+# Solosis - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 285737 > 255770
+shiny = 37814F > 0D7981
+shiny = 4F794F > 586948
+shiny = 4FAC70 > 51ACA3
+shiny = 5D856A > 348C87
+shiny = 5F5721 > 0D645D
+shiny = 65BA79 > 61BAB1
+shiny = 8A283F > 7A3D2D
+shiny = 8AE3A4 > 89E3DA
+shiny = 8BD56D > AFD173
+shiny = 93A481 > A3A472
+shiny = 9B9328 > D4938B
+shiny = ACC79B > C0C68E
+shiny = BFBD67 > D3BD95
+shiny = C0EDA3 > D7EB9D
+shiny = C7E3B6 > D9E3A6
+shiny = E3DA68 > FFDDFF
+shiny = F48C85 > DF9C77
+shiny = F6F2A4 > FFF2CA
+shiny = FAFAFA > FFFDDB

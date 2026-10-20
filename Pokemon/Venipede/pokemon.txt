@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Venipede
+dex  = 543
+type = Bug / Poison
+
+hp         = 30
+attack     = 45
+defense    = 59
+sp_attack  = 30
+sp_defense = 39
+speed      = 57
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Whirlipede
+evolve_level = 22
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Defense Curl
+learn = 1, Poison Sting
+learn = 4, Rollout
+learn = 8, Protect
+learn = 12, Poison Tail
+learn = 16, Screech
+learn = 20, Bug Bite
+learn = 24, Venoshock
+learn = 28, Take Down
+learn = 32, Agility
+learn = 36, Toxic
+learn = 40, Venom Drench
+learn = 44, Double-Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Facade, Hex, Venoshock, Endure
+tm = Sunny Day, Sleep Talk, Poison Jab, Rest, Spikes, Toxic Spikes
+tm = Substitute, Iron Defense, Sludge Bomb, Solar Beam, Gyro Ball

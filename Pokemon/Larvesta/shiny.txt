@@ -1,0 +1,10 @@
+# Larvesta - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 31AEE9 > 00DC55
+shiny = 602000 > 824F16
+shiny = 604000 > 46391A
+shiny = 6D5512 > 5A4B2E
+shiny = 806040 > 69574C
+shiny = A88D32 > 938257
+shiny = D76A31 > FFE64D
+shiny = E04000 > FFD537

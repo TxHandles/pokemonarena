@@ -1,0 +1,26 @@
+# Magnezone - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 304048 > 47374A
+shiny = 32302F > 402835
+shiny = 373737 > 462F3D
+shiny = 383838 > 47303E
+shiny = 505050 > 8D8C90
+shiny = 585959 > 96969A
+shiny = 687F90 > BBBCC3
+shiny = 688090 > BBBDC3
+shiny = 6ABADE > D0DCDA
+shiny = 707078 > B0B0B5
+shiny = 8B9296 > D2D3D8
+shiny = 989898 > A8909B
+shiny = 98A8B8 > E8E9F0
+shiny = B84848 > B7A9AC
+shiny = B8A038 > CDD06C
+shiny = B8B8C0 > FDFDFF
+shiny = BDCEDB > FEFFFF
+shiny = C3BEBD > FFFEF7
+shiny = D80000 > 5AA3BB
+shiny = E8E8F8 > FFFEFF
+shiny = E96F5F > DB747C
+shiny = F8E008 > FFFF74
+shiny = FAFAFA > FFFFFF
+shiny = FFDA29 > FFFA7F

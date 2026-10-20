@@ -1,0 +1,14 @@
+# Gothorita - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 053D7E > 203E7E
+shiny = 2069A4 > 4B314B
+shiny = 363636 > 2D2D3E
+shiny = 403E3F > 3F3E58
+shiny = 656565 > 666580
+shiny = 6B6B6C > 6C6B87
+shiny = 6D3D36 > 7C223E
+shiny = 865D75 > 9C4570
+shiny = A8A8A8 > AAA8C6
+shiny = A9ABA9 > ABABC7
+shiny = C27EB1 > C17E98
+shiny = E07A91 > D47F87

@@ -1,0 +1,40 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Combee
+dex  = 415
+type = Bug / Flying
+
+hp         = 30
+attack     = 30
+defense    = 42
+sp_attack  = 30
+sp_defense = 42
+speed      = 70
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.5      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Vespiquen
+evolve_level = 21   # (only females evolve in the games)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Bug Bite
+learn = 1, Sweet Scent
+learn = 1, Gust
+learn = 1, Struggle Bug
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Struggle Bug, Sleep Talk, Bug Buzz, Tera Blast, Bug Bite, Lunge
+tm = Endeavor, Skitter Smack

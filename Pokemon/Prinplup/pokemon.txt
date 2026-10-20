@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Prinplup
+dex  = 394
+type = Water
+
+hp         = 64
+attack     = 66
+defense    = 68
+sp_attack  = 81
+sp_defense = 76
+speed      = 50
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 23.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Empoleon
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Metal Claw
+learn = 1, Tackle
+learn = 1, Water Gun
+learn = 1, Growl
+learn = 15, Peck
+learn = 19, Bubble Beam
+learn = 24, Swagger
+learn = 28, Fury Attack
+learn = 33, Brine
+learn = 37, Whirlpool
+learn = 42, Mist
+learn = 46, Drill Peck
+learn = 50, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Agility, Protect, Water Pulse, Disarming Voice
+tm = Chilling Water, Facade, Aerial Ace, Metal Claw, Swift, Icy Wind
+tm = Rock Tomb, Fling, Endure, Rain Dance, Snowscape, Brick Break
+tm = Shadow Claw, Sleep Talk, Waterfall, Grass Knot, Rest, Substitute
+tm = Liquidation, Surf, Ice Spinner, Helping Hand, Ice Beam, Hydro Pump
+tm = Blizzard, Water Pledge, Tera Blast, Haze, Weather Ball, Flip Turn
+tm = Psych Up, Double-Edge, Whirlpool, Triple Axel, Feather Dance

@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Krookodile
+dex  = 553
+type = Ground / Dark
+
+hp         = 95
+attack     = 117
+defense    = 80
+sp_attack  = 65
+sp_defense = 70
+speed      = 92
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 96.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Hone Claws
+learn = 1, Power Trip
+learn = 1, Sand Attack
+learn = 1, Leer
+learn = 9, Sand Tomb
+learn = 12, Scary Face
+learn = 15, Bite
+learn = 18, Torment
+learn = 21, Dig
+learn = 24, Swagger
+learn = 27, Crunch
+learn = 32, Sandstorm
+learn = 35, Foul Play
+learn = 44, Earthquake
+learn = 51, Thrash
+learn = 58, Outrage
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Fire Fang, Thunder Fang
+tm = Low Kick, Thief, Facade, Aerial Ace, Bulldoze, Snarl
+tm = Mud Shot, Rock Tomb, Low Sweep, Fling, Dragon Tail, Endure
+tm = Sandstorm, Dig, Brick Break, Shadow Claw, Foul Play, Bulk Up
+tm = Body Slam, Sleep Talk, Dragon Claw, Grass Knot, Stomping Tantrum, Rest
+tm = Rock Slide, Taunt, Dark Pulse, Gunk Shot, Substitute, Crunch
+tm = Dragon Pulse, Stealth Rock, Helping Hand, Earth Power, Sludge Bomb, Earthquake
+tm = Stone Edge, Giga Impact, Outrage, Focus Blast, Hyper Beam, Close Combat
+tm = Tera Blast, Roar, Sand Tomb, Spite, Smack Down, Knock Off
+tm = High Horsepower, Focus Punch, Lash Out, Scale Shot, Double-Edge, Endeavor
+tm = Scorching Sands, Skitter Smack, Throat Chop, Breaking Swipe, Curse

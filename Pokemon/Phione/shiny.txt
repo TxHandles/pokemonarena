@@ -1,0 +1,19 @@
+# Phione - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1070B0 > 068A85
+shiny = 1848A0 > 2E6073
+shiny = 1A7DFF > 35A1A1
+shiny = 323333 > 005552
+shiny = 3799F0 > 49B5B1
+shiny = 404040 > 006360
+shiny = 4060C8 > 008E93
+shiny = 507FE8 > 24ACB1
+shiny = 5080E8 > 25ADB1
+shiny = 525252 > 007773
+shiny = 52CEFE > 77E4DB
+shiny = 7FA0F0 > 52CDCE
+shiny = 80A0F0 > 52CDCE
+shiny = 96EDFF > 9AFCF0
+shiny = B0C8F8 > ADDFEF
+shiny = C04068 > 349591
+shiny = FC5425 > F2C637

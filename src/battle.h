@@ -186,6 +186,8 @@ struct Fighter {
     float abT = 0, sinceAct = 99;           // ability timer; seconds since it last used a move
     bool flashFire = false, snackUsed = false, pinchShown = false;
     Type shiftT = Type::None;   // Color Change / Forecast: the type it has become (None = its own)
+    bool illusion = false;      // Illusion: still disguised (its first hit taken is halved)
+    bool zen = false;           // Zen Mode: entered (below half HP)
     Type T1() const { return shiftT != Type::None ? shiftT : sp->type1; }
     Type T2() const { return shiftT != Type::None ? Type::None : sp->type2; }
     // Ice underfoot: momentum carries you (slide is the current sliding velocity)

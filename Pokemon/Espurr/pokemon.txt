@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Espurr
+dex  = 677
+type = Psychic
+
+hp         = 62
+attack     = 48
+defense    = 54
+sp_attack  = 63
+sp_defense = 60
+speed      = 68
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 3.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Meowstic
+evolve_level = 25
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Leer
+learn = 3, Fake Out
+learn = 6, Disarming Voice
+learn = 9, Confusion
+learn = 18, Covet
+learn = 21, Psybeam
+learn = 30, Reflect
+learn = 30, Light Screen
+learn = 33, Psyshock
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Protect, Psybeam, Disarming Voice, Charge Beam
+tm = Facade, Swift, Endure, Sunny Day, Rain Dance, Psyshock
+tm = Zen Headbutt, Sleep Talk, Reflect, Light Screen, Thunder Wave, Rest
+tm = Dark Pulse, Skill Swap, Substitute, Trick, Shadow Ball, Energy Ball
+tm = Psychic, Thunderbolt, Play Rough, Calm Mind, Helping Hand, Nasty Plot
+tm = Trick Room, Tera Blast, Gravity, Psych Up, Expanding Force, Psychic Noise

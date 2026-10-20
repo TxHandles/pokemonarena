@@ -1,0 +1,16 @@
+# Boldore - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 212F5F > 371E61
+shiny = 374781 > 4F3680
+shiny = 3A4980 > 52397F
+shiny = 4F3719 > 57273B
+shiny = 5C6BB2 > 765AAE
+shiny = 682819 > 052930
+shiny = 7B93D3 > 9981D2
+shiny = A42112 > 175C6D
+shiny = AB4935 > 286F82
+shiny = C73F2F > 387688
+shiny = F8F62F > FF9738
+shiny = FC6844 > 50D2FB
+shiny = FF5F47 > 67C4ED
+shiny = FFC736 > FA771A

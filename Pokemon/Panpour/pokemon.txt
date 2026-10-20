@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Panpour
+dex  = 515
+type = Water
+
+hp         = 50
+attack     = 53
+defense    = 48
+sp_attack  = 53
+sp_defense = 48
+speed      = 64
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 13.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Simipour, Water Stone
+
+# ---- LEVEL-UP MOVES (Ultra Sun/Ultra Moon) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Play Nice
+learn = 4, Leer
+learn = 7, Lick
+learn = 10, Water Gun
+learn = 13, Fury Swipes
+learn = 16, Water Sport
+learn = 19, Bite
+learn = 22, Scald
+learn = 25, Taunt
+learn = 28, Fling
+learn = 31, Acrobatics
+learn = 34, Brine
+learn = 37, Recycle
+learn = 40, Natural Gift
+learn = 43, Crunch
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Acrobatics, Thief, Facade, Rock Tomb, Low Sweep
+tm = Fling, Rain Dance, Shadow Claw, Sleep Talk, Waterfall, Grass Knot
+tm = Rest, Taunt, Substitute, Surf, Ice Beam, Blizzard
+tm = Toxic, Scald

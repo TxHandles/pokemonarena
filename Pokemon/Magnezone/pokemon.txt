@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Magnezone
+dex  = 462
+type = Electric / Steel
+
+hp         = 70
+attack     = 70
+defense    = 115
+sp_attack  = 130
+sp_defense = 90
+speed      = 60
+
+size   = 1.14
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 180.0      # Pokedex weight in kg
+hovers = yes
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Thunder Wave
+learn = 1, Thunder Shock
+learn = 1, Magnetic Flux
+learn = 1, Tackle
+learn = 1, Mirror Coat
+learn = 1, Tri Attack
+learn = 1, Electric Terrain
+learn = 1, Supersonic
+learn = 12, Electro Ball
+learn = 16, Gyro Ball
+learn = 20, Spark
+learn = 24, Screech
+learn = 28, Magnet Rise
+learn = 34, Flash Cannon
+learn = 40, Discharge
+learn = 46, Metal Sound
+learn = 52, Light Screen
+learn = 58, Lock-On
+learn = 64, Zap Cannon
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Confuse Ray, Charge Beam, Facade, Swift
+tm = Endure, Volt Switch, Sunny Day, Rain Dance, Sandstorm, Body Slam
+tm = Sleep Talk, Electro Ball, Reflect, Light Screen, Thunder Wave, Rest
+tm = Body Press, Flash Cannon, Eerie Impulse, Iron Head, Substitute, Iron Defense
+tm = Heavy Slam, Thunderbolt, Helping Hand, Electric Terrain, Wild Charge, Giga Impact
+tm = Hyper Beam, Thunder, Steel Beam, Tera Blast, Charge, Gravity
+tm = Gyro Ball, Double-Edge, Supercell Slam, Electroweb, Metal Sound, Hard Press

@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Musharna
+dex  = 518
+type = Psychic
+
+hp         = 116
+attack     = 55
+defense    = 85
+sp_attack  = 107
+sp_defense = 95
+speed      = 29
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 60.5      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Defense Curl
+learn = 1, Imprison
+learn = 1, Yawn
+learn = 1, Wonder Room
+learn = 1, Psychic Terrain
+learn = 1, Moonlight
+learn = 1, Moonblast
+learn = 1, Stored Power
+learn = 1, Hypnosis
+learn = 1, Calm Mind
+learn = 1, Future Sight
+learn = 1, Psychic
+learn = 1, Psybeam
+learn = 1, Magic Coat
+learn = 1, Zen Headbutt
+learn = 1, Dream Eater
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Swift, Rock Tomb, Stored Power, Endure
+tm = Rain Dance, Psyshock, Zen Headbutt, Sleep Talk, Reflect, Light Screen
+tm = Dazzling Gleam, Thunder Wave, Rest, Rock Slide, Imprison, Skill Swap
+tm = Substitute, Trick, Shadow Ball, Energy Ball, Psychic, Amnesia
+tm = Calm Mind, Helping Hand, Psychic Terrain, Giga Impact, Trick Room, Hyper Beam
+tm = Gyro Ball, Future Sight

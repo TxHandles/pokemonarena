@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Cottonee
+dex  = 546
+type = Grass / Fairy
+
+hp         = 40
+attack     = 27
+defense    = 60
+sp_attack  = 37
+sp_defense = 50
+speed      = 66
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 0.6      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Whimsicott, Sun Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Helping Hand
+learn = 1, Absorb
+learn = 3, Fairy Wind
+learn = 6, Stun Spore
+learn = 12, Mega Drain
+learn = 15, Razor Leaf
+learn = 18, Growth
+learn = 21, Poison Powder
+learn = 24, Giga Drain
+learn = 27, Charm
+learn = 30, Leech Seed
+learn = 33, Cotton Spore
+learn = 36, Energy Ball
+learn = 39, Sunny Day
+learn = 42, Endeavor
+learn = 45, Cotton Guard
+learn = 48, Solar Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Protect, Facade, Swift, Endure
+tm = Sunny Day, Sleep Talk, Seed Bomb, Dazzling Gleam, Grass Knot, Rest
+tm = Taunt, Substitute, Giga Drain, Energy Ball, Encore, Helping Hand
+tm = Grassy Terrain, Misty Terrain, Solar Beam, Tera Blast, Grassy Glide, Endeavor

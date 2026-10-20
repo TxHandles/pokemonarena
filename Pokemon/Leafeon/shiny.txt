@@ -1,0 +1,27 @@
+# Leafeon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 313131 > 006540
+shiny = 42945A > 09BE6A
+shiny = 489050 > 1AB757
+shiny = 503018 > 613000
+shiny = 525252 > 0A8B62
+shiny = 5AB573 > 46DF88
+shiny = 60A060 > 31CC77
+shiny = 705020 > 845000
+shiny = 73CE8C > 64F9A0
+shiny = 80C060 > 61EA81
+shiny = 8B602A > 8C802B
+shiny = 946329 > 8F7835
+shiny = 986830 > 966B2D
+shiny = 9C8463 > B98344
+shiny = A88850 > C18739
+shiny = ADD69C > A8EF8D
+shiny = BD7B29 > CB7E1B
+shiny = BDA55A > DAA348
+shiny = CEC57B > DAC378
+shiny = D0E0E8 > EBDEC4
+shiny = D8B858 > F4B74E
+shiny = E8E8F8 > FDE7D2
+shiny = F0D8A0 > F8D897
+shiny = FAFAFA > FFF9DA
+shiny = FFF78C > FFF595

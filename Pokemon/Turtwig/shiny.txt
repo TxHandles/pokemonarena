@@ -1,0 +1,26 @@
+# Turtwig - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 3A392B
+shiny = 343433 > 3B3A2B
+shiny = 385038 > 005142
+shiny = 41AC49 > 699351
+shiny = 487840 > 43672D
+shiny = 4B4842 > 545534
+shiny = 4C483F > 524E3A
+shiny = 504838 > 544E36
+shiny = 509868 > 36937F
+shiny = 525351 > 5A5949
+shiny = 544B3B > 5A5931
+shiny = 554B3B > 595139
+shiny = 685848 > 6A5F47
+shiny = 878449 > 56828A
+shiny = 88C8B0 > 72C3AF
+shiny = 987038 > 96823E
+shiny = A57B4A > 488873
+shiny = AEB353 > 68B69D
+shiny = BEE07F > 90DCC1
+shiny = D0B028 > C9BB2B
+shiny = E8E8F8 > A6F1DF
+shiny = F5E551 > EDF539
+shiny = F8E870 > A8EDCF
+shiny = FAFAFA > B7FFEF

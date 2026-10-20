@@ -1,0 +1,19 @@
+# Probopass - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 283860 > 413105
+shiny = 2C343C > 4D4214
+shiny = 343434 > 514207
+shiny = 405888 > 625025
+shiny = 5080B8 > 9E8E61
+shiny = 5379C8 > C9A157
+shiny = 70B0E8 > CCBC8D
+shiny = 729AFC > F1C57A
+shiny = 97BCF8 > FFE493
+shiny = 989898 > EBC06B
+shiny = C03858 > C02349
+shiny = C0464E > C33245
+shiny = C0C8D8 > FFF19B
+shiny = CF5048 > D13D45
+shiny = D05048 > D23D45
+shiny = F56A59 > F55A59
+shiny = FAFAFA > FFF9A0

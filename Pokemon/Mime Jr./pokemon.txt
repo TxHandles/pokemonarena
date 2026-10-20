@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Mime Jr.
+dex  = 439
+type = Psychic / Fairy
+
+hp         = 20
+attack     = 25
+defense    = 45
+sp_attack  = 70
+sp_defense = 90
+speed      = 60
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 13.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Mr. Mime
+evolve_level = 18   # (once it learns Mimic, in the games)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Copycat
+learn = 1, Pound
+learn = 4, Baton Pass
+learn = 8, Encore
+learn = 12, Confusion
+learn = 16, Role Play
+learn = 20, Protect
+learn = 24, Recycle
+learn = 28, Psybeam
+learn = 32, Mimic
+learn = 36, Light Screen
+learn = 36, Reflect
+learn = 36, Safeguard
+learn = 40, Sucker Punch
+learn = 44, Dazzling Gleam
+learn = 48, Psychic
+learn = 52, Teeter Dance
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Thief, Facade, Icy Wind, Stored Power
+tm = Fling, Endure, Sunny Day, Rain Dance, Psyshock, Brick Break
+tm = Sleep Talk, Drain Punch, Reflect, Light Screen, Dazzling Gleam, Grass Knot
+tm = Thunder Wave, Rest, Taunt, Skill Swap, Substitute, Trick
+tm = Shadow Ball, Psychic, Encore, Thunderbolt, Calm Mind, Helping Hand
+tm = Baton Pass, Psychic Terrain, Misty Terrain, Nasty Plot, Trick Room, Thunder
+tm = Solar Beam, Uproar, Future Sight

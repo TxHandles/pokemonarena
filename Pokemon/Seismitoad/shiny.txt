@@ -1,0 +1,14 @@
+# Seismitoad - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 058AD0 > 389086
+shiny = 0B3770 > 00413A
+shiny = 215FA4 > 056961
+shiny = 4191F7 > 2FA993
+shiny = 479B81 > AA6116
+shiny = 4971BD > 2A7E75
+shiny = 5E9CA5 > A74500
+shiny = 68E3C7 > E98035
+shiny = 74D1D3 > DD732D
+shiny = AC2F19 > 7B5310
+shiny = C8663F > A27836
+shiny = EC4F2F > E8BF29

@@ -1,0 +1,8 @@
+# Honedge - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 4781BE > F55B70
+shiny = 5AB5FE > 6F85E3
+shiny = 7C644A > 610000
+shiny = A08D6F > 8E001E
+shiny = BDC3A9 > C34347
+shiny = FAFAFA > FFCDD4

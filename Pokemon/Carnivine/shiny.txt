@@ -1,0 +1,21 @@
+# Carnivine - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284711 > 8C4600
+shiny = 28480F > 8C4700
+shiny = 284810 > 4B5A00
+shiny = 313131 > 4F3516
+shiny = 383838 > 853D00
+shiny = 407818 > 5B8C00
+shiny = 489018 > C29C0C
+shiny = 506028 > 6A7600
+shiny = 525252 > 745635
+shiny = 57A74F > A6B437
+shiny = 688830 > 909B1A
+shiny = 80A840 > 98BD29
+shiny = 8EBF61 > AAD44B
+shiny = 904830 > 845F3A
+shiny = AC5259 > CE722B
+shiny = B0B8C0 > D0D563
+shiny = B4EE72 > D4FF66
+shiny = E64A29 > EB4F15
+shiny = E8E8F8 > FEFFC1

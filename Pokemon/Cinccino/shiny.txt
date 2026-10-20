@@ -1,0 +1,15 @@
+# Cinccino - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3E3E42 > 504B2C
+shiny = 484643 > 59542F
+shiny = 626261 > 6E6A4D
+shiny = 787068 > A88968
+shiny = 797068 > 6B777E
+shiny = 898E91 > A19D78
+shiny = A54140 > 9E6036
+shiny = B6A493 > C5B583
+shiny = B6ACAC > C9BD95
+shiny = C2D4DE > BADAED
+shiny = C5C2BD > DBD2A6
+shiny = CC6A79 > C68868
+shiny = DAC7BF > C9CFD8

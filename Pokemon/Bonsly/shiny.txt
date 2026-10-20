@@ -1,0 +1,17 @@
+# Bonsly - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 185010 > 862537
+shiny = 489840 > CD3666
+shiny = 508853 > C0245E
+shiny = 584010 > 675F0D
+shiny = 61BF6D > E55775
+shiny = 705830 > 80782F
+shiny = 775741 > 86793C
+shiny = 78D078 > F96885
+shiny = 93704A > A2934A
+shiny = 987048 > A69349
+shiny = B89858 > C9BB61
+shiny = C7A756 > DBCF63
+shiny = C8A800 > D2B81E
+shiny = E0C000 > F1E933
+shiny = F5CE39 > FFF762

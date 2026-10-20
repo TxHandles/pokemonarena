@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Yamask
+dex  = 562
+type = Ghost
+
+hp         = 38
+attack     = 30
+defense    = 85
+sp_attack  = 55
+sp_defense = 65
+speed      = 30
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 1.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Cofagrigus
+evolve_level = 34
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Protect
+learn = 1, Astonish
+learn = 4, Haze
+learn = 8, Night Shade
+learn = 12, Disable
+learn = 16, Will-O-Wisp
+learn = 20, Crafty Shield
+learn = 24, Hex
+learn = 28, Mean Look
+learn = 32, Grudge
+learn = 36, Curse
+learn = 40, Shadow Ball
+learn = 44, Dark Pulse
+learn = 48, Power Split
+learn = 48, Guard Split
+learn = 52, Destiny Bond
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Fake Tears, Protect, Thief, Facade, Hex, Endure
+tm = Rain Dance, Zen Headbutt, Sleep Talk, Rest, Toxic Spikes, Imprison
+tm = Dark Pulse, Skill Swap, Substitute, Iron Defense, Will-O-Wisp, Trick
+tm = Shadow Ball, Energy Ball, Psychic, Calm Mind, Nasty Plot, Trick Room

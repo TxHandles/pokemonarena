@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Quilladin
+dex  = 651
+type = Grass
+
+hp         = 61
+attack     = 78
+defense    = 95
+sp_attack  = 56
+sp_defense = 58
+speed      = 57
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 29.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Chesnaught
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Vine Whip
+learn = 8, Rollout
+learn = 11, Bite
+learn = 15, Leech Seed
+learn = 20, Seed Bomb
+learn = 24, Pin Missile
+learn = 29, Take Down
+learn = 34, Mud Shot
+learn = 38, Bulk Up
+learn = 43, Body Slam
+learn = 47, Pain Split
+learn = 53, Wood Hammer
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Low Kick, Trailblaze, Facade, Aerial Ace
+tm = Bulldoze, Metal Claw, Swift, Magical Leaf, Mud Shot, Rock Tomb
+tm = Low Sweep, Fling, Endure, Sunny Day, Rain Dance, Dig
+tm = Bullet Seed, Brick Break, Zen Headbutt, Shadow Claw, Bulk Up, Body Slam
+tm = Thunder Punch, Sleep Talk, Seed Bomb, Drain Punch, Reflect, Grass Knot
+tm = Poison Jab, Stomping Tantrum, Rest, Rock Slide, Taunt, Spikes
+tm = Iron Head, Substitute, Iron Defense, Giga Drain, Energy Ball, Helping Hand
+tm = Grassy Terrain, Grass Pledge, Stone Edge, Leaf Storm, Solar Beam, Tera Blast
+tm = Roar, Gyro Ball, Super Fang, Focus Punch, Grassy Glide, Pain Split
+tm = Endeavor, Curse

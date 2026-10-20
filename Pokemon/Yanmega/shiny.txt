@@ -1,0 +1,12 @@
+# Yanmega - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 203018 > 002854
+shiny = 306020 > 2D517F
+shiny = 388018 > 4B6D99
+shiny = 50A830 > 7091BF
+shiny = 628338 > 63799B
+shiny = 7AA449 > 7693C3
+shiny = A01008 > 8F0049
+shiny = D03830 > C9006C
+shiny = E56238 > E81A85
+shiny = F84830 > E70782

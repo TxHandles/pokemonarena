@@ -1,0 +1,19 @@
+# Swoobat - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1297C2 > FFAF37
+shiny = 276D86 > 3B8138
+shiny = 363D4D > 582C11
+shiny = 474643 > 5D2D0A
+shiny = 4D7CA3 > 99664A
+shiny = 559BCE > FDC12E
+shiny = 659FB9 > 70B668
+shiny = 67675D > 814C28
+shiny = 7E3D45 > 326A1E
+shiny = 9FD4EE > A6ED9B
+shiny = A0BCBE > 92D783
+shiny = B1B1B9 > 8FD17E
+shiny = B95D6D > BA62AC
+shiny = C8F3FC > D7FFCF
+shiny = DD798C > DD7ECE
+shiny = E5E5F7 > C4FFB2
+shiny = EE9FA8 > F99FEB

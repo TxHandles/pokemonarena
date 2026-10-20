@@ -1,0 +1,16 @@
+# Mime Jr. - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 282848 > 205037
+shiny = 404080 > 22945A
+shiny = 555DD9 > 54BD85
+shiny = 5860B0 > 57B084
+shiny = 602038 > 6B346B
+shiny = 617AED > 6DD79D
+shiny = 784858 > 805C8F
+shiny = 7880E8 > 7DD6AA
+shiny = C39AA6 > C7A8AE
+shiny = CC5A49 > D17C74
+shiny = D04058 > D06D79
+shiny = D87090 > DF91A8
+shiny = F0B0C8 > EEC1CF
+shiny = FCCCC6 > FEDAD6

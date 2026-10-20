@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Dewott
+dex  = 502
+type = Water
+
+hp         = 75
+attack     = 75
+defense    = 60
+sp_attack  = 83
+sp_defense = 60
+speed      = 60
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 24.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Samurott
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Soak
+learn = 1, Tackle
+learn = 1, Tail Whip
+learn = 1, Water Gun
+learn = 13, Focus Energy
+learn = 18, Razor Shell
+learn = 21, Fury Cutter
+learn = 26, Water Pulse
+learn = 29, Aerial Ace
+learn = 34, Aqua Jet
+learn = 37, Encore
+learn = 42, Aqua Tail
+learn = 45, Retaliate
+learn = 50, Swords Dance
+learn = 53, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Water Pulse, Thief, Chilling Water, Facade
+tm = Aerial Ace, Swift, Icy Wind, Fling, Avalanche, Endure
+tm = Rain Dance, Snowscape, Dig, False Swipe, Brick Break, Air Slash
+tm = Sleep Talk, Waterfall, Grass Knot, Rest, Taunt, Swords Dance
+tm = Substitute, X-Scissor, Liquidation, Encore, Surf, Helping Hand
+tm = Ice Beam, Hydro Pump, Blizzard, Water Pledge, Tera Blast, Knock Off
+tm = Vacuum Wave, Flip Turn, Whirlpool

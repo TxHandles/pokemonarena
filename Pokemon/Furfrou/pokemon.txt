@@ -1,0 +1,49 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Furfrou
+dex  = 676
+type = Normal
+
+hp         = 75
+attack     = 80
+defense    = 60
+sp_attack  = 65
+sp_defense = 90
+speed      = 102
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 28.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Ultra Sun/Ultra Moon) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Tackle
+learn = 5, Sand Attack
+learn = 9, Baby-Doll Eyes
+learn = 12, Headbutt
+learn = 15, Tail Whip
+learn = 22, Bite
+learn = 27, Odor Sleuth
+learn = 33, Retaliate
+learn = 35, Take Down
+learn = 38, Charm
+learn = 42, Sucker Punch
+learn = 48, Cotton Guard
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Charge Beam, Facade, Snarl, Sunny Day, Rain Dance
+tm = U-turn, Sleep Talk, Grass Knot, Thunder Wave, Rest, Dark Pulse
+tm = Substitute, Surf, Wild Charge, Giga Impact, Roar, Toxic

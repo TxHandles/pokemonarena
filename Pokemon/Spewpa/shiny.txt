@@ -1,0 +1,7 @@
+# Spewpa - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 5D5C5C > B1B0B0
+shiny = A59981 > FFFEFB
+shiny = B4B4B4 > 595959
+shiny = C99B46 > 322D27
+shiny = FAFAFA > 787878

@@ -1,0 +1,21 @@
+# Tangrowth - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 182030 > 004500
+shiny = 283F58 > 096700
+shiny = 284058 > 0B6800
+shiny = 305070 > 267913
+shiny = 333333 > 006F00
+shiny = 386898 > 439330
+shiny = 3888C8 > 51C947
+shiny = 424141 > 007F00
+shiny = 435E75 > 378822
+shiny = 4A7AA5 > 41BB36
+shiny = 68A8D4 > 74EB63
+shiny = 787878 > 48BD31
+shiny = 7E2C3A > 8B2F43
+shiny = 803048 > 8E334D
+shiny = A8B8D0 > 90FF76
+shiny = BC488A > 53B62F
+shiny = C84070 > CB3B49
+shiny = E8E8F8 > A9FF8A
+shiny = FAFAFA > A9FF89

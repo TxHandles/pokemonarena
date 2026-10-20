@@ -1,0 +1,22 @@
+# Herdier - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2C2C43 > 6B656A
+shiny = 3C3C5D > 8C8C8C
+shiny = 3D3D5D > 7F7983
+shiny = 473F3E > 847B6F
+shiny = 4D4D4D > 9C9C99
+shiny = 555582 > AAAAAB
+shiny = 62729C > B0B2C2
+shiny = 738CAC > DEE0E0
+shiny = 864D36 > 8E6635
+shiny = 885536 > 916D37
+shiny = A87E3D > CFA255
+shiny = B9B9B9 > FFFFFB
+shiny = BA9D72 > BA9D78
+shiny = C47B4B > C99654
+shiny = D4864D > D8A25A
+shiny = E4C186 > E3C192
+shiny = E5C286 > E4C292
+shiny = E5E5F7 > FFFFFD
+shiny = F0D58A > F1D49B
+shiny = FAFAFA > FFF8EC

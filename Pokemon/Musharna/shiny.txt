@@ -1,0 +1,19 @@
+# Musharna - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 22263F > 003966
+shiny = 413E40 > 4E2C37
+shiny = 563887 > 2355A3
+shiny = 624045 > 6A2647
+shiny = 7C55B1 > 5274CC
+shiny = 827FA7 > 6196D2
+shiny = 87485F > 823A54
+shiny = 8C5DC5 > 3A84AC
+shiny = 945C86 > 69489B
+shiny = A380D0 > 5AA1C8
+shiny = A76582 > 7B438D
+shiny = CA8C64 > 9A72C2
+shiny = DE6598 > 9065BC
+shiny = DF828C > DA6D93
+shiny = F6CAAE > F9B7B2
+shiny = FE7A9C > A87AD2
+shiny = FEBCBC > FBACB8

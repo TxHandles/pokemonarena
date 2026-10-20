@@ -1,0 +1,23 @@
+# Basculin - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 123F12 > 293700
+shiny = 184A18 > 346200
+shiny = 216828 > 488000
+shiny = 297331 > 528B10
+shiny = 379B47 > 72BC47
+shiny = 41A452 > 7BC552
+shiny = 424341 > 42432A
+shiny = 509242 > 7AB442
+shiny = 575757 > 57573F
+shiny = 626262 > 62624A
+shiny = 69BA62 > 9ADC65
+shiny = 6A6B69 > 6A6B51
+shiny = 931912 > 933B00
+shiny = 9B9B9B > 9B9B7A
+shiny = A4A4A4 > A4A483
+shiny = BCBCBC > BCBC9A
+shiny = D45520 > CA6D28
+shiny = E3E3E3 > EBEBC2
+shiny = E6E6E6 > EEEEC5
+shiny = FAFAFA > FFFFD8
+shiny = FF4E3F > EC7441

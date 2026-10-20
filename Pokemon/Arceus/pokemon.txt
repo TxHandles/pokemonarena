@@ -1,0 +1,64 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Arceus
+dex  = 493
+type = Normal
+
+hp         = 120
+attack     = 120
+defense    = 120
+sp_attack  = 120
+sp_defense = 120
+speed      = 120
+
+size   = 1.39
+height = 3.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 320.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Seismic Toss
+learn = 1, Cosmic Power
+learn = 10, Gravity
+learn = 20, Earth Power
+learn = 30, Hyper Voice
+learn = 40, Extreme Speed
+learn = 50, Healing Wish
+learn = 60, Future Sight
+learn = 70, Recover
+learn = 80, Hyper Beam
+learn = 90, Perish Song
+learn = 100, Judgment
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Water Pulse, Acid Spray
+tm = Confuse Ray, Trailblaze, Chilling Water, Charge Beam, Facade, Bulldoze
+tm = Hex, Snarl, Swift, Magical Leaf, Icy Wind, Rock Tomb
+tm = Stored Power, Dragon Tail, Avalanche, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, Psyshock, Bullet Seed, Brick Break, Zen Headbutt, Shadow Claw
+tm = Foul Play, Bulk Up, Air Slash, Body Slam, Sleep Talk, Reflect
+tm = Light Screen, Waterfall, Dragon Claw, Dazzling Gleam, Grass Knot, Thunder Wave
+tm = Poison Jab, Stomping Tantrum, Rest, Rock Slide, Taunt, Swords Dance
+tm = Body Press, Imprison, Flash Cannon, Dark Pulse, Fly, Iron Head
+tm = Dragon Dance, Power Gem, Gunk Shot, Substitute, Iron Defense, X-Scissor
+tm = Will-O-Wisp, Trick, Liquidation, Giga Drain, Aura Sphere, Tailwind
+tm = Shadow Ball, Dragon Pulse, Stealth Rock, Hyper Voice, Heat Wave, Energy Ball
+tm = Psychic, Heavy Slam, Surf, Flamethrower, Thunderbolt, Calm Mind
+tm = Earth Power, Ice Beam, Electric Terrain, Grassy Terrain, Psychic Terrain, Misty Terrain
+tm = Fire Blast, Hydro Pump, Blizzard, Wild Charge, Sludge Bomb, Earthquake
+tm = Stone Edge, Phantom Force, Giga Impact, Outrage, Overheat, Focus Blast
+tm = Hurricane, Trick Room, Bug Buzz, Hyper Beam, Flare Blitz, Thunder
+tm = Solar Beam, Draco Meteor, Steel Beam, Tera Blast, Roar, Gravity
+tm = Psych Up, Double-Edge, Supercell Slam, Scorching Sands, Future Sight, Meteor Beam

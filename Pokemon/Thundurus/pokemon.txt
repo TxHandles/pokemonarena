@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Thundurus
+dex  = 642
+type = Electric / Flying
+
+hp         = 79
+attack     = 115
+defense    = 70
+sp_attack  = 125
+sp_defense = 80
+speed      = 111
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 61.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Thunder Shock
+learn = 1, Astonish
+learn = 5, Leer
+learn = 10, Swagger
+learn = 15, Bite
+learn = 20, Shock Wave
+learn = 25, Agility
+learn = 30, Charge
+learn = 35, Volt Switch
+learn = 40, Crunch
+learn = 45, Discharge
+learn = 50, Uproar
+learn = 55, Hammer Arm
+learn = 60, Rain Dance
+learn = 65, Thunder
+learn = 70, Thrash
+learn = 75, Wildbolt Storm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Acrobatics, Thief
+tm = Charge Beam, Facade, Snarl, Fling, Endure, Volt Switch
+tm = Sunny Day, Rain Dance, Smart Strike, Brick Break, Zen Headbutt, U-turn
+tm = Foul Play, Bulk Up, Body Slam, Thunder Punch, Sleep Talk, Electro Ball
+tm = Grass Knot, Thunder Wave, Rest, Taunt, Flash Cannon, Dark Pulse
+tm = Eerie Impulse, Fly, Substitute, Crunch, Psychic, Thunderbolt
+tm = Electric Terrain, Nasty Plot, Wild Charge, Sludge Bomb, Giga Impact, Focus Blast
+tm = Hyper Beam, Thunder, Tera Blast, Charge, Smack Down, Knock Off
+tm = Uproar, Weather Ball, Lash Out, Supercell Slam, Electroweb, Sludge Wave

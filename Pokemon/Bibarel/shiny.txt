@@ -1,0 +1,25 @@
+# Bibarel - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 3F3337
+shiny = 353531 > 413537
+shiny = 363631 > 4B4828
+shiny = 483820 > 5F3038
+shiny = 525251 > 5F5256
+shiny = 585040 > 62504B
+shiny = 6A5949 > 83515F
+shiny = 888888 > A7A6A5
+shiny = 8B6339 > 96813A
+shiny = 981828 > BC5241
+shiny = B0813E > BA9A4F
+shiny = B0813F > BA9A50
+shiny = B08838 > BCA646
+shiny = B5834A > BFA351
+shiny = B8B8C0 > D5D5AC
+shiny = C0A040 > CFBD54
+shiny = C8A060 > D5B86F
+shiny = CCB362 > D2C48D
+shiny = E8D080 > FAEE8D
+shiny = E8E8F8 > FFFFE6
+shiny = F3E48C > FFFF9B
+shiny = F46251 > FF9976
+shiny = FAFAFA > FDFFFA

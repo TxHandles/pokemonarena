@@ -24,7 +24,7 @@ starter = no
 # "evo" = learned when it evolves into this Pokemon
 
 # ---- EVOLUTION (Story Mode) ----------------------------------------------
-# (does not evolve)
+evolve_trade = Porygon-Z      # evolves when traded holding a Dubious Disc (or with a Linking Cord)
 
 # ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
 # "evo" = learned when it evolves into this Pokemon

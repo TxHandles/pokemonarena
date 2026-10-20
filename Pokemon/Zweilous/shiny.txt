@@ -1,0 +1,16 @@
+# Zweilous - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 12285F > 243200
+shiny = 2F579B > 506028
+shiny = 362E36 > 463636
+shiny = 372F37 > 433735
+shiny = 474747 > 574F47
+shiny = 534249 > 5D4C48
+shiny = 578ADA > 829257
+shiny = 6385C5 > 8A8DAC
+shiny = 68585C > 73625C
+shiny = 817273 > 8D7C74
+shiny = 83ADF7 > A4B577
+shiny = 933728 > 5D3B7C
+shiny = 9B8F9C > AA9998
+shiny = BC4989 > 7B4EB5

@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Sawk
+dex  = 539
+type = Fighting
+
+hp         = 75
+attack     = 125
+defense    = 75
+sp_attack  = 30
+sp_defense = 75
+speed      = 85
+
+size   = 1.12
+height = 1.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 51.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leer
+learn = 1, Rock Smash
+learn = 5, Focus Energy
+learn = 10, Double Kick
+learn = 15, Quick Guard
+learn = 20, Low Sweep
+learn = 25, Bulk Up
+learn = 30, Retaliate
+learn = 35, Brick Break
+learn = 40, Counter
+learn = 45, Endure
+learn = 50, Reversal
+learn = 55, Close Combat
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Low Kick, Facade, Bulldoze, Rock Tomb
+tm = Low Sweep, Fling, Endure, Sunny Day, Rain Dance, Dig
+tm = Brick Break, Zen Headbutt, Bulk Up, Fire Punch, Thunder Punch, Ice Punch
+tm = Sleep Talk, Grass Knot, Poison Jab, Rest, Rock Slide, Taunt
+tm = Substitute, Helping Hand, Reversal, Earthquake, Stone Edge, Giga Impact
+tm = Focus Blast, Close Combat, Throat Chop

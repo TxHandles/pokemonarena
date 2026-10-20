@@ -1,0 +1,17 @@
+# Palpitoad - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 058AD0 > 00BCCC
+shiny = 0B3770 > 006978
+shiny = 125768 > 6F4800
+shiny = 215FA4 > 15A1A2
+shiny = 479BAC > C36102
+shiny = 4984E3 > 54CCCE
+shiny = 77C9FA > EA9700
+shiny = 79E3D0 > FAA805
+shiny = 8A4F3F > 835353
+shiny = A98C71 > AA8C86
+shiny = BF9379 > BE9393
+shiny = E5E5F7 > F0E3F9
+shiny = EDCA90 > EDCAB2
+shiny = FAFAFA > FFF8FF
+shiny = FFDAB6 > FEDAD0

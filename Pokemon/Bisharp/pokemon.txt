@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Bisharp
+dex  = 625
+type = Dark / Steel
+
+hp         = 65
+attack     = 125
+defense    = 100
+sp_attack  = 60
+sp_defense = 70
+speed      = 70
+
+size   = 1.12
+height = 1.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 70.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Fury Cutter
+learn = 1, Leer
+learn = 1, Metal Burst
+learn = 1, Scratch
+learn = 1, Metal Claw
+learn = 15, Torment
+learn = 20, Scary Face
+learn = 25, Assurance
+learn = 30, Metal Sound
+learn = 35, Slash
+learn = 40, Night Slash
+learn = 45, Iron Defense
+learn = 50, Retaliate
+learn = 57, Iron Head
+learn = 64, Swords Dance
+learn = 71, Guillotine
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Low Kick, Thief, Facade
+tm = Aerial Ace, Snarl, Metal Claw, Rock Tomb, Low Sweep, Fling
+tm = Endure, Rain Dance, Sandstorm, Dig, False Swipe, Brick Break
+tm = Shadow Claw, Foul Play, Air Slash, Sleep Talk, Grass Knot, Thunder Wave
+tm = Poison Jab, Rest, Taunt, Swords Dance, Flash Cannon, Dark Pulse
+tm = Iron Head, Substitute, Iron Defense, X-Scissor, Stealth Rock, Reversal
+tm = Stone Edge, Giga Impact, Focus Blast, Hyper Beam, Steel Beam, Tera Blast
+tm = Spite, Lash Out, Throat Chop, Metal Sound

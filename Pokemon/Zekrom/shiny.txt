@@ -1,0 +1,19 @@
+# Zekrom - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 12200B > 19453B
+shiny = 125D6D > 118895
+shiny = 2097C2 > 62B658
+shiny = 25BAE4 > 70DA77
+shiny = 262526 > 2D4C50
+shiny = 333337 > 3A5C63
+shiny = 343438 > 3B5D64
+shiny = 35BFFF > 79E280
+shiny = 3D3D42 > 45676F
+shiny = 3E3E42 > 46686F
+shiny = 4A5A6F > 5B8597
+shiny = 514D40 > 5C7873
+shiny = 585858 > 638487
+shiny = 5B7587 > 6CA2B0
+shiny = 636363 > 6F9093
+shiny = CC2756 > C4818E
+shiny = FFEBEB > DBFFFF

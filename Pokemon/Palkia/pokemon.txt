@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Palkia
+dex  = 484
+type = Water / Dragon
+
+hp         = 90
+attack     = 120
+defense    = 100
+sp_attack  = 150
+sp_defense = 120
+speed      = 100
+
+size   = 1.47
+height = 4.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 336.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scary Face
+learn = 1, Water Pulse
+learn = 8, Dragon Breath
+learn = 16, Ancient Power
+learn = 24, Slash
+learn = 32, Aqua Ring
+learn = 48, Aura Sphere
+learn = 56, Power Gem
+learn = 64, Aqua Tail
+learn = 72, Earth Power
+learn = 80, Spacial Rend
+learn = 88, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Water Pulse, Chilling Water, Facade
+tm = Aerial Ace, Bulldoze, Swift, Icy Wind, Rock Tomb, Fling
+tm = Dragon Tail, Avalanche, Endure, Sunny Day, Rain Dance, Sandstorm
+tm = Snowscape, Brick Break, Shadow Claw, Bulk Up, Body Slam, Sleep Talk
+tm = Waterfall, Dragon Claw, Thunder Wave, Stomping Tantrum, Rest, Rock Slide
+tm = Body Press, Power Gem, Substitute, Trick, Liquidation, Aura Sphere
+tm = Dragon Pulse, Hyper Voice, Heavy Slam, Surf, Flamethrower, Thunderbolt
+tm = Earth Power, Ice Beam, Fire Blast, Hydro Pump, Blizzard, Earthquake
+tm = Stone Edge, Giga Impact, Outrage, Focus Blast, Trick Room, Hyper Beam
+tm = Thunder, Draco Meteor, Tera Blast, Roar, Gravity, Dual Wingbeat
+tm = Scale Shot, Psych Up, Whirlpool, Breaking Swipe

@@ -1,0 +1,16 @@
+# Yamask - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2C2C2C > 242445
+shiny = 413F3E > 393759
+shiny = 474747 > 3E3F77
+shiny = 737373 > 6D6AA7
+shiny = 814F19 > 585858
+shiny = BCA556 > A1A4A3
+shiny = C7790B > 838383
+shiny = D03E29 > 7D669F
+shiny = F4E42D > E6EDE9
+shiny = F5A421 > ADACAB
+shiny = F6EE73 > DCDFDD
+shiny = FAFAFA > FFFFFF
+shiny = FF0000 > F6DE29
+shiny = FFDA70 > E4EAEB

@@ -1,0 +1,20 @@
+# Eelektrik - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 202040 > 00407D
+shiny = 204040 > 005A97
+shiny = 206080 > 347BBF
+shiny = 353535 > 005390
+shiny = 394A8B > 256DB4
+shiny = 5263BD > 4D8AD6
+shiny = 802000 > 924104
+shiny = 808040 > 759451
+shiny = C04040 > CD6741
+shiny = C0A080 > ADB988
+shiny = C3AD69 > B2C47E
+shiny = D34048 > DD6C49
+shiny = E08040 > FF862E
+shiny = E0C000 > 9AE700
+shiny = E0E000 > B0FF02
+shiny = E0E080 > D4F69D
+shiny = EBB618 > 91D211
+shiny = FCFC82 > EBFFA4

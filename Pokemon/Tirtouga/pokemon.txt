@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Tirtouga
+dex  = 564
+type = Water / Rock
+
+hp         = 54
+attack     = 78
+defense    = 103
+sp_attack  = 53
+sp_defense = 45
+speed      = 22
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 16.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Carracosta
+evolve_level = 37
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Withdraw
+learn = 3, Protect
+learn = 6, Aqua Jet
+learn = 9, Smack Down
+learn = 12, Ancient Power
+learn = 15, Bite
+learn = 18, Wide Guard
+learn = 21, Brine
+learn = 24, Rock Slide
+learn = 27, Crunch
+learn = 30, Curse
+learn = 33, Iron Defense
+learn = 36, Aqua Tail
+learn = 39, Rain Dance
+learn = 42, Hydro Pump
+learn = 45, Shell Smash
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Icy Wind, Mud Shot, Rock Tomb
+tm = Endure, Rain Dance, Sandstorm, Dig, Zen Headbutt, Body Slam
+tm = Sleep Talk, Rock Blast, Waterfall, Rest, Rock Slide, Substitute
+tm = Iron Defense, Crunch, Liquidation, Stealth Rock, Surf, Earth Power
+tm = Ice Beam, Hydro Pump, Blizzard, Earthquake, Stone Edge, Scald
+tm = Whirlpool, Muddy Water

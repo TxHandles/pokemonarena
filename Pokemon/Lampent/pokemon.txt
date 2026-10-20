@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Lampent
+dex  = 608
+type = Ghost / Fire
+
+hp         = 60
+attack     = 40
+defense    = 60
+sp_attack  = 95
+sp_defense = 60
+speed      = 55
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 13.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Chandelure, Dusk Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Smog
+learn = 1, Ember
+learn = 1, Minimize
+learn = 1, Astonish
+learn = 12, Confuse Ray
+learn = 16, Hex
+learn = 20, Will-O-Wisp
+learn = 24, Fire Spin
+learn = 28, Night Shade
+learn = 32, Curse
+learn = 36, Shadow Ball
+learn = 40, Inferno
+learn = 46, Imprison
+learn = 52, Pain Split
+learn = 58, Overheat
+learn = 64, Memento
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Confuse Ray, Thief, Fire Spin, Facade, Hex
+tm = Flame Charge, Night Shade, Endure, Sunny Day, Sleep Talk, Rest
+tm = Taunt, Imprison, Dark Pulse, Substitute, Will-O-Wisp, Trick
+tm = Shadow Ball, Heat Wave, Energy Ball, Psychic, Flamethrower, Calm Mind
+tm = Fire Blast, Overheat, Trick Room, Flare Blitz, Solar Beam, Tera Blast
+tm = Haze, Spite, Burning Jealousy, Poltergeist, Lash Out, Pain Split
+tm = Psych Up, Temper Flare, Skitter Smack, Curse

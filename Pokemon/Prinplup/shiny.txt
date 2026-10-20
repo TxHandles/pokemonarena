@@ -1,0 +1,23 @@
+# Prinplup - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2858A8 > 2A74A4
+shiny = 2A5CAA > 2A809C
+shiny = 2B5CAA > 2A819C
+shiny = 303860 > 21526A
+shiny = 3870B0 > 2E8D7B
+shiny = 3F70C8 > 4596B3
+shiny = 4070C8 > 458DC2
+shiny = 427BC5 > 4D9FBA
+shiny = 465866 > 3C727A
+shiny = 605020 > 576B4D
+shiny = 7098B8 > 5AB59E
+shiny = 787878 > 539DB0
+shiny = 78C8F0 > 83E2CB
+shiny = 7AACCD > 91D2C9
+shiny = 9BD5F5 > B8FBF1
+shiny = A8B0C8 > 7CD3BA
+shiny = B29631 > AAA623
+shiny = C89800 > BBAB00
+shiny = F5DC41 > EFEC4A
+shiny = F8C018 > EAD32B
+shiny = FAFAFA > CEFFFE

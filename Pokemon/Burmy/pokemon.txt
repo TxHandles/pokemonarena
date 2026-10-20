@@ -1,0 +1,39 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Burmy
+dex  = 412
+type = Bug
+
+hp         = 40
+attack     = 29
+defense    = 45
+sp_attack  = 29
+sp_defense = 45
+speed      = 36
+
+size   = 0.85
+height = 0.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 3.4      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_by_stats = Wormadam, Mothim   # (a female becomes Wormadam, a male Mothim; here its nature decides)
+evolve_level = 20
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Protect
+learn = 10, Tackle
+learn = 15, Bug Bite
+learn = 20, String Shot
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect

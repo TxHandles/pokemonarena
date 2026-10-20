@@ -1,0 +1,20 @@
+# Scrafty - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 6A5229 > 006000
+shiny = 7B3929 > 7B5220
+shiny = 7B6208 > 528B44
+shiny = 984144 > BC4D09
+shiny = B49418 > 52A439
+shiny = BB9A00 > 59AA3D
+shiny = BD8F40 > 53A33C
+shiny = BD9C00 > 5BAC3F
+shiny = C55A18 > C59C18
+shiny = DE2939 > DE6220
+shiny = E05B56 > F37735
+shiny = E66273 > FC7E3E
+shiny = F57A1F > EFC040
+shiny = F67B20 > F6D518
+shiny = F6CC0F > 61D438
+shiny = F6CD10 > 8EDF6B
+shiny = FEB84B > FFFF4E
+shiny = FFCE41 > 67D940

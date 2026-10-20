@@ -1,0 +1,20 @@
+# Glameow - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0A0A0A > 0A0019
+shiny = 102068 > 38014D
+shiny = 323232 > 2B2238
+shiny = 333333 > 4B2240
+shiny = 525252 > 4A4159
+shiny = 707070 > 8D5F7F
+shiny = 717171 > 8E6080
+shiny = 72838B > 9861A6
+shiny = 808080 > 9D6F8F
+shiny = 989898 > B787A7
+shiny = 9DADB5 > C48AD2
+shiny = B03868 > 8C3A6E
+shiny = C0C0C0 > B8ACC8
+shiny = D060B0 > A964B2
+shiny = E09828 > D6AD4A
+shiny = E8E8F8 > FFD6FF
+shiny = EAC735 > EAD760
+shiny = ED729B > EF71A7

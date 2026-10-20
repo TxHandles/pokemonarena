@@ -1,0 +1,17 @@
+# Stunfisk - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 836C4E > 8B7F4D
+shiny = B07040 > AE884A
+shiny = B67A50 > B59257
+shiny = C09048 > C2A659
+shiny = CAAE8E > D2C28D
+shiny = D89050 > D4A960
+shiny = D8A000 > 148AB4
+shiny = D8B870 > DECC7E
+shiny = DC9D68 > DAB573
+shiny = E8B820 > 379FC9
+shiny = E8E0D8 > F8F4CC
+shiny = F0D088 > F7E596
+shiny = F6D56A > 00AED6
+shiny = F8D048 > 4FB4E0
+shiny = FAFAFA > FFFFDF

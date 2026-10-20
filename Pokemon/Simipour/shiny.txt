@@ -1,0 +1,21 @@
+# Simipour - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 002F68 > 2A1658
+shiny = 0B5F81 > 002C80
+shiny = 19819B > 4851A2
+shiny = 21ACD9 > 7278D0
+shiny = 21ACDA > 526CCE
+shiny = 313131 > 2F2211
+shiny = 474747 > 463725
+shiny = 4F9AD9 > 4861C3
+shiny = 525252 > 002575
+shiny = 684719 > 593A08
+shiny = 87C7FE > 7A8AF1
+shiny = 8A753A > 81652A
+shiny = 93E3EC > 7FB1EA
+shiny = BFBFBF > C0AC96
+shiny = C6A55A > B59654
+shiny = C79B4F > B68C49
+shiny = E5E5F7 > A8ADFF
+shiny = F3D482 > E8C278
+shiny = FFC770 > ECB86B

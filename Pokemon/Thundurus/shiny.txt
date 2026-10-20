@@ -1,0 +1,9 @@
+# Thundurus - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 348EC2 > 566894
+shiny = 49D0FF > 7FA5D0
+shiny = 616B69 > 636A4E
+shiny = 735EDB > B646D7
+shiny = B9AFA4 > B4AF8B
+shiny = EEEDFA > EEEDD6
+shiny = FFE28B > FBEB33

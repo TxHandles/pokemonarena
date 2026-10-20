@@ -1,0 +1,18 @@
+# Skuntank - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 343434 > 6B0033
+shiny = 403E45 > 940031
+shiny = 585030 > 81450C
+shiny = 672F6F > A0003B
+shiny = 683070 > A1003C
+shiny = 695392 > BF1A54
+shiny = 707070 > B34C6E
+shiny = 7A6AAB > D93B69
+shiny = 7C7679 > DC4367
+shiny = 885890 > CD2B5D
+shiny = B8A060 > E19759
+shiny = BBB9A6 > D1B092
+shiny = E8D060 > F5C772
+shiny = E8D890 > F8CF91
+shiny = EE8E3B > FF728A
+shiny = FEF6D1 > FFECC3

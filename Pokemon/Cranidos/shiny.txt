@@ -1,0 +1,20 @@
+# Cranidos - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303850 > 49492C
+shiny = 333333 > 434324
+shiny = 383838 > 484829
+shiny = 405898 > 6C6B51
+shiny = 4263AD > 9F203B
+shiny = 4983CD > C04255
+shiny = 515252 > 636342
+shiny = 5880E8 > BF5455
+shiny = 6AA4FE > A5ACC5
+shiny = 707070 > 83825F
+shiny = 7F7970 > 8E8C68
+shiny = 900820 > 605432
+shiny = 989898 > ACAB86
+shiny = AEAEAF > C1B799
+shiny = C8C8C8 > DEDCB6
+shiny = D36241 > C26E5E
+shiny = E8E8F8 > FFB9AA
+shiny = FAFAFA > FFFFDF

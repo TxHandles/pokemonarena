@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Serperior
+dex  = 497
+type = Grass
+
+hp         = 75
+attack     = 75
+defense    = 95
+sp_attack  = 75
+sp_defense = 95
+speed      = 113
+
+size   = 1.12
+height = 3.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 63.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Wrap
+learn = 1, Vine Whip
+learn = 1, Tackle
+learn = 1, Leer
+learn = 13, Growth
+learn = 16, Magical Leaf
+learn = 20, Leech Seed
+learn = 24, Mega Drain
+learn = 28, Slam
+learn = 32, Leaf Blade
+learn = 38, Coil
+learn = 44, Giga Drain
+learn = 50, Gastro Acid
+learn = 56, Leaf Storm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Trailblaze, Facade, Aerial Ace
+tm = Swift, Magical Leaf, Dragon Tail, Endure, Sunny Day, Bullet Seed
+tm = Body Slam, Sleep Talk, Seed Bomb, Reflect, Light Screen, Grass Knot
+tm = Rest, Taunt, Swords Dance, Substitute, Giga Drain, Dragon Pulse
+tm = Energy Ball, Calm Mind, Helping Hand, Grassy Terrain, Grass Pledge, Giga Impact
+tm = Frenzy Plant, Outrage, Leaf Storm, Hyper Beam, Solar Beam, Tera Blast
+tm = Knock Off, Grassy Glide, Scale Shot, Double-Edge, Petal Blizzard, Breaking Swipe

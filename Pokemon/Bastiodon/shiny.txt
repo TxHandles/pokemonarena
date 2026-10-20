@@ -1,0 +1,23 @@
+# Bastiodon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0A0A0A > 050025
+shiny = 333332 > 272247
+shiny = 383838 > 2C274D
+shiny = 484848 > 3C365E
+shiny = 525252 > 315275
+shiny = 606060 > 554E78
+shiny = 6B6B6B > 4C6B8F
+shiny = 787878 > 6D6591
+shiny = 838383 > 6583A9
+shiny = 906848 > 908E3B
+shiny = 989898 > 7A98BF
+shiny = BBBBBB > 9DBAE3
+shiny = C09030 > B2BA1E
+shiny = C4AB59 > C9D654
+shiny = C8C8C8 > AAC7F1
+shiny = E0A820 > D1DA52
+shiny = F5DC72 > FCFF81
+shiny = F8B840 > E2E64E
+shiny = F8B842 > E5EC66
+shiny = F8B843 > E5EC66
+shiny = F8B858 > D7BBAE

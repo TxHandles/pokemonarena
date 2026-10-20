@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Karrablast
+dex  = 588
+type = Bug
+
+hp         = 50
+attack     = 75
+defense    = 45
+sp_attack  = 40
+sp_defense = 45
+speed      = 60
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.9      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_trade = Escavalier      # evolves when traded for a Shelmet (or with a Linking Cord)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leer
+learn = 1, Peck
+learn = 4, Fury Cutter
+learn = 8, Endure
+learn = 12, False Swipe
+learn = 16, Acid Spray
+learn = 20, Headbutt
+learn = 24, Flail
+learn = 28, Scary Face
+learn = 32, X-Scissor
+learn = 36, Swords Dance
+learn = 40, Take Down
+learn = 44, Bug Buzz
+learn = 48, Double-Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Facade, Endure, Rain Dance, False Swipe
+tm = Sleep Talk, Poison Jab, Rest, Swords Dance, Substitute, Iron Defense
+tm = X-Scissor, Drill Run, Giga Drain, Energy Ball, Encore, Bug Buzz

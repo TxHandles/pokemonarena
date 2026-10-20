@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Weavile
+dex  = 461
+type = Dark / Ice
+
+hp         = 70
+attack     = 120
+defense    = 65
+sp_attack  = 45
+sp_defense = 85
+speed      = 125
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 34.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Agility
+learn = 1, Quick Attack
+learn = 1, Assurance
+learn = 1, Taunt
+learn = 1, Slash
+learn = 1, Ice Shard
+learn = 1, Leer
+learn = 1, Beat Up
+learn = 18, Metal Claw
+learn = 24, Icy Wind
+learn = 30, Fury Swipes
+learn = 36, Hone Claws
+learn = 42, Fling
+learn = 48, Nasty Plot
+learn = 54, Screech
+learn = 60, Night Slash
+learn = 66, Dark Pulse
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Agility, Scary Face, Protect, Water Pulse
+tm = Low Kick, Thief, Trailblaze, Chilling Water, Facade, Aerial Ace
+tm = Snarl, Metal Claw, Swift, Icy Wind, Low Sweep, Fling
+tm = Avalanche, Endure, Sunny Day, Rain Dance, Snowscape, Dig
+tm = False Swipe, Brick Break, Shadow Claw, Foul Play, Ice Punch, Sleep Talk
+tm = Metronome, Poison Jab, Rest, Taunt, Swords Dance, Dark Pulse
+tm = Substitute, X-Scissor, Shadow Ball, Surf, Ice Spinner, Calm Mind
+tm = Helping Hand, Baton Pass, Ice Beam, Nasty Plot, Blizzard, Giga Impact
+tm = Focus Blast, Hyper Beam, Tera Blast, Spite, Knock Off, Icicle Spear
+tm = Focus Punch, Lash Out, Triple Axel, Throat Chop, Upper Hand

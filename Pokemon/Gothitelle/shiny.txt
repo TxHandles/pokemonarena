@@ -1,0 +1,25 @@
+# Gothitelle - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000100 > 00002D
+shiny = 053D7E > 2A0027
+shiny = 353536 > 222554
+shiny = 363636 > 262647
+shiny = 454442 > 353354
+shiny = 454545 > 353457
+shiny = 4D273D > 341B4A
+shiny = 522A3B > 391E4A
+shiny = 5E6160 > 504F82
+shiny = 656565 > 555387
+shiny = 80D9FE > 8ECDFC
+shiny = 864D6D > 4B4670
+shiny = 8E8E86 > 74749D
+shiny = A8A8A8 > 9895CE
+shiny = A9A9A9 > 99A1BA
+shiny = ABB1B4 > A09CD6
+shiny = B17597 > 8D6891
+shiny = B9B9B1 > A9B1C5
+shiny = C27EB1 > 897FBC
+shiny = C5606A > 796AA1
+shiny = CB9BD3 > AE9AD4
+shiny = E5E5F7 > D7D2FF
+shiny = F75D3D > 9179AC

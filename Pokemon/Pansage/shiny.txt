@@ -1,0 +1,15 @@
+# Pansage - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 056828 > 287800
+shiny = 123E21 > 0D6700
+shiny = 123F21 > 185000
+shiny = 129B47 > 4BAB25
+shiny = 389A51 > 58AB2E
+shiny = 39C559 > 6DD540
+shiny = 79C793 > 93DA6D
+shiny = 79E58B > A6FF85
+shiny = C79B4F > C8B34C
+shiny = D9B863 > DDCF63
+shiny = FAFAFA > FFFFCB
+shiny = FDDD8B > FFEC8C
+shiny = FFC770 > FDE172

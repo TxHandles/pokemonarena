@@ -1,0 +1,9 @@
+# Abomasnow - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 304837 > 0C2472
+shiny = 304838 > 0C2472
+shiny = 307840 > 284F8C
+shiny = 309848 > 26739D
+shiny = 464C44 > 1D2B7B
+shiny = 568B7A > 206E9D
+shiny = 8BBEB3 > 5FA0D3

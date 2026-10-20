@@ -1,0 +1,63 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Volcarona
+dex  = 637
+type = Bug / Fire
+
+hp         = 85
+attack     = 60
+defense    = 65
+sp_attack  = 135
+sp_defense = 105
+speed      = 100
+
+size   = 1.12
+height = 1.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 46.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Quiver Dance
+learn = 1, Flame Charge
+learn = 1, Fiery Dance
+learn = 1, Ember
+learn = 1, Flare Blitz
+learn = 1, String Shot
+learn = 1, Take Down
+learn = 1, Double-Edge
+learn = 1, Fire Spin
+learn = 1, Struggle Bug
+learn = 1, Gust
+learn = 1, Whirlwind
+learn = 18, Flame Wheel
+learn = 24, Bug Bite
+learn = 30, Screech
+learn = 36, Leech Life
+learn = 42, Bug Buzz
+learn = 48, Heat Wave
+learn = 54, Amnesia
+learn = 62, Hurricane
+learn = 70, Fire Blast
+learn = 78, Rage Powder
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Acrobatics, Struggle Bug, Trailblaze, Pounce
+tm = Fire Spin, Facade, Flame Charge, Air Cutter, Endure, Sunny Day
+tm = Rain Dance, Zen Headbutt, U-turn, Air Slash, Body Slam, Sleep Talk
+tm = Light Screen, Poison Jab, Rest, Leech Life, Fly, Substitute
+tm = Will-O-Wisp, Giga Drain, Tailwind, Heat Wave, Psychic, Flamethrower
+tm = Amnesia, Calm Mind, Fire Blast, Wild Charge, Giga Impact, Overheat
+tm = Hurricane, Bug Buzz, Hyper Beam, Flare Blitz, Solar Beam, Tera Blast
+tm = Bug Bite, Lunge, Dual Wingbeat, Double-Edge, Skitter Smack

@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Ferrothorn
+dex  = 598
+type = Grass / Steel
+
+hp         = 74
+attack     = 94
+defense    = 131
+sp_attack  = 54
+sp_defense = 116
+speed      = 20
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 110.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Power Whip
+learn = 1, Tackle
+learn = 1, Harden
+learn = 1, Pin Missile
+learn = 1, Metal Claw
+learn = 15, Ingrain
+learn = 20, Flash Cannon
+learn = 25, Iron Head
+learn = 30, Self-Destruct
+learn = 35, Iron Defense
+learn = 43, Curse
+learn = 49, Gyro Ball
+learn = 56, Explosion
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Endure, Sunny Day, Sandstorm
+tm = Bullet Seed, Shadow Claw, Sleep Talk, Seed Bomb, Grass Knot, Thunder Wave
+tm = Poison Jab, Rest, Swords Dance, Body Press, Spikes, Flash Cannon
+tm = Iron Head, Substitute, Iron Defense, Giga Drain, Stealth Rock, Energy Ball
+tm = Heavy Slam, Thunderbolt, Giga Impact, Hyper Beam, Thunder, Solar Beam
+tm = Gyro Ball

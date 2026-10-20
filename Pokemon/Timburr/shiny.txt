@@ -1,0 +1,17 @@
+# Timburr - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 453D40 > 4E450A
+shiny = 4F3F3F > 765726
+shiny = 792837 > A11D18
+shiny = 896755 > 837537
+shiny = 8A574F > B1464F
+shiny = 938179 > AA9259
+shiny = B46E6A > DD5C6A
+shiny = BF4F68 > E05645
+shiny = BFB6A4 > CEBE7C
+shiny = C4A57E > C2B16D
+shiny = DEB66A > D5C37A
+shiny = DFCCB4 > E8D692
+shiny = E5E5F7 > FFB098
+shiny = EC7081 > EE5A4B
+shiny = FF7995 > FE6758

@@ -1,0 +1,19 @@
+# Gigalith - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 212F5F > 381F5F
+shiny = 363D4D > 3F2451
+shiny = 374781 > 50377E
+shiny = 454245 > 4A284F
+shiny = 464E83 > 5A3D85
+shiny = 5F1919 > 173942
+shiny = 6C6B87 > 7D5A94
+shiny = 932828 > 1D7393
+shiny = A47912 > A35819
+shiny = B74D2F > 4A94B3
+shiny = C5C2BD > D7B0D6
+shiny = DAB64F > F87518
+shiny = E32828 > 03C9C0
+shiny = E4AAA1 > 90E2FF
+shiny = EC6868 > 32E9E3
+shiny = F7B844 > FF7D20
+shiny = FD613A > 47EBE1

@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Deino
+dex  = 633
+type = Dark / Dragon
+
+hp         = 52
+attack     = 65
+defense    = 50
+sp_attack  = 45
+sp_defense = 50
+speed      = 38
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 17.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Zweilous
+evolve_level = 50
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Focus Energy
+learn = 4, Dragon Breath
+learn = 8, Bite
+learn = 12, Roar
+learn = 16, Assurance
+learn = 20, Headbutt
+learn = 24, Work Up
+learn = 28, Slam
+learn = 32, Crunch
+learn = 36, Scary Face
+learn = 40, Dragon Pulse
+learn = 44, Body Slam
+learn = 48, Hyper Voice
+learn = 52, Dragon Rush
+learn = 56, Nasty Plot
+learn = 60, Outrage
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Fire Fang, Thunder Fang, Ice Fang
+tm = Thief, Facade, Snarl, Dragon Tail, Endure, Sunny Day
+tm = Rain Dance, Zen Headbutt, Body Slam, Sleep Talk, Thunder Wave, Rest
+tm = Taunt, Dark Pulse, Substitute, Crunch, Dragon Pulse, Hyper Voice
+tm = Earth Power, Nasty Plot, Outrage, Draco Meteor, Tera Blast, Roar
+tm = Spite, Psych Up, Dragon Cheer

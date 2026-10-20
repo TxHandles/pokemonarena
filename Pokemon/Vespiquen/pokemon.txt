@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Vespiquen
+dex  = 416
+type = Bug / Flying
+
+hp         = 70
+attack     = 80
+defense    = 102
+sp_attack  = 80
+sp_defense = 102
+speed      = 40
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 38.5      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Slash
+learn = 1, Confuse Ray
+learn = 1, Bug Bite
+learn = 1, Struggle Bug
+learn = 1, Poison Sting
+learn = 1, Gust
+learn = 1, Sweet Scent
+learn = 4, Fury Cutter
+learn = 8, Aromatic Mist
+learn = 12, Fell Stinger
+learn = 16, Fury Swipes
+learn = 20, Swagger
+learn = 24, Roost
+learn = 28, Air Slash
+learn = 32, Power Gem
+learn = 36, Toxic
+learn = 40, Attack Order
+learn = 40, Defend Order
+learn = 44, Destiny Bond
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Acrobatics, Struggle Bug
+tm = Confuse Ray, Thief, Pounce, Facade, Aerial Ace, Hex
+tm = Swift, Fling, Venoshock, Endure, Sunny Day, Rain Dance
+tm = U-turn, Air Slash, Sleep Talk, Rest, Taunt, Spikes
+tm = Toxic Spikes, Power Gem, Substitute, X-Scissor, Helping Hand, Pollen Puff
+tm = Reversal, Sludge Bomb, Giga Impact, Hurricane, Bug Buzz, Hyper Beam
+tm = Tera Blast, Toxic, Spite, Bug Bite, Lunge, Dual Wingbeat
+tm = Endeavor, Skitter Smack, Psychic Noise

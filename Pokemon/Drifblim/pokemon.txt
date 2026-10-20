@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Drifblim
+dex  = 426
+type = Ghost / Flying
+
+hp         = 150
+attack     = 80
+defense    = 44
+sp_attack  = 90
+sp_defense = 54
+speed      = 80
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 15.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Phantom Force
+learn = 1, Astonish
+learn = 1, Focus Energy
+learn = 1, Minimize
+learn = 1, Strength Sap
+learn = 1, Gust
+learn = 12, Payback
+learn = 16, Hex
+learn = 20, Shadow Ball
+learn = 24, Swallow
+learn = 24, Stockpile
+learn = 24, Spit Up
+learn = 31, Self-Destruct
+learn = 36, Destiny Bond
+learn = 42, Baton Pass
+learn = 48, Tailwind
+learn = 54, Explosion
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Acrobatics, Psybeam, Thief, Facade, Aerial Ace
+tm = Hex, Swift, Icy Wind, Air Cutter, Stored Power, Night Shade
+tm = Fling, Endure, Sunny Day, Rain Dance, Air Slash, Body Slam
+tm = Sleep Talk, Thunder Wave, Rest, Imprison, Fly, Skill Swap
+tm = Substitute, Will-O-Wisp, Trick, Tailwind, Shadow Ball, Psychic
+tm = Thunderbolt, Amnesia, Calm Mind, Helping Hand, Baton Pass, Phantom Force
+tm = Giga Impact, Trick Room, Hyper Beam, Thunder, Tera Blast, Haze
+tm = Spite, Gyro Ball, Knock Off, Weather Ball, Pain Split, Temper Flare
+tm = Curse

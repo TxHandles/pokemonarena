@@ -1,0 +1,21 @@
+# Rampardos - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303850 > 363837
+shiny = 333333 > 333324
+shiny = 383838 > 383827
+shiny = 405898 > 55596C
+shiny = 4172C5 > B24B48
+shiny = 4993FD > 8693C7
+shiny = 525252 > 5A5248
+shiny = 5880E8 > C75C5A
+shiny = 606060 > 61604D
+shiny = 6F6F6F > 706F5C
+shiny = 707070 > 787065
+shiny = 78A0F8 > 93A0C2
+shiny = 804050 > 6F4A3F
+shiny = 827675 > 86776C
+shiny = 989898 > 999884
+shiny = A3A3A3 > ACA398
+shiny = B8B8B8 > C9C9B5
+shiny = E0E0E0 > E1E0CA
+shiny = E86878 > CF7C77

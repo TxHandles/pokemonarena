@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Snivy
+dex  = 495
+type = Grass
+
+hp         = 45
+attack     = 45
+defense    = 55
+sp_attack  = 45
+sp_defense = 55
+speed      = 63
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 8.1      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = yes
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Servine
+evolve_level = 17
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 4, Leer
+learn = 7, Vine Whip
+learn = 10, Wrap
+learn = 13, Growth
+learn = 16, Magical Leaf
+learn = 19, Leech Seed
+learn = 22, Mega Drain
+learn = 25, Slam
+learn = 28, Leaf Blade
+learn = 31, Coil
+learn = 34, Giga Drain
+learn = 37, Gastro Acid
+learn = 40, Leaf Storm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Trailblaze, Facade, Aerial Ace, Swift
+tm = Magical Leaf, Endure, Sunny Day, Bullet Seed, Sleep Talk, Seed Bomb
+tm = Reflect, Light Screen, Grass Knot, Rest, Taunt, Swords Dance
+tm = Substitute, Giga Drain, Energy Ball, Calm Mind, Helping Hand, Grassy Terrain
+tm = Grass Pledge, Leaf Storm, Solar Beam, Tera Blast, Knock Off, Grassy Glide
+tm = Double-Edge, Petal Blizzard

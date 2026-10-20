@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Swanna
+dex  = 581
+type = Water / Flying
+
+hp         = 75
+attack     = 87
+defense    = 63
+sp_attack  = 87
+sp_defense = 63
+speed      = 98
+
+size   = 1.12
+height = 1.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 24.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Wing Attack
+learn = 1, Water Gun
+learn = 1, Defog
+learn = 13, Water Pulse
+learn = 15, Aerial Ace
+learn = 19, Bubble Beam
+learn = 21, Feather Dance
+learn = 24, Aqua Ring
+learn = 27, Air Slash
+learn = 30, Roost
+learn = 34, Rain Dance
+learn = 40, Tailwind
+learn = 47, Brave Bird
+learn = 55, Hurricane
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Water Pulse, Acrobatics, Disarming Voice, Trailblaze, Chilling Water
+tm = Facade, Aerial Ace, Swift, Icy Wind, Air Cutter, Endure
+tm = Rain Dance, Air Slash, Sleep Talk, Rest, Fly, Substitute
+tm = Liquidation, Tailwind, Surf, Helping Hand, Ice Beam, Hydro Pump
+tm = Giga Impact, Hurricane, Hyper Beam, Brave Bird, Tera Blast, Knock Off
+tm = Weather Ball, Flip Turn, Double-Edge, Endeavor, Whirlpool, Feather Dance
+tm = Alluring Voice

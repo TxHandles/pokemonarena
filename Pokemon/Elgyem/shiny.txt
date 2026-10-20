@@ -1,0 +1,14 @@
+# Elgyem - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 033113 > 042A28
+shiny = 043113 > 04241B
+shiny = 0E7A04 > 366F46
+shiny = 0EB111 > BF549C
+shiny = 232323 > 131A21
+shiny = 3F715F > 3F6870
+shiny = 47474F > 353D49
+shiny = 719595 > 6C8DA1
+shiny = 7AB8A8 > 7AA7A7
+shiny = 83B4A1 > 82ABB3
+shiny = A4E5E5 > A4D4DD
+shiny = B40000 > 008ED0

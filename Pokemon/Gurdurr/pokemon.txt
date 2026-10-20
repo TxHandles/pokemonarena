@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Gurdurr
+dex  = 533
+type = Fighting
+
+hp         = 85
+attack     = 105
+defense    = 85
+sp_attack  = 40
+sp_defense = 50
+speed      = 40
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 40.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_trade = Conkeldurr      # evolves when traded (or with a Linking Cord)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Pound
+learn = 1, Leer
+learn = 1, Rock Throw
+learn = 1, Low Kick
+learn = 12, Focus Energy
+learn = 16, Bulk Up
+learn = 20, Rock Slide
+learn = 24, Slam
+learn = 30, Scary Face
+learn = 36, Dynamic Punch
+learn = 42, Hammer Arm
+learn = 48, Stone Edge
+learn = 54, Superpower
+learn = 60, Focus Punch
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Low Kick, Thief, Facade
+tm = Rock Tomb, Low Sweep, Fling, Endure, Sunny Day, Rain Dance
+tm = Dig, Brick Break, Bulk Up, Fire Punch, Thunder Punch, Ice Punch
+tm = Sleep Talk, Drain Punch, Grass Knot, Poison Jab, Rest, Rock Slide
+tm = Taunt, Substitute, Helping Hand, Reversal, Stone Edge, Focus Blast
+tm = Close Combat, Tera Blast, Smack Down, Knock Off, High Horsepower, Focus Punch
+tm = Double-Edge, Coaching, Curse

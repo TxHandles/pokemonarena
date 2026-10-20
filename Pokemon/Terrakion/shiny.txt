@@ -1,0 +1,23 @@
+# Terrakion - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3D271F > 620108
+shiny = 3E2720 > 620109
+shiny = 415E4B > 595B35
+shiny = 434040 > 49390D
+shiny = 624045 > 5B3D1A
+shiny = 663D24 > 644116
+shiny = 77554A > B72217
+shiny = 815B28 > 805E22
+shiny = 867D68 > 88753F
+shiny = 867E68 > E04E35
+shiny = 968A88 > 9B8354
+shiny = A98041 > A8823F
+shiny = B28F5B > B49154
+shiny = B6B6B4 > C5AC7B
+shiny = BBB1A5 > C0A976
+shiny = DC5500 > 008276
+shiny = E1C881 > E7C87F
+shiny = EA6F00 > D67E26
+shiny = EBBD7B > EBBF79
+shiny = ECECF6 > FEE2B0
+shiny = FAFAFA > FFCDAA

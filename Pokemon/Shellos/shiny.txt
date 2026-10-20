@@ -1,0 +1,14 @@
+# Shellos - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 583048 > 642526
+shiny = 902068 > 8E3130
+shiny = C06890 > B76B6A
+shiny = C55A7C > C46158
+shiny = C5AC42 > C69B4B
+shiny = C8A000 > C49125
+shiny = F0F129 > FBDC53
+shiny = F788C8 > E59292
+shiny = F858D0 > E67A77
+shiny = F888C8 > FB9088
+shiny = F8D058 > F5C05F
+shiny = FD8AB2 > FC9187

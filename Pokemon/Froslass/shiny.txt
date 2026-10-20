@@ -1,0 +1,17 @@
+# Froslass - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284858 > 245D5E
+shiny = 387898 > 507E90
+shiny = 502850 > 424754
+shiny = 58A0C8 > 6CA0BD
+shiny = 718FC1 > 7B98B4
+shiny = 784038 > 5A4139
+shiny = 804880 > 755591
+shiny = 8E6BB7 > 9374B4
+shiny = 98A0B0 > 8898A0
+shiny = 99E6FE > A1D9E6
+shiny = B44F4F > C24D97
+shiny = C03820 > BF448D
+shiny = C0C8D8 > AFC0C7
+shiny = C1BEBE > ACB7B4
+shiny = E8E8F8 > D4E0E8

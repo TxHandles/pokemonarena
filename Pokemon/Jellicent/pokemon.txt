@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Jellicent
+dex  = 593
+type = Water / Ghost
+
+hp         = 100
+attack     = 60
+defense    = 70
+sp_attack  = 85
+sp_defense = 105
+speed      = 60
+
+size   = 1.30
+height = 2.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 135.0      # Pokedex weight in kg
+hovers = yes
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Acid Armor
+learn = 1, Night Shade
+learn = 1, Absorb
+learn = 1, Poison Sting
+learn = 1, Water Gun
+learn = 12, Water Pulse
+learn = 16, Rain Dance
+learn = 20, Hex
+learn = 24, Brine
+learn = 28, Recover
+learn = 32, Shadow Ball
+learn = 36, Whirlpool
+learn = 43, Hydro Pump
+learn = 48, Destiny Bond
+learn = 54, Water Spout
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Hex, Icy Wind, Endure, Rain Dance
+tm = Sleep Talk, Waterfall, Dazzling Gleam, Rest, Taunt, Imprison
+tm = Dark Pulse, Substitute, Will-O-Wisp, Trick, Giga Drain, Shadow Ball
+tm = Energy Ball, Psychic, Surf, Ice Beam, Hydro Pump, Blizzard
+tm = Sludge Bomb, Giga Impact, Trick Room, Hyper Beam, Scald, Whirlpool
+tm = Muddy Water, Sludge Wave

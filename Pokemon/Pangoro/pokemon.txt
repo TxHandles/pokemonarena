@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Pangoro
+dex  = 675
+type = Fighting / Dark
+
+hp         = 95
+attack     = 124
+defense    = 78
+sp_attack  = 69
+sp_defense = 71
+speed      = 58
+
+size   = 1.29
+height = 2.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 136.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Night Slash
+learn = 1, Arm Thrust
+learn = 1, Tackle
+learn = 1, Bullet Punch
+learn = 1, Taunt
+learn = 1, Leer
+learn = 12, Circle Throw
+learn = 16, Low Sweep
+learn = 20, Work Up
+learn = 24, Slash
+learn = 28, Vital Throw
+learn = 35, Crunch
+learn = 40, Body Slam
+learn = 46, Parting Shot
+learn = 52, Entrainment
+learn = 58, Hammer Arm
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Low Kick, Thief, Facade, Bulldoze
+tm = Snarl, Rock Tomb, Low Sweep, Fling, Endure, Sunny Day
+tm = Rain Dance, Dig, False Swipe, Brick Break, Zen Headbutt, Shadow Claw
+tm = Foul Play, Bulk Up, Body Slam, Fire Punch, Thunder Punch, Ice Punch
+tm = Sleep Talk, Drain Punch, Dragon Claw, Grass Knot, Poison Jab, Stomping Tantrum
+tm = Rest, Rock Slide, Taunt, Swords Dance, Dark Pulse, Iron Head
+tm = Gunk Shot, Substitute, X-Scissor, Crunch, Hyper Voice, Surf
+tm = Helping Hand, Reversal, Sludge Bomb, Earthquake, Stone Edge, Giga Impact
+tm = Outrage, Focus Blast, Hyper Beam, Close Combat, Uproar, Throat Chop

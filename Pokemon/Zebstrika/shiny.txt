@@ -1,0 +1,22 @@
+# Zebstrika - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 004F93 > 70508A
+shiny = 00A4DA > 17A7DF
+shiny = 1D77A1 > 00912A
+shiny = 212828 > 2E2138
+shiny = 2D2D2D > 3A253D
+shiny = 2F3737 > 573768
+shiny = 333333 > 402B43
+shiny = 4D4D4D > 724F82
+shiny = 4F4F4F > 745184
+shiny = 525252 > 775487
+shiny = 6ACBD4 > 68CDEB
+shiny = 6B6B6B > 926DA3
+shiny = 707070 > 58707F
+shiny = 816819 > 818900
+shiny = 9B9B9B > C59ED6
+shiny = BBBBB3 > E6BEF7
+shiny = C2C2C2 > A9CAE3
+shiny = C7C7C7 > AECFE8
+shiny = E3C814 > B7E200
+shiny = FFE300 > D3FD00

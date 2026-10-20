@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Reshiram
+dex  = 643
+type = Dragon / Fire
+
+hp         = 100
+attack     = 120
+defense    = 100
+sp_attack  = 150
+sp_defense = 120
+speed      = 90
+
+size   = 1.39
+height = 3.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 330.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = yes
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Dragon Breath
+learn = 1, Ancient Power
+learn = 1, Noble Roar
+learn = 1, Fire Fang
+learn = 8, Slash
+learn = 16, Crunch
+learn = 24, Extrasensory
+learn = 32, Dragon Pulse
+learn = 40, Flamethrower
+learn = 48, Fusion Flare
+learn = 56, Hyper Voice
+learn = 64, Fire Blast
+learn = 72, Imprison
+learn = 80, Outrage
+learn = 88, Blue Flare
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Fire Fang, Fire Spin, Facade
+tm = Swift, Rock Tomb, Flame Charge, Fling, Dragon Tail, Endure
+tm = Sunny Day, Rain Dance, Zen Headbutt, Shadow Claw, Body Slam, Sleep Talk
+tm = Reflect, Light Screen, Dragon Claw, Rest, Rock Slide, Body Press
+tm = Imprison, Fly, Dragon Dance, Substitute, Will-O-Wisp, Crunch
+tm = Tailwind, Shadow Ball, Dragon Pulse, Hyper Voice, Heat Wave, Psychic
+tm = Flamethrower, Helping Hand, Earth Power, Fire Blast, Stone Edge, Giga Impact
+tm = Outrage, Overheat, Focus Blast, Hyper Beam, Flare Blitz, Solar Beam
+tm = Draco Meteor, Tera Blast, Roar, Heat Crash, Weather Ball, Dual Wingbeat
+tm = Scale Shot, Double-Edge, Scorching Sands, Breaking Swipe, Dragon Cheer

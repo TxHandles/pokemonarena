@@ -1,0 +1,7 @@
+# Froakie - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303131 > 46453D
+shiny = 3A5BAD > 31509C
+shiny = 487D90 > 789194
+shiny = 4EADC4 > 9BC8CA
+shiny = 4F5050 > 67665D

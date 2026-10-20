@@ -37,7 +37,16 @@ void Battle::InitAbility(Fighter& f, int slot) {
 
 Ab Battle::AbOf(const Fighter& f) const {
     if (gasOn && f.ab != Ab::NeutralizingGas) return Ab::None;
-    return f.ab;
+    switch (f.ab) {   // Gen 5 abilities that work like an older one
+        case Ab::Teravolt: case Ab::Turboblaze: return Ab::MoldBreaker;
+        case Ab::VictoryStar: return Ab::CompoundEyes;
+        case Ab::AromaVeil: return Ab::Oblivious;
+        case Ab::SweetVeil: return Ab::Insomnia;
+        case Ab::FlowerVeil: return Ab::ClearBody;
+        case Ab::CheekPouch: return Ab::Gluttony;
+        case Ab::Magician: return Ab::Pickpocket;
+        default: return f.ab;
+    }
 }
 
 bool Battle::AbOnField(Ab a, int except, int foesOf) const {
@@ -71,6 +80,7 @@ void Battle::AbOnEnter(int s) {
     Ab a = AbOf(f);
     std::vector<int> foes = FoeSlots(s);
     switch (a) {
+        case Ab::Illusion: f.illusion = true; break;
         case Ab::Intimidate: {
             AbPopup(s, f.sp->name + " intimidates its foes!");
             for (int ts : foes) {
@@ -184,6 +194,21 @@ void Battle::AbTick(int s, float dt) {
         case Ab::Chlorophyll: if (w == Weather::Sun) f.abSpd = 1.5f; break;
         case Ab::SwiftSwim: if (w == Weather::Rain) f.abSpd = 1.5f; break;
         case Ab::SandRush: if (w == Weather::Sand) f.abSpd = 1.5f; break;
+        case Ab::SlushRush: if (w == Weather::Snow) f.abSpd = 1.5f; break;
+        case Ab::Defeatist: if (f.hp * 2 < f.maxHp) f.abAtk = 0.5f; break;
+        case Ab::GaleWings: if (f.hp >= f.maxHp) f.abSpd = 1.25f; break;
+        case Ab::GrassPelt: if (field.Rules() == ArenaKind::Grass || field.InZone(f.pos, Zone::TallGrass)) f.abDef = 1.5f; break;
+        case Ab::StanceChange:
+            if (f.sinceAct < 1.5f) { f.abAtk = 1.5f; f.abDef = 0.7f; }   // Blade Forme
+            else { f.abAtk = 0.7f; f.abDef = 1.5f; }                       // Shield Forme
+            break;
+        case Ab::ZenMode:
+            if (f.hp * 2 < f.maxHp && f.hp > 0) {
+                if (!f.zen) { f.zen = true; AbPopup(s, f.sp->name + " entered Zen Mode!"); }
+                f.abDef = 1.6f;
+                f.abSpd = 0.65f;
+            }
+            break;
         case Ab::QuickFeet: if (status) f.abSpd = f.st.major == Status::Paralyze ? 1.5f / 0.55f : 1.5f; break;
         case Ab::Unburden: if (f.focusUsed) f.abSpd = 1.6f; break;
         case Ab::Guts: if (status) f.abAtk = f.st.major == Status::Burn ? 1.5f / 0.75f : 1.5f; break;
@@ -354,6 +379,11 @@ bool Battle::AbBlocksHit(const HitSpec& h, int ts) {
             if (h.side >= 0 && h.side < N() && h.side != ts && !Foes(h.side, ts)) return unaffected("It saw its partner's attack coming!");
             break;
         case Ab::Soundproof: if (IsSoundMoveName(h.name)) return unaffected("It can't hear it!"); break;
+        case Ab::Bulletproof:
+            if (h.power > 0 && (h.name.find("Ball") != std::string::npos || h.name.find("Bomb") != std::string::npos || h.name == "Shadow Ball" ||
+                                h.name == "Bullet Seed" || h.name == "Rock Wrecker" || h.name == "Octazooka"))
+                return unaffected("It's bulletproof!");
+            break;
         case Ab::Overcoat: if (IsPowderMoveName(h.name)) return unaffected("The powder can't get through!"); break;
         case Ab::WonderSkin: if (h.power <= 0 && h.fixedDmg == 0 && Chance(0.5f)) return unaffected("It wasn't affected!"); break;
         case Ab::Sturdy: if (h.ohko) return unaffected("It can't be knocked out in one hit!"); break;
@@ -385,6 +415,8 @@ float Battle::AbDamageMul(const HitSpec& h, int ts, float eff, bool crit) const 
         case Ab::Heatproof: if (h.type == Type::Fire) m *= 0.5f; break;
         case Ab::Filter: case Ab::SolidRock: if (eff > 1) m *= 0.75f; break;
         case Ab::Multiscale: if (t.hp >= t.maxHp) m *= 0.5f; break;
+        case Ab::Illusion: if (t.illusion) m *= 0.5f; break;
+        case Ab::FurCoat: if (!h.special && h.power > 0) m *= 0.5f; break;
         case Ab::DrySkin: if (h.type == Type::Fire) m *= 1.25f; break;
         case Ab::Unaware: if (h.atkStage > 0) m /= h.atkStage; break;
         default: break;
@@ -414,6 +446,7 @@ void Battle::AbAfterHit(const HitSpec& h, int ts, float dmg, bool crit, float hp
         AbPopup(ts, t.sp->name + " endured the hit!");
     }
     if (dmg <= 0 || h.light) return;
+    if (ta == Ab::Illusion && t.illusion) { t.illusion = false; AbPopup(ts, "The illusion wore off!"); }
     if (ta == Ab::ColorChange && t.hp > 0 && (t.T1() != h.type || t.T2() != Type::None)) {   // it takes on the hit's type
         t.shiftT = h.type;
         AbPopup(ts, t.sp->name + " became " + TypeName(h.type) + " type!");
@@ -424,6 +457,10 @@ void Battle::AbAfterHit(const HitSpec& h, int ts, float dmg, bool crit, float hp
     if (h.contact && a) {
         switch (ta) {
             case Ab::RoughSkin: DirectDamage(h.side, a->maxHp / 16.0f, Color{200, 170, 140, 255}, ts); break;
+            case Ab::IronBarbs: DirectDamage(h.side, a->maxHp / 8.0f, Color{200, 200, 210, 255}, ts); break;
+            case Ab::Mummy:
+                if (a->ab != Ab::Mummy && a->ab != Ab::Multitype) { a->ab = Ab::Mummy; AbPopup(ts, a->sp->name + "'s ability became Mummy!"); }
+                break;
             case Ab::Static: if (a->st.major == Status::None && Chance(0.3f)) { AbPopup(ts, "Zap!"); TryStatus(h.side, Status::Paralyze, ts); } break;
             case Ab::PoisonPoint: if (a->st.major == Status::None && Chance(0.3f)) { AbPopup(ts, "Ouch!"); TryStatus(h.side, Status::Poison, ts); } break;
             case Ab::FlameBody: if (a->st.major == Status::None && Chance(0.3f)) { AbPopup(ts, "Hot!"); TryStatus(h.side, Status::Burn, ts); } break;
@@ -435,6 +472,11 @@ void Battle::AbAfterHit(const HitSpec& h, int ts, float dmg, bool crit, float hp
                 }
                 break;
             case Ab::CuteCharm: if (a->st.confuseT <= 0 && Chance(0.3f)) { AbPopup(ts, "So cute..."); TryStatus(h.side, Status::Confuse, ts); } break;
+            case Ab::Gooey:
+                if (a->dropT[2] <= 0) AbPopup(ts, a->sp->name + " got stuck in the goo!");
+                a->dropMul[2] = std::min(a->dropMul[2], 0.67f);
+                a->dropT[2] = std::max(a->dropT[2], 6.0f);
+                break;
             case Ab::StickyHold:
                 a->dropMul[2] = 0.6f;
                 a->dropT[2] = std::max(a->dropT[2], 2.0f);
@@ -546,7 +588,6 @@ void Battle::AbSpec(HitSpec& h, const Fighter& f, const MoveDef& m) const {
     Ab a = AbOf(f);
     h.ab = a;
     h.atkStage = f.buffMul[0] * f.dropMul[0];
-    if (a == Ab::None) return;
     float mul = 1;
     float frac = f.hp / std::max(1.0f, (float)f.maxHp);
     bool pinch = frac <= 1.0f / 3.0f;
@@ -585,6 +626,15 @@ void Battle::AbSpec(HitSpec& h, const Fighter& f, const MoveDef& m) const {
             break;
         case Ab::Stench: if (m.power > 0) h.flinchChance = std::max(h.flinchChance, 0.1f); break;
         case Ab::Normalize: if (m.power > 0) { h.type = Type::Normal; mul = 1.2f; } break;
+        case Ab::Pixilate: if (m.power > 0 && m.type == Type::Normal) { h.type = Type::Fairy; mul = 1.2f; } break;
+        case Ab::Refrigerate: if (m.power > 0 && m.type == Type::Normal) { h.type = Type::Ice; mul = 1.2f; } break;
+        case Ab::MegaLauncher: if (m.name.find("Pulse") != std::string::npos || m.name == "Aura Sphere") mul = 1.5f; break;
+        case Ab::StrongJaw:
+            if (m.name.find("Bite") != std::string::npos || m.name.find("Fang") != std::string::npos || m.name == "Crunch" || m.name == "Jaw Lock") mul = 1.5f;
+            break;
+        case Ab::ToughClaws:
+            if (m.power > 0 && (m.kind == MoveKind::Melee || m.kind == MoveKind::Dash || m.kind == MoveKind::Leap || m.kind == MoveKind::Grapple || m.kind == MoveKind::Throw)) mul = 1.3f;
+            break;
         case Ab::Protean: if (m.power > 0 && m.type != h.t1 && m.type != h.t2) mul = 1.5f; break;
         case Ab::Plus: case Ab::Minus:
             if (h.special && m.power > 0) {
@@ -596,6 +646,8 @@ void Battle::AbSpec(HitSpec& h, const Fighter& f, const MoveDef& m) const {
             break;
         default: break;
     }
+    if (m.power > 0 && (h.type == Type::Dark || h.type == Type::Fairy) && AbOnField(h.type == Type::Dark ? Ab::DarkAura : Ab::FairyAura))
+        mul *= AbOnField(Ab::AuraBreak) ? 0.75f : 4.0f / 3.0f;
     h.dmgMul *= mul;
 }
 

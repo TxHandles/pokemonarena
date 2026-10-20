@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Cryogonal
+dex  = 615
+type = Ice
+
+hp         = 80
+attack     = 50
+defense    = 50
+sp_attack  = 95
+sp_defense = 135
+speed      = 105
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 148.0      # Pokedex weight in kg
+hovers = yes
+heavy  = yes
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Ice Shard
+learn = 1, Bind
+learn = 4, Confuse Ray
+learn = 8, Rapid Spin
+learn = 12, Icy Wind
+learn = 16, Haze
+learn = 16, Mist
+learn = 20, Ancient Power
+learn = 24, Aurora Beam
+learn = 28, Slash
+learn = 32, Night Slash
+learn = 36, Freeze-Dry
+learn = 40, Light Screen
+learn = 40, Reflect
+learn = 44, Recover
+learn = 48, Ice Beam
+learn = 52, Acid Armor
+learn = 56, Solar Beam
+learn = 60, Sheer Cold
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Water Pulse, Acrobatics, Confuse Ray
+tm = Chilling Water, Facade, Icy Wind, Avalanche, Endure, Rain Dance
+tm = Snowscape, Body Slam, Sleep Talk, Reflect, Light Screen, Poison Jab
+tm = Rest, Flash Cannon, Substitute, Iron Defense, Ice Spinner, Ice Beam
+tm = Blizzard, Giga Impact, Hyper Beam, Solar Beam, Tera Blast, Haze
+tm = Icicle Spear, Triple Axel

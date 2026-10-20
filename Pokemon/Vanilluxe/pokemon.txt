@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Vanilluxe
+dex  = 584
+type = Ice
+
+hp         = 71
+attack     = 95
+defense    = 85
+sp_attack  = 110
+sp_defense = 95
+speed      = 79
+
+size   = 1.12
+height = 1.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 57.5      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Mist
+learn = 1, Freeze-Dry
+learn = 1, Taunt
+learn = 1, Weather Ball
+learn = 1, Harden
+learn = 1, Astonish
+learn = 1, Icicle Crash
+learn = 12, Icy Wind
+learn = 16, Avalanche
+learn = 20, Hail
+learn = 24, Icicle Spear
+learn = 28, Uproar
+learn = 32, Acid Armor
+learn = 38, Mirror Coat
+learn = 44, Ice Beam
+learn = 52, Blizzard
+learn = 60, Sheer Cold
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Icy Wind, Avalanche, Endure, Rain Dance
+tm = Sleep Talk, Light Screen, Rest, Taunt, Imprison, Flash Cannon
+tm = Substitute, Iron Defense, Hyper Voice, Ice Beam, Blizzard, Giga Impact
+tm = Hyper Beam, Icicle Spear, Uproar, Weather Ball

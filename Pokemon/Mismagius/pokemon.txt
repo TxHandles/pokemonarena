@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Mismagius
+dex  = 429
+type = Ghost
+
+hp         = 60
+attack     = 60
+defense    = 60
+sp_attack  = 105
+sp_defense = 105
+speed      = 105
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 4.4      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Magical Leaf
+learn = 1, Astonish
+learn = 1, Mystical Fire
+learn = 1, Phantom Force
+learn = 1, Spite
+learn = 1, Power Gem
+learn = 1, Growl
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Scary Face, Protect, Psybeam, Confuse Ray
+tm = Thief, Charge Beam, Facade, Hex, Swift, Magical Leaf
+tm = Icy Wind, Draining Kiss, Stored Power, Night Shade, Endure, Sunny Day
+tm = Rain Dance, Snowscape, Psyshock, Foul Play, Sleep Talk, Dazzling Gleam
+tm = Grass Knot, Thunder Wave, Rest, Taunt, Imprison, Dark Pulse
+tm = Skill Swap, Power Gem, Substitute, Will-O-Wisp, Trick, Shadow Ball
+tm = Hyper Voice, Energy Ball, Psychic, Thunderbolt, Calm Mind, Helping Hand
+tm = Nasty Plot, Phantom Force, Giga Impact, Trick Room, Hyper Beam, Thunder
+tm = Tera Blast, Spite, Burning Jealousy, Poltergeist, Lash Out, Pain Split
+tm = Psych Up, Future Sight, Curse, Psychic Noise

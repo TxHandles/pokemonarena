@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Gigalith
+dex  = 526
+type = Rock
+
+hp         = 85
+attack     = 135
+defense    = 130
+sp_attack  = 60
+sp_defense = 80
+speed      = 25
+
+size   = 1.23
+height = 1.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 260.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Sand Attack
+learn = 1, Power Gem
+learn = 1, Tackle
+learn = 1, Harden
+learn = 1, Stealth Rock
+learn = 12, Mud-Slap
+learn = 16, Smack Down
+learn = 20, Iron Defense
+learn = 24, Headbutt
+learn = 30, Rock Slide
+learn = 36, Rock Blast
+learn = 42, Sandstorm
+learn = 48, Stone Edge
+learn = 54, Explosion
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Rock Tomb, Endure, Sandstorm
+tm = Sleep Talk, Rock Blast, Stomping Tantrum, Rest, Rock Slide, Body Press
+tm = Flash Cannon, Iron Head, Power Gem, Substitute, Iron Defense, Stealth Rock
+tm = Heavy Slam, Earth Power, Earthquake, Stone Edge, Giga Impact, Hyper Beam
+tm = Solar Beam, Sand Tomb, Weather Ball, Throat Chop

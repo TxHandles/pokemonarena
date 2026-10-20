@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Alomomola
+dex  = 594
+type = Water
+
+hp         = 165
+attack     = 75
+defense    = 80
+sp_attack  = 40
+sp_defense = 45
+speed      = 65
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 31.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Pound
+learn = 1, Play Nice
+learn = 5, Aqua Ring
+learn = 9, Aqua Jet
+learn = 13, Wide Guard
+learn = 13, Helping Hand
+learn = 21, Protect
+learn = 25, Water Pulse
+learn = 29, Healing Wish
+learn = 33, Soak
+learn = 37, Wish
+learn = 41, Brine
+learn = 45, Safeguard
+learn = 49, Whirlpool
+learn = 55, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Water Pulse, Acrobatics, Chilling Water, Facade
+tm = Icy Wind, Endure, Rain Dance, Snowscape, Zen Headbutt, Body Slam
+tm = Sleep Talk, Light Screen, Waterfall, Rest, Skill Swap, Substitute
+tm = Liquidation, Shadow Ball, Psychic, Surf, Play Rough, Calm Mind
+tm = Helping Hand, Baton Pass, Ice Beam, Misty Terrain, Hydro Pump, Blizzard
+tm = Giga Impact, Hyper Beam, Tera Blast, Scald, Flip Turn, Scale Shot
+tm = Pain Split, Whirlpool, Alluring Voice

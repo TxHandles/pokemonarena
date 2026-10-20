@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Audino
+dex  = 531
+type = Normal
+
+hp         = 103
+attack     = 60
+defense    = 86
+sp_attack  = 60
+sp_defense = 86
+speed      = 50
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 31.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Pound
+learn = 1, Play Nice
+learn = 4, Disarming Voice
+learn = 9, Baby-Doll Eyes
+learn = 12, Helping Hand
+learn = 16, Growl
+learn = 20, Zen Headbutt
+learn = 24, Life Dew
+learn = 28, After You
+learn = 32, Take Down
+learn = 36, Simple Beam
+learn = 40, Hyper Voice
+learn = 44, Heal Pulse
+learn = 48, Double-Edge
+learn = 52, Entrainment
+learn = 56, Misty Terrain
+learn = 60, Last Resort
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Low Kick, Facade, Icy Wind, Draining Kiss, Fling
+tm = Endure, Sunny Day, Rain Dance, Psyshock, Dig, Zen Headbutt
+tm = Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch
+tm = Reflect, Light Screen, Dazzling Gleam, Grass Knot, Thunder Wave, Stomping Tantrum
+tm = Rest, Skill Swap, Substitute, Shadow Ball, Hyper Voice, Psychic
+tm = Encore, Surf, Flamethrower, Thunderbolt, Amnesia, Calm Mind
+tm = Helping Hand, Ice Beam, Misty Terrain, Fire Blast, Blizzard, Wild Charge
+tm = Giga Impact, Trick Room, Hyper Beam, Thunder, Solar Beam, Uproar
+tm = Throat Chop

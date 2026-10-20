@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Larvesta
+dex  = 636
+type = Bug / Fire
+
+hp         = 55
+attack     = 85
+defense    = 55
+sp_attack  = 50
+sp_defense = 55
+speed      = 60
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 28.8      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Volcarona
+evolve_level = 59
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Ember
+learn = 1, String Shot
+learn = 6, Flame Charge
+learn = 12, Struggle Bug
+learn = 18, Flame Wheel
+learn = 24, Bug Bite
+learn = 30, Screech
+learn = 36, Leech Life
+learn = 42, Bug Buzz
+learn = 48, Take Down
+learn = 54, Amnesia
+learn = 60, Double-Edge
+learn = 66, Flare Blitz
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Acrobatics, Struggle Bug, Trailblaze, Pounce
+tm = Fire Spin, Facade, Flame Charge, Endure, Sunny Day, Zen Headbutt
+tm = U-turn, Body Slam, Sleep Talk, Light Screen, Rest, Leech Life
+tm = Substitute, Will-O-Wisp, Giga Drain, Heat Wave, Psychic, Flamethrower
+tm = Amnesia, Calm Mind, Fire Blast, Wild Charge, Overheat, Bug Buzz
+tm = Flare Blitz, Solar Beam, Tera Blast, Bug Bite, Lunge, Double-Edge
+tm = Skitter Smack

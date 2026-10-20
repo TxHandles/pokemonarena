@@ -1,0 +1,9 @@
+# Tyrunt - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 00234A
+shiny = 272422 > 00365A
+shiny = 544247 > 1E6691
+shiny = 7A6262 > 3789BA
+shiny = C5620E > 898788
+shiny = FAFAFA > BDFFFF
+shiny = FC952B > BBB9B7

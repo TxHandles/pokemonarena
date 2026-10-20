@@ -1,0 +1,19 @@
+# Panpour - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1281A4 > 00AA8C
+shiny = 196893 > 148092
+shiny = 21ACDA > 00D6B6
+shiny = 313131 > 3D3528
+shiny = 474747 > 544B3E
+shiny = 4F9AD9 > 00CAAC
+shiny = 585650 > 00857A
+shiny = 684719 > 483F31
+shiny = 83C5FE > 51F7D6
+shiny = 93E3EC > C7EBFC
+shiny = BDDAF6 > 74FFEB
+shiny = C6A55A > CAAB6F
+shiny = C79B4F > C8A266
+shiny = E5E5F7 > 82FFF2
+shiny = F3D27C > F8D895
+shiny = FAFAFA > FFFDED
+shiny = FFC770 > FDD08C

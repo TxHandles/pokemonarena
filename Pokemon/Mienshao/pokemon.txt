@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Mienshao
+dex  = 620
+type = Fighting
+
+hp         = 65
+attack     = 125
+defense    = 60
+sp_attack  = 95
+sp_defense = 60
+speed      = 105
+
+size   = 1.12
+height = 1.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 35.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Pound
+learn = 1, Detect
+learn = 1, Reversal
+learn = 1, Quick Guard
+learn = 1, Fake Out
+learn = 15, Fury Swipes
+learn = 20, Wide Guard
+learn = 25, Force Palm
+learn = 30, U-turn
+learn = 35, Drain Punch
+learn = 40, Hone Claws
+learn = 45, Aura Sphere
+learn = 53, Bounce
+learn = 59, Calm Mind
+learn = 66, High Jump Kick
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Low Kick, Acrobatics, Trailblaze
+tm = Facade, Aerial Ace, Swift, Rock Tomb, Low Sweep, Fling
+tm = Endure, Sunny Day, Rain Dance, Dig, Brick Break, U-turn
+tm = Bulk Up, Sleep Talk, Drain Punch, Grass Knot, Poison Jab, Rest
+tm = Taunt, Swords Dance, Substitute, Aura Sphere, Ice Spinner, Calm Mind
+tm = Helping Hand, Baton Pass, Reversal, Stone Edge, Giga Impact, Focus Blast
+tm = Hyper Beam, Close Combat, Tera Blast, Knock Off, Vacuum Wave, Focus Punch
+tm = Psych Up, Double-Edge, Triple Axel, Coaching, Upper Hand

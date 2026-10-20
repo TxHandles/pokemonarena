@@ -1,0 +1,23 @@
+# Litwick - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2F2168 > 004858
+shiny = 361975 > 20516B
+shiny = 3B3E42 > 373730
+shiny = 626262 > 5D5A4E
+shiny = 6847E3 > 46B4DD
+shiny = 686868 > 636054
+shiny = 757575 > 706D61
+shiny = 7C7B7C > 777367
+shiny = 9381E3 > 8AB9D6
+shiny = 9479CD > 62BCDB
+shiny = 9CBECD > 9DDCE8
+shiny = A4A4CD > 8FC9D7
+shiny = A9B6C1 > A9ACA6
+shiny = B08929 > 72A02F
+shiny = B29619 > 7BAA36
+shiny = B9B9B9 > B3B0A3
+shiny = BFB6F5 > A6E0F0
+shiny = C7BFC7 > BFB7AE
+shiny = E3E3FF > DEDAE1
+shiny = E5E5F7 > E0DCD9
+shiny = FAFAFA > F4F1E2

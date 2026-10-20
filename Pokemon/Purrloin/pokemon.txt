@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Purrloin
+dex  = 509
+type = Dark
+
+hp         = 41
+attack     = 50
+defense    = 37
+sp_attack  = 50
+sp_defense = 37
+speed      = 66
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 10.1      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Liepard
+evolve_level = 20
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Scratch
+learn = 4, Sand Attack
+learn = 5, Fake Out
+learn = 12, Fury Swipes
+learn = 16, Torment
+learn = 21, Assurance
+learn = 24, Hone Claws
+learn = 28, Sucker Punch
+learn = 32, Nasty Plot
+learn = 36, Night Slash
+learn = 40, Play Rough
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Protect, Thief, Facade, Snarl
+tm = Swift, Endure, Sunny Day, Rain Dance, U-turn, Shadow Claw
+tm = Foul Play, Sleep Talk, Seed Bomb, Grass Knot, Thunder Wave, Rest
+tm = Taunt, Dark Pulse, Gunk Shot, Substitute, Trick, Shadow Ball
+tm = Hyper Voice, Encore, Play Rough, Baton Pass, Nasty Plot

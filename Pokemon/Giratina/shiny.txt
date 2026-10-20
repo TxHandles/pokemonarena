@@ -1,0 +1,27 @@
+# Giratina - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 313131 > 27210D
+shiny = 343434 > 2A2411
+shiny = 373F3F > 302E1A
+shiny = 525252 > 47402C
+shiny = 585870 > 996F05
+shiny = 686018 > 5E6262
+shiny = 707090 > B68828
+shiny = 8888A8 > D2A141
+shiny = 8C8C7B > AA936A
+shiny = A58442 > AA9163
+shiny = A83040 > 128B9C
+shiny = A8B0C8 > FCC866
+shiny = AD524A > 864D30
+shiny = AF9717 > 75808A
+shiny = B09818 > 76818B
+shiny = BDA542 > 828E9A
+shiny = BDBDB5 > DEC59B
+shiny = D6524A > 1CA0C0
+shiny = E8D018 > ABB6BD
+shiny = F0503F > B38D62
+shiny = F05040 > 3BAAC9
+shiny = F77B6B > 4FC3E4
+shiny = F8F8D0 > E9FFFF
+shiny = FAFAFA > EEE4CB
+shiny = FFDE31 > B9C4CD

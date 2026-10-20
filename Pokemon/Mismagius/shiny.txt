@@ -1,0 +1,20 @@
+# Mismagius - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0A0A0A > 2E3200
+shiny = 302038 > 4C4E0A
+shiny = 302860 > 717600
+shiny = 333333 > 3D3F2A
+shiny = 482030 > 555511
+shiny = 502038 > 5A5916
+shiny = 525152 > 969C1B
+shiny = 605090 > 888647
+shiny = 682050 > 4B4635
+shiny = 7A5183 > 8F8C4A
+shiny = 9078C0 > B6B371
+shiny = 936A9B > C8C64F
+shiny = 982858 > A29D21
+shiny = B01028 > A9A11A
+shiny = B06000 > C6C237
+shiny = BB4E3C > C3BC3A
+shiny = C04080 > CEB31D
+shiny = CD84C7 > F3ED76

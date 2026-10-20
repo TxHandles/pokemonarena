@@ -1,0 +1,42 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Simisear
+dex  = 514
+type = Fire
+
+hp         = 75
+attack     = 98
+defense    = 63
+sp_attack  = 98
+sp_defense = 63
+speed      = 101
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 28.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Ultra Sun/Ultra Moon) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Fury Swipes
+learn = 1, Flame Burst
+learn = 1, Leer
+learn = 1, Lick
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Acrobatics, Thief, Facade, Rock Tomb, Flame Charge
+tm = Low Sweep, Fling, Sunny Day, Brick Break, Shadow Claw, Sleep Talk
+tm = Grass Knot, Rest, Rock Slide, Taunt, Substitute, Will-O-Wisp
+tm = Flamethrower, Fire Blast, Giga Impact, Overheat, Focus Blast, Hyper Beam
+tm = Solar Beam, Toxic

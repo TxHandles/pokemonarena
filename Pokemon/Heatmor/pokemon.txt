@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Heatmor
+dex  = 631
+type = Fire
+
+hp         = 85
+attack     = 97
+defense    = 66
+sp_attack  = 105
+sp_defense = 66
+speed      = 65
+
+size   = 1.12
+height = 1.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 58.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Lick
+learn = 5, Fury Swipes
+learn = 10, Incinerate
+learn = 15, Bug Bite
+learn = 20, Spit Up
+learn = 20, Stockpile
+learn = 20, Swallow
+learn = 25, Slash
+learn = 30, Bind
+learn = 35, Fire Lash
+learn = 40, Hone Claws
+learn = 45, Amnesia
+learn = 50, Fire Spin
+learn = 55, Inferno
+learn = 60, Flare Blitz
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Low Kick, Thief, Fire Spin, Facade, Rock Tomb
+tm = Fling, Endure, Sunny Day, Rain Dance, Dig, Shadow Claw
+tm = Body Slam, Fire Punch, Thunder Punch, Sleep Talk, Drain Punch, Stomping Tantrum
+tm = Rest, Taunt, Substitute, Will-O-Wisp, Giga Drain, Heat Wave
+tm = Flamethrower, Amnesia, Fire Blast, Giga Impact, Overheat, Focus Blast
+tm = Flare Blitz, Solar Beam, Throat Chop

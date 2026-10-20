@@ -1,0 +1,37 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Spewpa
+dex  = 665
+type = Bug
+
+hp         = 45
+attack     = 22
+defense    = 60
+sp_attack  = 27
+sp_defense = 30
+speed      = 29
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 8.4      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Vivillon
+evolve_level = 12
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Protect
+learn = 1, Harden
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Struggle Bug, Pounce, Iron Defense, Tera Blast, Bug Bite

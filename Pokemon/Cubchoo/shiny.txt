@@ -1,0 +1,20 @@
+# Cubchoo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2F3F3F > 304B43
+shiny = 3F6868 > 593D83
+shiny = 3F689B > 4D60C9
+shiny = 424244 > 294C4C
+shiny = 5779C7 > 8151BF
+shiny = 6294FD > 6771D7
+shiny = 689BAC > 8D6EBA
+shiny = 70A4E3 > A876E7
+shiny = 7F8087 > 7DA9A4
+shiny = 818A8A > 7EB3A7
+shiny = 84D1FD > C0A0F4
+shiny = 8AD0EC > CE9CFF
+shiny = A8B1B9 > AD88D7
+shiny = B7E8FE > DBB8FF
+shiny = BABDC6 > BF93E4
+shiny = BFC7DA > BFD8D9
+shiny = C2CBDC > C2DCDC
+shiny = E5E5F7 > F5B9FF

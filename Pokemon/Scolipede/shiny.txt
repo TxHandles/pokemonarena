@@ -1,0 +1,17 @@
+# Scolipede - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 433E40 > 1D361B
+shiny = 444444 > 213B1F
+shiny = 4C204C > 006358
+shiny = 5D5D5D > 406649
+shiny = 666162 > 4A6A4E
+shiny = 8D2C4C > 9C0802
+shiny = 924656 > AD2410
+shiny = A99F3C > 56A703
+shiny = AB598D > DD4119
+shiny = B042C6 > 5CD6CF
+shiny = D44D6A > E9481A
+shiny = D64373 > E7441A
+shiny = D881C4 > 8DFFF9
+shiny = F6B400 > 82C92D
+shiny = F6F041 > A7F65A

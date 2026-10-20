@@ -1,0 +1,62 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Rhyperior
+dex  = 464
+type = Ground / Rock
+
+hp         = 115
+attack     = 140
+defense    = 130
+sp_attack  = 55
+sp_defense = 55
+speed      = 40
+
+size   = 1.32
+height = 2.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 282.8      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Smack Down
+learn = 1, Tackle
+learn = 1, Tail Whip
+learn = 1, Hammer Arm
+learn = 1, Bulldoze
+learn = 15, Horn Attack
+learn = 20, Scary Face
+learn = 25, Stomp
+learn = 30, Rock Blast
+learn = 35, Drill Run
+learn = 40, Take Down
+learn = 47, Earthquake
+learn = 54, Stone Edge
+learn = 61, Megahorn
+learn = 68, Horn Drill
+learn = 75, Rock Wrecker
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Fire Fang, Thunder Fang
+tm = Ice Fang, Thief, Facade, Bulldoze, Metal Claw, Icy Wind
+tm = Mud Shot, Rock Tomb, Fling, Dragon Tail, Avalanche, Endure
+tm = Sunny Day, Rain Dance, Sandstorm, Smart Strike, Dig, Brick Break
+tm = Shadow Claw, Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk
+tm = Rock Blast, Poison Jab, Stomping Tantrum, Rest, Rock Slide, Swords Dance
+tm = Body Press, Flash Cannon, Iron Head, Substitute, Iron Defense, Drill Run
+tm = Crunch, Dragon Pulse, Stealth Rock, Heavy Slam, Surf, Flamethrower
+tm = Thunderbolt, Helping Hand, Earth Power, Reversal, Ice Beam, Fire Blast
+tm = Hydro Pump, Blizzard, Earthquake, Stone Edge, Giga Impact, Outrage
+tm = Focus Blast, Hyper Beam, Thunder, Tera Blast, Roar, Smack Down
+tm = High Horsepower, Heat Crash, Uproar, Focus Punch, Double-Edge, Endeavor
+tm = Temper Flare, Supercell Slam, Scorching Sands, Meteor Beam, Breaking Swipe, Curse

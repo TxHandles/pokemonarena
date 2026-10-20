@@ -1,0 +1,16 @@
+# Sewaddle - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333433 > 163E00
+shiny = 448D29 > 217E5D
+shiny = 454545 > 295000
+shiny = 4D8E27 > 328E5E
+shiny = 535352 > 385F0F
+shiny = 6BB431 > 4CA37F
+shiny = 86C205 > 5EB28A
+shiny = 8E6D05 > 347F50
+shiny = 93E549 > 7AD2A9
+shiny = B98E36 > 8D9834
+shiny = DC7505 > F14D37
+shiny = EB8836 > FF6048
+shiny = F7CB36 > BEDE1D
+shiny = FEDD29 > CCED2F

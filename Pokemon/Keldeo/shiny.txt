@@ -1,0 +1,22 @@
+# Keldeo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 259BD9 > 40C172
+shiny = 26427D > 1D5971
+shiny = 26427E > 006B25
+shiny = 396CC6 > 4693CB
+shiny = 3FEFFC > 8AFFB3
+shiny = 4B649E > 009045
+shiny = 4BACDF > 54D281
+shiny = 5883C6 > 32AF62
+shiny = 84200C > 943605
+shiny = 90CAFB > 7CF6A0
+shiny = A5270D > 953907
+shiny = A98041 > B6834E
+shiny = DEBC6A > EFBE7C
+shiny = E34220 > EA642A
+shiny = EBCC6B > FDCD83
+shiny = ECECF6 > A4FFBC
+shiny = F69C7B > FFAD77
+shiny = F6E2AC > FFE3B1
+shiny = FB4718 > FF6D2B
+shiny = FDFD84 > FFFBA1

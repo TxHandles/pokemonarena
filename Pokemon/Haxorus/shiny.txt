@@ -1,0 +1,12 @@
+# Haxorus - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 21212F > 070707
+shiny = 2F2F3F > 19191A
+shiny = 373700 > 1D1D17
+shiny = 575F0B > 404038
+shiny = 68373F > 20202F
+shiny = 908537 > 69675E
+shiny = 9BA412 > 808072
+shiny = B6BF47 > 7B7C7D
+shiny = BFB340 > 767476
+shiny = DCDCDC > BCBCBA

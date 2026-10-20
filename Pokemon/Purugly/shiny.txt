@@ -1,0 +1,17 @@
+# Purugly - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 4B2240
+shiny = 343434 > 4C2341
+shiny = 404040 > 592F4D
+shiny = 505050 > 6A3F5E
+shiny = 525252 > 6D4160
+shiny = 583888 > 2D3A7D
+shiny = 6A59B4 > 4258A4
+shiny = 6A7A83 > 9760A5
+shiny = 787878 > 956787
+shiny = 8848B8 > 6265A8
+shiny = 937ACC > 6B79C1
+shiny = 93A4B4 > C48AD3
+shiny = 989898 > B787A7
+shiny = B84870 > B5417E
+shiny = FC8787 > D68DD5

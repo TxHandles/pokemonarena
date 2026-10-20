@@ -1,0 +1,10 @@
+# Empoleon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3F4890 > 4191AC
+shiny = 404890 > 4291AC
+shiny = 4272C5 > 6ABBD7
+shiny = 499BE6 > 8EE1FD
+shiny = B29042 > AFAE6B
+shiny = D08818 > BE9F0B
+shiny = F8C858 > F1DA5F
+shiny = FDCD39 > F1DF42

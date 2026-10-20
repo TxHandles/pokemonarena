@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Mesprit
+dex  = 481
+type = Psychic
+
+hp         = 80
+attack     = 105
+defense    = 105
+sp_attack  = 105
+sp_defense = 105
+speed      = 80
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 0.3      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Confusion
+learn = 1, Rest
+learn = 7, Swift
+learn = 14, Protect
+learn = 21, Psybeam
+learn = 28, Imprison
+learn = 35, Extrasensory
+learn = 42, Charm
+learn = 49, Psychic
+learn = 56, Flatter
+learn = 63, Future Sight
+learn = 70, Copycat
+learn = 77, Healing Wish
+learn = 84, Mystical Power
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Water Pulse, Acrobatics, Psybeam, Confuse Ray
+tm = Charge Beam, Facade, Swift, Draining Kiss, Stored Power, Fling
+tm = Endure, Sunny Day, Rain Dance, Sandstorm, Psyshock, Zen Headbutt
+tm = U-turn, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch
+tm = Reflect, Light Screen, Dazzling Gleam, Metronome, Grass Knot, Thunder Wave
+tm = Rest, Imprison, Skill Swap, Substitute, Trick, Shadow Ball
+tm = Stealth Rock, Energy Ball, Psychic, Encore, Thunderbolt, Play Rough
+tm = Calm Mind, Helping Hand, Baton Pass, Ice Beam, Nasty Plot, Blizzard
+tm = Giga Impact, Trick Room, Hyper Beam, Thunder, Tera Blast, Knock Off
+tm = Pain Split, Psych Up, Double-Edge, Future Sight, Expanding Force, Psychic Noise

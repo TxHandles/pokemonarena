@@ -1,0 +1,12 @@
+# Sandile - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 553600 > 4C5600
+shiny = 555575 > 58745B
+shiny = 757536 > 949B0F
+shiny = B97575 > B1B034
+shiny = B99736 > C4C53E
+shiny = C1955E > C7C745
+shiny = C3758C > 3C93A5
+shiny = DCB975 > EAE966
+shiny = E6BD7B > F0EF6B
+shiny = FAFAFA > FCFFC6

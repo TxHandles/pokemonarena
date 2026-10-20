@@ -1,0 +1,18 @@
+# Munchlax - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 00155C
+shiny = 0A0A0A > 001A63
+shiny = 2C3434 > 003F92
+shiny = 344C4C > 2D55AC
+shiny = 3D4143 > 004E9F
+shiny = 405050 > 365AB2
+shiny = 406878 > 4F71CD
+shiny = 4A7080 > 3A7AD2
+shiny = 508090 > 6988E7
+shiny = 5A8BA2 > 5B94F0
+shiny = 909890 > 77A5FF
+shiny = 988048 > 8290E9
+shiny = BDAC6B > AEBAFF
+shiny = C0A868 > ACB8FF
+shiny = C0C0C8 > BECFFF
+shiny = E8E8F8 > F0FBFF

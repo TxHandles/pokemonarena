@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Eelektrik
+dex  = 603
+type = Electric
+
+hp         = 65
+attack     = 85
+defense    = 70
+sp_attack  = 75
+sp_defense = 70
+speed      = 40
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 22.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Eelektross, Thunder Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Crunch
+learn = 1, Thunder Wave
+learn = 1, Headbutt
+learn = 1, Spark
+learn = 1, Charge Beam
+learn = 9, Bind
+learn = 19, Acid
+learn = 29, Discharge
+learn = 44, Thunderbolt
+learn = 49, Acid Spray
+learn = 54, Coil
+learn = 59, Wild Charge
+learn = 64, Gastro Acid
+learn = 69, Zap Cannon
+learn = 74, Thrash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Thunder Fang, Acid Spray, Acrobatics
+tm = Charge Beam, Facade, Endure, Volt Switch, Rain Dance, U-turn
+tm = Body Slam, Sleep Talk, Electro Ball, Light Screen, Thunder Wave, Rest
+tm = Flash Cannon, Eerie Impulse, Substitute, Crunch, Giga Drain, Thunderbolt
+tm = Electric Terrain, Wild Charge, Thunder, Tera Blast, Charge, Knock Off
+tm = Super Fang, Lunge, Electroweb, Throat Chop

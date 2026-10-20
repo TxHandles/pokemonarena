@@ -1,0 +1,16 @@
+# Pansear - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333232 > 3E3D36
+shiny = 525151 > 5E5D55
+shiny = 6F2828 > 773805
+shiny = 702828 > A23D00
+shiny = 934038 > C55800
+shiny = B6372F > D56200
+shiny = C79B4F > D7B479
+shiny = CC4949 > EC7410
+shiny = DFB049 > E0C07B
+shiny = E34737 > F87D17
+shiny = F1D488 > F6E3AC
+shiny = F58A36 > F8B614
+shiny = F6644F > FF9231
+shiny = FFC770 > FED99C

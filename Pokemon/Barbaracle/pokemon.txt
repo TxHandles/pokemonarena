@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Barbaracle
+dex  = 689
+type = Rock / Water
+
+hp         = 72
+attack     = 105
+defense    = 115
+sp_attack  = 54
+sp_defense = 86
+speed      = 68
+
+size   = 1.12
+height = 1.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 96.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Water Gun
+learn = 1, Skull Bash
+learn = 1, Mud-Slap
+learn = 1, Withdraw
+learn = 12, Fury Cutter
+learn = 16, Fury Swipes
+learn = 20, Ancient Power
+learn = 24, Rock Polish
+learn = 28, Slash
+learn = 32, Hone Claws
+learn = 36, Razor Shell
+learn = 42, Shell Smash
+learn = 48, Cross Chop
+learn = 54, Stone Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Low Kick, Thief, Facade, Bulldoze, Icy Wind
+tm = Mud Shot, Rock Tomb, Fling, Endure, Rain Dance, Sandstorm
+tm = Dig, False Swipe, Brick Break, Shadow Claw, Bulk Up, Sleep Talk
+tm = Rock Blast, Dragon Claw, Grass Knot, Poison Jab, Rest, Rock Slide
+tm = Taunt, Swords Dance, Substitute, Iron Defense, X-Scissor, Liquidation
+tm = Stealth Rock, Surf, Helping Hand, Earth Power, Ice Beam, Blizzard
+tm = Sludge Bomb, Earthquake, Stone Edge, Giga Impact, Focus Blast, Hyper Beam
+tm = Scald, Uproar, Whirlpool, Muddy Water, Sludge Wave

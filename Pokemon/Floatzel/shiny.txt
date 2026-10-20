@@ -1,0 +1,19 @@
+# Floatzel - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3D84D4 > 587BC7
+shiny = 406078 > 717C85
+shiny = 4888C0 > 5F81B4
+shiny = 804020 > 8F7C0F
+shiny = A06000 > B19B2D
+shiny = A8B8C8 > A9B2CE
+shiny = B84820 > B1972D
+shiny = C57D46 > D4C929
+shiny = D08000 > DBC050
+shiny = D0B860 > B8C7B8
+shiny = E87030 > DDCD2B
+shiny = E8E8F8 > F3F3F3
+shiny = EED694 > F0E1AF
+shiny = F0E080 > F5EAA6
+shiny = F4D338 > DBDCD6
+shiny = F59329 > F7E744
+shiny = F8C020 > FFFF5E

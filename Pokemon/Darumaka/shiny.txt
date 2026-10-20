@@ -1,0 +1,20 @@
+# Darumaka - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 433337 > A54E68
+shiny = 4F1212 > 6C243E
+shiny = 4F4F4F > B77082
+shiny = 8A680B > 8A703A
+shiny = 932121 > 9C4B63
+shiny = 9B9BA4 > FFC1D5
+shiny = A44F21 > DB8795
+shiny = A53741 > AF5D76
+shiny = BA6B3E > F6A1AF
+shiny = C72828 > E08596
+shiny = C79B12 > F8A5B2
+shiny = D54951 > F499AC
+shiny = E5E5E5 > FFE9FC
+shiny = F8BB2B > F5D666
+shiny = FAFAFA > FFF9FF
+shiny = FD823B > FAAE47
+shiny = FF8A47 > FFCCD8
+shiny = FFC719 > FEE166

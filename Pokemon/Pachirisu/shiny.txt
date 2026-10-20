@@ -1,0 +1,10 @@
+# Pachirisu - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 305070 > 7E777B
+shiny = 343434 > 723865
+shiny = 525655 > 965D89
+shiny = 78A0D8 > DD8BD5
+shiny = 7AC9FD > FFAFF9
+shiny = B89060 > B5705A
+shiny = DA7A82 > D06579
+shiny = E3BE16 > E48D48

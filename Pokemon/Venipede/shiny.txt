@@ -1,0 +1,14 @@
+# Venipede - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0F8245 > 608115
+shiny = 10A969 > 75A820
+shiny = 145442 > 335413
+shiny = 2D5F2D > 446300
+shiny = 3D5E3B > 396600
+shiny = 4A9447 > 759529
+shiny = 712E3D > 683112
+shiny = AE3751 > 8E4E2D
+shiny = B83B57 > 955433
+shiny = C14B6B > A15F3E
+shiny = C86F3F > B57349
+shiny = E04669 > B06947

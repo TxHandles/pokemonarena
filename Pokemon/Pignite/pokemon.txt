@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Pignite
+dex  = 499
+type = Fire / Fighting
+
+hp         = 90
+attack     = 93
+defense    = 55
+sp_attack  = 70
+sp_defense = 55
+speed      = 55
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 55.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Emboar
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Arm Thrust
+learn = 1, Endure
+learn = 1, Tackle
+learn = 1, Ember
+learn = 1, Tail Whip
+learn = 13, Defense Curl
+learn = 15, Flame Charge
+learn = 20, Smog
+learn = 23, Rollout
+learn = 28, Take Down
+learn = 31, Heat Crash
+learn = 36, Assurance
+learn = 39, Flamethrower
+learn = 44, Head Smash
+learn = 47, Roar
+learn = 52, Flare Blitz
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Low Kick, Trailblaze
+tm = Fire Spin, Facade, Bulldoze, Rock Tomb, Flame Charge, Low Sweep
+tm = Fling, Endure, Sunny Day, Dig, Brick Break, Zen Headbutt
+tm = Bulk Up, Body Slam, Fire Punch, Thunder Punch, Sleep Talk, Drain Punch
+tm = Grass Knot, Poison Jab, Stomping Tantrum, Rest, Rock Slide, Taunt
+tm = Substitute, Will-O-Wisp, Heat Wave, Heavy Slam, Flamethrower, Helping Hand
+tm = Reversal, Fire Blast, Fire Pledge, Wild Charge, Stone Edge, Overheat
+tm = Focus Blast, Flare Blitz, Close Combat, Solar Beam, Tera Blast, Roar
+tm = Gyro Ball, Knock Off, High Horsepower, Heat Crash, Focus Punch, Double-Edge
+tm = Endeavor, Temper Flare, Coaching, Curse

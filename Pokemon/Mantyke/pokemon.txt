@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Mantyke
+dex  = 458
+type = Water / Flying
+
+hp         = 45
+attack     = 20
+defense    = 50
+sp_attack  = 60
+sp_defense = 120
+speed      = 50
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 65.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Mantine
+evolve_level = 25   # (with a Remoraid in the party, in the games)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Water Gun
+learn = 4, Supersonic
+learn = 8, Wing Attack
+learn = 12, Water Pulse
+learn = 16, Wide Guard
+learn = 20, Agility
+learn = 24, Bubble Beam
+learn = 28, Headbutt
+learn = 32, Air Slash
+learn = 36, Aqua Ring
+learn = 40, Bounce
+learn = 44, Take Down
+learn = 48, Hydro Pump
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Acrobatics, Facade, Bulldoze, Swift
+tm = Icy Wind, Endure, Rain Dance, Air Slash, Sleep Talk, Waterfall
+tm = Rest, Rock Slide, Substitute, Surf, Amnesia, Helping Hand
+tm = Ice Beam, Hydro Pump, Blizzard, Earthquake, Scald, Whirlpool

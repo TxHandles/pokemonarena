@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Maractus
+dex  = 556
+type = Grass
+
+hp         = 75
+attack     = 86
+defense    = 67
+sp_attack  = 106
+sp_defense = 67
+speed      = 60
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 28.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Peck
+learn = 1, Absorb
+learn = 1, After You
+learn = 1, Ingrain
+learn = 1, Spiky Shield
+learn = 4, Growth
+learn = 8, Mega Drain
+learn = 12, Leech Seed
+learn = 16, Sucker Punch
+learn = 20, Pin Missile
+learn = 24, Giga Drain
+learn = 28, Sweet Scent
+learn = 32, Synthesis
+learn = 36, Petal Blizzard
+learn = 40, Cotton Spore
+learn = 44, Sunny Day
+learn = 48, Solar Beam
+learn = 52, Acupressure
+learn = 56, Petal Dance
+learn = 60, Cotton Guard
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Endure, Sunny Day, Rain Dance, Bullet Seed
+tm = Sleep Talk, Seed Bomb, Drain Punch, Grass Knot, Poison Jab, Rest
+tm = Spikes, Substitute, Giga Drain, Hyper Voice, Energy Ball, Helping Hand
+tm = Grassy Terrain, Leaf Storm, Solar Beam, Uproar, Weather Ball, Throat Chop

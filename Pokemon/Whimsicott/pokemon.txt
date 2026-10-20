@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Whimsicott
+dex  = 547
+type = Grass / Fairy
+
+hp         = 60
+attack     = 67
+defense    = 85
+sp_attack  = 77
+sp_defense = 75
+speed      = 116
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 6.6      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Hurricane
+learn = 1, Giga Drain
+learn = 1, Growth
+learn = 1, Moonblast
+learn = 1, Solar Beam
+learn = 1, Cotton Spore
+learn = 1, Endeavor
+learn = 1, Charm
+learn = 1, Helping Hand
+learn = 1, Absorb
+learn = 1, Tailwind
+learn = 1, Stun Spore
+learn = 1, Razor Leaf
+learn = 1, Leech Seed
+learn = 1, Sunny Day
+learn = 1, Poison Powder
+learn = 1, Memento
+learn = 1, Cotton Guard
+learn = 1, Gust
+learn = 1, Energy Ball
+learn = 1, Mega Drain
+learn = 1, Fairy Wind
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Protect, Thief, Facade, Swift
+tm = Fling, Endure, Sunny Day, U-turn, Sleep Talk, Seed Bomb
+tm = Light Screen, Dazzling Gleam, Grass Knot, Rest, Taunt, Substitute
+tm = Giga Drain, Tailwind, Shadow Ball, Energy Ball, Psychic, Encore
+tm = Play Rough, Helping Hand, Grassy Terrain, Misty Terrain, Giga Impact, Hurricane
+tm = Trick Room, Hyper Beam, Solar Beam, Tera Blast, Grassy Glide, Endeavor

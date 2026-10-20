@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Gothita
+dex  = 574
+type = Psychic
+
+hp         = 45
+attack     = 30
+defense    = 50
+sp_attack  = 55
+sp_defense = 65
+speed      = 45
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.8      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Gothorita
+evolve_level = 32
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Pound
+learn = 1, Confusion
+learn = 4, Play Nice
+learn = 8, Tickle
+learn = 12, Psybeam
+learn = 16, Charm
+learn = 20, Psyshock
+learn = 24, Hypnosis
+learn = 28, Fake Tears
+learn = 33, Psych Up
+learn = 36, Psychic
+learn = 40, Flatter
+learn = 44, Future Sight
+learn = 48, Magic Room
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Protect, Psybeam, Thief, Facade
+tm = Swift, Rock Tomb, Stored Power, Fling, Endure, Rain Dance
+tm = Psyshock, Zen Headbutt, Foul Play, Sleep Talk, Reflect, Light Screen
+tm = Grass Knot, Thunder Wave, Rest, Rock Slide, Taunt, Imprison
+tm = Dark Pulse, Skill Swap, Substitute, Trick, Shadow Ball, Energy Ball
+tm = Psychic, Thunderbolt, Calm Mind, Helping Hand, Psychic Terrain, Nasty Plot
+tm = Trick Room, Tera Blast, Gravity, Psych Up, Future Sight, Expanding Force
+tm = Psychic Noise

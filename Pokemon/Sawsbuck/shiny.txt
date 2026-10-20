@@ -1,0 +1,20 @@
+# Sawsbuck - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333332 > 4A241E
+shiny = 4A2513 > 763600
+shiny = 525252 > A15C17
+shiny = 62421F > 975102
+shiny = 8B5151 > B76A26
+shiny = 8D6233 > C2752A
+shiny = BB9F5A > FFAE5F
+shiny = BC7A59 > E8944A
+shiny = CF7C19 > F09949
+shiny = CFB252 > DECB8F
+shiny = D8C53B > EBDD8B
+shiny = E2E2F6 > FFECA4
+shiny = E3BD4F > F0D793
+shiny = EEEDEC > FFECA2
+shiny = F07EBA > FFAC6C
+shiny = FAFAFA > FFECA2
+shiny = FEE693 > FFEC99
+shiny = FFA63C > F8E444

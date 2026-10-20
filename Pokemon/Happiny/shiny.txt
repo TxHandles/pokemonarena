@@ -1,0 +1,17 @@
+# Happiny - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 48403F > 694360
+shiny = 602028 > 562240
+shiny = 784858 > 70476B
+shiny = 817F75 > 8C7D91
+shiny = A8B8D0 > BAB6E0
+shiny = B86080 > B1759D
+shiny = B8646B > B37790
+shiny = C04860 > D566AE
+shiny = C04962 > D567AF
+shiny = D86070 > ED7DC2
+shiny = D880A0 > E98DC2
+shiny = EE909D > E6A5C2
+shiny = F7B0C0 > F4C1E2
+shiny = F8B0C0 > FFBBE7
+shiny = FCC5B4 > FDD4E1

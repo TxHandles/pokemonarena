@@ -1,0 +1,39 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Kricketot
+dex  = 401
+type = Bug
+
+hp         = 37
+attack     = 25
+defense    = 41
+sp_attack  = 25
+sp_defense = 41
+speed      = 25
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 2.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Kricketune
+evolve_level = 10
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Growl
+learn = 6, Struggle Bug
+learn = 16, Bug Bite
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Struggle Bug, Tera Blast, Bug Bite, Lunge, Endeavor, Skitter Smack

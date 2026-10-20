@@ -1,0 +1,15 @@
+# Roggenrola - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 212F5F > 471D5E
+shiny = 374781 > 5F3680
+shiny = 394881 > 603780
+shiny = 4F3728 > 403730
+shiny = 5767AF > 8256AB
+shiny = 704F3F > 5F4F4F
+shiny = 7B93D5 > AA82D3
+shiny = 91694A > 7C6A59
+shiny = 93680B > 942100
+shiny = BF8702 > CC7728
+shiny = D39E5A > BD9E82
+shiny = F6F022 > FF9E3B
+shiny = FFB63F > FFA656

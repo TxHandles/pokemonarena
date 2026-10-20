@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Swirlix
+dex  = 684
+type = Fairy
+
+hp         = 62
+attack     = 48
+defense    = 66
+sp_attack  = 59
+sp_defense = 57
+speed      = 49
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 3.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_trade = Slurpuff      # evolves when traded holding a Whipped Dream (or with a Linking Cord)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Sweet Scent
+learn = 1, Tackle
+learn = 3, Play Nice
+learn = 6, Fairy Wind
+learn = 9, Aromatherapy
+learn = 12, Draining Kiss
+learn = 15, Fake Tears
+learn = 18, Round
+learn = 21, String Shot
+learn = 24, Cotton Spore
+learn = 27, Energy Ball
+learn = 30, Wish
+learn = 33, Play Rough
+learn = 36, Cotton Guard
+learn = 39, Endeavor
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Protect, Thief, Facade, Draining Kiss
+tm = Endure, Sunny Day, Rain Dance, Sleep Talk, Light Screen, Dazzling Gleam
+tm = Rest, Substitute, Energy Ball, Psychic, Surf, Flamethrower
+tm = Thunderbolt, Play Rough, Amnesia, Calm Mind, Helping Hand

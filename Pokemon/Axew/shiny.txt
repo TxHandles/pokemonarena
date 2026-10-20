@@ -1,0 +1,19 @@
+# Axew - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 282F21 > 372F20
+shiny = 3F443C > 68533D
+shiny = 3F472F > 4F472F
+shiny = 4F7030 > 696E3D
+shiny = 575F3F > 74603A
+shiny = 5EA542 > A5B362
+shiny = 5F8A28 > 8A883A
+shiny = 79AC19 > A8AA43
+shiny = 7DFF18 > DF8EBA
+shiny = 82CF69 > CDDC89
+shiny = 8A9B4F > BBAB69
+shiny = A4B657 > D6C678
+shiny = C70000 > C92470
+shiny = C9211E > 8F527C
+shiny = D0E38A > FAFC8C
+shiny = E1F1C2 > F8F0CB
+shiny = E5E5F7 > F9E7E4

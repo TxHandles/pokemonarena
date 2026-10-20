@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Sigilyph
+dex  = 561
+type = Psychic / Flying
+
+hp         = 72
+attack     = 58
+defense    = 80
+sp_attack  = 103
+sp_defense = 80
+speed      = 97
+
+size   = 1.12
+height = 1.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 14.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = yes
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Gust
+learn = 1, Confusion
+learn = 5, Gravity
+learn = 10, Hypnosis
+learn = 15, Air Cutter
+learn = 20, Psybeam
+learn = 25, Whirlwind
+learn = 30, Cosmic Power
+learn = 35, Air Slash
+learn = 40, Psychic
+learn = 45, Tailwind
+learn = 50, Light Screen
+learn = 50, Reflect
+learn = 55, Sky Attack
+learn = 60, Skill Swap
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Swift, Icy Wind, Stored Power
+tm = Endure, Rain Dance, Psyshock, Zen Headbutt, Air Slash, Sleep Talk
+tm = Reflect, Light Screen, Dazzling Gleam, Thunder Wave, Rest, Imprison
+tm = Flash Cannon, Dark Pulse, Fly, Skill Swap, Substitute, Trick
+tm = Shadow Ball, Heat Wave, Energy Ball, Psychic, Calm Mind, Ice Beam
+tm = Giga Impact, Trick Room, Hyper Beam, Solar Beam, Future Sight

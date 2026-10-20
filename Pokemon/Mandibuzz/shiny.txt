@@ -1,0 +1,34 @@
+# Mandibuzz - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3D2727 > 2D1F1F
+shiny = 3F2828 > 2F2020
+shiny = 454545 > 6C3435
+shiny = 464240 > 6B3030
+shiny = 4E462E > 413B2D
+shiny = 4F472F > 423C2E
+shiny = 534233 > 453835
+shiny = 553D36 > 453435
+shiny = 573F37 > 473637
+shiny = 6C5D4E > 5D5250
+shiny = 6D6D65 > 6A6EAE
+shiny = 792837 > 5B2B31
+shiny = 8A7057 > 8970B1
+shiny = 8A746E > 8C74B8
+shiny = 8D8D8D > B9855C
+shiny = A84555 > B0335E
+shiny = AB4658 > B33460
+shiny = AC4757 > B43560
+shiny = B1B1B1 > E0A97E
+shiny = B7A079 > B8A0C0
+shiny = B8A179 > B9A1C1
+shiny = B9948B > A48B8B
+shiny = BFA479 > BFA3E7
+shiny = CB2E19 > A5464E
+shiny = CEBDAF > C1B7BF
+shiny = CFCFCF > C2C6E3
+shiny = DC7586 > E24B87
+shiny = E3798A > BB7B83
+shiny = ECECBF > DFE2E4
+shiny = F694AA > FF6CA8
+shiny = FAFAFA > EFECF3
+shiny = FDE5C9 > EEDFDF

@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Torterra
+dex  = 389
+type = Grass / Ground
+
+hp         = 95
+attack     = 109
+defense    = 105
+sp_attack  = 75
+sp_defense = 85
+speed      = 56
+
+size   = 1.30
+height = 2.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 310.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Earthquake
+learn = 1, Absorb
+learn = 1, Tackle
+learn = 1, Wood Hammer
+learn = 1, Withdraw
+learn = 1, Razor Leaf
+learn = 17, Curse
+learn = 22, Bite
+learn = 27, Mega Drain
+learn = 33, Leech Seed
+learn = 39, Synthesis
+learn = 45, Crunch
+learn = 51, Giga Drain
+learn = 57, Leaf Storm
+learn = 63, Headlong Rush
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Trailblaze, Facade
+tm = Bulldoze, Magical Leaf, Mud Shot, Rock Tomb, Endure, Sunny Day
+tm = Sandstorm, Bullet Seed, Zen Headbutt, Body Slam, Sleep Talk, Seed Bomb
+tm = Reflect, Light Screen, Rock Blast, Grass Knot, Stomping Tantrum, Rest
+tm = Rock Slide, Swords Dance, Body Press, Iron Head, Substitute, Iron Defense
+tm = Crunch, Giga Drain, Stealth Rock, Hyper Voice, Energy Ball, Heavy Slam
+tm = Amnesia, Earth Power, Grassy Terrain, Grass Pledge, Earthquake, Stone Edge
+tm = Giga Impact, Frenzy Plant, Outrage, Leaf Storm, Hyper Beam, Solar Beam
+tm = Tera Blast, Roar, Sand Tomb, Smack Down, High Horsepower, Grassy Glide
+tm = Double-Edge, Scorching Sands, Curse, Hard Press

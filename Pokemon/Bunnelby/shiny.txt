@@ -1,0 +1,7 @@
+# Bunnelby - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 6F5C4E > 5E534B
+shiny = 86746C > 756B66
+shiny = ABACA4 > 9FA09B
+shiny = CD8596 > AD828B
+shiny = FAFAFA > EDEDED

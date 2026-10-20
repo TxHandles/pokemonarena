@@ -1,0 +1,23 @@
+# Mothim - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333232 > 273E31
+shiny = 333333 > 273F32
+shiny = 3C312C > 323E2B
+shiny = 484848 > 3C5547
+shiny = 525252 > 446248
+shiny = 606060 > 527056
+shiny = 838372 > 869851
+shiny = 883808 > 006688
+shiny = 888888 > 7A997D
+shiny = 906010 > 989300
+shiny = A0581F > 2A82A4
+shiny = A05820 > 9B9300
+shiny = BBBBBB > B3BBC3
+shiny = C09028 > CCC330
+shiny = C8C8C8 > C0C8D0
+shiny = D46241 > 529CC1
+shiny = E0B040 > D4CA40
+shiny = EC962D > 7AC3E4
+shiny = F6EB68 > F4FF6D
+shiny = F88028 > 75B9DB
+shiny = FAFAFA > F5FFC4

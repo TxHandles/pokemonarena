@@ -1,0 +1,45 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Happiny
+dex  = 440
+type = Normal
+
+hp         = 100
+attack     = 5
+defense    = 5
+sp_attack  = 15
+sp_defense = 65
+speed      = 30
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 24.4      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Chansey, Oval Stone
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Copycat
+learn = 1, Pound
+learn = 4, Defense Curl
+learn = 8, Sweet Kiss
+learn = 12, Disarming Voice
+learn = 16, Covet
+learn = 20, Charm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Disarming Voice, Facade, Icy Wind
+tm = Stored Power, Fling, Endure, Sunny Day, Rain Dance, Snowscape
+tm = Zen Headbutt, Sleep Talk, Light Screen, Metronome, Grass Knot, Thunder Wave
+tm = Rest, Substitute, Shadow Ball, Hyper Voice, Psychic, Helping Hand
+tm = Solar Beam, Tera Blast, Gravity

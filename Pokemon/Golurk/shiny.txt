@@ -1,0 +1,21 @@
+# Golurk - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 191936 > 200E19
+shiny = 297A8B > 5A696A
+shiny = 297B8B > 5A6A6A
+shiny = 2C7A8C > 56636E
+shiny = 424243 > 413032
+shiny = 5A605D > 615C56
+shiny = 5A91A2 > 737A84
+shiny = 5AA4A4 > 7B8B8B
+shiny = 5CA6A4 > 819488
+shiny = 83C5CD > 9FABB0
+shiny = 84C6CC > A0ACB0
+shiny = 88DBC7 > AAC0B4
+shiny = 9C7040 > 8A6A47
+shiny = 9C7329 > 8C6931
+shiny = BDAC73 > B99E72
+shiny = BF9241 > AD8B55
+shiny = C59C52 > B49462
+shiny = FDED42 > F4E07A
+shiny = FFEEA4 > ACFF41

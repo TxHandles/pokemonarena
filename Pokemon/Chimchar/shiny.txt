@@ -1,0 +1,21 @@
+# Chimchar - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 683828 > 5C0022
+shiny = 801010 > 58001B
+shiny = 805028 > 830036
+shiny = A05850 > AF6166
+shiny = B86010 > A80B4D
+shiny = BC8047 > BF3263
+shiny = C09048 > BEA247
+shiny = C0C0C0 > C2C79A
+shiny = D05040 > BD7437
+shiny = D8B870 > CCC067
+shiny = DFC56D > D5CD69
+shiny = E15941 > E9514F
+shiny = E79341 > E44271
+shiny = F03828 > B60E55
+shiny = F08010 > D5416E
+shiny = F5E5A5 > EEEC96
+shiny = F8C000 > FF698B
+shiny = F8E8A8 > F1EF99
+shiny = FAFAFA > FCFFD2

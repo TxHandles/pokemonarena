@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Monferno
+dex  = 391
+type = Fire / Fighting
+
+hp         = 64
+attack     = 78
+defense    = 52
+sp_attack  = 78
+sp_defense = 52
+speed      = 81
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 22.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Infernape
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Mach Punch
+learn = 1, Scratch
+learn = 1, Leer
+learn = 1, Ember
+learn = 9, Taunt
+learn = 16, Fury Swipes
+learn = 19, Flame Wheel
+learn = 26, Feint
+learn = 29, Torment
+learn = 36, Close Combat
+learn = 39, Fire Spin
+learn = 46, Acrobatics
+learn = 49, Slack Off
+learn = 56, Flare Blitz
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Agility, Mud-Slap, Protect, Low Kick
+tm = Acrobatics, Thief, Fire Spin, Facade, Swift, Rock Tomb
+tm = Flame Charge, Low Sweep, Fling, Endure, Sunny Day, Dig
+tm = Brick Break, Zen Headbutt, U-turn, Shadow Claw, Bulk Up, Fire Punch
+tm = Thunder Punch, Sleep Talk, Drain Punch, Metronome, Grass Knot, Poison Jab
+tm = Rest, Rock Slide, Taunt, Swords Dance, Gunk Shot, Substitute
+tm = Will-O-Wisp, Stealth Rock, Heat Wave, Encore, Flamethrower, Helping Hand
+tm = Reversal, Nasty Plot, Fire Blast, Fire Pledge, Overheat, Focus Blast
+tm = Flare Blitz, Close Combat, Tera Blast, Smack Down, Knock Off, Vacuum Wave
+tm = Uproar, Focus Punch, Burning Jealousy, Lash Out, Psych Up, Double-Edge
+tm = Endeavor, Temper Flare, Upper Hand

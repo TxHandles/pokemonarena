@@ -1,0 +1,26 @@
+# Monferno - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3890D0 > C292E9
+shiny = 467CC2 > B382D8
+shiny = 673728 > 8A002F
+shiny = 683828 > A90046
+shiny = 805838 > CC2D60
+shiny = 901818 > B20048
+shiny = 989898 > FF729C
+shiny = B8601F > EC4873
+shiny = B86020 > EC4873
+shiny = B87840 > B79C4B
+shiny = B95F21 > EC4773
+shiny = D05040 > F14878
+shiny = D3723F > CEB246
+shiny = D8B870 > FF97B8
+shiny = E8BF8D > EEE193
+shiny = EE9D39 > FF6F8D
+shiny = EF6B4A > FF666A
+shiny = F03828 > FB4B7B
+shiny = F07F0F > FB5A7B
+shiny = F08010 > FF7295
+shiny = F5DC49 > EAF242
+shiny = F8C000 > FFA2BC
+shiny = F8E8A8 > FFFFAE
+shiny = FAFAFA > F9FFD6

@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Heliolisk
+dex  = 695
+type = Electric / Normal
+
+hp         = 62
+attack     = 55
+defense    = 52
+sp_attack  = 109
+sp_defense = 94
+speed      = 109
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 21.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tail Whip
+learn = 1, Discharge
+learn = 1, Thunder Shock
+learn = 1, Volt Switch
+learn = 1, Electrify
+learn = 1, Eerie Impulse
+learn = 1, Mud-Slap
+learn = 1, Parabolic Charge
+learn = 1, Thunder Wave
+learn = 1, Pound
+learn = 1, Bulldoze
+learn = 1, Quick Attack
+learn = 1, Charge
+learn = 1, Thunder
+learn = 1, Thunderbolt
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Low Kick, Facade, Bulldoze, Swift
+tm = Rock Tomb, Low Sweep, Endure, Volt Switch, Sunny Day, Rain Dance
+tm = Sandstorm, Dig, U-turn, Fire Punch, Thunder Punch, Sleep Talk
+tm = Electro Ball, Light Screen, Grass Knot, Thunder Wave, Rest, Rock Slide
+tm = Dark Pulse, Eerie Impulse, Substitute, Dragon Pulse, Hyper Voice, Surf
+tm = Thunderbolt, Electric Terrain, Wild Charge, Giga Impact, Focus Blast, Hyper Beam
+tm = Thunder, Solar Beam, Weather Ball, Electroweb, Breaking Swipe

@@ -1,0 +1,24 @@
+# Stunky - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 340000
+shiny = 0A0A0A > 3A0007
+shiny = 333333 > 840026
+shiny = 3F283F > 670030
+shiny = 402840 > 680030
+shiny = 413F44 > 950032
+shiny = 584060 > 861D49
+shiny = 585030 > 8E294B
+shiny = 6A5191 > BD1853
+shiny = 707070 > A96546
+shiny = 7B6AAA > D93B69
+shiny = 7F7A77 > C05779
+shiny = 885088 > C72258
+shiny = B85038 > BA4769
+shiny = B8A870 > C69F67
+shiny = BBB5A7 > D0AC8D
+shiny = D88868 > FD965D
+shiny = E8D890 > F8CF8C
+shiny = E8E8F8 > FFBCD8
+shiny = EE8D39 > FF7189
+shiny = FAFAFA > FFD7F8
+shiny = FEEFC9 > FFE6B7

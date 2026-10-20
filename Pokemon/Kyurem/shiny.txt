@@ -1,0 +1,22 @@
+# Kyurem - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333337 > 0B1C1D
+shiny = 343438 > 001016
+shiny = 375340 > 002923
+shiny = 474541 > 1E2C29
+shiny = 585858 > 103134
+shiny = 5C6364 > 133A3F
+shiny = 81777A > 364F54
+shiny = 81787B > 364F55
+shiny = 888F89 > 405D62
+shiny = 92C49C > A5B2B4
+shiny = A7C1BF > B1B1CA
+shiny = BFDBC5 > C9CAD7
+shiny = C0DCC6 > CACBD8
+shiny = C2EDFF > D2DCFF
+shiny = C5C2BD > CBC4C4
+shiny = E29D3A > 9B6982
+shiny = E3D802 > DB2CA5
+shiny = EAEAF5 > EBDBFD
+shiny = FAFAFA > A8C3CC
+shiny = FEE90F > F044B6

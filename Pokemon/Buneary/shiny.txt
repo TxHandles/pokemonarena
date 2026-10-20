@@ -1,0 +1,18 @@
+# Buneary - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 5E5041 > 6F635E
+shiny = 605040 > 785D6A
+shiny = 905058 > 9D6380
+shiny = 926342 > A47377
+shiny = 987840 > AF867E
+shiny = B89058 > CD9F97
+shiny = BB8461 > C49D8C
+shiny = C4B461 > C98379
+shiny = C8A040 > D27793
+shiny = D07878 > D98EA7
+shiny = E8C088 > DF948D
+shiny = E8D8A8 > F0A7A0
+shiny = E8E8F8 > F3CCFA
+shiny = FF8D8B > D5C5CA
+shiny = FFEF92 > FFBBB0
+shiny = FFFAF2 > FFC7C4

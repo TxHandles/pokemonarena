@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Shinx
+dex  = 403
+type = Electric
+
+hp         = 45
+attack     = 65
+defense    = 34
+sp_attack  = 40
+sp_defense = 34
+speed      = 45
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 9.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Luxio
+evolve_level = 15
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Leer
+learn = 4, Thunder Shock
+learn = 8, Charge
+learn = 12, Bite
+learn = 16, Spark
+learn = 20, Roar
+learn = 24, Volt Switch
+learn = 28, Scary Face
+learn = 32, Thunder Wave
+learn = 36, Crunch
+learn = 40, Discharge
+learn = 44, Swagger
+learn = 48, Wild Charge
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Scary Face, Protect, Fire Fang, Thunder Fang
+tm = Ice Fang, Confuse Ray, Thief, Trailblaze, Charge Beam, Facade
+tm = Snarl, Swift, Endure, Volt Switch, Sunny Day, Rain Dance
+tm = Psychic Fangs, Sleep Talk, Electro Ball, Light Screen, Thunder Wave, Rest
+tm = Eerie Impulse, Substitute, Crunch, Thunderbolt, Play Rough, Helping Hand
+tm = Electric Terrain, Wild Charge, Thunder, Tera Blast, Roar, Charge
+tm = Double-Edge, Electroweb

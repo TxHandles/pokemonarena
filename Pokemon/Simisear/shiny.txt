@@ -1,0 +1,23 @@
+# Simisear - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333232 > 3D0E18
+shiny = 474747 > 53232B
+shiny = 525151 > 5F2D34
+shiny = 555555 > 623138
+shiny = 684719 > 652315
+shiny = 702828 > 620018
+shiny = 939393 > A46C73
+shiny = 943838 > A5002B
+shiny = 9B702F > 975A00
+shiny = B6372F > 9C1229
+shiny = BBBBB3 > D29F6D
+shiny = C79B4F > C68323
+shiny = CC4949 > D71840
+shiny = DFB351 > DF9A2B
+shiny = E24636 > E81438
+shiny = E34737 > E91639
+shiny = E6D199 > F1B665
+shiny = F56351 > FE404F
+shiny = F58A36 > FF6848
+shiny = FEB17F > F69C4F
+shiny = FFC770 > FDAF49

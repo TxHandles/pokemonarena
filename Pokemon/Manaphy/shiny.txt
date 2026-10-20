@@ -1,0 +1,16 @@
+# Manaphy - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1848A0 > 007176
+shiny = 323333 > 223531
+shiny = 3698F0 > 49B5B0
+shiny = 404040 > 30423E
+shiny = 4060C8 > 008E93
+shiny = 4E5553 > 3C5751
+shiny = 4F7FE7 > 23ACB0
+shiny = 5080E8 > 25ADB1
+shiny = 52CEFF > 77E4DB
+shiny = 80A0F0 > 52CDCE
+shiny = C09008 > BCC62C
+shiny = C9A610 > 94C703
+shiny = F8D060 > C2F349
+shiny = FFFF00 > DCFF5D

@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Drilbur
+dex  = 529
+type = Ground
+
+hp         = 60
+attack     = 85
+defense    = 40
+sp_attack  = 30
+sp_defense = 45
+speed      = 68
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 8.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Excadrill
+evolve_level = 31
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Mud-Slap
+learn = 1, Rapid Spin
+learn = 4, Scratch
+learn = 8, Hone Claws
+learn = 12, Fury Swipes
+learn = 16, Metal Claw
+learn = 20, Sandstorm
+learn = 24, Crush Claw
+learn = 28, Rock Slide
+learn = 32, Dig
+learn = 36, Swords Dance
+learn = 40, Drill Run
+learn = 44, Earthquake
+learn = 48, Fissure
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Facade, Aerial Ace, Bulldoze
+tm = Metal Claw, Mud Shot, Rock Tomb, Fling, Endure, Sunny Day
+tm = Sandstorm, Dig, Brick Break, Shadow Claw, Sleep Talk, Poison Jab
+tm = Stomping Tantrum, Rest, Rock Slide, Swords Dance, Substitute, Iron Defense
+tm = X-Scissor, Drill Run, Stealth Rock, Helping Hand, Earth Power, Earthquake
+tm = Tera Blast, Sand Tomb, High Horsepower, Double-Edge, Scorching Sands, Metal Sound
+tm = Curse

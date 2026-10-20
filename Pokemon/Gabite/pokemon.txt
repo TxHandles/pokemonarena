@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Gabite
+dex  = 444
+type = Dragon / Ground
+
+hp         = 68
+attack     = 90
+defense    = 65
+sp_attack  = 50
+sp_defense = 55
+speed      = 82
+
+size   = 1.12
+height = 1.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 56.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Garchomp
+evolve_level = 48
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Sand Tomb
+learn = 1, Tackle
+learn = 1, Sand Attack
+learn = 1, Dragon Breath
+learn = 18, Bulldoze
+learn = 27, Bite
+learn = 34, Slash
+learn = 42, Dragon Claw
+learn = 50, Dig
+learn = 58, Sandstorm
+learn = 66, Take Down
+learn = 74, Dragon Rush
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Fire Fang, Thunder Fang, Facade
+tm = Aerial Ace, Bulldoze, Metal Claw, Swift, Mud Shot, Rock Tomb
+tm = Dragon Tail, Endure, Sunny Day, Rain Dance, Sandstorm, Dig
+tm = False Swipe, Shadow Claw, Body Slam, Sleep Talk, Dragon Claw, Rest
+tm = Rock Slide, Swords Dance, Iron Head, Power Gem, Substitute, Crunch
+tm = Dragon Pulse, Stealth Rock, Flamethrower, Helping Hand, Earth Power, Fire Blast
+tm = Earthquake, Stone Edge, Outrage, Draco Meteor, Tera Blast, Sand Tomb
+tm = Scale Shot, Double-Edge, Scorching Sands, Breaking Swipe, Dragon Cheer

@@ -1,0 +1,23 @@
+# Serperior - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 004D00 > 243329
+shiny = 0B4721 > 202F28
+shiny = 0B682F > 1F4161
+shiny = 12933F > 3A7393
+shiny = 505F4F > 3C7C00
+shiny = 51AC41 > 588BAB
+shiny = 5F682F > 127401
+shiny = 679B67 > 46A238
+shiny = 689B68 > 587297
+shiny = 6AA48B > 51AC44
+shiny = 8A2F00 > 7A0000
+shiny = 8EDB8D > ADF16A
+shiny = 92CF92 > 87A2C9
+shiny = 93D093 > A6E864
+shiny = AB4E4A > 9D2231
+shiny = BFBFD0 > ABE66B
+shiny = D09305 > B5AD31
+shiny = E5E5F7 > D2FF90
+shiny = F0E22B > EEFFA5
+shiny = FF7900 > F82600
+shiny = FFC721 > E3FA97

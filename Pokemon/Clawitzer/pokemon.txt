@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Clawitzer
+dex  = 693
+type = Water
+
+hp         = 71
+attack     = 73
+defense    = 88
+sp_attack  = 120
+sp_defense = 89
+speed      = 59
+
+size   = 1.12
+height = 1.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 35.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Splash
+learn = 1, Water Gun
+learn = 1, Flail
+learn = 1, Dragon Pulse
+learn = 1, Dark Pulse
+learn = 1, Heal Pulse
+learn = 15, Aqua Jet
+learn = 20, Smack Down
+learn = 25, Hone Claws
+learn = 30, Water Pulse
+learn = 35, Swords Dance
+learn = 42, Aura Sphere
+learn = 49, Bounce
+learn = 56, Muddy Water
+learn = 63, Crabhammer
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Water Pulse, Thief
+tm = Pounce, Chilling Water, Facade, Icy Wind, Mud Shot, Venoshock
+tm = Endure, Rain Dance, U-turn, Body Slam, Sleep Talk, Waterfall
+tm = Rest, Rock Slide, Swords Dance, Flash Cannon, Dark Pulse, Substitute
+tm = Liquidation, Aura Sphere, Shadow Ball, Dragon Pulse, Surf, Helping Hand
+tm = Ice Beam, Hydro Pump, Blizzard, Sludge Bomb, Giga Impact, Focus Blast
+tm = Hyper Beam, Tera Blast, Smack Down, Weather Ball, Flip Turn, Muddy Water
+tm = Sludge Wave

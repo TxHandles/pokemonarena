@@ -1,0 +1,18 @@
+# Archen - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0B285F > 006028
+shiny = 284793 > 009137
+shiny = 2879F5 > 00CC43
+shiny = 472828 > 47280F
+shiny = 5699FB > 3BEB5C
+shiny = 5D3734 > 5D371A
+shiny = 8A3737 > A9541E
+shiny = 8B899B > 9C8574
+shiny = 9393A4 > A48F7D
+shiny = B68A47 > B5A248
+shiny = CC5B4E > E18148
+shiny = CDB889 > D4CF80
+shiny = CE9137 > D1AC3A
+shiny = DA473F > DF7C43
+shiny = F5C757 > FDE061
+shiny = FFCC64 > FFE66C

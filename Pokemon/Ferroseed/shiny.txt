@@ -1,0 +1,20 @@
+# Ferroseed - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 00AC4F > 0084AC
+shiny = 0B3719 > 043038
+shiny = 195F37 > 205B5A
+shiny = 373737 > 27374C
+shiny = 424439 > 344453
+shiny = 4F4F4F > 3F4F66
+shiny = 62AC6A > 6399A8
+shiny = 6C7D70 > 6F7C83
+shiny = 818181 > 71819A
+shiny = 998538 > B06327
+shiny = AC8137 > 988373
+shiny = ACB6B6 > ACB6C6
+shiny = ADAFAB > 9DAFC6
+shiny = CACED2 > C9CFE1
+shiny = E5E5F7 > E2E6FF
+shiny = ECB63F > D6B992
+shiny = EFC542 > F4914E
+shiny = FAFAFA > F7FBFF

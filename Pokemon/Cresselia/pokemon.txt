@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Cresselia
+dex  = 488
+type = Psychic
+
+hp         = 120
+attack     = 70
+defense    = 110
+sp_attack  = 75
+sp_defense = 120
+speed      = 85
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 85.6      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Double Team
+learn = 1, Confusion
+learn = 6, Mist
+learn = 12, Aurora Beam
+learn = 18, Psybeam
+learn = 24, Ally Switch
+learn = 30, Slash
+learn = 36, Psycho Cut
+learn = 42, Moonlight
+learn = 48, Safeguard
+learn = 54, Psychic
+learn = 60, Moonblast
+learn = 66, Future Sight
+learn = 72, Lunar Dance
+learn = 72, Lunar Blessing
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Mud-Slap, Scary Face, Protect, Psybeam, Confuse Ray, Charge Beam
+tm = Facade, Swift, Icy Wind, Stored Power, Endure, Sunny Day
+tm = Rain Dance, Psyshock, Zen Headbutt, Body Slam, Sleep Talk, Reflect
+tm = Light Screen, Dazzling Gleam, Grass Knot, Thunder Wave, Rest, Skill Swap
+tm = Power Gem, Substitute, Trick, Shadow Ball, Energy Ball, Psychic
+tm = Thunderbolt, Calm Mind, Helping Hand, Ice Beam, Psychic Terrain, Giga Impact
+tm = Trick Room, Hyper Beam, Thunder, Solar Beam, Tera Blast, Gravity
+tm = Psych Up, Future Sight, Expanding Force

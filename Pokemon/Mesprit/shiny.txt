@@ -1,0 +1,22 @@
+# Mesprit - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 313131 > 504121
+shiny = 484858 > 6C5A43
+shiny = 525252 > 756442
+shiny = 6B84B5 > B29C58
+shiny = 7080B0 > CD9F47
+shiny = 887820 > C3962B
+shiny = 8CA5D6 > F5C46A
+shiny = 904870 > C40038
+shiny = 90B8D0 > FFD375
+shiny = 9C4242 > C20032
+shiny = AD525A > C6394C
+shiny = ADCEFF > FFED90
+shiny = B0D0F8 > FFEE90
+shiny = B85080 > CE3E54
+shiny = C56B7B > E35463
+shiny = E07090 > F46171
+shiny = E84020 > BC6C29
+shiny = E8E8F8 > FFFDAF
+shiny = FAFAFA > FFFDAE
+shiny = FF8CA5 > FF7E8A

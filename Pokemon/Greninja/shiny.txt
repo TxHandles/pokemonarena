@@ -1,0 +1,8 @@
+# Greninja - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2C437E > 353536
+shiny = 4162AB > 515355
+shiny = 5AA6B6 > 10171D
+shiny = A24E55 > A00016
+shiny = D9676D > CC2D32
+shiny = E4DC9A > 474848

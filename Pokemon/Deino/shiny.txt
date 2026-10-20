@@ -1,0 +1,16 @@
+# Deino - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 12285F > 243200
+shiny = 211921 > 2C211F
+shiny = 2F579B > 506028
+shiny = 372F37 > 473737
+shiny = 474747 > 574F47
+shiny = 56484E > 62514D
+shiny = 578ADA > 829257
+shiny = 6583C7 > 7D8C51
+shiny = 685656 > 726058
+shiny = 827273 > 8E7C74
+shiny = 84ABF4 > A3B376
+shiny = 932F5F > 8B4A5B
+shiny = 9C8B8B > A8958D
+shiny = BD45A4 > BF7AE4

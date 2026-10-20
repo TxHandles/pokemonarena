@@ -1,0 +1,20 @@
+# Duosion - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 357435 > 14766F
+shiny = 367536 > 167770
+shiny = 3E4540 > 00504F
+shiny = 54B874 > 5CB7AE
+shiny = 557575 > 727C60
+shiny = 55B975 > 5DB8AE
+shiny = 5A826A > 318985
+shiny = 65BA79 > 61BAB1
+shiny = 75DC75 > 7FD9CC
+shiny = 8DD56F > ACC170
+shiny = 97B975 > 6EC0B7
+shiny = B9D8B9 > CAC7A1
+shiny = BCEEA2 > DDF4A5
+shiny = EA5D89 > DD628C
+shiny = EAEAF5 > ACFCFA
+shiny = F480F4 > F680B5
+shiny = F48C85 > F37EA7
+shiny = FAFAFA > BCFFFF

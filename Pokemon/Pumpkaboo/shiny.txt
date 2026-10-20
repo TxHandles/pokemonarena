@@ -1,0 +1,10 @@
+# Pumpkaboo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 000D15
+shiny = 584435 > 4C4E4C
+shiny = 8A613A > 7B6E5E
+shiny = BD6A51 > 653964
+shiny = BDBDBD > B3C7D0
+shiny = F48D64 > 8E5D89
+shiny = FFA50B > B9D129
+shiny = FFB951 > E9C895

@@ -24,6 +24,7 @@ starter = no
 # "evo" = learned when it evolves into this Pokemon
 
 # ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Froslass, Dawn Stone   # (a female Snorunt, in the games)
 evolves_to   = Glalie
 evolve_level = 42
 

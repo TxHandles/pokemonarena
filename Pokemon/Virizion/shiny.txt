@@ -1,0 +1,21 @@
+# Virizion - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 233D1D > 7E0539
+shiny = 2D782B > 8F3855
+shiny = 3E3E42 > 5D0E37
+shiny = 41433C > 42427A
+shiny = 415E4B > 7D2149
+shiny = 5E6B46 > 8F3155
+shiny = 625A22 > 943658
+shiny = 6AAB2A > C66981
+shiny = 7F7E3F > 81806A
+shiny = 81D126 > FFA3B5
+shiny = 81D226 > EC8BA1
+shiny = 93A835 > CE6B86
+shiny = A32D1C > 5C8C00
+shiny = B5B892 > BBBAA6
+shiny = B9E93E > FFA5BB
+shiny = CEA467 > B5AF99
+shiny = DC607E > 88AF37
+shiny = F6E4C2 > FFAFD2
+shiny = F79664 > E67698

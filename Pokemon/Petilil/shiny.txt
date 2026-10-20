@@ -1,0 +1,15 @@
+# Petilil - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 36750B > 4E8F00
+shiny = 3FA828 > 78B53A
+shiny = 40463E > 47591A
+shiny = 51DC27 > 8CF442
+shiny = 625A22 > 604700
+shiny = 66AC5C > 84C753
+shiny = 859F00 > 918700
+shiny = 946D08 > A67200
+shiny = 97BC4D > BDB54D
+shiny = B0D33C > D5CB4D
+shiny = B1C236 > BAAA26
+shiny = CDF39C > F6EB91
+shiny = D1E782 > DFCE65

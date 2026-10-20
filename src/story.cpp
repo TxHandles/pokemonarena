@@ -811,10 +811,10 @@ void LoadStory(std::string& log) {
     gStory.starters = ok;
     if (gStory.stages.empty()) Parse(kDefaultStory, gStory, log);
     // Each region's starters and level band (story.txt can set them with dex = / levels =).
-    static const int kDex[][2] = {{1, 151}, {152, 251}, {252, 386}, {387, 493}, {494, 649}};
+    static const int kDex[][2] = {{1, 151}, {152, 251}, {252, 386}, {387, 493}, {494, 649}, {650, 721}};
     for (int r = 0; r < (int)gStory.regions.size(); r++) {
         auto& R = gStory.regions[r];
-        if (R.dexHi <= 0 && r < 5) { R.dexLo = kDex[r][0]; R.dexHi = kDex[r][1]; }
+        if (R.dexHi <= 0 && r < 6) { R.dexLo = kDex[r][0]; R.dexHi = kDex[r][1]; }
         bool setBand = R.bandLo != 5 || R.bandHi != 60;
         if (!setBand) {
             int lo = MAX_LEVEL, hi = 0;

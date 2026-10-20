@@ -1,0 +1,16 @@
+# Dwebble - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 443C39 > 261F1F
+shiny = 4D453D > 2E2723
+shiny = 553620 > 450C02
+shiny = 686159 > 3C3C38
+shiny = 6D6565 > 4D4545
+shiny = 827973 > 535250
+shiny = 978E7E > 67665D
+shiny = AE9F9F > 7B7778
+shiny = B95519 > B03519
+shiny = B96438 > CD4326
+shiny = B9B175 > 6F900F
+shiny = E58E3D > FC6F37
+shiny = E5E5F7 > B4B9C4
+shiny = FC8C2B > F36E38

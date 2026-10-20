@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Toxicroak
+dex  = 454
+type = Poison / Fighting
+
+hp         = 83
+attack     = 106
+defense    = 65
+sp_attack  = 86
+sp_defense = 65
+speed      = 85
+
+size   = 1.12
+height = 1.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 44.4      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Astonish
+learn = 1, Mud-Slap
+learn = 1, Taunt
+learn = 1, Poison Sting
+learn = 12, Flatter
+learn = 16, Low Kick
+learn = 20, Venoshock
+learn = 24, Sucker Punch
+learn = 28, Swagger
+learn = 32, Poison Jab
+learn = 36, Toxic
+learn = 42, Nasty Plot
+learn = 48, Sludge Bomb
+learn = 54, Belch
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Low Kick, Acid Spray
+tm = Thief, Chilling Water, Facade, Aerial Ace, Bulldoze, Icy Wind
+tm = Mud Shot, Rock Tomb, Low Sweep, Fling, Venoshock, Endure
+tm = Sunny Day, Rain Dance, Dig, Brick Break, Shadow Claw, Foul Play
+tm = Bulk Up, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Poison Jab
+tm = Rest, Rock Slide, Taunt, Swords Dance, Dark Pulse, Gunk Shot
+tm = Substitute, X-Scissor, Shadow Ball, Encore, Helping Hand, Baton Pass
+tm = Reversal, Nasty Plot, Sludge Bomb, Earthquake, Stone Edge, Giga Impact
+tm = Focus Blast, Hyper Beam, Close Combat, Tera Blast, Toxic, Spite
+tm = Knock Off, Super Fang, Vacuum Wave, Focus Punch, Lash Out, Coaching
+tm = Sludge Wave, Throat Chop, Upper Hand

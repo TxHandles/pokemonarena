@@ -1,0 +1,13 @@
+# Hippowdon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 3A4322
+shiny = 454441 > 52532D
+shiny = 484848 > 505936
+shiny = 606060 > 6F704B
+shiny = 67665A > 757644
+shiny = 818168 > 8F915A
+shiny = 908637 > A4A569
+shiny = B89038 > C5B371
+shiny = C4B845 > C7C879
+shiny = D0B050 > CDC27E
+shiny = FB6939 > E19164

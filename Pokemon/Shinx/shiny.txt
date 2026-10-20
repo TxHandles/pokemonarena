@@ -1,0 +1,17 @@
+# Shinx - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 305070 > 766500
+shiny = 5078B8 > A7902E
+shiny = 5175A8 > A28C28
+shiny = 585858 > 4E3639
+shiny = 685828 > 76310D
+shiny = 6D6D69 > 634A49
+shiny = 70A0D8 > D0B652
+shiny = 79BBF6 > FFE15B
+shiny = 90B8E8 > EACF69
+shiny = B89020 > BC6A3E
+shiny = C2A143 > CD794D
+shiny = D05040 > A24C2B
+shiny = E0B818 > D05B00
+shiny = EE6139 > BA5F3A
+shiny = F6CD27 > FEA470

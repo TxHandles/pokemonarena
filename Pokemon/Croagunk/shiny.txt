@@ -1,0 +1,19 @@
+# Croagunk - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3060C0 > 64909B
+shiny = 384880 > 4A757C
+shiny = 424142 > 273255
+shiny = 5880D0 > 81AFB9
+shiny = 6270BE > 6BBEC4
+shiny = 6B676D > 505682
+shiny = 808080 > 83AEAF
+shiny = 8394FC > 94E8F0
+shiny = B5B7C2 > 9DA4D7
+shiny = C05800 > E35B97
+shiny = C09800 > B6A900
+shiny = C8C8C8 > B8B7DF
+shiny = E5A838 > C1E2D9
+shiny = F6EE31 > F7FB32
+shiny = F88008 > B0EBDE
+shiny = F8D838 > F2E82F
+shiny = FAFAFA > E9E9FA

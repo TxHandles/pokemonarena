@@ -1,0 +1,17 @@
+# Cresselia - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 313131 > 1D343A
+shiny = 404040 > 2C434A
+shiny = 5068A0 > 4E2F66
+shiny = 525252 > 3E555C
+shiny = 5890E0 > 695499
+shiny = 682838 > 4B3743
+shiny = 7B94DE > 79589B
+shiny = A04870 > 2F91A7
+shiny = A5C5FF > 99C9F3
+shiny = CE6B94 > 5FB8CF
+shiny = D868A8 > 64BBD5
+shiny = E694AD > 81DBF1
+shiny = E8E8F8 > FFFFDC
+shiny = F8A8E0 > AAF4EA
+shiny = FFD6DE > FFF7D2

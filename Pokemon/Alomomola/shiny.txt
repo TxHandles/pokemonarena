@@ -1,0 +1,22 @@
+# Alomomola - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 002128 > 006A17
+shiny = 004757 > 33B147
+shiny = 2B7B9C > 776E96
+shiny = 333333 > 47155E
+shiny = 545353 > 6C3781
+shiny = 813757 > 6A4880
+shiny = 846B84 > 7E6C93
+shiny = 93810B > 9A9200
+shiny = BE4E6F > 93499A
+shiny = BF4F70 > 944A9B
+shiny = D0D02F > DFE03F
+shiny = E38193 > AD7CD6
+shiny = EE7399 > C27ACE
+shiny = F38B2A > E7A92B
+shiny = F56879 > BF75C6
+shiny = F593BC > C3A8D3
+shiny = FCB6D6 > DAC1ED
+shiny = FEB5B5 > D9BFE8
+shiny = FF81A4 > D188DC
+shiny = FFD0E3 > EDDAF3

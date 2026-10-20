@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Uxie
+dex  = 480
+type = Psychic
+
+hp         = 75
+attack     = 75
+defense    = 130
+sp_attack  = 75
+sp_defense = 130
+speed      = 95
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 0.3      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Confusion
+learn = 1, Rest
+learn = 7, Swift
+learn = 14, Endure
+learn = 21, Psybeam
+learn = 28, Imprison
+learn = 35, Extrasensory
+learn = 42, Amnesia
+learn = 49, Psychic
+learn = 56, Yawn
+learn = 63, Future Sight
+learn = 70, Flail
+learn = 77, Memento
+learn = 84, Mystical Power
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Mud-Slap, Protect, Water Pulse, Acrobatics, Psybeam, Confuse Ray
+tm = Charge Beam, Facade, Swift, Draining Kiss, Stored Power, Fling
+tm = Endure, Sunny Day, Rain Dance, Sandstorm, Psyshock, Zen Headbutt
+tm = U-turn, Foul Play, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk
+tm = Drain Punch, Reflect, Light Screen, Dazzling Gleam, Metronome, Grass Knot
+tm = Thunder Wave, Rest, Imprison, Skill Swap, Substitute, Trick
+tm = Giga Drain, Shadow Ball, Stealth Rock, Energy Ball, Psychic, Encore
+tm = Thunderbolt, Play Rough, Amnesia, Calm Mind, Helping Hand, Baton Pass
+tm = Nasty Plot, Giga Impact, Trick Room, Hyper Beam, Thunder, Solar Beam
+tm = Tera Blast, Knock Off, Pain Split, Psych Up, Future Sight, Expanding Force
+tm = Psychic Noise

@@ -1,0 +1,12 @@
+# Snivy - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 004D00 > 003A2F
+shiny = 008504 > 016C5B
+shiny = 02AC08 > 009495
+shiny = 429441 > 008288
+shiny = 73CE49 > 43B9BB
+shiny = B8B15C > A2B868
+shiny = BF9400 > 3B979A
+shiny = C8BD62 > BEBD63
+shiny = EBFF99 > 8EF5F9
+shiny = F5F5AC > DFFCB1

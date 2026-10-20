@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Mothim
+dex  = 414
+type = Bug / Flying
+
+hp         = 70
+attack     = 94
+defense    = 50
+sp_attack  = 94
+sp_defense = 50
+speed      = 66
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 23.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Quiver Dance
+learn = 1, Tackle
+learn = 1, Protect
+learn = 1, Bug Bite
+learn = 20, String Shot
+learn = 23, Confusion
+learn = 26, Gust
+learn = 29, Poison Powder
+learn = 32, Psybeam
+learn = 35, Roost
+learn = 38, Struggle Bug
+learn = 41, Air Slash
+learn = 44, Psychic
+learn = 47, Lunge
+learn = 50, Bug Buzz
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Acrobatics, Thief, Facade, Aerial Ace, Venoshock
+tm = Sunny Day, Rain Dance, U-turn, Sleep Talk, Rest, Substitute
+tm = Shadow Ball, Energy Ball, Psychic, Giga Impact, Hyper Beam, Solar Beam
+tm = Toxic, Psych Up

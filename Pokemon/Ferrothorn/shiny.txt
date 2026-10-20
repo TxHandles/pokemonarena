@@ -1,0 +1,17 @@
+# Ferrothorn - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 007735 > 860F2F
+shiny = 00AC4F > BA4857
+shiny = 0B3719 > 450012
+shiny = 195F37 > 5A5D04
+shiny = 373737 > 413E00
+shiny = 3E4A43 > 535A45
+shiny = 448361 > 848037
+shiny = 59AD7B > C44D61
+shiny = 5D645E > 6F6B1C
+shiny = 818181 > 918847
+shiny = AAAEAB > BEB765
+shiny = AC8137 > B39758
+shiny = ACB6B6 > C5BE6C
+shiny = E1E2E0 > F6EC97
+shiny = E5E5F7 > FBF09E

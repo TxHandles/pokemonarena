@@ -1,0 +1,8 @@
+# Goomy - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3D3B44 > 4B4E31
+shiny = 41B652 > 7B73B1
+shiny = 84D590 > 9F93D8
+shiny = 9975B6 > D28971
+shiny = B883DB > EB9E87
+shiny = D6C5F7 > EAEA95

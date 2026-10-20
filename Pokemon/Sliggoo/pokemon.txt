@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Sliggoo
+dex  = 705
+type = Dragon
+
+hp         = 68
+attack     = 75
+defense    = 53
+sp_attack  = 83
+sp_defense = 113
+speed      = 60
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 17.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Goodra
+evolve_level = 50
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Acid Spray
+learn = 1, Acid Armor
+learn = 1, Tackle
+learn = 1, Absorb
+learn = 1, Water Gun
+learn = 1, Dragon Breath
+learn = 15, Protect
+learn = 20, Flail
+learn = 25, Water Pulse
+learn = 30, Rain Dance
+learn = 35, Dragon Pulse
+learn = 43, Curse
+learn = 49, Body Slam
+learn = 56, Muddy Water
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Water Pulse, Acid Spray, Chilling Water
+tm = Facade, Mud Shot, Endure, Sunny Day, Rain Dance, Body Slam
+tm = Sleep Talk, Rest, Rock Slide, Substitute, Dragon Pulse, Thunderbolt
+tm = Ice Beam, Blizzard, Sludge Bomb, Outrage, Thunder, Draco Meteor
+tm = Tera Blast, Toxic, Muddy Water, Sludge Wave, Skitter Smack, Curse

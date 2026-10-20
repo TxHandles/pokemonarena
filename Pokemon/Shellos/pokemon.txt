@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Shellos
+dex  = 422
+type = Water
+
+hp         = 76
+attack     = 48
+defense    = 48
+sp_attack  = 57
+sp_defense = 62
+speed      = 34
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 6.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Gastrodon
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Mud-Slap
+learn = 1, Water Gun
+learn = 5, Harden
+learn = 10, Recover
+learn = 15, Water Pulse
+learn = 20, Ancient Power
+learn = 25, Body Slam
+learn = 31, Muddy Water
+learn = 35, Earth Power
+learn = 40, Rain Dance
+learn = 45, Memento
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Water Pulse, Chilling Water, Facade
+tm = Bulldoze, Icy Wind, Mud Shot, Rock Tomb, Endure, Rain Dance
+tm = Sandstorm, Snowscape, Body Slam, Sleep Talk, Waterfall, Rest
+tm = Rock Slide, Substitute, Liquidation, Stealth Rock, Surf, Amnesia
+tm = Helping Hand, Earth Power, Ice Beam, Hydro Pump, Blizzard, Stone Edge
+tm = Tera Blast, Pain Split, Whirlpool, Muddy Water, Skitter Smack, Curse

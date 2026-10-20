@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Reuniclus
+dex  = 579
+type = Psychic
+
+hp         = 110
+attack     = 65
+defense    = 75
+sp_attack  = 125
+sp_defense = 85
+speed      = 30
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 20.1      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Hammer Arm
+learn = 1, Endeavor
+learn = 1, Protect
+learn = 1, Recover
+learn = 1, Confusion
+learn = 12, Psybeam
+learn = 16, Charm
+learn = 20, Psyshock
+learn = 24, Light Screen
+learn = 24, Reflect
+learn = 28, Ally Switch
+learn = 35, Pain Split
+learn = 40, Psychic
+learn = 48, Skill Swap
+learn = 56, Future Sight
+learn = 64, Wonder Room
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Psybeam, Confuse Ray, Facade, Swift
+tm = Rock Tomb, Stored Power, Night Shade, Fling, Endure, Sunny Day
+tm = Rain Dance, Psyshock, Zen Headbutt, Body Slam, Fire Punch, Thunder Punch
+tm = Ice Punch, Sleep Talk, Drain Punch, Reflect, Light Screen, Grass Knot
+tm = Thunder Wave, Rest, Rock Slide, Imprison, Flash Cannon, Skill Swap
+tm = Substitute, Iron Defense, Trick, Shadow Ball, Energy Ball, Psychic
+tm = Encore, Calm Mind, Helping Hand, Psychic Terrain, Giga Impact, Focus Blast
+tm = Trick Room, Hyper Beam, Thunder, Tera Blast, Gravity, Gyro Ball
+tm = Knock Off, Focus Punch, Pain Split, Psych Up, Endeavor, Future Sight
+tm = Expanding Force, Psychic Noise

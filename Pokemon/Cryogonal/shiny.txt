@@ -1,0 +1,15 @@
+# Cryogonal - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 20265A > 004878
+shiny = 212F9F > 1D5496
+shiny = 4752C1 > 447EB8
+shiny = 496FBF > 5892CB
+shiny = 5D91E0 > B49252
+shiny = 6F8196 > 6BA1D5
+shiny = 70D5E0 > E9CA7F
+shiny = 7396E2 > 82BAF4
+shiny = 80A6FC > 93CBFF
+shiny = 9BCDFB > A7DBF4
+shiny = B6DBFF > BDE9FC
+shiny = B8E4FE > C1F3FF
+shiny = D2F3FF > D6FFFF

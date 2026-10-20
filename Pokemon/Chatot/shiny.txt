@@ -1,0 +1,23 @@
+# Chatot - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 205070 > 375589
+shiny = 2080C8 > DB4962
+shiny = 288820 > 5D62D9
+shiny = 323232 > 1E3A68
+shiny = 383838 > 3A485D
+shiny = 4588DC > F04C74
+shiny = 545051 > 566278
+shiny = 585858 > 5B6980
+shiny = 6BC66B > A09CFF
+shiny = 717162 > 6579AC
+shiny = 807878 > 828BA2
+shiny = 98A0A8 > 9298BC
+shiny = A03878 > A89D00
+shiny = A08008 > 9E790F
+shiny = A6387B > BF486F
+shiny = BBBBBB > FF869E
+shiny = D880B0 > FF87A8
+shiny = E3CB3B > DDC238
+shiny = E55A69 > CBB145
+shiny = F8A818 > E2A71B
+shiny = FAFAFA > F2F2FF

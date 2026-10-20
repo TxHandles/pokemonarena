@@ -1,0 +1,18 @@
+# Emolga - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 2E2617
+shiny = 0B0B0B > 352D1E
+shiny = 191919 > 423929
+shiny = 272727 > 524938
+shiny = 353535 > 956645
+shiny = 363636 > 966746
+shiny = 46403E > A57352
+shiny = 655C5C > AB816F
+shiny = 757575 > E2AC88
+shiny = 862E36 > B65E4F
+shiny = 9C404A > 9C5149
+shiny = B19765 > B29871
+shiny = C2B99F > C9B9A0
+shiny = D7A54B > E0A52B
+shiny = F7CB00 > F5DD7B
+shiny = FEE531 > FFF28F

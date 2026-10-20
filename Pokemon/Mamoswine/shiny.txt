@@ -1,0 +1,24 @@
+# Mamoswine - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 192700
+shiny = 090909 > 1D2C00
+shiny = 0A0A0A > 1D2D00
+shiny = 37280F > 394E00
+shiny = 382810 > 394E00
+shiny = 404040 > 506609
+shiny = 48A8D8 > B8CE86
+shiny = 554846 > 5D7117
+shiny = 684028 > 5E7010
+shiny = 73C2EF > 8DD9E0
+shiny = 808890 > 9DB258
+shiny = 85655D > 83953A
+shiny = 885539 > 8D9E00
+shiny = 885838 > 7B8B2D
+shiny = 987820 > 95A641
+shiny = A77750 > B1C12F
+shiny = A87850 > 9CAC4C
+shiny = AA7D55 > B6C635
+shiny = B8C0D0 > F2FF7B
+shiny = C8A868 > C7D873
+shiny = E8E8F8 > F6FFB8
+shiny = FBA194 > F1FB6D

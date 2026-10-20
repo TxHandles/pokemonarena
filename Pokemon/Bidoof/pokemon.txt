@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Bidoof
+dex  = 399
+type = Normal
+
+hp         = 59
+attack     = 45
+defense    = 40
+sp_attack  = 35
+sp_defense = 40
+speed      = 31
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 20.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Bibarel
+evolve_level = 15
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Growl
+learn = 5, Defense Curl
+learn = 9, Rollout
+learn = 13, Headbutt
+learn = 17, Taunt
+learn = 21, Yawn
+learn = 25, Crunch
+learn = 29, Take Down
+learn = 33, Super Fang
+learn = 37, Swords Dance
+learn = 41, Amnesia
+learn = 45, Superpower
+learn = 49, Curse
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Charge Beam, Facade, Sunny Day, Rain Dance
+tm = Sleep Talk, Grass Knot, Thunder Wave, Rest, Taunt, Swords Dance
+tm = Substitute, Shadow Ball, Thunderbolt, Ice Beam, Blizzard, Thunder
+tm = Toxic

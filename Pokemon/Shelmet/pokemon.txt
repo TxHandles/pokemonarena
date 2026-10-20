@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Shelmet
+dex  = 616
+type = Bug
+
+hp         = 50
+attack     = 40
+defense    = 85
+sp_attack  = 40
+sp_defense = 65
+speed      = 25
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 7.7      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_trade = Accelgor      # evolves when traded for a Karrablast (or with a Linking Cord)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Protect
+learn = 1, Absorb
+learn = 4, Acid
+learn = 8, Curse
+learn = 12, Mega Drain
+learn = 16, Struggle Bug
+learn = 20, Yawn
+learn = 24, Acid Armor
+learn = 28, Giga Drain
+learn = 32, Guard Swap
+learn = 36, Body Slam
+learn = 40, Recover
+learn = 44, Bug Buzz
+learn = 48, Final Gambit
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Mud Shot, Venoshock, Endure, Rain Dance
+tm = Body Slam, Sleep Talk, Rest, Spikes, Toxic Spikes, Leech Life
+tm = Substitute, Giga Drain, Energy Ball, Encore, Baton Pass, Sludge Bomb
+tm = Bug Buzz

@@ -1,0 +1,15 @@
+# Chandelure - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3821AD > C05800
+shiny = 4A4945 > 4A523E
+shiny = 4B4B4B > 4B5443
+shiny = 6847E4 > F58200
+shiny = 7590E2 > D69A25
+shiny = 97C1FC > FFC750
+shiny = 9D84BD > FFB12F
+shiny = A59CF6 > EFAD3B
+shiny = AC9ADC > EBAA35
+shiny = C0D1D1 > C1F2C1
+shiny = CDDE9C > CAFBC3
+shiny = FEEE3F > EB70AB
+shiny = FFE419 > E568A2

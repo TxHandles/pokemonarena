@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Kyurem
+dex  = 646
+type = Dragon / Ice
+
+hp         = 125
+attack     = 130
+defense    = 90
+sp_attack  = 130
+sp_defense = 90
+speed      = 95
+
+size   = 1.38
+height = 3.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 325.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Dragon Breath
+learn = 1, Ancient Power
+learn = 1, Noble Roar
+learn = 1, Freeze-Dry
+learn = 8, Slash
+learn = 16, Endeavor
+learn = 24, Dragon Pulse
+learn = 32, Ice Beam
+learn = 40, Hyper Voice
+learn = 48, Scary Face
+learn = 56, Blizzard
+learn = 64, Imprison
+learn = 72, Outrage
+learn = 80, Glaciate
+learn = 88, Sheer Cold
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Ice Fang, Facade, Aerial Ace
+tm = Swift, Icy Wind, Rock Tomb, Fling, Dragon Tail, Avalanche
+tm = Endure, Sunny Day, Rain Dance, Snowscape, Zen Headbutt, Shadow Claw
+tm = Body Slam, Sleep Talk, Reflect, Light Screen, Dragon Claw, Rest
+tm = Rock Slide, Body Press, Imprison, Flash Cannon, Fly, Iron Head
+tm = Dragon Dance, Substitute, Shadow Ball, Dragon Pulse, Hyper Voice, Psychic
+tm = Helping Hand, Earth Power, Ice Beam, Blizzard, Stone Edge, Giga Impact
+tm = Outrage, Focus Blast, Hyper Beam, Draco Meteor, Tera Blast, Roar
+tm = Icicle Spear, Weather Ball, Dual Wingbeat, Scale Shot, Endeavor, Breaking Swipe
+tm = Dragon Cheer

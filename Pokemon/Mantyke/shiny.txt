@@ -1,0 +1,20 @@
+# Mantyke - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 084098 > 003D74
+shiny = 0858C8 > 38769D
+shiny = 103060 > 004765
+shiny = 1F77F7 > 4BADDB
+shiny = 1F78F7 > 4CADDC
+shiny = 2078F8 > 4CAEDC
+shiny = 3A4146 > 003A52
+shiny = 4B69CD > 3E9FCA
+shiny = 5690FD > 67C5F2
+shiny = 606068 > 2B5975
+shiny = 6BA59C > 3F99AC
+shiny = 70C0F0 > 8EECFF
+shiny = 904038 > 5C4654
+shiny = 98C0E0 > 80B7D0
+shiny = 9B4541 > 6D4E4C
+shiny = A2D6FD > 8DCDE9
+shiny = B8E0F8 > 9FD7EA
+shiny = E8E8F8 > C4E2F1

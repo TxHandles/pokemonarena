@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Kricketune
+dex  = 402
+type = Bug
+
+hp         = 77
+attack     = 85
+defense    = 51
+sp_attack  = 55
+sp_defense = 51
+speed      = 65
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 25.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Fury Cutter
+learn = 1, Tackle
+learn = 1, Growl
+learn = 14, Absorb
+learn = 18, Sing
+learn = 22, Focus Energy
+learn = 26, Slash
+learn = 30, X-Scissor
+learn = 34, Screech
+learn = 36, Fell Stinger
+learn = 38, Taunt
+learn = 42, Night Slash
+learn = 44, Sticky Web
+learn = 46, Bug Buzz
+learn = 50, Perish Song
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Struggle Bug, Trailblaze, Pounce, Facade
+tm = Aerial Ace, Endure, Sunny Day, Rain Dance, False Swipe, Brick Break
+tm = Sleep Talk, Rest, Taunt, Swords Dance, Leech Life, Substitute
+tm = X-Scissor, Giga Drain, Hyper Voice, Helping Hand, Baton Pass, Giga Impact
+tm = Bug Buzz, Hyper Beam, Tera Blast, Knock Off, Bug Bite, Lunge
+tm = Uproar, Endeavor, Skitter Smack, Throat Chop

@@ -1,0 +1,25 @@
+# Braviary - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1257A4 > 665548
+shiny = 3F0B00 > 002D67
+shiny = 4191F6 > DD635F
+shiny = 474144 > 554030
+shiny = 474768 > 594836
+shiny = 505A90 > 735A4B
+shiny = 5D5555 > 6C5440
+shiny = 681919 > 064272
+shiny = 7F3337 > 29588C
+shiny = 9A2727 > 0D62A2
+shiny = 9B2828 > 0F62A3
+shiny = 9B8A5F > 9E896E
+shiny = B4472A > 3B7ABB
+shiny = B6930B > C59B05
+shiny = CFC9B0 > DAC6B4
+shiny = D0C7A4 > DBC4A8
+shiny = D1B14B > E3B942
+shiny = D4D4D4 > EFD1B9
+shiny = E2E2E3 > FDDFC8
+shiny = E3E3E3 > FEE0C8
+shiny = E3E3E4 > FEE0C9
+shiny = ECD04E > EECEA9
+shiny = FAFAFA > FFF7DF

@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Floatzel
+dex  = 419
+type = Water
+
+hp         = 85
+attack     = 105
+defense    = 55
+sp_attack  = 85
+sp_defense = 50
+speed      = 115
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 33.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Quick Attack
+learn = 1, Soak
+learn = 1, Ice Fang
+learn = 1, Crunch
+learn = 1, Growl
+learn = 15, Water Gun
+learn = 18, Bite
+learn = 21, Swift
+learn = 24, Aqua Jet
+learn = 29, Double Hit
+learn = 35, Whirlpool
+learn = 41, Liquidation
+learn = 46, Aqua Tail
+learn = 51, Agility
+learn = 57, Hydro Pump
+learn = 62, Wave Crash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Mud-Slap, Scary Face, Protect, Ice Fang
+tm = Water Pulse, Low Kick, Thief, Chilling Water, Facade, Snarl
+tm = Swift, Icy Wind, Rock Tomb, Low Sweep, Fling, Endure
+tm = Rain Dance, Dig, Brick Break, Bulk Up, Body Slam, Ice Punch
+tm = Sleep Talk, Waterfall, Metronome, Rest, Taunt, Substitute
+tm = Crunch, Liquidation, Surf, Ice Spinner, Helping Hand, Baton Pass
+tm = Ice Beam, Hydro Pump, Blizzard, Giga Impact, Focus Blast, Hyper Beam
+tm = Tera Blast, Roar, Focus Punch, Flip Turn, Double-Edge, Whirlpool
+tm = Muddy Water

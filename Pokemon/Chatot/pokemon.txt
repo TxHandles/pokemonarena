@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Chatot
+dex  = 441
+type = Normal / Flying
+
+hp         = 76
+attack     = 65
+defense    = 45
+sp_attack  = 92
+sp_defense = 42
+speed      = 91
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 1.9      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Confide
+learn = 1, Taunt
+learn = 1, Hyper Voice
+learn = 1, Chatter
+learn = 5, Peck
+learn = 9, Growl
+learn = 13, Sing
+learn = 17, Fury Attack
+learn = 29, Round
+learn = 33, Mimic
+learn = 37, Echoed Voice
+learn = 41, Roost
+learn = 45, Uproar
+learn = 49, Parting Shot
+learn = 50, Feather Dance
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Aerial Ace, Sunny Day, Rain Dance
+tm = U-turn, Sleep Talk, Rest, Taunt, Fly, Substitute
+tm = Toxic

@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Watchog
+dex  = 505
+type = Normal
+
+hp         = 60
+attack     = 85
+defense    = 69
+sp_attack  = 60
+sp_defense = 69
+speed      = 77
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 27.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Ultra Sun/Ultra Moon) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Confuse Ray
+learn = 1, Leer
+learn = 1, Tackle
+learn = 1, Rototiller
+learn = 1, Bite
+learn = 1, Low Kick
+learn = 8, Bide
+learn = 11, Detect
+learn = 13, Sand Attack
+learn = 16, Crunch
+learn = 18, Hypnosis
+learn = 22, Super Fang
+learn = 25, After You
+learn = 29, Focus Energy
+learn = 32, Psych Up
+learn = 36, Hyper Fang
+learn = 39, Nasty Plot
+learn = 43, Mean Look
+learn = 46, Baton Pass
+learn = 50, Slam
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Fling, Sunny Day, Rain Dance, Sleep Talk
+tm = Light Screen, Grass Knot, Thunder Wave, Rest, Swords Dance, Substitute
+tm = Shadow Ball, Flamethrower, Thunderbolt, Giga Impact, Focus Blast, Hyper Beam
+tm = Thunder, Toxic, Psych Up

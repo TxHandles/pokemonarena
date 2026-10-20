@@ -1,0 +1,41 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Budew
+dex  = 406
+type = Grass / Poison
+
+hp         = 40
+attack     = 30
+defense    = 35
+sp_attack  = 50
+sp_defense = 70
+speed      = 55
+
+size   = 0.85
+height = 0.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 1.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_friendship = Roselia, 160, day   # very friendly, during the day
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Worry Seed
+learn = 1, Absorb
+learn = 1, Stun Spore
+learn = 1, Growth
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Swift, Venoshock, Endure, Sunny Day
+tm = Rain Dance, Bullet Seed, Sleep Talk, Seed Bomb, Dazzling Gleam, Grass Knot
+tm = Rest, Swords Dance, Spikes, Substitute, Giga Drain, Shadow Ball
+tm = Energy Ball, Sludge Bomb, Leaf Storm, Solar Beam, Uproar, Weather Ball

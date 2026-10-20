@@ -1,0 +1,27 @@
+# Eelektross - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 002031 > 005C32
+shiny = 103141 > 007043
+shiny = 206273 > 31A473
+shiny = 393939 > 2A805C
+shiny = 394A8B > 29956A
+shiny = 424242 > 368B66
+shiny = 5263BC > 4DB489
+shiny = 73B4CD > 73D5BD
+shiny = 7A8BFD > 7DE3B8
+shiny = 828282 > 696972
+shiny = 837241 > 5DBF85
+shiny = 837341 > 7394AC
+shiny = 838383 > 7799A6
+shiny = 9C3110 > 9C315A
+shiny = C5AC7A > A7C5CF
+shiny = C5AC7B > A7C6CF
+shiny = CAB061 > B8D8E6
+shiny = DE7352 > DE738B
+shiny = DEB400 > B4EE08
+shiny = E44951 > CE607C
+shiny = E5E5F7 > DAFEFF
+shiny = EEDEA4 > B0FFD4
+shiny = FAFAFA > ADFFDB
+shiny = FDFD72 > E4FFFF
+shiny = FFD500 > D5FF6A

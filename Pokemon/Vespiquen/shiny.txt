@@ -1,0 +1,14 @@
+# Vespiquen - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = A85830 > C1454D
+shiny = AF6523 > B43E2A
+shiny = B06721 > 921B05
+shiny = B06820 > 921C06
+shiny = B84D2F > B4232D
+shiny = C69B29 > BF4927
+shiny = C86828 > A43006
+shiny = E89818 > CA4F2D
+shiny = F69429 > D55A2B
+shiny = F83068 > F34F94
+shiny = F8C838 > F97E48
+shiny = FCCF2E > FF844C

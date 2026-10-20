@@ -1,0 +1,18 @@
+# Vanillite - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 194770 > 371648
+shiny = 2157A4 > 993FA1
+shiny = 373F81 > 602E69
+shiny = 3F4768 > 672E4F
+shiny = 5A6783 > AB50AD
+shiny = 5F709B > 87676F
+shiny = 5F9BEC > A790AE
+shiny = 648FCB > 9D8496
+shiny = 7081B6 > B26092
+shiny = 709BBF > BB7AA3
+shiny = 9BDAF5 > D0A0E2
+shiny = B6B6DA > D7ADAF
+shiny = D0D0EC > F1C7C3
+shiny = EEF0F5 > FFE6D3
+shiny = EEF0F6 > FFE6D4
+shiny = FAFAFA > FFF0D8

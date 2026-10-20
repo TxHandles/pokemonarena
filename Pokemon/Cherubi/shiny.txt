@@ -1,0 +1,17 @@
+# Cherubi - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284810 > 006000
+shiny = 407818 > 6A9A00
+shiny = 438146 > 83AC00
+shiny = 489810 > 9EB900
+shiny = 502838 > A02021
+shiny = 52C552 > C8E42C
+shiny = 803858 > C7423D
+shiny = B01860 > DA4C48
+shiny = B74669 > DB7556
+shiny = B84878 > F1645B
+shiny = C66283 > F38B6B
+shiny = E06090 > FF8176
+shiny = E8E8F8 > FFE6C0
+shiny = F6719C > FFA685
+shiny = FAFAFA > BFFFF8

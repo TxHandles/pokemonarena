@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Rufflet
+dex  = 627
+type = Normal / Flying
+
+hp         = 70
+attack     = 83
+defense    = 50
+sp_attack  = 37
+sp_defense = 50
+speed      = 60
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 10.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Braviary
+evolve_level = 54
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leer
+learn = 1, Peck
+learn = 6, Hone Claws
+learn = 12, Wing Attack
+learn = 18, Tailwind
+learn = 24, Scary Face
+learn = 30, Aerial Ace
+learn = 36, Slash
+learn = 42, Whirlwind
+learn = 48, Crush Claw
+learn = 55, Air Slash
+learn = 60, Defog
+learn = 66, Thrash
+learn = 72, Brave Bird
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Acrobatics, Facade
+tm = Aerial Ace, Swift, Rock Tomb, Air Cutter, Endure, Sunny Day
+tm = Rain Dance, Zen Headbutt, U-turn, Shadow Claw, Bulk Up, Air Slash
+tm = Body Slam, Sleep Talk, Rest, Rock Slide, Fly, Substitute
+tm = Tailwind, Heat Wave, Helping Hand, Hurricane, Brave Bird, Close Combat
+tm = Tera Blast, Dual Wingbeat, Double-Edge, Feather Dance

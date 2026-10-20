@@ -1,0 +1,12 @@
+# Blitzle - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 009FD4 > 009BDF
+shiny = 2D2D2D > 002D4B
+shiny = 333333 > 0A3352
+shiny = 4D4D4D > 2B4D6E
+shiny = 515252 > 305273
+shiny = 57A0C6 > 09E560
+shiny = 6B6B6A > 4C6B8D
+shiny = CCA42A > C1A248
+shiny = F3F42A > FFE683
+shiny = F7DC00 > F5D573

@@ -1,0 +1,49 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Cherubi
+dex  = 420
+type = Grass
+
+hp         = 45
+attack     = 35
+defense    = 45
+sp_attack  = 62
+sp_defense = 53
+speed      = 35
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 3.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Cherrim
+evolve_level = 25
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Morning Sun
+learn = 5, Leafage
+learn = 10, Growth
+learn = 15, Helping Hand
+learn = 20, Magical Leaf
+learn = 26, Leech Seed
+learn = 30, Take Down
+learn = 35, Petal Blizzard
+learn = 40, Worry Seed
+learn = 45, Solar Beam
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Magical Leaf, Draining Kiss, Endure, Sunny Day
+tm = Bullet Seed, Sleep Talk, Seed Bomb, Dazzling Gleam, Grass Knot, Rest
+tm = Swords Dance, Substitute, Giga Drain, Energy Ball, Helping Hand, Pollen Puff
+tm = Grassy Terrain, Solar Beam, Weather Ball

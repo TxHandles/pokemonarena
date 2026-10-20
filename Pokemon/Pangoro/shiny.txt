@@ -1,0 +1,7 @@
+# Pangoro - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 414041 > 543729
+shiny = 4B4B4F > 604235
+shiny = 5F5E68 > 825648
+shiny = 838288 > A97A69
+shiny = B6B3A8 > CEA990

@@ -1,0 +1,18 @@
+# Sawk - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 123E57 > 243946
+shiny = 123F57 > 212737
+shiny = 124F93 > 2027A6
+shiny = 2F5FBF > 4641BB
+shiny = 3C71BB > 574EC8
+shiny = 4291F6 > 7666F3
+shiny = 475D88 > 484460
+shiny = 4781EC > 695AE5
+shiny = 5F6870 > 5D6366
+shiny = 639AA5 > 829B9F
+shiny = 68A4B6 > 7A9CA5
+shiny = 8A8179 > 7B716F
+shiny = ACF5EC > BFEBE3
+shiny = B3F0FE > D3F1F6
+shiny = E5E5F7 > EFEAF2
+shiny = F3FAFD > F0D2FF

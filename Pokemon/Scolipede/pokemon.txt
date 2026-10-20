@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Scolipede
+dex  = 545
+type = Bug / Poison
+
+hp         = 60
+attack     = 100
+defense    = 89
+sp_attack  = 55
+sp_defense = 69
+speed      = 112
+
+size   = 1.33
+height = 2.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 200.5      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Defense Curl
+learn = 1, Iron Defense
+learn = 1, Baton Pass
+learn = 1, Protect
+learn = 1, Poison Sting
+learn = 1, Rollout
+learn = 12, Poison Tail
+learn = 16, Screech
+learn = 20, Bug Bite
+learn = 26, Venoshock
+learn = 34, Take Down
+learn = 42, Agility
+learn = 50, Toxic
+learn = 58, Venom Drench
+learn = 66, Double-Edge
+learn = 74, Megahorn
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Facade, Bulldoze, Hex, Rock Tomb
+tm = Venoshock, Endure, Sunny Day, Smart Strike, Dig, Sleep Talk
+tm = Poison Jab, Stomping Tantrum, Rest, Rock Slide, Swords Dance, Spikes
+tm = Toxic Spikes, Substitute, Iron Defense, X-Scissor, Baton Pass, Sludge Bomb
+tm = Earthquake, Giga Impact, Hyper Beam, Solar Beam, Gyro Ball, Throat Chop

@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Archeops
+dex  = 567
+type = Rock / Flying
+
+hp         = 75
+attack     = 140
+defense    = 65
+sp_attack  = 112
+sp_defense = 65
+speed      = 110
+
+size   = 1.12
+height = 1.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 32.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Quick Attack
+learn = 1, Leer
+learn = 1, Wing Attack
+learn = 1, Rock Throw
+learn = 9, Dragon Breath
+learn = 12, Ancient Power
+learn = 15, Pluck
+learn = 18, Quick Guard
+learn = 21, U-turn
+learn = 24, Rock Slide
+learn = 27, Scary Face
+learn = 30, Crunch
+learn = 33, Agility
+learn = 36, Tailwind
+learn = 41, Dragon Claw
+learn = 46, Thrash
+learn = 51, Endeavor
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Scary Face, Protect, Acrobatics, Facade, Bulldoze
+tm = Swift, Rock Tomb, Endure, Sandstorm, Dig, Zen Headbutt
+tm = U-turn, Shadow Claw, Air Slash, Sleep Talk, Rock Blast, Dragon Claw
+tm = Rest, Rock Slide, Taunt, Fly, Substitute, Iron Defense
+tm = Crunch, Dragon Pulse, Stealth Rock, Heat Wave, Earth Power, Earthquake
+tm = Stone Edge, Giga Impact, Outrage, Focus Blast, Hyper Beam, Uproar

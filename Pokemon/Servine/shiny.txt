@@ -1,0 +1,24 @@
+# Servine - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 004D00 > 002061
+shiny = 008504 > 054C93
+shiny = 0B4721 > 172840
+shiny = 198A2F > 0F519B
+shiny = 21BF3F > 507DCA
+shiny = 333332 > 101D38
+shiny = 419241 > 007184
+shiny = 553619 > 7D0000
+shiny = 5A524F > 323B59
+shiny = 68370B > 870005
+shiny = 74CF49 > 6B8FDE
+shiny = 817028 > 816030
+shiny = A8A860 > B6B791
+shiny = B63F19 > F50000
+shiny = B8B15C > C1C299
+shiny = BFB657 > C7C79E
+shiny = C35151 > FF1B13
+shiny = D0ECA6 > BBC6E4
+shiny = F4E529 > 81CEDC
+shiny = F5F5AC > FFFFD9
+shiny = FFC721 > FA8F00
+shiny = FFF5B6 > F7FDD9

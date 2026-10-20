@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Krokorok
+dex  = 552
+type = Ground / Dark
+
+hp         = 60
+attack     = 82
+defense    = 45
+sp_attack  = 45
+sp_defense = 45
+speed      = 74
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 33.4      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Krookodile
+evolve_level = 40
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Hone Claws
+learn = 1, Power Trip
+learn = 1, Sand Attack
+learn = 1, Leer
+learn = 9, Sand Tomb
+learn = 12, Scary Face
+learn = 15, Bite
+learn = 18, Torment
+learn = 21, Dig
+learn = 24, Swagger
+learn = 27, Crunch
+learn = 32, Sandstorm
+learn = 35, Foul Play
+learn = 42, Earthquake
+learn = 47, Thrash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Fire Fang, Thunder Fang
+tm = Low Kick, Thief, Facade, Aerial Ace, Bulldoze, Snarl
+tm = Mud Shot, Rock Tomb, Low Sweep, Fling, Dragon Tail, Endure
+tm = Sandstorm, Dig, Brick Break, Shadow Claw, Foul Play, Body Slam
+tm = Sleep Talk, Dragon Claw, Grass Knot, Stomping Tantrum, Rest, Rock Slide
+tm = Taunt, Dark Pulse, Substitute, Crunch, Stealth Rock, Helping Hand
+tm = Earth Power, Sludge Bomb, Earthquake, Stone Edge, Tera Blast, Roar
+tm = Sand Tomb, Spite, Knock Off, Focus Punch, Lash Out, Scale Shot
+tm = Double-Edge, Endeavor, Scorching Sands, Skitter Smack, Breaking Swipe, Curse

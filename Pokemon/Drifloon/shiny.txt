@@ -1,0 +1,12 @@
+# Drifloon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3F3D44 > A6A200
+shiny = 404040 > A5A600
+shiny = 584078 > CEB300
+shiny = 7869B5 > EBDF56
+shiny = 8060B8 > FEDD34
+shiny = 9C8CDE > FFFF78
+shiny = A888E0 > FFFE58
+shiny = C5AE29 > 11A6D9
+shiny = E0B058 > FFFF3B
+shiny = F6F629 > 6DE5FE

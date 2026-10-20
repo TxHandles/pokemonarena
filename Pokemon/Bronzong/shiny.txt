@@ -1,0 +1,19 @@
+# Bronzong - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 213831 > 003300
+shiny = 213931 > 0E3917
+shiny = 284840 > 1D4724
+shiny = 306058 > 1F581E
+shiny = 308880 > 427C3F
+shiny = 387068 > 2F672C
+shiny = 3B4244 > 1E4523
+shiny = 48A098 > 599455
+shiny = 497678 > 386F34
+shiny = 609898 > 579052
+shiny = 629DA5 > 5C9557
+shiny = 8ABDB4 > 89D178
+shiny = 90C0C8 > A4C69C
+shiny = 98A8A8 > 70A666
+shiny = A9B2B1 > 8ACD75
+shiny = CD6941 > 5D8441
+shiny = E3E9ED > C2FFAB

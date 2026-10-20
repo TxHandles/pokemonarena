@@ -1,0 +1,20 @@
+# Shieldon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333232 > 002B56
+shiny = 383838 > 00315C
+shiny = 393633 > 435400
+shiny = 393634 > 2B2462
+shiny = 484848 > 3E3576
+shiny = 525252 > 264A78
+shiny = 585857 > 2D507F
+shiny = 585858 > 2D507F
+shiny = 685030 > 657300
+shiny = 727272 > 4A699B
+shiny = 787878 > 516FA1
+shiny = 908048 > 96A200
+shiny = 9B9B9B > 7591C6
+shiny = AA924C > ACB61E
+shiny = C0A048 > BDC62F
+shiny = E8E8F8 > E5D2FF
+shiny = EEDD8B > FBFF83
+shiny = FAFAFA > F6E2FF

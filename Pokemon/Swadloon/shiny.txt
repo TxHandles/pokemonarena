@@ -1,0 +1,14 @@
+# Swadloon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 12653D > 4D3E00
+shiny = 428B29 > 6A9300
+shiny = 435B3E > 58650D
+shiny = 4D8E27 > 6D8E00
+shiny = 86C205 > A7CA00
+shiny = 8AC331 > AACB1F
+shiny = A4ED49 > CBF442
+shiny = A89720 > AEA500
+shiny = B1B19F > B8BE8E
+shiny = CB9A21 > A69A8A
+shiny = F7E52E > FFF336
+shiny = FDDD41 > F3F2F3

@@ -1,0 +1,16 @@
+# Victini - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 277EB9 > 0083AF
+shiny = 40A3CB > 00A6C7
+shiny = 625A22 > 696C6C
+shiny = 84200C > 6A0000
+shiny = 9D7B25 > 999997
+shiny = B9501F > C01B0B
+shiny = E34220 > DF0012
+shiny = E4A644 > CCC6C2
+shiny = E5A644 > CCC6C3
+shiny = E7A858 > D1CFCD
+shiny = F6E4C2 > FCFDFF
+shiny = F7EB80 > FFFFFB
+shiny = FC651C > FB3B19
+shiny = FDE391 > FCFBF9

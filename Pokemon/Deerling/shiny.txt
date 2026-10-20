@@ -1,0 +1,10 @@
+# Deerling - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 845B0E > B558AC
+shiny = CDC5A4 > D6C59A
+shiny = D89113 > FC97EA
+shiny = F5F5C4 > FFF4BE
+shiny = F6E4C2 > FFDBAB
+shiny = F6EC41 > FFDDFC
+shiny = FAFAFA > FFFAE2
+shiny = FDDC29 > FDD2F1

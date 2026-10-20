@@ -1,0 +1,26 @@
+# Glaceon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 186070 > 0075C7
+shiny = 1E6769 > 578B86
+shiny = 206868 > 588C85
+shiny = 215A73 > 6A717D
+shiny = 2898A8 > 79BDC0
+shiny = 29849C > 6FA9B2
+shiny = 2A98AA > 7ABDC1
+shiny = 2C98AC > 7BBDC3
+shiny = 303F50 > 0059A7
+shiny = 304050 > 0059A8
+shiny = 309088 > 55A1F5
+shiny = 313131 > 49554F
+shiny = 3ABDFF > 5BEAFF
+shiny = 50B8D8 > 9BDFEB
+shiny = 525252 > 6C7972
+shiny = 528494 > 00B1CD
+shiny = 6B6B6B > 4388DA
+shiny = 70C8E0 > 99DCFF
+shiny = 73B5CE > AADDE5
+shiny = 88E0E8 > C7FFFF
+shiny = 94DEFF > E5F8FF
+shiny = B0E8F8 > F6FFFF
+shiny = B4E8F7 > F7FFFF
+shiny = D0E0E8 > FFFDFD

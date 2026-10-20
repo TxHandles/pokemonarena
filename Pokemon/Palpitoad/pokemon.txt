@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Palpitoad
+dex  = 536
+type = Water / Ground
+
+hp         = 75
+attack     = 65
+defense    = 55
+sp_attack  = 65
+sp_defense = 55
+speed      = 69
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 17.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Seismitoad
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Echoed Voice
+learn = 1, Growl
+learn = 1, Supersonic
+learn = 1, Acid
+learn = 12, Mud Shot
+learn = 16, Round
+learn = 20, Bubble Beam
+learn = 24, Flail
+learn = 30, Uproar
+learn = 37, Aqua Ring
+learn = 42, Hyper Voice
+learn = 48, Muddy Water
+learn = 54, Rain Dance
+learn = 60, Hydro Pump
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Icy Wind, Mud Shot, Endure
+tm = Rain Dance, Sleep Talk, Rest, Substitute, Stealth Rock, Hyper Voice
+tm = Surf, Earth Power, Hydro Pump, Sludge Bomb, Scald, Uproar
+tm = Weather Ball, Muddy Water, Sludge Wave

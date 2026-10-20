@@ -1,0 +1,15 @@
+# Tepig - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 45322C > 6A332D
+shiny = 553619 > 793622
+shiny = 674B42 > 8F4C43
+shiny = 684B42 > 904C43
+shiny = 726249 > A0634F
+shiny = C33938 > B49600
+shiny = CB5500 > BD992A
+shiny = CE7329 > D5B80F
+shiny = D66342 > CAA63D
+shiny = EF7C2E > E3BD4F
+shiny = F58B2B > F6D436
+shiny = F7B900 > FFF451
+shiny = FDD441 > FFEB88

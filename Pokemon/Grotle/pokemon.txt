@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Grotle
+dex  = 388
+type = Grass
+
+hp         = 75
+attack     = 89
+defense    = 85
+sp_attack  = 55
+sp_defense = 65
+speed      = 36
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 97.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Torterra
+evolve_level = 32
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Absorb
+learn = 1, Tackle
+learn = 1, Withdraw
+learn = 13, Razor Leaf
+learn = 17, Curse
+learn = 22, Bite
+learn = 27, Mega Drain
+learn = 32, Leech Seed
+learn = 37, Synthesis
+learn = 42, Crunch
+learn = 47, Giga Drain
+learn = 52, Leaf Storm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Trailblaze, Facade, Bulldoze
+tm = Magical Leaf, Mud Shot, Endure, Sunny Day, Bullet Seed, Zen Headbutt
+tm = Body Slam, Sleep Talk, Seed Bomb, Reflect, Light Screen, Grass Knot
+tm = Rest, Swords Dance, Iron Head, Substitute, Crunch, Giga Drain
+tm = Stealth Rock, Energy Ball, Heavy Slam, Amnesia, Earth Power, Grassy Terrain
+tm = Grass Pledge, Leaf Storm, Solar Beam, Tera Blast, Roar, Sand Tomb
+tm = Smack Down, Grassy Glide, Double-Edge, Curse

@@ -1,0 +1,18 @@
+# Simisage - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 056828 > 014828
+shiny = 113E21 > 102620
+shiny = 119A46 > 096A49
+shiny = 123E21 > 002316
+shiny = 123F21 > 112721
+shiny = 129B47 > 0B6B4A
+shiny = 389B51 > 136D4D
+shiny = 39C559 > 3B906B
+shiny = 526049 > 414746
+shiny = 61E077 > 56AA85
+shiny = 79C793 > 499979
+shiny = 9B702F > 93682E
+shiny = C79B4F > BF934E
+shiny = CDAC5E > 52916F
+shiny = FADB8D > F7D189
+shiny = FFC770 > F4C073

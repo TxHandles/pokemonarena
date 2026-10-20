@@ -1,0 +1,15 @@
+# Swanna - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 313131 > 1A1A1A
+shiny = 313152 > 0A0025
+shiny = 333333 > 1C1C1C
+shiny = 363636 > 1F1F1F
+shiny = 404040 > 282828
+shiny = 414156 > 503B62
+shiny = 4173AC > 6B6BAA
+shiny = 525252 > 393939
+shiny = 6294B4 > 44557C
+shiny = 6373D5 > 816EC7
+shiny = 79BAF3 > 8669DC
+shiny = A47320 > 7D4F00
+shiny = F4F449 > FDCB48

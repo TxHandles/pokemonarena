@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Sawsbuck
+dex  = 586
+type = Normal / Grass
+
+hp         = 80
+attack     = 100
+defense    = 70
+sp_attack  = 60
+sp_defense = 70
+speed      = 95
+
+size   = 1.12
+height = 1.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 92.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Horn Leech
+learn = 1, Growl
+learn = 1, Sand Attack
+learn = 1, Tackle
+learn = 1, Megahorn
+learn = 10, Double Kick
+learn = 13, Leech Seed
+learn = 16, Bullet Seed
+learn = 20, Take Down
+learn = 24, Zen Headbutt
+learn = 28, Energy Ball
+learn = 36, Charm
+learn = 44, Double-Edge
+learn = 52, Solar Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Agility, Protect, Trailblaze
+tm = Facade, Bulldoze, Magical Leaf, Endure, Sunny Day, Rain Dance
+tm = Smart Strike, Dig, Bullet Seed, Zen Headbutt, Body Slam, Sleep Talk
+tm = Seed Bomb, Light Screen, Grass Knot, Thunder Wave, Stomping Tantrum, Rest
+tm = Swords Dance, Substitute, Giga Drain, Shadow Ball, Energy Ball, Play Rough
+tm = Helping Hand, Baton Pass, Grassy Terrain, Wild Charge, Giga Impact, Leaf Storm
+tm = Hyper Beam, Solar Beam, Tera Blast, High Horsepower, Grassy Glide, Double-Edge
+tm = Endeavor, Petal Blizzard, Throat Chop, Curse

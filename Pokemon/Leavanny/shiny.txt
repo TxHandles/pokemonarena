@@ -1,0 +1,15 @@
+# Leavanny - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 208E45 > 6DBF00
+shiny = 475942 > 3D7818
+shiny = 4D8E27 > A5AF00
+shiny = 50992F > AFB906
+shiny = 7E6D0B > A45500
+shiny = 86C205 > D7F700
+shiny = 98DB3E > EFFF2F
+shiny = A89720 > C0D900
+shiny = CC9B21 > AF8825
+shiny = F7E52E > F1C75E
+shiny = FAFAFA > FFFFA7
+shiny = FD5BB2 > DC69B4
+shiny = FDDC29 > ECC25A

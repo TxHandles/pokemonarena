@@ -1,0 +1,16 @@
+# Gothita - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 053D7E > 41385A
+shiny = 246DA4 > 4E344D
+shiny = 272727 > 26273E
+shiny = 2E97F7 > 8590C3
+shiny = 363636 > 36364E
+shiny = 413E43 > 403E5A
+shiny = 4D273D > 4D272D
+shiny = 6D3D36 > 7C223E
+shiny = 865D75 > 7C628B
+shiny = 968CC5 > AA86A4
+shiny = C27EB1 > BC829A
+shiny = C2ADC8 > D0A7B2
+shiny = D05A76 > C1636E
+shiny = E5E5F7 > F5E0E4
