@@ -95,9 +95,17 @@ bool LegendOpen(const Game& g, int id, std::string* why) {
             if (!done) { if (why) *why = std::string(L.hint) + "."; return false; }
         } break;
         case LegendUnlock::AfterCatch: {
-            int other = -1;
-            for (int i = 0; i < LEGEND_COUNT; i++) if (std::string(Legend(i).species) == L.after) other = i;
-            if (other < 0 || LegendCaughtBy(g, other) < 0) { if (why) *why = std::string(L.hint) + "."; return false; }
+            std::string list = L.after;   // "Regirock,Regice,Registeel": every one of them
+            size_t a = 0;
+            while (a <= list.size()) {
+                size_t b = list.find(',', a);
+                if (b == std::string::npos) b = list.size();
+                std::string name = list.substr(a, b - a);
+                int other = -1;
+                for (int i = 0; i < LEGEND_COUNT; i++) if (name == Legend(i).species) other = i;
+                if (other < 0 || LegendCaughtBy(g, other) < 0) { if (why) *why = std::string(L.hint) + "."; return false; }
+                a = b + 1;
+            }
         } break;
     }
     if (SpeciesOf(id) < 0) { if (why) *why = "This Pokemon is missing from the Pokemon folder."; return false; }
@@ -177,11 +185,11 @@ void UpdateLegends(Game& g) {
     if (g.coop && g.on.active) {   // online: both pick the same encounter
         if (OnlineWaiting(g)) return;
         if (HealthyCount(Prof(g, g.on.me)) == 0) { Toast(g, "Your party has all fainted! Visit the Healing Center first."); return; }
-        OnlineSetReady(g, 200 + id);
+        OnlineSetReady(g, KIND_LEGEND + id);
         EnterStoryHub(g);
         g.hubSel = HubLegendItem(g);
         const std::string& pn = g.coopP[1 - g.on.me].name;
-        Toast(g, g.on.partnerReady == 200 + id ? std::string("Off to find ") + Legend(id).species + "!"
+        Toast(g, g.on.partnerReady == KIND_LEGEND + id ? std::string("Off to find ") + Legend(id).species + "!"
                                                : "Waiting for " + pn + " to pick " + Legend(id).species + " on the Map's Legendary tab too.");
         return;
     }
@@ -213,11 +221,17 @@ void DrawLegends(const Game& g) {
     }
     int x = 416, w = 216;
     int avg = PartyAvg(g);
-    int rowH = std::min(44, 222 / std::max(1, (int)list.size()));
-    for (int row = 0; row < (int)list.size(); row++) {
+    int shown = std::min(10, (int)list.size());   // Sinnoh and Unova have more than fit: the list scrolls with the selection
+    int selRow = 0;
+    for (int row = 0; row < (int)list.size(); row++) if (list[row] == g.legendSel) selRow = row;
+    int first = std::max(0, std::min(selRow - shown / 2, (int)list.size() - shown));
+    int rowH = std::min(44, 222 / std::max(1, shown));
+    if (first > 0) GDrawText("^", x + w - 10, 0, 10, UI_DIM);
+    if (first + shown < (int)list.size()) GDrawText("v", x + w - 10, 6 + shown * rowH - 4, 10, UI_DIM);
+    for (int row = first; row < first + shown; row++) {
         int i = list[row];
         const LegendDef& L = Legend(i);
-        int y = 6 + row * rowH;
+        int y = 6 + (row - first) * rowH;
         bool sel = g.legendSel == i;
         std::string why;
         bool open = LegendOpen(g, i, &why);
@@ -249,8 +263,9 @@ void DrawLegends(const Game& g) {
         else if (open) { status = TextFormat("Waiting - about Lv%d", LegendLevel(i, avg)); sc = GymColor(L.arena); }
         else status = L.unlock == LegendUnlock::Badges8 ? "Needs all 8 badges" : L.unlock == LegendUnlock::Champion ? "Champion only"
                     : L.unlock == LegendUnlock::AfterStage || L.unlock == LegendUnlock::AfterCatch ? L.hint : "Needs the Old Sea Map";
+        while (status.size() > 3 && x + 44 + TextW(status.c_str(), 10) > x + w - 4) status = status.substr(0, status.size() - 4) + "..";   // fit the row
         GDrawText(status.c_str(), x + 44, y + ty + step * 2, 10, sc);
-        if (g.on.active && g.on.partnerReady == 200 + i) GDrawText("<", x + w - 12, y + 4, 10, kP2);
+        if (g.on.active && g.on.partnerReady == KIND_LEGEND + i) GDrawText("<", x + w - 12, y + 4, 10, kP2);
     }
     // The selected one: its story and the rules
     const LegendDef& L = Legend(g.legendSel);
@@ -265,8 +280,8 @@ void DrawLegends(const Game& g) {
     GDrawText(g.coop ? "Win 2v1, then 6 balls - taking turns, the MVP first. One of you keeps it."
                     : "Weaken it, then you get 3 balls. If it breaks free, it flees - come back and try again.",
              10, 330, 10, UI_DIM);
-    if (g.on.active && g.on.partnerReady >= 200 && g.on.partnerReady < 200 + LEGEND_COUNT)
-        GDrawText(TextFormat("%s wants to go after %s - pick it too!", g.coopP[1 - g.on.me].name.c_str(), Legend(g.on.partnerReady - 200).species), 10, 316, 10, kP2);
+    if (g.on.active && IsLegendKind(g.on.partnerReady) && g.on.partnerReady - KIND_LEGEND < LEGEND_COUNT)
+        GDrawText(TextFormat("%s wants to go after %s - pick it too!", g.coopP[1 - g.on.me].name.c_str(), Legend(g.on.partnerReady - KIND_LEGEND).species), 10, 316, 10, kP2);
     {
         const char* help = "Up/Down choose   Enter: find it   Esc: back";
         GDrawText(help, x + w - TextW(help, 10), 346, 10, UI_DIM);
@@ -372,14 +387,14 @@ void Caught(Game& g) {
     }
     c.caughtBy = who;
     if (g.coop) {
-        g.coopSave.legends |= 1 << c.id;
+        g.coopSave.legends |= 1ull << c.id;
         g.coopSave.legendWho[c.id] = who;
         if (mine) g.coopSave.run[who & 1].caught++;
         SaveWho(g, who);
         if (g.on.active) OnlineSendCoop(g);
         else SaveCoop(g.coopSave);
     } else {
-        g.profile.legends |= 1 << c.id;
+        g.profile.legends |= 1ull << c.id;
         SaveWho(g, 0);
     }
     PlaySfx(Sfx::LevelUp);

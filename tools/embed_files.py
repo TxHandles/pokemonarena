@@ -10,7 +10,7 @@ SKIP_NAMES = {"load_log.txt", "MOVE-LIST.txt"}
 SKIP_DIRS = {"converted"}
 
 files = []
-for rel in ["story.txt", "wild.txt", "map.png", "johto.png", "hoenn.png"]:
+for rel in ["story.txt", "wild.txt", "map.png", "johto.png", "hoenn.png", "sinnoh.png", "unova.png"]:
     if os.path.exists(os.path.join(ROOT, rel)):
         files.append(rel)
 for top in ["Pokemon", "Badges", "Leaders", "World"]:

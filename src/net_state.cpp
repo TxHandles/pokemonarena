@@ -123,6 +123,7 @@ struct Ar {
         v(f.center);
         v(f.tiles); v(f.phaseT); v(f.phase); v(f.warnT); v(f.jamT); v(f.rainOwner); v(f.rainT); v(f.surgeT); v(f.surgeDir);
         v(f.scaleOwner); v(f.scaleT); v(f.glowOwner); v(f.glowT);
+        v(f.xT); v(f.xI); v(f.xMarks); v(f.sideT); v(f.sideFrom); v(f.sideTo);
     }
     void v(Projectile& p) {
         v(p.hit); v(p.pos); v(p.vel); v(p.traveled); v(p.maxDist); v(p.radius); v(p.homing); v(p.lob); v(p.drop); v(p.start);
@@ -191,6 +192,9 @@ struct BattleIO {
         f(b.field.strikeT); f(b.field.blinkT);
         for (const auto& t : b.field.tiles) { i(t.state); f(t.standT); }
         i(b.field.phase); f(b.field.phaseT); f(b.field.rainT); f(b.field.surgeT); f(b.field.scaleT); f(b.field.glowT);
+        for (float x : b.field.xT) f(x);
+        for (int x : b.field.xI) i(x);
+        for (float x : b.field.sideT) f(x);
         i(b.field.center.phase); f(b.field.center.t); f(b.field.center.pos.x); f(b.field.center.charge); i(b.field.center.owner);
         return h;
     }

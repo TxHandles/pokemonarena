@@ -13,13 +13,21 @@ const char* kNames[ARENA_COUNT] = {"Stadium", "Stone Gym", "Cascade Gym", "Power
                                    "Seafoam Depths", "Power Plant", "Moltres's Nest", "Cerulean Cave", "Faraway Island",
                                    "Skyway Gym", "Hive Gym", "Moomoo Gym", "Lighthouse Gym", "Shadow Chamber", "Champion's Hall",
                                    "Balance Gym", "Twin Moons Gym", "Sootopolis Gym", "Waterfall Hall", "Meteor Falls",
-                                   "Desert Ruins", "Ancient Tomb", "Marine Cave", "Sky Pillar", "Birth Island"};
+                                   "Desert Ruins", "Ancient Tomb", "Marine Cave", "Sky Pillar", "Birth Island",
+                                   "Hearthome Gym", "Pastoria Gym", "Sunyshore Gym", "Cynthia's Room", "Distortion World",
+                                   "Spear Pillar", "Spear Pillar Rift", "Newmoon Island", "Hall of Origin",
+                                   "Striaton Restaurant", "Nimbasa Gym", "Mistralton Gym", "Plasma Throne Room", "Alder's Hall",
+                                   "Dragonspiral Tower", "Giant Chasm", "Abundant Shrine"};
 const char* kKeys[ARENA_COUNT] = {"stadium", "rock", "water", "electric", "grass", "poison", "psychic", "fire", "ground",
                                   "ice", "fighting", "ghost", "dragon", "champion",
                                   "seafoam", "powerplant", "ember", "unknown", "faraway",
                                   "flying", "bug", "normal", "steel", "dark", "johtochampion",
                                   "balance", "twinmoons", "sootopolis", "hoennchampion", "meteorfalls",
-                                  "desertruins", "ancienttomb", "marinecave", "skypillar", "birthisland"};
+                                  "desertruins", "ancienttomb", "marinecave", "skypillar", "birthisland",
+                                  "hearthome", "pastoria", "sunyshore", "sinnohchampion", "distortion",
+                                  "speartime", "spearspace", "newmoon", "hallorigin",
+                                  "striaton", "nimbasa", "mistralton", "throneroom", "unovachampion",
+                                  "dragonspiral", "giantchasm", "abundantshrine"};
 
 float Rf(float a, float b) { return a + (b - a) * (float)SimRand(0, 10000) / 10000.0f; }
 
@@ -116,6 +124,23 @@ const char* ArenaTwist(ArenaKind k) {
         case ArenaKind::MarineCave: return "Kyogre's flooded cave: endless rain, deep water that only Water types swim through, and spouts that burst up under the challengers.";
         case ArenaKind::SkyPillar: return "The top of the Sky Pillar: the floor crumbles under anyone who stands still, gusts sweep across, and dragon meteors fall on the challengers.";
         case ArenaKind::BirthIsland: return "Bare rock under a strange triangle: Deoxys teleports around the island, and psychic shards fall on the challengers.";
+        case ArenaKind::Hearthome: return "Fantina's hall: lights out, wisps drift, and Ghost types are faster and stronger in the dark. Walk into a door and you come out of the one with the same shape - the shapes swap every few seconds. Hit the chandelier to light the hall; a Ghost hit drops it instead.";
+        case ArenaKind::Pastoria: return "Wake's floodgates: the water rises and falls. At low water the walkways are dry; at high water only the raised platforms are. Water types swim fast, and hit harder at high water. Hit the switch to change the level - Electric shorts it and shocks everyone in the water.";
+        case ArenaKind::Sunyshore: return "Volkner's gears carry you round and fling you off when they reverse, and their teeth spark. Electric types on a gear are faster and stronger. Hits charge the solar panel - when it's full, the next hit beams sunlight over your foes' side and powers up your Electric moves. Ground drains it.";
+        case ArenaKind::SinnohChampion: return "Cynthia's room: the spotlight powers up whoever stands in it (Dragon and Ground types stand firmer there), and ancient columns crumble and rise again. Hit the mural to call on Uxie, Mesprit or Azelf for your side.";
+        case ArenaKind::Distortion: return "The Distortion World: floating islands over the void, and gravity turns to a new edge every few seconds - fall off and you lose health. Ghost and Dragon types are stronger, and Ghosts ignore the pull. Hit the rift to turn gravity on your foes.";
+        case ArenaKind::SpearTime: return "Spear Pillar, frozen in time: patches of slowed time drift after the challengers, and shards of time fall where the markers glow.";
+        case ArenaKind::SpearSpace: return "Spear Pillar, torn open: portals move every few seconds, and spatial rifts slash across the marked lines.";
+        case ArenaKind::Newmoon: return "Newmoon Island: lights out but for drifting pools of light. Dark Void clouds drift after the challengers and put them to sleep, and shadow shards fall where the markers glow.";
+        case ArenaKind::HallOrigin: return "The Hall of Origin: Arceus's Plate changes every few seconds, and Judgment shards of that type fall on the challengers.";
+        case ArenaKind::Striaton: return "Three tables: the grill, the fountain and the herb bed. Each powers up its own type and hurts everyone else (Normal types take half). Ring the bell to rotate the tables - and put one out with the type that beats it.";
+        case ArenaKind::Nimbasa: return "Coaster trains race along the glowing tracks - get off the rails when they light up! Electric types strut faster and stronger on the runway. Hit the switch to send the next train only at your foes - Ground jams it.";
+        case ArenaKind::Mistralton: return "Step on a cannon pad and it fires you across the hangar - landing shoves anyone nearby. Flying types land running; everyone else is dizzy. Hit the propeller to blow a gust at your foes - Electric stalls it.";
+        case ArenaKind::ThroneRoom: return "N's throne room: white flame and blue lightning strike the glowing marks, and Dragon types are stronger. Hit the white pillar to power up your Fire moves, or the blue one for Electric.";
+        case ArenaKind::UnovaChampion: return "Alder's hall: the spotlight powers up whoever stands in it (Bug types most), and the braziers flare on the glowing marks - Fire types don't mind. Hit the great brazier for sunshine on your side - Water puts it out.";
+        case ArenaKind::Dragonspiral: return "The top of Dragonspiral Tower in a storm: old coils crackle, rain pours, and lightning strikes the challengers where the markers glow.";
+        case ArenaKind::GiantChasm: return "The Giant Chasm's freezing fog: endless snow, ice rinks and pillars, and Glaciate shards fall on the challengers.";
+        case ArenaKind::AbundantShrine: return "The Abundant Shrine's harvest field: Landorus hides in the tall grass, and tremors ring out across the field from the marked spots.";
         default: return "A classic stadium. No tricks.";
     }
 }
@@ -444,6 +469,161 @@ void Field::Build(ArenaKind k, Venue v, int seasonIn) {
             strikeT = 4.0f;
             blinkT = 9.0f;
             break;
+        case ArenaKind::Hearthome: {   // gravestone candles, wisps, and four shape-marked doors
+            AddObstacles(*this, Obstacle::Pillar, 4, 9, 22, 110, 90, 150, ARENA_W - 150);
+            for (int i = 0; i < 2; i++) {
+                Wisp w;
+                w.seed = (uint32_t)SimRand(1, 0x3fffffff);
+                w.respawnT = 3.0f + i * 3.0f;
+                wisps.push_back(w);
+            }
+            xMarks = {{ARENA_W * 0.3f, 22}, {ARENA_W * 0.7f, 22}, {ARENA_W * 0.3f, ARENA_H - 18}, {ARENA_W * 0.7f, ARENA_H - 18}};
+            xI[0] = SimRand(0, 2);   // how the doors pair up
+            xT[0] = 10.0f;
+        } break;
+        case ArenaKind::Pastoria: {   // the floodgates: platforms where the teams start, walkways that flood
+            for (int s = 0; s < 2; s++) {
+                Zone z;
+                z.kind = Zone::Platform;
+                z.pos = kSpawns[s];
+                z.rx = 44;
+                z.ry = 40;
+                z.seed = (uint32_t)SimRand(1, 0x3fffffff);
+                zones.push_back(z);
+            }
+            const Vector2 raised[2] = {{ARENA_W / 2, ARENA_H * 0.18f}, {ARENA_W / 2, ARENA_H * 0.82f}};
+            for (const Vector2& p : raised) {
+                Zone z;
+                z.kind = Zone::Platform;
+                z.pos = p;
+                z.rx = 34;
+                z.ry = 26;
+                z.seed = (uint32_t)SimRand(1, 0x3fffffff);
+                zones.push_back(z);
+            }
+            const Vector2 walks[6] = {{ARENA_W * 0.32f, ARENA_H * 0.3f}, {ARENA_W * 0.68f, ARENA_H * 0.3f}, {ARENA_W * 0.32f, ARENA_H * 0.7f},
+                                      {ARENA_W * 0.68f, ARENA_H * 0.7f}, {ARENA_W * 0.5f, ARENA_H * 0.5f}, {ARENA_W * 0.2f, ARENA_H * 0.5f}};
+            for (int i = 0; i < 6; i++) {
+                Zone z;
+                z.kind = Zone::Walk;
+                z.pos = i == 5 ? Vector2{ARENA_W * 0.8f, ARENA_H * 0.5f} : walks[i];
+                if (i == 4) continue;   // the switch stands on its own rock in the middle
+                z.rx = Rf(46, 56);
+                z.ry = z.rx * Rf(0.55f, 0.7f);
+                z.seed = (uint32_t)SimRand(1, 0x3fffffff);
+                zones.push_back(z);
+            }
+            xI[0] = 0;   // 0 low water, 1 high water
+            xT[0] = 12.0f;
+        } break;
+        case ArenaKind::Sunyshore:   // three gears in the floor; the solar panel stands in the middle
+            xMarks = {{ARENA_W * 0.3f, ARENA_H * 0.27f}, {ARENA_W * 0.7f, ARENA_H * 0.27f}, {ARENA_W * 0.5f, ARENA_H * 0.8f}};
+            xI[0] = SimRand(0, 1) ? 1 : -1;   // which way the gears turn
+            xT[0] = 8.0f;
+            break;
+        case ArenaKind::SinnohChampion: {   // the spotlight, and four ancient columns
+            spot = spotTo = {ARENA_W / 2, ARENA_H / 2};
+            spotT = 5.0f;
+            const Vector2 q[4] = {{ARENA_W * 0.33f, ARENA_H * 0.22f}, {ARENA_W * 0.67f, ARENA_H * 0.22f}, {ARENA_W * 0.33f, ARENA_H * 0.78f}, {ARENA_W * 0.67f, ARENA_H * 0.78f}};
+            for (const Vector2& p : q) {
+                Obstacle o;
+                o.kind = Obstacle::Pillar;
+                o.pos = p;
+                o.radius = 11;
+                o.height = 34;
+                o.seed = (uint32_t)SimRand(1, 0x3fffffff);
+                obs.push_back(o);
+            }
+        } break;
+        case ArenaKind::Distortion:
+            AddObstacles(*this, Obstacle::Boulder, 3, 9, 12, 120, 90, 200, ARENA_W - 200, 170, ARENA_H - 170);
+            xT[0] = 12.0f;   // the next gravity shift
+            xI[0] = SimRand(0, 3);
+            strikeT = 5.0f;
+            break;
+        case ArenaKind::SpearTime:
+        case ArenaKind::SpearSpace:   // the ruined columns of Spear Pillar
+            AddObstacles(*this, Obstacle::Pillar, 5, 11, 32, 100, 85, 150, ARENA_W - 150);
+            strikeT = 4.0f;
+            if (k == ArenaKind::SpearTime) {   // two patches of slowed time
+                lights = lightTo = {{ARENA_W * 0.35f, ARENA_H * 0.3f}, {ARENA_W * 0.35f, ARENA_H * 0.7f}};
+            } else {
+                PlacePortals();
+                xT[0] = 8.0f;   // the portals move
+                xT[1] = 6.0f;   // the next rift
+            }
+            break;
+        case ArenaKind::Newmoon:
+            AddObstacles(*this, Obstacle::Tree, 5, 10, 36, 80, 75);
+            for (int i = 0; i < 3; i++) {
+                Vector2 p{ARENA_W * (0.25f + 0.25f * i), ARENA_H * (i == 1 ? 0.3f : 0.65f)};
+                lights.push_back(p);
+                lightTo.push_back(p);
+            }
+            lightT = 3.0f;
+            for (int i = 0; i < 2; i++) {   // Dark Void clouds
+                Wisp w;
+                w.seed = (uint32_t)SimRand(1, 0x3fffffff);
+                w.respawnT = 3.0f + i * 2.5f;
+                wisps.push_back(w);
+            }
+            strikeT = 4.0f;
+            break;
+        case ArenaKind::HallOrigin:
+            xI[0] = (int)Type::Normal;
+            xT[0] = 10.0f;
+            strikeT = 4.0f;
+            break;
+        case ArenaKind::Striaton: {   // three tables round the bell: the grill, the fountain and the herb bed
+            const Vector2 t[3] = {{ARENA_W / 2, ARENA_H * 0.2f}, {ARENA_W * 0.32f, ARENA_H * 0.76f}, {ARENA_W * 0.68f, ARENA_H * 0.76f}};
+            for (const Vector2& p : t) {
+                Zone z;
+                z.kind = Zone::Table;
+                z.pos = p;
+                z.rx = 46;
+                z.ry = 34;
+                zones.push_back(z);
+            }
+            xI[0] = 0;
+        } break;
+        case ArenaKind::Nimbasa:   // two coaster tracks crossing the floor, the runway down the middle
+            xMarks = {{30, 50}, {ARENA_W - 30, ARENA_H - 50}, {30, ARENA_H - 50}, {ARENA_W - 30, 50}};
+            xT[0] = 6.0f;
+            xI[0] = -1;   // no train running
+            xI[3] = -1;   // nobody has thrown the switch
+            break;
+        case ArenaKind::Mistralton:   // four cannon pads near the walls
+            xMarks = {{70, 70}, {ARENA_W - 70, 70}, {70, ARENA_H - 70}, {ARENA_W - 70, ARENA_H - 70}};
+            AddObstacles(*this, Obstacle::Crate, 2, 11, 18, 140, 100, 180, ARENA_W - 180);
+            xI[0] = -1;
+            break;
+        case ArenaKind::ThroneRoom:
+            AddObstacles(*this, Obstacle::Pillar, 4, 10, 34, 130, 95, 170, ARENA_W - 170, 70, ARENA_H - 70);
+            xT[0] = 6.0f;
+            xI[1] = -1;
+            break;
+        case ArenaKind::UnovaChampion:
+            spot = spotTo = {ARENA_W / 2, ARENA_H / 2};
+            spotT = 5.0f;
+            xMarks = {{ARENA_W * 0.25f, ARENA_H * 0.2f}, {ARENA_W * 0.75f, ARENA_H * 0.2f}, {ARENA_W * 0.25f, ARENA_H * 0.8f}, {ARENA_W * 0.75f, ARENA_H * 0.8f}};
+            xT[0] = 10.0f;
+            xI[0] = -1;
+            break;
+        case ArenaKind::Dragonspiral:
+            AddObstacles(*this, Obstacle::Coil, 3, 10, 34, 150, 110, 120, ARENA_W - 120, 80, ARENA_H - 80);
+            AddObstacles(*this, Obstacle::Pillar, 3, 10, 30, 120, 90, 150, ARENA_W - 150);
+            strikeT = 4.0f;
+            break;
+        case ArenaKind::GiantChasm:
+            AddObstacles(*this, Obstacle::Pillar, 5, 11, 28, 100, 80, 150, ARENA_W - 150);
+            AddRinks(*this, 3, false);
+            strikeT = 4.0f;
+            break;
+        case ArenaKind::AbundantShrine:
+            AddZones(*this, Zone::TallGrass, 7, 45, 75, 40, 80);
+            AddObstacles(*this, Obstacle::Tree, 4, 10, 36, 70, 70);
+            xT[0] = 6.0f;
+            break;
         case ArenaKind::JohtoChampion: {
             spot = spotTo = {ARENA_W / 2, ARENA_H / 2};
             spotT = 5.0f;
@@ -488,6 +668,16 @@ void Field::PlaceCenterpiece() {
         case ArenaKind::Sootopolis: ck = Centerpiece::Font; break;
         case ArenaKind::HoennChampion: ck = Centerpiece::Crystal; break;
         case ArenaKind::MeteorFalls: ck = Centerpiece::Meteorite; break;
+        case ArenaKind::Hearthome: ck = Centerpiece::Chandelier; break;
+        case ArenaKind::Pastoria: ck = Centerpiece::Floodgate; break;
+        case ArenaKind::Sunyshore: ck = Centerpiece::SolarPanel; break;
+        case ArenaKind::SinnohChampion: ck = Centerpiece::Mural; break;
+        case ArenaKind::Distortion: ck = Centerpiece::Rift; break;
+        case ArenaKind::Striaton: ck = Centerpiece::Bell; break;
+        case ArenaKind::Nimbasa: ck = Centerpiece::TrackSwitch; break;
+        case ArenaKind::Mistralton: ck = Centerpiece::Propeller; break;
+        case ArenaKind::ThroneRoom: ck = Centerpiece::Pillars; break;
+        case ArenaKind::UnovaChampion: ck = Centerpiece::Brazier; break;
         default: return;
     }
     Centerpiece& c = center;
@@ -513,6 +703,16 @@ void Field::PlaceCenterpiece() {
         case Centerpiece::Font:      c.radius = 14; clear = 0; break;
         case Centerpiece::Crystal:   c.radius = 13; clear = 50; break;
         case Centerpiece::Meteorite: c.radius = 22; clear = 60; break;
+        case Centerpiece::Chandelier: c.radius = 14; clear = 50; break;
+        case Centerpiece::Floodgate: c.radius = 14; clear = 0; break;
+        case Centerpiece::SolarPanel: c.radius = 18; clear = 54; c.charge = 20; break;
+        case Centerpiece::Mural:      c.radius = 18; clear = 54; break;
+        case Centerpiece::Rift:       c.radius = 14; clear = 54; break;
+        case Centerpiece::Bell:       c.radius = 13; clear = 50; break;
+        case Centerpiece::TrackSwitch: c.radius = 12; clear = 48; break;
+        case Centerpiece::Propeller:  c.radius = 16; clear = 54; break;
+        case Centerpiece::Pillars:    c.radius = 20; clear = 58; break;
+        case Centerpiece::Brazier:    c.radius = 16; clear = 54; break;
         default: break;
     }
     if (ck == Centerpiece::Drain) {   // the middle of the pool: the drain replaces the platform there
@@ -606,7 +806,7 @@ bool Field::IsWater(Vector2 p) const {
     if (kind == ArenaKind::Sootopolis) return Broken(p);
     if (Rules() != ArenaKind::Water) return false;
     for (const auto& z : zones)
-        if (z.kind == Zone::Platform && z.Contains(p)) return false;
+        if ((z.kind == Zone::Platform || (z.kind == Zone::Walk && kind == ArenaKind::Pastoria && xI[0] == 0)) && z.Contains(p)) return false;
     return true;
 }
 
@@ -619,4 +819,17 @@ bool Field::InZone(Vector2 p, Zone::Kind k, float pad) const {
 bool Field::InSpikes(Vector2 p) const {
     if (spikeBand <= 0) return false;
     return p.x < spikeBand || p.x > ARENA_W - spikeBand || p.y < spikeBand || p.y > ARENA_H - spikeBand * 0.7f;
+}
+
+// The Distortion World's floating ground: a cross of islands, with the void in the corners and gaps.
+bool DistortionGround(Vector2 p) {
+    struct E { float x, y, rx, ry; };
+    static const E isl[5] = {{120, ARENA_H_F / 2, 100, 118}, {ARENA_W_F - 120, ARENA_H_F / 2, 100, 118}, {ARENA_W_F / 2, ARENA_H_F / 2, 108, 92},
+                             {ARENA_W_F / 2, ARENA_H_F * 0.19f, 84, 62}, {ARENA_W_F / 2, ARENA_H_F * 0.81f, 84, 62}};
+    for (const E& e : isl) {
+        float dx = (p.x - e.x) / e.rx, dy = (p.y - e.y) / e.ry;
+        float w = Wobble(0x51ab3 + (uint32_t)e.x * 7 + (uint32_t)e.y, std::atan2(dy, dx));
+        if (dx * dx + dy * dy <= w * w) return true;
+    }
+    return false;
 }

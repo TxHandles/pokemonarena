@@ -821,11 +821,12 @@ void StartBattleFromSelect(Game& g) {
             su.daylight = !su.night;
             su.weather = RollSeasonWeather(SeasonOf(clock));
         }
-        if (su.arena == ArenaKind::Ice) su.weather = Weather::Snow;   // it never stops snowing in Lorelei's chamber
+        if (su.arena == ArenaKind::Ice || su.arena == ArenaKind::GiantChasm) su.weather = Weather::Snow;   // it never stops snowing in Lorelei's chamber
         if (g.legend >= 0) {   // a legendary brings its own weather
             su.night = false;
             su.daylight = true;
-            su.weather = su.arena == ArenaKind::Seafoam ? Weather::Snow : su.arena == ArenaKind::PowerPlant || su.arena == ArenaKind::MarineCave ? Weather::Rain
+            su.weather = su.arena == ArenaKind::Seafoam || su.arena == ArenaKind::GiantChasm ? Weather::Snow
+                       : su.arena == ArenaKind::PowerPlant || su.arena == ArenaKind::MarineCave || su.arena == ArenaKind::Dragonspiral ? Weather::Rain
                        : su.arena == ArenaKind::Ember ? Weather::Sun : su.arena == ArenaKind::DesertRuins ? Weather::Sand : Weather::None;
         }
     }

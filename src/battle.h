@@ -521,6 +521,19 @@ private:
     void DrawHoennFloor() const;
     void DrawHoennTop() const;
     void DrawHoennCenterBody(const Obstacle& o) const;
+    // Sinnoh and Unova arenas (battle_gen45.cpp)
+    void UpdateGen45(float dt);
+    void Gen45EffectsOn(int s, float dt);
+    float Gen45MoveMul(int s, Type t, bool special) const;
+    Vector2 Gen45Pull(int s) const;
+    void Gen45FieldReact(Vector2 at, const HitSpec& h, float radius);
+    void Gen45CenterUpdate(float dt);
+    void Gen45CenterHit(const HitSpec& h, Vector2 dir, bool physical);
+    void DrawGen45Floor() const;
+    void DrawGen45Top() const;
+    void DrawGen45CenterBody(const Obstacle& o) const;
+    int LairBoss() const;                     // the legendary boss's slot (-1: an ordinary battle)
+    void DropStrikes(Type t, int power, int count, int bossSide, Status st = Status::None, float chance = 0, float radius = 15);
     void ObstacleImpact(Obstacle& o, const HitSpec& h, Vector2 dir, bool physical);
     void ObstaclesInArea(Vector2 c, float r, const HitSpec& h, bool physical, Vector2 fromPos);
     void TryElectrify(Vector2 at, const HitSpec& h);   // a move landed here: the field reacts (FieldReact)

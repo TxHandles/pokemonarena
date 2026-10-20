@@ -142,9 +142,9 @@ void DrawRegionChoose(const Game& g) {
         int k = 0, m = std::min(3, (int)st.size());
         for (int s : st) {
             if (k >= 3) break;
-            int cx = x + cw / 2 + (k - (m - 1) / 2.0f) * 50;
+            int cx = x + cw / 2 + (int)((k - (m - 1) / 2.0f) * std::min(50, cw / 3));
             DrawEllipse(cx, y + 186, 18, 4, Fade(BLACK, 0.35f));
-            DrawSpeciesFit(s, VIEW_FRONT, cx, y + 184, 44);
+            DrawSpeciesFit(s, VIEW_FRONT, cx, y + 184, std::min(44, cw / 3 + 4));
             k++;
         }
         GDrawText(TextFormat("Rival: %s", RegionRivalName(r).c_str()), x + 8, y + 194, 10, UI_DIM);
@@ -152,11 +152,11 @@ void DrawRegionChoose(const Game& g) {
         Color sc = UI_TEXT;
         if (done) { status = "League beaten"; sc = Color{140, 230, 150, 255}; }
         else if (here) { status = "You're here"; sc = UI_GOLD; }
-        else status = TextFormat("Map %d - starter at Lv%d", slot + 1, slot == 0 ? Story().startLevel : SlotGiftLevelBase(slot));
+        else status = TextFormat(cw < 150 ? "Map %d - Lv%d" : "Map %d - starter at Lv%d", slot + 1, slot == 0 ? Story().startLevel : SlotGiftLevelBase(slot));
         GDrawText(status, x + 8, y + 210, 10, sc);
         int gyms = 0;
         for (int s = R.first; s < R.end; s++) gyms += Story().stages[s].IsGym();
-        GDrawText(TextFormat("%d battles, %d gyms", R.end - R.first, gyms), x + 8, y + 226, 10, UI_DIM);
+        GDrawText(TextFormat(cw < 150 ? "%d battles" : "%d battles, %d gyms", R.end - R.first, gyms), x + 8, y + 226, 10, UI_DIM);
     }
     const char* hint = g.regionFor == 2 && g.on.active ? "Left/Right choose   Enter: start here" : "Left/Right choose   Enter: go   Esc: back";
     DrawTextCentered(hint, VW / 2, 324, 10, UI_DIM, false);

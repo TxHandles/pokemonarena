@@ -29,9 +29,7 @@ extern bool gAutoNetInput;
 
 namespace {
 
-constexpr int KIND_LEGEND = 200;  // ready kinds 200..204: a legendary encounter (legend.h)
-constexpr int KIND_TOWER = 250;   // ready kind: the Battle Tower (1 story, 2 training, 3+N rematch stage N)
-constexpr uint32_t PROTOCOL = 22;   // 22: watching your partner's own battle, 21: the overworld (walking, the partner's position, story battles found on foot), 20: free region order (regions played in any order), 19: Hoenn (May, post-game battles, new arenas and legendaries), 18: Johto (regions, Johto starters, six new arenas), 17: Gen 2 Pokemon 161-251 and their abilities, 16: rolling moves and gym centerpieces, 15: sweeping beams, tethers, grapples and throws (battle state), 14: the legendaries moved to a Map tab (hub items renumbered), 13: new battle effects (particle kinds), 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower, 10: legendary encounters, 11: Gen 2 starters, the rival's two starters, 12: shiny Pokemon
+constexpr uint32_t PROTOCOL = 23;   // 23: Sinnoh and Unova (new arena state, wider ready kinds, 64 legendaries, two more rival lines), 22: watching your partner's own battle, 21: the overworld (walking, the partner's position, story battles found on foot), 20: free region order (regions played in any order), 19: Hoenn (May, post-game battles, new arenas and legendaries), 18: Johto (regions, Johto starters, six new arenas), 17: Gen 2 Pokemon 161-251 and their abilities, 16: rolling moves and gym centerpieces, 15: sweeping beams, tethers, grapples and throws (battle state), 14: the legendaries moved to a Map tab (hub items renumbered), 13: new battle effects (particle kinds), 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower, 10: legendary encounters, 11: Gen 2 starters, the rival's two starters, 12: shiny Pokemon
 constexpr float TICK = 1.0f / 60.0f;
 constexpr int INPUT_DELAY = 2;    // ticks: our own presses take effect this much later (33 ms)
 constexpr int MAX_AHEAD = 15;     // ticks we may run ahead of what the partner has confirmed
@@ -158,11 +156,13 @@ void SendCoop(const CoopSave& c) {
     for (int p = 0; p < 2; p++) w.i32(c.run[p].kos).i32(c.run[p].damage).i32(c.run[p].caught).i32(c.run[p].mvp).i32(c.run[p].faints).i32(c.run[p].battles);
     w.str(c.trainArea);
     w.i32(c.towerFloor).i32(c.towerBest).i32(c.towerRuns);
-    w.i32(c.legends);
+    w.u64(c.legends);
     for (int i = 0; i < LEGEND_COUNT; i++) w.i32(c.legendWho[i]);
     w.str(c.rival[0]).str(c.rival[1]);
     w.str(c.rival2[0]).str(c.rival2[1]);
     w.str(c.rival3[0]).str(c.rival3[1]);
+    w.str(c.rival4[0]).str(c.rival4[1]);
+    w.str(c.rival5[0]).str(c.rival5[1]);
     w.i32((int)c.postDone.size());
     for (const auto& e : c.postDone) w.str(e);
     w.i32((int)c.regionOrder.size());   // the regions in the order this journey plays them (the host chooses)
@@ -342,7 +342,7 @@ void OnlineSendCursor(int sel) { W(M_CURSOR).u8((uint8_t)sel).Send(); }
 void OnlineSetReady(Game& g, int kind) {
     if (!g.on.active || g.on.myReady == kind) return;
     g.on.myReady = kind;
-    W(M_READY).u8(kind).Send();
+    W(M_READY).i32(kind).Send();
 }
 
 void OnlineLeave(Game& g, const std::string& why) {
@@ -372,7 +372,7 @@ static void HostMaybeGo(Game& g) {
     int stages = (int)Story().stages.size();
     bool legend = kind >= KIND_LEGEND && kind < KIND_LEGEND + LEGEND_COUNT;   // 200+id: a legendary encounter
     if (legend && !LegendOpen(g, kind - KIND_LEGEND)) { OnlineSetReady(g, 0); return; }
-    int stageIdx = kind == 1 ? std::min(g.coopSave.storyStage, stages - 1) : (kind >= 3 && !legend && kind != KIND_TOWER) ? std::min(kind - 3, stages - 1) : -1;   // 3+: a gym rematch
+    int stageIdx = kind == 1 ? std::min(g.coopSave.storyStage, stages - 1) : IsRematchKind(kind) ? std::min(kind - 3, stages - 1) : -1;   // 3+: a gym rematch
     bool rare = false;
     int rareSpecies = -1;
     if (kind == KIND_TOWER) {   // the Battle Tower: the floor and its trainer's seed
@@ -394,7 +394,7 @@ static void HostMaybeGo(Game& g) {
             rareSpecies = PickRareSpecies(owned, n ? sum / n : 5);
         }
     }
-    W(M_GO).u8(kind).i32(stageIdx).u8(rare).i32(rareSpecies).Send();
+    W(M_GO).i32(kind).i32(stageIdx).u8(rare).i32(rareSpecies).Send();
     g.stageIdx = stageIdx;
     g.mode = kind != 2 ? Mode::CoopStory : Mode::CoopTraining;
     g.rareBattle = rare;
@@ -632,13 +632,13 @@ void OnlinePoll(Game& g) {
                 if (r.ok && c.towerBest > g.coopSave.towerBest) { g.coopSave.towerBest = c.towerBest; statsChanged = true; }
                 c.towerBest = std::max(c.towerBest, g.coopSave.towerBest);
                 {   // caught legendaries stay caught (whoever caught one keeps it)
-                    int lm = r.i32();
+                    uint64_t lm = r.u64();
                     int who[LEGEND_COUNT];
                     for (int i = 0; i < LEGEND_COUNT; i++) who[i] = r.i32();
                     if (r.ok)
                         for (int i = 0; i < LEGEND_COUNT; i++)
                             if ((lm >> i & 1) && !(g.coopSave.legends >> i & 1)) {
-                                g.coopSave.legends |= 1 << i;
+                                g.coopSave.legends |= 1ull << i;
                                 g.coopSave.legendWho[i] = who[i];
                                 statsChanged = true;
                             }
@@ -658,6 +658,12 @@ void OnlinePoll(Game& g) {
                     if (r.ok && g.coopSave.rival3[0].empty() && !m0.empty()) { g.coopSave.rival3[0] = m0; g.coopSave.rival3[1] = m1; statsChanged = true; }
                     c.rival3[0] = g.coopSave.rival3[0];
                     c.rival3[1] = g.coopSave.rival3[1];
+                    { std::string a = r.str(), b = r.str();
+                      if (r.ok && g.coopSave.rival4[0].empty() && !a.empty()) { g.coopSave.rival4[0] = a; g.coopSave.rival4[1] = b; statsChanged = true; }
+                      c.rival4[0] = g.coopSave.rival4[0]; c.rival4[1] = g.coopSave.rival4[1]; }
+                    { std::string a = r.str(), b = r.str();
+                      if (r.ok && g.coopSave.rival5[0].empty() && !a.empty()) { g.coopSave.rival5[0] = a; g.coopSave.rival5[1] = b; statsChanged = true; }
+                      c.rival5[0] = g.coopSave.rival5[0]; c.rival5[1] = g.coopSave.rival5[1]; }
                     int np = r.i32();   // post-game battles won together: they stay won
                     for (int i = 0; i < np && i < 64 && r.ok; i++) {
                         std::string e = r.str();
@@ -705,7 +711,7 @@ void OnlinePoll(Game& g) {
                 Profile p;
                 if (ProfileFromText(r.str(), "", p)) g.coopP[Other(g)] = p;
             } break;
-            case M_READY: o.partnerReady = r.u8(); break;
+            case M_READY: o.partnerReady = r.i32(); break;
             case M_ACTIVITY: o.partnerActivity = r.str(); break;
             case M_CURSOR: o.partnerCursor = r.u8(); break;
             case M_FOSSIL: o.partnerFossil = r.str(); break;
@@ -717,7 +723,7 @@ void OnlinePoll(Game& g) {
                 if (r.ok) { o.partnerPickView = v; o.partnerSelCursor = cur == 255 ? -1 : cur; }
             } break;
             case M_GO: {
-                int kind = r.u8();
+                int kind = r.i32();
                 g.stageIdx = r.i32();
                 g.rareBattle = r.u8() != 0;
                 g.rareSpecies = r.i32();

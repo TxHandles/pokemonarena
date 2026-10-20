@@ -75,7 +75,8 @@ void Battle::UpdateField(float dt) {
             }
             if (o.fallT >= 0.7f) { o.alive = false; o.fallT = -1; }
         }
-        if (!o.alive && o.kind == Obstacle::Pillar && (field.Rules() == ArenaKind::Rock || field.Rules() == ArenaKind::Ice)) {   // the Stone Gym's pillars (and Lorelei's ice) grow back
+        if (!o.alive && o.kind == Obstacle::Pillar && (field.Rules() == ArenaKind::Rock || field.Rules() == ArenaKind::Ice || field.kind == ArenaKind::SinnohChampion ||
+                                                       field.kind == ArenaKind::SpearTime || field.kind == ArenaKind::SpearSpace)) {   // the Stone Gym's pillars (and Lorelei's ice) grow back
             o.respawnT -= dt;
             bool clear = true;
             for (int s = 0; s < N(); s++)
@@ -190,13 +191,14 @@ void Battle::UpdateField(float dt) {
     }
 
     bool live = winner < 0 && introT <= 0;
-    if (field.kind == ArenaKind::Ghost && live) UpdateWisps(dt);
+    if (field.Rules() == ArenaKind::Ghost && live) UpdateWisps(dt);
     if ((field.kind == ArenaKind::Dragon || field.kind == ArenaKind::JohtoChampion) && live) UpdateStatues(dt);
     if (field.Rules() == ArenaKind::Champion) UpdateSpotlight(dt);
     if ((field.kind == ArenaKind::Flying || field.kind == ArenaKind::SkyPillar) && live) UpdateWind(dt);
-    if (field.kind == ArenaKind::Dark) UpdateLights(dt);
+    if (field.Rules() == ArenaKind::Dark) UpdateLights(dt);
     if (IsLegendArena(field.kind) && live) UpdateLegendField(dt);
     UpdateHoenn(dt);
+    UpdateGen45(dt);
 
     for (int s = 0; s < N(); s++) FieldEffectsOn(s, dt);
 }
@@ -307,6 +309,11 @@ void Battle::UpdateLegendField(float dt) {
         case ArenaKind::MarineCave: c = {Type::Water, 55, Status::None, 0, 2, 4.5f, 17}; break;
         case ArenaKind::SkyPillar: c = {Type::Dragon, 55, Status::None, 0, 2, 5.0f, 16}; break;
         case ArenaKind::BirthIsland: c = {Type::Psychic, 55, Status::None, 0, 2, 5.0f, 15}; break;
+        case ArenaKind::SpearTime: c = {Type::Dragon, 55, Status::None, 0, 2, 5.0f, 15}; break;
+        case ArenaKind::Newmoon: c = {Type::Dark, 55, Status::None, 0, 2, 5.0f, 15}; break;
+        case ArenaKind::HallOrigin: c = {(Type)field.xI[0], 55, Status::None, 0, 2, 5.0f, 16}; break;
+        case ArenaKind::Dragonspiral: c = {bf.sp->name == "Reshiram" ? Type::Fire : Type::Electric, 55, bf.sp->name == "Reshiram" ? Status::Burn : Status::Paralyze, 0.2f, 2, 4.5f, 15}; break;
+        case ArenaKind::GiantChasm: c = {Type::Ice, 55, Status::Freeze, 0.1f, 2, 5.0f, 15}; break;
         default: break;
     }
     if (c.count > 0) {
@@ -679,6 +686,7 @@ void Battle::FieldEffectsOn(int s, float dt) {
         default: break;
     }
     HoennEffectsOn(s, dt);
+    Gen45EffectsOn(s, dt);
 }
 
 // ---------------------------------------------------------------- Obstacles
@@ -804,6 +812,7 @@ void Battle::FieldReact(Vector2 at, const HitSpec& h, float radius) {
     if (h.power <= 0) return;
     CenterReact(at, h, radius);
     HoennFieldReact(at, h, radius);
+    Gen45FieldReact(at, h, radius);
     if (h.type == Type::Fire && field.kind == ArenaKind::Bug) {   // Bugsy's webs go up in flames
         for (const Zone& z : field.zones) {
             if (z.kind != Zone::Web || !z.Contains(at, radius + 6)) continue;
@@ -1293,6 +1302,7 @@ Vector2 Battle::FieldPull(int s) const {
         default: break;
     }
     pull += HoennPull(s);
+    pull += Gen45Pull(s);
     return pull;
 }
 
@@ -1864,6 +1874,7 @@ void Battle::DrawFieldFloor() const {
         default: break;
     }
     DrawHoennFloor();
+    DrawGen45Floor();
     // Fallen trees and pillar rubble lie on the floor.
     for (const Obstacle& o : field.obs) {
         if (o.alive) continue;
@@ -1885,7 +1896,7 @@ void Battle::DrawFieldFloor() const {
 void Battle::DrawFieldTop() const {
     DrawCenterTop();
     if (field.kind == ArenaKind::Fighting) DrawRingRopes(true);
-    if (field.kind == ArenaKind::Ghost) {   // lights out: only the candles, the creatures and the wisps glow
+    if (field.kind == ArenaKind::Ghost || (field.kind == ArenaKind::Hearthome && field.xT[2] <= 0)) {   // lights out: only the candles, the creatures and the wisps glow
         float dark = 0.40f + 0.03f * std::sin(time * 7) + 0.02f * std::sin(time * 13.3f);
         DrawRectangle(0, FLOOR_Y - 24, VW, FLOOR_BOTTOM - FLOOR_Y + 32, Fade(Color{8, 4, 20, 255}, dark));
         VAdd();
@@ -1914,7 +1925,7 @@ void Battle::DrawFieldTop() const {
             DrawCircleV({c.x, c.y + 1}, 2.5f, Fade(Color{200, 190, 255, 255}, fade));
         }
     }
-    if (field.kind == ArenaKind::Dark) {   // lights out, but for three drifting pools of light
+    if (field.Rules() == ArenaKind::Dark) {   // lights out, but for three drifting pools of light
         DrawRectangle(0, FLOOR_Y - 24, VW, FLOOR_BOTTOM - FLOOR_Y + 32, Fade(Color{6, 4, 14, 255}, 0.48f));
         VAdd();
         for (size_t i = 0; i < field.lights.size(); i++) {
@@ -2039,6 +2050,7 @@ void Battle::DrawFieldTop() const {
         }
     }
     DrawHoennTop();
+    DrawGen45Top();
 }
 
 // Bruno's ring: corner posts and three ropes (red, white, blue). The back and sides go under

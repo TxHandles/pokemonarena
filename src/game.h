@@ -18,6 +18,13 @@ enum class Screen {
     RegionChoose, World
 };
 
+// Online ready kinds (what a player picked in the co-op hub): 1 story, 2 training, 3+N a rematch
+// with story stage N, KIND_LEGEND+id a legendary, KIND_TOWER the Battle Tower.
+constexpr int KIND_LEGEND = 1000;
+constexpr int KIND_TOWER = 2000;
+inline bool IsLegendKind(int k) { return k >= KIND_LEGEND && k < KIND_TOWER; }
+inline bool IsRematchKind(int k) { return k >= 3 && k < KIND_LEGEND; }
+
 enum class Mode { Quick, TwoPlayer, Watch, Story, Training, Doubles, CoopStory, CoopTraining };
 
 // Something a player can pick in team select.

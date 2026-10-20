@@ -15,6 +15,10 @@ enum class ArenaKind { Stadium, Rock, Water, Electric, Grass, Poison, Psychic, F
                        Flying, Bug, Normal, Steel, Dark, JohtoChampion,      // Johto (Falkner, Bugsy, Whitney, Jasmine, Karen, Lance)
                        Balance, TwinMoons, Sootopolis, HoennChampion, MeteorFalls,   // Hoenn (Norman, Tate & Liza, Juan, Wallace, Steven)
                        DesertRuins, AncientTomb, MarineCave, SkyPillar, BirthIsland, // Hoenn legendary lairs
+                       Hearthome, Pastoria, Sunyshore, SinnohChampion, Distortion,  // Sinnoh (Fantina, Wake, Volkner, Cynthia, Cyrus/Giratina)
+                       SpearTime, SpearSpace, Newmoon, HallOrigin,                   // Sinnoh legendary lairs (Dialga, Palkia, Darkrai, Arceus)
+                       Striaton, Nimbasa, Mistralton, ThroneRoom, UnovaChampion,     // Unova (the Striaton trio, Elesa, Skyla, N's castle, Alder)
+                       Dragonspiral, GiantChasm, AbundantShrine,                     // Unova legendary lairs (Zekrom, Kyogre's cousin Kyurem, Landorus)
                        Count };
 // A legendary's lair plays by an existing arena's rules (plus its own extras): Seafoam = Ice,
 // Power Plant = Electric, Moltres's nest = Fire, Faraway Island = Grass. Cerulean Cave is its own.
@@ -29,11 +33,20 @@ inline ArenaKind ArenaRules(ArenaKind k) {
         case ArenaKind::AncientTomb: return ArenaKind::Steel;        // Registeel's tomb: the lighthouse beam in the dark
         case ArenaKind::MarineCave: return ArenaKind::Water;         // Kyogre's cave: the Cascade Gym's water
         case ArenaKind::SkyPillar: return ArenaKind::Flying;         // Rayquaza's summit: Skyway gusts
+        case ArenaKind::Hearthome: return ArenaKind::Ghost;          // Fantina's hall: lights out and will-o'-wisps, plus the doors
+        case ArenaKind::Pastoria: return ArenaKind::Water;           // Wake's gym: water that rises and falls
+        case ArenaKind::SinnohChampion: return ArenaKind::Champion;  // Cynthia's room: the spotlight, plus columns and the mural
+        case ArenaKind::Newmoon: return ArenaKind::Dark;             // Darkrai's island: lights out but for drifting pools of light
+        case ArenaKind::UnovaChampion: return ArenaKind::Champion;   // Alder's hall: the spotlight, plus braziers
+        case ArenaKind::Dragonspiral: return ArenaKind::Electric;    // Zekrom's tower top: a storm round the old coils
+        case ArenaKind::GiantChasm: return ArenaKind::Ice;           // Kyurem's chasm: endless snow and rinks
+        case ArenaKind::AbundantShrine: return ArenaKind::Grass;     // Landorus's field: tall grass to hide in
         default: return k;
     }
 }
 inline bool IsLegendArena(ArenaKind k) {
-    return (k >= ArenaKind::Seafoam && k <= ArenaKind::Faraway) || (k >= ArenaKind::DesertRuins && k <= ArenaKind::BirthIsland);
+    return (k >= ArenaKind::Seafoam && k <= ArenaKind::Faraway) || (k >= ArenaKind::DesertRuins && k <= ArenaKind::BirthIsland) ||
+           (k >= ArenaKind::SpearTime && k <= ArenaKind::HallOrigin) || (k >= ArenaKind::Dragonspiral && k <= ArenaKind::AbundantShrine);
 }
 constexpr int ARENA_COUNT = (int)ArenaKind::Count;
 const char* ArenaName(ArenaKind k);         // "Stone Gym" etc.
@@ -62,6 +75,8 @@ inline float Wobble(uint32_t seed, float ang) {
     return 1.0f + a1 * std::sin(k1 * ang + p1) + a2 * std::sin(k2 * ang + p2) + a3 * std::sin(7 * ang + p3);
 }
 
+bool DistortionGround(Vector2 p);   // the Distortion World's floating islands (false: the void)
+
 struct Obstacle {
     enum Kind { Pillar, Tree, Coil, Boulder, MetalPillar, TempWall, SnowMound, Crate, Center } kind = Pillar;   // Center: a gym's centerpiece (its body)
     uint32_t seed = 0;    // picks its look (shape variant, details)
@@ -83,7 +98,8 @@ struct Obstacle {
 
 // Ellipse areas on the floor (world units).
 struct Zone {
-    enum Kind { Platform, TallGrass, PoisonPool, LavaPool, Web, Pool } kind = Platform;   // Web: Bugsy's (drawn live: fire burns it away); Pool: Wallace's shallow pools
+    enum Kind { Platform, TallGrass, PoisonPool, LavaPool, Web, Pool, Walk, Island, Table } kind = Platform;   // Web: Bugsy's (drawn live: fire burns it away); Pool: Wallace's shallow pools;
+                                                                          // Walk: Wake's walkways (dry at low water); Island: the Distortion World's ground; Table: the Striaton tables
     Vector2 pos{0, 0};
     float rx = 30, ry = 30;
     uint32_t seed = 0;    // edge shape (Wobble)
@@ -147,7 +163,9 @@ struct Turret {
 //   Meteorite (Steven): a heavy hit cracks it open - it glows and powers up the hitter's side, then reforms.
 struct Centerpiece {
     enum Kind : uint8_t { None, Boulder, Drain, Generator, Bloom, Vat, Orb, Vent, Spinner, Vane, Hive, MilkTank, Lamp,
-                          Scale, Dial, Font, Crystal, Meteorite } kind = None;
+                          Scale, Dial, Font, Crystal, Meteorite,
+                          Chandelier, Floodgate, SolarPanel, Mural, Rift,      // Sinnoh (battle_gen45.cpp)
+                          Bell, TrackSwitch, Propeller, Pillars, Brazier } kind = None;   // Unova
     Vector2 pos{0, 0}, home{0, 0}, vel{0, 0};
     float radius = 18;
     uint8_t phase = 0;        // what it's doing now (per kind)
@@ -215,6 +233,12 @@ struct Field {
     float scaleT = 0;
     int glowOwner = -1;             // Steven's meteorite: cracked open for this team
     float glowT = 0;
+    // Sinnoh and Unova (battle_gen45.cpp says what each slot means for each arena)
+    float xT[8] = {0, 0, 0, 0, 0, 0, 0, 0};    // timers
+    int xI[8] = {0, 0, 0, 0, 0, 0, 0, 0};      // state
+    std::vector<Vector2> xMarks;               // doors, gears, pads, braziers, strike marks...
+    float sideT[8] = {0, 0, 0, 0, 0, 0, 0, 0}; // per battle slot (Skyla's cannons: the flight; afterwards, the landing)
+    Vector2 sideFrom[8], sideTo[8];
     static constexpr float TILE = 40;
     int TileAt(Vector2 p) const {   // -1: no tile there (solid rock)
         for (size_t i = 0; i < tiles.size(); i++)

@@ -535,6 +535,7 @@ void Parse(const char* text, StoryDef& st, std::string& log) {
             else if (k == "join") cur->join = !IsNo(v);
             else if (k == "double") cur->dbl = !IsNo(v);
             else if (k == "partner") { cur->partner = v; cur->dbl = true; }
+            else if (k == "finale") cur->finale = !IsNo(v);
             else if (k == "partner_team") cur->partnerTeam = SplitList(v);
             else if (k == "floor") cur->floor = std::max(0, std::min(MAX_LEVEL, std::atoi(v.c_str())));
             else if (k == "postgame") cur->postgame = !IsNo(v);
@@ -1100,6 +1101,28 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
                     TypeEffectiveness(AllSpecies()[gRivalStarter].type1, AllSpecies()[s2].type1, AllSpecies()[s2].type2) > 1) beatenByRival = s2;
             for (int s2 : pool) if (s2 != gRivalStarter && s2 != beatenByRival && s2 != gRivalSecond) { idx = s2; break; }
             if (idx < 0 && !pool.empty()) idx = pool[GetRandomValue(0, (int)pool.size() - 1)];
+            if (idx < 0) idx = RandomBase(Type::Normal, true);
+            idx = EvolvedFormAt(idx, evoAt > 0 ? evoAt : level);
+        } else if (l == "rival2" || l == "rival2_monkey" || l == "rival_monkey") {
+            // Unova: Bianca's starter (rival2) is the one Cheren's beats - the one left (co-op: Cheren's second pick
+            // goes to her). The monkeys: each rival's elemental monkey is the one their starter beats.
+            int reg = stage ? stage->region : 0;
+            int bianca = -1;
+            if (gRivalSecond >= 0) bianca = gRivalSecond;
+            else {
+                std::vector<int> pool = RegionStarters(reg);
+                int beaten = -1;
+                for (int s2 : pool)
+                    if (gRivalStarter >= 0 && s2 != gRivalStarter && TypeEffectiveness(AllSpecies()[gRivalStarter].type1, AllSpecies()[s2].type1, AllSpecies()[s2].type2) > 1) beaten = s2;
+                for (int s2 : pool) if (s2 != gRivalStarter && s2 != beaten) { bianca = s2; break; }
+                if (bianca < 0 && !pool.empty()) bianca = pool[GetRandomValue(0, (int)pool.size() - 1)];
+            }
+            if (l == "rival2") idx = bianca;
+            else {
+                int whose = l == "rival_monkey" ? gRivalStarter : bianca;
+                Type t = whose >= 0 ? AllSpecies()[whose].type1 : Type::Fire;
+                idx = SpeciesIndex(t == Type::Fire ? "Pansage" : t == Type::Water ? "Pansear" : "Panpour");
+            }
             if (idx < 0) idx = RandomBase(Type::Normal, true);
             idx = EvolvedFormAt(idx, evoAt > 0 ? evoAt : level);
         } else if (l.rfind("rival", 0) == 0) {

@@ -54,16 +54,18 @@ struct Profile {
     int towerBest = 0;                 // the highest floor ever cleared
     int towerRuns = 0;                 // runs finished (a lost floor ends a run)
     std::vector<std::string> hof;      // Hall of Fame entries, oldest first: "partner|Species:Lv,Species:Lv,..."
-    int legends = 0;                   // bit k: legendary k (legend.h) was caught - its encounter is closed
+    uint64_t legends = 0;              // bit k: legendary k (legend.h) was caught - its encounter is closed
     std::string rival;                 // the rival's starter (picked once: one of the two that beat yours)
     std::string starter2;              // Johto: the starter Professor Elm gave you (empty = not in Johto yet)
     std::string rival2;                // Johto: Silver's starter (picked once, like Blue's)
     std::string starter3;              // Hoenn: the starter Professor Birch gave you
     std::string rival3;                // Hoenn: May's starter
+    std::string starter4, rival4;      // Sinnoh: Rowan's gift and Barry's pick
+    std::string starter5, rival5;      // Unova: Juniper's gift and Cheren's pick
     std::set<std::string> postDone;    // optional post-game battles beaten (their stage names: "Mt. Silver")
     std::vector<int> regionOrder;      // the regions in the order this story plays them (empty: a new story, not chosen yet)
 };
-// A region's starter gift and its rival's pick (region 1 Johto, 2 Hoenn; 0 = the first starter / Blue).
+// A region's starter gift and its rival's pick (region 1 Johto, 2 Hoenn, 3 Sinnoh, 4 Unova; 0 = the first starter / Blue).
 std::string& RegionStarter(Profile& p, int region);
 const std::string& RegionStarter(const Profile& p, int region);
 std::string& RegionRival(Profile& p, int region);
@@ -97,12 +99,14 @@ struct CoopSave {
     int snorlaxWho[2] = {-1, -1};      // who got the Snorlax of each encounter (-1 = nobody yet)
     int dojoFirst = -1;                // who picks first at the Fighting Dojo (the MVP of that battle)
     int towerFloor = 0, towerBest = 0, towerRuns = 0;   // the Battle Tower, climbed together
-    int legends = 0;                   // bit k: legendary k was caught (by legendWho[k])
+    uint64_t legends = 0;              // bit k: legendary k was caught (by legendWho[k])
     std::string rival[2];              // the rival's two starters (picked once, from the four you didn't take)
-    int legendWho[32] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-                         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};   // by legend id (legend.h)
+    int legendWho[64];                 // by legend id (legend.h): who caught it (-1 nobody)
+    CoopSave() { for (int& w : legendWho) w = -1; }
     std::string rival2[2];             // Johto: Silver's two starters (from the four the players didn't take there)
     std::string rival3[2];             // Hoenn: May's two
+    std::string rival4[2];             // Sinnoh: Barry's two
+    std::string rival5[2];             // Unova: Cheren's two
     std::set<std::string> postDone;    // optional post-game battles beaten together
     std::vector<int> regionOrder;      // the regions in the order this journey plays them (empty: not chosen yet)
     std::string owMap[2];              // the overworld: where each player is (empty: not been there yet)

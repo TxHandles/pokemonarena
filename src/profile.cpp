@@ -133,12 +133,16 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "box_filter") out.boxFilter = v;
             else if (k == "tower") { std::istringstream ts(v); ts >> out.towerFloor >> out.towerBest >> out.towerRuns; }
             else if (k == "hof") { if (!v.empty()) out.hof.push_back(v); }
-            else if (k == "legends") out.legends = std::max(0, iv);
+            else if (k == "legends") out.legends = std::strtoull(v.c_str(), nullptr, 10);
             else if (k == "rival") out.rival = v;
             else if (k == "starter2") out.starter2 = v;
             else if (k == "rival2") out.rival2 = v;
             else if (k == "starter3") out.starter3 = v;
             else if (k == "rival3") out.rival3 = v;
+            else if (k == "starter4") out.starter4 = v;
+            else if (k == "rival4") out.rival4 = v;
+            else if (k == "starter5") out.starter5 = v;
+            else if (k == "rival5") out.rival5 = v;
             else if (k == "post_v") postV = iv;
             else if (k == "region_order") { out.regionOrder = ReadOrder(v); hasOrder = true; }
             else if (k == "post_done") ReadSet(v, out.postDone);
@@ -251,13 +255,17 @@ std::string ProfileToText(const Profile& p) {
     if (!p.boxFilter.empty()) o += "box_filter = " + p.boxFilter + "\n";
     if (p.towerFloor || p.towerBest || p.towerRuns) o += TextFormat("tower = %d %d %d\n", p.towerFloor, p.towerBest, p.towerRuns);
     for (const auto& h : p.hof) o += "hof = " + h + "\n";
-    if (p.legends) o += TextFormat("legends = %d\n", p.legends);
+    if (p.legends) o += "legends = " + std::to_string(p.legends) + "\n";
     if (!p.rival.empty()) o += "rival = " + p.rival + "\n";
     if (!p.starter.empty()) o += "starter = " + p.starter + "\n";
     if (!p.starter2.empty()) o += "starter2 = " + p.starter2 + "\n";
     if (!p.rival2.empty()) o += "rival2 = " + p.rival2 + "\n";
     if (!p.starter3.empty()) o += "starter3 = " + p.starter3 + "\n";
     if (!p.rival3.empty()) o += "rival3 = " + p.rival3 + "\n";
+    if (!p.starter4.empty()) o += "starter4 = " + p.starter4 + "\n";
+    if (!p.rival4.empty()) o += "rival4 = " + p.rival4 + "\n";
+    if (!p.starter5.empty()) o += "starter5 = " + p.starter5 + "\n";
+    if (!p.rival5.empty()) o += "rival5 = " + p.rival5 + "\n";
     o += "post_v = 1\n";
     o += "region_order = " + JoinOrder(p.regionOrder) + "\n";
     if (!p.postDone.empty()) o += "post_done = " + JoinSet(p.postDone) + "\n";
@@ -517,10 +525,12 @@ bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out) {
         else if (k == "snorlax_who") { std::istringstream rs(v); rs >> out.snorlaxWho[0] >> out.snorlaxWho[1]; }
         else if (k == "dojo_first") out.dojoFirst = iv;
         else if (k == "tower") { std::istringstream ts(v); ts >> out.towerFloor >> out.towerBest >> out.towerRuns; }
-        else if (k == "legends") { std::istringstream ls(v); ls >> out.legends; for (int i = 0; i < 32; i++) if (!(ls >> out.legendWho[i])) { out.legendWho[i] = -1; break; } }
+        else if (k == "legends") { std::istringstream ls(v); ls >> out.legends; for (int i = 0; i < 64; i++) if (!(ls >> out.legendWho[i])) { out.legendWho[i] = -1; break; } }
         else if (k == "rival") { size_t c = v.find(','); out.rival[0] = Trim(v.substr(0, c)); out.rival[1] = c == std::string::npos ? "" : Trim(v.substr(c + 1)); }
         else if (k == "rival2") { size_t c = v.find(','); out.rival2[0] = Trim(v.substr(0, c)); out.rival2[1] = c == std::string::npos ? "" : Trim(v.substr(c + 1)); }
         else if (k == "rival3") { size_t c = v.find(','); out.rival3[0] = Trim(v.substr(0, c)); out.rival3[1] = c == std::string::npos ? "" : Trim(v.substr(c + 1)); }
+        else if (k == "rival4") { size_t c = v.find(','); out.rival4[0] = Trim(v.substr(0, c)); out.rival4[1] = c == std::string::npos ? "" : Trim(v.substr(c + 1)); }
+        else if (k == "rival5") { size_t c = v.find(','); out.rival5[0] = Trim(v.substr(0, c)); out.rival5[1] = c == std::string::npos ? "" : Trim(v.substr(c + 1)); }
         else if (k == "post_v") postV = iv;
         else if (k == "region_order") { out.regionOrder = ReadOrder(v); hasOrder = true; }
         else if (k == "post_done") ReadSet(v, out.postDone);
@@ -556,12 +566,14 @@ bool SaveCoop(const CoopSave& c) {
         if (!c.owMap[p].empty()) o += "ow_pos" + std::to_string(p) + " = " + c.owMap[p] + "|" + std::to_string(c.owX[p]) + "|" + std::to_string(c.owY[p]) + "|" + std::to_string(c.owFace[p]) + "\n";
     o += TextFormat("snorlax_who = %d %d\ndojo_first = %d\n", c.snorlaxWho[0], c.snorlaxWho[1], c.dojoFirst);
     o += TextFormat("tower = %d %d %d\n", c.towerFloor, c.towerBest, c.towerRuns);
-    o += TextFormat("legends = %d", c.legends);
-    for (int i = 0; i < 32; i++) o += TextFormat(" %d", c.legendWho[i]);
+    o += "legends = " + std::to_string(c.legends);
+    for (int i = 0; i < 64; i++) o += TextFormat(" %d", c.legendWho[i]);
     o += "\n";
     if (!c.rival[0].empty()) o += "rival = " + c.rival[0] + ", " + c.rival[1] + "\n";
     if (!c.rival2[0].empty()) o += "rival2 = " + c.rival2[0] + ", " + c.rival2[1] + "\n";
     if (!c.rival3[0].empty()) o += "rival3 = " + c.rival3[0] + ", " + c.rival3[1] + "\n";
+    if (!c.rival4[0].empty()) o += "rival4 = " + c.rival4[0] + ", " + c.rival4[1] + "\n";
+    if (!c.rival5[0].empty()) o += "rival5 = " + c.rival5[0] + ", " + c.rival5[1] + "\n";
     o += "post_v = 1\n";
     o += "region_order = " + JoinOrder(c.regionOrder) + "\n";
     if (!c.postDone.empty()) o += "post_done = " + JoinSet(c.postDone) + "\n";
@@ -574,9 +586,9 @@ bool SaveCoop(const CoopSave& c) {
     return SaveFileText(CoopFile(c.p[0], c.p[1]).c_str(), (char*)o.c_str());
 }
 
-std::string& RegionStarter(Profile& p, int r) { return r >= 2 ? p.starter3 : r == 1 ? p.starter2 : p.starter; }
-const std::string& RegionStarter(const Profile& p, int r) { return r >= 2 ? p.starter3 : r == 1 ? p.starter2 : p.starter; }
-std::string& RegionRival(Profile& p, int r) { return r >= 2 ? p.rival3 : r == 1 ? p.rival2 : p.rival; }
-const std::string& RegionRival(const Profile& p, int r) { return r >= 2 ? p.rival3 : r == 1 ? p.rival2 : p.rival; }
-std::string* CoopRival(CoopSave& c, int r) { return r >= 2 ? c.rival3 : r == 1 ? c.rival2 : c.rival; }
-const std::string* CoopRival(const CoopSave& c, int r) { return r >= 2 ? c.rival3 : r == 1 ? c.rival2 : c.rival; }
+std::string& RegionStarter(Profile& p, int r) { return r >= 4 ? p.starter5 : r == 3 ? p.starter4 : r == 2 ? p.starter3 : r == 1 ? p.starter2 : p.starter; }
+const std::string& RegionStarter(const Profile& p, int r) { return r >= 4 ? p.starter5 : r == 3 ? p.starter4 : r == 2 ? p.starter3 : r == 1 ? p.starter2 : p.starter; }
+std::string& RegionRival(Profile& p, int r) { return r >= 4 ? p.rival5 : r == 3 ? p.rival4 : r == 2 ? p.rival3 : r == 1 ? p.rival2 : p.rival; }
+const std::string& RegionRival(const Profile& p, int r) { return r >= 4 ? p.rival5 : r == 3 ? p.rival4 : r == 2 ? p.rival3 : r == 1 ? p.rival2 : p.rival; }
+std::string* CoopRival(CoopSave& c, int r) { return r >= 4 ? c.rival5 : r == 3 ? c.rival4 : r == 2 ? c.rival3 : r == 1 ? c.rival2 : c.rival; }
+const std::string* CoopRival(const CoopSave& c, int r) { return r >= 4 ? c.rival5 : r == 3 ? c.rival4 : r == 2 ? c.rival3 : r == 1 ? c.rival2 : c.rival; }

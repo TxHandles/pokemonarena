@@ -1601,3 +1601,746 @@ cpu = hard
 catch = no
 arena = meteorfalls
 postgame = yes
+
+# ==========================================================================
+#  SINNOH - follows Pokemon Platinum, from Twinleaf Town to Champion Cynthia, then the Battle Zone.
+#  Professor Rowan gives a fourth starter at your team's average -3 (at least start_level). Barry,
+#  your neighbor, takes one that beats yours (co-op: two of the ones left). "rival" below is his.
+#  Every stage is "level = +N" over your average, with a floor (88 rising to 96).
+#  rival_sinnoh1 / rival_sinnoh2: Barry's two partners (Platinum: the two of Buizel, Ponyta and
+#  Roselia that don't share his starter's type). "assistant" is Dawn's starter (the one yours beats;
+#  co-op: one of those left). "@N" evolves them the way they'd be at level N in Platinum.
+# ==========================================================================
+[region]
+name = Sinnoh
+map_image = sinnoh.png
+start_level = 90
+start_avg = -3
+rival = Barry
+dex = 387-493
+intro = Professor Rowan steps out of the tall grass by Lake Verity with his briefcase open. "Wandering in there with no Pokemon? Then choose one, {name} - it's level {level}."
+watch = Your neighbor Barry is bouncing on his heels behind you... he'll grab the one that beats yours, no doubt about it.
+watch_coop = Barry is bouncing on his heels behind you two... he'll grab one you leave, and one more while Rowan isn't looking.
+reveal = Your neighbor Barry snatched {mons} out of the briefcase. He's your rival now - and he's already late for something!
+reveal_quote = I'm gonna be the strongest trainer in Sinnoh, and you're my first stop! Lose and I'll fine you ten million!
+town = Twinleaf Town, 210, 1232
+town = Sandgem Town, 320, 1175
+town = Jubilife City, 290, 1035
+town = Oreburgh City, 500, 1010
+town = Floaroma Town, 320, 810
+town = Eterna City, 560, 620
+town = Hearthome City, 850, 920
+town = Solaceon Town, 1020, 840
+town = Veilstone City, 1245, 755
+town = Pastoria City, 1075, 1145
+town = Celestic Town, 830, 615
+town = Canalave City, 95, 980
+town = Snowpoint City, 655, 80
+town = Sunyshore City, 1525, 1035
+town = Pokemon League, 1495, 670
+town = Fight Area, 1130, 445
+town = Survival Area, 1160, 280
+town = Resort Area, 1440, 505
+
+# ---------------------------------------------------------------- Chapter 1: Twinleaf Town to Oreburgh City
+[stage]
+name = Route 201
+map = 250, 1172
+trainer = Rival Barry
+card_pokemon = Mesprit
+card = Lake Verity | Barry crashes through your front door in Twinleaf Town, late for a plan he made five minutes ago: there's a legendary Pokemon in Lake Verity, and you two are going to find it. At the lakeshore a man in a grey suit stands very still, talking to no one about time, space and a world without spirit. Something stirs under the water. The man turns and walks away.
+story = Barry can't wait for the lab, the town or anything else. He wants a battle right here on Route 201.
+say = Okay, okay, okay! First battle, right now! If I lose, nothing happens. If you lose, ten million! Go!
+team = Starly -2, rival_sinnoh1@5 -2, rival@5
+level = 0
+floor = 88
+cpu = normal
+catch = no
+rival = yes
+venue = route
+
+[stage]
+name = Route 203
+map = 405, 1008
+trainer = Rival Barry
+story = Professor Rowan asked you to fill his Pokedex. Barry took that as a race - and he's waiting at the gate to Oreburgh.
+say = There you are! I already caught a bunch of Pokemon and I'm getting the first badge before you. But first, a rematch!
+team = Starly -1, rival_sinnoh1@9 -1, rival@9 +1
+level = 0
+floor = 88
+cpu = normal
+catch = no
+rival = yes
+venue = route
+
+[stage]
+name = Jubilife City
+map = 262, 1060
+trainer = Team Galactic Grunts
+story = Two people in bowl-cut uniforms have Professor Rowan cornered outside the Trainers' School, demanding his research on evolution. Dawn, Rowan's assistant, runs to your side.
+say = Hand over the professor's research and nobody gets hurt! Team Galactic is building a whole new world, and you kids aren't in it!
+team = Stunky, Glameow, Zubat -1, Zubat -1
+level = 0
+floor = 88
+cpu = normal
+double = yes
+partner = Dawn
+partner_team = Clefairy -1, Kadabra -1, assistant@13 +1
+venue = city
+
+[stage]
+name = Oreburgh Gym
+map = 500, 1010
+trainer = Leader Roark
+story = Roark climbs up out of Oreburgh Mine with coal dust on his helmet. He heard there's a challenger in town.
+say = I dig fossils and I dig battles. My Rock-types came out of this mine, and they're just as hard to get through. Let's go!
+team = Geodude -2, Onix -2, Probopass -1, Aerodactyl -1, Golem -1, Cranidos +1
+level = 0
+floor = 88
+cpu = hard
+arena = rock
+badge = Coal
+
+# ---------------------------------------------------------------- Chapter 2: Floaroma, Valley Windworks and Eterna City
+[stage]
+name = Route 204
+map = 320, 925
+trainer = Twins Liv & Liz
+story = On the path to Floaroma, two girls in matching outfits step out together. Their Pachirisu are dressed to match, too.
+say = We do everything together! So you'll have to battle both of us - and all our Pachirisu!
+team = Pachirisu -1, Pachirisu -1, Pachirisu, Pachirisu
+level = 0
+floor = 88
+cpu = normal
+double = yes
+venue = route
+
+[stage]
+name = Valley Windworks
+map = 405, 838
+trainer = Team Galactic Grunt
+story = A girl in Floaroma is in tears: Team Galactic has locked her father inside the Valley Windworks. A grunt guards the door.
+say = The windworks belongs to Team Galactic now. We need its energy, and we're not giving the chief back till we've got it!
+team = Zubat -1, Glameow, Stunky +1
+level = 0
+floor = 88
+cpu = normal
+venue = route
+
+[stage]
+name = Windworks Control Room
+map = 440, 838
+trainer = Commander Mars
+story = Inside, the turbines scream. A woman with bright red hair is draining the plant's power into Galactic machines.
+say = I'm Mars, one of Team Galactic's Commanders. You beat a grunt? Cute. Now let's see you beat someone who matters.
+card_after = Charon | An old man in a lab coat shuffles in, cackling. "That's quite enough energy, Mars. We have what we need." Mars shrugs and lets the chief go. The grunts file out, and the windworks falls quiet.
+team = Zubat -1, Bronzor -1, Purugly +2
+level = 1
+floor = 88
+cpu = hard
+venue = office
+
+[stage]
+name = Eterna Forest
+map = 380, 615
+trainer = Wild Pokemon
+story = At the edge of Eterna Forest, a calm young woman named Cheryl asks if she can walk through with you. She doesn't want to meet Team Galactic alone. Her Chansey fights at your side.
+say = Leaves rustle on every side... wild Pokemon jump out of the undergrowth, two at a time!
+team = Buneary, Beautifly, Dustox, Gastly
+level = 0
+floor = 88
+cpu = normal
+double = yes
+partner = Cheryl
+partner_team = Wobbuffet -1, Drifblim -1, Chansey +1
+venue = forest
+
+[stage]
+name = Eterna Gym
+map = 560, 620
+trainer = Leader Gardenia
+story = In front of Eterna's ancient statue of Dialga and Palkia, a woman with blonde hair and a long black coat is studying the carvings. She smiles at you and says the Gym Leader here is a friend of hers.
+say = I'm Gardenia! My Grass-types grew up in this city's gardens, and they're tougher than they look. Ready to get tangled up?
+team = Turtwig -2, Cherrim -2, Jumpluff -1, Bellossom -1, Roserade +1
+level = 1
+floor = 88
+cpu = hard
+arena = grass
+badge = Forest
+
+[stage]
+name = Galactic Eterna Building
+map = 600, 615
+trainer = Commander Jupiter
+story = Team Galactic has turned a building in Eterna into a base, and the bike shop owner is locked inside. Jupiter waits at the top floor.
+say = I'm Jupiter. Mars told me about you. Funny - you don't look like much. Let's make this quick.
+card_after = The Egg | The bike shop owner rushes home and lends you a Bicycle for the trouble. Outside, the woman from the statue is waiting. "I'm Cynthia. I heard what you did in there." She hands you an Egg. "It'll hatch for someone who keeps moving forward."
+gift = Togepi
+team = Zubat -1, Bronzor -1, Skuntank +2
+level = 1
+floor = 88
+cpu = hard
+venue = office
+
+[stage]
+name = Old Chateau
+map = 470, 615
+trainer = The Haunted TV
+story = Deep in Eterna Forest stands a mansion no one lives in. Gardenia flatly refuses to set foot inside. In an upstairs room, a dusty old TV is glowing.
+say = The screen flickers on by itself... a face of crackling static grins out at you, and something jumps out of the TV!
+team = Rotom +1
+level = 1
+floor = 88
+cpu = hard
+catch = no
+reward = no
+join = yes
+venue = mansion
+
+# ---------------------------------------------------------------- Chapter 3: Wayward Cave, Mt. Coronet and Hearthome City
+[stage]
+name = Wayward Cave
+map = 545, 860
+trainer = Wild Pokemon
+story = Beneath the Cycling Road, a hidden cave hides a lost girl named Mira. She's been wandering in the dark for ages. Her Kadabra lights the way and fights beside you.
+say = Shapes move in the dark of Wayward Cave... a pair of wild Pokemon charge!
+team = Gible, Bronzor, Onix, Geodude
+level = 1
+floor = 89
+cpu = hard
+double = yes
+partner = Mira
+partner_team = Gengar -1, Togekiss -1, Kadabra +1
+venue = cave
+
+[stage]
+name = Hearthome Gym
+map = 850, 920
+trainer = Leader Fantina
+story = On the way through Mt. Coronet, the man in the grey suit spoke again: about a world with no strife, and no spirit either. In Hearthome, a lost Buneary leads you to the Contest Hall, where the Gym Leader is waiting in a ball gown.
+say = Bonjour! I am Fantina. On the stage I dance, and in battle my Ghost-types dance too. Can you follow their steps in the dark?
+card_after = Eevee | A man named Bebe runs the PC system from his house by the Contest Hall. "You battled Fantina? Then this little one should go with someone strong." He gives you an Eevee.
+gift = Eevee
+team = Duskull -2, Haunter -2, Drifblim -1, Banette -1, Dusknoir -1, Mismagius +1
+level = 1
+floor = 89
+cpu = hard
+arena = hearthome
+badge = Relic
+
+[stage]
+name = Route 209
+map = 960, 948
+trainer = Rival Barry
+story = Barry is pacing the Hearthome gate. He's already heard you got the Relic Badge.
+say = Three badges?! Fine, you're fast. But my team's faster! Battle now, before I change my mind - I won't change my mind!
+team = Staravia -1, rival_sinnoh1@23 -2, rival_sinnoh2@23 -2, rival@27 +1
+level = 1
+floor = 89
+cpu = hard
+catch = no
+rival = yes
+venue = route
+
+# ---------------------------------------------------------------- Chapter 4: Solaceon Town to Veilstone City
+[stage]
+name = Route 215
+map = 1100, 720
+trainer = Ace Trainer Dennis
+story = Rain never stops on Route 215. A trainer in a soaked jacket waits for you halfway to Veilstone.
+say = I train in the rain so nothing can bother me in battle. Let's see if you get rattled!
+team = Gligar -1, Buizel -1, Drifblim +1
+level = 1
+floor = 89
+cpu = hard
+venue = route
+
+[stage]
+name = Veilstone Gym
+map = 1245, 760
+trainer = Leader Maylene
+say = I'm Maylene. I'm not sure I'm good enough to be a Gym Leader... but my Pokemon and I won't hold back. Fists up!
+team = Meditite -2, Machoke -2, Hitmontop -1, Breloom -1, Medicham -1, Lucario +2
+level = 2
+floor = 89
+cpu = hard
+arena = fighting
+badge = Cobble
+
+[stage]
+name = Galactic Warehouse
+map = 1280, 795
+trainer = Team Galactic Grunts
+story = Two grunts snatched Dawn's Pokedex in the middle of the street and ran into the Galactic Warehouse. Dawn is furious, and right behind you.
+say = You want the Pokedex back? Then come and get it! We've got the whole warehouse on our side!
+card_after = Porygon | With the Pokedex back in Dawn's hands, a man who works at the Game Corner waves you over. "I've been meaning to find this one a good home. It's a virtual Pokemon - take it!" He gives you a Porygon.
+gift = Porygon
+team = Zubat -1, Zubat -1, Stunky +1, Croagunk +1
+level = 2
+floor = 89
+cpu = hard
+double = yes
+partner = Dawn
+partner_team = Clefairy -1, Kadabra -1, assistant@27 +1
+venue = hideout
+
+# ---------------------------------------------------------------- Chapter 5: Valor Lakefront and Pastoria City
+[stage]
+name = Seven Stars Restaurant
+map = 1300, 1080
+trainer = Breeder Kaylee & Scientist Emilio
+story = The Seven Stars Restaurant at Valor Lakefront only serves trainers who battle in pairs. Two diners wave you over.
+say = House rules: two at a time! We'll even let you pick your partner from your own team.
+team = Aipom -1, Kadabra +1, Marill -1, Swablu
+level = 2
+floor = 90
+cpu = hard
+double = yes
+venue = city
+
+[stage]
+name = Pastoria City
+map = 1040, 1170
+trainer = Rival Barry
+story = Barry is standing outside the Pastoria Gym, telling everyone that Crasher Wake is his master. Crasher Wake has never met him.
+say = I've been training with Crasher Wake! Well, near him. Close enough! Let's see if it rubbed off!
+team = Staravia -1, rival_sinnoh1@25 -2, rival_sinnoh2@25 -2, rival@31 +1
+level = 2
+floor = 90
+cpu = hard
+catch = no
+rival = yes
+venue = city
+
+[stage]
+name = Pastoria Gym
+map = 1085, 1135
+trainer = Leader Crasher Wake
+say = Crasher Wake, champion of the waves! In my gym the water rises and falls, and my Pokemon ride every surge. Dive in!
+team = Gyarados -2, Quagsire -1, Sharpedo -1, Ludicolo -1, Floatzel +2
+level = 2
+floor = 90
+cpu = hard
+arena = pastoria
+badge = Fen
+
+[stage]
+name = Valor Lakefront
+map = 1270, 1100
+trainer = Team Galactic Grunt
+story = A blast shakes the Great Marsh gate - a Galactic grunt set off a small bomb "as a test" and ran. You chase him all the way back to Valor Lakefront.
+say = That was just a little one! Wait till you see the big one. Not that you'll be around to see it!
+team = Stunky -1, Glameow -1, Croagunk +1
+level = 2
+floor = 90
+cpu = hard
+venue = route
+
+# ---------------------------------------------------------------- Chapter 6: Route 210 and Celestic Town
+[stage]
+name = Celestic Ruins
+map = 830, 615
+trainer = Galactic Boss Cyrus
+story = On Route 210, Cynthia cured the Psyduck blocking the road and asked you to carry an Old Charm to her grandmother in Celestic Town. When you arrive, a grunt is guarding the town's small shrine - and the man in the grey suit is inside.
+say = I am Cyrus, the leader of Team Galactic. I came to learn what this mural knows of time and space. You came to stop me. Let us see which of us is wasting our time.
+card_pokemon = Uxie
+card_after = The Mural | With Cyrus gone, Cynthia's grandmother shows you the old mural. Three small Pokemon circle a great one: knowledge, emotion and willpower - the guardians of Sinnoh's three lakes. "Whoever holds all three," she says quietly, "could reach the gods of time and space." She teaches you Surf.
+team = Sneasel -1, Golbat -1, Murkrow +1
+level = 2
+floor = 90
+cpu = hard
+catch = no
+venue = cave
+
+# ---------------------------------------------------------------- Chapter 7: Canalave City and Iron Island
+[stage]
+name = Canalave City
+map = 150, 1005
+trainer = Rival Barry
+story = Barry is standing in the middle of Canalave's drawbridge, blocking it on purpose.
+say = Gotcha! I just beat Byron's... well, I just met Byron. Point is, I've gotten way stronger. Let's go!
+team = Staraptor -1, Heracross, rival_sinnoh1@35 -2, rival_sinnoh2@35 -2, rival@38 +1
+level = 2
+floor = 91
+cpu = hard
+catch = no
+rival = yes
+venue = bridge
+
+[stage]
+name = Iron Island B2F
+map = 210, 555
+trainer = Team Galactic Grunts
+story = At the Canalave Library, Rowan, Barry and Dawn were reading the Sinnoh myths with you when an explosion rocked the city. Now Team Galactic has dug in on Iron Island, and a quiet man named Riley wants them gone as much as you do. His Lucario steps up beside you.
+say = Team Galactic is digging here, and two kids and a man with a dog aren't going to stop us!
+card_after = Riley's Egg | With the mine clear, Riley gives you an Egg. "My Lucario hatched from one like this. Raise it well, and it will read your heart."
+gift = Riolu
+team = Zubat -1, Glameow -1, Houndour, Croagunk, Golbat, Stunky
+level = 3
+floor = 91
+cpu = hard
+double = yes
+partner = Riley
+partner_team = Absol -1, Metagross -1, Lucario +1
+venue = cave
+
+[stage]
+name = Canalave Gym
+map = 95, 960
+trainer = Leader Byron
+say = I am Byron, Roark's father! My Steel-types are forged in the mines as surely as his rocks are. Let's see you dent them!
+team = Magneton -2, Steelix -2, Skarmory -1, Aggron -1, Bastiodon +2
+level = 3
+floor = 91
+cpu = hard
+arena = steel
+badge = Mine
+
+# ---------------------------------------------------------------- Chapter 8: The three lakes and Snowpoint City
+[stage]
+name = Valor Cavern
+map = 1235, 1030
+trainer = Commander Saturn
+card_pokemon = Azelf
+card = The Galactic Bomb | The ground jumps and a roar rolls across Sinnoh. At Lake Valor, the water is simply gone: a crater of mud and stranded Magikarp. Team Galactic's bomb has drained the lake. In the cavern at its center, a commander with blue hair is holding a Poke Ball with Azelf inside.
+say = I'm Saturn. Azelf is already ours. You're too late, so why bother? ...Well. If you insist on losing, I'll oblige.
+team = Golbat -1, Bronzor -1, Toxicroak +1
+level = 3
+floor = 91
+cpu = hard
+venue = cave
+
+[stage]
+name = Verity Lakefront
+map = 95, 1110
+trainer = Team Galactic Grunts
+story = You fly back to Lake Verity. Professor Rowan and Dawn are holding off grunts at the shore, but two more block the way to the cavern.
+say = The Commander's busy with the lake Pokemon. Nobody goes in - especially not you!
+team = Stunky -1, Croagunk +1, Houndour -1
+level = 3
+floor = 91
+cpu = hard
+double = yes
+venue = route
+
+[stage]
+name = Lake Verity
+map = 140, 1165
+trainer = Commander Mars
+story = In the cavern, Mars has a Poke Ball in her hand. Mesprit is already inside.
+say = Oh, it's you again. You're too late this time - Mesprit's ours. But I never turn down a chance to settle the score!
+team = Golbat -1, Bronzor -1, Purugly +1
+level = 3
+floor = 91
+cpu = hard
+venue = cave
+
+[stage]
+name = Route 216
+map = 640, 385
+trainer = Skier Bradley
+story = Rowan sends you north: Barry went to Lake Acuity alone. The road out of Mt. Coronet is buried in snow.
+say = Nothing better than fresh powder! And nothing better after skiing than a snowy battle!
+team = Snorunt -1, Swinub -1, Snover +1
+level = 3
+floor = 91
+cpu = hard
+venue = route
+
+[stage]
+name = Snowpoint Gym
+map = 655, 80
+trainer = Leader Candice
+say = I'm Candice! Snowpoint's coldest Gym Leader and its biggest fan of diamond dust. Let's get our focus on - full blast!
+team = Sneasel -2, Piloswine -2, Abomasnow -1, Glaceon -1, Froslass +2
+level = 3
+floor = 91
+cpu = hard
+arena = ice
+badge = Icicle
+
+# ---------------------------------------------------------------- Chapter 9: Team Galactic HQ
+[stage]
+name = Galactic HQ
+map = 1205, 720
+trainer = Galactic Boss Cyrus
+card_pokemon = Uxie
+card = Barry Beaten | At Lake Acuity, Barry is sitting in the snow. For once he isn't in a hurry. "Jupiter took it. Uxie. I couldn't stop her." He gets up slowly. "Go. Veilstone. I'll catch up... I'm always the one catching up, huh?"
+story = Deep in the Galactic headquarters, Cyrus is waiting for you in his office.
+say = Spirit. Compassion. Rivalry. They make the world incomplete, and so I will make another. The Red Chain is nearly done. You cannot stop it - but you may try.
+card_after = The Master Ball | Cyrus hands you a Poke Ball with a purple top. "A Master Ball. It catches anything. I will have no further need for others' Pokemon." He walks out without looking back.
+team = Sneasel -1, Crobat -1, Honchkrow +1
+level = 3
+floor = 92
+cpu = hard
+catch = no
+venue = hideout
+
+[stage]
+name = Galactic HQ Lab
+map = 1285, 720
+trainer = Commander Saturn
+story = Past a warp panel, Saturn stands in front of three glass tanks. Uxie, Mesprit and Azelf are inside, being drained.
+say = Their crystals made the Red Chain. The boss doesn't need them anymore, but he told me not to let you through. ...I'll do my job.
+card_after = The Red Chain | You hit the release switch, and the three lake guardians blink out of their tanks and vanish home. Saturn watches without stopping you. "The chain's already made," he says. "The boss is going to Spear Pillar. If you think you can stop him, go."
+team = Golbat -1, Bronzor -1, Toxicroak +1
+level = 3
+floor = 92
+cpu = hard
+venue = lab
+
+# ---------------------------------------------------------------- Chapter 10: Mt. Coronet, Spear Pillar and the Distortion World
+[stage]
+name = Mt. Coronet
+map = 712, 700
+trainer = Team Galactic Grunt
+story = Grunts block every passage up Mt. Coronet. A man in a trench coat - Looker, of the International Police - says Cyrus and his commanders are too much for him, and lets you go up alone.
+say = The boss is calling the gods at the summit. Nobody climbs this mountain today!
+team = Houndour -1, Golbat -1, Houndour +1
+level = 3
+floor = 93
+cpu = hard
+venue = cave
+
+[stage]
+name = Spear Pillar
+map = 712, 480
+trainer = Commanders Mars & Jupiter
+card_pokemon = Dialga
+card = Spear Pillar | At the top of Mt. Coronet, broken columns ring an ancient stage. Cyrus raises the Red Chain, and the sky tears open: Dialga and Palkia appear, bound in red light. Mars and Jupiter step in front of you - and then Barry skids in beside you, out of breath. "Did I miss it? I didn't miss it! Let's go!"
+say = We're making history here. You and that loud friend of yours are just in the background.
+team = Bronzor -1, Bronzor -1, Golbat -1, Golbat -1, Purugly +1, Skuntank +1
+level = 4
+floor = 93
+cpu = hard
+double = yes
+partner = Barry
+partner_team = Munchlax -3, Staraptor -1, Heracross -1, rival_sinnoh1@40 -2, rival_sinnoh2@40 -2, rival@44 +1
+venue = mountain
+
+[stage]
+name = Distortion World
+map = 760, 470
+trainer = Galactic Boss Cyrus
+card_pokemon = Giratina
+card = Giratina | Uxie, Mesprit and Azelf appear and the Red Chain shakes. Then a shadow rises out of the stones of Spear Pillar and swallows the light - Giratina, banished to another world for its violence. It drags Cyrus down into the rift. Cynthia arrives at a run. "We're going after him," she says, and you step through together.
+story = In the Distortion World, waterfalls fall sideways and islands float in a grey sky. Cyrus stands on one of them.
+say = Giratina will not keep me from my world. And neither will you. Here, at the end of everything, I will defeat you both.
+card_after = Sendoff Spring | Cyrus will not leave. "I'll find another way," he says, and turns back into the grey. Giratina carries you and Cynthia out through the water of Sendoff Spring. Behind you, Uxie, Mesprit and Azelf drift home to their lakes.
+team = Houndoom -2, Honchkrow, Crobat -1, Gyarados -1, Weavile +1
+level = 4
+floor = 93
+cpu = hard
+catch = no
+arena = distortion
+
+# ---------------------------------------------------------------- Chapter 11: Sunyshore City
+[stage]
+name = Sunyshore Gym
+map = 1525, 1035
+trainer = Leader Volkner
+story = Outside the Sunyshore Gym, an Elite Four member with fiery hair stops you. "I'm Flint. Volkner's my best friend, and he's bored to death. Give him a battle that wakes him up, would you?"
+say = Volkner. Gym Leader. ...Huh. You actually look strong. All right - let's see if you can make me feel something.
+team = Jolteon -2, Raichu -2, Lanturn -1, Luxray -1, Electivire +2
+level = 4
+floor = 93
+cpu = hard
+arena = sunyshore
+badge = Beacon
+
+# ---------------------------------------------------------------- Chapter 12: Victory Road
+[stage]
+name = Victory Road
+map = 1495, 740
+trainer = Veteran Edgar
+say = I've walked this road more times than I can count. My Pokemon know every stone. Do yours?
+team = Porygon-Z -1, Tangrowth -1, Empoleon +1
+level = 4
+floor = 93
+cpu = hard
+venue = cave
+
+[stage]
+name = Pokemon League
+map = 1495, 708
+trainer = Rival Barry
+story = Just inside the League gates, Barry is waiting by the Elite Four's door, unusually quiet.
+say = I've been thinking. I wanna be strong like my dad - strong enough that nobody gets hurt. So this battle? Everything I've got. No fines. Just this.
+team = Staraptor -1, Heracross -1, Snorlax -1, rival_sinnoh1@47 -2, rival_sinnoh2@47 -2, rival@51 +2
+level = 4
+floor = 93
+cpu = hard
+catch = no
+rival = yes
+venue = stadium
+
+# ---------------------------------------------------------------- The Pokemon League
+[stage]
+name = Aaron's Room
+map = 1473, 662
+trainer = Elite Four Aaron
+say = I'm Aaron. Bug Pokemon are small, but they're fierce and beautiful. I'll prove it to everyone who comes through here!
+team = Yanmega -1, Scizor -1, Vespiquen -1, Heracross -1, Drapion +1
+level = 4
+floor = 94
+cpu = hard
+arena = bug
+league = 1
+
+[stage]
+name = Bertha's Room
+map = 1487, 650
+trainer = Elite Four Bertha
+say = Well now, aren't you a lively one. I'm Bertha. My Ground-types are slow and steady, dear - just like me. Shall we?
+team = Whiscash -1, Gliscor -1, Hippowdon -1, Golem -1, Rhyperior +1
+level = 4
+floor = 94
+cpu = hard
+arena = ground
+league = 2
+
+[stage]
+name = Flint's Room
+map = 1503, 650
+trainer = Elite Four Flint
+say = You woke Volkner up! I owe you one. And the best way I know to say thanks is a battle that burns hot!
+team = Houndoom -1, Flareon -1, Rapidash -1, Infernape -1, Magmortar +1
+level = 5
+floor = 94
+cpu = hard
+arena = fire
+league = 3
+
+[stage]
+name = Lucian's Room
+map = 1517, 662
+trainer = Elite Four Lucian
+say = Excuse me, I was just finishing a chapter. I am Lucian. My Psychic-types and I have read every move you might make.
+team = Mr. Mime -1, Espeon -1, Bronzong -1, Alakazam -1, Gallade +1
+level = 5
+floor = 94
+cpu = hard
+arena = psychic
+league = 4
+
+[stage]
+name = Champion's Room
+map = 1495, 676
+trainer = Champion Cynthia
+story = The last door opens. The woman from the Eterna statue, from Route 210, from the Distortion World, is waiting for you.
+say = So it's you. I knew it would be. You've seen what Sinnoh's legends can do - now let me show you what a Champion can. I won't hold anything back.
+card_pokemon = Garchomp
+card_after = Hall of Fame | Your team's names are carved into Sinnoh's Hall of Fame. Back in Sandgem, Professor Rowan and Professor Oak upgrade your Pokedex, and Barry runs off to catch a ship. "There's a place up north called the Battle Zone. Strong trainers everywhere! Last one there pays the fine!"
+team = Spiritomb -1, Roserade -1, Togekiss, Lucario, Milotic -1, Garchomp +1
+level = 5
+floor = 94
+cpu = hard
+arena = sinnohchampion
+league = 5
+
+# ---------------------------------------------------------------- The Battle Zone (after Cynthia)
+[stage]
+name = Fight Area
+map = 1130, 445
+trainer = Elite Four Flint & Leader Volkner
+story = At the Fight Area, Flint and Volkner are blocking the road to the Battle Frontier together, grinning. Barry is already there, bouncing beside you.
+say = Flint: Two of us, two of you. Volkner: Don't hold back. I came all this way to have fun.
+card_after = Palmer | A big man with a bigger laugh claps Barry on the back. "That's my boy! And you must be the rival he never shuts up about." He's Palmer, the Tower Tycoon of the Battle Frontier - Barry's dad. "Come find me at the Tower when you want a real challenge."
+team = Houndoom -1, Luxray -1, Flareon -1, Jolteon -1, Magmortar +1, Electivire +1
+level = 5
+floor = 95
+cpu = hard
+double = yes
+partner = Barry
+partner_team = Staraptor -1, Heracross -1, Snorlax, rival_sinnoh1@52 -2, rival_sinnoh2@52 -2, rival@56 +1
+arena = champion
+postgame = yes
+
+[stage]
+name = Stark Mountain Entrance
+map = 1330, 200
+trainer = Commander Mars
+card = Stark Mountain | Looker finds you at the Survival Area. "Charon has taken what is left of Team Galactic. He wants the Magma Stone at the heart of Stark Mountain - and with it, the volcano's Pokemon." Mars and Jupiter have followed him there.
+say = Cyrus is gone, and Charon thinks he's in charge now. I'm only here to see what's in the mountain. Don't get in my way!
+team = Bronzong -1, Golbat -1, Purugly +1
+level = 5
+floor = 95
+cpu = hard
+venue = mountain
+postgame = yes
+
+[stage]
+name = Stark Mountain
+map = 1330, 145
+trainer = Commander Jupiter
+say = Without Cyrus, none of this means anything. ...But I'm still not losing to you.
+card_after = Looker's Arrest | Charon is still yelling about the Magma Stone when Looker snaps the cuffs on him. Mars and Jupiter don't stop it. "Team Galactic is finished," Jupiter says. "We're done here." Looker gives you a nod and marches Charon down the mountain.
+team = Bronzong -1, Golbat -1, Skuntank +1
+level = 5
+floor = 95
+cpu = hard
+venue = volcano
+postgame = yes
+
+[stage]
+name = Stark Mountain Interior
+map = 1330, 100
+trainer = Wild Pokemon
+story = A loud young man named Buck tags along into the mountain's core - he wants to see what's down there. His Claydol spins along beside you.
+say = The heat rises with every step... wild Pokemon burst out of the rocks, two at a time!
+card_pokemon = Heatran
+card_after = The Magma Stone | At the bottom of the mountain, the Magma Stone glows red. Buck lifts it out, and the whole mountain shudders. Something deep in the lava is awake.
+team = Graveler, Golbat, Camerupt, Skarmory
+level = 5
+floor = 95
+cpu = hard
+double = yes
+partner = Buck
+partner_team = Dusknoir -1, Torkoal -1, Claydol +1
+venue = volcano
+postgame = yes
+
+[stage]
+name = Victory Road (back)
+map = 1560, 640
+trainer = Wild Pokemon
+story = A shy girl named Marley asks to walk with you through the back of Victory Road. She barely says a word, but her Arcanine sticks close to you.
+say = Something big moves in the dark passage... wild Pokemon attack, two at a time!
+team = Golbat, Graveler, Machoke, Steelix
+level = 5
+floor = 95
+cpu = hard
+double = yes
+partner = Marley
+partner_team = Weavile -1, Crobat -1, Arcanine +1
+venue = cave
+postgame = yes
+
+[stage]
+name = Survival Area
+map = 1160, 280
+trainer = Rival Barry
+story = Every weekend, Barry trains at the Survival Area. Today he's been waiting for you since dawn.
+say = My dad says the strongest trainers never stop getting stronger. So here's my strongest - all of it! Let's go!
+team = Staraptor -1, rival_sinnoh1@59 -2, rival_sinnoh2@59 -2, Snorlax -1, Heracross -1, rival@65 +1
+level = 6
+floor = 96
+cpu = hard
+catch = no
+rival = yes
+venue = route
+postgame = yes
+
+[stage]
+name = Champion Rematch
+map = 1530, 700
+trainer = Champion Cynthia
+card = A Champion's Rematch | Word reaches you in the Battle Zone: Cynthia is back at the Pokemon League, and she has asked for you by name. "I've been training since our battle," her message says. "Come and see."
+say = I couldn't stop thinking about our last battle. My Pokemon want another, and so do I. This time we're even stronger!
+team = Spiritomb -1, Roserade -1, Togekiss, Lucario, Milotic -1, Garchomp +1
+level = 6
+floor = 96
+cpu = hard
+catch = no
+arena = sinnohchampion
+postgame = yes

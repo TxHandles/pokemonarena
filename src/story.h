@@ -41,6 +41,7 @@ struct StageDef {
     bool IsGym() const { return !badge.empty(); }
     bool IsLeague() const { return league > 0; }
     bool IsChampion() const { return league >= 5; }
+    bool finale = false;            // the region's real finale comes after its Champion (Unova: Ghetsis after N) - the Champion message and Hall of Fame wait for it
     bool IsBoss() const { return IsGym() || IsLeague(); }   // can be rematched from the Map
     bool IsTowerBoss() const { return towerFloor > 0 && towerFloor % 10 == 0; }
     bool BigIntro() const { return IsBoss() || IsTowerBoss() || (postgame && arena != ArenaKind::Stadium); }   // the packed-stadium intro

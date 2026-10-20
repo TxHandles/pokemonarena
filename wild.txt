@@ -1057,3 +1057,239 @@ pokemon = walk, Ditto, 40, 95-100
 pokemon = walk, Whismur, 25, 95-100
 pokemon = walk, Loudred, 30, 95-100
 pokemon = walk, Wynaut, 5, 95-100, rare
+
+# ==========================================================================
+#  SINNOH (Pokemon Platinum encounter tables). Levels follow the story's level range there.
+# ==========================================================================
+
+[Routes 201 and 202, Lake Verity]
+unlock = Route 201
+pokemon = walk, Bidoof, 30, 89-93
+pokemon = walk, Starly, 30, 89-93
+pokemon = walk, Shinx, 20, 89-93
+pokemon = walk, Kricketot, 20, 89-93
+pokemon = surf, Psyduck, 60, 89-93
+pokemon = surf, Golduck, 10, 89-93
+pokemon = super-rod, Magikarp, 60, 89-93
+pokemon = super-rod, Gyarados, 40, 89-93
+
+[Route 203 and Oreburgh Gate]
+unlock = Route 203
+pokemon = walk, Starly, 25, 89-93
+pokemon = walk, Bidoof, 20, 89-93
+pokemon = walk, Shinx, 20, 89-93
+pokemon = walk, Abra, 15, 89-93
+pokemon = walk, Zubat, 20, 89-93
+pokemon = rock-smash, Geodude, 100, 89-93
+pokemon = surf, Psyduck, 100, 89-93
+
+[Route 204 and Ravaged Path]
+unlock = Oreburgh Gym
+pokemon = walk, Budew, 25, 89-93
+pokemon = walk, Wurmple, 25, 89-93
+pokemon = walk, Kricketot, 15, 89-93
+pokemon = walk, Shinx, 15, 89-93
+pokemon = walk, Zubat, 20, 89-93
+pokemon = surf, Golbat, 30, 89-93
+pokemon = surf, Psyduck, 70, 89-93
+pokemon = walk, Cranidos, 3, 90-93, rare
+pokemon = walk, Shieldon, 3, 90-93, rare
+
+[Valley Windworks and Route 205]
+unlock = Valley Windworks
+pokemon = walk, Shinx, 25, 90-94
+pokemon = walk, Pachirisu, 25, 90-94
+pokemon = walk, Buizel, 25, 90-94
+pokemon = walk, Shellos, 25, 90-94
+pokemon = surf, Shellos, 60, 90-94
+pokemon = surf, Gastrodon, 40, 90-94
+pokemon = walk, Drifloon, 5, 91-94, rare
+pokemon = walk, Munchlax, 3, 91-94, rare
+
+[Eterna Forest]
+unlock = Eterna Forest
+pokemon = walk, Buneary, 15, 90-94
+pokemon = walk, Gastly, 15, 90-94
+pokemon = walk, Hoothoot, 15, 90-94
+pokemon = walk, Budew, 15, 90-94
+pokemon = walk, Wurmple, 10, 90-94
+pokemon = walk, Silcoon, 8, 90-94
+pokemon = walk, Beautifly, 7, 90-94
+pokemon = walk, Cascoon, 8, 90-94
+pokemon = walk, Dustox, 7, 90-94
+pokemon = walk, Combee, 5, 91-94, rare
+
+[Old Chateau]
+unlock = Eterna Gym
+pokemon = walk, Gastly, 80, 90-94
+pokemon = walk, Haunter, 20, 90-94
+
+[Route 206 and Wayward Cave]
+unlock = Wayward Cave
+pokemon = walk, Machop, 15, 91-95
+pokemon = walk, Geodude, 15, 91-95
+pokemon = walk, Ponyta, 15, 91-95
+pokemon = walk, Gligar, 15, 91-95
+pokemon = walk, Kricketune, 15, 91-95
+pokemon = walk, Onix, 10, 91-95
+pokemon = walk, Bronzor, 15, 91-95
+pokemon = walk, Gible, 3, 92-95, rare
+
+[Mt. Coronet (south) and Route 208]
+unlock = Wayward Cave
+pokemon = walk, Machop, 10, 91-95
+pokemon = walk, Nosepass, 10, 91-95
+pokemon = walk, Meditite, 10, 91-95
+pokemon = walk, Chingling, 10, 91-95
+pokemon = walk, Bronzor, 10, 91-95
+pokemon = walk, Clefairy, 10, 91-95
+pokemon = walk, Ralts, 10, 91-95
+pokemon = walk, Roselia, 15, 91-95
+pokemon = walk, Bibarel, 15, 91-95
+pokemon = surf, Bibarel, 100, 91-95
+
+[Route 209, Lost Tower and Solaceon Ruins]
+unlock = Route 209
+pokemon = walk, Gastly, 20, 91-95
+pokemon = walk, Duskull, 20, 91-95
+pokemon = walk, Zubat, 20, 91-95
+pokemon = walk, Golbat, 15, 91-95
+pokemon = walk, Chansey, 5, 91-95
+pokemon = walk, Bonsly, 10, 91-95
+pokemon = walk, Staravia, 10, 91-95
+pokemon = walk, Unown, 5, 92-95, rare
+pokemon = walk, Spiritomb, 3, 92-95, rare
+
+[Routes 210 (south) and 215]
+unlock = Route 215
+pokemon = walk, Scyther, 15, 92-96
+pokemon = walk, Abra, 10, 92-96
+pokemon = walk, Kadabra, 10, 92-96
+pokemon = walk, Lickitung, 10, 92-96
+pokemon = walk, Marill, 15, 92-96
+pokemon = walk, Staravia, 15, 92-96
+pokemon = walk, Ponyta, 15, 92-96
+pokemon = walk, Geodude, 10, 92-96
+
+[Route 214 and Maniac Tunnel]
+unlock = Veilstone Gym
+pokemon = walk, Geodude, 15, 92-96
+pokemon = walk, Graveler, 15, 92-96
+pokemon = walk, Rhyhorn, 15, 92-96
+pokemon = walk, Houndour, 15, 92-96
+pokemon = walk, Hippopotas, 20, 92-96
+pokemon = walk, Zubat, 10, 92-96
+pokemon = walk, Sudowoodo, 10, 92-96
+
+[Valor Lakefront and Route 213]
+unlock = Seven Stars Restaurant
+pokemon = walk, Girafarig, 15, 92-96
+pokemon = walk, Houndour, 10, 92-96
+pokemon = walk, Staravia, 10, 92-96
+pokemon = walk, Bibarel, 10, 92-96
+pokemon = walk, Kricketune, 10, 92-96
+pokemon = walk, Wingull, 10, 92-96
+pokemon = walk, Buizel, 15, 92-96
+pokemon = walk, Shellos, 10, 92-96
+pokemon = walk, Chatot, 10, 92-96
+pokemon = surf, Tentacool, 50, 92-96
+pokemon = surf, Pelipper, 50, 92-96
+
+[Route 212 and the Great Marsh]
+unlock = Pastoria Gym
+pokemon = walk, Quagsire, 15, 93-97
+pokemon = walk, Wooper, 15, 93-97
+pokemon = walk, Buizel, 10, 93-97
+pokemon = walk, Shellos, 10, 93-97
+pokemon = walk, Croagunk, 15, 93-97
+pokemon = walk, Carnivine, 15, 93-97
+pokemon = walk, Skorupi, 10, 93-97
+pokemon = walk, Yanma, 10, 93-97
+pokemon = surf, Quagsire, 100, 93-97
+
+[Route 210 (north), Celestic Town and Route 211]
+unlock = Celestic Ruins
+pokemon = walk, Machoke, 15, 93-97
+pokemon = walk, Scyther, 10, 93-97
+pokemon = walk, Noctowl, 15, 93-97
+pokemon = walk, Swablu, 15, 93-97
+pokemon = walk, Meditite, 10, 93-97
+pokemon = walk, Bronzor, 10, 93-97
+pokemon = walk, Chingling, 10, 93-97
+pokemon = walk, Graveler, 15, 93-97
+pokemon = walk, Tyrogue, 3, 94-97, rare
+
+[Routes 218 to 221 (sea)]
+unlock = Canalave City
+pokemon = walk, Mr. Mime, 20, 93-97
+pokemon = walk, Floatzel, 20, 93-97
+pokemon = walk, Gastrodon, 20, 93-97
+pokemon = walk, Sudowoodo, 20, 93-97
+pokemon = walk, Pelipper, 20, 93-97
+pokemon = surf, Tentacool, 30, 93-97
+pokemon = surf, Tentacruel, 20, 93-97
+pokemon = surf, Wingull, 20, 93-97
+pokemon = surf, Finneon, 20, 93-97
+pokemon = surf, Lumineon, 10, 93-97
+
+[Iron Island]
+unlock = Iron Island B2F
+pokemon = walk, Golbat, 25, 94-98
+pokemon = walk, Graveler, 25, 94-98
+pokemon = walk, Onix, 25, 94-98
+pokemon = walk, Steelix, 25, 94-98
+pokemon = walk, Sableye, 4, 95-98, rare
+pokemon = walk, Mawile, 4, 95-98, rare
+
+[Routes 216 and 217, Acuity Lakefront]
+unlock = Route 216
+pokemon = walk, Sneasel, 20, 94-98
+pokemon = walk, Swinub, 20, 94-98
+pokemon = walk, Snorunt, 20, 94-98
+pokemon = walk, Snover, 25, 94-98
+pokemon = walk, Machoke, 15, 94-98
+
+[Mt. Coronet (north) and the summit]
+unlock = Mt. Coronet
+pokemon = walk, Golbat, 15, 95-99
+pokemon = walk, Machoke, 15, 95-99
+pokemon = walk, Graveler, 15, 95-99
+pokemon = walk, Nosepass, 15, 95-99
+pokemon = walk, Medicham, 10, 95-99
+pokemon = walk, Clefairy, 15, 95-99
+pokemon = walk, Chimecho, 15, 95-99
+
+[Routes 222 and 223 (Sunyshore)]
+unlock = Distortion World
+pokemon = walk, Magnemite, 15, 95-99
+pokemon = walk, Magneton, 10, 95-99
+pokemon = walk, Electabuzz, 15, 95-99
+pokemon = walk, Luxio, 15, 95-99
+pokemon = walk, Floatzel, 15, 95-99
+pokemon = walk, Chatot, 15, 95-99
+pokemon = walk, Pelipper, 15, 95-99
+pokemon = surf, Tentacruel, 40, 95-99
+pokemon = surf, Mantyke, 30, 95-99
+pokemon = surf, Remoraid, 30, 95-99
+
+[Victory Road (Sinnoh)]
+unlock = Pokemon League
+pokemon = walk, Golbat, 20, 96-100
+pokemon = walk, Graveler, 20, 96-100
+pokemon = walk, Onix, 20, 96-100
+pokemon = walk, Machoke, 20, 96-100
+pokemon = walk, Steelix, 20, 96-100
+
+[Battle Zone and Stark Mountain]
+unlock = Fight Area
+pokemon = walk, Fearow, 10, 96-100
+pokemon = walk, Golbat, 10, 96-100
+pokemon = walk, Graveler, 10, 96-100
+pokemon = walk, Weezing, 10, 96-100
+pokemon = walk, Rhyhorn, 10, 96-100
+pokemon = walk, Rhydon, 10, 96-100
+pokemon = walk, Skarmory, 10, 96-100
+pokemon = walk, Numel, 10, 96-100
+pokemon = walk, Camerupt, 10, 96-100
+pokemon = walk, Banette, 5, 96-100
+pokemon = walk, Raticate, 5, 96-100

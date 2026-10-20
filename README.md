@@ -102,14 +102,31 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
   Institute, Beldum after Wallace. Ten legendaries on the Map's Legendary tab: Regirock, Regice and
   Registeel and Rayquaza after the Rain Badge, Latias, Latios, Groudon and Kyogre after Wallace, Jirachi after
   you beat Steven, Deoxys once Rayquaza is caught. `wild.txt` has 20 Hoenn training areas.
-- **Start anywhere** – a new story (or co-op journey) begins on a region screen: pick Kanto, Johto or
-  Hoenn and get that region's own three starters at level 5 (Kanto: Bulbasaur, Charmander, Squirtle;
-  Johto: Chikorita, Cyndaquil, Totodile; Hoenn: Treecko, Torchic, Mudkip), with that region's rival
+- **Sinnoh** – the fourth region, on the Platinum town map (`sinnoh.png`). Professor Rowan's gift is
+  Turtwig, Chimchar or Piplup; Barry (your neighbour) takes the one that beats yours, and Dawn fights beside
+  you in a few doubles (`assistant`: the starter neither of you took). 50 battles follow Platinum from
+  Route 201 to Champion Cynthia: the eight gyms (Roark, Gardenia, Fantina, Maylene, Crasher Wake, Byron,
+  Candice, Volkner), Team Galactic's commanders, the three lakes, Spear Pillar, Cyrus in the Distortion
+  World, the Elite Four (Aaron, Bertha, Flint, Lucian) and Cynthia; then the Battle Zone post-game
+  (the Fight Area, Stark Mountain, Marley, the Survival Area) and Cynthia's rematch team on the Map.
+  Five new arenas: **Hearthome Gym** (lights out, shape-marked doors that teleport you, a chandelier that
+  lights the hall), **Pastoria Gym** (floodgates raise and lower the water; Electric shorts the switch),
+  **Sunyshore Gym** (gears carry and fling you; the solar panel's sunbeam), **Cynthia's Room** (the
+  spotlight, ancient columns, the lake trio's mural) and the **Distortion World** (floating islands and
+  shifting gravity). Fourteen legendaries on the Map's Legendary tab: Uxie, Mesprit and Azelf after
+  Cyrus, Giratina in the Distortion World, Dialga and Palkia at Spear Pillar (new lairs: slowed time /
+  torn space), Heatran, Regigigas (once the three Regis are caught), Cresselia, Darkrai on Newmoon Island
+  (Dark Void clouds), Shaymin, Arceus in the Hall of Origin (once Dialga, Palkia and Giratina are caught),
+  Manaphy and Phione. `wild.txt` has 21 Sinnoh training areas.
+- **Start anywhere** – a new story (or co-op journey) begins on a region screen: pick Kanto, Johto,
+  Hoenn or Sinnoh and get that region's own three starters at level 5 (Kanto: Bulbasaur, Charmander, Squirtle;
+  Johto: Chikorita, Cyndaquil, Totodile; Hoenn: Treecko, Torchic, Mudkip; Sinnoh: Turtwig, Chimchar, Piplup), with that region's rival
   taking the one that beats yours. When a region's Champion falls, the hub's first item becomes
   **Choose your next region!** and you pick any region you haven't played; its professor gives you its
   starter and its rival picks theirs. **Difficulty follows the order, not the region**: whatever you play
   first uses the Map 1 curve (Kanto's levels: a Lv5 starter, Brock ~13 ... the Champion ~63), the second
-  Map 2 (Johto's: a Lv60 starter, levels 60-88), the third Map 3 (Hoenn's: a Lv85+ starter, floors 80-90).
+  Map 2 (Johto's: a Lv60 starter, levels 60-88), the third Map 3 (Hoenn's: a Lv85+ starter, floors 80-90), the fourth Map 4
+  (Sinnoh's: a Lv90 starter, floors 88-96).
   Trainers, the starter gift, wild Pokemon and legendaries all follow the region's place in your order.
   Legendaries only appear once you've reached their region (and their badges count only that region's).
   In co-op, player 1 (online: the host) chooses. Old saves keep the usual order and pick at the next

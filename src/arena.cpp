@@ -91,6 +91,16 @@ Theme ThemeFor(ArenaKind k) {
         case ArenaKind::Sootopolis: return {{36, 52, 76, 255}, {30, 44, 66, 255}, {120, 130, 150, 255}, {96, 106, 126, 255}, {150, 160, 180, 255}, {90, 160, 230, 255}};
         case ArenaKind::HoennChampion: return {{30, 50, 80, 255}, {26, 42, 70, 255}, {200, 200, 210, 255}, {160, 160, 176, 255}, {230, 230, 240, 255}, {110, 180, 240, 255}};
         case ArenaKind::MeteorFalls: return {{34, 30, 44, 255}, {28, 24, 38, 255}, {80, 74, 92, 255}, {64, 58, 76, 255}, {100, 94, 112, 255}, {160, 140, 230, 255}};
+        case ArenaKind::Hearthome: return {{30, 22, 40, 255}, {26, 18, 34, 255}, {90, 60, 90, 255}, {70, 46, 70, 255}, {120, 84, 110, 255}, {210, 170, 80, 255}};
+        case ArenaKind::Pastoria: return {{40, 60, 70, 255}, {34, 52, 62, 255}, {90, 120, 110, 255}, {70, 96, 88, 255}, {130, 160, 140, 255}, {60, 150, 200, 255}};
+        case ArenaKind::Sunyshore: return {{40, 44, 56, 255}, {34, 38, 50, 255}, {130, 130, 150, 255}, {100, 100, 120, 255}, {160, 160, 176, 255}, {240, 210, 70, 255}};
+        case ArenaKind::SinnohChampion: return {{30, 26, 44, 255}, {26, 22, 38, 255}, {120, 110, 140, 255}, {96, 88, 112, 255}, {170, 160, 190, 255}, {220, 200, 120, 255}};
+        case ArenaKind::Distortion: return {{20, 14, 30, 255}, {16, 10, 24, 255}, {60, 40, 80, 255}, {46, 30, 64, 255}, {80, 56, 100, 255}, {190, 110, 255, 255}};
+        case ArenaKind::Striaton: return {{70, 46, 34, 255}, {60, 40, 30, 255}, {170, 130, 90, 255}, {140, 104, 70, 255}, {200, 160, 110, 255}, {200, 60, 50, 255}};
+        case ArenaKind::Nimbasa: return {{30, 24, 40, 255}, {26, 20, 34, 255}, {80, 70, 100, 255}, {64, 56, 82, 255}, {110, 100, 130, 255}, {250, 220, 80, 255}};
+        case ArenaKind::Mistralton: return {{50, 60, 76, 255}, {44, 52, 68, 255}, {130, 136, 150, 255}, {104, 110, 124, 255}, {160, 166, 180, 255}, {220, 120, 60, 255}};
+        case ArenaKind::ThroneRoom: return {{40, 30, 26, 255}, {34, 26, 22, 255}, {150, 120, 60, 255}, {120, 96, 46, 255}, {200, 170, 90, 255}, {240, 210, 110, 255}};
+        case ArenaKind::UnovaChampion: return {{60, 30, 26, 255}, {52, 26, 22, 255}, {140, 100, 60, 255}, {112, 80, 48, 255}, {180, 140, 90, 255}, {255, 150, 60, 255}};
         default:                  return {{58, 48, 72, 255}, {48, 40, 62, 255}, {104, 96, 112, 255}, {84, 76, 94, 255}, {112, 104, 120, 255}, {90, 76, 60, 255}};
     }
 }
@@ -665,6 +675,67 @@ Color FloorBase(ArenaKind k, float wx, float wy) {
             if (Speck(wx, wy, 5501) == 0 && Hf((int)wx, (int)wy, 7) < 0.3f) c = Color{170, 160, 255, 255};
             return c;
         }
+        case ArenaKind::Hearthome: {   // Fantina's hall: dark polished boards with a violet runner
+            Color c = Planks(wx, wy, 16, 120, Color{70, 50, 70, 255}, Color{40, 28, 40, 255}, 61);
+            if (std::fabs(wy - ARENA_H / 2) < 40) c = MixF(c, Color{110, 60, 120, 255}, 0.55f);
+            if (std::fabs(std::fabs(wy - ARENA_H / 2) - 40) < 1.5f) c = Color{200, 160, 80, 255};
+            return c;
+        }
+        case ArenaKind::Pastoria: return FloorBase(ArenaKind::Water, wx, wy);
+        case ArenaKind::Sunyshore: {   // steel deck plates under solar panels
+            Color c = BevelTile(wx, wy, 40, 40, Color{120, 124, 136, 255}, Color{110, 114, 126, 255}, Color{60, 62, 72, 255}, false, 10);
+            if (lineX && ((ty & 1) == 0)) c = Color{230, 200, 70, 255};
+            return c;
+        }
+        case ArenaKind::SinnohChampion: {   // Cynthia's room: grey stone with a gold ring and the lake trio's marks
+            Color c = BevelTile(wx, wy, 40, 40, Color{150, 146, 160, 255}, Color{138, 134, 150, 255}, Color{90, 86, 100, 255}, true, 10);
+            float d = std::sqrt((wx - ARENA_W / 2) * (wx - ARENA_W / 2) + (wy - ARENA_H / 2) * (wy - ARENA_H / 2) * 1.6f);
+            if (std::fabs(d - 120) < 2) c = Color{220, 200, 120, 255};
+            float edge = std::min(std::min(wx, ARENA_W - wx), std::min(wy, ARENA_H - wy) * 1.2f);
+            if (edge < 8) c = Lit(Color{70, 60, 100, 255}, 0.9f + 0.1f * N2(wx * 0.4f, wy * 0.4f));
+            return c;
+        }
+        case ArenaKind::Distortion: {   // floating islands over a swirling void
+            if (DistortionGround({wx, wy})) {
+                Color c = RockGround(wx, wy, Color{110, 100, 120, 255}, Color{90, 80, 104, 255}, 121);
+                bool edge = !DistortionGround({wx + 3, wy}) || !DistortionGround({wx - 3, wy}) || !DistortionGround({wx, wy + 3}) || !DistortionGround({wx, wy - 3});
+                if (edge) c = Color{200, 140, 255, 255};
+                return c;
+            }
+            float sw = Fbm(wx * 0.01f + std::sin(wy * 0.02f), wy * 0.012f);
+            Color c = MixF(Color{14, 6, 24, 255}, Color{60, 20, 80, 255}, sw);
+            if (Speck(wx, wy, 7001) == 0 && Hf((int)wx, (int)wy, 9) < 0.3f) c = Color{220, 180, 255, 255};
+            return c;
+        }
+        case ArenaKind::Striaton: {   // the restaurant: checkered floor
+            Color c = ((tx + ty) & 1) ? Color{230, 220, 200, 255} : Color{150, 60, 50, 255};
+            if (lineX || lineY) c = Color{110, 90, 70, 255};
+            return c;
+        }
+        case ArenaKind::Nimbasa: {   // a dark stage floor with glitter
+            Color c = MixF(Color{40, 34, 56, 255}, Color{56, 46, 76, 255}, Fbm(wx * 0.02f, wy * 0.03f));
+            if (n == 0) c = Color{250, 230, 120, 255};
+            return c;
+        }
+        case ArenaKind::Mistralton: {   // the cargo hangar: concrete with painted lanes
+            Color c = MixF(Color{150, 152, 156, 255}, Color{132, 134, 140, 255}, Fbm(wx * 0.03f, wy * 0.04f));
+            if (lineX && (ty % 2 == 0)) c = Color{230, 200, 60, 255};
+            if (n < 4) c = Lit(c, 0.85f);
+            return c;
+        }
+        case ArenaKind::ThroneRoom: {   // N's castle: gold-veined marble and a long red carpet
+            Color c = ((tx + ty) & 1) ? Color{216, 206, 186, 255} : Color{200, 190, 170, 255};
+            if (lineX || lineY) c = Color{190, 160, 80, 255};
+            if (std::fabs(wy - ARENA_H / 2) < 30) c = Color{150, 40, 50, 255};
+            if (std::fabs(std::fabs(wy - ARENA_H / 2) - 30) < 1.5f) c = Color{230, 190, 90, 255};
+            return c;
+        }
+        case ArenaKind::UnovaChampion: {   // Alder's hall: warm sandstone
+            Color c = BevelTile(wx, wy, 40, 40, Color{196, 150, 110, 255}, Color{186, 140, 100, 255}, Color{120, 84, 60, 255}, true, 12);
+            float d = std::sqrt((wx - ARENA_W / 2) * (wx - ARENA_W / 2) + (wy - ARENA_H / 2) * (wy - ARENA_H / 2) * 1.6f);
+            if (std::fabs(d - 110) < 2) c = Color{240, 140, 60, 255};
+            return c;
+        }
         default: {   // the plain stadium: packed clay
             float m = Fbm(wx * 0.02f, wy * 0.03f);
             Color c = MixF(Color{196, 166, 120, 255}, Color{214, 186, 138, 255}, m * 1.3f - 0.15f);
@@ -1114,6 +1185,10 @@ Venue LairVenue(ArenaKind k) {
         case ArenaKind::MarineCave: return Venue::Cave;
         case ArenaKind::SkyPillar: return Venue::Mountain;
         case ArenaKind::BirthIsland: return Venue::Beach;
+        case ArenaKind::SpearTime: case ArenaKind::SpearSpace: case ArenaKind::Dragonspiral: return Venue::Mountain;
+        case ArenaKind::Newmoon: case ArenaKind::AbundantShrine: return Venue::Forest;
+        case ArenaKind::HallOrigin: return Venue::Mountain;
+        case ArenaKind::GiantChasm: return Venue::IceCave;
         default: return Venue::Stadium;
     }
 }
@@ -1189,6 +1264,27 @@ Color LairFloor(ArenaKind k, float wx, float wy) {
             if (in && !inner) c = Color{220, 90, 70, 255};
             return c;
         }
+        case ArenaKind::SpearTime:
+        case ArenaKind::SpearSpace: {   // Spear Pillar: old white flagstones, cracked
+            Color c = BevelTile(wx, wy, 36, 36, Color{196, 196, 204, 255}, Color{184, 184, 194, 255}, Color{120, 120, 134, 255}, true, 10);
+            if (CrackMask(wx, wy, 34, 51, 0.7f) > 0.5f) c = Lit(c, 0.8f);
+            if (k == ArenaKind::SpearSpace) c = Mix(c, Color{200, 150, 190, 255}, 0.12f); else c = Mix(c, Color{150, 180, 220, 255}, 0.12f);
+            return c;
+        }
+        case ArenaKind::Newmoon: return Mix(VenueFloor(Venue::Forest, 3, wx, wy), Color{20, 10, 40, 255}, 0.45f);
+        case ArenaKind::HallOrigin: {   // a white floor in the sky
+            Color c = MixF(Color{236, 236, 244, 255}, Color{220, 224, 236, 255}, Fbm(wx * 0.02f, wy * 0.03f));
+            float d = std::sqrt((wx - ARENA_W / 2) * (wx - ARENA_W / 2) + (wy - ARENA_H / 2) * (wy - ARENA_H / 2) * 1.6f);
+            if (std::fabs(d - 140) < 1.5f || std::fabs(d - 60) < 1.5f) c = Color{220, 200, 120, 255};
+            return c;
+        }
+        case ArenaKind::Dragonspiral: {   // the ruined tower top: dark old stone, wet with rain
+            Color c = BevelTile(wx, wy, 40, 40, Color{96, 100, 110, 255}, Color{88, 92, 102, 255}, Color{50, 54, 62, 255}, true, 12);
+            if (N2(wx * 0.08f, wy * 0.08f) > 0.72f) c = MixF(c, Color{70, 110, 80, 255}, 0.4f);
+            return c;
+        }
+        case ArenaKind::GiantChasm: return VenueFloor(Venue::IceCave, 3, wx, wy);
+        case ArenaKind::AbundantShrine: return VenueFloor(Venue::Forest, 2, wx, wy);
         default: return Color{100, 100, 100, 255};
     }
 }
@@ -1552,6 +1648,23 @@ Color GymColor(ArenaKind k) {
         case ArenaKind::MarineCave: return Color{60, 120, 230, 255};
         case ArenaKind::SkyPillar: return Color{90, 200, 120, 255};
         case ArenaKind::BirthIsland: return Color{240, 110, 90, 255};
+        case ArenaKind::Hearthome: return Color{170, 110, 230, 255};
+        case ArenaKind::Pastoria: return Color{80, 160, 230, 255};
+        case ArenaKind::Sunyshore: return Color{250, 215, 60, 255};
+        case ArenaKind::SinnohChampion: return Color{230, 210, 140, 255};
+        case ArenaKind::Distortion: return Color{190, 110, 255, 255};
+        case ArenaKind::SpearTime: return Color{120, 190, 255, 255};
+        case ArenaKind::SpearSpace: return Color{255, 150, 200, 255};
+        case ArenaKind::Newmoon: return Color{150, 60, 160, 255};
+        case ArenaKind::HallOrigin: return Color{240, 230, 180, 255};
+        case ArenaKind::Striaton: return Color{230, 120, 80, 255};
+        case ArenaKind::Nimbasa: return Color{250, 230, 80, 255};
+        case ArenaKind::Mistralton: return Color{150, 200, 250, 255};
+        case ArenaKind::ThroneRoom: return Color{240, 220, 140, 255};
+        case ArenaKind::UnovaChampion: return Color{255, 140, 60, 255};
+        case ArenaKind::Dragonspiral: return Color{120, 170, 255, 255};
+        case ArenaKind::GiantChasm: return Color{170, 220, 255, 255};
+        case ArenaKind::AbundantShrine: return Color{200, 170, 90, 255};
         default: return Color{230, 200, 90, 255};
     }
 }

@@ -300,7 +300,7 @@ float Battle::FieldMoveMul(int s, Type t, bool special) const {
             break;
         default: break;
     }
-    return m;
+    return m * Gen45MoveMul(s, t, special);
 }
 
 // ---------------------------------------------------------------- CPU awareness

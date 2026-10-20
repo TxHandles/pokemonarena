@@ -1255,7 +1255,7 @@ void DrawMap(const Game& g) {
     int y = 158;
     GDrawText("Gyms & League", x + 8, y, 10, UI_DIM);
     y += 13;
-    int partnerPick = g.on.active && g.on.partnerReady >= 3 && g.on.partnerReady != 250 ? g.on.partnerReady - 3 : -1;
+    int partnerPick = g.on.active && IsRematchKind(g.on.partnerReady) ? g.on.partnerReady - 3 : -1;
     int rows = 0;
     for (int i = RG.first; i < RG.end; i++) rows += stages[i].IsBoss() || stages[i].postgame;
     int step = rows > 13 ? 10 : 11;   // Hoenn and Johto: 8 gyms, the League and a post-game challenge
@@ -2291,7 +2291,16 @@ void DrawMyCreatures(const Game& g) {
 // ------------------------------------------------------------------ after a story battle
 
 namespace { void SnorlaxReward(Game& g, int encounter, float dmg0, float dmg1, int level); void JoinReward(Game& g, const StageDef& st, float dmg0, float dmg1, int level);
-void StoryGifts(Game& g, const StageDef& st); }
+void StoryGifts(Game& g, const StageDef& st);
+// Where a region's Champion moment is: its finale if it has one (Ghetsis after N), else its Champion.
+bool ChampionMoment(const StageDef& s) {
+    if (s.finale) return true;
+    if (!s.IsChampion() || s.postgame) return false;
+    const auto& R = RegionInfo(s.region);
+    for (int i = R.first; i < R.end; i++) if (Story().stages[i].finale) return false;
+    return true;
+}
+}
 void ProcessStoryBattleEnd(Game& g) {
     const Battle& b = g.battle;
     const bool coop = g.coop;
@@ -2540,7 +2549,7 @@ void ProcessStoryBattleEnd(Game& g) {
             stage = NextStoryStage(stage);
             StoryGifts(g, beat);
             if (beat.IsLeague() && !beat.IsChampion()) g.resultLines.push_back(beat.trainer + " is beaten! On to the next room...");
-            if (beat.IsChampion()) {
+            if (ChampionMoment(beat)) {
                 if (beat.region == 0) g.resultLines.push_back(coop ? "You're the new Pokemon League Champions!" : "You're the new Pokemon League Champion!");
                 else g.resultLines.push_back(TextFormat(coop ? "You're the %s Champions!" : "You're the %s Champion!", RegionInfo(beat.region).name.c_str()));
                 if (RegionSlot(beat.region) == 0) g.resultLines.push_back("The Battle Tower is now open - see how high you can climb!");
@@ -2558,7 +2567,7 @@ void ProcessStoryBattleEnd(Game& g) {
             g.resultLines.push_back("You beat " + beat.trainer + "! A true legend.");
             StoryGifts(g, beat);
         }
-        if (storyBattle && st->IsChampion()) {   // every Championship win goes in the Hall of Fame
+        if (storyBattle && ChampionMoment(*st)) {   // every Championship win goes in the Hall of Fame
             for (int w = 0; w < players; w++) {
                 Profile& P = Prof(g, w);
                 std::string e = coop ? Prof(g, 1 - w).name : std::string();
@@ -2803,10 +2812,25 @@ void DoRevivals(Game& g) {
 void StoryGifts(Game& g, const StageDef& st) {
     if (!st.cardAfter.empty()) ShowStoryCard(g, st.cardAfter, st.cardMon);
     int sp = SpeciesIndex(st.gift);
-    if (sp < 0) return;
+    std::string gl = st.gift;
+    for (char& ch : gl) ch = (char)std::tolower((unsigned char)ch);
+    bool monkey = gl == "monkey", fossil = gl.find(" or ") != std::string::npos;
+    if (sp < 0 && !monkey && !fossil) return;
     for (int w = 0; w < (g.coop ? 2 : 1); w++) {
         Profile& P = Prof(g, w);
         if (!OnlineMine(g, w)) continue;
+        if (monkey) {   // Unova's Dreamyard: the monkey of the type your starter beats (it beats the Striaton brother you'd face)
+            int mine = SpeciesIndex(RegionStarter(P, st.region));
+            Type t = mine >= 0 ? AllSpecies()[mine].type1 : Type::Grass;
+            sp = SpeciesIndex(t == Type::Grass ? "Panpour" : t == Type::Fire ? "Pansage" : "Pansear");
+            if (sp < 0) continue;
+        } else if (fossil) {   // "Tirtouga or Archen": one of them, at random
+            size_t o = gl.find(" or ");
+            std::string a = st.gift.substr(0, o), b = st.gift.substr(o + 4);
+            sp = SpeciesIndex(GetRandomValue(0, 1) ? b : a);
+            if (sp < 0) sp = SpeciesIndex(a);
+            if (sp < 0) continue;
+        }
         int sum = 0, n = 0;
         for (const auto& m : P.mons) if (!m.boxed) { sum += m.level; n++; }
         int lv = std::max(RegionInfo(st.region).startLevel, std::min(MAX_LEVEL, (n ? sum / n : 5) - 3));
@@ -4569,7 +4593,7 @@ void UpdateCoopHub(Game& g) {
     }
     if (online && (g.hubSel == 0 || g.hubSel == 1)) {
         // Online: say what you want to do; it starts when your partner picks the same.
-        int kind = g.hubSel == 0 ? (tower ? 250 : 1) : 2;
+        int kind = g.hubSel == 0 ? (tower ? KIND_TOWER : 1) : 2;
         if (!tower && HealthyCount(Prof(g, g.on.me)) == 0) {
             Toast(g, "Your party has all fainted! Visit the Healing Center first.");
             OpenFor(g, g.on.me);
@@ -4603,10 +4627,10 @@ void UpdateCoopHub(Game& g) {
             break;
         case 2:
             g.mapSel = std::min(g.coopSave.storyStage, stages - 1);
-            if (online && g.on.partnerReady >= 3 && g.on.partnerReady != 250 && g.on.partnerReady - 3 < stages) g.mapSel = g.on.partnerReady - 3;   // join their rematch
+            if (online && IsRematchKind(g.on.partnerReady) && g.on.partnerReady - 3 < stages) g.mapSel = g.on.partnerReady - 3;   // join their rematch
             g.screen = Screen::Map;
-            if (online && g.on.partnerReady >= 200 && g.on.partnerReady < 200 + LEGEND_COUNT && BadgeCount(g) >= 8) {   // join their hunt
-                g.legendSel = g.on.partnerReady - 200;
+            if (online && IsLegendKind(g.on.partnerReady) && g.on.partnerReady - KIND_LEGEND < LEGEND_COUNT && BadgeCount(g) >= 8) {   // join their hunt
+                g.legendSel = g.on.partnerReady - KIND_LEGEND;
                 OpenLegends(g);
             }
             break;
@@ -4694,14 +4718,14 @@ void DrawCoopHubBase(const Game& g) {
         const std::string& pn = g.coopP[1 - o.me].name;
         auto kind = [](int k) -> std::string {
             if (k == 1) return "a Story battle";
-            if (k == 250) return "the Battle Tower";
+            if (k == KIND_TOWER) return "the Battle Tower";
             if (k == 2) return "Training";
-            if (k >= 200 && k < 200 + LEGEND_COUNT) return std::string("to find ") + Legend(k - 200).species;
+            if (IsLegendKind(k) && k - KIND_LEGEND < LEGEND_COUNT) return std::string("to find ") + Legend(k - KIND_LEGEND).species;
             int st = k - 3;
             return st >= 0 && st < (int)Story().stages.size() ? "a rematch with " + Story().stages[st].trainer : std::string("a battle");
         };
         std::string mine = o.myReady ? "You want " + kind(o.myReady) + " - waiting for " + pn : "Pick a battle - it starts when you both pick it.";
-        std::string theirs = o.partnerReady ? pn + " wants " + kind(o.partnerReady) + (o.partnerReady >= 200 && o.partnerReady < 250 ? " (open the Map's Legendary tab)" : o.partnerReady >= 3 && o.partnerReady != 250 ? " (open the Map)" : "!")
+        std::string theirs = o.partnerReady ? pn + " wants " + kind(o.partnerReady) + (IsLegendKind(o.partnerReady) ? " (open the Map's Legendary tab)" : IsRematchKind(o.partnerReady) ? " (open the Map)" : "!")
                                             : pn + " is " + (o.partnerActivity.empty() ? "in the hub" : o.partnerActivity) + ".";
         if (o.reconnecting) {
             mine = "Waiting for " + pn + " to come back (Esc leaves the online game).";
@@ -4748,10 +4772,10 @@ void DrawCoopHubBase(const Game& g) {
         if (i == 2 && items[2].size() > 3) c = sel ? UI_GOLD : Color{255, 200, 120, 255};   // legendaries waiting
         GDrawText(items[i].c_str(), rx + 8, y + 1, 10, c);
         if (g.on.active && (i == 0 || i == 1 || i == 2)) {   // ready count: the battle starts at 2/2 (Map: a legendary hunt)
-            int kind = i == 0 ? (done ? 250 : 1) : 2;
+            int kind = i == 0 ? (done ? KIND_TOWER : 1) : 2;
             bool r[2];
             if (i == 2) {
-                auto lg = [](int k) { return k >= 200 && k < 200 + LEGEND_COUNT; };
+                auto lg = [](int k) { return IsLegendKind(k); };
                 r[g.on.me] = lg(g.on.myReady);
                 r[1 - g.on.me] = lg(g.on.partnerReady);
             } else {
