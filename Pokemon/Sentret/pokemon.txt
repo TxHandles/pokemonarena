@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Sentret
+dex  = 161
+type = Normal
+
+hp         = 35
+attack     = 46
+defense    = 34
+sp_attack  = 35
+sp_defense = 45
+speed      = 20
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 6.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Furret
+evolve_level = 15
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 4, Defense Curl
+learn = 7, Quick Attack
+learn = 13, Fury Swipes
+learn = 16, Helping Hand
+learn = 19, Follow Me
+learn = 25, Slam
+learn = 28, Rest
+learn = 31, Sucker Punch
+learn = 36, Amnesia
+learn = 39, Baton Pass
+learn = 42, Double-Edge
+learn = 47, Hyper Voice
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Water Pulse, Thief, Trailblaze
+tm = Chilling Water, Charge Beam, Facade, Swift, Fling, Endure
+tm = Sunny Day, Rain Dance, Dig, Brick Break, U-turn, Shadow Claw
+tm = Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Seed Bomb
+tm = Grass Knot, Rest, Substitute, Trick, Shadow Ball, Hyper Voice
+tm = Surf, Flamethrower, Thunderbolt, Play Rough, Amnesia, Helping Hand
+tm = Baton Pass, Reversal, Ice Beam, Blizzard, Thunder, Solar Beam
+tm = Tera Blast, Knock Off, Super Fang, Uproar, Focus Punch, Double-Edge
+tm = Endeavor

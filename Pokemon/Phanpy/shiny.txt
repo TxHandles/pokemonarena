@@ -1,0 +1,14 @@
+# Phanpy - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 203868 > 345685
+shiny = 323333 > 3F5060
+shiny = 5080B0 > 70A0D0
+shiny = 525455 > 617385
+shiny = 580808 > 603941
+shiny = 59A4C5 > 83C3EA
+shiny = 88B0CF > B9D9DD
+shiny = 88B0D0 > A5D2F8
+shiny = 95D6FE > D2FFFF
+shiny = 982020 > 9A5A61
+shiny = B8C8D8 > CEEBFF
+shiny = FAFAFA > F9FFF2

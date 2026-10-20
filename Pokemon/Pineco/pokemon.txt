@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Pineco
+dex  = 204
+type = Bug
+
+hp         = 50
+attack     = 65
+defense    = 90
+sp_attack  = 35
+sp_defense = 35
+speed      = 15
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 7.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Forretress
+evolve_level = 31
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Protect
+learn = 1, Tackle
+learn = 6, Self-Destruct
+learn = 9, Bug Bite
+learn = 12, Take Down
+learn = 17, Rapid Spin
+learn = 20, Rollout
+learn = 23, Curse
+learn = 28, Spikes
+learn = 31, Payback
+learn = 34, Explosion
+learn = 39, Iron Defense
+learn = 42, Gyro Ball
+learn = 45, Double-Edge
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Struggle Bug, Pounce, Facade, Bulldoze
+tm = Swift, Rock Tomb, Venoshock, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, Dig, Body Slam, Sleep Talk, Seed Bomb, Reflect
+tm = Light Screen, Rock Blast, Poison Jab, Rest, Rock Slide, Spikes
+tm = Toxic Spikes, Substitute, Iron Defense, Drill Run, Giga Drain, Stealth Rock
+tm = Ice Spinner, Helping Hand, Reversal, Bug Buzz, Solar Beam, Tera Blast
+tm = Sand Tomb, Gravity, Gyro Ball, Bug Bite, Lunge, Pain Split
+tm = Double-Edge, Curse

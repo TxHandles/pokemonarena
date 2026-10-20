@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Elekid
+dex  = 239
+type = Electric
+
+hp         = 45
+attack     = 63
+defense    = 37
+sp_attack  = 65
+sp_defense = 55
+speed      = 95
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 23.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Electabuzz
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leer
+learn = 1, Quick Attack
+learn = 4, Thunder Shock
+learn = 8, Charge
+learn = 12, Swift
+learn = 16, Shock Wave
+learn = 20, Thunder Wave
+learn = 24, Screech
+learn = 28, Thunder Punch
+learn = 32, Discharge
+learn = 36, Low Kick
+learn = 40, Thunderbolt
+learn = 44, Light Screen
+learn = 48, Thunder
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Low Kick, Thief, Trailblaze, Charge Beam
+tm = Facade, Swift, Fling, Endure, Volt Switch, Rain Dance
+tm = Brick Break, Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk
+tm = Electro Ball, Light Screen, Thunder Wave, Rest, Taunt, Eerie Impulse
+tm = Substitute, Psychic, Thunderbolt, Helping Hand, Electric Terrain, Wild Charge
+tm = Focus Blast, Thunder, Tera Blast, Charge, Knock Off, Uproar
+tm = Focus Punch, Double-Edge, Supercell Slam, Electroweb, Metal Sound

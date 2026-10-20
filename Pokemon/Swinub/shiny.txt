@@ -1,0 +1,19 @@
+# Swinub - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 072318
+shiny = 0A0A0A > 0D291D
+shiny = 433F3E > 4E6948
+shiny = 482808 > 536C4C
+shiny = 705850 > 839F80
+shiny = 902840 > 6D7C60
+shiny = 906038 > 95AD8A
+shiny = 9A5931 > 81946D
+shiny = A88048 > B2CDA7
+shiny = AD7158 > 9CB190
+shiny = B4485A > C37039
+shiny = B68462 > ABC19F
+shiny = B89868 > C8E4BE
+shiny = C86070 > A1B193
+shiny = E888A0 > C5D7B9
+shiny = F67994 > F5B27A
+shiny = F6AD7B > D7EDC1

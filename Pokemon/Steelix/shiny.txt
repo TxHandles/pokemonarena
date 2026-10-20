@@ -1,0 +1,18 @@
+# Steelix - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303F50 > 6B5610
+shiny = 304050 > 6B5711
+shiny = 413F42 > 6D5810
+shiny = 555671 > 8A712E
+shiny = 587890 > A88F4A
+shiny = 7B84A2 > C1A758
+shiny = 7F98A8 > CCB068
+shiny = 8098A8 > CCB068
+shiny = 9FB7C7 > EED086
+shiny = A0B8C8 > F5D985
+shiny = A19EA5 > DFC36F
+shiny = AEB2BE > CBCC6E
+shiny = C0D0E0 > FFF39E
+shiny = D6D6F4 > FFFDA8
+shiny = E8E8F8 > FFFFA3
+shiny = F0EFF8 > FFFFA3

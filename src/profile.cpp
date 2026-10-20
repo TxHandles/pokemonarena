@@ -372,7 +372,7 @@ void AddXp(OwnedMon& m, int xp, Growth& g) {
         CollectNewMoves(m, idx, m.level, g);
     }
     if (idx >= 0 && g.evolveTo < 0) {
-        int evo = EvolutionIndex(idx);
+        int evo = EvolutionIndexFor(idx, m.nature);
         if (evo >= 0 && m.level >= AllSpecies()[idx].evolveLevel) g.evolveTo = evo;
     }
 }

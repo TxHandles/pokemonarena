@@ -1,0 +1,17 @@
+# Pichu - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 4E2419
+shiny = 404040 > 5D3125
+shiny = 42403E > 5E3123
+shiny = 505050 > 6F4134
+shiny = 605828 > 5F2E14
+shiny = 907838 > 8B4C29
+shiny = BDA146 > C09300
+shiny = C05088 > D20025
+shiny = C0A840 > D9984B
+shiny = E078A0 > D47645
+shiny = E8E8F8 > F6B7C0
+shiny = F7D868 > FFC875
+shiny = F8D868 > FCC925
+shiny = FEFC6C > FFE931
+shiny = FF79A4 > FF3C4A

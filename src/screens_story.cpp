@@ -12,6 +12,7 @@
 #include "rlgl.h"
 #include "vec.h"
 #include "storymap.h"
+#include "leaders.h"
 #include "net.h"
 #include "legend.h"
 
@@ -1042,6 +1043,51 @@ void DrawGymIntro(const Game& g, const StageDef& st) {
     }
 }
 
+// The gym leader walks out onto the arena floor under a spotlight (Leaders/<Name>.png).
+void DrawLeaderOnFloor(const Game& g, const StageDef& st, const Texture2D& pic) {
+    static std::string lastKey;
+    static double start = 0, lastSeen = -10;
+    double now = GetTime();
+    std::string key = st.trainer + "|" + st.name;
+    if (key != lastKey || now - lastSeen > 0.4) { lastKey = key; start = now; }
+    lastSeen = now;
+    float u = (float)(now - start);
+    Color team = GymColor(st.arena);
+    float walk = std::min(1.0f, u / 0.85f);
+    float e = 1 - (1 - walk) * (1 - walk) * (1 - walk);
+    float cx = 548 + (1 - e) * 140, foot = 338;
+    float scale = std::min(2.0f, 128.0f / pic.height);   // stays below the info panel
+    float bob = walk < 1 ? std::fabs(std::sin(u * 14)) * 3 : 0;
+    // the spotlight: a soft cone from above, landing as a bright pool on the floor
+    float lit = std::min(1.0f, std::max(0.0f, (u - 0.15f) / 0.4f));
+    for (int k = 0; k < 6; k++) {
+        float spread = 20 + k * 9;
+        DrawTriangle({cx - 6.0f, 0}, {cx - spread * 1.6f, foot}, {cx + spread * 1.6f, foot}, Fade(ColorBrightness(team, 0.6f), 0.035f * lit));
+        DrawTriangle({cx + 6.0f, 0}, {cx - spread * 1.6f, foot}, {cx + spread * 1.6f, foot}, Fade(WHITE, 0.02f * lit));
+    }
+    DrawEllipse((int)cx, (int)foot, (int)(70 * lit) + 1, 12, Fade(ColorBrightness(team, 0.5f), 0.35f * lit));
+    DrawEllipse((int)cx, (int)foot, 36, 7, Fade(BLACK, 0.45f));
+    // a coloured glow behind them once they've arrived, pulsing with the crowd
+    if (walk >= 1) {
+        float p = 0.5f + 0.5f * std::sin(g.t * 3);
+        DrawCircleGradient((int)cx, (int)(foot - pic.height * scale * 0.55f), 70 + p * 6, Fade(team, 0.22f), Fade(team, 0));
+    }
+    // a dark silhouette for a moment, then the lights come up on them
+    float reveal = std::min(1.0f, std::max(0.0f, (u - 0.55f) / 0.35f));
+    unsigned char v = (unsigned char)(40 + 215 * reveal);
+    DrawLeaderPicture(pic, cx, foot - bob, scale, Color{v, v, v, 255});
+    if (reveal > 0 && reveal < 1) {   // a flash as the spotlight hits
+        float f = 1 - std::fabs(reveal * 2 - 1);
+        DrawCircleGradient((int)cx, (int)(foot - pic.height * scale * 0.5f), 60, Fade(WHITE, 0.35f * f), Fade(WHITE, 0));
+    }
+    // their name plate at their feet
+    std::string nm = LeaderShortName(st.trainer);
+    int tw = TextW(nm.c_str(), 10);
+    DrawRectangle((int)cx - tw / 2 - 6, (int)foot + 2, tw + 12, 13, Fade(UI_INK, 0.85f * reveal));
+    DrawRectangle((int)cx - tw / 2 - 6, (int)foot + 2, tw + 12, 1, Fade(team, reveal));
+    DrawTextCentered(nm.c_str(), (int)cx, (int)foot + 4, 10, Fade(UI_GOLD, reveal), false);
+}
+
 // The Battle Tower: floor number in lights, the trainer, your record.
 void DrawTowerIntro(const Game& g, const StageDef& st) {
     float t = g.t;
@@ -1087,18 +1133,41 @@ void DrawStageIntro(const Game& g) {
     if (st.towerFloor > 0 && !st.BigIntro()) { DrawTowerIntro(g, st); return; }
     if (st.BigIntro()) {
         DrawGymIntro(g, st);
+        const Texture2D* leader = st.IsGym() && st.towerFloor <= 0 ? LeaderPicture(st.trainer) : nullptr;
         std::string say = "\"" + (st.say.empty() ? std::string("Let's battle!") : st.say) + "\"";
-        int lines = 1 + (TextW(say.c_str(), 10) + 90) / 500;
-        DrawPanel(60, 136, 520, 14 + lines * 12, UI_PANEL, GymColor(st.arena));
-        DrawWrapped(say.c_str(), 70, 142, 500, 10, UI_TEXT);
+        // With the leader on the floor at the right, the speech and the info sit to their left.
+        int px = leader ? 40 : 60, pw = leader ? 420 : 520;
+        int lines = 1 + (TextW(say.c_str(), 10) + 90) / (pw - 20);
+        if (leader) DrawLeaderOnFloor(g, st, *leader);
+        DrawPanel(px, 136, pw, 14 + lines * 12, UI_PANEL, GymColor(st.arena));
+        DrawWrapped(say.c_str(), px + 10, 142, pw - 20, 10, UI_TEXT);
+        if (leader) {   // the speech bubble's tail, pointing at the leader
+            float tx = (float)(px + pw);
+            DrawTriangle({tx - 1, 142}, {tx - 1, 154}, {tx + 12, 150}, GymColor(st.arena));
+        }
         int foes = g.coop ? std::min(MAX_TEAM_SIZE, std::max(3, (int)st.team.size() + 2)) : (int)std::min<size_t>(st.team.size(), MAX_TEAM_SIZE);
         int iy = std::max(170, 136 + 14 + lines * 12 + 4);
-        DrawRectangle(40, iy, VW - 80, 34, Fade(UI_INK, 0.85f));
-        DrawTextCentered(TextFormat("%d Pokemon   CPU skill %s%s", foes, AILevelName(st.cpu), g.coop ? "   2v2 co-op battle" : ""), VW / 2, iy + 5, 10, UI_TEXT, false);
-        DrawTextCentered(ArenaTwist(st.arena), VW / 2, iy + 19, 10, Color{150, 200, 240, 255}, false);
+        int ix = leader ? 24 : 40, iw = leader ? 476 : VW - 80, icx = ix + iw / 2;   // the leader stands to the right
+        // the arena's twist, wrapped to fit the panel
+        std::vector<std::string> tl;
+        {
+            std::string tw = ArenaTwist(st.arena), cur, word;
+            for (size_t i = 0; i <= tw.size(); i++) {
+                if (i == tw.size() || tw[i] == ' ') {
+                    std::string tryLine = cur.empty() ? word : cur + " " + word;
+                    if (TextW(tryLine.c_str(), 10) > iw - 20 && !cur.empty()) { tl.push_back(cur); cur = word; }
+                    else cur = tryLine;
+                    word.clear();
+                } else word += tw[i];
+            }
+            if (!cur.empty()) tl.push_back(cur);
+        }
+        DrawRectangle(ix, iy, iw, 20 + 12 * (int)tl.size(), Fade(UI_INK, 0.85f));
+        DrawTextCentered(TextFormat("%d Pokemon   CPU skill %s%s", foes, AILevelName(st.cpu), g.coop ? "   2v2 co-op battle" : ""), icx, iy + 5, 10, UI_TEXT, false);
+        for (size_t k = 0; k < tl.size(); k++) DrawTextCentered(tl[k].c_str(), icx, iy + 19 + 12 * (int)k, 10, Color{150, 200, 240, 255}, false);
         if (st.towerFloor > 0) DrawTextCentered("Battle Tower: everyone fights at full health. Lose and the run ends.", VW / 2, 318, 10, UI_DIM, false);
-        DrawRectangle(VW / 2 - 130, 336, 260, 16, Fade(UI_INK, 0.85f));
-        DrawTextCentered("Enter: choose your team     Esc: back", VW / 2, 339, 10, UI_DIM, false);
+        DrawRectangle(icx - 130, 336, 260, 16, Fade(UI_INK, 0.85f));
+        DrawTextCentered("Enter: choose your team     Esc: back", icx, 339, 10, UI_DIM, false);
         return;
     }
     DrawArena(g.t);
@@ -1978,7 +2047,7 @@ void ProcessStoryBattleEnd(Game& g) {
             }
             // Catch any evolution that's due (e.g. an evolution added later in a pokemon.txt).
             int idx = MonSpecies(m);
-            int evo = idx >= 0 ? EvolutionIndex(idx) : -1;
+            int evo = idx >= 0 ? EvolutionIndexFor(idx, m.nature) : -1;
             bool queued = false;
             for (const auto& e : g.evoQueue) queued |= e.mon == f.ownedId && e.who == who;
             if (mine && evo >= 0 && !queued && m.level >= AllSpecies()[idx].evolveLevel) g.evoQueue.push_back({f.ownedId, evo, who});
@@ -2015,7 +2084,7 @@ void ProcessStoryBattleEnd(Game& g) {
             m.friendship = std::max(0, std::min(MAX_FRIENDSHIP, m.friendship + d));
             // Friendship evolutions happen after a win.
             int idx = MonSpecies(m);
-            int to = g.won ? FriendshipEvolution(idx, m.friendship) : -1;
+            int to = g.won ? FriendshipEvolution(idx, m.friendship, IsNight(StoryClock(g)) ? 1 : 0) : -1;
             bool queued = false;
             for (const auto& e : g.evoQueue) queued |= e.mon == i && e.who == w;
             if (to >= 0 && !queued && OnlineMine(g, w)) g.evoQueue.push_back({i, to, w});

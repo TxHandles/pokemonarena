@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Girafarig
+dex  = 203
+type = Normal / Psychic
+
+hp         = 70
+attack     = 80
+defense    = 65
+sp_attack  = 90
+sp_defense = 65
+speed      = 85
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 41.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Astonish
+learn = 1, Growl
+learn = 1, Power Swap
+learn = 1, Guard Swap
+learn = 5, Confusion
+learn = 10, Assurance
+learn = 14, Stomp
+learn = 19, Psybeam
+learn = 23, Agility
+learn = 28, Double Hit
+learn = 32, Twin Beam
+learn = 37, Crunch
+learn = 41, Baton Pass
+learn = 46, Nasty Plot
+learn = 50, Psychic
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Low Kick, Psybeam, Confuse Ray
+tm = Thief, Trailblaze, Charge Beam, Facade, Bulldoze, Swift
+tm = Stored Power, Endure, Sunny Day, Rain Dance, Psyshock, Zen Headbutt
+tm = Foul Play, Psychic Fangs, Body Slam, Sleep Talk, Reflect, Light Screen
+tm = Dazzling Gleam, Grass Knot, Thunder Wave, Stomping Tantrum, Rest, Imprison
+tm = Skill Swap, Substitute, Crunch, Trick, Shadow Ball, Hyper Voice
+tm = Energy Ball, Psychic, Thunderbolt, Amnesia, Calm Mind, Helping Hand
+tm = Baton Pass, Psychic Terrain, Nasty Plot, Earthquake, Giga Impact, Trick Room
+tm = Hyper Beam, Thunder, Tera Blast, Gravity, High Horsepower, Uproar
+tm = Psych Up, Double-Edge, Endeavor, Future Sight, Expanding Force, Psychic Noise

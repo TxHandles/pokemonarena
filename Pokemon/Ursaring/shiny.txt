@@ -1,0 +1,23 @@
+# Ursaring - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 328325
+shiny = 482808 > 347F1B
+shiny = 525251 > 57AB00
+shiny = 584840 > 50583D
+shiny = 784830 > 61A945
+shiny = 835A43 > 70BE11
+shiny = 98673F > 82CE26
+shiny = 986840 > 83CC64
+shiny = A0A8B8 > B6FFA2
+shiny = AF7F57 > 9CE844
+shiny = B08058 > 9DE67C
+shiny = B47A49 > 9BE63F
+shiny = C08838 > A8F349
+shiny = C0C0C8 > C4FF78
+shiny = CD9362 > B6FF5B
+shiny = D0A060 > BFFF64
+shiny = D8C888 > C6FF55
+shiny = DCC449 > C6FF67
+shiny = E8E8F8 > C4FFAB
+shiny = FAFAFA > C4FF77
+shiny = FEEE72 > C5FF4D

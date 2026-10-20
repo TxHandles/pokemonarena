@@ -1,0 +1,17 @@
+# Raikou - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 213941 > 411900
+shiny = 305068 > 5B2E24
+shiny = 315366 > 5B3222
+shiny = 402060 > 756E00
+shiny = 703890 > 9D7D10
+shiny = 86658A > BF9F30
+shiny = A058B8 > C9A33C
+shiny = B10E27 > 950000
+shiny = B83030 > 9C0409
+shiny = B87810 > B35900
+shiny = BA9728 > C07508
+shiny = E088E9 > F7D969
+shiny = E8B840 > ED952C
+shiny = E8E8F8 > FFFF86
+shiny = FFF400 > FFC730

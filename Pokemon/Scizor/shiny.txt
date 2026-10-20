@@ -1,0 +1,20 @@
+# Scizor - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 293141 > 006001
+shiny = 505870 > 338C39
+shiny = 581008 > 5C7200
+shiny = 68687B > 078640
+shiny = 687088 > A6C249
+shiny = 801810 > 788B00
+shiny = 843A09 > 879C0E
+shiny = 885800 > A8780B
+shiny = 9098B0 > 4CB76E
+shiny = 9A4343 > 99AC2D
+shiny = A02020 > 8F9F18
+shiny = B8C8D8 > CEE8D2
+shiny = D03838 > B3C03E
+shiny = E65A64 > CEDA5B
+shiny = E8E8F8 > E0FF7F
+shiny = F88800 > FFB335
+shiny = FAB14B > F7FF7E
+shiny = FAFAFA > F3FFE4

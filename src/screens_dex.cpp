@@ -127,11 +127,13 @@ void DrawBall(int x, int y, bool caught) {
 std::string MethodText(int from, int to) {
     const SpeciesDef& sp = AllSpecies()[from];
     if (EvolutionIndex(from) == to) return "Lv" + std::to_string(sp.evolveLevel);
+    for (const auto& n : sp.statEvos)
+        if (SpeciesIndex(n) == to) return "Lv" + std::to_string(sp.evolveLevel);
     for (const auto& a : sp.evoAlts) {
         if (SpeciesIndex(a.to) != to) continue;
         if (a.trade) return "trade";
         if (!a.item.empty()) return a.item;
-        if (a.friendship > 0) return "friendship";
+        if (a.friendship > 0) return a.time == 1 ? "friendship, day" : (a.time == 2 ? "friendship, night" : "friendship");
     }
     return "";
 }
@@ -146,6 +148,10 @@ std::vector<std::pair<int, int>> FamilyLinks(int idx) {
         std::vector<int> kids;
         int e = EvolutionIndex(a);
         if (e >= 0) kids.push_back(e);
+        for (const auto& n : AllSpecies()[a].statEvos) {
+            int t = SpeciesIndex(n);
+            if (t >= 0 && t != a && std::find(kids.begin(), kids.end(), t) == kids.end()) kids.push_back(t);
+        }
         for (const auto& alt : AllSpecies()[a].evoAlts) {
             int t = SpeciesIndex(alt.to);
             if (t >= 0 && t != a && std::find(kids.begin(), kids.end(), t) == kids.end()) kids.push_back(t);

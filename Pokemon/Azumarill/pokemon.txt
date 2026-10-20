@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Azumarill
+dex  = 184
+type = Water / Fairy
+
+hp         = 100
+attack     = 50
+defense    = 80
+sp_attack  = 60
+sp_defense = 80
+speed      = 50
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 28.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Tackle
+learn = 1, Helping Hand
+learn = 1, Rollout
+learn = 1, Defense Curl
+learn = 1, Tail Whip
+learn = 6, Bubble Beam
+learn = 9, Charm
+learn = 12, Slam
+learn = 15, Bounce
+learn = 21, Aqua Tail
+learn = 25, Play Rough
+learn = 30, Aqua Ring
+learn = 35, Rain Dance
+learn = 40, Hydro Pump
+learn = 45, Double-Edge
+learn = 50, Superpower
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Mud-Slap, Protect, Water Pulse
+tm = Disarming Voice, Trailblaze, Chilling Water, Facade, Bulldoze, Swift
+tm = Icy Wind, Mud Shot, Draining Kiss, Fling, Endure, Rain Dance
+tm = Snowscape, Dig, Brick Break, Body Slam, Ice Punch, Sleep Talk
+tm = Light Screen, Waterfall, Metronome, Grass Knot, Rest, Substitute
+tm = Liquidation, Hyper Voice, Encore, Surf, Ice Spinner, Play Rough
+tm = Amnesia, Helping Hand, Ice Beam, Misty Terrain, Hydro Pump, Blizzard
+tm = Giga Impact, Focus Blast, Hyper Beam, Tera Blast, Knock Off, Focus Punch
+tm = Misty Explosion, Double-Edge, Whirlpool, Muddy Water, Alluring Voice

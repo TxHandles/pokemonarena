@@ -590,6 +590,7 @@ void StartBattleFromSelect(Game& g) {
         bool hasStage = (g.mode == Mode::Story || g.mode == Mode::CoopStory) && (g.tower || g.legend >= 0 || (g.stageIdx >= 0 && g.stageIdx < (int)Story().stages.size()));
         if (hasStage) stv = ActiveStage(g);
         const StageDef* st = hasStage ? &stv : nullptr;
+        if (st && st->IsGym() && st->towerFloor <= 0) su.leader = st->trainer;   // the leader's picture and cut-ins
         su.season = SeasonOf(clock);
         if (su.arena == ArenaKind::Stadium) {   // trainers fight where they stand; wild Pokemon where they live
             if (st) su.venue = (uint8_t)(st->venue.empty() ? VenueForPlace(st->name) : VenueByName(st->venue));

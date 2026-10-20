@@ -1,0 +1,15 @@
+# Octillery - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 580808 > 6F5012
+shiny = 806810 > B99851
+shiny = 873F40 > A37F42
+shiny = 881800 > 936D2C
+shiny = B02800 > B08542
+shiny = C85848 > D2A665
+shiny = C8A018 > BFB622
+shiny = C93738 > C59757
+shiny = E8E8F8 > FFF7A1
+shiny = EC5351 > CEB44B
+shiny = F0CC33 > FFFAA9
+shiny = F77F7A > E9D067
+shiny = F8D858 > FFFAAB

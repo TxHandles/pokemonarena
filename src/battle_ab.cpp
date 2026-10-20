@@ -6,6 +6,7 @@
 #include "audio.h"
 #include "battle.h"
 #include "data.h"
+#include "items.h"
 #include "ui.h"
 #include "vec.h"
 
@@ -87,6 +88,19 @@ void Battle::AbOnEnter(int s) {
             weatherTick = 1.0f;
             AbPopup(s, "The sunlight turned harsh!");
             break;
+        case Ab::Drizzle:
+            weather = Weather::Rain;
+            weatherT = 10;
+            weatherTick = 1.0f;
+            AbPopup(s, "It started to rain!");
+            break;
+        case Ab::SandStream:
+            weather = Weather::Sand;
+            weatherT = 10;
+            weatherTick = 1.0f;
+            AbPopup(s, "A sandstorm kicked up!");
+            break;
+        case Ab::ShadowTag: AbPopup(s, "Its foes are caught in its shadow!"); break;
         case Ab::Download:
             Buff(f, StatId::Atk, 1.4f, 10);
             AbPopup(s, "ATK rose!");
@@ -167,6 +181,8 @@ void Battle::AbTick(int s, float dt) {
         case Ab::Unburden: if (f.focusUsed) f.abSpd = 1.6f; break;
         case Ab::Guts: if (status) f.abAtk = f.st.major == Status::Burn ? 1.5f / 0.75f : 1.5f; break;
         case Ab::Hustle: f.abAtk = 1.5f; break;
+        case Ab::HugePower: f.abAtk = 2.0f; break;
+        case Ab::LightMetal: f.abSpd = 1.1f; break;
         case Ab::MarvelScale: if (status) f.abDef = 1.5f; break;
         case Ab::EarlyBird: if (f.st.major == Status::Sleep) f.st.majorT -= dt; break;
         default: break;
@@ -218,6 +234,22 @@ void Battle::AbTick(int s, float dt) {
                 }
             }
             break;
+        case Ab::SpeedBoost:
+            if (Chance(0.25f) && f.buffMul[2] < 2.0f) {
+                f.buffMul[2] = std::min(2.0f, std::max(1.0f, f.buffMul[2]) + 0.15f);
+                f.buffT[2] = std::max(f.buffT[2], 30.0f);
+                AbPopup(s, "SPD rose!");
+            }
+            break;
+        case Ab::Moody:
+            if (Chance(0.2f)) {
+                int up = SimRand(0, 2), down = (up + SimRand(1, 2)) % 3;
+                Buff(f, (StatId)up, 1.6f, 8);
+                f.dropMul[down] = std::min(f.dropMul[down], 0.75f);
+                f.dropT[down] = std::max(f.dropT[down], 8.0f);
+                AbPopup(s, std::string(SName((StatId)up)) + " sharply rose, " + SName((StatId)down) + " fell!");
+            }
+            break;
         case Ab::Harvest:
             if (f.snackUsed && Chance(w == Weather::Sun ? 1.0f : 0.15f)) { f.snackUsed = false; AbPopup(s, "It grew a new berry!"); }
             break;
@@ -257,6 +289,21 @@ bool Battle::AbBlocksHit(const HitSpec& h, int ts) {
                 t.flashFire = true;
                 return unaffected(was ? "It absorbed the fire!" : "Its Fire moves powered up!");
             }
+            break;
+        case Ab::SapSipper:
+            if (h.type == Type::Grass) {
+                if (!h.light) Buff(t, StatId::Atk, 1.5f, 8);
+                return unaffected("It ate the leaves! ATK rose!");
+            }
+            break;
+        case Ab::MagicBounce:
+            if (h.power <= 0 && h.fixedDmg == 0 && !h.light && h.side >= 0 && h.side < N() && h.side != ts && Foes(h.side, ts)) {
+                if (h.status != Status::None && sides[h.side].active == h.fighter) TryStatus(h.side, h.status, ts);
+                return unaffected("It bounced the move back!");
+            }
+            break;
+        case Ab::Telepathy:
+            if (h.side >= 0 && h.side < N() && h.side != ts && !Foes(h.side, ts)) return unaffected("It saw its partner's attack coming!");
             break;
         case Ab::Soundproof: if (IsSoundMoveName(h.name)) return unaffected("It can't hear it!"); break;
         case Ab::Overcoat: if (IsPowderMoveName(h.name)) return unaffected("The powder can't get through!"); break;
@@ -344,6 +391,13 @@ void Battle::AbAfterHit(const HitSpec& h, int ts, float dmg, bool crit, float hp
                     DirectDamage(h.side, a->maxHp * 0.25f, Color{255, 160, 90, 255}, ts);
                 }
                 break;
+            case Ab::Pickpocket:
+                if (t.hp > 0 && !t.item && a->item && !IsBall(*a->item)) {
+                    t.item = a->item;
+                    a->item = nullptr;
+                    AbPopup(ts, "It stole " + a->sp->name + "'s " + t.item->name + "!");
+                }
+                break;
             case Ab::CursedBody:
                 if (Chance(0.3f) && h.moveIdx >= 0 && h.moveIdx < 4) {
                     a->cd[h.moveIdx] = std::max(a->cd[h.moveIdx], 4.0f);
@@ -390,6 +444,7 @@ bool Battle::AbBlocksStatus(int ts, Status st, int src) {
         case Ab::Limber: block = st == Status::Paralyze; break;
         case Ab::Immunity: block = st == Status::Poison || st == Status::Toxic; break;
         case Ab::WaterVeil: block = st == Status::Burn; break;
+        case Ab::MagmaArmor: block = st == Status::Freeze; break;
         case Ab::OwnTempo: case Ab::Oblivious: block = st == Status::Confuse; break;
         case Ab::InnerFocus: block = st == Status::Flinch; break;
         case Ab::LeafGuard: block = IsMajorStatus(st) && Wx() == Weather::Sun; break;
@@ -403,6 +458,11 @@ bool Battle::AbBlocksLower(int ts, StatId stat, int src, const std::string& move
     if (src < 0 || src >= N() || !Foes(src, ts)) return false;
     Fighter& t = sides[ts].Cur();
     Ab a = AbOf(sides[src].Cur()) == Ab::MoldBreaker && moveName != "Intimidate" ? Ab::None : AbOf(t);
+    if (a == Ab::Contrary && moveName != "Intimidate") {   // the drop becomes a boost
+        Buff(t, stat, 1.5f, 8);
+        AddText(t.pos, "[Contrary] " + std::string(SName(stat)) + " rose instead!", kAbCol, 40);
+        return true;
+    }
     bool block = false;
     switch (a) {
         case Ab::ClearBody: block = true; break;
@@ -463,6 +523,14 @@ void Battle::AbSpec(HitSpec& h, const Fighter& f, const MoveDef& m) const {
             h.flinchChance = std::min(1.0f, h.flinchChance * 2);
             break;
         case Ab::Stench: if (m.power > 0) h.flinchChance = std::max(h.flinchChance, 0.1f); break;
+        case Ab::Plus:
+            if (h.special && m.power > 0) {
+                int me = -1;
+                for (int k = 0; k < N(); k++) if (&sides[k].Cur() == &f) me = k;
+                for (int k = 0; me >= 0 && k < N(); k++)
+                    if (k != me && sides[k].teamId == sides[me].teamId && Here(sides[k].Cur()) && AbOf(sides[k].Cur()) == Ab::Plus) mul = 1.5f;
+            }
+            break;
         default: break;
     }
     h.dmgMul *= mul;
@@ -474,6 +542,11 @@ void Battle::AbKo(int k) {
     if (!Here(f)) return;
     Ab a = AbOf(f);
     if (a == Ab::Moxie) { Buff(f, StatId::Atk, 1.5f, 10); AbPopup(k, "ATK rose!"); }
+    if (a == Ab::HoneyGather && sides[k].teamId == 0) {
+        int c = std::max(3, f.level / 2);
+        payDayCoins += c;
+        AbPopup(k, "It gathered honey worth " + std::to_string(c) + " coins!");
+    }
     if (a == Ab::Pickup && sides[k].teamId == 0) {
         int c = std::max(5, f.level);
         payDayCoins += c;

@@ -1,0 +1,23 @@
+# Lanturn - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 102058 > 270044
+shiny = 4060A8 > 693988
+shiny = 414A54 > 4F2067
+shiny = 504008 > 41620F
+shiny = 6088E0 > 9360B4
+shiny = 6FAFEF > BB81D3
+shiny = 70B0F0 > BC82D4
+shiny = 7291E4 > 9D69BD
+shiny = 806818 > 758700
+shiny = 95B3FC > C789DE
+shiny = 9A7544 > 899900
+shiny = A0D0F0 > DCA0F1
+shiny = B8C8D8 > D29BEB
+shiny = C5000B > 7F2F77
+shiny = E0A010 > BDCD00
+shiny = E1E8F1 > F5BBFF
+shiny = E3E8F3 > F7BBFF
+shiny = E4C75A > D4E754
+shiny = E4E8F4 > F8BBFF
+shiny = F8D060 > E7F740
+shiny = FEEE8D > F0FF81

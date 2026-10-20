@@ -1,0 +1,21 @@
+# Blissey - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 404860 > 404F79
+shiny = 670F3F > 853C4B
+shiny = 681040 > 863D4C
+shiny = 8090A8 > 8597C4
+shiny = 8E8A90 > 8E92B4
+shiny = 904070 > B16779
+shiny = A8B8D0 > AEC0EE
+shiny = B85888 > D78293
+shiny = C8D0E8 > CCD8FF
+shiny = CA6873 > C79389
+shiny = CFA9BD > FFCBCC
+shiny = DEDFDB > E1E7FF
+shiny = E05060 > D6887C
+shiny = E8E8F8 > EAF1FF
+shiny = F878B8 > FFA9C2
+shiny = F8A8C8 > FFD0D7
+shiny = FAFAFA > F8FEFF
+shiny = FDB0C6 > FED8D6
+shiny = FECFE0 > FFF3EF

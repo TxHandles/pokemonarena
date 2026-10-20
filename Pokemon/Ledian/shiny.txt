@@ -1,0 +1,18 @@
+# Ledian - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333232 > 4B4844
+shiny = 3F3F60 > 58576C
+shiny = 404060 > 59586C
+shiny = 4D535C > 676B70
+shiny = 706048 > B85B1B
+shiny = 880038 > 953400
+shiny = A89858 > 9BA838
+shiny = AC3139 > D24B2D
+shiny = B02830 > B85113
+shiny = BCA442 > B1B528
+shiny = D0B050 > C3C238
+shiny = DBDB91 > D9EA72
+shiny = E02038 > D66629
+shiny = F0D050 > DEE246
+shiny = F26C6D > FE8C4E
+shiny = F86078 > FC894D

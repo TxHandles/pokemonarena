@@ -1,0 +1,18 @@
+# Sudowoodo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 40AB28 > DA4924
+shiny = 489840 > D54B23
+shiny = 584010 > 4C6700
+shiny = 78D078 > F5AD74
+shiny = 806840 > 789127
+shiny = 89FC47 > FF9664
+shiny = A08058 > 94AC42
+shiny = A47153 > A0B732
+shiny = B89858 > C1DA51
+shiny = C8A800 > C48700
+shiny = CDAD00 > ADCA59
+shiny = DC9964 > D0E55D
+shiny = E07878 > C0D250
+shiny = E8E8F8 > F0FF8A
+shiny = FFDE39 > F3FF77
+shiny = FFF8EA > F1FF9E

@@ -1,0 +1,23 @@
+# Mantine - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 104068 > 003E95
+shiny = 284048 > 003D80
+shiny = 293E48 > 23486B
+shiny = 305890 > 0056BB
+shiny = 385078 > 004EA8
+shiny = 385472 > 355F8F
+shiny = 3A6293 > 005FC1
+shiny = 3E3F42 > 384A69
+shiny = 4E83BF > 578FD3
+shiny = 5078B8 > 3275E2
+shiny = 5B5F75 > 566B97
+shiny = 78A0D8 > 7EACEF
+shiny = 88B0D8 > 7DACFF
+shiny = 908898 > 7D86D8
+shiny = B0A8B8 > ABB6E2
+shiny = B5AFCB > B0BEF0
+shiny = D0E8F8 > C8E3FF
+shiny = D2E8F8 > CBF5FF
+shiny = D4E8F8 > BED8FF
+shiny = D6D6F3 > D3E5FF
+shiny = D8D0E0 > D3DFFF

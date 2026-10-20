@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Togepi
+dex  = 175
+type = Fairy
+
+hp         = 35
+attack     = 20
+defense    = 65
+sp_attack  = 40
+sp_defense = 65
+speed      = 20
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 1.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_friendship = Togetic, 160
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Pound
+learn = 4, Sweet Kiss
+learn = 8, Life Dew
+learn = 12, Charm
+learn = 16, Ancient Power
+learn = 20, Yawn
+learn = 24, Metronome
+learn = 28, After You
+learn = 32, Double-Edge
+learn = 36, Safeguard
+learn = 40, Follow Me
+learn = 44, Baton Pass
+learn = 48, Last Resort
+learn = 52, Wish
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Facade, Swift, Draining Kiss, Stored Power
+tm = Fling, Endure, Sunny Day, Rain Dance, Psyshock, Zen Headbutt
+tm = Body Slam, Sleep Talk, Reflect, Light Screen, Dazzling Gleam, Metronome
+tm = Grass Knot, Thunder Wave, Rest, Substitute, Trick, Shadow Ball
+tm = Hyper Voice, Psychic, Encore, Flamethrower, Play Rough, Helping Hand
+tm = Baton Pass, Nasty Plot, Fire Blast, Solar Beam, Uproar, Future Sight

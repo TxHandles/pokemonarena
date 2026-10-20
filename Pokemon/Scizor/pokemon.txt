@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Scizor
+dex  = 212
+type = Bug / Steel
+
+hp         = 70
+attack     = 130
+defense    = 100
+sp_attack  = 55
+sp_defense = 80
+speed      = 65
+
+size   = 1.25
+height = 1.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 118.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Bullet Punch
+learn = 1, Fury Cutter
+learn = 1, Wing Attack
+learn = 1, Leer
+learn = 1, Quick Attack
+learn = 1, Agility
+learn = 1, Air Slash
+learn = 1, False Swipe
+learn = 12, Metal Claw
+learn = 16, Double Team
+learn = 20, Double Hit
+learn = 24, Slash
+learn = 28, Focus Energy
+learn = 32, Iron Defense
+learn = 36, Iron Head
+learn = 40, X-Scissor
+learn = 44, Swords Dance
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Acrobatics, Struggle Bug
+tm = Thief, Trailblaze, Pounce, Facade, Aerial Ace, Metal Claw
+tm = Swift, Air Cutter, Fling, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, False Swipe, Brick Break, U-turn, Air Slash, Sleep Talk
+tm = Light Screen, Rest, Swords Dance, Flash Cannon, Iron Head, Substitute
+tm = Iron Defense, X-Scissor, Tailwind, Helping Hand, Baton Pass, Reversal
+tm = Giga Impact, Bug Buzz, Hyper Beam, Close Combat, Steel Beam, Tera Blast
+tm = Knock Off, Bug Bite, Vacuum Wave, Lunge, Dual Wingbeat, Double-Edge
+tm = Skitter Smack, Curse, Hard Press

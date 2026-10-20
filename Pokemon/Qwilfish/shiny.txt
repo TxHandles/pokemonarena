@@ -1,0 +1,17 @@
+# Qwilfish - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 103068 > 740163
+shiny = 204880 > 953089
+shiny = 306898 > AF4A99
+shiny = 383818 > 81196C
+shiny = 3A8A87 > D16FBF
+shiny = 4890C0 > D872C1
+shiny = 5AAEA6 > F793E4
+shiny = 7B864B > B57DBE
+shiny = A89840 > D094D3
+shiny = BCCB6B > FFADF0
+shiny = C0B060 > EAACEE
+shiny = E0D088 > FFBAFF
+shiny = E8E8F8 > FFE6FF
+shiny = F7FCB5 > FFEAFF
+shiny = FAFAFA > FFEAFF

@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Xatu
+dex  = 178
+type = Psychic / Flying
+
+hp         = 65
+attack     = 75
+defense    = 70
+sp_attack  = 95
+sp_defense = 70
+speed      = 95
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 15.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Air Slash
+learn = 1, Tailwind
+learn = 1, Teleport
+learn = 1, Leer
+learn = 1, Peck
+learn = 1, Stored Power
+learn = 15, Confuse Ray
+learn = 20, Night Shade
+learn = 28, Psycho Shift
+learn = 34, Power Swap
+learn = 34, Guard Swap
+learn = 41, Psychic
+learn = 48, Wish
+learn = 55, Future Sight
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Swift, Stored Power, Endure
+tm = Sunny Day, Rain Dance, Psyshock, Zen Headbutt, U-turn, Foul Play
+tm = Air Slash, Sleep Talk, Reflect, Light Screen, Dazzling Gleam, Grass Knot
+tm = Thunder Wave, Rest, Imprison, Fly, Skill Swap, Substitute
+tm = Trick, Giga Drain, Shadow Ball, Heat Wave, Psychic, Calm Mind
+tm = Baton Pass, Giga Impact, Trick Room, Hyper Beam, Solar Beam, Future Sight

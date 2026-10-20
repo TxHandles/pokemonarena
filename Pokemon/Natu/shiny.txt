@@ -1,0 +1,13 @@
+# Natu - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 385020 > 526800
+shiny = 3E6821 > 44721A
+shiny = 4CA213 > 82B900
+shiny = 68A048 > 92B935
+shiny = 781020 > 773B16
+shiny = 80C070 > AFD95D
+shiny = 96CE5E > CCF071
+shiny = B02838 > BB5600
+shiny = CA5A44 > C67D45
+shiny = D84858 > E1751E
+shiny = F0D060 > FFF15E

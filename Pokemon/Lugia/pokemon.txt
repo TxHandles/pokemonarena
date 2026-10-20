@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Lugia
+dex  = 249
+type = Psychic / Flying
+
+hp         = 106
+attack     = 90
+defense    = 130
+sp_attack  = 90
+sp_defense = 154
+speed      = 110
+
+size   = 1.50
+height = 5.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 216.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Gust
+learn = 1, Whirlwind
+learn = 1, Ancient Power
+learn = 1, Weather Ball
+learn = 9, Mist
+learn = 18, Safeguard
+learn = 27, Calm Mind
+learn = 36, Extrasensory
+learn = 45, Recover
+learn = 54, Aeroblast
+learn = 63, Rain Dance
+learn = 72, Hydro Pump
+learn = 81, Future Sight
+learn = 90, Sky Attack
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Water Pulse, Acrobatics, Chilling Water
+tm = Charge Beam, Facade, Aerial Ace, Swift, Icy Wind, Air Cutter
+tm = Dragon Tail, Avalanche, Endure, Sunny Day, Rain Dance, Sandstorm
+tm = Psyshock, Zen Headbutt, Air Slash, Body Slam, Sleep Talk, Reflect
+tm = Light Screen, Waterfall, Rest, Imprison, Fly, Skill Swap
+tm = Iron Head, Substitute, Trick, Liquidation, Giga Drain, Tailwind
+tm = Shadow Ball, Dragon Pulse, Hyper Voice, Psychic, Surf, Thunderbolt
+tm = Calm Mind, Helping Hand, Earth Power, Ice Beam, Hydro Pump, Blizzard
+tm = Earthquake, Giga Impact, Hurricane, Hyper Beam, Brave Bird, Thunder
+tm = Tera Blast, Weather Ball, Dual Wingbeat, Scale Shot, Psych Up, Double-Edge
+tm = Whirlpool, Future Sight, Curse, Psychic Noise

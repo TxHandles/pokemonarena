@@ -1,0 +1,24 @@
+# Gligar - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 003858 > 002264
+shiny = 106080 > 22468D
+shiny = 2890A8 > 3774B2
+shiny = 4871D5 > 385BC6
+shiny = 582860 > 243D87
+shiny = 855177 > 5663B1
+shiny = 882038 > 314582
+shiny = A05888 > 6871C1
+shiny = A15787 > 566DB2
+shiny = A15788 > 6870C1
+shiny = BB6AAB > 6E82CC
+shiny = C86FB0 > 778AD4
+shiny = C870B0 > 778AD4
+shiny = C8D0D8 > C4D2FF
+shiny = C970AF > 898EE3
+shiny = D06898 > 7686CE
+shiny = D89DD0 > 98ADF8
+shiny = DF98CF > 98ABF7
+shiny = E098D0 > A3B4E6
+shiny = E8E8F8 > E0ECFF
+shiny = F0C0D8 > C0D3FF
+shiny = F17860 > FF6C45

@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Corsola
+dex  = 222
+type = Water / Rock
+
+hp         = 65
+attack     = 55
+defense    = 95
+sp_attack  = 65
+sp_defense = 95
+speed      = 35
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Harden
+learn = 5, Water Gun
+learn = 10, Aqua Ring
+learn = 15, Endure
+learn = 20, Ancient Power
+learn = 25, Bubble Beam
+learn = 30, Flail
+learn = 35, Life Dew
+learn = 40, Power Gem
+learn = 45, Earth Power
+learn = 50, Recover
+learn = 55, Mirror Coat
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Icy Wind, Rock Tomb, Endure
+tm = Sunny Day, Rain Dance, Sandstorm, Dig, Body Slam, Sleep Talk
+tm = Reflect, Light Screen, Rock Blast, Stomping Tantrum, Rest, Rock Slide
+tm = Power Gem, Substitute, Iron Defense, Liquidation, Shadow Ball, Stealth Rock
+tm = Psychic, Surf, Amnesia, Calm Mind, Earth Power, Ice Beam
+tm = Hydro Pump, Blizzard, Earthquake, Stone Edge, Icicle Spear, Scald
+tm = Whirlpool, Throat Chop

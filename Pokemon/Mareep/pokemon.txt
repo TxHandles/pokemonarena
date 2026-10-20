@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Mareep
+dex  = 179
+type = Electric
+
+hp         = 55
+attack     = 40
+defense    = 40
+sp_attack  = 65
+sp_defense = 45
+speed      = 35
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 7.8      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Flaaffy
+evolve_level = 15
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Growl
+learn = 4, Thunder Wave
+learn = 8, Thunder Shock
+learn = 11, Cotton Spore
+learn = 15, Charge
+learn = 18, Take Down
+learn = 22, Electro Ball
+learn = 25, Confuse Ray
+learn = 29, Power Gem
+learn = 32, Discharge
+learn = 36, Cotton Guard
+learn = 39, Dazzling Gleam
+learn = 43, Light Screen
+learn = 46, Thunder
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Confuse Ray, Trailblaze, Charge Beam
+tm = Facade, Endure, Volt Switch, Sunny Day, Rain Dance, Dig
+tm = Body Slam, Sleep Talk, Electro Ball, Reflect, Light Screen, Dazzling Gleam
+tm = Thunder Wave, Rest, Eerie Impulse, Power Gem, Substitute, Thunderbolt
+tm = Helping Hand, Electric Terrain, Wild Charge, Thunder, Tera Blast, Charge
+tm = Double-Edge, Endeavor, Electroweb

@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Misdreavus
+dex  = 200
+type = Ghost
+
+hp         = 60
+attack     = 60
+defense    = 60
+sp_attack  = 85
+sp_defense = 85
+speed      = 85
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 1.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Confusion
+learn = 1, Growl
+learn = 10, Astonish
+learn = 14, Confuse Ray
+learn = 19, Mean Look
+learn = 23, Hex
+learn = 28, Psybeam
+learn = 32, Pain Split
+learn = 37, Payback
+learn = 41, Shadow Ball
+learn = 46, Perish Song
+learn = 50, Power Gem
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Scary Face, Protect, Psybeam, Confuse Ray
+tm = Thief, Charge Beam, Facade, Hex, Swift, Magical Leaf
+tm = Icy Wind, Draining Kiss, Stored Power, Night Shade, Endure, Sunny Day
+tm = Rain Dance, Snowscape, Psyshock, Foul Play, Sleep Talk, Dazzling Gleam
+tm = Grass Knot, Thunder Wave, Rest, Taunt, Imprison, Dark Pulse
+tm = Skill Swap, Power Gem, Substitute, Will-O-Wisp, Trick, Shadow Ball
+tm = Hyper Voice, Energy Ball, Psychic, Thunderbolt, Calm Mind, Helping Hand
+tm = Nasty Plot, Phantom Force, Giga Impact, Trick Room, Hyper Beam, Thunder
+tm = Tera Blast, Spite, Burning Jealousy, Poltergeist, Pain Split, Psych Up
+tm = Future Sight, Curse, Psychic Noise

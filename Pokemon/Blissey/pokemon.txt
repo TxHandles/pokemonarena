@@ -1,0 +1,64 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Blissey
+dex  = 242
+type = Normal
+
+hp         = 255
+attack     = 10
+defense    = 10
+sp_attack  = 75
+sp_defense = 135
+speed      = 55
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 46.8      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Disarming Voice
+learn = 1, Covet
+learn = 1, Sweet Kiss
+learn = 1, Defense Curl
+learn = 1, Copycat
+learn = 1, Pound
+learn = 1, Charm
+learn = 4, Tail Whip
+learn = 8, Echoed Voice
+learn = 12, Life Dew
+learn = 16, Sing
+learn = 20, Fling
+learn = 24, Take Down
+learn = 28, Heal Pulse
+learn = 32, Helping Hand
+learn = 36, Light Screen
+learn = 40, Double-Edge
+learn = 44, Soft-Boiled
+learn = 48, Last Resort
+learn = 52, Healing Wish
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Water Pulse, Thief, Disarming Voice
+tm = Trailblaze, Chilling Water, Facade, Bulldoze, Swift, Icy Wind
+tm = Rock Tomb, Stored Power, Fling, Avalanche, Endure, Sunny Day
+tm = Rain Dance, Sandstorm, Snowscape, Brick Break, Zen Headbutt, Body Slam
+tm = Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Light Screen
+tm = Dazzling Gleam, Metronome, Grass Knot, Thunder Wave, Stomping Tantrum, Rest
+tm = Rock Slide, Skill Swap, Substitute, Trick, Shadow Ball, Stealth Rock
+tm = Hyper Voice, Psychic, Flamethrower, Thunderbolt, Calm Mind, Helping Hand
+tm = Ice Beam, Electric Terrain, Fire Blast, Blizzard, Wild Charge, Earthquake
+tm = Giga Impact, Focus Blast, Hyper Beam, Thunder, Solar Beam, Tera Blast
+tm = Gravity, Focus Punch, Psych Up, Double-Edge, Endeavor, Alluring Voice

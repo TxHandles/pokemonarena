@@ -1,0 +1,20 @@
+# Politoed - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 204050 > 514F59
+shiny = 305010 > 004886
+shiny = 589838 > 5A89CC
+shiny = 5DA5E2 > B6C8F7
+shiny = 609A3E > 3196D2
+shiny = 68B840 > 78A5E9
+shiny = 87DF33 > 80D4FF
+shiny = 883848 > 314C8F
+shiny = 887808 > A04BA1
+shiny = 98D870 > 9CC7FF
+shiny = B8C8E0 > 7BD0FF
+shiny = C6BF37 > 9AB9FE
+shiny = C85888 > 3885CC
+shiny = D0B840 > D0A0C8
+shiny = F0C848 > E6B3DB
+shiny = F880B0 > 6BADF8
+shiny = FAF07B > B0F6FF
+shiny = FAFAFA > B6FFFF

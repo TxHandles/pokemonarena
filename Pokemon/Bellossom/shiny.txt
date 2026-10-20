@@ -1,0 +1,22 @@
+# Bellossom - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 104028 > 064928
+shiny = 388858 > 19815B
+shiny = 486818 > 752D84
+shiny = 558969 > 368367
+shiny = 605808 > 617E02
+shiny = 60A040 > 2CA75D
+shiny = 702008 > A73168
+shiny = 7DB95C > 4CC175
+shiny = 98C070 > CD80E9
+shiny = C02818 > DA5195
+shiny = C45B36 > F578AA
+shiny = C6EB8E > F1B5FF
+shiny = D88818 > FFACE5
+shiny = D89810 > CEC82A
+shiny = E85038 > FF76B8
+shiny = E8CE4D > E6F95F
+shiny = E8E8F8 > FFB2FF
+shiny = F0C038 > EAEE4F
+shiny = FAFAFA > FFC5FF
+shiny = FD714C > FF90D0

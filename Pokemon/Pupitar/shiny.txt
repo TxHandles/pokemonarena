@@ -1,0 +1,20 @@
+# Pupitar - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 203848 > 380166
+shiny = 2E3636 > 390063
+shiny = 384048 > 450D70
+shiny = 424143 > 490F72
+shiny = 77788A > 864BB1
+shiny = 77A0B0 > A66CD5
+shiny = 78A0B0 > A66CD5
+shiny = 88BFC7 > C388F2
+shiny = 88C0C8 > C489F3
+shiny = 89C0C8 > B68DEB
+shiny = 8BBFC8 > B68DEB
+shiny = 8F91A5 > A163CC
+shiny = A0B8C8 > C386F1
+shiny = A5AED4 > BF80ED
+shiny = B83030 > 7A2D92
+shiny = C84943 > 8444A8
+shiny = CDD4FE > D9AAFF
+shiny = E8E8F8 > EEBDFF

@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Hoothoot
+dex  = 163
+type = Normal / Flying
+
+hp         = 60
+attack     = 30
+defense    = 30
+sp_attack  = 36
+sp_defense = 56
+speed      = 50
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 21.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Noctowl
+evolve_level = 20
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Peck
+learn = 3, Tackle
+learn = 6, Echoed Voice
+learn = 9, Confusion
+learn = 12, Reflect
+learn = 15, Defog
+learn = 18, Air Slash
+learn = 21, Extrasensory
+learn = 24, Take Down
+learn = 27, Uproar
+learn = 30, Roost
+learn = 33, Moonblast
+learn = 36, Hypnosis
+learn = 39, Dream Eater
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Acrobatics, Psybeam, Confuse Ray
+tm = Thief, Facade, Aerial Ace, Swift, Air Cutter, Stored Power
+tm = Night Shade, Endure, Sunny Day, Rain Dance, Zen Headbutt, Air Slash
+tm = Sleep Talk, Reflect, Rest, Imprison, Fly, Skill Swap
+tm = Substitute, Tailwind, Shadow Ball, Hyper Voice, Heat Wave, Psychic
+tm = Amnesia, Calm Mind, Nasty Plot, Hurricane, Brave Bird, Tera Blast
+tm = Haze, Spite, Uproar, Dual Wingbeat, Psych Up, Feather Dance

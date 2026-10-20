@@ -1,0 +1,23 @@
+# Kingdra - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 183860 > 3F055D
+shiny = 285080 > 582278
+shiny = 386B9F > 6D3F97
+shiny = 4878A0 > 80489F
+shiny = 5398C7 > 9E65BF
+shiny = 7098C8 > A368C3
+shiny = 7BD2FE > D59AF8
+shiny = 886020 > 8F560E
+shiny = 90C0E8 > CA8DEA
+shiny = 91C0E8 > CA8DEA
+shiny = 926822 > 995E13
+shiny = 957C58 > 9352A4
+shiny = 9C7024 > A26618
+shiny = A8B8D0 > C889E4
+shiny = B08028 > B67621
+shiny = C0D0E8 > E1A0FD
+shiny = C49030 > C58828
+shiny = D8A038 > D89834
+shiny = E8AE50 > E8A648
+shiny = E8E8F8 > F1C3FF
+shiny = FF615A > EC6946

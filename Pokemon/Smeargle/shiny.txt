@@ -1,0 +1,22 @@
+# Smeargle - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 287028 > AE3240
+shiny = 353534 > 4B4A00
+shiny = 403830 > 544D00
+shiny = 48B040 > D0595F
+shiny = 545352 > 6D6922
+shiny = 605848 > 6E4F3C
+shiny = 706020 > 7A5728
+shiny = 78AE3B > DC5861
+shiny = 9B533A > 965139
+shiny = A09868 > B7AF60
+shiny = AFAFAF > ECCA6B
+shiny = B0B8C0 > F4D273
+shiny = B8B888 > F2D16B
+shiny = C0835D > B4A859
+shiny = C9B994 > F9D571
+shiny = D36279 > C69D41
+shiny = D8D8B8 > F9F09E
+shiny = E8E8F8 > FFFFB4
+shiny = F5F4BB > FFFFAD
+shiny = FAFAFA > FFFC99

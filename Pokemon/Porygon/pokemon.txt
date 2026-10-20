@@ -21,12 +21,11 @@ rare   = yes
 legendary = no
 starter = no
 
-# (does not evolve)
 
 # "evo" = learned when it evolves into this Pokemon
 
 # ---- EVOLUTION (Story Mode) ----------------------------------------------
-# (does not evolve)
+evolve_trade = Porygon2      # evolves when traded holding an Up-Grade (or with a Linking Cord)
 
 # ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
 # "evo" = learned when it evolves into this Pokemon

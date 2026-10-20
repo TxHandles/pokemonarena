@@ -7,6 +7,7 @@
 #include "wild.h"
 #include "vfx.h"
 #include "storymap.h"
+#include "leaders.h"
 #include "audio.h"
 #include "creatures.h"
 #include "embedded.h"
@@ -246,6 +247,7 @@ int main() {
     UnloadRenderTexture(target);
     UnloadArena();
     UnloadStoryMap();
+    UnloadLeaderPictures();
     UnloadAllSprites();
     UnloadSfx();
     CloseAudioDevice();

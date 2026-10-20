@@ -1,0 +1,26 @@
+# Miltank - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 203040 > 671500
+shiny = 284050 > 792711
+shiny = 2A404F > 792711
+shiny = 433F3F > 7D2911
+shiny = 475F77 > A0482F
+shiny = 486078 > A14930
+shiny = 504020 > 2E5071
+shiny = 562D33 > 25456C
+shiny = 562F31 > 26476A
+shiny = 582838 > 234468
+shiny = 666361 > A94F33
+shiny = 784850 > 64748E
+shiny = A09058 > 999787
+shiny = A8B8D0 > A2C7F4
+shiny = B06078 > 6D85B0
+shiny = B18C44 > A6957D
+shiny = D088A0 > 91AAD7
+shiny = D0B878 > B8D5F1
+shiny = D77F9B > 8FA7D3
+shiny = E5E7A2 > E1EDD6
+shiny = E8E8F8 > FFDAA8
+shiny = F0A8C0 > B1CAF8
+shiny = FAFAFA > DFFFFF
+shiny = FCAFC3 > B9D2FF

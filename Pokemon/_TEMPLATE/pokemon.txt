@@ -62,6 +62,8 @@ evolve_level = 0
 # Other ways to evolve (repeat a line for several options, like Eevee):
 # evolve_item = Vaporeon, Water Stone      # use the stone on it from Party & Box
 # evolve_friendship = Crobat, 160          # evolves after a win once friendship reaches 160
+# evolve_friendship = Espeon, 160, day     # add "day" or "night" to only evolve at that time
+# evolve_by_stats = Hitmonlee, Hitmonchan, Hitmontop   # with evolve_level: Attack higher / Defense higher / equal
 # evolve_trade = Alakazam                  # evolves when traded to your co-op partner
 
 # ---- ABILITIES & POKEDEX (optional - the original 151 fill these in automatically) ----

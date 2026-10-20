@@ -199,12 +199,31 @@ bool ParseCreatureFile(const std::string& path, SpeciesDef& sp, std::string& rep
             EvoAlt e;
             e.to = Trim(val.substr(0, c));
             std::string arg = c == std::string::npos ? "" : Trim(val.substr(c + 1));
-            if (key == "evolve_friendship") e.friendship = std::max(1, std::min(MAX_FRIENDSHIP, arg.empty() ? 160 : std::atoi(arg.c_str())));
+            if (key == "evolve_friendship") {   // evolve_friendship = Espeon, 160, day
+                size_t c2 = arg.find(',');
+                std::string when = c2 == std::string::npos ? "" : Lower(Trim(arg.substr(c2 + 1)));
+                if (c2 != std::string::npos) arg = Trim(arg.substr(0, c2));
+                e.friendship = std::max(1, std::min(MAX_FRIENDSHIP, arg.empty() ? 160 : std::atoi(arg.c_str())));
+                e.time = when == "day" ? 1 : (when == "night" ? 2 : 0);
+            }
             else e.item = arg;
             if (e.to.empty() || (key != "evolve_friendship" && e.item.empty()))
                 log += TextFormat("    line %d: write it like  %s = Vaporeon, Water Stone\n", ln, key.c_str());
             else if (Lower(e.to) != "none")
                 sp.evoAlts.push_back(e);
+        } else if (key == "evolve_by_stats" || key == "evolve_stats") {
+            // evolve_by_stats = Hitmonlee, Hitmonchan, Hitmontop   (Attack higher, Defense higher, equal)
+            sp.statEvos.clear();
+            size_t p = 0;
+            while (p <= val.size()) {
+                size_t c = val.find(',', p);
+                std::string nm = Trim(val.substr(p, c == std::string::npos ? std::string::npos : c - p));
+                if (!nm.empty()) sp.statEvos.push_back(nm);
+                if (c == std::string::npos) break;
+                p = c + 1;
+            }
+            if (sp.statEvos.size() != 3) { log += TextFormat("    line %d: write it like  evolve_by_stats = Hitmonlee, Hitmonchan, Hitmontop\n", ln); sp.statEvos.clear(); }
+            else if (sp.evolvesTo.empty()) sp.evolvesTo = sp.statEvos[0];
         } else if (key == "evolve_trade" || key == "evolves_by_trade" || key == "trade_evolution") {
             EvoAlt e;
             e.to = Trim(val);

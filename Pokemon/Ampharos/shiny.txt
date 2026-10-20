@@ -1,0 +1,15 @@
+# Ampharos - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 685808 > 5A3557
+shiny = 801808 > 0032BD
+shiny = 957B4E > A86790
+shiny = 988018 > 845C7F
+shiny = B83810 > 1061E5
+shiny = C8A01F > BF88A9
+shiny = C8A020 > AA7DA0
+shiny = D56341 > 9C5E8E
+shiny = E7B83F > C496B9
+shiny = F05850 > 5B87FF
+shiny = F0D058 > D6A9CD
+shiny = F7952C > CB8EB0
+shiny = FEEE39 > FFC5ED

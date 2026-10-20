@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Porygon2
+dex  = 233
+type = Normal
+
+hp         = 85
+attack     = 80
+defense    = 90
+sp_attack  = 105
+sp_defense = 95
+speed      = 60
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 32.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Recycle
+learn = 1, Tackle
+learn = 1, Conversion
+learn = 1, Magnet Rise
+learn = 1, Defense Curl
+learn = 15, Thunder Shock
+learn = 20, Psybeam
+learn = 25, Conversion 2
+learn = 30, Agility
+learn = 35, Recover
+learn = 40, Discharge
+learn = 45, Tri Attack
+learn = 50, Lock-On
+learn = 55, Zap Cannon
+learn = 60, Hyper Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Psybeam, Thief, Charge Beam
+tm = Facade, Swift, Icy Wind, Endure, Sunny Day, Rain Dance
+tm = Psyshock, Zen Headbutt, Foul Play, Sleep Talk, Thunder Wave, Rest
+tm = Eerie Impulse, Substitute, Trick, Shadow Ball, Psychic, Thunderbolt
+tm = Ice Beam, Blizzard, Giga Impact, Trick Room, Hyper Beam, Thunder
+tm = Solar Beam, Tera Blast, Charge, Gravity, Double-Edge, Electroweb

@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Donphan
+dex  = 232
+type = Ground
+
+hp         = 90
+attack     = 120
+defense    = 120
+sp_attack  = 60
+sp_defense = 60
+speed      = 50
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 120.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Fury Attack
+learn = 1, Bulldoze
+learn = 1, Fire Fang
+learn = 1, Horn Attack
+learn = 1, Growl
+learn = 1, Thunder Fang
+learn = 1, Defense Curl
+learn = 6, Rapid Spin
+learn = 10, Rollout
+learn = 15, Assurance
+learn = 19, Knock Off
+learn = 24, Slam
+learn = 30, Stomping Tantrum
+learn = 37, Scary Face
+learn = 43, Earthquake
+learn = 50, Giga Impact
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Mud-Slap, Scary Face, Protect, Fire Fang
+tm = Thunder Fang, Ice Fang, Thief, Trailblaze, Facade, Bulldoze
+tm = Mud Shot, Rock Tomb, Endure, Sunny Day, Rain Dance, Sandstorm
+tm = Smart Strike, Dig, Body Slam, Sleep Talk, Seed Bomb, Poison Jab
+tm = Stomping Tantrum, Rest, Rock Slide, Body Press, Iron Head, Gunk Shot
+tm = Substitute, Iron Defense, Stealth Rock, Hyper Voice, Heavy Slam, Encore
+tm = Ice Spinner, Play Rough, Helping Hand, Earth Power, Earthquake, Stone Edge
+tm = Giga Impact, Hyper Beam, Tera Blast, Roar, Sand Tomb, Smack Down
+tm = Gyro Ball, Knock Off, High Horsepower, Double-Edge, Endeavor, Throat Chop
+tm = Curse

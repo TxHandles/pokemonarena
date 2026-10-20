@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Forretress
+dex  = 205
+type = Bug / Steel
+
+hp         = 75
+attack     = 90
+defense    = 140
+sp_attack  = 60
+sp_defense = 60
+speed      = 40
+
+size   = 1.14
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 125.8      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Heavy Slam
+learn = 1, Protect
+learn = 1, Tackle
+learn = 1, Zap Cannon
+learn = 1, Self-Destruct
+learn = 1, Magnet Rise
+learn = 1, Toxic Spikes
+learn = 1, Bug Bite
+learn = 12, Take Down
+learn = 17, Rapid Spin
+learn = 20, Rollout
+learn = 23, Curse
+learn = 28, Spikes
+learn = 32, Payback
+learn = 36, Explosion
+learn = 42, Iron Defense
+learn = 46, Gyro Ball
+learn = 50, Double-Edge
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Struggle Bug, Pounce, Facade, Bulldoze
+tm = Swift, Rock Tomb, Venoshock, Endure, Volt Switch, Sunny Day
+tm = Rain Dance, Sandstorm, Smart Strike, Dig, Body Slam, Sleep Talk
+tm = Seed Bomb, Reflect, Light Screen, Rock Blast, Thunder Wave, Poison Jab
+tm = Rest, Rock Slide, Body Press, Spikes, Toxic Spikes, Flash Cannon
+tm = Iron Head, Substitute, Iron Defense, Drill Run, Giga Drain, Stealth Rock
+tm = Heavy Slam, Ice Spinner, Helping Hand, Earth Power, Reversal, Earthquake
+tm = Stone Edge, Giga Impact, Bug Buzz, Hyper Beam, Solar Beam, Steel Beam
+tm = Tera Blast, Sand Tomb, Gravity, Gyro Ball, Bug Bite, Lunge
+tm = Pain Split, Double-Edge, Metal Sound, Curse, Hard Press

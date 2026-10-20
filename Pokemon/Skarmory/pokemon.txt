@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Skarmory
+dex  = 227
+type = Steel / Flying
+
+hp         = 65
+attack     = 80
+defense    = 140
+sp_attack  = 40
+sp_defense = 70
+speed      = 70
+
+size   = 1.12
+height = 1.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 50.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leer
+learn = 1, Peck
+learn = 4, Sand Attack
+learn = 8, Fury Attack
+learn = 12, Metal Claw
+learn = 16, Agility
+learn = 20, Wing Attack
+learn = 24, Slash
+learn = 28, Steel Wing
+learn = 32, Payback
+learn = 36, Drill Peck
+learn = 40, Metal Sound
+learn = 44, Spikes
+learn = 48, Iron Defense
+learn = 52, Brave Bird
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Thief, Facade, Aerial Ace
+tm = Metal Claw, Swift, Icy Wind, Rock Tomb, Air Cutter, Endure
+tm = Sunny Day, Sandstorm, Air Slash, Sleep Talk, Rest, Rock Slide
+tm = Taunt, Swords Dance, Body Press, Spikes, Flash Cannon, Dark Pulse
+tm = Fly, Iron Head, Substitute, Iron Defense, X-Scissor, Drill Run
+tm = Tailwind, Stealth Rock, Reversal, Giga Impact, Hurricane, Hyper Beam
+tm = Brave Bird, Steel Beam, Tera Blast, Roar, Sand Tomb, Dual Wingbeat
+tm = Metal Sound, Curse

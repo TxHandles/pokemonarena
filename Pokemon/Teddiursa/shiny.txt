@@ -1,0 +1,20 @@
+# Teddiursa - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 313131 > 006830
+shiny = 545453 > 1D9053
+shiny = 583010 > 0F6930
+shiny = 584840 > 35843E
+shiny = 986020 > 53A160
+shiny = B0B8C0 > 96F2B4
+shiny = BC7C39 > 73C17D
+shiny = C87820 > 77C17C
+shiny = D8C888 > CFF08D
+shiny = D8DCEC > EFF384
+shiny = DE8C30 > 98E87C
+shiny = E0C860 > BCFFA6
+shiny = E8A038 > 9AE89E
+shiny = E8E8F8 > FFFF8F
+shiny = F0E0C0 > F3F9C3
+shiny = F69B29 > ACFA8B
+shiny = F6C576 > BFFFA8
+shiny = FFFF52 > BBFFC3

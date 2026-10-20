@@ -1,0 +1,12 @@
+# Delibird - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 580808 > 780065
+shiny = 90A0B0 > ACAF6C
+shiny = 980808 > 9E0092
+shiny = BA2D2F > BC32B0
+shiny = C0D0E8 > DFE0A1
+shiny = C81818 > C033B0
+shiny = C9C0BA > D3D290
+shiny = E7E7F7 > FAF9B8
+shiny = E8E8F8 > FBFAB9
+shiny = EE4E2F > E063C6

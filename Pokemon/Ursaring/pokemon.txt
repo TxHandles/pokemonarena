@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Ursaring
+dex  = 217
+type = Normal
+
+hp         = 90
+attack     = 130
+defense    = 75
+sp_attack  = 75
+sp_defense = 75
+speed      = 55
+
+size   = 1.25
+height = 1.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 125.8      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Covet
+learn = 1, Fake Tears
+learn = 1, Leer
+learn = 1, Lick
+learn = 1, Scratch
+learn = 8, Fury Swipes
+learn = 13, Payback
+learn = 17, Sweet Scent
+learn = 22, Slash
+learn = 25, Play Nice
+learn = 29, Play Rough
+learn = 35, Scary Face
+learn = 41, Rest
+learn = 41, Snore
+learn = 48, High Horsepower
+learn = 56, Thrash
+learn = 64, Hammer Arm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Scary Face, Protect, Low Kick
+tm = Thief, Trailblaze, Facade, Aerial Ace, Bulldoze, Metal Claw
+tm = Swift, Rock Tomb, Fling, Avalanche, Endure, Sunny Day
+tm = Rain Dance, Dig, Brick Break, Shadow Claw, Bulk Up, Body Slam
+tm = Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Seed Bomb, Metronome
+tm = Stomping Tantrum, Rest, Rock Slide, Taunt, Swords Dance, Gunk Shot
+tm = Substitute, Crunch, Hyper Voice, Play Rough, Helping Hand, Earthquake
+tm = Stone Edge, Giga Impact, Hyper Beam, Close Combat, Tera Blast, Smack Down
+tm = High Horsepower, Uproar, Focus Punch, Double-Edge, Throat Chop

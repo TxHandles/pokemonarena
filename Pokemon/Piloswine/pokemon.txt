@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Piloswine
+dex  = 221
+type = Ice / Ground
+
+hp         = 100
+attack     = 100
+defense    = 80
+sp_attack  = 60
+sp_defense = 60
+speed      = 50
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 55.8      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Ice Fang
+learn = 1, Mud-Slap
+learn = 1, Powder Snow
+learn = 1, Flail
+learn = 1, Tackle
+learn = 1, Ancient Power
+learn = 15, Ice Shard
+learn = 20, Mist
+learn = 25, Endure
+learn = 30, Icy Wind
+learn = 37, Amnesia
+learn = 44, Take Down
+learn = 51, Earthquake
+learn = 58, Blizzard
+learn = 65, Thrash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Mud-Slap, Scary Face, Protect, Ice Fang
+tm = Trailblaze, Facade, Bulldoze, Icy Wind, Mud Shot, Rock Tomb
+tm = Avalanche, Endure, Rain Dance, Sandstorm, Snowscape, Dig
+tm = Body Slam, Sleep Talk, Stomping Tantrum, Rest, Rock Slide, Substitute
+tm = Stealth Rock, Amnesia, Earth Power, Reversal, Ice Beam, Blizzard
+tm = Earthquake, Stone Edge, Giga Impact, Hyper Beam, Tera Blast, Roar
+tm = Haze, Sand Tomb, Smack Down, High Horsepower, Icicle Spear, Double-Edge
+tm = Endeavor, Throat Chop, Curse

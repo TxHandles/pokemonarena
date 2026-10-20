@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Sneasel
+dex  = 215
+type = Dark / Ice
+
+hp         = 55
+attack     = 95
+defense    = 55
+sp_attack  = 35
+sp_defense = 75
+speed      = 115
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 28.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leer
+learn = 1, Scratch
+learn = 6, Taunt
+learn = 12, Quick Attack
+learn = 18, Metal Claw
+learn = 24, Icy Wind
+learn = 30, Fury Swipes
+learn = 36, Hone Claws
+learn = 42, Beat Up
+learn = 48, Agility
+learn = 54, Screech
+learn = 60, Slash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Agility, Scary Face, Protect, Water Pulse
+tm = Low Kick, Thief, Trailblaze, Facade, Aerial Ace, Snarl
+tm = Metal Claw, Swift, Icy Wind, Low Sweep, Fling, Avalanche
+tm = Endure, Sunny Day, Rain Dance, Snowscape, Dig, False Swipe
+tm = Brick Break, Shadow Claw, Foul Play, Ice Punch, Sleep Talk, Poison Jab
+tm = Rest, Taunt, Swords Dance, Dark Pulse, Substitute, X-Scissor
+tm = Shadow Ball, Surf, Calm Mind, Helping Hand, Reversal, Ice Beam
+tm = Nasty Plot, Blizzard, Giga Impact, Tera Blast, Spite, Knock Off
+tm = Icicle Spear, Focus Punch, Lash Out, Triple Axel, Throat Chop, Upper Hand

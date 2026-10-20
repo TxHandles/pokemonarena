@@ -1,0 +1,20 @@
+# Smoochum - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 702060 > 943C69
+shiny = 805000 > 865C07
+shiny = 983050 > B64F68
+shiny = 986028 > 9D6D28
+shiny = A9816A > D9968D
+shiny = B04098 > D0639E
+shiny = B0B8C0 > CACAB7
+shiny = BC5893 > D975AC
+shiny = C88038 > F09873
+shiny = D08818 > E2C03D
+shiny = D682BD > FE9EC9
+shiny = D84068 > D4756D
+shiny = DDCF66 > FFE97A
+shiny = E0A068 > EAC096
+shiny = E64883 > DE8296
+shiny = F898C8 > F0B0BF
+shiny = F8C030 > FFF660
+shiny = FDFC8E > F6FFB1

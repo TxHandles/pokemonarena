@@ -1,0 +1,21 @@
+# Stantler - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 484038 > 791812
+shiny = 525251 > 8B2F2A
+shiny = 584808 > 337C00
+shiny = 603008 > 376600
+shiny = 705850 > A42F28
+shiny = 882030 > 4C6500
+shiny = 9B6A4D > 69AC39
+shiny = A89018 > C0C600
+shiny = A8B8D0 > E16D5F
+shiny = AC8376 > 91BC00
+shiny = B86030 > 7EA500
+shiny = C36241 > 78B43F
+shiny = C89058 > A2CC00
+shiny = C8B070 > B8E420
+shiny = D59B83 > B1D917
+shiny = E0D050 > FFFF4A
+shiny = E8E8F8 > F1FF6E
+shiny = EEEDAC > EFFFA0
+shiny = FCFC71 > FFFF4B

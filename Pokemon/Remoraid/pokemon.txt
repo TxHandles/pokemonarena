@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Remoraid
+dex  = 223
+type = Water
+
+hp         = 35
+attack     = 65
+defense    = 35
+sp_attack  = 65
+sp_defense = 35
+speed      = 65
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 12.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Octillery
+evolve_level = 25
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Helping Hand
+learn = 4, Water Pulse
+learn = 8, Focus Energy
+learn = 12, Psybeam
+learn = 16, Aurora Beam
+learn = 20, Bubble Beam
+learn = 24, Lock-On
+learn = 28, Bullet Seed
+learn = 32, Ice Beam
+learn = 36, Hydro Pump
+learn = 40, Soak
+learn = 44, Hyper Beam
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Swift, Icy Wind, Mud Shot
+tm = Endure, Sunny Day, Rain Dance, Bullet Seed, Sleep Talk, Seed Bomb
+tm = Rock Blast, Waterfall, Thunder Wave, Rest, Gunk Shot, Substitute
+tm = Psychic, Surf, Flamethrower, Helping Hand, Ice Beam, Fire Blast
+tm = Hydro Pump, Blizzard, Hyper Beam, Scald, Whirlpool

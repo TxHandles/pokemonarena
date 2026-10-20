@@ -1,0 +1,12 @@
+# Spinarak - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 205020 > 203D78
+shiny = 508820 > 5E6FAC
+shiny = 59AE3B > 748DC8
+shiny = 78B820 > 7688BD
+shiny = 93F549 > 98C1FD
+shiny = A0D860 > 96A8E1
+shiny = C08800 > 945B8D
+shiny = D04068 > FF4282
+shiny = DE4425 > F06F76
+shiny = E1A41F > B476A3

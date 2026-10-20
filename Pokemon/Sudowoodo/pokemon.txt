@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Sudowoodo
+dex  = 185
+type = Rock
+
+hp         = 70
+attack     = 100
+defense    = 115
+sp_attack  = 30
+sp_defense = 65
+speed      = 30
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 38.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Slam
+learn = 1, Flail
+learn = 1, Copycat
+learn = 1, Wood Hammer
+learn = 1, Rock Throw
+learn = 1, Fake Tears
+learn = 1, Hammer Arm
+learn = 1, Stone Edge
+learn = 12, Block
+learn = 16, Mimic
+learn = 20, Rock Tomb
+learn = 24, Tearful Look
+learn = 28, Sucker Punch
+learn = 32, Rock Slide
+learn = 36, Low Kick
+learn = 40, Counter
+learn = 44, Double-Edge
+learn = 48, Head Smash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Mud-Slap, Protect, Low Kick, Thief
+tm = Trailblaze, Facade, Bulldoze, Mud Shot, Rock Tomb, Low Sweep
+tm = Fling, Endure, Sunny Day, Sandstorm, Dig, Brick Break
+tm = Foul Play, Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk
+tm = Drain Punch, Rock Blast, Grass Knot, Stomping Tantrum, Rest, Rock Slide
+tm = Taunt, Body Press, Spikes, Power Gem, Substitute, Iron Defense
+tm = Stealth Rock, Calm Mind, Helping Hand, Earth Power, Earthquake, Stone Edge
+tm = Giga Impact, Hyper Beam, Tera Blast, Sand Tomb, Smack Down, High Horsepower
+tm = Focus Punch, Psych Up, Double-Edge, Endeavor, Meteor Beam, Curse

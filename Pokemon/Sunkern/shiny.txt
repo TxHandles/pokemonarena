@@ -1,0 +1,15 @@
+# Sunkern - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 285010 > 3C5109
+shiny = 4EB045 > 8AB12E
+shiny = 584000 > 602901
+shiny = 68A038 > 8CA138
+shiny = 70C050 > A0C052
+shiny = 72591F > 7C421D
+shiny = 8BED72 > C5ED5B
+shiny = 986808 > 9C521D
+shiny = B88808 > BD7216
+shiny = BB9B30 > C6832F
+shiny = D8B830 > CC9C00
+shiny = EFDD28 > E8BF00
+shiny = F0D870 > FFBE6A

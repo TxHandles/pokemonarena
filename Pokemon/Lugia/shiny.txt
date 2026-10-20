@@ -1,0 +1,9 @@
+# Lugia - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 283070 > 9E143E
+shiny = 2C6BC0 > CE5168
+shiny = 2E65C0 > DB5790
+shiny = 2F62C0 > D9558E
+shiny = 3060C0 > D8526F
+shiny = 3A9FEF > 5EA4F2
+shiny = 88A8E0 > 8DAFEF

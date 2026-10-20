@@ -1,0 +1,18 @@
+# Espeon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 302078 > 004700
+shiny = 3870B0 > 088800
+shiny = 502878 > 005400
+shiny = 56777D > 0A8C00
+shiny = 5D4865 > 006E00
+shiny = A868A0 > 3F9A02
+shiny = B39EAA > 5FC01A
+shiny = C75047 > FF8E18
+shiny = C83830 > 2C8500
+shiny = C890D0 > 64BF23
+shiny = E0B0D8 > 85DF52
+shiny = E888B0 > 6AC11E
+shiny = E8C3D6 > 8DEB4C
+shiny = E8E8F8 > B2FF95
+shiny = F0C8E8 > 95F254
+shiny = FFF6FF > B9FF57

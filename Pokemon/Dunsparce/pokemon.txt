@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Dunsparce
+dex  = 206
+type = Normal
+
+hp         = 100
+attack     = 70
+defense    = 70
+sp_attack  = 65
+sp_defense = 65
+speed      = 45
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 14.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Flail
+learn = 1, Defense Curl
+learn = 4, Mud-Slap
+learn = 8, Rollout
+learn = 12, Glare
+learn = 16, Screech
+learn = 20, Ancient Power
+learn = 24, Drill Run
+learn = 28, Yawn
+learn = 32, Hyper Drill
+learn = 36, Roost
+learn = 40, Dragon Rush
+learn = 44, Coil
+learn = 48, Double-Edge
+learn = 52, Endeavor
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Mud-Slap, Scary Face, Protect, Thief
+tm = Pounce, Chilling Water, Facade, Poison Tail, Bulldoze, Hex
+tm = Mud Shot, Rock Tomb, Stored Power, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, Smart Strike, Dig, Zen Headbutt, Air Slash, Body Slam
+tm = Sleep Talk, Poison Jab, Stomping Tantrum, Rest, Rock Slide, Substitute
+tm = Drill Run, Shadow Ball, Stealth Rock, Hyper Voice, Ice Spinner, Flamethrower
+tm = Thunderbolt, Amnesia, Calm Mind, Helping Hand, Baton Pass, Earth Power
+tm = Ice Beam, Fire Blast, Blizzard, Wild Charge, Earthquake, Stone Edge
+tm = Giga Impact, Hyper Beam, Thunder, Solar Beam, Tera Blast, Toxic
+tm = Spite, Gyro Ball, Lunge, Uproar, Scale Shot, Pain Split
+tm = Psych Up, Double-Edge, Endeavor, Skitter Smack, Breaking Swipe, Curse

@@ -1,0 +1,20 @@
+# Azumarill - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1F3068 > 9B6B00
+shiny = 203068 > A37100
+shiny = 3870A0 > EAB00A
+shiny = 4283C9 > E0C300
+shiny = 4890C8 > FFD13D
+shiny = 62BCF5 > FFFA32
+shiny = 70B0F0 > FFF127
+shiny = 80A0C8 > E3C166
+shiny = AF425C > C13B28
+shiny = B1C7D6 > C9C5C5
+shiny = B83028 > BF2C21
+shiny = B8C8E0 > CFC7CC
+shiny = CACEE0 > DCCECF
+shiny = D0D0E0 > E0D0D0
+shiny = D2D2E2 > E2D2D2
+shiny = E8E8F8 > FFFE2D
+shiny = F06B56 > FF6E20
+shiny = FAFAFA > FFFAEF

@@ -1,0 +1,32 @@
+# Noctowl - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 490600
+shiny = 0A0A0A > 500E00
+shiny = 405058 > 745925
+shiny = 45403F > 934900
+shiny = 5F3F0F > 994D00
+shiny = 603F0F > 9A4D00
+shiny = 604010 > 9B4E00
+shiny = 604838 > A35500
+shiny = 682828 > 65460F
+shiny = 6A514B > AF5F01
+shiny = 6F2929 > 954600
+shiny = 7F6050 > C47018
+shiny = 806050 > C47018
+shiny = 8A5E58 > 96743C
+shiny = A83030 > 656A00
+shiny = A8B8D0 > C6D254
+shiny = A98865 > 959E24
+shiny = B88860 > 9BA228
+shiny = B98661 > 9AA127
+shiny = C87070 > 949822
+shiny = C8B878 > C0CA4E
+shiny = CF9F6F > B2B93F
+shiny = D0A070 > B3BA40
+shiny = DFD196 > D4DA75
+shiny = E0A8A8 > C1C752
+shiny = E0D7A0 > D7E07D
+shiny = E0D8A0 > E8F269
+shiny = E8E8F8 > FFE993
+shiny = FAFAFA > FEFF84
+shiny = FCEAE0 > FFFF83

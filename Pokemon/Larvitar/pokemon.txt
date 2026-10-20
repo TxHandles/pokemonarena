@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Larvitar
+dex  = 246
+type = Rock / Ground
+
+hp         = 50
+attack     = 64
+defense    = 50
+sp_attack  = 45
+sp_defense = 50
+speed      = 41
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 72.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Pupitar
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Leer
+learn = 3, Rock Throw
+learn = 6, Payback
+learn = 9, Bite
+learn = 12, Scary Face
+learn = 15, Rock Slide
+learn = 18, Stomping Tantrum
+learn = 21, Screech
+learn = 24, Smack Down
+learn = 27, Crunch
+learn = 31, Earthquake
+learn = 33, Stone Edge
+learn = 36, Thrash
+learn = 39, Sandstorm
+learn = 42, Hyper Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Facade, Bulldoze
+tm = Snarl, Mud Shot, Rock Tomb, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, Dig, Brick Break, Body Slam, Sleep Talk, Rock Blast
+tm = Stomping Tantrum, Rest, Rock Slide, Taunt, Dark Pulse, Iron Head
+tm = Dragon Dance, Substitute, Iron Defense, Crunch, Stealth Rock, Helping Hand
+tm = Earth Power, Earthquake, Stone Edge, Giga Impact, Outrage, Hyper Beam
+tm = Tera Blast, Sand Tomb, Spite, Smack Down, Double-Edge, Curse

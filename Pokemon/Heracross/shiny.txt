@@ -1,0 +1,19 @@
+# Heracross - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 072F3F > 720B82
+shiny = 083040 > 700D6B
+shiny = 104860 > 8F30A0
+shiny = 114860 > 8F30A0
+shiny = 206078 > A94BBA
+shiny = 375472 > A241B1
+shiny = 377790 > C363D3
+shiny = 387890 > C464D4
+shiny = 3B6EA2 > BF5DD1
+shiny = 3C3E42 > 8C2897
+shiny = 5098B0 > E685F6
+shiny = 5099CC > E685E0
+shiny = 80C0C8 > FFADFF
+shiny = 985800 > C555BE
+shiny = D88808 > D99400
+shiny = F0B040 > F0BC3F
+shiny = F6CA47 > FDD34B

@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Kingdra
+dex  = 230
+type = Water / Dragon
+
+hp         = 75
+attack     = 95
+defense    = 95
+sp_attack  = 95
+sp_defense = 95
+speed      = 85
+
+size   = 1.25
+height = 1.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 152.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Twister
+learn = 1, Water Gun
+learn = 1, Whirlpool
+learn = 1, Yawn
+learn = 1, Leer
+learn = 1, Smokescreen
+learn = 15, Focus Energy
+learn = 20, Dragon Breath
+learn = 25, Bubble Beam
+learn = 30, Agility
+learn = 37, Water Pulse
+learn = 44, Dragon Pulse
+learn = 51, Hydro Pump
+learn = 58, Dragon Dance
+learn = 65, Rain Dance
+learn = 72, Wave Crash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Water Pulse, Chilling Water
+tm = Facade, Swift, Icy Wind, Endure, Rain Dance, Snowscape
+tm = Body Slam, Sleep Talk, Waterfall, Rest, Flash Cannon, Iron Head
+tm = Dragon Dance, Substitute, Liquidation, Dragon Pulse, Surf, Ice Beam
+tm = Hydro Pump, Blizzard, Giga Impact, Outrage, Hurricane, Hyper Beam
+tm = Draco Meteor, Tera Blast, Scald, Weather Ball, Flip Turn, Scale Shot
+tm = Double-Edge, Whirlpool, Muddy Water, Breaking Swipe

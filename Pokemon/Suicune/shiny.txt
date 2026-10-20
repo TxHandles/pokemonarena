@@ -1,0 +1,25 @@
+# Suicune - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 183858 > 284062
+shiny = 306088 > 517597
+shiny = 309888 > 609CA3
+shiny = 30B5C8 > 73B9D6
+shiny = 3E4244 > 3F424B
+shiny = 402060 > 000C51
+shiny = 426B84 > 5A7189
+shiny = 505060 > 515067
+shiny = 6098C0 > 7B9FC9
+shiny = 60C8C0 > 8DCCD9
+shiny = 703888 > 0031AE
+shiny = 809898 > 909EA8
+shiny = 99DCE9 > B6E2FC
+shiny = 9F5FAF > 2A55DB
+shiny = A05BA2 > 2751D7
+shiny = A060B0 > A183BC
+shiny = B6502E > A05E51
+shiny = B83030 > B06363
+shiny = B8C8C8 > C5CFD7
+shiny = DF89E8 > 7382FF
+shiny = E0F3FF > EFFAFF
+shiny = E8E8F8 > C8D8C9
+shiny = FAFAFA > D9E9D0

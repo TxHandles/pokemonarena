@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Mantine
+dex  = 226
+type = Water / Flying
+
+hp         = 85
+attack     = 40
+defense    = 70
+sp_attack  = 80
+sp_defense = 140
+speed      = 70
+
+size   = 1.29
+height = 2.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 220.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Psybeam
+learn = 1, Wing Attack
+learn = 1, Roost
+learn = 1, Water Gun
+learn = 1, Tackle
+learn = 1, Bullet Seed
+learn = 1, Supersonic
+learn = 12, Water Pulse
+learn = 16, Wide Guard
+learn = 20, Agility
+learn = 24, Bubble Beam
+learn = 28, Headbutt
+learn = 32, Air Slash
+learn = 36, Aqua Ring
+learn = 40, Bounce
+learn = 44, Take Down
+learn = 48, Hydro Pump
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Acrobatics, Facade, Bulldoze, Swift
+tm = Icy Wind, Rock Tomb, Endure, Rain Dance, Bullet Seed, Air Slash
+tm = Body Slam, Sleep Talk, Seed Bomb, Rock Blast, Waterfall, Rest
+tm = Rock Slide, Body Press, Iron Head, Gunk Shot, Substitute, Liquidation
+tm = Surf, Amnesia, Helping Hand, Ice Beam, Hydro Pump, Blizzard
+tm = Earthquake, Giga Impact, Hurricane, Hyper Beam, Scald, Whirlpool

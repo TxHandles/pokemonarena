@@ -1,0 +1,21 @@
+# Togepi - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 5C9BF3 > 9599C5
+shiny = 5E5036 > 6A4635
+shiny = 60A8E0 > 97A5BC
+shiny = 706030 > 714A24
+shiny = 78C8F0 > AFC4D1
+shiny = 988848 > 9B7140
+shiny = 989890 > A29986
+shiny = 9F8B69 > A17455
+shiny = C0B048 > C3974F
+shiny = CAB7B9 > D4B8AF
+shiny = D85058 > C3665D
+shiny = D8D0D0 > E6D0C6
+shiny = DBBF5F > E2AB69
+shiny = E6443D > CD614D
+shiny = E87890 > D8878A
+shiny = E8D858 > ECBE67
+shiny = E8E8F8 > FAE8E7
+shiny = EFED93 > F9D290
+shiny = F8E890 > FDCE8D

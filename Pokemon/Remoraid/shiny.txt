@@ -1,0 +1,20 @@
+# Remoraid - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 183868 > 51097A
+shiny = 285080 > 6A2894
+shiny = 42494A > 5A1877
+shiny = 484848 > 5B1877
+shiny = 4878A0 > 8650A1
+shiny = 659799 > A26BBA
+shiny = 681850 > 7C0000
+shiny = 7098C8 > AA71C5
+shiny = 90C0E8 > D096EC
+shiny = A3DEFE > D4ADF3
+shiny = A8B8D0 > B78DD1
+shiny = ABBBD3 > D295E9
+shiny = B6B6B6 > CF91E3
+shiny = C0D0E8 > CEACE0
+shiny = CBE2F2 > DEBCEF
+shiny = D56141 > DC5439
+shiny = E8E8F8 > ECBEFF
+shiny = FAFAFA > FBD6FF

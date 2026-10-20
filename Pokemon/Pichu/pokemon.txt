@@ -1,0 +1,46 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Pichu
+dex  = 172
+type = Electric
+
+hp         = 20
+attack     = 40
+defense    = 15
+sp_attack  = 35
+sp_defense = 35
+speed      = 60
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 2.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_friendship = Pikachu, 160
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tail Whip
+learn = 1, Thunder Shock
+learn = 4, Play Nice
+learn = 8, Sweet Kiss
+learn = 12, Nuzzle
+learn = 16, Nasty Plot
+learn = 20, Charm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Disarming Voice, Trailblaze, Facade
+tm = Swift, Fling, Endure, Volt Switch, Rain Dance, Body Slam
+tm = Thunder Punch, Sleep Talk, Electro Ball, Reflect, Light Screen, Grass Knot
+tm = Thunder Wave, Rest, Substitute, Encore, Surf, Thunderbolt
+tm = Play Rough, Helping Hand, Reversal, Electric Terrain, Nasty Plot, Wild Charge
+tm = Thunder, Tera Blast, Charge, Electroweb

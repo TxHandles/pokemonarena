@@ -26,6 +26,9 @@ EVOLUTION CHAINS
                          evolve_level = 16
   Stone evolution:        evolve_item = Vaporeon, Water Stone
   Friendship evolution:   evolve_friendship = Crobat, 160
+                          evolve_friendship = Umbreon, 160, night   (only at night; "day" for daytime)
+  Attack vs Defense:      evolve_by_stats = Hitmonlee, Hitmonchan, Hitmontop   (with evolve_level = 20;
+                          Attack higher / Defense higher / equal - its nature decides)
   Trade evolution:        evolve_trade = Alakazam   (evolves when traded to your co-op partner)
   The next form is just another folder. Chains can be any length.
   In Story Mode the evolution happens the moment the level is reached - even in

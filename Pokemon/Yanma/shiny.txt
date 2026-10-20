@@ -1,0 +1,14 @@
+# Yanma - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 286808 > 007400
+shiny = 70C050 > 68CC38
+shiny = 8BEA4C > 9CFB47
+shiny = 903008 > 4656C6
+shiny = A0E880 > ABFB6C
+shiny = AC3930 > 00688D
+shiny = B84010 > 3F86E0
+shiny = D84830 > 5998F6
+shiny = E56229 > 3BA0E5
+shiny = E87830 > 469EC2
+shiny = F06850 > 75B2FF
+shiny = FB8A62 > 2BAAFD

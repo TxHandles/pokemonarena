@@ -1,0 +1,17 @@
+# Larvitar - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2E3636 > 325600
+shiny = 333B3F > 395B0F
+shiny = 41423E > 3F6400
+shiny = 485828 > 5F6700
+shiny = 6C8E62 > 87AD00
+shiny = 782020 > 4B5400
+shiny = 84C367 > B8DD00
+shiny = 88B068 > AFBF34
+shiny = A0B8C8 > B7D139
+shiny = AAEC6A > E2FF27
+shiny = B0D878 > D4F611
+shiny = B83030 > 6E8600
+shiny = C84943 > 819800
+shiny = D1FA9D > EDFF3B
+shiny = E8E8F8 > F2FF4C

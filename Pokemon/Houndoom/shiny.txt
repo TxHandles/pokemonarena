@@ -1,0 +1,24 @@
+# Houndoom - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0A0A0A > 002393
+shiny = 333333 > 4A4CBF
+shiny = 33333A > 444CC7
+shiny = 33333B > 444CC8
+shiny = 34343B > 464DC8
+shiny = 483850 > 516CE7
+shiny = 505058 > 6A81FE
+shiny = 525252 > 6D83FE
+shiny = 687070 > 90A2FF
+shiny = 706078 > 8697FF
+shiny = 737372 > 96A6FF
+shiny = 886040 > DC9F4B
+shiny = 888090 > AA9FFF
+shiny = 901828 > 755FDE
+shiny = 92929A > 9499A4
+shiny = A8A0B8 > A8A8BD
+shiny = B88860 > A8927B
+shiny = BCBCBC > EBDBFF
+shiny = CC6A49 > BCB7FF
+shiny = E0B8A0 > F4DEFF
+shiny = E8E8F8 > EEE9FC
+shiny = F59329 > F7C46B

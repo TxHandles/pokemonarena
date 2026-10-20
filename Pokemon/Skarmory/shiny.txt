@@ -1,0 +1,18 @@
+# Skarmory - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1F3067 > 352D04
+shiny = 203068 > 362D04
+shiny = 406098 > 635930
+shiny = 626C83 > 6C6441
+shiny = 7890C0 > A19179
+shiny = 98B0D8 > C2B199
+shiny = 9C4244 > 367F00
+shiny = A01830 > 008400
+shiny = AEACC8 > C3B098
+shiny = C83858 > 33A518
+shiny = C8A810 > 83D047
+shiny = CFE7F7 > E5E6C5
+shiny = D0E8F7 > E6E6C5
+shiny = D0E8F8 > FFF7CB
+shiny = D34F60 > 5DAB42
+shiny = D8DCF4 > E0DFBF

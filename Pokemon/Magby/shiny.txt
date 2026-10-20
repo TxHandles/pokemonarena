@@ -1,0 +1,16 @@
+# Magby - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 404048 > 9A5000
+shiny = 4A3A3D > 9E4800
+shiny = 505868 > B86800
+shiny = 680018 > 8A3B00
+shiny = 684800 > 846600
+shiny = 982838 > B75F00
+shiny = AC4F52 > D77A00
+shiny = C89820 > E6BA24
+shiny = D02838 > DB7900
+shiny = EC6263 > FF9D27
+shiny = F0C038 > F5E352
+shiny = F4958D > FFEC46
+shiny = F85078 > FF9B2A
+shiny = FFFD7B > FDFF7B

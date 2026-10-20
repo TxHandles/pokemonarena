@@ -3,7 +3,7 @@
 #include <string>
 #include "types.h"
 
-// Pokemon abilities (every ability used by the original 151), adapted to real-time battles.
+// Pokemon abilities (every ability used by the first 251), adapted to real-time battles.
 enum class Ab : uint8_t {
     None,
     Adaptability,
@@ -120,6 +120,25 @@ enum class Ab : uint8_t {
     WaterVeil,
     WeakArmor,
     WonderSkin,
+    // Gen 2 additions (kept after the Gen 1 set so older values stay put)
+    Contrary,
+    Drizzle,
+    HoneyGather,
+    HugePower,
+    LightMetal,
+    MagicBounce,
+    MagmaArmor,
+    Moody,
+    Pickpocket,
+    Plus,
+    Prankster,
+    SandStream,
+    SapSipper,
+    ShadowTag,
+    SpeedBoost,
+    SuctionCups,
+    SuperLuck,
+    Telepathy,
     Count
 };
 

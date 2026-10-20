@@ -1,0 +1,21 @@
+# Slowking - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 485058 > 505052
+shiny = 4D4C50 > 544C4A
+shiny = 703038 > 7B1958
+shiny = 785810 > 973A6D
+shiny = 984048 > 983571
+shiny = A88C63 > D080B5
+shiny = C08828 > D470A1
+shiny = C79E3D > AEA737
+shiny = C85060 > BA528D
+shiny = C8A040 > E884B5
+shiny = D01010 > AB3E76
+shiny = D07880 > D46DA8
+shiny = D3989B > EA85BF
+shiny = DE624A > CF74AB
+shiny = E8C860 > FFAADA
+shiny = F0A8B0 > 5197FF
+shiny = F3F3F7 > FCFCED
+shiny = FFB2C5 > FFA4E1
+shiny = FFF9C5 > FFFFD0

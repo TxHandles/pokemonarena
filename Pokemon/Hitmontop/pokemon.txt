@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Hitmontop
+dex  = 237
+type = Fighting
+
+hp         = 50
+attack     = 95
+defense    = 95
+sp_attack  = 35
+sp_defense = 110
+speed      = 70
+
+size   = 1.12
+height = 1.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 48.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Triple Kick
+learn = 1, Feint
+learn = 1, Tackle
+learn = 1, Helping Hand
+learn = 1, Fake Out
+learn = 1, Focus Energy
+learn = 4, Quick Attack
+learn = 8, Gyro Ball
+learn = 12, Detect
+learn = 16, Rapid Spin
+learn = 21, Wide Guard
+learn = 21, Quick Guard
+learn = 24, Sucker Punch
+learn = 28, Agility
+learn = 32, Dig
+learn = 36, Close Combat
+learn = 40, Counter
+learn = 44, Endeavor
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Low Kick, Thief, Facade
+tm = Aerial Ace, Bulldoze, Swift, Low Sweep, Endure, Sunny Day
+tm = Rain Dance, Sandstorm, Dig, Brick Break, Bulk Up, Body Slam
+tm = Sleep Talk, Rest, Rock Slide, Substitute, Drill Run, Ice Spinner
+tm = Helping Hand, Baton Pass, Reversal, Earthquake, Stone Edge, Giga Impact
+tm = Focus Blast, Close Combat, Tera Blast, Gyro Ball, Vacuum Wave, Uproar
+tm = Double-Edge, Endeavor, Triple Axel, Coaching, Upper Hand

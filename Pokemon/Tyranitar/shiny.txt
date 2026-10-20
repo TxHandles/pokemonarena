@@ -1,0 +1,23 @@
+# Tyranitar - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284830 > 625135
+shiny = 294531 > 614E34
+shiny = 2E3636 > 543F24
+shiny = 2E3737 > 544025
+shiny = 3F413F > 654A2C
+shiny = 5068A8 > 92717B
+shiny = 587850 > 95815A
+shiny = 5D675A > 897049
+shiny = 6088C0 > A99194
+shiny = 70A058 > B5A96D
+shiny = 72945B > A89C57
+shiny = 788890 > B2928B
+shiny = 8274A9 > B08082
+shiny = 88B868 > CEC180
+shiny = A99EDE > DC99EF
+shiny = AFD777 > F3E096
+shiny = B0D777 > F3E096
+shiny = B0D878 > EBDF81
+shiny = B3CE91 > EAD68E
+shiny = E8E8F8 > FFF4DB
+shiny = F2F4F0 > FFF8D3

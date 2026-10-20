@@ -1,0 +1,20 @@
+# Flaaffy - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 205890 > 56666F
+shiny = 303840 > 414633
+shiny = 343333 > 434125
+shiny = 3898C0 > 79A29B
+shiny = 535353 > 616348
+shiny = 586878 > 797A64
+shiny = 60C8F0 > 6CEB7F
+shiny = 702840 > 733754
+shiny = 8898B0 > A39F96
+shiny = 8A79FB > 70D05B
+shiny = A44A6B > 9E5E71
+shiny = B86080 > B47285
+shiny = B8C8E0 > DCDDC5
+shiny = DC7292 > D886A9
+shiny = E090B8 > E3A0C9
+shiny = E7E7F7 > FFFFE5
+shiny = E8E8F8 > FFFFE6
+shiny = F8A3A4 > F9B2C4

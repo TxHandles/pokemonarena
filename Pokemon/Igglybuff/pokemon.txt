@@ -1,0 +1,48 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Igglybuff
+dex  = 174
+type = Normal / Fairy
+
+hp         = 90
+attack     = 30
+defense    = 15
+sp_attack  = 40
+sp_defense = 20
+speed      = 15
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 1.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_friendship = Jigglypuff, 160
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Sing
+learn = 1, Copycat
+learn = 1, Pound
+learn = 4, Defense Curl
+learn = 8, Sweet Kiss
+learn = 12, Disarming Voice
+learn = 16, Disable
+learn = 20, Charm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Protect, Disarming Voice, Trailblaze
+tm = Facade, Swift, Icy Wind, Draining Kiss, Fling, Endure
+tm = Sunny Day, Rain Dance, Dig, Body Slam, Sleep Talk, Reflect
+tm = Light Screen, Dazzling Gleam, Grass Knot, Thunder Wave, Rest, Substitute
+tm = Shadow Ball, Hyper Voice, Psychic, Encore, Flamethrower, Play Rough
+tm = Helping Hand, Misty Terrain, Fire Blast, Wild Charge, Solar Beam, Tera Blast
+tm = Gravity, Pain Split, Psych Up, Double-Edge, Endeavor, Alluring Voice

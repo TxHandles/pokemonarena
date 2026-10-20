@@ -1,0 +1,15 @@
+# Furret - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 8E0A4E
+shiny = 535252 > B63A6F
+shiny = 583818 > 8C1B55
+shiny = 705030 > 66574E
+shiny = 845A39 > 74635A
+shiny = 98703F > D05E8F
+shiny = 987040 > E66391
+shiny = A57152 > EC6898
+shiny = D0B070 > EAA1AF
+shiny = D4BB7A > CFBEB1
+shiny = E8E8F8 > FFD3FF
+shiny = F0D0A0 > FFC5F1
+shiny = FDE5AC > F9E8DB

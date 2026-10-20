@@ -1,0 +1,16 @@
+# Xatu - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 385020 > 566F23
+shiny = 3F501B > 408600
+shiny = 605000 > 4A8C00
+shiny = 609038 > 7CC437
+shiny = 781020 > 954713
+shiny = 80C070 > ACF568
+shiny = 91C652 > BDE86E
+shiny = B02838 > C96531
+shiny = B89830 > C4A02F
+shiny = CCDEA4 > EFFFAD
+shiny = D84858 > F08351
+shiny = E45D63 > FC955C
+shiny = F0D060 > FED862
+shiny = F1B94E > F8C451

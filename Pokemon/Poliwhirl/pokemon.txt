@@ -26,6 +26,7 @@ starter = no
 
 # ---- EVOLUTION (Story Mode) ----------------------------------------------
 evolve_item = Poliwrath, Water Stone
+evolve_trade = Politoed      # evolves when traded holding a King's Rock (or with a Linking Cord)
 
 # ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
 # "evo" = learned when it evolves into this Pokemon

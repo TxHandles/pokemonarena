@@ -1,0 +1,15 @@
+# Hitmontop - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3870A0 > 993B94
+shiny = 5491BA > B760AE
+shiny = 584818 > 4E4844
+shiny = 6098D0 > C268B9
+shiny = 665436 > 5B5552
+shiny = 7BBEFE > E98DE0
+shiny = 805018 > 81257D
+shiny = A98366 > 918885
+shiny = B0B8C0 > B9B6B6
+shiny = B88048 > 948984
+shiny = D0A068 > B1A6A1
+shiny = D4A47B > B5B3A7
+shiny = E8E8F8 > EDF0EA

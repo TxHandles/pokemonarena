@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Ariados
+dex  = 168
+type = Bug / Poison
+
+hp         = 70
+attack     = 90
+defense    = 70
+sp_attack  = 60
+sp_defense = 70
+speed      = 40
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 33.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Swords Dance
+learn = 1, Poison Sting
+learn = 1, Bug Bite
+learn = 1, Focus Energy
+learn = 1, Absorb
+learn = 1, String Shot
+learn = 1, Fell Stinger
+learn = 8, Infestation
+learn = 12, Scary Face
+learn = 15, Night Shade
+learn = 19, Shadow Sneak
+learn = 23, Fury Swipes
+learn = 28, Sucker Punch
+learn = 31, Agility
+learn = 35, Pin Missile
+learn = 41, Psychic
+learn = 46, Poison Jab
+learn = 50, Cross Poison
+learn = 54, Sticky Web
+learn = 59, Toxic Thread
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Scary Face, Protect, Acid Spray, Struggle Bug, Thief
+tm = Trailblaze, Pounce, Facade, Hex, Night Shade, Venoshock
+tm = Endure, Sunny Day, Smart Strike, Dig, Foul Play, Sleep Talk
+tm = Poison Jab, Rest, Swords Dance, Toxic Spikes, Leech Life, Substitute
+tm = X-Scissor, Giga Drain, Psychic, Baton Pass, Sludge Bomb, Giga Impact
+tm = Bug Buzz, Hyper Beam, Solar Beam, Tera Blast, Toxic, Spite
+tm = Knock Off, Bug Bite, Lunge, Electroweb, Sludge Wave, Skitter Smack
+tm = Throat Chop

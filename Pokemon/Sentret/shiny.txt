@@ -1,0 +1,20 @@
+# Sentret - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 750C28
+shiny = 462709 > 710020
+shiny = 46270A > 710020
+shiny = 482808 > 730121
+shiny = 525151 > 9B3445
+shiny = 574738 > 932B3C
+shiny = 584838 > 942C3D
+shiny = 7A5949 > AF4451
+shiny = 806048 > B74A57
+shiny = 882030 > A75347
+shiny = A88058 > E4CA90
+shiny = AC7259 > EDC474
+shiny = C88E7D > FFE292
+shiny = D0A880 > FFF4BA
+shiny = D4C4AB > FFFECA
+shiny = D8C080 > FFA9AD
+shiny = F0E0C0 > FFC9CF
+shiny = F37179 > FF9983

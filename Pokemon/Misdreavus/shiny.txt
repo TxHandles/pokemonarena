@@ -1,0 +1,24 @@
+# Misdreavus - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1F5060 > 88A33A
+shiny = 203058 > 72892A
+shiny = 205060 > 89A33A
+shiny = 323233 > 728B26
+shiny = 406888 > A7C058
+shiny = 507098 > B7CF6C
+shiny = 525252 > 98B049
+shiny = 5796BA > D9E975
+shiny = 580830 > A66700
+shiny = 597293 > BAD26D
+shiny = 5A052B > A56700
+shiny = 5A062C > A76800
+shiny = 5B052A > A56700
+shiny = 6880A0 > C9E27C
+shiny = B07800 > E5AD00
+shiny = BD4172 > D83C2C
+shiny = C04080 > DCA600
+shiny = C84868 > C75E3B
+shiny = D478BB > FFDD5F
+shiny = D860A0 > FAC100
+shiny = E0B028 > FFE335
+shiny = F49229 > FFD425

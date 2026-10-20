@@ -1,4 +1,5 @@
 #include "data.h"
+#include "natures.h"
 #include <algorithm>
 #include "raylib.h"
 #include <cmath>
@@ -232,6 +233,19 @@ std::vector<MoveDef> FreePlayMoves(const SpeciesDef& sp) {
     return MovesAtLevel(sp, FREE_PLAY_LEVEL);
 }
 
+int EvolutionIndexFor(int idx, int nature) {
+    int e = EvolutionIndex(idx);
+    if (e < 0) return e;
+    const SpeciesDef& sp = AllSpecies()[idx];
+    if (sp.statEvos.size() != 3) return e;
+    // Attack vs Defense: the base stats are equal for Tyrogue, so its nature decides.
+    float atk = sp.atk * (nature >= 0 ? NatureMul(nature, NS_ATK) : 1.0f);
+    float def = sp.def * (nature >= 0 ? NatureMul(nature, NS_DEF) : 1.0f);
+    int pick = atk > def + 0.01f ? 0 : (def > atk + 0.01f ? 1 : 2);
+    int t = SpeciesIndex(sp.statEvos[pick]);
+    return t >= 0 && t != idx ? t : e;
+}
+
 int EvolutionIndex(int idx) {
     if (idx < 0 || idx >= (int)AllSpecies().size()) return -1;
     const SpeciesDef& sp = AllSpecies()[idx];
@@ -253,6 +267,10 @@ const std::vector<int>& PreEvolutions() {
             if (e >= 0 && e != i) pre[e] = i;
             for (const auto& a : all[i].evoAlts) {
                 int t = SpeciesIndex(a.to);
+                if (t >= 0 && t != i) pre[t] = i;
+            }
+            for (const auto& n : all[i].statEvos) {
+                int t = SpeciesIndex(n);
                 if (t >= 0 && t != i) pre[t] = i;
             }
         }
@@ -307,10 +325,10 @@ int StoneEvolution(int idx, const std::string& item) {
     return -1;
 }
 
-int FriendshipEvolution(int idx, int friendship) {
+int FriendshipEvolution(int idx, int friendship, int night) {
     if (idx < 0 || idx >= (int)AllSpecies().size()) return -1;
     for (const auto& e : AllSpecies()[idx].evoAlts)
-        if (e.friendship > 0 && friendship >= e.friendship) {
+        if (e.friendship > 0 && friendship >= e.friendship && !(night == 1 && e.time == 1) && !(night == 0 && e.time == 2)) {
             int t = SpeciesIndex(e.to);
             if (t >= 0 && t != idx) return t;
         }
@@ -397,11 +415,13 @@ std::string EvolutionHint(int idx) {
     const SpeciesDef& sp = AllSpecies()[idx];
     std::vector<std::string> parts;
     int e = EvolutionIndex(idx);
-    if (e >= 0) parts.push_back(AllSpecies()[e].name + " at level " + std::to_string(sp.evolveLevel));
+    if (e >= 0 && sp.statEvos.size() == 3)
+        parts.push_back(sp.statEvos[0] + ", " + sp.statEvos[1] + " or " + sp.statEvos[2] + " at level " + std::to_string(sp.evolveLevel) + " (whichever suits its Attack and Defense)");
+    else if (e >= 0) parts.push_back(AllSpecies()[e].name + " at level " + std::to_string(sp.evolveLevel));
     for (const auto& a : sp.evoAlts) {
         if (SpeciesIndex(a.to) < 0) continue;
         if (!a.item.empty()) parts.push_back(a.to + " with a " + a.item);
-        else if (a.friendship > 0) parts.push_back(a.to + " when very friendly");
+        else if (a.friendship > 0) parts.push_back(a.to + " when very friendly" + (a.time == 1 ? " during the day" : (a.time == 2 ? " at night" : "")));
         else if (a.trade) parts.push_back(a.to + " when traded (or with a Linking Cord)");
     }
     if (parts.empty()) return "";
@@ -418,7 +438,12 @@ constexpr int CPU_TRADE_LEVEL = 38;
 int EvolvedFormAt(int idx, int level) {
     for (int guard = 0; guard < 8; guard++) {
         int e = EvolutionIndex(idx);
-        if (e >= 0 && level >= AllSpecies()[idx].evolveLevel) { idx = e; continue; }
+        if (e >= 0 && level >= AllSpecies()[idx].evolveLevel) {
+            const auto& se = AllSpecies()[idx].statEvos;   // Tyrogue: any of the three
+            int pick = se.size() == 3 ? SpeciesIndex(se[GetRandomValue(0, 2)]) : -1;
+            idx = pick >= 0 ? pick : e;
+            continue;
+        }
         std::vector<int> opts;
         for (const auto& a : AllSpecies()[idx].evoAlts) {
             int t = SpeciesIndex(a.to);

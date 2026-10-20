@@ -1,0 +1,22 @@
+# Quagsire - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 2D003A
+shiny = 0A0A0A > 320040
+shiny = 204078 > 701183
+shiny = 25353D > 6D2280
+shiny = 2B4143 > 773387
+shiny = 385850 > 585C71
+shiny = 3870A0 > A048B2
+shiny = 403F41 > 6F0E7B
+shiny = 45576B > 882E96
+shiny = 4890C8 > C168D4
+shiny = 6FAFEF > E488F8
+shiny = 70B0F0 > E589F9
+shiny = 75A2C4 > D67BE6
+shiny = 7BD2FE > FFA7FF
+shiny = 8777B9 > BB5BCA
+shiny = 9058B8 > AB47B9
+shiny = A5E9FE > FFB0FF
+shiny = B070D0 > C862D5
+shiny = B33E53 > A63AA6
+shiny = FF7B8B > EB7BE8

@@ -1,0 +1,20 @@
+# Entei - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303750 > 303734
+shiny = 303850 > 303834
+shiny = 493128 > 4E3228
+shiny = 4C4547 > 524647
+shiny = 586078 > 566059
+shiny = 708890 > 6B7F66
+shiny = 9E988B > 949879
+shiny = A81800 > 7E1206
+shiny = A8C0D0 > A2B7A0
+shiny = B6502E > A44A2D
+shiny = C08818 > BB7A32
+shiny = C6C1D1 > B6BAA3
+shiny = D84820 > BE4B2A
+shiny = E8E8F8 > D9E0C8
+shiny = F45129 > 727575
+shiny = F7F0BF > E2E7A8
+shiny = F8D838 > FCC560
+shiny = FAFAFA > E1E9E1

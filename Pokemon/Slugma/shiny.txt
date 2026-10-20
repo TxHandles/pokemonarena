@@ -1,0 +1,14 @@
+# Slugma - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 480000 > 2E322D
+shiny = 781810 > 4B504B
+shiny = 9F3717 > 696E67
+shiny = A03818 > 6A6F68
+shiny = AD4A38 > 787D78
+shiny = C04828 > 81847C
+shiny = C89010 > B5BFB2
+shiny = D55938 > 92958D
+shiny = D86040 > 969A93
+shiny = E8D068 > F4FEF5
+shiny = FDC397 > F4FCF8
+shiny = FE8B51 > BCC0B7

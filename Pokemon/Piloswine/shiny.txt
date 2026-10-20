@@ -1,0 +1,20 @@
+# Piloswine - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 323242 > 858A0C
+shiny = 443F3F > 95991E
+shiny = 482807 > 828500
+shiny = 482808 > 7A8600
+shiny = 784830 > B0AF32
+shiny = 98673F > D4D152
+shiny = 986840 > D4D153
+shiny = 9D695B > CFD660
+shiny = A8B8D0 > FFFF8D
+shiny = B08058 > E6ED72
+shiny = BA8261 > EBF277
+shiny = C4BAAF > FBFFA7
+shiny = C86070 > E9E066
+shiny = DE728B > E0A069
+shiny = E888A0 > FFFF90
+shiny = E8E8F8 > FFFF8B
+shiny = F6AC7B > FFFF89
+shiny = FAFAFA > FFFF8A

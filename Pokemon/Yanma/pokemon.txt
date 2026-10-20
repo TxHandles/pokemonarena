@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Yanma
+dex  = 193
+type = Bug / Flying
+
+hp         = 65
+attack     = 65
+defense    = 45
+sp_attack  = 75
+sp_defense = 45
+speed      = 95
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 38.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 6, Quick Attack
+learn = 11, Double Team
+learn = 14, Air Cutter
+learn = 17, Detect
+learn = 22, Supersonic
+learn = 27, Uproar
+learn = 30, Bug Bite
+learn = 33, Ancient Power
+learn = 38, Hypnosis
+learn = 43, Wing Attack
+learn = 46, Screech
+learn = 49, U-turn
+learn = 54, Air Slash
+learn = 57, Bug Buzz
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Struggle Bug, Thief, Pounce, Facade
+tm = Aerial Ace, Swift, Air Cutter, Endure, Sunny Day, U-turn
+tm = Air Slash, Sleep Talk, Rest, Swords Dance, Leech Life, Substitute
+tm = Giga Drain, Tailwind, Shadow Ball, Psychic, Reversal, Bug Buzz
+tm = Solar Beam, Tera Blast, Bug Bite, Lunge, Uproar, Psych Up
+tm = Double-Edge, Skitter Smack, Psychic Noise

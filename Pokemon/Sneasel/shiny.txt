@@ -1,0 +1,20 @@
+# Sneasel - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 083848 > 9B1D6F
+shiny = 185870 > AF6089
+shiny = 384850 > B33682
+shiny = 387088 > DD61AC
+shiny = 3E3E42 > AB2B79
+shiny = 3E4D55 > BA3D88
+shiny = 5098B0 > FF8BD4
+shiny = 586068 > D3549E
+shiny = 59728B > E667B2
+shiny = 600818 > 8E6A0F
+shiny = 6491AE > F39EC8
+shiny = 8090A8 > FF89D4
+shiny = 980820 > B68930
+shiny = C35951 > E19F41
+shiny = C83048 > D6C13B
+shiny = E08810 > FF94D4
+shiny = ECCC27 > CAF7FA
+shiny = F0B040 > BBE4EA

@@ -11,6 +11,7 @@
 #include <vector>
 #include "arena.h"
 #include "battle.h"
+#include "leaders.h"
 #include "rlgl.h"
 #include "settings.h"
 #include "sprites.h"
@@ -702,7 +703,60 @@ void Battle::DrawAnimCinematic() const {
 
 // "A Shiny Pikachu Has Appeared!" / "A Legendary Mewtwo Has Appeared!": a banner sweeping in with the
 // Pokemon's sprite, sparkles for a shiny, lightning-gold trim for a legendary.
+// A gym leader down to their last Pokemon: they cut in across the screen with a last-stand line.
+void Battle::DrawLeaderCutIn() const {
+    if (setup.leader.empty()) return;
+    int alive = 0, total = 0;
+    for (int s = 0; s < N(); s++) {
+        if ((sides[s].teamId & 1) != 1) continue;
+        for (const auto& m : sides[s].team) if (!m.lent) { total++; alive += m.hp > 0; }
+    }
+    if (leaderAlive > 1 && alive == 1 && total > 1 && winner < 0) leaderLastT = time;
+    leaderAlive = alive;
+    if (leaderLastT < 0) return;
+    float u = time - leaderLastT;
+    if (u > 2.8f) return;
+    const Texture2D* lp = LeaderPicture(setup.leader);
+    if (!lp) return;
+    float in = Clamp01(u / 0.28f), out = Clamp01((2.8f - u) / 0.3f);
+    float e = 1 - (1 - in) * (1 - in) * (1 - in);
+    Color team = field.kind != ArenaKind::Stadium ? GymColor(field.kind) : Color{220, 70, 60, 255};
+    // red-hot edges for a moment
+    float flash = Clamp01(1 - u / 0.6f);
+    if (flash > 0) {
+        DrawRectangleGradientH(0, 0, 60, VH, Fade(Color{255, 60, 40, 255}, 0.35f * flash), Fade(Color{255, 60, 40, 255}, 0));
+        DrawRectangleGradientH(VW - 60, 0, 60, VH, Fade(Color{255, 60, 40, 255}, 0), Fade(Color{255, 60, 40, 255}, 0.35f * flash));
+    }
+    // a slanted band sweeping in from the right
+    float cy = 250, bh = 74, slide = (1 - e) * VW + (1 - out) * -VW * 0.3f;
+    Vector2 p0{60 + slide, cy - bh / 2}, p1{(float)VW + 40 + slide, cy - bh / 2}, p2{(float)VW + 20 + slide, cy + bh / 2}, p3{40 + slide, cy + bh / 2};
+    Color dk = Fade(ColorBrightness(team, -0.65f), 0.93f * out);
+    DrawTriangle(p0, p3, p2, dk);
+    DrawTriangle(p0, p2, p1, dk);
+    DrawLineEx(p0, p1, 2, Fade(team, out));
+    DrawLineEx(p3, p2, 2, Fade(team, out));
+    for (int k = 0; k < 5; k++) {   // speed lines
+        float yy = cy - bh / 2 + 8 + k * 14;
+        float xx = 80 + slide + std::fmod(time * 520 + k * 113, (float)VW);
+        DrawRectangle((int)xx, (int)yy, 50, 1, Fade(ColorBrightness(team, 0.3f), 0.5f * out));
+    }
+    // the leader, bursting out of the top of the band
+    float sc = std::min(1.6f, 130.0f / lp->height);
+    float lx = VW - 120 + slide * 1.15f, foot = cy + bh / 2 - 2;
+    VAdd();
+    VGlow({lx, foot - lp->height * sc * 0.5f}, 64 + std::sin(time * 9) * 4, ColorBrightness(team, 0.5f), 0.4f * out);
+    VNorm();
+    DrawLeaderPicture(*lp, lx, foot, sc, Fade(WHITE, out));
+    std::string who;
+    for (int s = 0; s < N(); s++) if ((sides[s].teamId & 1) == 1) { who = sides[s].label; break; }
+    if (who.empty()) who = LeaderShortName(setup.leader);
+    std::string line = std::string("\"") + LeaderLastStandLine(setup.leader) + "\"";
+    DrawTextOutlined((who + " - LAST POKEMON!").c_str(), (int)(96 + slide), (int)(cy - 28), 20, Fade(UI_GOLD, out), Fade(UI_INK, out));
+    DrawTextOutlined(line.c_str(), (int)(100 + slide), (int)(cy + 4), 10, Fade(WHITE, out), Fade(UI_INK, out));
+}
+
 void Battle::DrawAnimBanners() const {
+    DrawLeaderCutIn();
     float now = time;
     for (const Banner& b : gBanners) {
         float u = now - b.t;

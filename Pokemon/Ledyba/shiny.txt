@@ -1,0 +1,14 @@
+# Ledyba - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 5058C8 > 7A5A37
+shiny = 636AE4 > 8F6C4F
+shiny = 807030 > 747720
+shiny = A82008 > C06810
+shiny = C8B030 > BFBF3D
+shiny = D46241 > F89945
+shiny = E03820 > E59500
+shiny = E0C828 > FFE280
+shiny = EEED7A > EBFA7F
+shiny = F0E080 > FFEB8E
+shiny = F29642 > FFCD37
+shiny = F87030 > FFB81E

@@ -1,0 +1,18 @@
+# Umbreon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 182837 > 2E373E
+shiny = 404850 > 53585B
+shiny = 434141 > 52524F
+shiny = 4F5967 > 646A70
+shiny = 62737F > 7A8489
+shiny = 687078 > 7C8184
+shiny = 700808 > 6F3428
+shiny = 805808 > 00547C
+shiny = 816848 > 8C7B65
+shiny = B08010 > 3D7CA4
+shiny = D01818 > C25C47
+shiny = E0B028 > E9C678
+shiny = E8E8F8 > EDE8F3
+shiny = F8D858 > 70C2E3
+shiny = F8DF45 > 75C6E6
+shiny = FAFAFA > F8F9F1

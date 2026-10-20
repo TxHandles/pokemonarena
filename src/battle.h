@@ -86,6 +86,7 @@ struct BattleSetup {
     uint8_t venue = 0;           // Venue (field.h): the look of a non-gym battle
     int season = -1;             // Story season (outdoor venues dress for it), -1 none
     bool practice = false;       // practice arena: nobody faints, no XP
+    std::string leader;          // a gym battle: the leader ("Leader Brock"), for their picture and cut-ins (Leaders/)
 };
 
 struct StatusState {
@@ -398,6 +399,7 @@ public:
     void Draw(bool banners = true) const;
 
     bool Finished() const;  // result decided, banner shown, nobody mid-evolution
+    float LeaderLastStandAt() const { return leaderLastT < 0 ? -1 : time - leaderLastT; }   // seconds since a gym leader got down to one Pokemon (-1 = not yet)
     int Winner() const { return winner; }   // 0 or 1, 2 = draw, -1 = still going
     float AnimTimeScale() const;   // < 1 just after the final knockout (offline slow motion; battle_anim.cpp)
     const Side& GetSide(int s) const { return sides[s]; }
@@ -591,6 +593,9 @@ private:
     void DrawAnimOver() const;
     void DrawAnimCinematic() const;
     void DrawAnimBanners() const;   // shiny / legendary appearance banners
+    void DrawLeaderCutIn() const;   // a gym leader down to their last Pokemon (visual only)
+    mutable float leaderLastT = -1;   // when the leader got down to one Pokemon (drawing only)
+    mutable int leaderAlive = -1;
     void AddText(Vector2 pos, const std::string& text, Color c, float z = 24);
     void Shake(int amt, float t = 0.15f);
 

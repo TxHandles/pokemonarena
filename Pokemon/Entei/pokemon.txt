@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Entei
+dex  = 244
+type = Fire
+
+hp         = 115
+attack     = 115
+defense    = 85
+sp_attack  = 90
+sp_defense = 75
+speed      = 100
+
+size   = 1.29
+height = 2.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 198.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Stomp
+learn = 1, Leer
+learn = 1, Smokescreen
+learn = 1, Ember
+learn = 6, Flame Wheel
+learn = 12, Bite
+learn = 18, Calm Mind
+learn = 24, Roar
+learn = 30, Fire Fang
+learn = 36, Scary Face
+learn = 42, Crunch
+learn = 48, Extrasensory
+learn = 54, Lava Plume
+learn = 60, Swagger
+learn = 66, Sunny Day
+learn = 72, Fire Blast
+learn = 78, Eruption
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Fire Fang, Trailblaze
+tm = Fire Spin, Facade, Bulldoze, Snarl, Swift, Flame Charge
+tm = Endure, Sunny Day, Rain Dance, Sandstorm, Dig, Body Slam
+tm = Sleep Talk, Stomping Tantrum, Rest, Iron Head, Substitute, Will-O-Wisp
+tm = Crunch, Shadow Ball, Heat Wave, Flamethrower, Calm Mind, Helping Hand
+tm = Reversal, Fire Blast, Stone Edge, Giga Impact, Overheat, Hyper Beam
+tm = Flare Blitz, Solar Beam, Tera Blast, Roar, Weather Ball, Double-Edge
+tm = Scorching Sands

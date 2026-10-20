@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Teddiursa
+dex  = 216
+type = Normal
+
+hp         = 60
+attack     = 80
+defense    = 50
+sp_attack  = 50
+sp_defense = 50
+speed      = 40
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 8.8      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Ursaring
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Covet
+learn = 1, Baby-Doll Eyes
+learn = 1, Fling
+learn = 1, Lick
+learn = 1, Scratch
+learn = 8, Fury Swipes
+learn = 13, Payback
+learn = 17, Sweet Scent
+learn = 22, Slash
+learn = 25, Play Nice
+learn = 29, Play Rough
+learn = 33, Charm
+learn = 37, Snore
+learn = 37, Rest
+learn = 41, Thrash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Protect, Low Kick, Thief
+tm = Trailblaze, Facade, Aerial Ace, Bulldoze, Metal Claw, Swift
+tm = Rock Tomb, Fling, Avalanche, Endure, Sunny Day, Rain Dance
+tm = Dig, Brick Break, Shadow Claw, Bulk Up, Body Slam, Fire Punch
+tm = Thunder Punch, Ice Punch, Sleep Talk, Seed Bomb, Metronome, Rest
+tm = Rock Slide, Taunt, Swords Dance, Gunk Shot, Substitute, Crunch
+tm = Hyper Voice, Play Rough, Helping Hand, Earthquake, Close Combat, Tera Blast
+tm = Smack Down, Uproar, Focus Punch, Double-Edge

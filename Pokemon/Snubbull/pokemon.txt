@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Snubbull
+dex  = 209
+type = Fairy
+
+hp         = 60
+attack     = 80
+defense    = 50
+sp_attack  = 40
+sp_defense = 40
+speed      = 30
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 7.8      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Granbull
+evolve_level = 23
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Charm
+learn = 1, Tackle
+learn = 1, Fire Fang
+learn = 1, Growl
+learn = 1, Thunder Fang
+learn = 1, Ice Fang
+learn = 1, Scary Face
+learn = 1, Tail Whip
+learn = 7, Bite
+learn = 13, Lick
+learn = 19, Headbutt
+learn = 25, Roar
+learn = 31, Last Resort
+learn = 37, Play Rough
+learn = 43, Payback
+learn = 49, Crunch
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Mud-Slap, Scary Face, Protect
+tm = Fire Fang, Thunder Fang, Ice Fang, Water Pulse, Low Kick, Thief
+tm = Trailblaze, Facade, Bulldoze, Snarl, Fling, Endure
+tm = Sunny Day, Rain Dance, Dig, Brick Break, Psychic Fangs, Bulk Up
+tm = Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Dazzling Gleam
+tm = Metronome, Thunder Wave, Stomping Tantrum, Rest, Taunt, Substitute
+tm = Crunch, Shadow Ball, Hyper Voice, Encore, Flamethrower, Thunderbolt
+tm = Play Rough, Helping Hand, Reversal, Fire Blast, Wild Charge, Sludge Bomb
+tm = Earthquake, Overheat, Thunder, Close Combat, Solar Beam, Tera Blast
+tm = Roar, Spite, Super Fang, Uproar, Focus Punch, Lash Out
+tm = Double-Edge, Endeavor, Temper Flare, Curse

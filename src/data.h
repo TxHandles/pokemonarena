@@ -25,6 +25,7 @@ struct EvoAlt {
     std::string item;        // set = evolves when this item is used on it
     int friendship = 0;      // > 0 = evolves after a win once friendship reaches this
     bool trade = false;      // evolves when traded to the other player (co-op)
+    int time = 0;            // friendship evolutions: 1 = only during the day, 2 = only at night
 };
 
 struct SpeciesDef {
@@ -49,6 +50,7 @@ struct SpeciesDef {
     std::string evolvesTo;                      // species name, empty = doesn't evolve
     int evolveLevel = 0;
     std::vector<EvoAlt> evoAlts;                // stone / friendship evolutions
+    std::vector<std::string> statEvos;          // Tyrogue: level evolution picked by Attack vs Defense (Atk>Def, Atk<Def, equal)
     int xpYield = 0;                            // 0 = worked out from base stats
     // Pokedex
     std::string ability1, ability2, hiddenAbility;  // ability names (slot 0, 1, hidden)
@@ -88,7 +90,8 @@ bool CanEvolve(int speciesIndex);             // by level, stone or friendship
 int BaseFormOf(int speciesIndex);             // first stage of its line
 bool InSpeciesPool(int speciesIndex);         // can show up as an opponent / reward / free-play pick
 int StoneEvolution(int speciesIndex, const std::string& item);   // target, or -1
-int FriendshipEvolution(int speciesIndex, int friendship);       // target, or -1
+int FriendshipEvolution(int speciesIndex, int friendship, int night = -1);   // target, or -1 (night: 0 day, 1 night, -1 any)
+int EvolutionIndexFor(int speciesIndex, int nature);              // level evolution for this individual (Tyrogue's depends on its nature)
 std::vector<std::string> EvolutionStonesFor(int speciesIndex);   // stones that would evolve it
 std::string EvolutionHint(int speciesIndex);
 int TradeEvolution(int speciesIndex);                              // target when traded, or -1

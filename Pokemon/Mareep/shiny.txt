@@ -1,0 +1,25 @@
+# Mareep - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 084860 > 4E2446
+shiny = 303840 > 441839
+shiny = 343433 > 45132D
+shiny = 5080B8 > 457AB5
+shiny = 586878 > 744E7E
+shiny = 685807 > 6A4068
+shiny = 685808 > 6A4068
+shiny = 78A8E8 > B683AD
+shiny = 93BCF6 > 94BFF5
+shiny = A89048 > A7708C
+shiny = C8A000 > BD8199
+shiny = C98B4B > B07492
+shiny = E07000 > AB6A85
+shiny = E2C658 > DFA4BE
+shiny = E8D068 > E8ADC8
+shiny = E8E8F8 > FEC5EC
+shiny = E9CF65 > E7B4DF
+shiny = F0C850 > E5A8C2
+shiny = F8A800 > EAAB03
+shiny = F8F8B0 > FFD8FF
+shiny = FAC239 > F4C043
+shiny = FEEEAC > FFD2FF
+shiny = FF8D6B > C886A7

@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Qwilfish
+dex  = 211
+type = Water / Poison
+
+hp         = 65
+attack     = 95
+defense    = 85
+sp_attack  = 55
+sp_defense = 55
+speed      = 85
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 3.9      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Poison Sting
+learn = 4, Harden
+learn = 8, Water Gun
+learn = 12, Fell Stinger
+learn = 16, Minimize
+learn = 20, Spikes
+learn = 24, Brine
+learn = 28, Poison Jab
+learn = 32, Pin Missile
+learn = 36, Toxic Spikes
+learn = 40, Spit Up
+learn = 40, Stockpile
+learn = 44, Toxic
+learn = 48, Aqua Tail
+learn = 52, Acupressure
+learn = 56, Destiny Bond
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Water Pulse, Acid Spray
+tm = Chilling Water, Facade, Poison Tail, Hex, Swift, Icy Wind
+tm = Mud Shot, Venoshock, Endure, Rain Dance, Sleep Talk, Waterfall
+tm = Thunder Wave, Poison Jab, Rest, Taunt, Swords Dance, Spikes
+tm = Toxic Spikes, Gunk Shot, Substitute, Crunch, Liquidation, Shadow Ball
+tm = Surf, Reversal, Ice Beam, Hydro Pump, Blizzard, Sludge Bomb
+tm = Giga Impact, Tera Blast, Haze, Toxic, Spite, Gyro Ball
+tm = Flip Turn, Scale Shot, Pain Split, Double-Edge, Whirlpool, Sludge Wave
+tm = Throat Chop, Curse

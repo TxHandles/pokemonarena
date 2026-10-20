@@ -1,0 +1,24 @@
+# Donphan - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 304850 > 434D1B
+shiny = 323232 > 803D00
+shiny = 484048 > 9B4A11
+shiny = 48586F > B4612A
+shiny = 485870 > 57602E
+shiny = 525252 > AE5B22
+shiny = 580808 > 6C152B
+shiny = 6A6A7A > CE763D
+shiny = 6C0E0E > 7E1F33
+shiny = 778898 > 878F5A
+shiny = 787880 > DE8449
+shiny = 788898 > EAA141
+shiny = 838B93 > EFA544
+shiny = 881818 > B13354
+shiny = 8BA4CD > A4AC78
+shiny = 93A4AC > FFBD5C
+shiny = 9898A0 > 9BA26A
+shiny = B0CDF5 > BBCD89
+shiny = B8B8C3 > ABBB75
+shiny = B8B8C4 > BCC38A
+shiny = B8B8C8 > BCC38A
+shiny = FAFAFA > FDFFC7

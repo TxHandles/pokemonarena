@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Houndour
+dex  = 228
+type = Dark / Fire
+
+hp         = 45
+attack     = 60
+defense    = 30
+sp_attack  = 80
+sp_defense = 50
+speed      = 65
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 10.8      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Houndoom
+evolve_level = 24
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leer
+learn = 1, Ember
+learn = 4, Howl
+learn = 8, Smog
+learn = 13, Roar
+learn = 16, Bite
+learn = 20, Incinerate
+learn = 25, Beat Up
+learn = 28, Fire Fang
+learn = 32, Torment
+learn = 37, Comeuppance
+learn = 40, Foul Play
+learn = 44, Flamethrower
+learn = 49, Crunch
+learn = 52, Nasty Plot
+learn = 56, Inferno
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Fire Fang, Thunder Fang
+tm = Thief, Trailblaze, Fire Spin, Facade, Snarl, Mud Shot
+tm = Flame Charge, Endure, Sunny Day, Rain Dance, Foul Play, Psychic Fangs
+tm = Body Slam, Sleep Talk, Rest, Taunt, Dark Pulse, Substitute
+tm = Will-O-Wisp, Crunch, Shadow Ball, Hyper Voice, Heat Wave, Flamethrower
+tm = Helping Hand, Reversal, Nasty Plot, Fire Blast, Sludge Bomb, Overheat
+tm = Flare Blitz, Solar Beam, Tera Blast, Roar, Toxic, Spite
+tm = Super Fang, Burning Jealousy, Lash Out, Pain Split, Double-Edge, Temper Flare

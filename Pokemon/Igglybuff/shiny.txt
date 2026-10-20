@@ -1,0 +1,19 @@
+# Igglybuff - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 480904 > 4F183C
+shiny = 504044 > 623757
+shiny = 582840 > 61214F
+shiny = 9F4953 > 9F5A8A
+shiny = A83038 > A54A76
+shiny = A85060 > AA4F79
+shiny = B5697D > BA6693
+shiny = C87090 > CA6FA4
+shiny = C9819A > CB91CD
+shiny = DA707E > D8719B
+shiny = E07078 > DB85B6
+shiny = E090A8 > E58EBE
+shiny = E8E8F8 > FDF1FF
+shiny = F7DDF5 > FFE9FF
+shiny = F8C8D8 > FFC2EE
+shiny = FAFAFA > F8FFFF
+shiny = FBABC2 > FBBCF8

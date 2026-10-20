@@ -1,0 +1,20 @@
+# Jumpluff - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 203860 > 821D5A
+shiny = 285088 > C46584
+shiny = 333333 > 7F0E54
+shiny = 3870D8 > F08BAF
+shiny = 515650 > A54073
+shiny = 6098E0 > FFB0D0
+shiny = 707060 > 773F83
+shiny = 781008 > 913747
+shiny = 7A83CD > FFA1C1
+shiny = 92B0F3 > FFB6CC
+shiny = C0B8A0 > B98AC6
+shiny = C37E4C > 945F97
+shiny = CD4D67 > D85219
+shiny = DDC47B > C997CF
+shiny = E8E8F8 > FFE5F5
+shiny = F6F4AD > EACAEA
+shiny = F8F8C8 > F7D6ED
+shiny = FDBCD6 > D4AECB

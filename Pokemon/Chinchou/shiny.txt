@@ -1,0 +1,18 @@
+# Chinchou - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 42423D > 244769
+shiny = 504008 > 1D6400
+shiny = 5858A0 > 2B62B4
+shiny = 6088E0 > 3E8FEE
+shiny = 6285DE > 3F8DEC
+shiny = 70A8F0 > 41B0FE
+shiny = 806818 > 4E9100
+shiny = 87A9F4 > 6DB0FF
+shiny = B83028 > 587034
+shiny = C0C8D8 > A5DDE7
+shiny = E0A010 > 9CD500
+shiny = E8E8F8 > D6FF5E
+shiny = F4E61B > D1FF3C
+shiny = F66152 > 89A060
+shiny = F8D060 > C5FF34
+shiny = FAFAFA > D5FF5C

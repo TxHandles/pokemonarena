@@ -31,8 +31,9 @@ std::vector<ItemDef> Build() {
     add("Water Stone", ItemFx::Stone, 0, 300, 1, "Evolves Poliwhirl, Shellder, Staryu and Eevee (into Vaporeon).", Type::Water);
     add("Thunder Stone", ItemFx::Stone, 0, 300, 1, "Evolves Pikachu and Eevee (into Jolteon).", Type::Electric);
     add("Leaf Stone", ItemFx::Stone, 0, 300, 2, "Evolves Gloom, Weepinbell and Exeggcute.", Type::Grass);
+    add("Sun Stone", ItemFx::Stone, 0, 300, 2, "Evolves Gloom (into Bellossom) and Sunkern.", Type::Fire);
     add("Moon Stone", ItemFx::Stone, 0, 400, 2, "Evolves Nidorina, Nidorino, Clefairy and Jigglypuff.", Type::Fairy);
-    add("Linking Cord", ItemFx::Stone, 0, 800, 3, "Evolves Kadabra, Machoke, Graveler and Haunter - the Pokemon that evolve by trading.", Type::Psychic);
+    add("Linking Cord", ItemFx::Stone, 0, 800, 3, "Evolves the Pokemon that evolve by trading: Kadabra, Machoke, Graveler, Haunter, Onix, Scyther, Seadra, Porygon, Slowpoke (Slowking) and Poliwhirl (Politoed).", Type::Psychic);
 
     // Type boosters (+20% damage for one type)
     struct TB { const char* n; Type t; int badges; };

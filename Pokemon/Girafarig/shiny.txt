@@ -1,0 +1,24 @@
+# Girafarig - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 204078 > 396F9A
+shiny = 285086 > 4480AA
+shiny = 2C343C > 4B3A2C
+shiny = 333332 > 4E3921
+shiny = 3870A0 > 6E97B4
+shiny = 483010 > 593809
+shiny = 485058 > 59808C
+shiny = 4C709C > 7798B3
+shiny = 607098 > 8E7775
+shiny = 624838 > 76512E
+shiny = 685038 > 7C5830
+shiny = 987850 > AC814E
+shiny = A0B0C8 > AAD0DB
+shiny = A3542A > AA6329
+shiny = B85068 > 6BA4E2
+shiny = C8A050 > DF992D
+shiny = DC8044 > D48200
+shiny = E870B8 > 95CDFF
+shiny = F8D060 > FFC848
+shiny = FC879E > AADFFF
+shiny = FDBC30 > FDB800
+shiny = FF5351 > 9FB8FF

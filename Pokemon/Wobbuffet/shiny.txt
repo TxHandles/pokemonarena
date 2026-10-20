@@ -1,0 +1,13 @@
+# Wobbuffet - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 183870 > 5C0048
+shiny = 3880A0 > A23A86
+shiny = 38A0C0 > C058A3
+shiny = 403F42 > 640049
+shiny = 5295CA > BC52A0
+shiny = 70C8F0 > ED81CE
+shiny = 74CEFE > F487D5
+shiny = A8B8D0 > E979C4
+shiny = AA4050 > 95146C
+shiny = C6F3FE > FFB9FF
+shiny = FE7A8B > DE5FAC

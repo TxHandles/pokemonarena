@@ -1,0 +1,20 @@
+# Sunflora - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 285010 > 3C3F00
+shiny = 408830 > 6E710D
+shiny = 58B850 > 999C3B
+shiny = 63C553 > A6A845
+shiny = 78D070 > B3B453
+shiny = 804800 > 634300
+shiny = 87552E > 6C4F1C
+shiny = C88020 > BB932E
+shiny = D49F70 > CCAF68
+shiny = D4A321 > D0A943
+shiny = E0A028 > D5B13F
+shiny = E0B810 > E3BA52
+shiny = E2BA14 > DEC740
+shiny = E5497A > C15850
+shiny = E8C020 > EBC259
+shiny = F0E070 > EED069
+shiny = F5E528 > FFE174
+shiny = F5F5AB > F5ECA5

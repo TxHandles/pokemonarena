@@ -1,0 +1,20 @@
+# Tyrogue - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 434040 > 413E34
+shiny = 485868 > 3051D0
+shiny = 583068 > 50543F
+shiny = 601818 > 444429
+shiny = 705080 > 5F5853
+shiny = 72541C > 004CAF
+shiny = 886008 > 455CD1
+shiny = 889098 > 2981F4
+shiny = 902828 > 636144
+shiny = 937BA2 > 84866E
+shiny = A878B0 > 8D847F
+shiny = AA7645 > 3071DD
+shiny = B0B8C0 > B7B4A9
+shiny = C03838 > 756457
+shiny = C2A1CC > AFA8A1
+shiny = C8A0D8 > B2AAA4
+shiny = DDBDD5 > C7C8AD
+shiny = FAFAFA > B7E9FF

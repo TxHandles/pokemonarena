@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Raikou
+dex  = 243
+type = Electric
+
+hp         = 90
+attack     = 85
+defense    = 75
+sp_attack  = 115
+sp_defense = 100
+speed      = 115
+
+size   = 1.26
+height = 1.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 178.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Extreme Speed
+learn = 1, Leer
+learn = 1, Quick Attack
+learn = 1, Thunder Shock
+learn = 1, Charge
+learn = 6, Spark
+learn = 12, Bite
+learn = 18, Calm Mind
+learn = 24, Roar
+learn = 30, Thunder Fang
+learn = 36, Howl
+learn = 42, Crunch
+learn = 48, Extrasensory
+learn = 54, Discharge
+learn = 60, Reflect
+learn = 66, Rain Dance
+learn = 72, Thunder
+learn = 78, Zap Cannon
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Mud-Slap, Scary Face, Protect, Thunder Fang
+tm = Trailblaze, Charge Beam, Facade, Snarl, Swift, Endure
+tm = Volt Switch, Sunny Day, Rain Dance, Sandstorm, Body Slam, Sleep Talk
+tm = Electro Ball, Reflect, Light Screen, Thunder Wave, Rest, Eerie Impulse
+tm = Iron Head, Substitute, Crunch, Aura Sphere, Shadow Ball, Thunderbolt
+tm = Calm Mind, Helping Hand, Electric Terrain, Wild Charge, Giga Impact, Hyper Beam
+tm = Thunder, Tera Blast, Roar, Charge, Scald, Weather Ball
+tm = Double-Edge, Supercell Slam, Electroweb, Throat Chop

@@ -50,6 +50,20 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
 - **Gen 2 (first wave)** – Chikorita, Bayleef, Meganium, Cyndaquil, Quilava, Typhlosion, Totodile,
   Croconaw and Feraligatr, built like the original 151: Pokedex stats, entries, abilities, Scarlet/Violet
   level-up moves and TMs, evolutions (16/32, 14/36, 18/30). They aren't found in the wild.
+- **Gym leaders** – pictures of the 16 Kanto and Johto gym leaders (Leaders/, cut from the user's sheet)
+  appear in the gym intro (the leader walks out under a spotlight next to their line), on the VS splash
+  as the battle starts, and in a cut-in with a last-stand line when they're down to their last Pokemon
+  (rematches too). Drop a PNG named after a trainer in Leaders/ to add one (src/leaders.*).
+- **Gen 2 (the rest of Johto, #161-#251)** – Sentret to Celebi, 91 Pokemon, with sprites taken from
+  the nayakoko bead charts (portrait plus the 8 walking frames), Pokedex stats, entries and abilities,
+  Scarlet/Violet level-up moves and TMs (Brilliant Diamond/Shining Pearl and Sword/Shield for ones not in
+  SV), shiny colours and random natures like everyone else. Raikou, Entei, Suicune, Lugia, Ho-Oh and Celebi
+  are legendaries. Not in the Kanto wild areas yet (the Johto campaign will place them). New evolution
+  kinds: day/night friendship (`evolve_friendship = Espeon, 160, day`, Umbreon at night) and Tyrogue's
+  `evolve_by_stats` (Hitmonlee, Hitmonchan or Hitmontop at 20, picked by its nature's Attack vs Defense).
+  Kanto Pokemon gained their Gen 2 evolutions: Crobat and Blissey (friendship), Bellossom (new **Sun
+  Stone**, also Sunkern), and by trade or Linking Cord Politoed, Slowking, Steelix, Scizor, Kingdra and
+  Porygon2. The babies (Pichu, Cleffa, Igglybuff, Togepi) evolve by friendship.
 - **The Pokemon League** – the Elite Four (Lorelei, Bruno, Agatha, Lance) and the Champion (the rival)
   with their FireRed/LeafGreen teams, each in their own arena. They're fought as one run: lose to any
   of them and the challenge starts over from Lorelei (the Healing Center stays open between rooms).
@@ -135,9 +149,12 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
   real Pokedex entry, category, height, weight, abilities, base stats and evolution family (dexdata.inc,
   generated from the PokeAPI/pokemondb data). Seen/caught lists are saved in the profile.
 - **Abilities** – every Pokemon has one of its species' real abilities (hidden ability 1 in 20), kept
-  through evolution and shown in Party & Box. All 114 abilities the original 151 use are in
+  through evolution and shown in Party & Box. All 132 abilities the first 251 use are in
   (src/abilities.*, src/battle_ab.cpp), translated to real-time battles: Intimidate, Levitate, Static,
   Swift Swim, Sturdy, Flash Fire, Volt Absorb, Synchronize, Neutralizing Gas, Imposter and so on.
+  Gen 2 added Huge Power, Sand Stream, Drizzle, Shadow Tag, Speed Boost, Moody, Contrary, Magic Bounce,
+  Sap Sipper, Pickpocket, Prankster, Suction Cups, Telepathy, Plus, Super Luck, Magma Armor, Light Metal
+  and Honey Gather.
 - **Trading** – co-op hub > Trade Pokemon. Local co-op: both players pick on one screen; online: each
   player picks on their own computer and the host carries out the swap. Kadabra, Machoke, Graveler and
   Haunter evolve when traded (CPU trainers have them evolved from level 38). Traded Pokemon remember

@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Jumpluff
+dex  = 189
+type = Grass / Flying
+
+hp         = 75
+attack     = 55
+defense    = 70
+sp_attack  = 55
+sp_defense = 95
+speed      = 110
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 3.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Absorb
+learn = 1, Splash
+learn = 1, Synthesis
+learn = 1, Tail Whip
+learn = 8, Tackle
+learn = 10, Fairy Wind
+learn = 12, Sleep Powder
+learn = 12, Stun Spore
+learn = 12, Poison Powder
+learn = 15, Bullet Seed
+learn = 20, Leech Seed
+learn = 24, Mega Drain
+learn = 30, Acrobatics
+learn = 35, Cotton Spore
+learn = 39, U-turn
+learn = 43, Giga Drain
+learn = 49, Bounce
+learn = 55, Memento
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Acrobatics, Thief, Trailblaze
+tm = Facade, Aerial Ace, Magical Leaf, Fling, Endure, Sunny Day
+tm = Rain Dance, Bullet Seed, U-turn, Sleep Talk, Seed Bomb, Reflect
+tm = Light Screen, Dazzling Gleam, Grass Knot, Rest, Swords Dance, Substitute
+tm = Giga Drain, Tailwind, Energy Ball, Encore, Helping Hand, Pollen Puff
+tm = Baton Pass, Grassy Terrain, Giga Impact, Leaf Storm, Hyper Beam, Solar Beam
+tm = Tera Blast, Lunge, Double-Edge, Endeavor

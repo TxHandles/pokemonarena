@@ -1,0 +1,24 @@
+# Forretress - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 5A4D00
+shiny = 353535 > 725700
+shiny = 535253 > 967627
+shiny = 584068 > 776302
+shiny = 681018 > 604A00
+shiny = 857B8D > 9D932D
+shiny = 887090 > AD9439
+shiny = 88728F > AE953A
+shiny = 887A8D > B39B3E
+shiny = 888888 > BCA546
+shiny = 8B4139 > 896F1B
+shiny = B19CC8 > DEC266
+shiny = B898B8 > DCBF62
+shiny = C03038 > 9F7E2A
+shiny = D0B8D8 > E5D56E
+shiny = D75A4B > A88A36
+shiny = D86040 > C09D46
+shiny = E0D0F8 > FCEC85
+shiny = E1D2F8 > F0E985
+shiny = E5C5EC > F6E57E
+shiny = E8E8F8 > FFFA93
+shiny = FAFAFA > FFFF9A

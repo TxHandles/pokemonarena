@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Smoochum
+dex  = 238
+type = Ice / Psychic
+
+hp         = 45
+attack     = 30
+defense    = 15
+sp_attack  = 85
+sp_defense = 65
+speed      = 65
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 6.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Jynx
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Lick
+learn = 1, Pound
+learn = 4, Powder Snow
+learn = 8, Copycat
+learn = 12, Confusion
+learn = 16, Covet
+learn = 20, Sing
+learn = 24, Fake Tears
+learn = 28, Ice Punch
+learn = 32, Psychic
+learn = 36, Sweet Kiss
+learn = 40, Mean Look
+learn = 44, Perish Song
+learn = 48, Blizzard
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Protect, Thief, Facade, Icy Wind
+tm = Draining Kiss, Stored Power, Fling, Avalanche, Endure, Rain Dance
+tm = Psyshock, Zen Headbutt, Body Slam, Ice Punch, Sleep Talk, Reflect
+tm = Light Screen, Metronome, Grass Knot, Rest, Skill Swap, Substitute
+tm = Trick, Shadow Ball, Psychic, Encore, Calm Mind, Helping Hand
+tm = Ice Beam, Nasty Plot, Blizzard, Trick Room, Uproar

@@ -25,7 +25,7 @@ starter = no
 # "evo" = learned when it evolves into this Pokemon
 
 # ---- EVOLUTION (Story Mode) ----------------------------------------------
-evolve_friendship = Blissey, 160   # a Gen 2 Pokemon: waits until it is added
+evolve_friendship = Blissey, 160
 
 # ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
 # "evo" = learned when it evolves into this Pokemon

@@ -1,0 +1,64 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Slowking
+dex  = 199
+type = Water / Psychic
+
+hp         = 95
+attack     = 75
+defense    = 80
+sp_attack  = 100
+sp_defense = 110
+speed      = 30
+
+size   = 1.12
+height = 2.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 79.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Nasty Plot
+learn = 1, Water Gun
+learn = 1, Growl
+learn = 1, Power Gem
+learn = 1, Tackle
+learn = 1, Swagger
+learn = 1, Curse
+learn = 9, Yawn
+learn = 12, Confusion
+learn = 15, Disable
+learn = 18, Water Pulse
+learn = 21, Headbutt
+learn = 27, Amnesia
+learn = 30, Surf
+learn = 33, Slack Off
+learn = 36, Psychic
+learn = 39, Psych Up
+learn = 42, Rain Dance
+learn = 45, Heal Pulse
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Water Pulse, Psybeam, Chilling Water, Facade
+tm = Bulldoze, Swift, Icy Wind, Mud Shot, Rock Tomb, Stored Power
+tm = Fling, Avalanche, Endure, Sunny Day, Rain Dance, Snowscape
+tm = Psyshock, Dig, Brick Break, Zen Headbutt, Foul Play, Body Slam
+tm = Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Reflect
+tm = Light Screen, Waterfall, Metronome, Grass Knot, Thunder Wave, Rest
+tm = Rock Slide, Imprison, Skill Swap, Power Gem, Substitute, Iron Defense
+tm = Trick, Liquidation, Shadow Ball, Psychic, Surf, Flamethrower
+tm = Amnesia, Calm Mind, Ice Beam, Psychic Terrain, Nasty Plot, Fire Blast
+tm = Hydro Pump, Blizzard, Earthquake, Giga Impact, Focus Blast, Trick Room
+tm = Hyper Beam, Tera Blast, Scald, Focus Punch, Weather Ball, Psych Up
+tm = Whirlpool, Muddy Water, Future Sight, Expanding Force, Curse, Psychic Noise

@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Shuckle
+dex  = 213
+type = Bug / Rock
+
+hp         = 20
+attack     = 10
+defense    = 230
+sp_attack  = 10
+sp_defense = 230
+speed      = 5
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 20.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Withdraw
+learn = 1, Wrap
+learn = 5, Rollout
+learn = 10, Struggle Bug
+learn = 15, Rock Throw
+learn = 20, Safeguard
+learn = 25, Rest
+learn = 30, Bug Bite
+learn = 35, Guard Split
+learn = 35, Power Split
+learn = 40, Rock Slide
+learn = 45, Gastro Acid
+learn = 50, Sticky Web
+learn = 55, Power Trick
+learn = 60, Stone Edge
+learn = 65, Shell Smash
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Mud Shot, Rock Tomb, Venoshock
+tm = Endure, Sunny Day, Sandstorm, Dig, Body Slam, Sleep Talk
+tm = Rock Blast, Rest, Rock Slide, Substitute, Iron Defense, Stealth Rock
+tm = Encore, Helping Hand, Earth Power, Reversal, Sludge Bomb, Earthquake
+tm = Stone Edge, Sand Tomb, Gyro Ball, Sludge Wave

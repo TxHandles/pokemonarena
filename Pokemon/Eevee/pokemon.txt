@@ -28,6 +28,8 @@ starter = no
 evolve_item = Vaporeon, Water Stone
 evolve_item = Jolteon, Thunder Stone
 evolve_item = Flareon, Fire Stone
+evolve_friendship = Espeon, 160, day      # very friendly, during the day
+evolve_friendship = Umbreon, 160, night   # very friendly, at night
 
 # ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
 # "evo" = learned when it evolves into this Pokemon

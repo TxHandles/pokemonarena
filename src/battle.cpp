@@ -1,5 +1,6 @@
 #include "rng.h"
 #include "battle.h"
+#include "leaders.h"
 #include <algorithm>
 #include <cmath>
 #include <cstdio>
@@ -1097,7 +1098,8 @@ void Battle::TrySwap(int s, bool back, int to) {
     Ab fa = AbOf(f);
     if (fa != Ab::RunAway && !HasType(f.sp, Type::Ghost)) {
         bool grounded = !HasType(f.sp, Type::Flying) && fa != Ab::Levitate && !f.sp->floats;
-        if ((grounded && AbOnField(Ab::ArenaTrap, -1, s)) || (HasType(f.sp, Type::Steel) && AbOnField(Ab::MagnetPull, -1, s))) {
+        if ((grounded && AbOnField(Ab::ArenaTrap, -1, s)) || (HasType(f.sp, Type::Steel) && AbOnField(Ab::MagnetPull, -1, s)) ||
+            (fa != Ab::ShadowTag && AbOnField(Ab::ShadowTag, -1, s))) {
             AddText(f.pos, f.sp->name + " can't escape!", UI_DIM, 30);
             sd.swapCd = 0.8f;
             return;
@@ -1141,7 +1143,8 @@ void Battle::TryBeginMove(int s, int mi, Vector2 aim, bool exactAim) {
     f.aim = aim;
     f.dir = DirFromVec(aim);
     f.pendingAim = aim;
-    f.cd[mi] = m.cooldown * f.CooldownMul() * (sd.cpu ? Params(sd.level).cooldownMul : 1.0f) * (AbOnField(Ab::Pressure, -1, s) ? 1.15f : 1.0f);
+    f.cd[mi] = m.cooldown * f.CooldownMul() * (sd.cpu ? Params(sd.level).cooldownMul : 1.0f) * (AbOnField(Ab::Pressure, -1, s) ? 1.15f : 1.0f) *
+               (AbOf(f) == Ab::Prankster && m.power <= 0 ? 0.7f : 1.0f);
     f.pendingMove = mi;
     f.windupT = m.windup;
     // Sun: Solar Beam / Solar Blade fire at once. Rain: so does Electro Shot.
@@ -1848,7 +1851,7 @@ float Battle::ApplyHit(const HitSpec& h, int ts, Vector2 dir) {
         float power = h.power * ((h.hex && t.st.major != Status::None) ? 2.0f : 1.0f);
         float stab = (h.type == h.t1 || h.type == h.t2) ? 1.5f : 1.0f;
         Ab tAb = h.ab == Ab::MoldBreaker ? Ab::None : AbOf(t);
-        bool crit = !h.light && tAb != Ab::ShellArmor && tAb != Ab::BattleArmor && t.chantT <= 0 && Chance((h.highCrit ? 0.25f : 0.0625f) + (h.scope ? 0.15f : 0.0f));
+        bool crit = !h.light && tAb != Ab::ShellArmor && tAb != Ab::BattleArmor && t.chantT <= 0 && Chance((h.highCrit ? 0.25f : 0.0625f) + (h.scope ? 0.15f : 0.0f) + (h.ab == Ab::SuperLuck ? 0.12f : 0.0f));
         // Snow: Ice types' Defense x1.5. Sandstorm: Rock types' Sp. Def x1.5.
         float wDef = (Wx() == Weather::Snow && !h.special && HasType(t.sp, Type::Ice)) || (Wx() == Weather::Sand && h.special && HasType(t.sp, Type::Rock)) ? 1.5f : 1.0f;
         float raw = (22.0f * power * h.atk / (t.Stat(StatId::Def, h.special) * wDef)) / 50.0f + 2.0f;
@@ -1934,7 +1937,10 @@ float Battle::ApplyHit(const HitSpec& h, int ts, Vector2 dir) {
     }
     if (t.hp <= 0) Faint(ts, h.side >= 0 ? h.side : AnyFoe(ts));
     else CheckWeakened(ts);
-    if (h.forceSwap && t.hp > 0 && t.state == FState::Active && !t.weakened) {  // Roar, Whirlwind, Dragon Tail
+    bool anchored = h.ab != Ab::MoldBreaker && AbOf(t) == Ab::SuctionCups;
+    if (anchored && !h.light) t.knock = t.knock * 0.25f;
+    if (h.forceSwap && anchored && t.hp > 0) AddText(t.pos, "[Suction Cups] It anchored itself!", Color{255, 225, 130, 255}, 40);
+    if (h.forceSwap && !anchored && t.hp > 0 && t.state == FState::Active && !t.weakened) {  // Roar, Whirlwind, Dragon Tail
         Side& tsd = sides[ts];
         int n = tsd.NextAlive(tsd.active);
         if (n >= 0) {
@@ -2246,7 +2252,7 @@ void Battle::LevelUp(int s) {
     }
     LearnNewMoves(f, texts);
 
-    int evo = f.transformFrom >= 0 ? -1 : EvolutionIndex(f.species);
+    int evo = f.transformFrom >= 0 ? -1 : EvolutionIndexFor(f.species, f.nature);
     if (evo >= 0 && f.evolveTo < 0 && f.level >= f.sp->evolveLevel &&
         (f.state == FState::Active || f.state == FState::Entering)) {
         f.evolveTo = evo;
@@ -2279,7 +2285,7 @@ void Battle::FinishEvolution(int s) {
     Burst(f.pos, WHITE, 30, 110, 10);
     Shake(2, 0.3f);
     LearnNewMoves(f, texts, true);
-    int evo = EvolutionIndex(f.species);  // another evolution already due?
+    int evo = EvolutionIndexFor(f.species, f.nature);  // another evolution already due?
     if (evo >= 0 && f.level >= f.sp->evolveLevel) {
         f.evolveTo = evo;
         f.state = FState::Evolving;
@@ -3572,11 +3578,25 @@ void Battle::Draw(bool banners) const {
                 float x0 = tm == 0 ? 20 + off : VW * 0.66f + off;
                 DrawRectangle((int)(x0 + std::fmod(time * 400 + k * 90, 140.0f)), (int)yy, 60, 1, Fade(lt, 0.6f));
             }
+            // a gym leader slams in with their half (Leaders/<Name>.png)
+            const Texture2D* lp = tm == 1 && !setup.leader.empty() ? LeaderPicture(setup.leader) : nullptr;
+            int ny = tm == 0 ? 120 : 210, by = tm == 0 ? 152 : 242;
+            if (lp) {
+                float sc = std::min(1.9f, 210.0f / lp->height);
+                float lx = VW * 0.60f + off;
+                VAdd();
+                VGlow({lx, 300 - lp->height * sc * 0.5f}, 70, ColorBrightness(c, 0.5f), 0.35f * a);
+                VNorm();
+                DrawLeaderPicture(*lp, lx + 3, 303, sc, Fade(BLACK, 0.5f * a));   // a hard shadow
+                DrawLeaderPicture(*lp, lx, 300, sc, Fade(WHITE, a));
+                ny = 96;
+                by = 128;
+            }
             int tx = tm == 0 ? (int)(40 + off) : (int)(VW - 40 - TextW(names[tm].c_str(), 20) + off);
-            DrawTextOutlined(names[tm].c_str(), tx, tm == 0 ? 120 : 210, 20, Fade(WHITE, a), Fade(UI_INK, a));
+            DrawTextOutlined(names[tm].c_str(), tx, ny, 20, Fade(WHITE, a), Fade(UI_INK, a));
             for (int b = 0; b < balls[tm]; b++) {   // their Poke Balls
                 float bx = tm == 0 ? 46 + off + b * 16 : VW - 46 + off - b * 16;
-                DrawPokeBall({bx, tm == 0 ? 152.0f : 242.0f}, 5.5f, 0, 0, b < alive[tm] ? Color{226, 52, 52, 255} : Color{90, 90, 100, 255}, (unsigned char)(255 * a));
+                DrawPokeBall({bx, (float)(by)}, 5.5f, 0, 0, b < alive[tm] ? Color{226, 52, 52, 255} : Color{90, 90, 100, 255}, (unsigned char)(255 * a));
             }
         }
         float pop = std::min(1.0f, std::max(0.0f, (u - 0.18f) / 0.12f));
@@ -3832,7 +3852,7 @@ void Battle::DrawHud() const {
             if (!f.HasUses(k)) {
                 DrawRectangle(sx, sy, sw2, sh, Fade(UI_INK, 0.6f));
             } else if (f.cd[k] > 0.05f) {   // cooling down: dimmed, with a clock sweeping round
-                float full = m.cooldown * f.CooldownMul() * (sd.cpu ? Params(sd.level).cooldownMul : 1.0f);
+                float full = m.cooldown * f.CooldownMul() * (sd.cpu ? Params(sd.level).cooldownMul : 1.0f) * (AbOf(f) == Ab::Prankster && m.power <= 0 ? 0.7f : 1.0f);
                 float frac = std::min(1.0f, f.cd[k] / full);
                 DrawRectangleRounded({(float)sx, (float)sy, (float)sw2, (float)sh}, 0.35f, 6, Fade(UI_INK, 0.35f));
                 DrawRectangleRounded({(float)sx, (float)sy, sw2 * frac, (float)sh}, 0.35f, 6, Fade(UI_INK, 0.35f));

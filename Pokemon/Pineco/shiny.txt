@@ -1,0 +1,18 @@
+# Pineco - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 073760 > 6A3D09
+shiny = 083860 > 6B3E0A
+shiny = 105880 > 8D5C28
+shiny = 3080A8 > B7834D
+shiny = 316259 > 874C10
+shiny = 323232 > 542600
+shiny = 428B83 > AA753A
+shiny = 50B0C0 > D1985F
+shiny = 515252 > 79460D
+shiny = 607098 > 9D6431
+shiny = 6AACA4 > C49E32
+shiny = 96C4BD > EDAF72
+shiny = A0B0C8 > 7C8896
+shiny = C84048 > FF51FF
+shiny = D46342 > FF70FF
+shiny = E8E8F8 > FFEA78

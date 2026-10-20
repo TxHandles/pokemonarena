@@ -28,6 +28,7 @@ starter = no
 evolves_to   = Slowbro
 evolve_level = 37
 evolve_item = Slowbro, Galarica Cuff
+evolve_trade = Slowking      # evolves when traded holding a King's Rock (or with a Linking Cord)
 
 # ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
 # "evo" = learned when it evolves into this Pokemon

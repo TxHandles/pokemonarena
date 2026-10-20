@@ -1,0 +1,20 @@
+# Celebi - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0868B0 > 2D7F44
+shiny = 18A8E0 > A78DA4
+shiny = 3E4841 > 412E3F
+shiny = 43AED4 > 6FCC70
+shiny = 488850 > B84666
+shiny = 4EB7DB > 78D578
+shiny = 50B0D0 > 6CD462
+shiny = 588531 > B84462
+shiny = 74E00C > EE7F9C
+shiny = 78B848 > EC758D
+shiny = 88B8F0 > 86DE82
+shiny = AFD74E > D9B9BF
+shiny = C0E070 > E4C4CB
+shiny = C6F2F8 > BAFFAF
+shiny = E5FCA3 > EDD9C0
+shiny = E8E8F8 > CFFFC3
+shiny = F8F8C0 > FFE3F1
+shiny = FAFAFA > FBDAF5

@@ -1,0 +1,23 @@
+# Ho-Oh - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 385819 > 394450
+shiny = 385E12 > 840000
+shiny = 386010 > 830000
+shiny = 602800 > 3B3C46
+shiny = 80C850 > FC520A
+shiny = 86DD2B > FF6519
+shiny = A03818 > D07A00
+shiny = A86800 > 7B7B82
+shiny = A8B8D0 > C77600
+shiny = B14233 > E08703
+shiny = D7502F > FD9E24
+shiny = D85030 > FE9E25
+shiny = D8E8F8 > FBA30D
+shiny = D9E8F8 > FCA30D
+shiny = E5E8F8 > FFA20A
+shiny = E79800 > 9C99A2
+shiny = E89800 > FFE02D
+shiny = E8E8F8 > FFA20A
+shiny = F8D060 > D1CDD5
+shiny = FBAB18 > AFABB4
+shiny = FF2E0B > F1B600

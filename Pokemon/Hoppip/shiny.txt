@@ -1,0 +1,16 @@
+# Hoppip - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 305810 > 3C7800
+shiny = 525251 > 467B00
+shiny = 580820 > 004B00
+shiny = 5DB536 > 94CD36
+shiny = 609840 > 7EB92F
+shiny = 70C050 > A4D84D
+shiny = 98F549 > C4FB57
+shiny = A4314A > 318200
+shiny = A84058 > 3A8B00
+shiny = C85868 > 57A517
+shiny = E06880 > 4FAE00
+shiny = F090C0 > 70CF2D
+shiny = FD5983 > 5BB300
+shiny = FE93BC > 78D532

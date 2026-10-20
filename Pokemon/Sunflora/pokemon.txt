@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Sunflora
+dex  = 192
+type = Grass
+
+hp         = 75
+attack     = 75
+defense    = 55
+sp_attack  = 105
+sp_defense = 85
+speed      = 30
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 8.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Growth
+learn = 1, Pound
+learn = 4, Ingrain
+learn = 7, Absorb
+learn = 10, Mega Drain
+learn = 13, Leech Seed
+learn = 16, Razor Leaf
+learn = 19, Worry Seed
+learn = 22, Giga Drain
+learn = 25, Bullet Seed
+learn = 28, Petal Dance
+learn = 31, Solar Beam
+learn = 34, Double-Edge
+learn = 39, Sunny Day
+learn = 43, Leaf Storm
+learn = 50, Petal Blizzard
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Trailblaze, Facade, Magical Leaf, Endure
+tm = Sunny Day, Rain Dance, Bullet Seed, Sleep Talk, Seed Bomb, Light Screen
+tm = Dazzling Gleam, Grass Knot, Rest, Swords Dance, Substitute, Giga Drain
+tm = Energy Ball, Encore, Helping Hand, Earth Power, Grassy Terrain, Sludge Bomb
+tm = Giga Impact, Leaf Storm, Hyper Beam, Solar Beam, Tera Blast, Weather Ball
+tm = Grassy Glide, Double-Edge, Endeavor, Petal Blizzard, Curse

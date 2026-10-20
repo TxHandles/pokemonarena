@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Heracross
+dex  = 214
+type = Bug / Fighting
+
+hp         = 80
+attack     = 125
+defense    = 75
+sp_attack  = 40
+sp_defense = 95
+speed      = 85
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 54.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Arm Thrust
+learn = 1, Leer
+learn = 5, Fury Attack
+learn = 10, Endure
+learn = 15, Aerial Ace
+learn = 20, Horn Attack
+learn = 25, Counter
+learn = 30, Brick Break
+learn = 35, Pin Missile
+learn = 40, Throat Chop
+learn = 45, Thrash
+learn = 50, Swords Dance
+learn = 55, Megahorn
+learn = 60, Close Combat
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Low Kick, Struggle Bug, Thief, Trailblaze
+tm = Pounce, Facade, Aerial Ace, Bulldoze, Rock Tomb, Fling
+tm = Endure, Sunny Day, Rain Dance, Smart Strike, Dig, Bullet Seed
+tm = False Swipe, Brick Break, Shadow Claw, Bulk Up, Body Slam, Sleep Talk
+tm = Rock Blast, Rest, Rock Slide, Swords Dance, Spikes, Substitute
+tm = Iron Defense, Helping Hand, Reversal, Earthquake, Stone Edge, Giga Impact
+tm = Focus Blast, Bug Buzz, Hyper Beam, Close Combat, Tera Blast, Smack Down
+tm = Knock Off, Bug Bite, Vacuum Wave, Lunge, High Horsepower, Focus Punch
+tm = Double-Edge, Endeavor, Coaching, Skitter Smack, Throat Chop, Curse
+tm = Upper Hand

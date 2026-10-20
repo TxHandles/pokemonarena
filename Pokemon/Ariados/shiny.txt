@@ -1,0 +1,10 @@
+# Ariados - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 6020A8 > 1F65C9
+shiny = 6342C4 > 3F7AE2
+shiny = 836AFC > 60A7FF
+shiny = 9050E0 > 6492FE
+shiny = C84038 > BC3CB9
+shiny = ED3F50 > D24ECD
+shiny = F06050 > E05FDB
+shiny = FD726A > D36DD1

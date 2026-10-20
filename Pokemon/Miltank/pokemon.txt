@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Miltank
+dex  = 241
+type = Normal
+
+hp         = 95
+attack     = 80
+defense    = 105
+sp_attack  = 40
+sp_defense = 70
+speed      = 100
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 75.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Growl
+learn = 5, Rollout
+learn = 10, Defense Curl
+learn = 15, Stomp
+learn = 20, Heal Bell
+learn = 25, Headbutt
+learn = 30, Zen Headbutt
+learn = 35, Milk Drink
+learn = 40, Body Slam
+learn = 45, Play Rough
+learn = 50, Charm
+learn = 55, High Horsepower
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Facade, Bulldoze, Icy Wind, Rock Tomb
+tm = Fling, Endure, Sunny Day, Rain Dance, Sandstorm, Brick Break
+tm = Zen Headbutt, Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk
+tm = Metronome, Thunder Wave, Stomping Tantrum, Rest, Rock Slide, Body Press
+tm = Iron Head, Substitute, Shadow Ball, Stealth Rock, Heavy Slam, Surf
+tm = Thunderbolt, Play Rough, Helping Hand, Reversal, Ice Beam, Blizzard
+tm = Earthquake, Giga Impact, Focus Blast, Hyper Beam, Thunder, Solar Beam
+tm = Gyro Ball, High Horsepower, Whirlpool

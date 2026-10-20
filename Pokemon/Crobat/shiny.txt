@@ -1,0 +1,16 @@
+# Crobat - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 106090 > 819A00
+shiny = 2890B8 > CDC4F0
+shiny = 338C94 > A8C32E
+shiny = 481878 > A14FA2
+shiny = 4E4B66 > C686BD
+shiny = 785090 > D387C6
+shiny = 79CCBF > EBFF6E
+shiny = 7C649B > DD9BD3
+shiny = 9F6FB7 > FCAAED
+shiny = A070B8 > FDABEE
+shiny = A08EDD > FFD8FF
+shiny = A8B8D0 > FFEAFF
+shiny = E5BE58 > FFE9FF
+shiny = E8E8F8 > FFF1FF

@@ -1,0 +1,19 @@
+# Magcargo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2C343C > 5F0100
+shiny = 333232 > 610000
+shiny = 480000 > 4A0053
+shiny = 485060 > 842800
+shiny = 535251 > 882808
+shiny = 687088 > AE4828
+shiny = 6B6293 > A53E23
+shiny = 781810 > 730100
+shiny = 8B8BCC > D66749
+shiny = AF372F > AC50A4
+shiny = B03830 > 9D3F9D
+shiny = CF5738 > BB5BB8
+shiny = E05048 > C25FBE
+shiny = E07818 > D574CD
+shiny = EC880D > E381D9
+shiny = EF8D58 > E787E4
+shiny = F89800 > F28FE7

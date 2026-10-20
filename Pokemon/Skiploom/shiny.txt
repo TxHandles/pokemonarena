@@ -1,0 +1,16 @@
+# Skiploom - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 287008 > 8A0080
+shiny = 409820 > B32CA6
+shiny = 5CB335 > D04BC0
+shiny = 785008 > 7C4601
+shiny = 80C050 > E25BD1
+shiny = 93F649 > FF93E6
+shiny = A87808 > AC6E17
+shiny = B830B0 > B3199C
+shiny = B8D878 > FF78F1
+shiny = BD9349 > C8882E
+shiny = E8C018 > E8B800
+shiny = F4DB22 > F1D407
+shiny = F8D850 > FCCF3B
+shiny = FD5983 > E96565

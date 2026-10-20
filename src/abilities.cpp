@@ -118,6 +118,24 @@ const AbilityDef kAbilities[] = {
     {"Water Veil", "Can't be burned."},
     {"Weak Armor", "Physical hits lower its Defense but make it much faster."},
     {"Wonder Skin", "Status moves often fail against it."},
+    {"Contrary", "Stat drops from foes raise its stats instead."},
+    {"Drizzle", "Makes it rain when it enters the battle."},
+    {"Honey Gather", "Gathers honey worth a few coins when it knocks out a foe."},
+    {"Huge Power", "Its physical attacks hit twice as hard."},
+    {"Light Metal", "Its body is light: moves around 10% faster."},
+    {"Magic Bounce", "Bounces status moves back at the user."},
+    {"Magma Armor", "Its hot body means it can't be frozen."},
+    {"Moody", "Every so often one stat sharply rises and another falls."},
+    {"Pickpocket", "Steals the held item of a foe that touches it (if it holds nothing)."},
+    {"Plus", "Special moves deal 50% more while a teammate with Plus is out (2v2)."},
+    {"Prankster", "Status moves recharge 30% faster."},
+    {"Sand Stream", "Whips up a sandstorm when it enters the battle."},
+    {"Sap Sipper", "Absorbs Grass moves, and its Attack rises."},
+    {"Shadow Tag", "Foes can't switch out while it's on the field."},
+    {"Speed Boost", "Its speed keeps rising the longer it battles."},
+    {"Suction Cups", "Anchors itself: it can't be forced out and is barely knocked back."},
+    {"Super Luck", "Critical hits are more likely."},
+    {"Telepathy", "Reads its teammate's mind and dodges their attacks (2v2)."},
 };
 bool HasWord(const std::string& s, const char* w) { return s.find(w) != std::string::npos; }
 } // namespace
@@ -158,6 +176,7 @@ float AbilityTypeMul(Ab a, Type t) {
         case Ab::VoltAbsorb: case Ab::LightningRod: return t == Type::Electric ? 0.0f : 1.0f;
         case Ab::WaterAbsorb: case Ab::DrySkin: return t == Type::Water ? 0.0f : 1.0f;
         case Ab::FlashFire: return t == Type::Fire ? 0.0f : 1.0f;
+        case Ab::SapSipper: return t == Type::Grass ? 0.0f : 1.0f;
         default: return 1.0f;
     }
 }

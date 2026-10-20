@@ -26,6 +26,7 @@ starter = no
 
 # ---- EVOLUTION (Story Mode) ----------------------------------------------
 evolve_item = Vileplume, Leaf Stone
+evolve_item = Bellossom, Sun Stone
 
 # ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
 # "evo" = learned when it evolves into this Pokemon

@@ -1,0 +1,20 @@
+# Aipom - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 4C1A24
+shiny = 502870 > 9D005A
+shiny = 595651 > 753D41
+shiny = 605040 > 783631
+shiny = 704890 > C03B52
+shiny = 7259B3 > D6478C
+shiny = 8868A8 > E65797
+shiny = 887050 > 9D584B
+shiny = 8898B8 > F389B2
+shiny = 9B83C4 > FF73B1
+shiny = A888C8 > FF7AB8
+shiny = A89060 > E0908A
+shiny = BABAB2 > 989899
+shiny = C4A5CB > FFA0CA
+shiny = C8B080 > FFB0AA
+shiny = DDC552 > FFC3B7
+shiny = E0D0A0 > E5CFBB
+shiny = F5F5AC > FFF2D0

@@ -1,0 +1,20 @@
+# Corsola - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 423E41 > 006075
+shiny = 485060 > 434A55
+shiny = 782040 > 005B78
+shiny = 8090B8 > 8191B5
+shiny = A4C1D0 > A5B8C2
+shiny = A84058 > 367F9C
+shiny = A8B8D0 > A5B1C0
+shiny = AA6068 > 0099AF
+shiny = C0D0E8 > BDC9D8
+shiny = D86880 > 65A8C7
+shiny = E880A0 > 78BEDE
+shiny = E8E8F8 > EDE9F1
+shiny = F0A8C0 > 6DE4FC
+shiny = F96A7B > 54BED3
+shiny = FAFAFA > FFFAF9
+shiny = FDA4A5 > 72E3F9
+shiny = FF8B92 > 89CBE9
+shiny = FFD7DA > B1FFFF

@@ -1,0 +1,16 @@
+# Elekid - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 384048 > 4C4845
+shiny = 453F35 > 534839
+shiny = 675000 > 767100
+shiny = 685000 > 636504
+shiny = 836717 > 7E7D1F
+shiny = B39E50 > A2AC39
+shiny = C07000 > C49C00
+shiny = E8E8F8 > FEF3F2
+shiny = EEC113 > D6D123
+shiny = F6E52B > E5F23D
+shiny = F7D860 > E3E759
+shiny = F8A800 > FED324
+shiny = F8D860 > FFFE67
+shiny = FBF8A6 > F7FFA7

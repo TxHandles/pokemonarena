@@ -1,0 +1,19 @@
+# Cleffa - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 463D3F > 693958
+shiny = 502820 > 007919
+shiny = 603040 > 6B3758
+shiny = 734D36 > B95E7C
+shiny = 804838 > 31A340
+shiny = 985860 > 9D6384
+shiny = 9C5E62 > A26889
+shiny = A87068 > B27797
+shiny = BE7840 > 70DA6E
+shiny = C89898 > D99DBF
+shiny = D85860 > BB799A
+shiny = E38D89 > DD9DBE
+shiny = E8E8F8 > FFEEFF
+shiny = F0B8C0 > FEC0E3
+shiny = FAFAFA > FFF4FF
+shiny = FDC4A3 > FDD3F4
+shiny = FFDAC5 > FFE5FF

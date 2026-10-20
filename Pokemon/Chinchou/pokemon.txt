@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Chinchou
+dex  = 170
+type = Water / Electric
+
+hp         = 75
+attack     = 38
+defense    = 38
+sp_attack  = 56
+sp_defense = 56
+speed      = 67
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 12.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Lanturn
+evolve_level = 27
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Supersonic
+learn = 4, Electro Ball
+learn = 8, Thunder Wave
+learn = 12, Bubble Beam
+learn = 16, Confuse Ray
+learn = 20, Spark
+learn = 24, Charge
+learn = 28, Discharge
+learn = 32, Aqua Ring
+learn = 36, Flail
+learn = 40, Take Down
+learn = 44, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Water Pulse, Psybeam, Confuse Ray
+tm = Chilling Water, Charge Beam, Facade, Icy Wind, Endure, Volt Switch
+tm = Rain Dance, Sleep Talk, Electro Ball, Waterfall, Dazzling Gleam, Thunder Wave
+tm = Rest, Eerie Impulse, Substitute, Liquidation, Surf, Thunderbolt
+tm = Amnesia, Ice Beam, Electric Terrain, Hydro Pump, Blizzard, Wild Charge
+tm = Thunder, Tera Blast, Charge, Scald, Flip Turn, Double-Edge
+tm = Whirlpool, Muddy Water, Electroweb, Curse

@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Wooper
+dex  = 194
+type = Water / Ground
+
+hp         = 55
+attack     = 45
+defense    = 45
+sp_attack  = 25
+sp_defense = 25
+speed      = 15
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 8.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Quagsire
+evolve_level = 20
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Tail Whip
+learn = 4, Rain Dance
+learn = 8, Mud Shot
+learn = 12, Haze
+learn = 12, Mist
+learn = 16, Slam
+learn = 21, Yawn
+learn = 24, Aqua Tail
+learn = 28, Muddy Water
+learn = 32, Amnesia
+learn = 36, Toxic
+learn = 40, Earthquake
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Water Pulse, Acid Spray, Trailblaze
+tm = Chilling Water, Facade, Bulldoze, Icy Wind, Mud Shot, Rock Tomb
+tm = Avalanche, Endure, Rain Dance, Sandstorm, Snowscape, Dig
+tm = Body Slam, Sleep Talk, Waterfall, Stomping Tantrum, Rest, Rock Slide
+tm = Spikes, Substitute, Liquidation, Stealth Rock, Encore, Surf
+tm = Amnesia, Helping Hand, Earth Power, Ice Beam, Hydro Pump, Blizzard
+tm = Sludge Bomb, Earthquake, Stone Edge, Tera Blast, Haze, Toxic
+tm = Double-Edge, Whirlpool, Muddy Water, Sludge Wave, Curse

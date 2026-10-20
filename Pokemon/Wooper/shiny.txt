@@ -1,0 +1,18 @@
+# Wooper - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 204078 > 966067
+shiny = 3870A0 > C68F94
+shiny = 39414B > 955F61
+shiny = 4890C8 > E8AFB5
+shiny = 4E6798 > C2898F
+shiny = 602860 > 871B00
+shiny = 618ED3 > DBA8B1
+shiny = 6CABE4 > FFCBD1
+shiny = 6FB0EF > EAC1C8
+shiny = 70B0F0 > FFD1D8
+shiny = 90C8F8 > FFD9DF
+shiny = 96CFFD > FFDFE5
+shiny = B070D0 > E87350
+shiny = B978B8 > E56C48
+shiny = E4ADD7 > FF9C72
+shiny = E8E8F8 > FFEFF1

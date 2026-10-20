@@ -1,0 +1,15 @@
+# Hoothoot - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 502808 > 774213
+shiny = 682828 > 5D6E00
+shiny = 88563F > C8A93A
+shiny = 88573F > C9AA3B
+shiny = 996B5D > DFBF51
+shiny = B08058 > F7D463
+shiny = C87070 > B2926C
+shiny = C89A64 > FEE454
+shiny = C8B078 > DCEE70
+shiny = D85048 > DABB2B
+shiny = E0A8A8 > D0C5A0
+shiny = E8D8A0 > F7FF8A
+shiny = FEDC9B > F8FF89

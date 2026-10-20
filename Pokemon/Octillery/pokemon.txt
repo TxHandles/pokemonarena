@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Octillery
+dex  = 224
+type = Water
+
+hp         = 75
+attack     = 105
+defense    = 75
+sp_attack  = 105
+sp_defense = 75
+speed      = 45
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 28.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Octazooka
+learn = 1, Water Gun
+learn = 1, Gunk Shot
+learn = 1, Helping Hand
+learn = 1, Wrap
+learn = 1, Water Pulse
+learn = 1, Rock Blast
+learn = 1, Focus Energy
+learn = 12, Psybeam
+learn = 16, Aurora Beam
+learn = 20, Bubble Beam
+learn = 24, Lock-On
+learn = 30, Bullet Seed
+learn = 36, Ice Beam
+learn = 42, Hydro Pump
+learn = 48, Soak
+learn = 54, Hyper Beam
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Swift, Icy Wind, Mud Shot
+tm = Endure, Sunny Day, Rain Dance, Bullet Seed, Sleep Talk, Seed Bomb
+tm = Rock Blast, Waterfall, Thunder Wave, Rest, Flash Cannon, Gunk Shot
+tm = Substitute, Liquidation, Energy Ball, Psychic, Surf, Flamethrower
+tm = Helping Hand, Ice Beam, Fire Blast, Hydro Pump, Blizzard, Sludge Bomb
+tm = Giga Impact, Hyper Beam, Scald, Whirlpool, Sludge Wave

@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Spinarak
+dex  = 167
+type = Bug / Poison
+
+hp         = 40
+attack     = 60
+defense    = 40
+sp_attack  = 40
+sp_defense = 40
+speed      = 30
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 8.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Ariados
+evolve_level = 22
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, String Shot
+learn = 1, Poison Sting
+learn = 5, Absorb
+learn = 8, Infestation
+learn = 12, Scary Face
+learn = 15, Night Shade
+learn = 19, Shadow Sneak
+learn = 22, Fury Swipes
+learn = 26, Sucker Punch
+learn = 29, Agility
+learn = 33, Pin Missile
+learn = 36, Psychic
+learn = 40, Poison Jab
+learn = 44, Cross Poison
+learn = 47, Sticky Web
+learn = 51, Toxic Thread
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Scary Face, Protect, Acid Spray, Struggle Bug, Thief
+tm = Trailblaze, Pounce, Facade, Hex, Night Shade, Venoshock
+tm = Endure, Sunny Day, Dig, Foul Play, Sleep Talk, Poison Jab
+tm = Rest, Toxic Spikes, Leech Life, Substitute, X-Scissor, Giga Drain
+tm = Psychic, Baton Pass, Sludge Bomb, Bug Buzz, Solar Beam, Tera Blast
+tm = Toxic, Spite, Knock Off, Bug Bite, Lunge, Electroweb
+tm = Sludge Wave, Skitter Smack
