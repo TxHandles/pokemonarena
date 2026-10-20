@@ -81,11 +81,17 @@ bool LegendOpen(const Game& g, int id, std::string* why) {
             if (BadgeCount(g) < 8) { if (why) *why = "Collect all 8 badges first."; return false; }
             break;
         case LegendUnlock::Champion:
-            if (!StoryDone(g)) { if (why) *why = "Only the Pokemon League Champion may enter."; return false; }
+            if (!KantoDone(g)) { if (why) *why = "Only the Pokemon League Champion may enter."; return false; }
             break;
         case LegendUnlock::AfterMewtwo:
-            if (!StoryDone(g) || LegendCaughtBy(g, 3) < 0) { if (why) *why = "You need the Old Sea Map. It's said to turn up once Mewtwo is caught..."; return false; }
+            if (!KantoDone(g) || LegendCaughtBy(g, 3) < 0) { if (why) *why = "You need the Old Sea Map. It's said to turn up once Mewtwo is caught..."; return false; }
             break;
+        case LegendUnlock::AfterStage: {
+            int at = -1;
+            for (int i = 0; i < (int)Story().stages.size(); i++)
+                if (Story().stages[i].region == L.region && Story().stages[i].name == L.after) { at = i; break; }
+            if (at < 0 || CurStage(g) <= at) { if (why) *why = std::string(L.hint) + "."; return false; }
+        } break;
     }
     if (SpeciesOf(id) < 0) { if (why) *why = "This Pokemon is missing from the Pokemon folder."; return false; }
     return true;
@@ -138,10 +144,22 @@ void OpenLegends(Game& g) {
 
 // ------------------------------------------------------------------ the list
 
+namespace {
+// The legendaries listed: the ones of the selected one's region (Kanto or Johto).
+std::vector<int> RegionLegends(int region) {
+    std::vector<int> v;
+    for (int i = 0; i < LEGEND_COUNT; i++) if (Legend(i).region == region) v.push_back(i);
+    return v;
+}
+} // namespace
+
 void UpdateLegends(Game& g) {
     PlayerInput in = MenuInput();
-    if (in.up) { g.legendSel = (g.legendSel + LEGEND_COUNT - 1) % LEGEND_COUNT; PlaySfx(Sfx::MenuMove); }
-    if (in.down) { g.legendSel = (g.legendSel + 1) % LEGEND_COUNT; PlaySfx(Sfx::MenuMove); }
+    auto list = RegionLegends(Legend(g.legendSel).region);
+    int at = (int)(std::find(list.begin(), list.end(), g.legendSel) - list.begin());
+    int ln = (int)list.size();
+    if (in.up) { g.legendSel = list[(at + ln - 1) % ln]; PlaySfx(Sfx::MenuMove); }
+    if (in.down) { g.legendSel = list[(at + 1) % ln]; PlaySfx(Sfx::MenuMove); }
     if (in.back) { PlaySfx(Sfx::MenuBack); EnterStoryHub(g); g.hubSel = HubLegendItem(g); return; }
     if (in.sort) { MapTabSwitch(g, false); return; }
     if (!in.confirm) return;
@@ -172,9 +190,11 @@ void DrawLegends(const Game& g) {
     DrawMenuBackdrop(Color{16, 14, 28, 255}, (float)GetTime());
     Profile pv = ProgressView(g);
     const int mx = 8, my = 26, mw = 400, mh = 300;
-    DrawStoryMap(pv, mx, my, mw, mh, g.t, false);
+    int region = Legend(g.legendSel).region;
+    auto list = RegionLegends(region);
+    DrawStoryMap(pv, mx, my, mw, mh, g.t, false, -1, region);
     DrawMapTabs(g, true);
-    for (int i = 0; i < LEGEND_COUNT; i++) {   // where they live
+    for (int i : list) {   // where they live
         const LegendDef& L = Legend(i);
         Vector2 c = StoryMapPoint(mx, my, mw, mh, L.mapX, L.mapY);
         bool open = LegendOpen(g, i), caught = LegendCaughtBy(g, i) >= 0;
@@ -186,25 +206,31 @@ void DrawLegends(const Game& g) {
     }
     int x = 416, w = 216;
     int avg = PartyAvg(g);
-    for (int i = 0; i < LEGEND_COUNT; i++) {
+    int rowH = std::min(44, 222 / std::max(1, (int)list.size()));
+    for (int row = 0; row < (int)list.size(); row++) {
+        int i = list[row];
         const LegendDef& L = Legend(i);
-        int y = 6 + i * 44;
+        int y = 6 + row * rowH;
         bool sel = g.legendSel == i;
         std::string why;
         bool open = LegendOpen(g, i, &why);
         int by = LegendCaughtBy(g, i);
-        bool known = open || by >= 0 || L.unlock == LegendUnlock::Badges8 || (L.unlock == LegendUnlock::Champion && BadgeCount(g) >= 8) || StoryDone(g);
-        DrawPanel(x, y, w, 42, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : (open ? GymColor(L.arena) : Color{70, 64, 92, 255}));
+        bool known = open || by >= 0 || L.unlock == LegendUnlock::Badges8 || (L.unlock == LegendUnlock::Champion && BadgeCount(g) >= 8) || KantoDone(g);
+        if (L.region >= 1) known = open || by >= 0 || StoryDone(g) || L.unlock != LegendUnlock::AfterStage || std::string(L.after) != "Champion's Room";
+        int ph = rowH - 2;
+        DrawPanel(x, y, w, ph, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : (open ? GymColor(L.arena) : Color{70, 64, 92, 255}));
         int sp = SpeciesOf(i);
-        if (sp >= 0) DrawSpeciesFit(sp, VIEW_FRONT, x + 22, y + 39, 36, by >= 0 || open ? WHITE : (known ? Color{20, 18, 30, 255} : Color{10, 10, 16, 255}));
-        GDrawText(known ? L.species : "???", x + 44, y + 4, 10, sel ? UI_GOLD : UI_TEXT);
-        GDrawText(known ? L.place : "Somewhere in Kanto", x + 44, y + 16, 10, UI_DIM);
+        if (sp >= 0) DrawSpeciesFit(sp, VIEW_FRONT, x + 22, y + ph - 3, ph - 6, by >= 0 || open ? WHITE : (known ? Color{20, 18, 30, 255} : Color{10, 10, 16, 255}));
+        int ty = ph < 40 ? 2 : 4, step = ph < 40 ? 11 : 12;
+        GDrawText(known ? L.species : "???", x + 44, y + ty, 10, sel ? UI_GOLD : UI_TEXT);
+        GDrawText(known ? L.place : (L.region >= 1 ? "Somewhere in Johto" : "Somewhere in Kanto"), x + 44, y + ty + step, 10, UI_DIM);
         std::string status;
         Color sc = UI_DIM;
         if (by >= 0) { status = g.coop ? "Caught by " + Prof(g, by).name : std::string("Caught!"); sc = Color{120, 230, 130, 255}; }
         else if (open) { status = TextFormat("Waiting - about Lv%d", LegendLevel(i, avg)); sc = GymColor(L.arena); }
-        else status = L.unlock == LegendUnlock::Badges8 ? "Needs all 8 badges" : L.unlock == LegendUnlock::Champion ? "Champion only" : "Needs the Old Sea Map";
-        GDrawText(status.c_str(), x + 44, y + 28, 10, sc);
+        else status = L.unlock == LegendUnlock::Badges8 ? "Needs all 8 badges" : L.unlock == LegendUnlock::Champion ? "Champion only"
+                    : L.unlock == LegendUnlock::AfterStage ? L.hint : "Needs the Old Sea Map";
+        GDrawText(status.c_str(), x + 44, y + ty + step * 2, 10, sc);
         if (g.on.active && g.on.partnerReady == 200 + i) GDrawText("<", x + w - 12, y + 4, 10, kP2);
     }
     // The selected one: its story and the rules
@@ -212,7 +238,7 @@ void DrawLegends(const Game& g) {
     std::string why;
     bool open = LegendOpen(g, g.legendSel, &why);
     int by = LegendCaughtBy(g, g.legendSel);
-    bool known = open || by >= 0 || L.unlock != LegendUnlock::AfterMewtwo || StoryDone(g);
+    bool known = open || by >= 0 || (L.unlock != LegendUnlock::AfterMewtwo && std::string(L.after) != "Champion's Room") || StoryDone(g);
     DrawPanel(x, 228, w, 104);
     DrawWrapped(known ? L.lore : "Old stories tell of a Pokemon far older than any other...", x + 6, 233, w - 12, 10, UI_TEXT);
     if (!open && by < 0) DrawWrapped(why.c_str(), x + 6, 306, w - 12, 10, Color{255, 170, 120, 255});

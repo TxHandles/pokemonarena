@@ -58,7 +58,7 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
   the nayakoko bead charts (portrait plus the 8 walking frames), Pokedex stats, entries and abilities,
   Scarlet/Violet level-up moves and TMs (Brilliant Diamond/Shining Pearl and Sword/Shield for ones not in
   SV), shiny colours and random natures like everyone else. Raikou, Entei, Suicune, Lugia, Ho-Oh and Celebi
-  are legendaries. Not in the Kanto wild areas yet (the Johto campaign will place them). New evolution
+  are legendaries. They live in Johto's wild areas. New evolution
   kinds: day/night friendship (`evolve_friendship = Espeon, 160, day`, Umbreon at night) and Tyrogue's
   `evolve_by_stats` (Hitmonlee, Hitmonchan or Hitmontop at 20, picked by its nature's Attack vs Defense).
   Kanto Pokemon gained their Gen 2 evolutions: Crobat and Blissey (friendship), Bellossom (new **Sun
@@ -69,6 +69,19 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
   of them and the challenge starts over from Lorelei (the Healing Center stays open between rooms).
   Beating the Champion puts your party in the **Hall of Fame** (saved in the profile, every Championship
   win adds an entry) and opens the Battle Tower. League members can be rematched from the Map like gyms.
+- **Johto** – a second region on its own map (`johto.png`), opened by beating the Kanto Champion: the hub's
+  first item becomes **Travel to Johto!** (and, once Kanto is done, Left/Right on it switches between the story
+  and the Battle Tower). Professor Elm gives a second starter at level 60 with the same rules as Kanto: alone,
+  pick any of the six and Silver takes one of the two that beat it; in co-op the host picks, then player 2,
+  then Silver takes two of the remaining four at random (online, each player picks on their own turn and the
+  guest gets Silver's pick from the host). 38 battles follow HeartGold/SoulSilver from Cherrygrove to Lance
+  (levels 60–88): the eight Johto gyms (Falkner, Bugsy, Whitney, Morty, Chuck, Jasmine, Pryce, Clair), Silver's
+  five fights, the Team Rocket executives, the Sudowoodo and the shiny Red Gyarados (wild bosses that **join
+  your team** when beaten, `join = yes`), the Kimono Girls, the Elite Four Will, Koga, Bruno and Karen, Champion
+  Lance (the Johto Hall of Fame), and after him Red on Mt. Silver at level 95. Johto's legendaries are on
+  the Map's Legendary tab (open it while the Map shows Johto): Raikou, Entei and Suicune after the Fog Badge, Ho-Oh
+  and Lugia after the Kimono Girls, Celebi after Lance. `wild.txt` has 23 Johto training areas. In
+  `story.txt` a `[region]` block (name, map_image, start_level, towns) starts each new region.
 - **Battle Tower** – after the Championship, the hub's first item. Endless floors of trainers: their
   levels climb with the floor (your team's average −1, +1 every 4 floors), the CPU plays Hard from floor
   5, both sides bring 3 (4 from floor 10, 5 from 20, 6 from 30), every 5th floor is fought in a gym arena
@@ -224,6 +237,12 @@ middle:
 | Haunted Hall (Agatha) | Lights out. Three will-o'-wisps rise from the gravestones and drift after the nearest creature that isn't a Ghost: touching one is a Ghost hit (power 32, 25% burn). Ghost types move ×1.15 faster. |
 | Dragon's Den (Lance) | Every 7–9 s a dragon statue's eyes glow for 1.6 s, then it breathes a fan of three Fire shots (power 50, burn chance) at someone. Dragon types get ×1.2 ATK. |
 | Champion's Stadium | A spotlight glides around the floor; whoever stands in it gets ×1.25 ATK and ×1.15 speed. Fireworks, pyrotechnics and the biggest crowd in Kanto. |
+| Skyway Gym (Falkner) | A wooden deck in high wind. Every 6–9 s the windsocks swing round (1.6 s warning), then a 3 s gust shoves everyone on the ground (half as much for Steel and Rock types; not flyers or Flying types). Flying types ×1.25 speed. **Weather vane**: hit it and for 15 s the gusts blow from your side at your foes only, and give your team a tailwind. |
+| Hive Gym (Bugsy) | Five spider webs: non-Bug types ×0.55 speed on them, Bug types ×1.25 speed and ×1.15 ATK. Fire burns a web away for good. Trees. **Hive**: when it's full, a hit sends a homing swarm of six Bug shots (power 22) at the hitter's foes; Fire smokes it out for 12 s. |
+| Moomoo Gym (Whitney) | Hay bales for cover (break them; fire burns them fast). Normal types ×1.15 ATK. **Milk tank**: when it's full, a hit spills three pools of Moomoo Milk by the hitter for 8 s: 2.4% max HP/s to anyone standing in them, Normal types double. |
+| Lighthouse Gym (Jasmine) | Steel pillars. **Lighthouse**: its beam sweeps the floor; in the light Steel types get ×1.25 ATK and everyone else is dazzled (×0.75 speed). A hit reverses it and spins it faster for a while. |
+| Shadow Chamber (Karen) | Lights out but for three drifting pools of light. Out of the light Dark types get ×1.2 ATK and ×1.15 speed (their eyes glow); in the light everyone else gets ×1.1 ATK. |
+| Champion's Hall (Lance, Johto) | The Champion's spotlight plus four dragon statues breathing fire (like the Dragon's Den). |
 
 | Seafoam Depths (Articuno) | Ice rules (rinks, ice pillars) and endless snow. Every 5 s two hailstones fall on markers near the challengers (Ice 50, 10% freeze). |
 | Power Plant (Zapdos) | Electric coils and rain. Every 4.5 s two lightning bolts strike near the challengers (Electric 55, 30% paralysis). |

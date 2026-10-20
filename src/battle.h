@@ -500,6 +500,8 @@ private:
     void UpdateWisps(float dt);       // Agatha's hall
     void UpdateStatues(float dt);     // Lance's den
     void UpdateSpotlight(float dt);   // the Champion's stadium
+    void UpdateWind(float dt);        // Falkner's gusts
+    void UpdateLights(float dt);      // Karen's drifting lights
     void UpdateLegendField(float dt); // legendary lairs: strikes from above, Mewtwo's pulse, Mew's teleports
     void FieldEffectsOn(int s, float dt);
     void ObstacleImpact(Obstacle& o, const HitSpec& h, Vector2 dir, bool physical);

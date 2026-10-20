@@ -26,6 +26,10 @@ const Color kOrbIdle = {200, 160, 255, 255};
 const Color kSludge = {150, 70, 190, 255};
 const Color kPollen = {255, 190, 220, 255};
 const Color kVolt = {255, 230, 90, 255};
+const Color kMilk = {250, 248, 236, 255};
+const Color kBeam = {255, 244, 190, 255};
+const Color kSwarm = {200, 210, 70, 255};
+float AngleTo(float from, float to) { return std::remainder(to - from, 2 * PI_F); }
 
 } // namespace
 
@@ -458,6 +462,56 @@ void Battle::UpdateCenterpiece(float dt) {
                 if (std::fabs(Dist(w.origin, c.pos) - w.r) < c.radius * 0.5f) CenterJam();
             }
         } break;
+
+        // ---------------------------------------------------------------- Falkner: the weather vane
+        case Centerpiece::Vane: {
+            if (c.t > 0) { c.t -= dt; if (c.t <= 0) { c.owner = -1; AddText(c.pos, "The vane swings free again.", UI_DIM, 26); } }
+            float want = std::atan2(field.windDir.y, field.windDir.x);
+            float d = AngleTo(c.spin, want);
+            float step = (field.windOn ? 4.0f : 1.2f) * dt;
+            c.spin += std::fabs(d) < step ? d : (d > 0 ? step : -step);
+            if (field.windOn == 0) c.spin += std::sin(time * 1.7f) * 0.3f * dt;   // idly turning in the breeze
+        } break;
+
+        // ---------------------------------------------------------------- Bugsy: the hive
+        case Centerpiece::Hive: {
+            if (c.phase == 2) {   // smoked out
+                c.t -= dt;
+                if (SimRand(0, 2) == 0) Emit(PK::Smoke, c.pos + RandDirE() * 5.0f, Frand(20, 36), {Frand(-5, 5), 0}, Frand(14, 24), 1.0f, 3.0f, Cc(150, 150, 140), false).grow = 6;
+                if (c.t <= 0) { c.phase = 0; c.charge = 30; AddText(c.pos, "The bugs are back in the hive!", kSwarm, 26); }
+                break;
+            }
+            c.charge = std::min(100.0f, c.charge + 7.0f * dt);
+            if (SimRand(0, c.charge >= 100 ? 2 : 6) == 0)   // bees buzzing round it
+                Emit(PK::Spark, c.pos + RandDirE() * Frand(12, 22), Frand(20, 40), RandDirE() * 30.0f, Frand(-8, 8), 0.4f, 1.0f, SimRand(0, 1) ? kSwarm : Cc(60, 50, 30), false);
+        } break;
+
+        // ---------------------------------------------------------------- Whitney: the milk tank
+        case Centerpiece::MilkTank: {
+            if (c.phase == 0) { c.charge = std::min(100.0f, c.charge + 7.0f * dt); break; }
+            c.t -= dt;
+            c.fireT -= dt;
+            if (c.fireT <= 0) {
+                c.fireT = 0.5f;
+                for (int s = 0; s < N(); s++) {
+                    Fighter& f = sides[s].Cur();
+                    if (!Grounded(f) || f.hp <= 0 || f.hp >= f.maxHp) continue;
+                    bool in = false;
+                    for (const Vector2& m : c.marks) if (Dist(f.pos, m) < 22) in = true;
+                    if (!in) continue;
+                    float add = std::min((float)f.maxHp - f.hp, f.maxHp * 0.012f * (HasT(f.sp, Type::Normal) ? 2.0f : 1.0f));
+                    if (add >= 1) { f.hp += add; AddText(f.pos, TextFormat("+%d", (int)add), Cc(255, 200, 220), 18); }
+                }
+            }
+            if (c.t <= 0) { c.phase = 0; c.marks.clear(); }
+        } break;
+
+        // ---------------------------------------------------------------- Jasmine: the lighthouse lamp
+        case Centerpiece::Lamp: {
+            float base = c.spinRate >= 0 ? 0.55f : -0.55f;
+            c.spinRate += (base - c.spinRate) * std::min(1.0f, dt * 0.25f);
+            c.spin = std::remainder(c.spin + c.spinRate * dt, 2 * PI_F);
+        } break;
         default: break;
     }
 }
@@ -658,6 +712,95 @@ void Battle::CenterHit(const HitSpec& h, Vector2 dir, bool physical) {
         case Centerpiece::Spinner: {
             if (h.type == Type::Ground) CenterJam();
         } break;
+        case Centerpiece::Vane: {
+            if (h.side < 0) return;
+            int team = sides[h.side].teamId;
+            c.hitCd = 0.5f;
+            if (c.owner != team || c.t < 8) {
+                AddText(c.pos, team == sides[0].teamId ? "The vane turned - the wind is on your side!" : "The vane turned against you!", TeamColor(team), 36);
+                AddFx(FxKind::Ring, c.pos, 0.4f, TeamColor(team), 40, 30);
+                PlaySfx(Sfx::Status);
+            }
+            c.owner = team;
+            c.t = 15;
+            if (field.windOn == 0 && field.windT > 2.5f) field.windT = 2.5f;   // and it calls the next gust sooner
+        } break;
+        case Centerpiece::Hive: {
+            if (c.phase == 2) return;
+            if (h.type == Type::Fire) {
+                c.phase = 2;
+                c.t = 12;
+                c.charge = 0;
+                c.hitCd = 1;
+                AddText(c.pos, "The hive was smoked out!", Cc(255, 160, 80), 40);
+                for (int i = 0; i < 12; i++)
+                    Emit(PK::Smoke, c.pos + RandDirE() * 8.0f, Frand(16, 36), RandDirE() * 20.0f, Frand(20, 40), Frand(0.8f, 1.3f), Frand(3, 5), Cc(140, 140, 130, 220), false).grow = 8;
+                PlaySfx(Sfx::Fire);
+                return;
+            }
+            c.hitCd = 0.6f;
+            if (c.charge < 100 || h.side < 0) {
+                if (SimRand(0, 1)) AddText(c.pos, "The hive is still buzzing...", UI_DIM, 26);
+                return;
+            }
+            std::vector<int> foes;
+            for (int ts = 0; ts < N(); ts++) if (Foes(h.side, ts) && Targetable(ts)) foes.push_back(ts);
+            if (foes.empty()) return;
+            c.charge = 0;
+            for (int i = 0; i < 6; i++) {
+                int ts = foes[i % foes.size()];
+                Vector2 d = SafeNorm(sides[ts].Cur().pos - c.pos, {1, 0});
+                Projectile p;
+                p.hit = EnvSpec(Type::Bug, 22);
+                p.hit.side = h.side;   // the swarm only goes for the hitter's foes
+                p.hit.name = "Bug Swarm";
+                p.hit.look = LookKey("Pin Missile", Type::Bug, MoveKind::Projectile);
+                Vector2 v = RotV(d, (i - 2.5f) * 0.35f);
+                p.pos = c.pos + v * 16.0f;
+                p.vel = v * 150.0f;
+                p.maxDist = 650;
+                p.radius = 4;
+                p.homing = 3.0f;
+                p.z = 22 + (i % 3) * 4;
+                projs.push_back(p);
+            }
+            AddText(c.pos, "The swarm is out!", kSwarm, 40);
+            Burst(c.pos, kSwarm, 16, 70, 26);
+            Shake(1);
+            PlaySfx(Sfx::Shoot);
+        } break;
+        case Centerpiece::MilkTank: {
+            c.hitCd = 0.8f;
+            if (c.phase == 1) return;
+            if (c.charge < 100) {
+                if (SimRand(0, 1)) AddText(c.pos, "The milk tank is still refilling...", UI_DIM, 26);
+                return;
+            }
+            Vector2 at = h.side >= 0 ? sides[h.side].Cur().pos : c.pos - dir * 60.0f;
+            Vector2 toward = SafeNorm(at - c.pos, -dir);
+            if (Dist(at, c.pos) < 50) at = c.pos + toward * 50.0f;
+            Vector2 lat{-toward.y, toward.x};
+            c.marks.clear();
+            c.marks.push_back(ClampToArenaC(at));
+            c.marks.push_back(ClampToArenaC(at + lat * 30.0f - toward * 8.0f));
+            c.marks.push_back(ClampToArenaC(at - lat * 30.0f - toward * 8.0f));
+            c.charge = 0;
+            c.phase = 1;
+            c.t = 8;
+            c.fireT = 0;
+            for (const Vector2& m : c.marks)
+                for (int i = 0; i < 6; i++) Emit(PK::Drop, c.pos + RandDirE() * 6.0f, 30, SafeNorm(m - c.pos, {1, 0}) * Frand(60, 120) + RandDirE() * 20.0f, Frand(30, 60), 0.6f, 2.0f, kMilk, true);
+            AddText(c.pos, "Moomoo Milk spilled out!", Cc(255, 200, 220), 40);
+            PlaySfx(Sfx::Heal);
+        } break;
+        case Centerpiece::Lamp: {
+            c.hitCd = 1.0f;
+            float sign = c.spinRate >= 0 ? -1.0f : 1.0f;
+            c.spinRate = sign * std::min(2.0f, std::fabs(c.spinRate) * 1.6f + 0.3f);
+            AddText(c.pos, "The beam swung the other way!", kBeam, 34);
+            AddFx(FxKind::Flash, c.pos, 0.12f, kBeam, 40, 50);
+            PlaySfx(Sfx::Shield);
+        } break;
         default: break;
     }
 }
@@ -672,11 +815,12 @@ void Battle::CenterReact(Vector2 at, const HitSpec& h, float radius) {
         case Centerpiece::Spinner: reach = c.radius; break;
         case Centerpiece::Vent: reach = c.radius + 16; break;   // water splashing on it
         case Centerpiece::Bloom: reach = c.radius + 12; break;  // fire landing on it
+        case Centerpiece::Hive: reach = c.radius + 12; break;   // fire landing on it
         default: return;
     }
     if (Dist(at, c.pos) > reach + radius) return;
     if (c.kind == Centerpiece::Vent && h.type != Type::Water) return;
-    if (c.kind == Centerpiece::Bloom && h.type != Type::Fire) return;
+    if ((c.kind == Centerpiece::Bloom || c.kind == Centerpiece::Hive) && h.type != Type::Fire) return;
     CenterHit(h, SafeNorm(c.pos - at, {1, 0}), false);
 }
 
@@ -814,6 +958,42 @@ void Battle::DrawCenterFloor() const {
                 DrawEllipse((int)hg.x, (int)hg.y, 18, 18 * DEPTH, Fade(Cc(70, 55, 40), 0.7f));
             }
             break;
+        case Centerpiece::MilkTank:
+            if (c.phase == 1)   // puddles of Moomoo Milk
+                for (size_t i = 0; i < c.marks.size(); i++) {
+                    Vector2 mp = ToScreen(c.marks[i]);
+                    float fade = std::min(1.0f, c.t / 1.5f);
+                    float grow = std::min(1.0f, (8 - c.t) / 0.5f);
+                    float r = 20 * (0.4f + 0.6f * grow);
+                    DrawEllipse((int)mp.x, (int)mp.y, r + 1, (r + 1) * DEPTH, Fade(Cc(220, 200, 170), 0.7f * fade));
+                    DrawEllipse((int)mp.x, (int)mp.y, r, r * DEPTH, Fade(kMilk, 0.9f * fade));
+                    DrawEllipse((int)mp.x - (int)(r * 0.3f), (int)mp.y - 1, r * 0.35f, r * 0.12f, Fade(WHITE, 0.8f * fade));
+                    float ph = std::fmod(time * 1.5f + i * 0.4f, 1.0f);
+                    VRingE(mp, r * (0.3f + 0.7f * ph), r * (0.3f + 0.7f * ph) * DEPTH, 1, Fade(Cc(255, 190, 210), (1 - ph) * 0.6f * fade), 24);
+                }
+            break;
+        case Centerpiece::Lamp: {   // the sweeping beam, clipped to the arena walls
+            auto edge = [&](float a) {
+                Vector2 d{std::cos(a), std::sin(a)};
+                float t = 2000;
+                if (d.x > 1e-4f) t = std::min(t, (ARENA_W - c.pos.x) / d.x);
+                if (d.x < -1e-4f) t = std::min(t, -c.pos.x / d.x);
+                if (d.y > 1e-4f) t = std::min(t, (ARENA_H - c.pos.y) / d.y);
+                if (d.y < -1e-4f) t = std::min(t, -c.pos.y / d.y);
+                return ToScreen(c.pos + d * t);
+            };
+            VAdd();
+            const int K = 10;
+            for (int k = 0; k < K; k++) {
+                float a0 = c.spin - Field::BEAM_HALF + 2 * Field::BEAM_HALF * k / K, a1 = c.spin - Field::BEAM_HALF + 2 * Field::BEAM_HALF * (k + 1) / K;
+                float mid = 1.0f - std::fabs((k + 0.5f) / K - 0.5f) * 1.4f;
+                Vector2 p0 = edge(a0), p1 = edge(a1);
+                Color bc = Fade(kBeam, 0.10f + 0.10f * mid);
+                DrawTriangle(g, p1, p0, bc);
+                DrawTriangle(g, p0, p1, bc);
+            }
+            VNorm();
+        } break;
         default: break;
     }
 }
@@ -1008,6 +1188,102 @@ void Battle::DrawCenterBody(const Obstacle& o) const {
             VNorm();
             if (fl > 0) DrawTriangle({b.x - R, b.y}, {b.x + R, b.y}, {b.x, b.y - H}, Fade(WHITE, 0.4f));
         } break;
+        case Centerpiece::Vane: {   // a tall pole with a bird-shaped weather vane turning on top
+            VShadow({g.x, g.y + 1}, 9, 3.5f, 0.6f);
+            DrawRectangle((int)g.x - 7, (int)g.y - 5, 14, 5, Cc(120, 90, 60));
+            DrawRectangle((int)g.x - 7, (int)g.y - 5, 14, 1, Cc(160, 125, 85));
+            DrawRectangle((int)g.x - 1, (int)g.y - 52, 3, 48, Cc(90, 96, 110));
+            DrawRectangle((int)g.x - 1, (int)g.y - 52, 1, 48, Cc(150, 156, 170));
+            Vector2 top{g.x + 0.5f, g.y - 54};
+            // N/E/S/W arms
+            for (int k = 0; k < 4; k++) {
+                float a = k * PI_F / 2;
+                Vector2 e{std::cos(a) * 8, std::sin(a) * 8 * DEPTH};
+                DrawLineEx(top + Vector2{0, 6}, top + Vector2{0, 6} + e, 1, Cc(170, 150, 90));
+            }
+            Vector2 d{std::cos(c.spin), std::sin(c.spin) * DEPTH};
+            Vector2 n{-d.y, d.x};
+            Color vc = c.owner >= 0 && c.t > 0 ? TeamColor(c.owner) : Cc(214, 176, 80);
+            // the arrow: a pointed head, a bird body and a feathered tail
+            Vector2 head = top + d * 13.0f, tail = top - d * 13.0f;
+            DrawLineEx(tail, head, 2, ColorBrightness(vc, -0.3f));
+            DrawTriangle(head + d * 4.0f, head + n * 3.0f, head - n * 3.0f, vc);
+            DrawTriangle(head + d * 4.0f, head - n * 3.0f, head + n * 3.0f, vc);
+            DrawTriangle(tail, tail - d * 5.0f + n * 6.0f, tail - d * 5.0f - n * 6.0f, vc);
+            DrawTriangle(tail, tail - d * 5.0f - n * 6.0f, tail - d * 5.0f + n * 6.0f, vc);
+            DrawCircleV(top + d * 2.0f + Vector2{0, -3}, 3, vc);   // the bird
+            DrawCircleV(top + d * 4.0f + Vector2{0, -5}, 2, vc);
+            DrawCircleV(top, 1.5f, Cc(240, 230, 200));
+            if (fl > 0) { VAdd(); VGlow(top, 14, WHITE, 0.6f); VNorm(); }
+        } break;
+        case Centerpiece::Hive: {   // a gnarled stump with a big striped hive hanging from it
+            bool smoked = c.phase == 2;
+            VShadow({g.x, g.y + 1}, R * 1.2f, R * 0.5f, 0.6f);
+            DrawRectangle((int)(g.x - R * 0.7f), (int)g.y - 20, (int)(R * 1.4f), 20, Cc(96, 70, 46));
+            DrawEllipse((int)g.x, (int)g.y, R * 0.7f, R * 0.7f * DEPTH, Cc(96, 70, 46));
+            DrawRectangle((int)(g.x - R * 0.7f), (int)g.y - 20, 3, 20, Cc(126, 96, 64));
+            for (int k = 0; k < 3; k++) DrawLineEx({g.x - R * 0.7f - 2 - k * 2, g.y - 2.0f}, {g.x - R * 0.7f + 2, g.y - 8.0f - k * 3}, 2, Cc(86, 62, 40));   // roots
+            Vector2 hc{g.x, g.y - 34 + std::sin(time * 3) * 0.6f};
+            Color band1 = smoked ? Cc(120, 115, 105) : Cc(214, 170, 60), band2 = smoked ? Cc(80, 76, 70) : Cc(150, 104, 40);
+            for (int k = 0; k < 5; k++) {
+                float y = hc.y - 12 + k * 5.0f;
+                float w = R * (0.55f + 0.45f * std::sin((k + 0.6f) / 5.4f * PI_F));
+                DrawEllipse((int)hc.x, (int)y, w, 3.4f, k % 2 ? band2 : band1);
+            }
+            DrawEllipse((int)hc.x, (int)hc.y + 6, 3.5f, 2.5f, Cc(40, 26, 14));   // the entrance
+            float full = c.charge / 100.0f;
+            if (!smoked && full >= 1) { VAdd(); VGlow(hc, 18, kSwarm, 0.25f + 0.1f * std::sin(time * 8)); VNorm(); }
+            if (fl > 0) DrawCircleV(hc, R * 0.9f, Fade(WHITE, 0.4f));
+        } break;
+        case Centerpiece::MilkTank: {   // a big dairy tank with Miltank-pink spots and a tap
+            float fill = c.charge / 100.0f;
+            VShadow({g.x, g.y + 1}, R * 1.15f, R * 0.5f, 0.6f);
+            const int H = 40;
+            DrawRectangle((int)(g.x - R), (int)(g.y - H), (int)(R * 2), H, Cc(228, 228, 232));
+            DrawEllipse((int)g.x, (int)g.y, R, R * DEPTH, Cc(228, 228, 232));
+            DrawRectangle((int)(g.x - R), (int)(g.y - H), 4, H, Cc(250, 250, 252));
+            DrawRectangle((int)(g.x + R - 4), (int)(g.y - H), 4, H, Cc(190, 190, 198));
+            DrawCircleV({g.x - 6, g.y - 28}, 4, Cc(240, 150, 180));   // spots
+            DrawCircleV({g.x + 7, g.y - 16}, 5, Cc(240, 150, 180));
+            DrawCircleV({g.x - 2, g.y - 9}, 3, Cc(240, 150, 180));
+            DrawEllipse((int)g.x, (int)(g.y - H), R, R * DEPTH, Cc(200, 200, 208));
+            DrawEllipse((int)g.x, (int)(g.y - H), R - 3, (R - 3) * DEPTH, Cc(170, 170, 180));
+            DrawRectangle((int)g.x - 2, (int)(g.y - H - 6), 4, 6, Cc(170, 170, 180));
+            // the level gauge
+            DrawRectangle((int)(g.x + R - 9), (int)(g.y - H + 6), 4, 26, Cc(60, 60, 70));
+            DrawRectangle((int)(g.x + R - 8), (int)(g.y - H + 7 + 24 * (1 - fill)), 2, (int)(24 * fill), fill >= 1 ? Cc(255, 200, 220) : kMilk);
+            // the tap, dripping when it's full
+            DrawRectangle((int)(g.x - R - 4), (int)g.y - 10, 5, 3, Cc(160, 160, 170));
+            if (fill >= 1) {
+                float ph = std::fmod(time * 1.4f, 1.0f);
+                DrawCircleV({g.x - R - 3, g.y - 6 + ph * 6}, 1.2f, Fade(kMilk, 1 - ph));
+            }
+            if (fl > 0) DrawRectangle((int)(g.x - R), (int)(g.y - H), (int)(R * 2), H, Fade(WHITE, 0.5f));
+        } break;
+        case Centerpiece::Lamp: {   // a small white-and-red lighthouse with the lamp room on top
+            VShadow({g.x, g.y + 1}, R * 1.2f, R * 0.5f, 0.6f);
+            const float H = 48;
+            for (int k = 0; k < 4; k++) {   // a tapering tower in bands
+                float y0 = g.y - k * H / 4, y1 = g.y - (k + 1) * H / 4;
+                float w0 = R * (1.0f - 0.08f * k), w1 = R * (1.0f - 0.08f * (k + 1));
+                Color bc = k % 2 ? Cc(200, 60, 60) : Cc(236, 234, 228);
+                DrawTriangle({g.x - w0, y0}, {g.x + w0, y0}, {g.x + w1, y1}, bc);
+                DrawTriangle({g.x - w0, y0}, {g.x + w1, y1}, {g.x - w1, y1}, bc);
+                DrawLineEx({g.x - w0 + 2, y0}, {g.x - w1 + 2, y1}, 2, Fade(WHITE, 0.4f));
+            }
+            DrawEllipse((int)g.x, (int)g.y, R, R * DEPTH, Cc(236, 234, 228));
+            Vector2 lamp{g.x, g.y - H - 5};
+            DrawRectangle((int)lamp.x - 8, (int)(g.y - H - 1), 16, 2, Cc(60, 60, 70));
+            DrawRectangle((int)lamp.x - 6, (int)lamp.y - 4, 12, 8, Cc(255, 240, 180));
+            for (int k = -1; k <= 1; k++) DrawRectangle((int)lamp.x + k * 4, (int)lamp.y - 4, 1, 8, Cc(80, 80, 90));
+            DrawTriangle({lamp.x - 8, lamp.y - 4}, {lamp.x + 8, lamp.y - 4}, {lamp.x, lamp.y - 11}, Cc(70, 74, 86));
+            Vector2 d{std::cos(c.spin), std::sin(c.spin) * DEPTH};
+            VAdd();
+            VGlow(lamp, 14, kBeam, 0.6f);
+            VGlow(lamp + d * 6.0f, 9, WHITE, 0.6f);
+            if (fl > 0) VGlow(lamp, 24, WHITE, 0.7f);
+            VNorm();
+        } break;
         default: break;
     }
 }
@@ -1041,6 +1317,21 @@ void Battle::DrawCenterTop() const {
                 DrawRectangle((int)g.x - 10, (int)g.y, (int)(20 * Clamp01(c.t / 9)), 2, TeamColor(c.owner));
             }
             break;
+        case Centerpiece::Vane:
+            if (c.owner >= 0 && c.t > 0) {
+                Vector2 g = ToScreen(c.pos, 64);
+                DrawRectangle((int)g.x - 10, (int)g.y, 20, 2, Fade(BLACK, 0.5f));
+                DrawRectangle((int)g.x - 10, (int)g.y, (int)(20 * Clamp01(c.t / 15)), 2, TeamColor(c.owner));
+            }
+            break;
+        case Centerpiece::Hive:
+        case Centerpiece::MilkTank:
+            if (c.phase == 0 && c.charge < 100) {   // refilling
+                Vector2 g = ToScreen(c.pos, c.kind == Centerpiece::Hive ? 52 : 50);
+                DrawRectangle((int)g.x - 10, (int)g.y, 20, 2, Fade(BLACK, 0.5f));
+                DrawRectangle((int)g.x - 10, (int)g.y, (int)(20 * Clamp01(c.charge / 100)), 2, c.kind == Centerpiece::Hive ? kSwarm : Cc(255, 200, 220));
+            }
+            break;
         default: break;
     }
 }
@@ -1061,6 +1352,10 @@ void Battle::DebugCenter() {
         case Centerpiece::Orb: h.type = Type::Psychic; CenterHit(h, {1, 0}, false); break;
         case Centerpiece::Vent: c.phase = 0; c.t = 0.01f; break;
         case Centerpiece::Spinner: c.phase = 0; c.t = 0.01f; break;
+        case Centerpiece::Vane: CenterHit(h, {1, 0}, true); field.windOn = 0; field.windT = 0.01f; break;
+        case Centerpiece::Hive: c.charge = 100; CenterHit(h, {1, 0}, true); break;
+        case Centerpiece::MilkTank: c.charge = 100; CenterHit(h, {1, 0}, true); break;
+        case Centerpiece::Lamp: CenterHit(h, {1, 0}, true); break;
         default: break;
     }
 }

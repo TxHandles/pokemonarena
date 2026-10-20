@@ -393,7 +393,10 @@ void StartBattleFromSelect(Game& g) {
                 su.catchable = true;
                 break;
             }
-            if (st.rival) { EnsureRival(g); SetRivalContext(SpeciesIndex(g.profile.rival), -1); }
+            if (st.rival) {   // Blue in Kanto, Silver in Johto
+                EnsureRival(g, st.region);
+                SetRivalContext(SpeciesIndex(st.region >= 1 ? g.profile.rival2 : g.profile.rival), -1);
+            }
             g.cpuTeam = MakeCpuTeam(&st, avg, MAX_TEAM_SIZE);
             b.team = g.cpuTeam;
             b.cpu = true;
@@ -473,8 +476,9 @@ void StartBattleFromSelect(Game& g) {
                 StageDef st = ActiveStage(g);
                 if (st.rival) {
                     // The rival brings both of his starters (two of the ones neither player took).
-                    EnsureRival(g);
-                    SetRivalContext(SpeciesIndex(g.coopSave.rival[0]), SpeciesIndex(g.coopSave.rival[1]));
+                    EnsureRival(g, st.region);
+                    const std::string* rv = st.region >= 1 ? g.coopSave.rival2 : g.coopSave.rival;
+                    SetRivalContext(SpeciesIndex(rv[0]), SpeciesIndex(rv[1]));
                     std::vector<std::string> team = st.team;
                     bool hasPartner = false;
                     for (auto& e : team) hasPartner |= e.rfind("rival_partner", 0) == 0;

@@ -125,6 +125,9 @@ struct Game {
     std::string nameBuf;
     Profile profile;            // the Story Mode profile in use
     int starterSel = 0;
+    bool johtoPick = false;     // the starter screens are Professor Elm's gift on arriving in Johto
+    float johtoRevealT = -1;    // >= 0: Silver has just taken his starters (shown, then the hub)
+    bool hubTower = false;      // hub: the first item shows the Battle Tower instead of the next story battle
     int myCreSel = 0;
 
     // Roster choice for Quick / 2-player (-1 = free play, else index into profiles)
@@ -345,7 +348,14 @@ void LegendBattleOver(Game& g, const Battle& b, const float damage[2]);   // a w
 void DrawLegendIntro(const Game& g);
 struct StageDef LegendStage(int id);           // a legendary encounter as a stage
 struct StageDef ActiveStage(const Game& g);   // the trainer of the battle being set up (story stage, rematch or Tower floor)
-bool StoryDone(const Game& g);                // the Champion is beaten: the Battle Tower is open
+bool StoryDone(const Game& g);                // every region's story is done (Johto too)
+int CurStage(const Game& g);                  // the next story battle (solo or co-op)
+bool RegionDone(const Game& g, int region);   // that region's Champion is beaten
+bool KantoDone(const Game& g);                // the Kanto Champion is beaten: the Battle Tower is open, Johto awaits
+bool NeedsJohtoStarter(const Game& g);        // Johto reached, but someone hasn't got Professor Elm's starter yet
+void BeginJohtoStarter(Game& g);              // to the starter screen for the Johto gift
+// After the Johto starters are chosen: Silver takes his (yours on the left, his on the right).
+void DrawSilverReveal(const Game& g, const std::vector<std::string>& yours, const std::vector<std::string>& his);
 void BeginTowerFloor(Game& g, int floor, uint32_t seed);   // set up the next Tower battle (then the intro screen)
 uint32_t TowerSeedFor(const Game& g);         // this run's floors (the same on both online computers)
 void UpdateShop(Game& g);            void DrawShop(const Game& g);
@@ -410,6 +420,6 @@ bool StartGymRematch(Game& g, int stage);   // from the Map: false (with a toast
 int BadgeCount(const Game& g);
 int& StoryClock(Game& g);                   // shared time of day / season (co-op save or profile)
 int StoryClock(const Game& g);
-void EnsureRival(Game& g);                 // the rival picks his starter(s) once per save
+void EnsureRival(Game& g, int region = 0);  // the rival (Blue in Kanto, Silver in Johto) picks his starter(s) once per save
 int ProfileStarter(const Profile& p);       // species index of the starter they chose (-1 unknown)
 void StoryTimeStep(Game& g, bool announce); // one step of time (a battle or a Wait)

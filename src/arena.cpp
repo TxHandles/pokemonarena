@@ -80,6 +80,12 @@ Theme ThemeFor(ArenaKind k) {
         case ArenaKind::Ghost:    return {{26, 20, 38, 255}, {22, 16, 32, 255}, {64, 54, 80, 255}, {50, 42, 64, 255}, {76, 66, 94, 255}, {30, 22, 42, 255}};
         case ArenaKind::Dragon:   return {{34, 30, 52, 255}, {28, 24, 44, 255}, {74, 64, 100, 255}, {58, 50, 82, 255}, {92, 80, 120, 255}, {200, 160, 60, 255}};
         case ArenaKind::Champion: return {{70, 30, 36, 255}, {60, 24, 30, 255}, {150, 120, 70, 255}, {120, 94, 54, 255}, {200, 170, 100, 255}, {240, 200, 80, 255}};
+        case ArenaKind::Flying:   return {{50, 66, 92, 255}, {44, 58, 82, 255}, {150, 118, 80, 255}, {120, 92, 62, 255}, {176, 144, 104, 255}, {90, 140, 200, 255}};
+        case ArenaKind::Bug:      return {{46, 58, 34, 255}, {40, 50, 30, 255}, {110, 120, 70, 255}, {86, 96, 56, 255}, {130, 142, 86, 255}, {150, 170, 60, 255}};
+        case ArenaKind::Normal:   return {{80, 50, 66, 255}, {70, 42, 58, 255}, {226, 170, 190, 255}, {196, 140, 162, 255}, {240, 200, 214, 255}, {230, 110, 150, 255}};
+        case ArenaKind::Steel:    return {{40, 50, 64, 255}, {34, 44, 56, 255}, {120, 130, 144, 255}, {96, 106, 120, 255}, {150, 160, 174, 255}, {210, 170, 80, 255}};
+        case ArenaKind::Dark:     return {{20, 16, 28, 255}, {16, 12, 24, 255}, {50, 42, 64, 255}, {38, 32, 50, 255}, {64, 54, 80, 255}, {120, 60, 140, 255}};
+        case ArenaKind::JohtoChampion: return {{40, 28, 52, 255}, {34, 22, 44, 255}, {120, 60, 56, 255}, {96, 46, 44, 255}, {170, 120, 70, 255}, {240, 200, 80, 255}};
         default:                  return {{58, 48, 72, 255}, {48, 40, 62, 255}, {104, 96, 112, 255}, {84, 76, 94, 255}, {112, 104, 120, 255}, {90, 76, 60, 255}};
     }
 }
@@ -340,6 +346,8 @@ Color IceSurface(float wx, float wy, Color base, uint32_t salt) {
     return c;
 }
 
+Color VenueFloor(Venue v, int season, float wx, float wy);
+
 Color FloorBase(ArenaKind k, float wx, float wy) {
     int tx = (int)std::floor(wx / 40), ty = (int)std::floor(wy / 40);
     float lxx = std::fmod(wx, 40.0f), lyy = std::fmod(wy, 40.0f);
@@ -499,6 +507,89 @@ Color FloorBase(ArenaKind k, float wx, float wy) {
                     if (dy < 0 && hx * hx + hy * hy < 1) c = MixF(c, WHITE, 0.35f * (1 - hx * hx - hy * hy));
                 }
                 if (d < 20) c = d > 15 ? Color{40, 36, 50, 255} : (d > 10 ? Color{250, 250, 252, 255} : Color{230, 190, 80, 255});
+            }
+            return c;
+        }
+        case ArenaKind::Flying: {   // Violet Gym: a wooden deck high above the city, a compass rose in the middle
+            Color c = Planks(wx, wy, 13, 120, Color{176, 132, 84, 255}, Color{106, 76, 46, 255}, 71);
+            float edge = std::min(std::min(wx, ARENA_W - wx), std::min(wy, ARENA_H - wy) * 1.2f);
+            if (edge < 6) c = Lit(Color{110, 84, 56, 255}, 0.9f + 0.1f * N2(wx * 0.3f, wy * 0.3f));
+            else if (edge < 8) c = Color{226, 214, 180, 255};
+            float dx = wx - ARENA_W / 2, dy = wy - ARENA_H / 2, d = std::sqrt(dx * dx + dy * dy);
+            if (d < 60) {   // a compass rose: four long points, four short ones, a ring
+                float a = std::atan2(dy, dx);
+                float sq = std::fabs(std::sin(a * 2));
+                float reach = 56 * std::pow(1 - sq, 3.0f) + 10;
+                float sq2 = std::fabs(std::cos(a * 2));
+                float reach2 = 30 * std::pow(1 - sq2, 3.0f) + 10;
+                bool half = std::fmod(a + 7.0686f, 1.5708f) < 0.785f;   // each point shaded on one side
+                if (d < reach) c = MixF(c, half ? Color{70, 110, 170, 255} : Color{120, 170, 220, 255}, 0.8f);
+                else if (d < reach2) c = MixF(c, half ? Color{200, 190, 160, 255} : Color{236, 230, 210, 255}, 0.75f);
+                if (std::fabs(d - 38) < 1.0f) c = Color{70, 110, 170, 255};
+            }
+            return c;
+        }
+        case ArenaKind::Bug: {   // Azalea Gym: mossy earth and leaf litter under the trees
+            Color c = VenueFloor(Venue::Forest, 1, wx, wy);
+            float m = Fbm(wx * 0.02f + 40, wy * 0.03f);
+            c = MixF(c, Color{110, 130, 50, 255}, Smooth(0.55f, 0.75f, m) * 0.35f);
+            uint32_t id;
+            int p = Scatter(wx, wy, 12, 0.08f, 0.6f, 1.2f, 505, &id);
+            if (p == 1) c = Color{196, 150, 60, 255}; else if (p == 2) c = Color{150, 96, 40, 255};   // fallen leaves
+            return c;
+        }
+        case ArenaKind::Normal: {   // Goldenrod Gym: pink and cream tiles, a big heart in the middle
+            float loc[4];
+            Color c = BevelTile(wx, wy, 40, 40, ((tx + ty) & 1) ? Color{246, 196, 212, 255} : Color{252, 240, 232, 255},
+                                ((tx + ty) & 1) ? Color{240, 186, 204, 255} : Color{246, 232, 224, 255}, Color{210, 150, 170, 255}, false, 6, loc);
+            float hx = (wx - ARENA_W / 2) / 44, hy = -(wy - ARENA_H / 2 + 6) / 44;   // a heart curve
+            float q = hx * hx + hy * hy - 1;
+            float heart = q * q * q - hx * hx * hy * hy * hy;
+            if (heart < 0) c = MixF(c, Color{240, 150, 180, 255}, 0.35f);
+            if (heart < 0 && heart > -0.06f) c = Color{220, 80, 130, 255};
+            if (n < 4) c = Lit(c, 0.95f);
+            return c;
+        }
+        case ArenaKind::Steel: {   // Olivine Gym: harbour-blue steel plates with brass rivets
+            float loc[4];
+            Color c = BevelTile(wx, wy, 40, 40, Color{110, 124, 140, 255}, Color{100, 114, 130, 255}, Color{56, 64, 76, 255}, true, 8, loc);
+            if (c.r == 56 && c.g == 64) return c;
+            float rx = std::min(lxx, 40 - lxx), ry = std::min(lyy, 40 - lyy);
+            if (rx > 2.2f && rx < 4.2f && ry * DEPTH > 1.4f && ry * DEPTH < 3.2f) c = Color{210, 176, 96, 255};
+            float sheen = std::sin((wx + wy) * 0.03f);
+            if (sheen > 0.85f) c = MixF(c, Color{200, 214, 228, 255}, (sheen - 0.85f) * 2);
+            float d = std::sqrt((wx - ARENA_W / 2) * (wx - ARENA_W / 2) + (wy - ARENA_H / 2) * (wy - ARENA_H / 2));
+            if (std::fabs(d - 40) < 2) c = Color{210, 176, 96, 255};
+            return c;
+        }
+        case ArenaKind::Dark: {   // Karen's chamber: black glass tiles with violet seams
+            float gx = std::min(lxx, 40 - lxx), gy = std::min(lyy, 40 - lyy) * DEPTH;
+            float d = std::min(gx, gy);
+            Color c = ((tx + ty) & 1) ? Color{36, 30, 46, 255} : Color{30, 24, 40, 255};
+            c = Lit(c, 0.9f + 0.2f * Fbm(wx * 0.03f, wy * 0.04f));
+            float refl = std::sin((wx - wy * 2) * 0.02f);
+            if (refl > 0.9f) c = MixF(c, Color{90, 80, 120, 255}, (refl - 0.9f) * 4);
+            if (d < 0.8f) c = Color{110, 60, 140, 255};
+            if (n == 0) c = Color{150, 120, 200, 255};
+            return c;
+        }
+        case ArenaKind::JohtoChampion: {   // Lance's hall: dark slate, a red carpet and a gold dragon seal
+            Color c = BevelTile(wx, wy, 40, 40, Color{70, 62, 84, 255}, Color{62, 56, 76, 255}, Color{36, 32, 46, 255}, false, 8);
+            float edge = std::min(std::min(wx, ARENA_W - wx), std::min(wy, ARENA_H - wy) * 1.2f);
+            if (edge < 8) c = Lit(Color{200, 150, 50, 255}, 0.95f + 0.1f * N2(wx * 0.4f, wy * 0.4f));
+            else if (edge < 12) c = Color{120, 30, 40, 255};
+            if (std::fabs(wy - ARENA_H / 2) < 18 && (wx < ARENA_W / 2 - 90 || wx > ARENA_W / 2 + 90))
+                c = std::fabs(wy - ARENA_H / 2) > 15 ? Color{230, 190, 80, 255} : Lit(Color{160, 26, 36, 255}, 0.92f + 0.12f * N2(wx * 0.5f, wy * 0.8f));
+            float dx = wx - ARENA_W / 2, dy = wy - ARENA_H / 2, d = std::sqrt(dx * dx + dy * dy);
+            auto gold = [&](float br) { return Lit(Color{224, 180, 76, 255}, br * (0.92f + 0.14f * N2(wx * 0.4f, wy * 0.4f))); };
+            if (d < 88 && d > 84) c = gold(1.05f);
+            else if (d < 84) {
+                c = MixF(c, Color{110, 30, 40, 255}, 0.5f);
+                if (d < 78 && d > 76) c = gold(0.85f);
+                float a = std::atan2(dy, dx);
+                float spiral = std::fmod(a * 3 / 6.2831853f + d / 40.0f + 10, 1.0f);
+                if (d < 74 && d > 16 && spiral < 0.08f) c = gold(spiral < 0.02f ? 1.15f : 0.95f);
+                if (d < 14) c = d > 10 ? gold(1.0f) : Lit(Color{60, 120, 200, 255}, d < 6 ? 1.2f : 0.95f);   // a blue dragon's-eye gem
             }
             return c;
         }
@@ -1168,6 +1259,7 @@ Image BuildImage(ArenaKind kind, const Field* f) {
                         return c;
                     }, Color{60, 26, 18, 255}, 2.0f);
                     break;
+                case Zone::Web: break;   // drawn live (fire burns webs away)
             }
         }
         if (f->spikeBand > 0) {  // toxic spikes along the edges
@@ -1254,7 +1346,12 @@ void DrawTorches(float time, ArenaKind kind) {
     else if (kind == ArenaKind::Ice) { flame = Color{150, 220, 255, 255}; core = WHITE; }
     else if (kind == ArenaKind::Ghost) { flame = Color{140, 110, 255, 255}; core = Color{220, 210, 255, 255}; }
     else if (kind == ArenaKind::Dragon) { flame = Color{120, 90, 240, 255}; core = Color{255, 180, 90, 255}; }
-    else if (kind == ArenaKind::Champion) { flame = Color{255, 200, 60, 255}; core = WHITE; }
+    else if (kind == ArenaKind::Champion || kind == ArenaKind::JohtoChampion) { flame = Color{255, 200, 60, 255}; core = WHITE; }
+    else if (kind == ArenaKind::Flying) { flame = Color{150, 200, 255, 255}; core = WHITE; }
+    else if (kind == ArenaKind::Bug) { flame = Color{190, 220, 60, 255}; core = Color{240, 255, 180, 255}; }
+    else if (kind == ArenaKind::Normal) { flame = Color{250, 140, 180, 255}; core = Color{255, 230, 240, 255}; }
+    else if (kind == ArenaKind::Steel) { flame = Color{255, 236, 170, 255}; core = WHITE; }
+    else if (kind == ArenaKind::Dark) { flame = Color{150, 60, 200, 255}; core = Color{230, 190, 255, 255}; }
     for (int i = 0; i < 4; i++) {
         int x = torchX[i] + (int)gShake.x, y = STANDS_H - 4 + (int)gShake.y;
         DrawRectangle(x, y + 6, 3, 12, Color{90, 60, 40, 255});
@@ -1312,6 +1409,12 @@ Color GymColor(ArenaKind k) {
         case ArenaKind::Ember: return Color{255, 130, 50, 255};
         case ArenaKind::Unknown: return Color{190, 120, 255, 255};
         case ArenaKind::Faraway: return Color{255, 150, 210, 255};
+        case ArenaKind::Flying: return Color{140, 190, 240, 255};
+        case ArenaKind::Bug: return Color{170, 196, 50, 255};
+        case ArenaKind::Normal: return Color{240, 140, 180, 255};
+        case ArenaKind::Steel: return Color{180, 190, 205, 255};
+        case ArenaKind::Dark: return Color{130, 80, 160, 255};
+        case ArenaKind::JohtoChampion: return Color{220, 60, 60, 255};
         default: return Color{230, 200, 90, 255};
     }
 }
@@ -1394,7 +1497,7 @@ void DrawGymSpectacle(float time, ArenaKind kind, float hype) {
             DrawEllipse((int)aim.x, (int)aim.y, 40 - k2 * 8, (40 - k2 * 8) * DEPTH, Fade(Color{255, 250, 220, 255}, 0.025f + hype * 0.015f));
     }
     EndBlendMode();
-    if (kind == ArenaKind::Champion) {   // fireworks over the stands, all battle long
+    if (kind == ArenaKind::Champion || kind == ArenaKind::JohtoChampion) {   // fireworks over the stands, all battle long
         for (int k = 0; k < 4; k++) {
             float ph = std::fmod(time * 0.45f + k * 0.29f, 1.0f);
             int cyc = (int)(time * 0.45f + k * 0.29f);

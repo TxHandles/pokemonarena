@@ -10,10 +10,12 @@ namespace {
 const char* kNames[ARENA_COUNT] = {"Stadium", "Stone Gym", "Cascade Gym", "Power Plant Gym", "Greenhouse Gym",
                                    "Swamp Gym", "Trick Room Gym", "Volcano Gym", "Hideout Gym",
                                    "Frozen Chamber", "Brawler's Ring", "Haunted Hall", "Dragon's Den", "Champion's Stadium",
-                                   "Seafoam Depths", "Power Plant", "Moltres's Nest", "Cerulean Cave", "Faraway Island"};
+                                   "Seafoam Depths", "Power Plant", "Moltres's Nest", "Cerulean Cave", "Faraway Island",
+                                   "Skyway Gym", "Hive Gym", "Moomoo Gym", "Lighthouse Gym", "Shadow Chamber", "Champion's Hall"};
 const char* kKeys[ARENA_COUNT] = {"stadium", "rock", "water", "electric", "grass", "poison", "psychic", "fire", "ground",
                                   "ice", "fighting", "ghost", "dragon", "champion",
-                                  "seafoam", "powerplant", "ember", "unknown", "faraway"};
+                                  "seafoam", "powerplant", "ember", "unknown", "faraway",
+                                  "flying", "bug", "normal", "steel", "dark", "johtochampion"};
 
 float Rf(float a, float b) { return a + (b - a) * (float)SimRand(0, 10000) / 10000.0f; }
 
@@ -94,6 +96,12 @@ const char* ArenaTwist(ArenaKind k) {
         case ArenaKind::Ember: return "Moltres's nest: lava pools spit fire, the sun blazes, and burning rocks rain down where the markers glow.";
         case ArenaKind::Unknown: return "Mewtwo's cave: deep pools slow you, it hurls boulders with its mind, and its psychic pulse ripples out every few seconds.";
         case ArenaKind::Faraway: return "Mew's island: it hides and heals in the tall grass, and teleports around the jungle when you corner it.";
+        case ArenaKind::Flying: return "High winds: when the windsocks swing, a gust shoves everyone on the ground across the field. Flying types are faster here. Hit the weather vane to turn the next gust on your foes.";
+        case ArenaKind::Bug: return "Sticky webs slow down anything that isn't a Bug - Bug types race across them and hit harder. Fire burns webs away. Hit the hive and the swarm chases your foes - Fire smokes it out.";
+        case ArenaKind::Normal: return "Hay bales give cover, and Normal types hit harder. Hit the milk tank to spill Moomoo Milk beside you - it heals whoever stands in it, Normal types twice as fast.";
+        case ArenaKind::Steel: return "The lighthouse beam sweeps the floor: in the light Steel types hit harder and everyone else slows down. Hit the lamp to reverse it and spin it faster.";
+        case ArenaKind::Dark: return "Lights out, except three drifting pools of light. In the dark, Dark types hit harder and move faster - everyone else fights better in the light.";
+        case ArenaKind::JohtoChampion: return "Lance's hall: the spotlight roams the floor and powers up whoever stands in it, while his dragon statues breathe fire across the room.";
         default: return "A classic stadium. No tricks.";
     }
 }
@@ -314,6 +322,51 @@ void Field::Build(ArenaKind k, Venue v, int seasonIn) {
             spot = spotTo = {ARENA_W / 2, ARENA_H / 2};
             spotT = 5.0f;
             break;
+        case ArenaKind::Flying:   // a few wooden posts on the open deck
+            AddObstacles(*this, Obstacle::Pillar, 3, 9, 26, 140, 100, 160, ARENA_W - 160);
+            windDir = {SimRand(0, 1) ? 1.0f : -1.0f, 0};
+            windOn = 0;
+            windT = 7.0f;
+            break;
+        case ArenaKind::Bug:
+            AddZones(*this, Zone::Web, 5, 34, 48, 80, 100);
+            AddObstacles(*this, Obstacle::Tree, 5, 10, 36, 70, 70);
+            break;
+        case ArenaKind::Normal:
+            AddObstacles(*this, Obstacle::Crate, 6, 12, 18, 80, 80);   // hay bales
+            break;
+        case ArenaKind::Steel:
+            AddObstacles(*this, Obstacle::MetalPillar, 4, 11, 30, 120, 90, 150, ARENA_W - 150, 70, ARENA_H - 70);
+            break;
+        case ArenaKind::Dark:
+            AddObstacles(*this, Obstacle::Pillar, 4, 10, 26, 110, 90, 150, ARENA_W - 150);
+            lights.clear();
+            lightTo.clear();
+            for (int i = 0; i < 3; i++) {
+                Vector2 p{ARENA_W * (0.25f + 0.25f * i), ARENA_H * (i == 1 ? 0.3f : 0.65f)};
+                lights.push_back(p);
+                lightTo.push_back(p);
+            }
+            lightT = 3.0f;
+            break;
+        case ArenaKind::JohtoChampion: {
+            spot = spotTo = {ARENA_W / 2, ARENA_H / 2};
+            spotT = 5.0f;
+            const float xs[2] = {ARENA_W * 0.3f, ARENA_W * 0.7f};   // two dragon statues on the back wall
+            for (float x : xs) {
+                Turret t;
+                t.pos = {x, 0};
+                t.dir = {0, 1};
+                turrets.push_back(t);
+            }
+            for (int k = 0; k < 2; k++) {
+                Turret t;
+                t.pos = {k ? ARENA_W : 0.0f, ARENA_H * 0.78f};
+                t.dir = {k ? -1.0f : 1.0f, 0};
+                turrets.push_back(t);
+            }
+            turretT = 8.0f;
+        } break;
         default: break;
     }
     PlaceCenterpiece();
@@ -331,6 +384,10 @@ void Field::PlaceCenterpiece() {
         case ArenaKind::Psychic: ck = Centerpiece::Orb; break;
         case ArenaKind::Fire: ck = Centerpiece::Vent; break;
         case ArenaKind::Ground: ck = Centerpiece::Spinner; break;
+        case ArenaKind::Flying: ck = Centerpiece::Vane; break;
+        case ArenaKind::Bug: ck = Centerpiece::Hive; break;
+        case ArenaKind::Normal: ck = Centerpiece::MilkTank; break;
+        case ArenaKind::Steel: ck = Centerpiece::Lamp; break;
         default: return;
     }
     Centerpiece& c = center;
@@ -347,6 +404,10 @@ void Field::PlaceCenterpiece() {
         case Centerpiece::Orb:       c.radius = 13; clear = 50; break;
         case Centerpiece::Vent:      c.radius = 26; clear = 64; c.t = 10; break;
         case Centerpiece::Spinner:   c.radius = 74; clear = 84; c.spinRate = 0.9f; c.owner = 1; c.t = 9; break;
+        case Centerpiece::Vane:      c.radius = 10; clear = 50; c.spin = std::atan2(windDir.y, windDir.x); break;
+        case Centerpiece::Hive:      c.radius = 16; clear = 54; c.charge = 100; break;
+        case Centerpiece::MilkTank:  c.radius = 18; clear = 54; c.charge = 100; break;
+        case Centerpiece::Lamp:      c.radius = 16; clear = 56; c.spin = Rf(0, 6.28f); c.spinRate = 0.55f; break;
         default: break;
     }
     if (ck == Centerpiece::Drain) {   // the middle of the pool: the drain replaces the platform there
@@ -361,7 +422,7 @@ void Field::PlaceCenterpiece() {
     o.kind = Obstacle::Center;
     o.pos = c.pos;
     o.radius = c.radius;
-    o.height = ck == Centerpiece::Orb ? 46 : (ck == Centerpiece::Vent ? 40 : 40);
+    o.height = ck == Centerpiece::Orb ? 46 : (ck == Centerpiece::Vane || ck == Centerpiece::Lamp ? 56 : 40);
     o.seed = 1;
     obs.push_back(o);
 }

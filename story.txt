@@ -599,3 +599,442 @@ catch = no
 rival = yes
 arena = champion
 league = 5
+
+# ==========================================================================
+#  JOHTO - opens once the Kanto Champion is beaten ("Travel to Johto!" on the Story menu).
+#  You pick a second starter at start_level (same rules as Kanto); Silver takes one that beats
+#  yours (co-op: two of the four left). "rival" below is his Johto starter.
+# ==========================================================================
+[region]
+name = Johto
+map_image = johto.png
+start_level = 60
+town = New Bark Town, 973, 623
+town = Cherrygrove City, 705, 616
+town = Violet City, 598, 348
+town = Azalea Town, 491, 777
+town = Goldenrod City, 384, 562
+town = Ecruteak City, 491, 241
+town = Olivine City, 276, 348
+town = Cianwood City, 169, 616
+town = Mahogany Town, 759, 241
+town = Blackthorn City, 919, 241
+town = Indigo Plateau, 1056, 440
+town = Mt. Silver, 150, 80
+
+# ---------------------------------------------------------------- Chapter 1: New Bark Town to Violet City
+[stage]
+name = Cherrygrove City
+map = 705, 636
+trainer = Rival Silver
+say = ... You got a Pokemon from Elm's lab too? What a waste. Don't get in my way - I'll show you what a real trainer does with one!
+team = Gastly -3, Zubat -3, rival
+lv = 60
+cpu = hard
+catch = no
+rival = yes
+
+[stage]
+name = Route 30
+map = 705, 480
+trainer = Youngster Joey
+say = Hey, you! My Rattata is in the top percentage of Rattata. Want to see?
+team = Rattata -2, Pidgey -2, Raticate +1
+lv = 61
+cpu = hard
+
+[stage]
+name = Sprout Tower
+map = 625, 322
+trainer = Elder Li
+say = The tower sways like Bellsprout so it never falls. Show me that you and your Pokemon bend together without breaking.
+team = Bellsprout -2, Bellsprout -2, Hoothoot +1
+lv = 62
+cpu = hard
+venue = tower
+
+[stage]
+name = Violet Gym
+map = 598, 348
+trainer = Leader Falkner
+say = I'm Falkner, the Violet Gym leader! People say you can clip Flying-type Pokemon's wings with a jolt of electricity... I won't allow such insults to bird Pokemon!
+team = Pidgey -6, Noctowl -3, Fearow -2, Dodrio -2, Pidgeotto +2
+lv = 64
+cpu = hard
+arena = flying
+badge = Zephyr
+
+# ---------------------------------------------------------------- Chapter 2: Union Cave to Azalea Town
+[stage]
+name = Union Cave
+map = 594, 773
+trainer = Hiker Daniel
+say = Whoa! Careful down here - this cave goes deep, and my Pokemon are as tough as the rock!
+team = Geodude -2, Onix -1, Graveler +1
+lv = 63
+cpu = hard
+venue = cave
+
+[stage]
+name = Slowpoke Well
+map = 462, 752
+trainer = Rocket Executive Proton
+say = Selling Slowpoke tails is good business. Team Rocket is back, kid - and you're not stopping us!
+team = Zubat -2, Koffing -2, Golbat +1
+lv = 64
+cpu = hard
+venue = cave
+
+[stage]
+name = Azalea Gym
+map = 491, 777
+trainer = Leader Bugsy
+say = I'm Bugsy! I never lose when it comes to Bug Pokemon. My research is going to make me the authority on them - let me demonstrate!
+team = Metapod -6, Kakuna -6, Ledian -2, Butterfree -2, Scyther +2
+lv = 66
+cpu = hard
+arena = bug
+badge = Hive
+
+[stage]
+name = Azalea Town
+map = 515, 795
+trainer = Rival Silver
+say = ...So you beat the Rockets in the well. Whatever. Weaklings who gang up don't matter. I'm going to be the strongest!
+team = Gastly -3, Zubat -3, rival
+lv = 66
+cpu = hard
+catch = no
+rival = yes
+
+# ---------------------------------------------------------------- Chapter 3: Ilex Forest to Goldenrod City
+[stage]
+name = Ilex Forest
+map = 384, 760
+trainer = Bug Catcher Wayne
+say = Shh! The forest has a shrine to its guardian. Battle quietly... if you can!
+team = Ledyba -2, Spinarak -2, Paras +1
+lv = 66
+cpu = hard
+venue = forest
+
+[stage]
+name = Route 34
+map = 384, 665
+trainer = Picnicker Gina
+say = The wind is perfect for my Hoppip today! Let's battle before they float away!
+team = Hoppip -2, Skiploom -1, Jumpluff +1
+lv = 67
+cpu = hard
+
+[stage]
+name = Goldenrod Gym
+map = 384, 562
+trainer = Leader Whitney
+say = Hi! I'm Whitney! Everyone was into Pokemon, so I got into it too! Pokemon are super cute! You want to battle? I'm warning you - I'm good!
+team = Clefairy -4, Wigglytuff -2, Girafarig -2, Clefable -1, Miltank +2
+lv = 68
+cpu = hard
+arena = normal
+badge = Plain
+
+# ---------------------------------------------------------------- Chapter 4: Ecruteak City
+[stage]
+name = Route 36
+map = 480, 348
+trainer = The Odd Tree
+say = A strange tree blocks the road. You splash it with the Squirtbottle... the tree jumps up and attacks!
+team = Sudowoodo +3
+lv = 68
+cpu = hard
+catch = no
+reward = no
+join = yes
+
+[stage]
+name = Burned Tower
+map = 466, 222
+trainer = Rival Silver
+say = ...The legendary Pokemon that sleep here - I'll catch them all. But first I'll beat you, right here!
+team = Haunter -3, Zubat -3, Magnemite -3, rival
+lv = 69
+cpu = hard
+catch = no
+rival = yes
+venue = tower
+
+[stage]
+name = Ecruteak Gym
+map = 491, 241
+trainer = Leader Morty
+say = I'm Morty. Here in Ecruteak, Pokemon are revered. It's said that a rainbow Pokemon will come down to the trainer it chooses. I believe that legend - and I've trained so I'll be the one!
+team = Gastly -5, Haunter -4, Misdreavus -2, Haunter -3, Gengar +2
+lv = 71
+cpu = hard
+arena = ghost
+badge = Fog
+
+# ---------------------------------------------------------------- Chapter 5: Olivine and Cianwood
+[stage]
+name = Olivine Lighthouse
+map = 252, 326
+trainer = Sailor Huey
+say = Ahoy! The lighthouse Pokemon is sick, and the Gym Leader won't leave its side. Battle me while you wait!
+team = Poliwag -3, Poliwhirl -2, Tentacruel +1
+lv = 70
+cpu = hard
+venue = tower
+
+[stage]
+name = Route 41
+map = 214, 486
+trainer = Swimmer Kirk
+say = The currents around the Whirl Islands are wild today. Let's see if you can keep up!
+team = Tentacool -2, Mantine -1, Quagsire +1
+lv = 71
+cpu = hard
+venue = beach
+
+[stage]
+name = Cianwood Gym
+map = 169, 616
+trainer = Leader Chuck
+say = WAHAHAH! So you've come this far! Let me tell you, I'm tough! My Pokemon will crush stones and shatter bones! Watch this!
+team = Hitmonchan -3, Machamp -2, Hitmonlee -3, Primeape -2, Poliwrath +2
+lv = 72
+cpu = hard
+arena = fighting
+badge = Storm
+
+[stage]
+name = Olivine Gym
+map = 276, 348
+trainer = Leader Jasmine
+say = Thank you for the medicine - Amphy is shining again. ...Um, I'm Jasmine, a Gym Leader. I use the Steel type. Let's... let's begin.
+team = Magnemite -5, Magnemite -5, Skarmory -2, Magneton -2, Steelix +2
+lv = 73
+cpu = hard
+arena = steel
+badge = Mineral
+
+# ---------------------------------------------------------------- Chapter 6: Lake of Rage and Mahogany Town
+[stage]
+name = Lake of Rage
+map = 755, 131
+trainer = Red Gyarados
+say = The lake churns. A furious, glowing red Gyarados - forced to evolve by a strange signal - rises from the water!
+team = Gyarados shiny +3
+lv = 72
+cpu = hard
+catch = no
+reward = no
+join = yes
+venue = beach
+
+[stage]
+name = Rocket Hideout
+map = 738, 226
+trainer = Rocket Executive Petrel
+say = That radio signal makes Pokemon evolve - and Team Rocket rich. A Dragon master helping a kid? You'll both regret it!
+team = Koffing -2, Raticate -2, Weezing +1
+lv = 73
+cpu = hard
+venue = hideout
+
+[stage]
+name = Rocket Hideout B3
+map = 782, 258
+trainer = Rocket Executive Ariana
+say = You've come all the way to the generator room? How tiresome. Let me show you how Team Rocket deals with pests.
+team = Arbok -2, Gloom -2, Murkrow +1
+lv = 74
+cpu = hard
+venue = hideout
+
+[stage]
+name = Mahogany Gym
+map = 759, 241
+trainer = Leader Pryce
+say = Pokemon have many experiences in their lives, just like we do. I, too, have seen and suffered much. I am Pryce - the winter trainer. Let me show you my power!
+team = Seel -4, Jynx -2, Dewgong -3, Lapras -2, Piloswine +2
+lv = 75
+cpu = hard
+arena = ice
+badge = Glacier
+
+# ---------------------------------------------------------------- Chapter 7: The Radio Tower takeover
+[stage]
+name = Goldenrod Underground
+map = 408, 586
+trainer = Rival Silver
+say = ...I lost to Lance's dragons, and he told me I don't love my Pokemon. What would he know? I'll prove him wrong by beating you!
+team = Golbat -3, Haunter -3, Magnemite -4, Sneasel -2, rival
+lv = 75
+cpu = hard
+catch = no
+rival = yes
+venue = city
+
+[stage]
+name = Radio Tower 3F
+map = 360, 540
+trainer = Rocket Executive Proton
+say = Team Rocket has taken the Radio Tower! Soon Giovanni will hear our call and come home. Get lost!
+team = Golbat -2, Weezing -2, Arbok +1
+lv = 76
+cpu = hard
+venue = tower
+
+[stage]
+name = Radio Tower 4F
+map = 350, 560
+trainer = Rocket Executive Petrel
+say = Heh heh... I'm the Director! ...Fooled you! I'm Petrel, master of disguise - and you're too late!
+team = Koffing -3, Weezing -2, Raticate -2, Muk +1
+lv = 76
+cpu = hard
+venue = tower
+
+[stage]
+name = Radio Tower 5F
+map = 404, 540
+trainer = Rocket Executive Archer
+say = I am Archer, the leader of Team Rocket while Giovanni is away. Three years we waited for this. A child won't ruin it!
+team = Houndour -3, Koffing -3, Houndoom +1
+lv = 77
+cpu = hard
+venue = tower
+
+[stage]
+name = Ecruteak Dance Theater
+map = 516, 262
+trainer = The Kimono Girls
+say = We are the Kimono Girls. We dance to welcome the rainbow and the silver wings. Show us the bond between you and your Pokemon - five dances in a row!
+team = Flareon -1, Espeon -1, Umbreon -1, Vaporeon -1, Jolteon
+lv = 77
+cpu = hard
+catch = no
+venue = tower
+
+# ---------------------------------------------------------------- Chapter 8: Ice Path to Blackthorn City
+[stage]
+name = Ice Path
+map = 840, 241
+trainer = Boarder Patton
+say = The floor in here is pure ice! One wrong step and - whoosh! Let's battle before we both slide away!
+team = Sneasel -2, Delibird -2, Swinub +1
+lv = 76
+cpu = hard
+venue = ice cave
+
+[stage]
+name = Blackthorn Gym
+map = 919, 241
+trainer = Leader Clair
+say = I am Clair - the world's best Dragon master. I can hold my own against even the Elite Four! Do you still want to take me on? ...Fine. Let's do it!
+team = Dragonair -4, Dragonair -4, Gyarados -3, Dragonair -3, Kingdra +2
+lv = 79
+cpu = hard
+arena = dragon
+badge = Rising
+
+[stage]
+name = Dragon's Den
+map = 944, 214
+trainer = Cooltrainer Darin
+say = The Elder of the Dragon clan is watching. Pass his test and Clair will have to give you the Rising Badge!
+team = Dratini -3, Dragonair -1, Seadra +1
+lv = 78
+cpu = hard
+venue = cave
+
+# ---------------------------------------------------------------- Chapter 9: The road to the League
+[stage]
+name = Route 27
+map = 1050, 600
+trainer = Cooltrainer Megan
+say = I came all the way from Kanto past Tohjo Falls. My Venusaur and I have never lost together!
+team = Bulbasaur -3, Ivysaur -2, Venusaur +1
+lv = 79
+cpu = hard
+
+[stage]
+name = Victory Road
+map = 1090, 500
+trainer = Rival Silver
+say = ...I haven't forgotten what I lost. I've been training - with my Pokemon, not just using them. This time... I'll win, together with them!
+team = Sneasel -3, Crobat -2, Magneton -3, Gengar -2, Alakazam -2, rival +2
+lv = 80
+cpu = hard
+catch = no
+rival = yes
+venue = cave
+
+# ---------------------------------------------------------------- The Pokemon League (Johto)
+[stage]
+name = Will's Chamber
+map = 1070, 405
+trainer = Elite Four Will
+say = Welcome to the Pokemon League. I am Will. I have trained all around the world, making my Psychic Pokemon powerful. And now, I'm finally one of the Elite Four!
+team = Xatu -2, Jynx -2, Exeggutor -2, Slowbro -2, Xatu +1
+lv = 81
+cpu = hard
+arena = psychic
+league = 1
+
+[stage]
+name = Koga's Chamber
+map = 1084, 382
+trainer = Elite Four Koga
+say = Fwahahahaha! I am Koga of the Elite Four. I live in shadows, a ninja! My intricate style will confound and destroy you!
+team = Ariados -2, Forretress -2, Muk -2, Venomoth -1, Crobat +1
+lv = 82
+cpu = hard
+arena = poison
+league = 2
+
+[stage]
+name = Bruno's Ring
+map = 1100, 382
+trainer = Elite Four Bruno
+say = I am Bruno of the Elite Four. Through rigorous training, people and Pokemon can become stronger. We will grind you down with our superior power! Hoo hah!
+team = Hitmontop -2, Hitmonlee -2, Hitmonchan -2, Onix -3, Machamp +1
+lv = 83
+cpu = hard
+arena = fighting
+league = 3
+
+[stage]
+name = Karen's Chamber
+map = 1114, 405
+trainer = Elite Four Karen
+say = I am Karen of the Elite Four. Strong Pokemon. Weak Pokemon. That is only the selfish perception of people. Truly skilled trainers should try to win with their favorites.
+team = Umbreon -3, Vileplume -3, Gengar -2, Murkrow -3, Houndoom +1
+lv = 85
+cpu = hard
+arena = dark
+league = 4
+
+[stage]
+name = Champion's Room
+map = 1092, 418
+trainer = Champion Lance
+say = I've been waiting for you. I knew that you, with your skills, would eventually reach me here. As the most powerful trainer and as the Pokemon League Champion... I, Lance the Dragon master, accept your challenge!
+team = Gyarados -4, Dragonite -3, Charizard -4, Aerodactyl -4, Dragonite -3, Dragonite +1
+lv = 88
+cpu = hard
+arena = johtochampion
+league = 5
+
+# ---------------------------------------------------------------- Mt. Silver (after Lance)
+[stage]
+name = Mt. Silver
+map = 150, 80
+trainer = Pokemon Trainer Red
+say = ...
+team = Pikachu +2, Espeon -2, Snorlax -2, Venusaur -1, Charizard -1, Blastoise -1
+lv = 95
+cpu = hard
+catch = no
+venue = mountain
+outdoor = yes

@@ -10,7 +10,9 @@ void UnloadStoryMap();
 bool StoryMapHasImage();
 
 // Draws the map fitted into the box. focusStage >= 0 adds a cursor ring there (map screen).
-void DrawStoryMap(const Profile& p, int x, int y, int w, int h, float t, bool townLabels, int focusStage = -1);
+// Each region (Kanto, Johto) has its own map: region -1 = the focus stage's region, or the region
+// of the player's next battle.
+void DrawStoryMap(const Profile& p, int x, int y, int w, int h, float t, bool townLabels, int focusStage = -1, int region = -1);
 
 Color BadgeColor(const std::string& badge);
 // The badge: its picture from Badges/ when there is one (dark until won), else a colored hexagon.

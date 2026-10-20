@@ -193,22 +193,31 @@ int& StoryClock(Game& g) { return g.coop ? g.coopSave.clock : g.profile.clock; }
 int StoryClock(const Game& g) { return g.coop ? g.coopSave.clock : g.profile.clock; }
 
 // The rival picks his starter(s) once and keeps them for every battle (saved with the progress).
-void EnsureRival(Game& g) {
+// Kanto: Blue, against your first starter. Johto: Silver, against Professor Elm's gift.
+void EnsureRival(Game& g, int region) {
+    bool johto = region >= 1;
     if (!g.coop) {
-        if (SpeciesIndex(g.profile.rival) >= 0) return;
-        int r = PickRivalSolo(ProfileStarter(g.profile));
+        std::string& rv = johto ? g.profile.rival2 : g.profile.rival;
+        if (SpeciesIndex(rv) >= 0) return;
+        int mine = johto ? SpeciesIndex(g.profile.starter2) : ProfileStarter(g.profile);
+        if (johto && mine < 0) return;
+        int r = PickRivalSolo(mine);
         if (r < 0) return;
-        g.profile.rival = AllSpecies()[r].name;
+        rv = AllSpecies()[r].name;
         SaveWho(g, 0);
         return;
     }
-    if (SpeciesIndex(g.coopSave.rival[0]) >= 0) return;
+    std::string* rv = johto ? g.coopSave.rival2 : g.coopSave.rival;
+    if (SpeciesIndex(rv[0]) >= 0) return;
     if (g.on.active && g.on.me != 0) return;   // online: the host picks (it reaches the guest with the co-op save)
+    int a = johto ? SpeciesIndex(g.coopP[0].starter2) : ProfileStarter(g.coopP[0]);
+    int b = johto ? SpeciesIndex(g.coopP[1].starter2) : ProfileStarter(g.coopP[1]);
+    if (johto && (a < 0 || b < 0)) return;
     int out[2];
-    PickRivalCoop(ProfileStarter(g.coopP[0]), ProfileStarter(g.coopP[1]), out);
+    PickRivalCoop(a, b, out);
     if (out[0] < 0) return;
-    g.coopSave.rival[0] = AllSpecies()[out[0]].name;
-    g.coopSave.rival[1] = out[1] >= 0 ? AllSpecies()[out[1]].name : std::string();
+    rv[0] = AllSpecies()[out[0]].name;
+    rv[1] = out[1] >= 0 ? AllSpecies()[out[1]].name : std::string();
     if (g.on.active) OnlineSendCoop(g);
     else SaveCoop(g.coopSave);
 }
@@ -238,6 +247,31 @@ int BadgeCount(const Game& g) { return (int)(g.coop ? g.coopSave.badges.size() :
 bool StoryDone(const Game& g) {
     int st = g.coop ? g.coopSave.storyStage : g.profile.storyStage;
     return !Story().stages.empty() && st >= (int)Story().stages.size();
+}
+int CurStage(const Game& g) { return g.coop ? g.coopSave.storyStage : g.profile.storyStage; }
+bool RegionDone(const Game& g, int r) {
+    if (r >= RegionCount()) return false;
+    const auto& R = RegionInfo(r);
+    return R.end > R.first && CurStage(g) >= R.end;
+}
+bool KantoDone(const Game& g) { return RegionCount() > 1 ? RegionDone(g, 0) : StoryDone(g); }
+bool NeedsJohtoStarter(const Game& g) {
+    if (RegionCount() < 2 || CurStage(g) < RegionInfo(1).first || RegionInfo(1).end <= RegionInfo(1).first) return false;
+    if (g.coop) return g.coopP[0].starter2.empty() || g.coopP[1].starter2.empty();
+    return g.profile.starter2.empty();
+}
+void BeginJohtoStarter(Game& g) {
+    g.johtoPick = true;
+    g.johtoRevealT = -1;
+    if (g.coop) {
+        g.coopReady[0] = g.coopReady[1] = false;
+        g.coopStarterSel[0] = 0;
+        g.coopStarterSel[1] = std::min(1, std::max(0, (int)Story().starters.size() - 1));
+        g.screen = Screen::CoopStarter;
+    } else {
+        g.starterSel = 0;
+        g.screen = Screen::Starter;
+    }
 }
 
 uint32_t TowerSeedFor(const Game& g) {
@@ -271,7 +305,7 @@ StageDef ActiveStage(const Game& g) {
 namespace {
 // Where the League run stands: how many of the five are beaten in this run (-1: not in the League yet).
 int LeagueProgress(int storyStage) {
-    int start = LeagueStartStage();
+    int start = LeagueStartStage(StageRegion(storyStage));
     if (start < 0 || storyStage < start) return -1;
     return storyStage - start;
 }
@@ -281,6 +315,7 @@ std::string NextLine(const Game& g, int storyStage) {
         int best = g.coop ? g.coopSave.towerBest : g.profile.towerBest;
         return best > 0 ? TextFormat("Champion! Battle Tower record: floor %d", best) : "Champion! The Battle Tower is open - how high can you climb?";
     }
+    if (NeedsJohtoStarter(g)) return "Kanto Champion! A new journey awaits in Johto - travel there from the menu.";
     const StageDef& st = stages[storyStage];
     std::string l = "Next: " + st.trainer + "  -  " + st.name;
     int lp = LeagueProgress(storyStage);
@@ -434,6 +469,27 @@ void UpdateStarter(Game& g) {
     if (n == 0) { EnterStoryHub(g); return; }
     if (in.left) { g.starterSel = (g.starterSel + n - 1) % n; PlaySfx(Sfx::MenuMove); }
     if (in.right) { g.starterSel = (g.starterSel + 1) % n; PlaySfx(Sfx::MenuMove); }
+    if (g.johtoPick) {   // Professor Elm's gift on arriving in Johto
+        if (g.johtoRevealT >= 0) {   // Silver has taken his: on to Johto
+            g.johtoRevealT += GetFrameTime();
+            if (g.johtoRevealT > 2.5f && (in.confirm || in.back)) { g.johtoPick = false; g.johtoRevealT = -1; EnterStoryHub(g); }
+            return;
+        }
+        if (in.back) { g.johtoPick = false; EnterStoryHub(g); return; }
+        if (!in.confirm) return;
+        int idx = SpeciesIndex(Story().starters[g.starterSel]);
+        if (idx < 0) return;
+        bool boxed = AddMon(g.profile, NewMon(idx, RegionInfo(1).startLevel));
+        g.profile.starter2 = AllSpecies()[idx].name;
+        g.profile.rival2.clear();
+        DexRegisterOwned(g.profile);
+        EnsureRival(g, 1);   // Silver steals one of the starters that beat yours
+        SaveOrWarn(g);
+        PlaySfx(Sfx::LevelUp);
+        Toast(g, AllSpecies()[idx].name + (boxed ? " was sent to your Box." : " joined your team!"));
+        g.johtoRevealT = 0;
+        return;
+    }
     if (in.back) { g.screen = Screen::ProfileSelect; g.profiles = ListProfiles(); return; }
     if (!in.confirm) return;
     int idx = SpeciesIndex(Story().starters[g.starterSel]);
@@ -448,10 +504,65 @@ void UpdateStarter(Game& g) {
     EnterStoryHub(g);
 }
 
+void DrawSilverReveal(const Game& g, const std::vector<std::string>& yours, const std::vector<std::string>& his) {
+    float u = std::max(0.0f, g.johtoRevealT);
+    DrawRectangle(0, 66, VW, 270, Fade(UI_INK, 0.75f));
+    // yours, under a calm light
+    int n = 0;
+    for (const auto& s : yours) n += SpeciesIndex(s) >= 0;
+    int k = 0;
+    for (const auto& s : yours) {
+        int idx = SpeciesIndex(s);
+        if (idx < 0) continue;
+        int cx = 150 + (n > 1 ? (k == 0 ? -50 : 50) : 0);
+        DrawEllipse(cx, 220, 40, 9, Fade(BLACK, 0.4f));
+        DrawSpeciesFit(idx, VIEW_FRONT, cx, 218, 76);
+        DrawTextCentered(AllSpecies()[idx].name.c_str(), cx, 228, 10, UI_TEXT, false);
+        k++;
+    }
+    DrawTextCentered(n > 1 ? "Your partners" : "Your partner", 150, 90, 10, UI_GOLD, false);
+    // his, slammed in with red light
+    float in = std::min(1.0f, u / 0.5f);
+    float e = 1 - (1 - in) * (1 - in) * (1 - in);
+    int m = 0;
+    for (const auto& s : his) m += SpeciesIndex(s) >= 0;
+    k = 0;
+    for (const auto& s : his) {
+        int idx = SpeciesIndex(s);
+        if (idx < 0) continue;
+        int cx = 490 + (m > 1 ? (k == 0 ? -50 : 50) : 0) + (int)((1 - e) * 220);
+        float pulse = 0.5f + 0.5f * std::sin(g.t * 5 + k);
+        DrawCircleGradient(cx, 186, 52, Fade(Color{220, 50, 60, 255}, (0.3f + 0.15f * pulse) * e), Fade(Color{220, 50, 60, 255}, 0));
+        DrawEllipse(cx, 220, 40, 9, Fade(BLACK, 0.4f));
+        DrawSpeciesFit(idx, VIEW_FRONT, cx, 218, 76);
+        DrawTextCentered(AllSpecies()[idx].name.c_str(), cx, 228, 10, Color{255, 140, 140, 255}, false);
+        k++;
+    }
+    DrawTextCentered("SILVER", 490 + (int)((1 - e) * 220), 84, 20, Color{230, 70, 80, 255});
+    DrawTextCentered("VS", VW / 2, 170, 30, Fade(UI_GOLD, e));
+    std::string names;
+    for (size_t i = 0; i < his.size(); i++) if (!his[i].empty()) names += (names.empty() ? "" : " and ") + his[i];
+    if (u > 0.6f) {
+        DrawPanel(60, 252, 520, 50, UI_PANEL, Color{230, 70, 80, 255});
+        DrawTextCentered(TextFormat("A boy with red hair broke into Professor Elm's lab and stole %s!", names.c_str()), VW / 2, 260, 10, UI_TEXT, false);
+        DrawTextCentered("\"...What are you staring at? This one's strong - it beats yours. Remember the name: Silver.\"", VW / 2, 278, 10, Color{255, 170, 170, 255}, false);
+    }
+    if (u > 2.5f) DrawTextCentered("Enter: on to Johto!", VW / 2, 318, 10, UI_GOLD, false);
+    DrawToast(g);
+}
+
 void DrawStarter(const Game& g) {
     DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
-    DrawTextCentered("CHOOSE YOUR FIRST PARTNER", VW / 2, 20, 20, UI_GOLD);
-    DrawTextCentered(TextFormat("Welcome, %s! Your partner starts at level %d.", g.profile.name.c_str(), Story().startLevel), VW / 2, 46, 10, UI_TEXT, false);
+    int lvl = g.johtoPick ? RegionInfo(1).startLevel : Story().startLevel;
+    if (g.johtoPick) {
+        DrawTextCentered("WELCOME TO JOHTO", VW / 2, 14, 20, UI_GOLD);
+        DrawTextCentered(TextFormat("Professor Elm in New Bark Town has a Pokemon for you, %s! It starts at level %d.", g.profile.name.c_str(), lvl), VW / 2, 40, 10, UI_TEXT, false);
+        DrawTextCentered("A red-haired boy is watching the lab window... he'll take one that beats yours.", VW / 2, 54, 10, UI_DIM, false);
+        if (g.johtoRevealT >= 0) { DrawSilverReveal(g, {g.profile.starter2}, {g.profile.rival2}); return; }
+    } else {
+        DrawTextCentered("CHOOSE YOUR FIRST PARTNER", VW / 2, 20, 20, UI_GOLD);
+        DrawTextCentered(TextFormat("Welcome, %s! Your partner starts at level %d.", g.profile.name.c_str(), Story().startLevel), VW / 2, 46, 10, UI_TEXT, false);
+    }
     int n = (int)Story().starters.size();
     int gap = n > 3 ? 8 : 20;
     int cw = std::min(150, (620 - (n - 1) * gap) / std::max(1, n));
@@ -460,19 +571,20 @@ void DrawStarter(const Game& g) {
         int idx = SpeciesIndex(Story().starters[i]);
         if (idx < 0) continue;
         int x = x0 + i * (cw + gap);
-        DrawCreatureCard(idx, Story().startLevel, x, 70, cw, 130, g.starterSel == i);
+        DrawCreatureCard(idx, lvl, x, 70, cw, 130, g.starterSel == i);
     }
     int idx = SpeciesIndex(Story().starters[g.starterSel]);
     if (idx >= 0) {
         const SpeciesDef& sp = AllSpecies()[idx];
         DrawPanel(120, 212, 400, 120);
-        auto moves = MovesAtLevel(sp, Story().startLevel);
+        auto moves = MovesAtLevel(sp, lvl);
         GDrawText("Starts with:", 130, 220, 10, UI_DIM);
         for (size_t k = 0; k < moves.size(); k++) DrawMoveLine(moves[k], 130, 234 + (int)k * 22, 380, true);
         std::string hint = EvolutionHint(idx);
         if (!hint.empty()) GDrawText(hint.c_str(), 130, 318, 10, UI_GOLD);
     }
-    DrawTextCentered("Left/Right choose   Enter confirm", VW / 2, 342, 10, UI_DIM, false);
+    DrawTextCentered(g.johtoPick ? "Left/Right choose   Enter confirm   Esc: not yet" : "Left/Right choose   Enter confirm", VW / 2, 342, 10, UI_DIM, false);
+    DrawToast(g);
 }
 
 // ------------------------------------------------------------------ hub
@@ -532,18 +644,21 @@ void UpdateStoryHub(Game& g) {
     const int N = 11;
     if (HubNav(g, in, N, false)) return;
     if (g.hubSel == 1 && (in.left || in.right)) { CycleTrainArea(g, in.left ? -1 : 1); SaveOrWarn(g); return; }
+    if (g.hubSel == 0 && (in.left || in.right) && KantoDone(g) && !StoryDone(g)) { g.hubTower = !g.hubTower; PlaySfx(Sfx::MenuMove); return; }
     if (in.back) { SaveOrWarn(g); GoTitle(g); return; }
     if (!in.confirm) return;
     PlaySfx(Sfx::MenuOk);
     int stages = (int)Story().stages.size();
-    if (((g.hubSel == 0 && !StoryDone(g)) || g.hubSel == 1) && HealthyCount(g.profile) == 0) {
+    bool tower = StoryDone(g) || (KantoDone(g) && g.hubTower);
+    if (g.hubSel == 0 && !tower && NeedsJohtoStarter(g)) { BeginJohtoStarter(g); return; }
+    if (((g.hubSel == 0 && !tower) || g.hubSel == 1) && HealthyCount(g.profile) == 0) {
         Toast(g, "Your whole team has fainted! Visit the Healing Center first.");
         OpenHealingCenter(g);
         return;
     }
     switch (g.hubSel) {
         case 0:
-            if (StoryDone(g)) { BeginTowerFloor(g, g.profile.towerFloor + 1, TowerSeedFor(g)); break; }
+            if (tower) { BeginTowerFloor(g, g.profile.towerFloor + 1, TowerSeedFor(g)); break; }
             g.stageIdx = std::min(g.profile.storyStage, stages - 1);
             g.mode = Mode::Story;
             g.rareBattle = false;
@@ -612,6 +727,24 @@ void UpdateStoryHub(Game& g) {
 }
 
 namespace {
+// The hub's first item: the next story battle, the League, the trip to Johto, or the Battle Tower
+// (once Kanto is done, Left/Right swaps between the story and the Tower).
+std::string CoopFirstLabel(const Game& g, bool tower, int storyStage) {
+    bool swap = KantoDone(g) && !StoryDone(g);
+    std::string s;
+    if (tower) s = TextFormat("Battle Tower 2v2: floor %d  (best %d)", g.coopSave.towerFloor + 1, g.coopSave.towerBest);
+    else if (NeedsJohtoStarter(g)) s = "Travel to Johto together!";
+    else s = LeagueProgress(storyStage) >= 0 ? (StageRegion(storyStage) >= 1 ? "Johto League (2v2)" : "Pokemon League (2v2)") : "Story battle (2v2)";
+    return swap ? "< " + s + " >" : s;
+}
+std::string HubFirstLabel(const Game& g, bool tower, int storyStage, int towerFloor, int towerBest) {
+    bool swap = KantoDone(g) && !StoryDone(g);
+    std::string s;
+    if (tower) s = TextFormat("Battle Tower: floor %d  (best %d)", towerFloor + 1, towerBest);
+    else if (NeedsJohtoStarter(g)) s = "Travel to Johto!";
+    else s = LeagueProgress(storyStage) >= 0 ? (StageRegion(storyStage) >= 1 ? "Johto League" : "Pokemon League") : "Story battle";
+    return swap ? "< " + s + " >" : s;
+}
 // The hub's Map item: legendary encounters live in a tab on the Map, so it says when some are waiting.
 std::string MapHubLabel(const Game& g) {
     if (BadgeCount(g) < 8) return "Map";
@@ -714,6 +847,7 @@ void DrawStoryHub(const Game& g) {
     DrawHubSky(p.clock, (float)GetTime());
     int stages = (int)Story().stages.size();
     bool done = p.storyStage >= stages;
+    bool tower = done || (KantoDone(g) && g.hubTower);
 
     // Map on the left
     DrawStoryMap(p, 8, 26, 400, 300, g.t, false);
@@ -726,9 +860,10 @@ void DrawStoryHub(const Game& g) {
     int rx = 416, rw = 216;
     DrawCoins(p.coins, rx, 6);
     GDrawText(TextFormat("%dW %dL", p.wins, p.losses), rx + 60, 7, 10, UI_DIM);
-    std::vector<std::string> badges;
+    std::vector<std::string> badges;   // this region's
+    int hubRegion = StageRegion(std::min(p.storyStage, std::max(0, stages - 1)));
     for (const auto& st : Story().stages)
-        if (st.IsGym()) badges.push_back(st.badge);
+        if (st.IsGym() && st.region == hubRegion) badges.push_back(st.badge);
     for (size_t i = 0; i < badges.size(); i++) DrawBadge(badges[i], rx + rw - 6 - (int)(badges.size() - 1 - i) * 14, 12, HasBadge(p, badges[i]));
 
     // Menu
@@ -740,7 +875,7 @@ void DrawStoryHub(const Game& g) {
     int dexCaught = 0;
     for (const auto& sp : AllSpecies()) if (sp.dex > 0 && sp.custom && DexHasCaught(p, sp.name)) dexCaught++;
     std::string items[11] = {
-        done ? TextFormat("Battle Tower: floor %d  (best %d)", p.towerFloor + 1, p.towerBest) : LeagueProgress(p.storyStage) >= 0 ? "Pokemon League" : "Story battle",
+        HubFirstLabel(g, tower, p.storyStage, p.towerFloor, p.towerBest),
         (rare ? "RARE in " : "Training: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
         MapHubLabel(g),
         GameCornerOpen(g) ? "Shop & Game Corner" : "Shop",
@@ -849,8 +984,16 @@ bool MapTabSwitch(Game& g, bool toLegends) {
         return false;
     }
     PlaySfx(Sfx::MenuMove);
-    if (toLegends) OpenLegends(g);
-    else g.screen = Screen::Map;
+    if (toLegends) {   // the legendaries of the region the map is showing
+        int r = StageRegion(g.mapSel);
+        if (Legend(g.legendSel).region != r)
+            for (int i = 0; i < LEGEND_COUNT; i++) if (Legend(i).region == r) { g.legendSel = i; break; }
+        OpenLegends(g);
+    } else {
+        int r = Legend(g.legendSel).region;   // back on the map: the same region
+        if (StageRegion(g.mapSel) != r && r < RegionCount()) g.mapSel = std::min(RegionInfo(r).first, (int)Story().stages.size() - 1);
+        g.screen = Screen::Map;
+    }
     return true;
 }
 
@@ -895,12 +1038,15 @@ void UpdateMap(Game& g) {
         g.hubSel = 2;
         return;
     }
-    int maxSel = n - 1;
+    // Browse the regions reached so far (Johto's map shows once you've got there).
+    int maxSel = std::min(n - 1, RegionInfo(StageRegion(std::min(CurStage(g), n - 1))).end - 1);
+    if (maxSel < 0) maxSel = n - 1;
+    g.mapSel = std::min(g.mapSel, maxSel);
     if (in.up) { g.mapSel = std::max(0, g.mapSel - 1); PlaySfx(Sfx::MenuMove); }
     if (in.down) { g.mapSel = std::min(maxSel, g.mapSel + 1); PlaySfx(Sfx::MenuMove); }
     if (in.left || in.right) {   // jump to the previous / next gym
         int d = in.left ? -1 : 1;
-        for (int i = g.mapSel + d; i >= 0 && i < n; i += d)
+        for (int i = g.mapSel + d; i >= 0 && i <= maxSel; i += d)
             if (stages[i].IsBoss()) { g.mapSel = i; PlaySfx(Sfx::MenuMove); break; }
     }
 }
@@ -919,7 +1065,8 @@ void DrawMap(const Game& g) {
     const StageDef& st = stages[g.mapSel];
     bool beaten = g.mapSel < pv.storyStage;
     bool isNext = g.mapSel == pv.storyStage;
-    GDrawText(TextFormat("Stage %d of %d", g.mapSel + 1, n), x + 8, 26, 10, UI_DIM);
+    const auto& RG = RegionInfo(st.region);
+    GDrawText(TextFormat("%s  -  stage %d of %d", RG.name.c_str(), g.mapSel - RG.first + 1, RG.end - RG.first), x + 8, 26, 10, UI_DIM);
     DrawTextShadow(st.name.c_str(), x + 8, 40, 10, UI_TEXT);
     GDrawText(st.trainer.c_str(), x + 8, 54, 10, st.IsGym() ? UI_GOLD : UI_TEXT);
     GDrawText(beaten ? "Beaten" : (isNext ? "Up next" : "Locked"), x + 8, 70, 10,
@@ -945,7 +1092,7 @@ void DrawMap(const Game& g) {
     GDrawText("Gyms & League", x + 8, y, 10, UI_DIM);
     y += 13;
     int partnerPick = g.on.active && g.on.partnerReady >= 3 && g.on.partnerReady != 250 ? g.on.partnerReady - 3 : -1;
-    for (int i = 0; i < n; i++) {
+    for (int i = RG.first; i < RG.end; i++) {   // this region's
         if (!stages[i].IsBoss()) continue;
         bool have = stages[i].IsGym() ? HasBadge(pv, stages[i].badge) : i < pv.storyStage;
         if (i == g.mapSel) DrawRectangle(x + 4, y - 1, w - 8, 11, UI_PANEL_LIGHT);
@@ -1172,7 +1319,11 @@ void DrawStageIntro(const Game& g) {
     }
     DrawArena(g.t);
     DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.6f));
-    DrawTextCentered(TextFormat("Stage %d: %s", g.stageIdx + 1, st.name.c_str()), VW / 2, 60, 20, UI_DIM);
+    {
+        int reg = StageRegion(g.stageIdx);
+        int num = g.stageIdx - RegionInfo(reg).first + 1;
+        DrawTextCentered(reg > 0 ? TextFormat("%s %d: %s", RegionInfo(reg).name.c_str(), num, st.name.c_str()) : TextFormat("Stage %d: %s", num, st.name.c_str()), VW / 2, 60, 20, UI_DIM);
+    }
     DrawTextCentered(st.trainer.c_str(), VW / 2, 96, 30, UI_GOLD);
     // Word-wrap the trainer's line into the speech panel.
     std::string say = "\"" + (st.say.empty() ? std::string("Let's battle!") : st.say) + "\"";
@@ -1932,7 +2083,7 @@ void DrawMyCreatures(const Game& g) {
 
 // ------------------------------------------------------------------ after a story battle
 
-namespace { void SnorlaxReward(Game& g, int encounter, float dmg0, float dmg1, int level); }
+namespace { void SnorlaxReward(Game& g, int encounter, float dmg0, float dmg1, int level); void JoinReward(Game& g, const StageDef& st, float dmg0, float dmg1, int level); }
 void ProcessStoryBattleEnd(Game& g) {
     const Battle& b = g.battle;
     const bool coop = g.coop;
@@ -2176,12 +2327,24 @@ void ProcessStoryBattleEnd(Game& g) {
             // No free Pokemon for story wins: you catch them in the wild (training battles).
             const StageDef& beat = Story().stages[g.stageIdx];
             if (beat.snorlax) SnorlaxReward(g, beat.snorlax, damage[0], damage[1], foeLv);
+            if (beat.join) JoinReward(g, beat, damage[0], damage[1], foeLv);
             if (coop && beat.name.find("Dojo") != std::string::npos) g.coopSave.dojoFirst = damage[1] > damage[0] ? 1 : 0;
             stage++;
             if (beat.IsLeague() && !beat.IsChampion()) g.resultLines.push_back(beat.trainer + " is beaten! On to the next room...");
-            if (stage >= (int)Story().stages.size()) {
-                g.resultLines.push_back(coop ? "You're the new Pokemon League Champions!" : "You're the new Pokemon League Champion!");
-                g.resultLines.push_back("The Battle Tower is now open - see how high you can climb!");
+            int rEnd = RegionInfo(beat.region).end;
+            if (beat.IsChampion() && stage >= rEnd) {
+                if (beat.region == 0) {
+                    g.resultLines.push_back(coop ? "You're the new Pokemon League Champions!" : "You're the new Pokemon League Champion!");
+                    g.resultLines.push_back("The Battle Tower is now open - see how high you can climb!");
+                    if (RegionCount() > 1) g.resultLines.push_back("A new region awaits: travel to Johto from the menu!");
+                } else {
+                    g.resultLines.push_back(TextFormat(coop ? "You're the %s Champions!" : "You're the %s Champion!", RegionInfo(beat.region).name.c_str()));
+                }
+            } else if (stage >= (int)Story().stages.size()) {
+                g.resultLines.push_back("You've done it all - the legend of Johto and Kanto is yours!");
+            } else if (beat.IsChampion() && stage < rEnd) {   // past the Champion: the post-game
+                g.resultLines.push_back(TextFormat(coop ? "You're the %s Champions!" : "You're the %s Champion!", RegionInfo(beat.region).name.c_str()));
+                g.resultLines.push_back("But the story isn't over - someone waits at the top of Mt. Silver...");
             }
         }
         if (storyBattle && st->IsChampion()) {   // every Championship win goes in the Hall of Fame
@@ -2195,6 +2358,7 @@ void ProcessStoryBattleEnd(Game& g) {
                     e += (first ? "" : ",") + m.species + ":" + std::to_string(m.level);
                     first = false;
                 }
+                if (st->region > 0) e += "|" + RegionInfo(st->region).name;   // which League
                 P.hof.push_back(e);
                 if (P.hof.size() > 30) P.hof.erase(P.hof.begin());
             }
@@ -2208,7 +2372,7 @@ void ProcessStoryBattleEnd(Game& g) {
         losses++;
         if (legend) g.resultLines.push_back(std::string(Legend(g.legend).species) + " was too strong... Heal up, train and come back to " + Legend(g.legend).place + ".");
         if (storyBattle && g.stageIdx == stage && st->IsLeague() && st->league > 1) {   // the League is one run
-            int start = LeagueStartStage();
+            int start = LeagueStartStage(st->region);
             if (start >= 0 && start < stage) {
                 stage = start;
                 g.resultLines.push_back("The League challenge starts over from " + Story().stages[start].trainer + ".");
@@ -2423,6 +2587,36 @@ void DoRevivals(Game& g) {
         }
         SaveWho(g, w);
     }
+}
+// A wild boss that joins when beaten (Sudowoodo, the Red Gyarados): alone it's yours; in co-op the MVP's.
+void JoinReward(Game& g, const StageDef& st, float dmg0, float dmg1, int level) {
+    if (st.team.empty()) return;
+    std::string e = st.team.back();
+    bool shiny = false;
+    {
+        std::string lo = e;
+        for (char& ch : lo) ch = (char)std::tolower((unsigned char)ch);
+        size_t sh = lo.find(" shiny");
+        if (sh != std::string::npos) { shiny = true; e = e.substr(0, sh) + e.substr(sh + 6); }
+        size_t sp = e.find_last_of(' ');
+        if (sp != std::string::npos && sp + 1 < e.size() && (e[sp + 1] == '+' || e[sp + 1] == '-')) e = e.substr(0, sp);
+    }
+    while (!e.empty() && e.back() == ' ') e.pop_back();
+    int sp = SpeciesIndex(e);
+    if (sp < 0) return;
+    int who = g.coop && dmg1 > dmg0 ? 1 : 0;
+    Profile& P = Prof(g, who);
+    if (!OnlineMine(g, who)) {
+        g.resultLines.push_back(P.name + " befriended the " + AllSpecies()[sp].name + "!");
+        return;
+    }
+    OwnedMon m = NewMon(sp, level);
+    if (shiny) m.shiny = true;
+    bool boxed = AddMon(P, m);
+    DexSee(P, AllSpecies()[sp].name);
+    std::string why = !g.coop ? "The " + AllSpecies()[sp].name + " calmed down and decided to come with you!"
+                              : "The " + AllSpecies()[sp].name + " took a liking to " + P.name + ", the battle's MVP!";
+    g.giftQueue.push_back({who, sp, why + (boxed ? " It was sent to the Box." : " It joined your team!"), ""});
 }
 // Beating a sleeping Snorlax: it joins (solo every time; co-op one each - the MVP gets the first).
 void SnorlaxReward(Game& g, int encounter, float dmg0, float dmg1, int level) {
@@ -4094,6 +4288,7 @@ void UpdateCoopHub(Game& g) {
     bool online = g.on.active;
     if (online) g.coopWho = g.on.me;  // online: your own Shop / Healing Center / Party & Box / Bag / Pokedex
     else if ((in.left || in.right) && g.hubSel >= 3 && g.hubSel <= 7) { g.coopWho = 1 - g.coopWho; PlaySfx(Sfx::MenuMove); }
+    if (g.hubSel == 0 && (in.left || in.right) && KantoDone(g) && !StoryDone(g)) { g.hubTower = !g.hubTower; PlaySfx(Sfx::MenuMove); return; }
     if (g.hubSel == 1 && (in.left || in.right)) {   // where to train (online: the host picks)
         if (online && g.on.me != 0) { Toast(g, "The host picks the training area."); return; }
         CycleTrainArea(g, in.left ? -1 : 1);
@@ -4113,7 +4308,12 @@ void UpdateCoopHub(Game& g) {
     PlaySfx(Sfx::MenuOk);
     int stages = (int)Story().stages.size();
     if (online && (g.hubSel == 0 || g.hubSel == 1 || g.hubSel == 8) && OnlineWaiting(g)) return;
-    bool tower = g.hubSel == 0 && StoryDone(g);
+    bool tower = g.hubSel == 0 && (StoryDone(g) || (KantoDone(g) && g.hubTower));
+    if (g.hubSel == 0 && !tower && NeedsJohtoStarter(g)) {   // off to Johto: Professor Elm's starters (host first, then player 2)
+        if (online) OnlineSetReady(g, 0);
+        BeginJohtoStarter(g);
+        return;
+    }
     if (online && (g.hubSel == 0 || g.hubSel == 1)) {
         // Online: say what you want to do; it starts when your partner picks the same.
         int kind = g.hubSel == 0 ? (tower ? 250 : 1) : 2;
@@ -4242,9 +4442,10 @@ void DrawCoopHubBase(const Game& g) {
     std::string next = NextLine(g, pv.storyStage);
     GDrawText(next.c_str(), 10, 256, 10, done ? UI_GOLD : UI_TEXT);
     GDrawText(TextFormat("Together: %dW %dL   training wins %d", pv.wins, pv.losses, pv.trainingWins), 10, 270, 10, UI_DIM);
-    std::vector<std::string> badges;
+    std::vector<std::string> badges;   // this region's
+    int hubRegion = StageRegion(std::min(pv.storyStage, std::max(0, stages - 1)));
     for (const auto& st : Story().stages)
-        if (st.IsGym()) badges.push_back(st.badge);
+        if (st.IsGym() && st.region == hubRegion) badges.push_back(st.badge);
     for (size_t i = 0; i < badges.size(); i++) DrawBadge(badges[i], 16 + (int)i * 16, 294, HasBadge(pv, badges[i]));
     if (g.on.active) {
         const OnlineSession& o = g.on;
@@ -4279,8 +4480,7 @@ void DrawCoopHubBase(const Game& g) {
     const std::string& wn = g.coopP[g.coopWho].name;
     bool partnerTrading = g.on.active && g.on.partnerInTrade;
     std::string items[12] = {
-        done ? TextFormat("Battle Tower 2v2: floor %d  (best %d)", g.coopSave.towerFloor + 1, g.coopSave.towerBest)
-             : LeagueProgress(pv.storyStage) >= 0 ? "Pokemon League (2v2)" : "Story battle (2v2)",
+        CoopFirstLabel(g, done || (KantoDone(g) && g.hubTower), pv.storyStage),
         (rare ? "RARE 2v2 in " : "Training 2v2: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
         MapHubLabel(g),
         GameCornerOpen(g) ? "Shop & Game Corner" : "Shop",
@@ -4409,12 +4609,14 @@ void DrawCoopHub(const Game& g) {
 // ------------------------------------------------------------------ Hall of Fame
 
 namespace {
-struct HofEntry { std::string partner; std::vector<std::pair<std::string, int>> mons; };
+struct HofEntry { std::string partner, region; std::vector<std::pair<std::string, int>> mons; };
 HofEntry ParseHof(const std::string& e) {
     HofEntry h;
     size_t bar = e.find('|');
     h.partner = bar == std::string::npos ? std::string() : e.substr(0, bar);
     std::string rest = bar == std::string::npos ? e : e.substr(bar + 1);
+    size_t bar2 = rest.find('|');   // "|Johto" at the end: that region's League
+    if (bar2 != std::string::npos) { h.region = rest.substr(bar2 + 1); rest = rest.substr(0, bar2); }
     size_t pos = 0;
     while (pos < rest.size()) {
         size_t c = rest.find(',', pos);
@@ -4471,7 +4673,12 @@ void DrawHallOfFame(const Game& g) {
         DrawRectangle((int)x, (int)y, 2 + (i % 2), 2, Fade(c, 0.8f));
     }
     float pulse = 1.0f + 0.03f * std::sin(t * 3);
-    DrawTextCentered("HALL OF FAME", VW / 2, (int)(12 - 3 * (pulse - 1)), 30, UI_GOLD);
+    std::string hofRegion;
+    {
+        const Profile& P0 = Prof(g, 0);
+        if (!P0.hof.empty()) hofRegion = ParseHof(P0.hof[(int)P0.hof.size() - 1 - std::min(g.hofSel, (int)P0.hof.size() - 1)]).region;
+    }
+    DrawTextCentered(hofRegion.empty() ? "HALL OF FAME" : TextFormat("%s HALL OF FAME", hofRegion.c_str()), VW / 2, (int)(12 - 3 * (pulse - 1)), 30, UI_GOLD);
     int n = HofCount(g);
     int players = g.coop ? 2 : 1;
     DrawTextCentered(g.hofSel == 0 ? "Welcome to the Hall of Fame! These Pokemon became Champions together."

@@ -647,3 +647,221 @@ pokemon = super-rod, Psyduck, 5, 15-35
 pokemon = super-rod, Slowpoke, 5, 15-35
 pokemon = rock-smash, Geodude, 65, 30-60
 pokemon = rock-smash, Graveler, 35, 40-65
+
+# ==========================================================================
+#  JOHTO (HeartGold/SoulSilver areas). The player arrives at level 60, so the levels here are
+#  scaled up to match the Johto ladder rather than the games' early-route levels.
+# ==========================================================================
+[Route 29]
+unlock = Cherrygrove City
+pokemon = walk, Sentret, 30, 55-60
+pokemon = walk, Hoothoot, 30, 55-60
+pokemon = walk, Pidgey, 20, 55-60
+pokemon = walk, Rattata, 20, 55-60
+
+[Route 30]
+unlock = Route 30
+pokemon = walk, Caterpie, 15, 55-60
+pokemon = walk, Weedle, 15, 55-60
+pokemon = walk, Ledyba, 20, 56-61
+pokemon = walk, Spinarak, 20, 56-61
+pokemon = walk, Hoothoot, 15, 56-61
+pokemon = walk, Pidgey, 15, 56-61
+pokemon = old-rod, Magikarp, 100, 55-58
+pokemon = good-rod, Poliwag, 70, 56-60
+pokemon = good-rod, Magikarp, 30, 56-60
+
+[Sprout Tower]
+unlock = Sprout Tower
+pokemon = walk, Rattata, 60, 57-62
+pokemon = walk, Gastly, 40, 57-62
+
+[Route 32]
+unlock = Violet Gym
+pokemon = walk, Mareep, 25, 58-63
+pokemon = walk, Wooper, 20, 58-63
+pokemon = walk, Hoppip, 20, 58-63
+pokemon = walk, Ekans, 15, 58-63
+pokemon = walk, Bellsprout, 20, 58-63
+pokemon = surf, Tentacool, 70, 58-64
+pokemon = surf, Quagsire, 30, 60-64
+pokemon = good-rod, Qwilfish, 30, 58-64
+pokemon = good-rod, Tentacool, 70, 58-64
+
+[Ruins of Alph]
+unlock = Violet Gym
+pokemon = walk, Natu, 40, 58-63
+pokemon = walk, Smeargle, 20, 58-63
+pokemon = walk, Unown, 40, 58-63
+pokemon = walk, Wobbuffet, 5, 60-64, rare
+
+[Union Cave]
+unlock = Union Cave
+pokemon = walk, Geodude, 30, 59-64
+pokemon = walk, Zubat, 30, 59-64
+pokemon = walk, Onix, 15, 59-64
+pokemon = walk, Sandshrew, 15, 59-64
+pokemon = walk, Wooper, 10, 59-64
+pokemon = surf, Wooper, 60, 60-65
+pokemon = surf, Quagsire, 40, 60-65
+pokemon = good-rod, Krabby, 50, 60-65
+pokemon = good-rod, Goldeen, 50, 60-65
+pokemon = walk, Lapras, 3, 62-66, rare
+
+[Slowpoke Well]
+unlock = Slowpoke Well
+pokemon = walk, Slowpoke, 60, 60-65
+pokemon = walk, Zubat, 40, 60-65
+pokemon = surf, Slowpoke, 100, 60-65
+
+[Ilex Forest]
+unlock = Ilex Forest
+pokemon = walk, Paras, 25, 61-66
+pokemon = walk, Oddish, 25, 61-66
+pokemon = walk, Pineco, 20, 61-66
+pokemon = walk, Caterpie, 15, 61-66
+pokemon = walk, Weedle, 15, 61-66
+pokemon = walk, Heracross, 4, 63-67, rare
+pokemon = walk, Shuckle, 4, 63-67, rare
+
+[Route 34]
+unlock = Route 34
+pokemon = walk, Snubbull, 25, 62-67
+pokemon = walk, Drowzee, 20, 62-67
+pokemon = walk, Abra, 15, 62-67
+pokemon = walk, Ditto, 15, 62-67
+pokemon = walk, Jigglypuff, 25, 62-67
+pokemon = good-rod, Shellder, 50, 62-67
+pokemon = good-rod, Krabby, 50, 62-67
+pokemon = walk, Miltank, 4, 64-68, rare
+
+[National Park]
+unlock = Goldenrod Gym
+pokemon = walk, Sunkern, 25, 63-68
+pokemon = walk, Nidoran F, 20, 63-68
+pokemon = walk, Nidoran M, 20, 63-68
+pokemon = walk, Yanma, 15, 63-68
+pokemon = walk, Scyther, 10, 64-68
+pokemon = walk, Pinsir, 10, 64-68
+
+[Route 36]
+unlock = Route 36
+pokemon = walk, Stantler, 25, 64-69
+pokemon = walk, Growlithe, 20, 64-69
+pokemon = walk, Vulpix, 20, 64-69
+pokemon = walk, Girafarig, 15, 64-69
+pokemon = walk, Hoothoot, 20, 64-69
+pokemon = walk, Sudowoodo, 3, 66-70, rare
+
+[Burned Tower]
+unlock = Burned Tower
+pokemon = walk, Koffing, 30, 65-70
+pokemon = walk, Magmar, 15, 66-70
+pokemon = walk, Rattata, 25, 65-70
+pokemon = walk, Misdreavus, 15, 66-71
+pokemon = walk, Houndour, 15, 66-71
+
+[Olivine Lighthouse]
+unlock = Olivine Lighthouse
+pokemon = walk, Gastly, 40, 67-72
+pokemon = walk, Krabby, 30, 67-72
+pokemon = walk, Psyduck, 30, 67-72
+
+[Route 41]
+unlock = Route 41
+pokemon = surf, Tentacool, 40, 68-73
+pokemon = surf, Tentacruel, 20, 69-73
+pokemon = surf, Mantine, 20, 69-73
+pokemon = surf, Chinchou, 20, 68-73
+pokemon = good-rod, Chinchou, 50, 68-73
+pokemon = good-rod, Shellder, 30, 68-73
+pokemon = super-rod, Lanturn, 40, 70-74
+pokemon = super-rod, Corsola, 30, 70-74
+pokemon = super-rod, Octillery, 30, 70-74
+
+[Whirl Islands]
+unlock = Route 41
+pokemon = walk, Zubat, 30, 68-73
+pokemon = walk, Seel, 25, 68-73
+pokemon = walk, Krabby, 25, 68-73
+pokemon = walk, Horsea, 20, 68-73
+pokemon = surf, Seel, 50, 69-74
+pokemon = surf, Horsea, 50, 69-74
+
+[Mt. Mortar]
+unlock = Cianwood Gym
+pokemon = walk, Machop, 30, 69-74
+pokemon = walk, Geodude, 20, 69-74
+pokemon = walk, Marill, 20, 69-74
+pokemon = walk, Zubat, 20, 69-74
+pokemon = walk, Tyrogue, 10, 69-74
+pokemon = surf, Goldeen, 50, 69-74
+pokemon = surf, Seaking, 50, 70-74
+
+[Lake of Rage]
+unlock = Lake of Rage
+pokemon = walk, Wooper, 30, 70-75
+pokemon = walk, Quagsire, 20, 70-75
+pokemon = walk, Girafarig, 15, 70-75
+pokemon = walk, Yanma, 15, 70-75
+pokemon = walk, Stantler, 20, 70-75
+pokemon = surf, Magikarp, 80, 70-75
+pokemon = surf, Gyarados, 20, 70-75
+pokemon = good-rod, Magikarp, 100, 70-75
+
+[Route 43]
+unlock = Lake of Rage
+pokemon = walk, Pidgeotto, 25, 70-75
+pokemon = walk, Venonat, 25, 70-75
+pokemon = walk, Noctowl, 25, 70-75
+pokemon = walk, Girafarig, 15, 70-75
+pokemon = walk, Flaaffy, 10, 70-75
+
+[Route 44]
+unlock = Mahogany Gym
+pokemon = walk, Tangela, 25, 72-77
+pokemon = walk, Lickitung, 15, 72-77
+pokemon = walk, Bellsprout, 20, 72-77
+pokemon = walk, Weepinbell, 20, 72-77
+pokemon = walk, Poliwhirl, 20, 72-77
+pokemon = surf, Poliwag, 50, 72-77
+pokemon = surf, Remoraid, 50, 72-77
+
+[Ice Path]
+unlock = Ice Path
+pokemon = walk, Swinub, 30, 73-78
+pokemon = walk, Delibird, 15, 73-78
+pokemon = walk, Sneasel, 20, 73-78
+pokemon = walk, Jynx, 15, 73-78
+pokemon = walk, Zubat, 20, 73-78
+pokemon = walk, Smoochum, 5, 73-78, rare
+
+[Dragon's Den]
+unlock = Dragon's Den
+pokemon = surf, Dratini, 60, 74-79
+pokemon = surf, Magikarp, 40, 74-79
+pokemon = super-rod, Dragonair, 30, 76-80
+pokemon = super-rod, Dratini, 50, 74-79
+pokemon = super-rod, Horsea, 20, 74-79
+pokemon = super-rod, Kingdra, 2, 78-82, rare
+
+[Route 27]
+unlock = Route 27
+pokemon = walk, Doduo, 25, 75-80
+pokemon = walk, Raticate, 20, 75-80
+pokemon = walk, Arbok, 15, 75-80
+pokemon = walk, Quagsire, 20, 75-80
+pokemon = walk, Ponyta, 20, 75-80
+pokemon = surf, Tentacruel, 60, 76-80
+pokemon = surf, Lapras, 5, 78-82, rare
+
+[Mt. Silver]
+unlock = Champion's Room
+pokemon = walk, Ursaring, 20, 80-88
+pokemon = walk, Donphan, 20, 80-88
+pokemon = walk, Golbat, 20, 80-88
+pokemon = walk, Graveler, 20, 80-88
+pokemon = walk, Phanpy, 10, 80-88
+pokemon = walk, Larvitar, 5, 80-88, rare
+pokemon = walk, Misdreavus, 10, 80-88
+pokemon = walk, Sneasel, 5, 80-88, rare

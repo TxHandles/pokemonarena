@@ -13,9 +13,9 @@
 #include "arena.h"
 
 namespace {
-Texture2D gMap{};
-bool gHasMap = false;
-float gW = 1142, gH = 857;   // map coordinate space (image size, or a default for the drawn map)
+struct RegionMap { Texture2D tex{}; bool has = false; float w = 1142, h = 857; };
+std::vector<RegionMap> gMaps;   // one per story region
+float gW = 1142, gH = 857;   // the map coordinate space last drawn (image size, or a default for the drawn map)
 
 // Badge pictures: Badges/<Name>.png next to the game (a plain picture or a pixel-art chart).
 struct BadgePic { bool tried = false; Texture2D tex{}; };
@@ -62,38 +62,44 @@ const Texture2D* BadgePicture(const std::string& badge) {
 bool HasBadgePicture(const std::string& badge) { return BadgePicture(badge) != nullptr; }
 
 void LoadStoryMap() {
-    gHasMap = false;
-    if (!Story().mapImage.empty()) {
-        std::string path = DataDir() + Story().mapImage;
-        if (FileExists(path.c_str())) {
-            Image img = LoadImage(path.c_str());
-            if (img.data) {
-                gMap = LoadTextureFromImage(img);
-                SetTextureFilter(gMap, TEXTURE_FILTER_BILINEAR);
-                gW = (float)img.width;
-                gH = (float)img.height;
-                gHasMap = true;
-                UnloadImage(img);
+    UnloadStoryMap();
+    gMaps.assign(RegionCount(), RegionMap());
+    for (int r = 0; r < RegionCount(); r++) {
+        RegionMap& m = gMaps[r];
+        const auto& R = RegionInfo(r);
+        if (!R.mapImage.empty()) {
+            std::string path = DataDir() + R.mapImage;
+            if (FileExists(path.c_str())) {
+                Image img = LoadImage(path.c_str());
+                if (img.data) {
+                    m.tex = LoadTextureFromImage(img);
+                    SetTextureFilter(m.tex, TEXTURE_FILTER_BILINEAR);
+                    m.w = (float)img.width;
+                    m.h = (float)img.height;
+                    m.has = true;
+                    UnloadImage(img);
+                }
             }
         }
+        if (!m.has) {  // size the drawn map to fit every point
+            float mx = 400, my = 300;
+            for (int i = R.first; i < R.end; i++) { mx = std::max(mx, Story().stages[i].mapX + 60); my = std::max(my, Story().stages[i].mapY + 60); }
+            for (const auto& t : R.towns) { mx = std::max(mx, t.x + 60); my = std::max(my, t.y + 60); }
+            m.w = std::max(mx, my * 4 / 3);
+            m.h = m.w * 3 / 4;
+        }
     }
-    if (!gHasMap) {  // size the drawn map to fit every point
-        float mx = 400, my = 300;
-        for (const auto& s : Story().stages) { mx = std::max(mx, s.mapX + 60); my = std::max(my, s.mapY + 60); }
-        for (const auto& t : Story().towns) { mx = std::max(mx, t.x + 60); my = std::max(my, t.y + 60); }
-        gW = std::max(mx, my * 4 / 3);
-        gH = gW * 3 / 4;
-    }
+    if (!gMaps.empty()) { gW = gMaps[0].w; gH = gMaps[0].h; }
 }
 
 void UnloadStoryMap() {
-    if (gHasMap) UnloadTexture(gMap);
-    gHasMap = false;
+    for (auto& m : gMaps) if (m.has) UnloadTexture(m.tex);
+    gMaps.clear();
     for (auto& kv : gBadges) if (kv.second.tex.id) UnloadTexture(kv.second.tex);
     gBadges.clear();
 }
 
-bool StoryMapHasImage() { return gHasMap; }
+bool StoryMapHasImage() { return !gMaps.empty() && gMaps[0].has; }
 
 Color BadgeColor(const std::string& b) {
     if (b == "Boulder") return {170, 150, 120, 255};
@@ -104,6 +110,14 @@ Color BadgeColor(const std::string& b) {
     if (b == "Marsh") return {240, 190, 60, 255};
     if (b == "Volcano") return {240, 100, 50, 255};
     if (b == "Earth") return {100, 200, 120, 255};
+    if (b == "Zephyr") return {150, 190, 230, 255};
+    if (b == "Hive") return {200, 60, 60, 255};
+    if (b == "Plain") return {240, 200, 80, 255};
+    if (b == "Fog") return {170, 120, 220, 255};
+    if (b == "Storm") return {230, 140, 60, 255};
+    if (b == "Mineral") return {190, 200, 215, 255};
+    if (b == "Glacier") return {150, 220, 250, 255};
+    if (b == "Rising") return {90, 110, 230, 255};
     return {200, 200, 210, 255};
 }
 
@@ -149,21 +163,29 @@ void DrawLeagueMark(const StageDef& st, int x, int y, bool beaten, float r) {
     if (beaten) DrawRectangle(x - 1, y - (int)(r * 0.4f), 2, 2, Fade(WHITE, 0.8f));
 }
 
-void DrawStoryMap(const Profile& p, int x, int y, int w, int h, float t, bool townLabels, int focusStage) {
+void DrawStoryMap(const Profile& p, int x, int y, int w, int h, float t, bool townLabels, int focusStage, int region) {
+    const auto& stages = Story().stages;
+    int n = (int)stages.size();
+    if (region < 0) region = focusStage >= 0 ? StageRegion(focusStage) : StageRegion(std::min(p.storyStage, std::max(0, n - 1)));
+    region = std::max(0, std::min(RegionCount() - 1, region));
+    const auto& R = RegionInfo(region);
+    bool hasMap = region < (int)gMaps.size() && gMaps[region].has;
+    if (region < (int)gMaps.size()) { gW = gMaps[region].w; gH = gMaps[region].h; }
     float sc = std::min(w / gW, h / gH);
     float ox = x + (w - gW * sc) / 2, oy = y + (h - gH * sc) / 2;
     auto P = [&](float mx, float my) { return Vector2{ox + mx * sc, oy + my * sc}; };
 
-    if (gHasMap) {
-        DrawTexturePro(gMap, {0, 0, gW, gH}, {ox, oy, gW * sc, gH * sc}, {0, 0}, 0, WHITE);
+    if (hasMap) {
+        DrawTexturePro(gMaps[region].tex, {0, 0, gW, gH}, {ox, oy, gW * sc, gH * sc}, {0, 0}, 0, WHITE);
     } else {
         DrawRectangle((int)ox, (int)oy, (int)(gW * sc), (int)(gH * sc), Color{70, 110, 170, 255});
         for (int yy = (int)oy; yy < (int)(oy + gH * sc); yy += 4) DrawRectangle((int)ox, yy, (int)(gW * sc), 1, Color{80, 122, 182, 255});
-        for (const auto& tw : Story().towns) {
+        for (const auto& tw : R.towns) {
             Vector2 c = P(tw.x, tw.y);
             DrawCircleV(c, 26 * sc + 10, Color{90, 160, 80, 255});
         }
-        for (const auto& st : Story().stages) {
+        for (int i = R.first; i < R.end; i++) {
+            const StageDef& st = stages[i];
             if (st.mapX < 0) continue;
             Vector2 c = P(st.mapX, st.mapY);
             DrawCircleV(c, 14 * sc + 6, Color{100, 170, 86, 255});
@@ -171,7 +193,7 @@ void DrawStoryMap(const Profile& p, int x, int y, int w, int h, float t, bool to
     }
     if (IsNight(p.clock)) {   // night: a deep blue wash, with the towns' lights still on
         DrawRectangle((int)ox, (int)oy, (int)(gW * sc), (int)(gH * sc), Color{8, 12, 44, 105});
-        for (const auto& tw : Story().towns) {
+        for (const auto& tw : R.towns) {
             Vector2 c = P(tw.x, tw.y);
             float flick = 0.75f + 0.25f * std::sin(t * 2.3f + tw.x * 0.13f);
             DrawCircleV(c, 10 * sc + 4, Fade(Color{255, 210, 120, 255}, 0.16f * flick));
@@ -180,14 +202,12 @@ void DrawStoryMap(const Profile& p, int x, int y, int w, int h, float t, bool to
     }
     RectLines((int)ox - 1, (int)oy - 1, (int)(gW * sc) + 2, (int)(gH * sc) + 2, UI_BORDER);
 
-    const auto& stages = Story().stages;
-    int n = (int)stages.size();
     int cur = std::min(p.storyStage, n - 1);
     bool done = p.storyStage >= n;
 
     if (townLabels) {
         std::vector<Rectangle> used;
-        for (const auto& tw : Story().towns) {
+        for (const auto& tw : R.towns) {
             Vector2 c = P(tw.x, tw.y);
             int tw2 = TextW(tw.name.c_str(), 10);
             Rectangle r{c.x - tw2 / 2.0f, c.y + 7, (float)tw2, 10};
@@ -199,8 +219,8 @@ void DrawStoryMap(const Profile& p, int x, int y, int w, int h, float t, bool to
         }
     }
 
-    // Stage markers
-    for (int i = 0; i < n; i++) {
+    // Stage markers (this region's)
+    for (int i = R.first; i < R.end; i++) {
         const StageDef& st = stages[i];
         if (st.mapX < 0) continue;
         Vector2 c = P(st.mapX, st.mapY);
@@ -221,7 +241,7 @@ void DrawStoryMap(const Profile& p, int x, int y, int w, int h, float t, bool to
     }
 
     // You are here: the lead creature at the next stage.
-    if (!done && stages[cur].mapX >= 0) {
+    if (!done && stages[cur].mapX >= 0 && stages[cur].region == region) {
         Vector2 c = P(stages[cur].mapX, stages[cur].mapY);
         float r = 6 + std::fmod(t * 8, 6.0f);
         EllipsePix(c.x, c.y, r, r, Fade(WHITE, 1.0f - std::fmod(t * 8, 6.0f) / 6.0f));

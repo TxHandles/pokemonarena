@@ -10,6 +10,7 @@
 enum class ArenaKind { Stadium, Rock, Water, Electric, Grass, Poison, Psychic, Fire, Ground,
                        Ice, Fighting, Ghost, Dragon, Champion,               // the Pokemon League
                        Seafoam, PowerPlant, Ember, Unknown, Faraway,         // legendary encounters
+                       Flying, Bug, Normal, Steel, Dark, JohtoChampion,      // Johto (Falkner, Bugsy, Whitney, Jasmine, Karen, Lance)
                        Count };
 // A legendary's lair plays by an existing arena's rules (plus its own extras): Seafoam = Ice,
 // Power Plant = Electric, Moltres's nest = Fire, Faraway Island = Grass. Cerulean Cave is its own.
@@ -19,10 +20,11 @@ inline ArenaKind ArenaRules(ArenaKind k) {
         case ArenaKind::PowerPlant: return ArenaKind::Electric;
         case ArenaKind::Ember: return ArenaKind::Fire;
         case ArenaKind::Faraway: return ArenaKind::Grass;
+        case ArenaKind::JohtoChampion: return ArenaKind::Champion;   // Lance's hall: the spotlight, plus his dragon statues
         default: return k;
     }
 }
-inline bool IsLegendArena(ArenaKind k) { return k >= ArenaKind::Seafoam && k < ArenaKind::Count; }
+inline bool IsLegendArena(ArenaKind k) { return k >= ArenaKind::Seafoam && k <= ArenaKind::Faraway; }
 constexpr int ARENA_COUNT = (int)ArenaKind::Count;
 const char* ArenaName(ArenaKind k);         // "Stone Gym" etc.
 const char* ArenaKey(ArenaKind k);          // "rock" etc. (story.txt)
@@ -71,7 +73,7 @@ struct Obstacle {
 
 // Ellipse areas on the floor (world units).
 struct Zone {
-    enum Kind { Platform, TallGrass, PoisonPool, LavaPool } kind = Platform;
+    enum Kind { Platform, TallGrass, PoisonPool, LavaPool, Web } kind = Platform;   // Web: Bugsy's (drawn live: fire burns it away)
     Vector2 pos{0, 0};
     float rx = 30, ry = 30;
     uint32_t seed = 0;    // edge shape (Wobble)
@@ -124,8 +126,12 @@ struct Turret {
 //   Orb (Sabrina): fires at the foes of whoever hit it last. Dark moves knock it out for a while.
 //   Vent (Blaine): rumbles, then erupts, raining lava bombs on marked spots. Water calms it; Fire sets it off early.
 //   Spinner (Giovanni): a turntable that carries battlers around and flings them off when it reverses. Ground jams it.
+//   Vane (Falkner): the weather vane. A hit turns the next gust against the hitter's foes.
+//   Hive (Bugsy): a hit sends a homing swarm at the hitter's foes. Fire smokes it out for a while.
+//   MilkTank (Whitney): a hit spills Moomoo Milk pools by the hitter that heal (Normal types twice as much).
+//   Lamp (Jasmine): the lighthouse lamp sweeps a beam round; a hit reverses it and speeds it up.
 struct Centerpiece {
-    enum Kind : uint8_t { None, Boulder, Drain, Generator, Bloom, Vat, Orb, Vent, Spinner } kind = None;
+    enum Kind : uint8_t { None, Boulder, Drain, Generator, Bloom, Vat, Orb, Vent, Spinner, Vane, Hive, MilkTank, Lamp } kind = None;
     Vector2 pos{0, 0}, home{0, 0}, vel{0, 0};
     float radius = 18;
     uint8_t phase = 0;        // what it's doing now (per kind)
@@ -166,9 +172,26 @@ struct Field {
     Vector2 spot{0, 0}, spotTo{0, 0};   // Champion's stadium: the roaming spotlight
     float spotT = 0;
     float strikeT = 0, pulseT = 0, blinkT = 0;   // legendary lairs: falling strikes, Mewtwo's pulse, Mew's teleport
-    static constexpr float SPOT_R = 44;
+    Vector2 windDir{1, 0};          // Falkner's gym: where the next / current gust blows
+    float windT = 0;                // time left in this wind phase
+    uint8_t windOn = 0;             // 0 calm, 1 the windsocks warn, 2 a gust is blowing
+    std::vector<Vector2> lights, lightTo;   // Karen's chamber: drifting pools of light
+    float lightT = 0;
+    static constexpr float SPOT_R = 44, LIGHT_R = 48, BEAM_HALF = 0.24f;
     ArenaKind Rules() const { return ArenaRules(kind); }
-    bool InSpot(Vector2 p) const { float dx = p.x - spot.x, dy = p.y - spot.y; return kind == ArenaKind::Champion && dx * dx + dy * dy < SPOT_R * SPOT_R; }
+    bool InSpot(Vector2 p) const { float dx = p.x - spot.x, dy = p.y - spot.y; return Rules() == ArenaKind::Champion && dx * dx + dy * dy < SPOT_R * SPOT_R; }
+    bool InLight(Vector2 p) const {
+        for (const Vector2& l : lights) { float dx = p.x - l.x, dy = (p.y - l.y) * 1.2f; if (dx * dx + dy * dy < LIGHT_R * LIGHT_R) return true; }
+        return false;
+    }
+    bool InBeam(Vector2 p) const {   // Jasmine's lighthouse beam
+        if (center.kind != Centerpiece::Lamp) return false;
+        float dx = p.x - center.pos.x, dy = p.y - center.pos.y;
+        if (dx * dx + dy * dy < 30 * 30) return false;
+        float d = std::atan2(dy, dx) - center.spin;
+        d = std::remainder(d, 6.2831853f);
+        return std::fabs(d) < BEAM_HALF;
+    }
 
     void Build(ArenaKind k, Venue v = Venue::Stadium, int season = -1);  // random layout
     bool IsWater(Vector2 p) const;

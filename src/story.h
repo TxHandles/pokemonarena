@@ -24,6 +24,8 @@ struct StageDef {
     int league = 0;                 // Pokemon League: 1-4 the Elite Four (in order), 5 the Champion
     int towerFloor = 0;             // > 0: a Battle Tower floor (made by TowerStage, not story.txt)
     int legend = 0;                 // > 0: legendary encounter id+1 (made by LegendStage)
+    int region = 0;                 // which region's story it belongs to (0 Kanto, 1 Johto...)
+    bool join = false;              // a wild boss (Sudowoodo, the Red Gyarados): beat it and it joins you
     bool IsLegend() const { return legend > 0; }
     bool IsGym() const { return !badge.empty(); }
     bool IsLeague() const { return league > 0; }
@@ -41,7 +43,7 @@ struct StageDef {
 StageDef RematchStage(const StageDef& stage);
 
 // The Pokemon League: the first Elite Four stage (where a lost run starts over), -1 if none.
-int LeagueStartStage();
+int LeagueStartStage(int region = 0);
 // Battle Tower: the trainer on a floor. Same floor and seed = the same trainer (both online
 // players make it themselves). coop: two players (more foes).
 StageDef TowerStage(int floor, uint32_t seed);
@@ -60,7 +62,20 @@ struct StoryDef {
     std::vector<Town> towns;
     std::vector<StageDef> stages;
     int rev = 1;                    // layout version (story_rev); old saves are moved to the new layout
+    // Regions: Kanto first, then each [region] in story.txt (Johto). A region's stages are
+    // stages[first, end); its map, towns and the level of the starter given when you arrive.
+    struct Region {
+        std::string name, mapImage;
+        std::vector<Town> towns;
+        int first = 0, end = 0;
+        int startLevel = 5;
+    };
+    std::vector<Region> regions;
 };
+
+int StageRegion(int stage);           // the region a stage index belongs to (past the end: the last region)
+int RegionCount();
+const StoryDef::Region& RegionInfo(int region);
 
 // Rival: whose team "rival" tokens build. Set before MakeCpuTeam for a rival stage.
 // rivalStarter = species index of his starter; coop = he also has his Pikachu.

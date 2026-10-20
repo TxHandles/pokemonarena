@@ -441,6 +441,8 @@ void Parse(const char* text, StoryDef& st, std::string& log) {
     std::istringstream ss(text);
     std::string line;
     StageDef* cur = nullptr;
+    StoryDef::Region* reg = nullptr;   // inside a [region] block (before its first stage)
+    int region = 0;
     int ln = 0;
     while (std::getline(ss, line)) {
         ln++;
@@ -451,11 +453,36 @@ void Parse(const char* text, StoryDef& st, std::string& log) {
         if (line == "[stage]") {
             st.stages.push_back(StageDef());
             cur = &st.stages.back();
+            cur->region = region;
+            reg = nullptr;
+            continue;
+        }
+        if (line == "[region]") {   // a new region: its settings follow, then its stages
+            if (st.regions.empty()) {   // Kanto: the settings at the top of the file
+                StoryDef::Region k;
+                k.name = "Kanto";
+                st.regions.push_back(k);
+            }
+            st.regions.push_back(StoryDef::Region());
+            reg = &st.regions.back();
+            reg->startLevel = st.startLevel;
+            region = (int)st.regions.size() - 1;
+            cur = nullptr;
             continue;
         }
         size_t eq = line.find('=');
         if (eq == std::string::npos) continue;
         std::string k = Trim(line.substr(0, eq)), v = Trim(line.substr(eq + 1));
+        if (reg) {
+            if (k == "name") reg->name = v;
+            else if (k == "map_image") reg->mapImage = v;
+            else if (k == "start_level") reg->startLevel = std::max(1, std::min(MAX_LEVEL, std::atoi(v.c_str())));
+            else if (k == "town") {
+                auto parts = SplitList(v);
+                if (parts.size() >= 3) reg->towns.push_back({parts[0], (float)std::atof(parts[1].c_str()), (float)std::atof(parts[2].c_str())});
+            } else log += TextFormat("  story.txt line %d: unknown region setting '%s'\n", ln, k.c_str());
+            continue;
+        }
         if (!cur) {
             if (k == "starters") st.starters = SplitList(v);
             else if (k == "start_level") st.startLevel = std::max(1, std::min(MAX_LEVEL, std::atoi(v.c_str())));
@@ -492,6 +519,7 @@ void Parse(const char* text, StoryDef& st, std::string& log) {
             else if (k == "outdoor") cur->outdoor = !IsNo(v);
             else if (k == "venue") cur->venue = v;
             else if (k == "league") cur->league = std::max(0, std::min(5, std::atoi(v.c_str())));
+            else if (k == "join") cur->join = !IsNo(v);
             else if (k == "coins" || k == "prize") cur->coins = std::max(0, std::atoi(v.c_str()));
             else if (k == "map") {
                 auto parts = SplitList(v);
@@ -506,6 +534,19 @@ void Parse(const char* text, StoryDef& st, std::string& log) {
     for (auto& s : st.stages) {
         if (s.team.empty()) s.team.push_back("random");
         if (s.trainer.empty()) s.trainer = "Trainer";
+    }
+    // Region 0 is Kanto: the map and towns at the top of the file.
+    if (st.regions.empty()) { StoryDef::Region k; k.name = "Kanto"; st.regions.push_back(k); }
+    st.regions[0].mapImage = st.mapImage;
+    st.regions[0].towns = st.towns;
+    st.regions[0].startLevel = st.startLevel;
+    for (int r = 0; r < (int)st.regions.size(); r++) {
+        int first = -1, end = -1;
+        for (int i = 0; i < (int)st.stages.size(); i++)
+            if (st.stages[i].region == r) { if (first < 0) first = i; end = i + 1; }
+        if (first < 0) first = end = r == 0 ? 0 : st.regions[r - 1].end;
+        st.regions[r].first = first;
+        st.regions[r].end = end;
     }
 }
 
@@ -526,6 +567,19 @@ int RandomBase(Type want, bool anyType) {
 } // namespace
 
 const StoryDef& Story() { return gStory; }
+
+int RegionCount() { return std::max(1, (int)gStory.regions.size()); }
+const StoryDef::Region& RegionInfo(int r) {
+    static StoryDef::Region none;
+    if (gStory.regions.empty()) return none;
+    return gStory.regions[std::max(0, std::min((int)gStory.regions.size() - 1, r))];
+}
+int StageRegion(int stage) {
+    if (gStory.stages.empty()) return 0;
+    if (stage < 0) return 0;
+    if (stage >= (int)gStory.stages.size()) return gStory.stages.back().region;
+    return gStory.stages[stage].region;
+}
 
 void LoadStory(std::string& log) {
     std::string path = DataDir() + "story.txt";
@@ -643,9 +697,9 @@ StageDef RematchStage(const StageDef& stage) {
     return r;
 }
 
-int LeagueStartStage() {
+int LeagueStartStage(int region) {
     for (int i = 0; i < (int)Story().stages.size(); i++)
-        if (Story().stages[i].league == 1) return i;
+        if (Story().stages[i].league == 1 && Story().stages[i].region == region) return i;
     return -1;
 }
 
@@ -663,7 +717,7 @@ StageDef TowerStage(int floor, uint32_t seed) {
     if (floor % 10 == 0) {   // a boss floor: a gym leader, Elite Four member or the Champion, in their own arena
         std::vector<int> bosses;
         for (int i = 0; i < (int)Story().stages.size(); i++)
-            if (Story().stages[i].IsBoss()) bosses.push_back(i);
+            if (Story().stages[i].IsBoss() && Story().stages[i].region == 0) bosses.push_back(i);   // Kanto's bosses
         if (!bosses.empty()) {
             const StageDef& b = Story().stages[bosses[pick((int)bosses.size())]];
             StageDef r = RematchStage(b);   // their own team, at your level, at full strength
@@ -746,8 +800,15 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
     std::vector<CombatantSpec> team;
     std::vector<int> used;
     for (const auto& e0 : entries) {
-        // A trailing "+N" / "-N" moves this one's level.
+        // A trailing "+N" / "-N" moves this one's level; "shiny" makes it shiny (the Red Gyarados).
         std::string e = Trim(e0);
+        bool shinyMon = false;
+        {
+            std::string lo = e;
+            for (char& ch : lo) ch = (char)std::tolower((unsigned char)ch);
+            size_t sh = lo.find(" shiny");
+            if (sh != std::string::npos) { shinyMon = true; e = Trim(e.substr(0, sh) + e.substr(sh + 6)); }
+        }
         int extra = 0;
         size_t sp = e.find_last_of(' ');
         if (sp != std::string::npos && sp + 1 < e.size() && (e[sp + 1] == '+' || e[sp + 1] == '-') &&
@@ -803,6 +864,7 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
         c.level = level;
         c.moves = MovesAtLevel(AllSpecies()[idx], level);
         if (!stage) c.shiny = RollShiny();   // wild Pokemon can be shiny (trainers' can't)
+        if (shinyMon) c.shiny = true;
         team.push_back(c);
     }
     return team;

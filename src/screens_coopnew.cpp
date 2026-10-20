@@ -106,9 +106,117 @@ void DrawCoopSetup(const Game& g) {
     DrawToast(g);
 }
 
+// ------------------------------------------------------------------ Johto: Professor Elm's starters
+// One at a time: the host (player 1) picks, then player 2, then Silver takes two of the four left.
+
+namespace {
+int JohtoTaken(const Game& g, int who) { return SpeciesIndex(g.coopP[who].starter2); }
+void GiveJohtoStarter(Game& g, int who, int sp) {
+    Profile& P = g.coopP[who];
+    AddMon(P, NewMon(sp, RegionInfo(1).startLevel));
+    P.starter2 = AllSpecies()[sp].name;
+    DexRegisterOwned(P);
+    SaveProfile(P);
+}
+} // namespace
+
+static void UpdateJohtoCoopStarter(Game& g) {
+    int n = StarterCount();
+    bool online = g.on.active;
+    int a = JohtoTaken(g, 0), b = JohtoTaken(g, 1);
+    if (a >= 0 && b >= 0) {   // both chosen: Silver takes his, then on to Johto
+        EnsureRival(g, 1);
+        if (SpeciesIndex(g.coopSave.rival2[0]) < 0) return;   // online guest: waiting for the host's pick to arrive
+        if (g.johtoRevealT < 0) { g.johtoRevealT = 0; PlaySfx(Sfx::Status); }
+        g.johtoRevealT += GetFrameTime();
+        PlayerInput in = MenuInput();
+        if (g.johtoRevealT > 2.5f && (in.confirm || in.back)) {
+            g.johtoPick = false;
+            g.johtoRevealT = -1;
+            if (!online) { SaveCoop(g.coopSave); SaveProfile(g.coopP[0]); SaveProfile(g.coopP[1]); }
+            Toast(g, "Welcome to Johto!");
+            EnterStoryHub(g);
+        }
+        return;
+    }
+    int turn = a < 0 ? 0 : 1;   // the host first, then player 2
+    PlayerInput in = online ? MenuInput() : ReadInput(turn, true);
+#ifdef ARENA_AUTOTEST
+    { extern int gAutoMenu; if (!online && gAutoMenu) in = MenuInput(); }
+#endif
+    if (online && turn != g.on.me) {   // the other player's turn: watch
+        if (MenuInput().back) { g.johtoPick = false; EnterStoryHub(g); }
+        return;
+    }
+    if (!online && ReadInput(0, true).back && turn == 0) { g.johtoPick = false; EnterStoryHub(g); return; }
+    int& sel = g.coopStarterSel[turn];
+    static int lastSent = -1;
+    if (in.left || in.up) { sel = (sel + n - 1) % n; PlaySfx(Sfx::MenuMove); }
+    if (in.right || in.down) { sel = (sel + 1) % n; PlaySfx(Sfx::MenuMove); }
+    if (online && sel != lastSent) { lastSent = sel; OnlineSendCursor(sel); }
+    if (!in.confirm) return;
+    int sp = StarterSpecies(sel);
+    if (sp < 0) return;
+    if (turn == 1 && sp == a) { Toast(g, g.coopP[0].name + " took " + AllSpecies()[sp].name + " - pick another!"); PlaySfx(Sfx::MenuBack); return; }
+    GiveJohtoStarter(g, turn, sp);
+    if (online) OnlineSendProfile(g);
+    PlaySfx(Sfx::LevelUp);
+    Toast(g, g.coopP[turn].name + " chose " + AllSpecies()[sp].name + "!");
+}
+
+static void DrawJohtoCoopStarter(const Game& g) {
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
+    DrawTextCentered("WELCOME TO JOHTO", VW / 2, 12, 20, UI_GOLD);
+    DrawTextCentered(TextFormat("Professor Elm has a Pokemon for each of you (level %d). %s picks first, then %s - and then...", RegionInfo(1).startLevel,
+                                g.coopP[0].name.c_str(), g.coopP[1].name.c_str()), VW / 2, 38, 10, UI_TEXT, false);
+    int a = JohtoTaken(g, 0), b = JohtoTaken(g, 1);
+    if (a >= 0 && b >= 0 && SpeciesIndex(g.coopSave.rival2[0]) >= 0) {
+        DrawSilverReveal(g, {g.coopP[0].starter2, g.coopP[1].starter2}, {g.coopSave.rival2[0], g.coopSave.rival2[1]});
+        return;
+    }
+    bool online = g.on.active;
+    int turn = a < 0 ? 0 : 1;
+    int n = StarterCount();
+    int gap = n > 3 ? 8 : 20;
+    int cw = std::min(150, (620 - (n - 1) * gap) / std::max(1, n));
+    int x0 = VW / 2 - (n * cw + (n - 1) * gap) / 2;
+    int sel = g.coopStarterSel[turn];
+    if (online && turn != g.on.me) sel = g.on.partnerCursor >= 0 && g.on.partnerCursor < n ? g.on.partnerCursor : 0;
+    for (int i = 0; i < n; i++) {
+        int idx = StarterSpecies(i);
+        if (idx < 0) continue;
+        int x = x0 + i * (cw + gap);
+        bool takenA = idx == a;
+        DrawCreatureCard(idx, RegionInfo(1).startLevel, x, 70, cw, 130, sel == i && !takenA);
+        if (takenA) {
+            DrawRectangle(x, 70, cw, 130, Fade(UI_INK, 0.55f));
+            DrawTextCentered(TextFormat("%s's!", g.coopP[0].name.c_str()), x + cw / 2, 130, 10, PCol(0), false);
+        } else if (sel == i) {
+            int mx = x + cw / 2;
+            DrawTriangle({(float)mx - 6, 206}, {(float)mx + 6, 206}, {(float)mx, 214}, PCol(turn));
+            DrawTextCentered(TextFormat("P%d", turn + 1), mx, 218, 10, PCol(turn), false);
+        }
+    }
+    for (int p = 0; p < 2; p++) {
+        int x = p == 0 ? 20 : 330;
+        int t = p == 0 ? a : b;
+        bool mine = t >= 0;
+        DrawPanel(x, 250, 290, 60, UI_PANEL, mine ? PCol(p) : (turn == p ? UI_GOLD : UI_BORDER));
+        GDrawText(TextFormat("%s%s", g.coopP[p].name.c_str(), online && p == g.on.me ? " (you)" : ""), x + 8, 256, 10, PCol(p));
+        const char* st = mine ? TextFormat("Partner: %s", AllSpecies()[t].name.c_str())
+                       : turn == p ? (online && p != g.on.me ? "choosing..." : TextFormat("Left/Right choose   %s take it", online ? "Enter" : ConfirmLabel(p, true)))
+                                   : "waits for player 1";
+        GDrawText(st, x + 8, 274, 10, mine ? PCol(p) : UI_DIM);
+    }
+    DrawTextCentered("A red-haired boy lurks by the lab window... he'll grab two of the four you don't take.", VW / 2, 320, 10, Color{255, 150, 150, 255}, false);
+    DrawTextCentered(online ? "Esc: back to the hub (until you take one)" : "Player 1 Back: back to the hub", VW / 2, 340, 10, UI_DIM, false);
+    DrawToast(g);
+}
+
 // ------------------------------------------------------------------ choosing starters together
 
 void UpdateCoopStarter(Game& g) {
+    if (g.johtoPick) { UpdateJohtoCoopStarter(g); return; }
     int n = StarterCount();
     if (n == 0) {   // no starters defined: just go
         if (g.on.active) EnterStoryHub(g); else CoopBeginJourney(g);
@@ -179,6 +287,7 @@ void UpdateCoopStarter(Game& g) {
 }
 
 void DrawCoopStarter(const Game& g) {
+    if (g.johtoPick) { DrawJohtoCoopStarter(g); return; }
     DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     DrawTextCentered("CHOOSE YOUR STARTERS", VW / 2, 14, 20, UI_GOLD);
     bool online = g.on.active;

@@ -118,6 +118,7 @@ struct Ar {
         v(f.kind); v(f.obs); v(f.zones); v(f.portals); v(f.turrets); v(f.portalT); v(f.turretT); v(f.lavaT); v(f.tickT);
         v(f.electrifyCd); v(f.waterFlash); v(f.spikeBand); v(f.puddles); v(f.puddleT); v(f.moundT); v(f.venue); v(f.season);
         v(f.wisps); v(f.spot); v(f.spotTo); v(f.spotT); v(f.strikeT); v(f.pulseT); v(f.blinkT);
+        v(f.windDir); v(f.windT); v(f.windOn); v(f.lights); v(f.lightTo); v(f.lightT);
         v(f.center);
     }
     void v(Projectile& p) {
