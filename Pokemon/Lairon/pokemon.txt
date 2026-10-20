@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Lairon
+dex  = 305
+type = Steel / Rock
+
+hp         = 60
+attack     = 90
+defense    = 140
+sp_attack  = 50
+sp_defense = 50
+speed      = 40
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 120.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Aggron
+evolve_level = 42
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Harden
+learn = 1, Tackle
+learn = 1, Rock Tomb
+learn = 1, Metal Claw
+learn = 12, Roar
+learn = 16, Headbutt
+learn = 20, Protect
+learn = 24, Rock Slide
+learn = 28, Iron Head
+learn = 35, Metal Sound
+learn = 40, Take Down
+learn = 46, Autotomize
+learn = 52, Iron Tail
+learn = 58, Iron Defense
+learn = 64, Heavy Slam
+learn = 70, Double-Edge
+learn = 76, Metal Burst
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Rock Tomb, Endure, Sunny Day
+tm = Rain Dance, Sandstorm, Dig, Shadow Claw, Body Slam, Sleep Talk
+tm = Rock Blast, Stomping Tantrum, Rest, Rock Slide, Body Press, Iron Head
+tm = Substitute, Iron Defense, Stealth Rock, Heavy Slam, Earth Power, Reversal
+tm = Earthquake, Stone Edge, Sand Tomb, Uproar

@@ -1,0 +1,15 @@
+# Chimecho - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 343434 > 1C692F
+shiny = 525352 > 428C4E
+shiny = 586078 > 3B8A4C
+shiny = 702020 > 8F3700
+shiny = 738394 > 55A455
+shiny = 788098 > 5EAD6B
+shiny = A0A8C0 > 96C494
+shiny = A4C4FC > AFDFB2
+shiny = C03838 > CE6A00
+shiny = D0D0E8 > A9F8A4
+shiny = DDEDFD > D8FFD5
+shiny = E8E8F8 > C1FFB9
+shiny = ED729B > FF975A

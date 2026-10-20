@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Mightyena
+dex  = 262
+type = Dark
+
+hp         = 70
+attack     = 90
+defense    = 70
+sp_attack  = 60
+sp_defense = 60
+speed      = 70
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 37.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Snarl
+learn = 1, Sand Attack
+learn = 1, Fire Fang
+learn = 1, Ice Fang
+learn = 1, Thief
+learn = 1, Thunder Fang
+learn = 1, Bite
+learn = 1, Crunch
+learn = 1, Tackle
+learn = 13, Leer
+learn = 13, Howl
+learn = 16, Roar
+learn = 20, Swagger
+learn = 24, Assurance
+learn = 28, Scary Face
+learn = 36, Taunt
+learn = 44, Yawn
+learn = 48, Take Down
+learn = 52, Sucker Punch
+learn = 56, Play Rough
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Mud-Slap, Scary Face, Protect, Fire Fang
+tm = Thunder Fang, Ice Fang, Thief, Trailblaze, Facade, Snarl
+tm = Endure, Sunny Day, Rain Dance, Dig, Foul Play, Psychic Fangs
+tm = Body Slam, Sleep Talk, Rest, Taunt, Dark Pulse, Substitute
+tm = Crunch, Shadow Ball, Hyper Voice, Play Rough, Helping Hand, Nasty Plot
+tm = Giga Impact, Hyper Beam, Tera Blast, Roar, Spite, Super Fang
+tm = Uproar, Lash Out, Double-Edge, Endeavor, Throat Chop

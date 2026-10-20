@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Treecko
+dex  = 252
+type = Grass
+
+hp         = 40
+attack     = 45
+defense    = 35
+sp_attack  = 65
+sp_defense = 55
+speed      = 70
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = yes
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Grovyle
+evolve_level = 16
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leer
+learn = 1, Pound
+learn = 3, Leafage
+learn = 6, Quick Attack
+learn = 9, Mega Drain
+learn = 12, Detect
+learn = 15, Quick Guard
+learn = 18, Assurance
+learn = 21, Giga Drain
+learn = 24, Slam
+learn = 27, Double Team
+learn = 30, Energy Ball
+learn = 33, Screech
+learn = 36, Endeavor
+learn = 39, Leaf Storm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Low Kick, Acrobatics, Thief
+tm = Trailblaze, Facade, Aerial Ace, Swift, Magical Leaf, Rock Tomb
+tm = Fling, Dragon Tail, Endure, Sunny Day, Dig, Bullet Seed
+tm = Brick Break, Thunder Punch, Sleep Talk, Seed Bomb, Drain Punch, Grass Knot
+tm = Rest, Rock Slide, Swords Dance, Substitute, Crunch, Giga Drain
+tm = Energy Ball, Helping Hand, Grassy Terrain, Grass Pledge, Leaf Storm, Solar Beam
+tm = Tera Blast, Grassy Glide, Endeavor, Breaking Swipe, Upper Hand

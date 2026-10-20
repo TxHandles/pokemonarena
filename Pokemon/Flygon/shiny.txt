@@ -1,0 +1,20 @@
+# Flygon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 304830 > 00499D
+shiny = 406838 > 0064BF
+shiny = 488840 > 428D43
+shiny = 6C9B59 > 62A15A
+shiny = 789038 > 689843
+shiny = 7F1F1F > A96C00
+shiny = 802020 > BE5C01
+shiny = 81D574 > 88D36E
+shiny = A0C060 > 92C86C
+shiny = A83040 > CB8700
+shiny = B8C0D0 > A6CDB4
+shiny = BFEA84 > B7EA82
+shiny = C0D898 > AFE198
+shiny = D04058 > EBA110
+shiny = D35065 > F5AA20
+shiny = F88098 > FFD03B
+shiny = F98089 > FFD038
+shiny = FDFFF3 > C9FBFF

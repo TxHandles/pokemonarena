@@ -1,0 +1,6 @@
+# Barboach - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 304050 > 7D5000
+shiny = 496DA8 > B68022
+shiny = 5793DB > CEAC00
+shiny = 69B5FF > F2CC1C

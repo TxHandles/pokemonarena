@@ -1,0 +1,17 @@
+# Mawile - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 343434 > 59022C
+shiny = 44403E > 691239
+shiny = 484848 > 711E3F
+shiny = 4A4844 > 711E3F
+shiny = 5E4F4E > 7E2949
+shiny = 707070 > 9E4866
+shiny = 74726E > B35982
+shiny = 806848 > 9B435F
+shiny = 909090 > C26886
+shiny = 949494 > C775A0
+shiny = A42831 > A52718
+shiny = B0B8C8 > C6A2CD
+shiny = C03838 > 9F3B5B
+shiny = C8A858 > E38399
+shiny = E8E8F8 > FFD1FD

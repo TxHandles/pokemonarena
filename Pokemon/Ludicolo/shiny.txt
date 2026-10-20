@@ -1,0 +1,29 @@
+# Ludicolo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1F370F > 003025
+shiny = 203810 > 003126
+shiny = 302808 > 442700
+shiny = 404048 > 61373F
+shiny = 494343 > 683A3A
+shiny = 5E4731 > 714725
+shiny = 604830 > 734824
+shiny = 678837 > 357E6D
+shiny = 688838 > 357E6D
+shiny = 6C645B > 886348
+shiny = 78B020 > 589896
+shiny = 884000 > 8C4000
+shiny = 886850 > A06A2F
+shiny = 90D010 > 75B5B1
+shiny = 95C35C > 5FA199
+shiny = A0A0A0 > C79699
+shiny = AD9982 > CE9A5E
+shiny = BEED83 > 86CAC1
+shiny = D06A73 > D66A75
+shiny = D08008 > CB7907
+shiny = D0B040 > EBB13A
+shiny = D5B288 > F2B46B
+shiny = E8C878 > FFC968
+shiny = E8E8F8 > FFDEEB
+shiny = EEAF70 > F1A65B
+shiny = FAFAFA > FFF0F3
+shiny = FDED8D > FFF68B

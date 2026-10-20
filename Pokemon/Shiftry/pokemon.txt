@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Shiftry
+dex  = 275
+type = Grass / Dark
+
+hp         = 90
+attack     = 100
+defense    = 60
+sp_attack  = 90
+sp_defense = 60
+speed      = 80
+
+size   = 1.12
+height = 1.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 59.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Leaf Blade
+learn = 1, Air Cutter
+learn = 1, Sunny Day
+learn = 1, Payback
+learn = 1, Hurricane
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Low Kick, Confuse Ray, Thief
+tm = Trailblaze, Chilling Water, Facade, Aerial Ace, Hex, Snarl
+tm = Swift, Magical Leaf, Icy Wind, Rock Tomb, Low Sweep, Air Cutter
+tm = Fling, Endure, Sunny Day, Rain Dance, Dig, Bullet Seed
+tm = False Swipe, Brick Break, Foul Play, Air Slash, Body Slam, Sleep Talk
+tm = Seed Bomb, Grass Knot, Rest, Rock Slide, Taunt, Swords Dance
+tm = Toxic Spikes, Imprison, Dark Pulse, Substitute, X-Scissor, Will-O-Wisp
+tm = Giga Drain, Tailwind, Shadow Ball, Heat Wave, Energy Ball, Amnesia
+tm = Reversal, Grassy Terrain, Nasty Plot, Giga Impact, Focus Blast, Leaf Storm
+tm = Hurricane, Hyper Beam, Solar Beam, Tera Blast, Spite, Knock Off
+tm = Vacuum Wave, Solar Blade, Uproar, Weather Ball, Grassy Glide, Lash Out
+tm = Psych Up, Double-Edge, Endeavor, Petal Blizzard, Throat Chop, Curse
+tm = Upper Hand

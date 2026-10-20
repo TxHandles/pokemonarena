@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Wailmer
+dex  = 320
+type = Water
+
+hp         = 130
+attack     = 70
+defense    = 35
+sp_attack  = 70
+sp_defense = 35
+speed      = 60
+
+size   = 1.27
+height = 2.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 130.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Wailord
+evolve_level = 40
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Splash
+learn = 3, Growl
+learn = 6, Astonish
+learn = 12, Water Gun
+learn = 15, Mist
+learn = 18, Water Pulse
+learn = 21, Heavy Slam
+learn = 24, Brine
+learn = 27, Whirlpool
+learn = 30, Dive
+learn = 33, Bounce
+learn = 36, Body Slam
+learn = 39, Rest
+learn = 42, Amnesia
+learn = 45, Hydro Pump
+learn = 48, Water Spout
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Icy Wind, Rock Tomb, Avalanche
+tm = Endure, Rain Dance, Zen Headbutt, Body Slam, Sleep Talk, Waterfall
+tm = Rest, Body Press, Substitute, Hyper Voice, Heavy Slam, Surf
+tm = Amnesia, Ice Beam, Hydro Pump, Blizzard, Earthquake, Scald
+tm = Weather Ball, Whirlpool

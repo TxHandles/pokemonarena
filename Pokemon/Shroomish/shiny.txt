@@ -1,0 +1,20 @@
+# Shroomish - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 305828 > 7D0000
+shiny = 333332 > 453A2D
+shiny = 3E4A2C > 730000
+shiny = 484030 > 59472A
+shiny = 4C6051 > 8D0000
+shiny = 508840 > 8F8A2D
+shiny = 53B774 > 97B061
+shiny = 686848 > 8E6D2D
+shiny = 78B058 > A3AA4F
+shiny = 84847A > 9C835A
+shiny = 908058 > 9F7F44
+shiny = BC9B6A > DBA357
+shiny = C0A07F > CCA169
+shiny = C0A080 > E1A867
+shiny = DFC890 > EFC781
+shiny = E0C890 > FFCF7D
+shiny = E6CD7A > F5CC75
+shiny = FDEDAC > FFEC9E

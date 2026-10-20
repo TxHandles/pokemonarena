@@ -1,0 +1,22 @@
+# Cradily - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 205830 > 771256
+shiny = 487F58 > A9467C
+shiny = 488058 > A3407E
+shiny = 585030 > 841958
+shiny = 5A9C68 > B55D7A
+shiny = 60A860 > C06882
+shiny = 6C6038 > 912668
+shiny = 807040 > 9A3D5D
+shiny = 881838 > 7B3A03
+shiny = 8CCD9A > EA8DA9
+shiny = 98D898 > F597B2
+shiny = A03058 > 944E1B
+shiny = A16666 > B16B34
+shiny = C04060 > D95000
+shiny = D06888 > FA6E21
+shiny = D08985 > DD9057
+shiny = EBDB6C > FFA5BD
+shiny = F0B800 > F58BA0
+shiny = F0D060 > FF9DB5
+shiny = FAB1A1 > FFB77B

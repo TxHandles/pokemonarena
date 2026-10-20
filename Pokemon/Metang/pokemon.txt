@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Metang
+dex  = 375
+type = Steel / Psychic
+
+hp         = 60
+attack     = 75
+defense    = 100
+sp_attack  = 55
+sp_defense = 80
+speed      = 50
+
+size   = 1.14
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 202.5      # Pokedex weight in kg
+hovers = yes
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Metagross
+evolve_level = 45
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Confusion
+learn = evo, Metal Claw
+learn = 1, Hone Claws
+learn = 1, Tackle
+learn = 1, Bullet Punch
+learn = 6, Zen Headbutt
+learn = 12, Magnet Rise
+learn = 18, Flash Cannon
+learn = 26, Take Down
+learn = 34, Psychic
+learn = 42, Scary Face
+learn = 50, Meteor Mash
+learn = 58, Iron Defense
+learn = 66, Agility
+learn = 74, Hyper Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Trailblaze, Facade
+tm = Aerial Ace, Bulldoze, Metal Claw, Swift, Icy Wind, Rock Tomb
+tm = Endure, Sunny Day, Rain Dance, Sandstorm, Psyshock, Brick Break
+tm = Zen Headbutt, Body Slam, Thunder Punch, Ice Punch, Sleep Talk, Reflect
+tm = Light Screen, Grass Knot, Rest, Rock Slide, Flash Cannon, Iron Head
+tm = Substitute, Iron Defense, Trick, Shadow Ball, Stealth Rock, Psychic
+tm = Heavy Slam, Sludge Bomb, Earthquake, Giga Impact, Hyper Beam, Steel Beam
+tm = Tera Blast, Gravity, Gyro Ball, Focus Punch, Psych Up, Double-Edge
+tm = Future Sight, Expanding Force, Meteor Beam, Hard Press, Psychic Noise

@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Blaziken
+dex  = 257
+type = Fire / Fighting
+
+hp         = 80
+attack     = 120
+defense    = 70
+sp_attack  = 110
+sp_defense = 70
+speed      = 80
+
+size   = 1.12
+height = 1.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 52.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Blaze Kick
+learn = 1, Double Kick
+learn = 1, Scratch
+learn = 1, Quick Attack
+learn = 1, Growl
+learn = 9, Flame Charge
+learn = 12, Detect
+learn = 15, Sand Attack
+learn = 20, Aerial Ace
+learn = 25, Slash
+learn = 30, Bounce
+learn = 35, Focus Energy
+learn = 42, Bulk Up
+learn = 49, Reversal
+learn = 56, Flare Blitz
+learn = 63, Brave Bird
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Mud-Slap, Protect, Low Kick, Acrobatics
+tm = Thief, Fire Spin, Facade, Aerial Ace, Bulldoze, Swift
+tm = Rock Tomb, Flame Charge, Low Sweep, Fling, Endure, Sunny Day
+tm = Dig, Brick Break, U-turn, Shadow Claw, Bulk Up, Body Slam
+tm = Fire Punch, Thunder Punch, Sleep Talk, Poison Jab, Rest, Rock Slide
+tm = Swords Dance, Substitute, Will-O-Wisp, Aura Sphere, Heat Wave, Flamethrower
+tm = Helping Hand, Baton Pass, Reversal, Fire Blast, Fire Pledge, Earthquake
+tm = Stone Edge, Giga Impact, Blast Burn, Overheat, Focus Blast, Hyper Beam
+tm = Brave Bird, Flare Blitz, Close Combat, Solar Beam, Tera Blast, Roar
+tm = Knock Off, Vacuum Wave, Heat Crash, Uproar, Focus Punch, Double-Edge
+tm = Temper Flare, Coaching, Scorching Sands, Feather Dance, Curse, Upper Hand

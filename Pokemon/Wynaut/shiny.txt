@@ -1,0 +1,20 @@
+# Wynaut - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 184050 > 5C0046
+shiny = 194252 > 5D0067
+shiny = 205060 > 6C0075
+shiny = 306878 > 86008E
+shiny = 33333A > 50005F
+shiny = 3B3B49 > 5E0046
+shiny = 404050 > 64004C
+shiny = 417696 > 9E3590
+shiny = 433F42 > 620068
+shiny = 508898 > A92AB0
+shiny = 606078 > 8A1F6E
+shiny = 68A7D5 > D368C3
+shiny = 68B0C0 > D256D8
+shiny = 702020 > 630061
+shiny = 73CDFE > F88BE8
+shiny = 767787 > A33984
+shiny = 88D0E0 > FA8EE6
+shiny = F69387 > E756DA

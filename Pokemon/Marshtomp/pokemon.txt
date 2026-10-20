@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Marshtomp
+dex  = 259
+type = Water / Ground
+
+hp         = 70
+attack     = 85
+defense    = 70
+sp_attack  = 60
+sp_defense = 70
+speed      = 50
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 28.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Swampert
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Mud Shot
+learn = 1, Water Gun
+learn = 1, Tackle
+learn = 1, Growl
+learn = 9, Rock Throw
+learn = 12, Protect
+learn = 15, Supersonic
+learn = 20, Water Pulse
+learn = 25, Rock Slide
+learn = 30, Take Down
+learn = 35, Amnesia
+learn = 40, Muddy Water
+learn = 45, Screech
+learn = 50, Endeavor
+learn = 55, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Water Pulse, Low Kick, Chilling Water
+tm = Facade, Bulldoze, Icy Wind, Mud Shot, Rock Tomb, Fling
+tm = Avalanche, Endure, Rain Dance, Dig, Brick Break, Body Slam
+tm = Ice Punch, Sleep Talk, Waterfall, Rest, Rock Slide, Substitute
+tm = Liquidation, Stealth Rock, Surf, Amnesia, Helping Hand, Earth Power
+tm = Ice Beam, Hydro Pump, Blizzard, Water Pledge, Earthquake, Tera Blast
+tm = Roar, Sand Tomb, Uproar, Focus Punch, Double-Edge, Endeavor
+tm = Whirlpool, Muddy Water, Sludge Wave, Curse

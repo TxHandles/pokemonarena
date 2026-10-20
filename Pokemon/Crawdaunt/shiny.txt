@@ -1,0 +1,21 @@
+# Crawdaunt - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2880A8 > 569CD9
+shiny = 3890C8 > CE84E8
+shiny = 443B3C > 515279
+shiny = 582807 > 8F3200
+shiny = 582808 > 8F3200
+shiny = 585040 > 6A687F
+shiny = 629EE6 > E396FE
+shiny = 8F371F > B95100
+shiny = 903820 > BA5200
+shiny = A89890 > B7B9D9
+shiny = A8A8B8 > F6A4FF
+shiny = A9372B > C95C00
+shiny = B89828 > B6A951
+shiny = C85040 > E87519
+shiny = E5D9C1 > F7FBFF
+shiny = ED5140 > FF852A
+shiny = EDCD57 > EBDE80
+shiny = F86860 > FF953D
+shiny = F8D858 > F6E985

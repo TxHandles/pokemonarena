@@ -1,0 +1,27 @@
+# Latias - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2E3636 > 964C00
+shiny = 2F3737 > 974D00
+shiny = 313131 > 954500
+shiny = 384040 > A35700
+shiny = 4080A8 > 57728E
+shiny = 525252 > C1691A
+shiny = 52ADF7 > 6FDC93
+shiny = 601810 > 974600
+shiny = 687878 > 6C767A
+shiny = 708083 > 747E84
+shiny = 809098 > 848E98
+shiny = 902828 > BE6400
+shiny = 98A8B0 > 9CA6B0
+shiny = 9C9C9C > 9B9BA0
+shiny = A54A42 > DD7E00
+shiny = B8C8D0 > BCC6D0
+shiny = BDBDBD > BCBCC1
+shiny = C04040 > E78401
+shiny = CE5A4A > FD9720
+shiny = E85858 > FFA02E
+shiny = E8A800 > D9AB63
+shiny = E8E8F8 > E7E7F6
+shiny = F7E63A > 20CD54
+shiny = FAFAFA > F9F9FE
+shiny = FF7B63 > FFBC49

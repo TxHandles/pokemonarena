@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Armaldo
+dex  = 348
+type = Rock / Bug
+
+hp         = 75
+attack     = 125
+defense    = 100
+sp_attack  = 70
+sp_defense = 80
+speed      = 45
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 68.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Harden
+learn = 1, Fury Cutter
+learn = 1, Smack Down
+learn = 12, Metal Claw
+learn = 16, Ancient Power
+learn = 20, Bug Bite
+learn = 24, Brine
+learn = 28, Slash
+learn = 32, Crush Claw
+learn = 36, Rock Blast
+learn = 43, Protect
+learn = 48, X-Scissor
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Low Kick, Facade, Bulldoze, Mud Shot, Rock Tomb
+tm = Endure, Sunny Day, Sandstorm, Dig, False Swipe, Brick Break
+tm = Shadow Claw, Body Slam, Sleep Talk, Rock Blast, Stomping Tantrum, Rest
+tm = Rock Slide, Swords Dance, Flash Cannon, Substitute, Iron Defense, X-Scissor
+tm = Liquidation, Stealth Rock, Earth Power, Earthquake, Stone Edge, Giga Impact
+tm = Hyper Beam

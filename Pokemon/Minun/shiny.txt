@@ -1,0 +1,16 @@
+# Minun - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 305078 > 02682D
+shiny = 4A73BC > 3B8F54
+shiny = 5080A0 > 409756
+shiny = 705830 > 7E5F18
+shiny = 70B0D0 > 6EC682
+shiny = 72A4FD > 6DC284
+shiny = A88868 > B7914F
+shiny = BCA441 > CDAB3D
+shiny = C8A860 > D7B054
+shiny = DDD55A > DED363
+shiny = E8E8F8 > F2E8CB
+shiny = F8E088 > FFE780
+shiny = FAFAFA > FFFAD3
+shiny = FDFD7A > FFFA84

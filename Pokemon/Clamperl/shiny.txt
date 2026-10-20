@@ -1,0 +1,19 @@
+# Clamperl - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 304068 > 69008E
+shiny = 486088 > 8D02B1
+shiny = 496088 > 8235BC
+shiny = 4D6186 > 8F05B2
+shiny = 526AC1 > 9F21C7
+shiny = 6880A8 > B239D4
+shiny = 882048 > 8A6B03
+shiny = 88A0D0 > D65EF9
+shiny = 98A8C8 > 7D97DC
+shiny = A0C0F0 > F87EFF
+shiny = A84068 > AB8830
+shiny = B3CAD7 > 9BB7F3
+shiny = C85880 > C8A24A
+shiny = CE7B63 > F68D47
+shiny = D0D8E8 > B4C6FF
+shiny = E878A0 > EAC168
+shiny = FF9CAD > FFDF82

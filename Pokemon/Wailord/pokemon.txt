@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Wailord
+dex  = 321
+type = Water
+
+hp         = 170
+attack     = 90
+defense    = 45
+sp_attack  = 90
+sp_defense = 45
+speed      = 60
+
+size   = 1.50
+height = 14.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 398.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Splash
+learn = 1, Water Gun
+learn = 1, Astonish
+learn = 1, Soak
+learn = 1, Noble Roar
+learn = 1, Growl
+learn = 15, Mist
+learn = 18, Water Pulse
+learn = 21, Heavy Slam
+learn = 24, Brine
+learn = 27, Whirlpool
+learn = 30, Dive
+learn = 33, Bounce
+learn = 36, Body Slam
+learn = 39, Rest
+learn = 44, Amnesia
+learn = 49, Hydro Pump
+learn = 54, Water Spout
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Icy Wind, Rock Tomb, Avalanche
+tm = Endure, Rain Dance, Zen Headbutt, Body Slam, Sleep Talk, Waterfall
+tm = Rest, Body Press, Iron Head, Substitute, Liquidation, Hyper Voice
+tm = Heavy Slam, Surf, Amnesia, Ice Beam, Hydro Pump, Blizzard
+tm = Earthquake, Giga Impact, Hyper Beam, Scald, Weather Ball, Whirlpool

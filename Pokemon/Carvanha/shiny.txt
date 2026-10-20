@@ -1,0 +1,11 @@
+# Carvanha - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 083078 > 537D00
+shiny = 1060B8 > 85B030
+shiny = 3078E8 > A3CD50
+shiny = 4157B5 > 84AC2D
+shiny = 903008 > 32917E
+shiny = A0584C > 4BB0A0
+shiny = C83820 > 5BB09C
+shiny = DE6259 > 74CFBD
+shiny = F85028 > 6ADBC7

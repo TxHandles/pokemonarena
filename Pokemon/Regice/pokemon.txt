@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Regice
+dex  = 378
+type = Ice
+
+hp         = 80
+attack     = 50
+defense    = 100
+sp_attack  = 100
+sp_defense = 200
+speed      = 50
+
+size   = 1.25
+height = 1.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 175.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Charge Beam
+learn = 1, Icy Wind
+learn = 6, Bulldoze
+learn = 12, Ancient Power
+learn = 18, Stomp
+learn = 24, Ice Beam
+learn = 30, Curse
+learn = 36, Amnesia
+learn = 42, Hammer Arm
+learn = 48, Blizzard
+learn = 54, Superpower
+learn = 60, Lock-On
+learn = 66, Zap Cannon
+learn = 72, Hyper Beam
+learn = 78, Explosion
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Charge Beam, Facade, Bulldoze, Icy Wind, Rock Tomb
+tm = Fling, Avalanche, Endure, Rain Dance, Snowscape, Brick Break
+tm = Body Slam, Thunder Punch, Ice Punch, Sleep Talk, Thunder Wave, Stomping Tantrum
+tm = Rest, Rock Slide, Body Press, Flash Cannon, Iron Head, Substitute
+tm = Heavy Slam, Ice Spinner, Thunderbolt, Amnesia, Ice Beam, Blizzard
+tm = Earthquake, Giga Impact, Focus Blast, Hyper Beam, Thunder, Tera Blast
+tm = Gravity, Icicle Spear, Focus Punch, Curse

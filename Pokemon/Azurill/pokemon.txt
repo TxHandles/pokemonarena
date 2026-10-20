@@ -1,0 +1,46 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Azurill
+dex  = 298
+type = Normal / Fairy
+
+hp         = 50
+attack     = 20
+defense    = 40
+sp_attack  = 20
+sp_defense = 40
+speed      = 20
+
+size   = 0.85
+height = 0.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 2.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_friendship = Marill, 160
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tail Whip
+learn = 1, Splash
+learn = 1, Water Gun
+learn = 3, Helping Hand
+learn = 6, Bubble Beam
+learn = 9, Charm
+learn = 12, Slam
+learn = 15, Bounce
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Mud-Slap, Protect, Facade
+tm = Icy Wind, Mud Shot, Draining Kiss, Endure, Rain Dance, Body Slam
+tm = Sleep Talk, Light Screen, Waterfall, Rest, Substitute, Hyper Voice
+tm = Encore, Surf, Helping Hand, Ice Beam, Blizzard, Tera Blast
+tm = Alluring Voice

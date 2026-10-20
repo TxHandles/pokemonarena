@@ -1,0 +1,17 @@
+# Lotad - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 183058 > 005856
+shiny = 203810 > 004C55
+shiny = 286040 > 25727D
+shiny = 286088 > 7A0345
+shiny = 3E7691 > 902457
+shiny = 465848 > 286F7C
+shiny = 507F18 > 4D9196
+shiny = 508018 > 56A291
+shiny = 5090C0 > AE4172
+shiny = 619DB2 > BA4D7A
+shiny = 64AD62 > 75BDC5
+shiny = 70A810 > 7FCBBF
+shiny = 73DD73 > A7FBE8
+shiny = 90D010 > A4F1D9
+shiny = E8E8F8 > FF9ECB

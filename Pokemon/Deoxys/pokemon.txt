@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Deoxys
+dex  = 386
+type = Psychic
+
+hp         = 50
+attack     = 150
+defense    = 50
+sp_attack  = 150
+sp_defense = 50
+speed      = 150
+
+size   = 1.12
+height = 1.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 60.8      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Wrap
+learn = 1, Leer
+learn = 7, Night Shade
+learn = 13, Teleport
+learn = 19, Knock Off
+learn = 25, Psyshock
+learn = 31, Psychic
+learn = 37, Gravity
+learn = 43, Skill Swap
+learn = 49, Zen Headbutt
+learn = 55, Cosmic Power
+learn = 61, Recover
+learn = 67, Psycho Boost
+learn = 73, Hyper Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Water Pulse, Low Kick
+tm = Psybeam, Charge Beam, Facade, Aerial Ace, Swift, Icy Wind
+tm = Rock Tomb, Low Sweep, Stored Power, Night Shade, Fling, Endure
+tm = Sunny Day, Rain Dance, Psyshock, Brick Break, Zen Headbutt, Fire Punch
+tm = Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Reflect, Light Screen
+tm = Grass Knot, Thunder Wave, Poison Jab, Stomping Tantrum, Rest, Rock Slide
+tm = Imprison, Flash Cannon, Dark Pulse, Skill Swap, Substitute, Trick
+tm = Shadow Ball, Stealth Rock, Energy Ball, Psychic, Thunderbolt, Calm Mind
+tm = Ice Beam, Psychic Terrain, Nasty Plot, Giga Impact, Focus Blast, Trick Room
+tm = Hyper Beam, Thunder, Solar Beam, Tera Blast, Gravity, Knock Off
+tm = Pain Split, Psych Up, Future Sight, Expanding Force, Meteor Beam, Throat Chop
+tm = Psychic Noise

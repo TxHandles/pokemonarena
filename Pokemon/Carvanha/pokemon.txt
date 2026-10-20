@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Carvanha
+dex  = 318
+type = Water / Dark
+
+hp         = 45
+attack     = 90
+defense    = 20
+sp_attack  = 65
+sp_defense = 20
+speed      = 65
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 20.8      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Sharpedo
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leer
+learn = 1, Aqua Jet
+learn = 4, Poison Fang
+learn = 8, Focus Energy
+learn = 12, Scary Face
+learn = 16, Bite
+learn = 20, Ice Fang
+learn = 24, Screech
+learn = 28, Swagger
+learn = 32, Crunch
+learn = 36, Agility
+learn = 40, Liquidation
+learn = 44, Take Down
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Scary Face, Protect, Ice Fang, Thief, Facade
+tm = Snarl, Swift, Icy Wind, Endure, Rain Dance, Zen Headbutt
+tm = Psychic Fangs, Sleep Talk, Waterfall, Rest, Taunt, Dark Pulse
+tm = Substitute, Crunch, Liquidation, Surf, Ice Beam, Hydro Pump
+tm = Blizzard, Scald, Uproar, Whirlpool

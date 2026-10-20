@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Walrein
+dex  = 365
+type = Ice / Water
+
+hp         = 110
+attack     = 80
+defense    = 90
+sp_attack  = 95
+sp_defense = 90
+speed      = 65
+
+size   = 1.18
+height = 1.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 150.6      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Crunch
+learn = 1, Ice Fang
+learn = 1, Water Gun
+learn = 1, Swagger
+learn = 1, Rollout
+learn = 1, Defense Curl
+learn = 1, Growl
+learn = 12, Powder Snow
+learn = 16, Rest
+learn = 20, Snore
+learn = 24, Brine
+learn = 28, Aurora Beam
+learn = 35, Encore
+learn = 40, Body Slam
+learn = 48, Surf
+learn = 56, Blizzard
+learn = 64, Hail
+learn = 72, Sheer Cold
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Ice Fang, Facade, Bulldoze, Icy Wind, Rock Tomb
+tm = Avalanche, Endure, Rain Dance, Body Slam, Sleep Talk, Waterfall
+tm = Stomping Tantrum, Rest, Rock Slide, Swords Dance, Body Press, Iron Head
+tm = Substitute, Crunch, Liquidation, Heavy Slam, Encore, Surf
+tm = Ice Beam, Hydro Pump, Blizzard, Earthquake, Giga Impact, Hyper Beam
+tm = Icicle Spear, Whirlpool

@@ -1,0 +1,17 @@
+# Aron - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2095DE > D13566
+shiny = 342D3C > 312E1D
+shiny = 3F3747 > 50463E
+shiny = 3F3E3F > 3A3F1E
+shiny = 403848 > 51473F
+shiny = 406080 > 19755E
+shiny = 413948 > 3E3A28
+shiny = 6890C8 > 95A0A7
+shiny = 6ABEF6 > FE628A
+shiny = 706878 > 83796F
+shiny = 7D7E7E > 928E7A
+shiny = A0A0B0 > B7B1A6
+shiny = B8B8C8 > CFCABE
+shiny = BCC4C4 > C6CBAE
+shiny = E8E8F8 > FFFAEE

@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Baltoy
+dex  = 343
+type = Ground / Psychic
+
+hp         = 40
+attack     = 40
+defense    = 55
+sp_attack  = 40
+sp_defense = 70
+speed      = 55
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 21.5      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Claydol
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Mud-Slap
+learn = 1, Harden
+learn = 3, Rapid Spin
+learn = 6, Confusion
+learn = 9, Rock Tomb
+learn = 12, Power Trick
+learn = 15, Psybeam
+learn = 18, Ancient Power
+learn = 21, Imprison
+learn = 24, Cosmic Power
+learn = 27, Extrasensory
+learn = 30, Earth Power
+learn = 33, Self-Destruct
+learn = 36, Guard Split
+learn = 36, Power Split
+learn = 39, Sandstorm
+learn = 42, Explosion
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Hex, Rock Tomb, Endure
+tm = Sunny Day, Rain Dance, Sandstorm, Psyshock, Dig, Zen Headbutt
+tm = Sleep Talk, Reflect, Light Screen, Dazzling Gleam, Grass Knot, Rest
+tm = Rock Slide, Imprison, Eerie Impulse, Skill Swap, Substitute, Drill Run
+tm = Trick, Shadow Ball, Stealth Rock, Psychic, Calm Mind, Earth Power
+tm = Ice Beam, Psychic Terrain, Earthquake, Trick Room, Solar Beam, Sand Tomb
+tm = Gyro Ball

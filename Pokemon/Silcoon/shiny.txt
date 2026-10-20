@@ -1,0 +1,16 @@
+# Silcoon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 343434 > 6C4300
+shiny = 505050 > 8F6000
+shiny = 535353 > 6A5B06
+shiny = 802038 > 832800
+shiny = 808088 > C99131
+shiny = 8B9393 > AE9A49
+shiny = B4C5CD > E2CB78
+shiny = B8B8A8 > D7BF6B
+shiny = BB4A59 > 4699DE
+shiny = CBDBDB > F9E08C
+shiny = E0E0D0 > FFE791
+shiny = EC6269 > 72B9FF
+shiny = F06868 > BA9846
+shiny = FAFAFA > FFFAD6

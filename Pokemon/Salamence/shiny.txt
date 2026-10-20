@@ -1,0 +1,19 @@
+# Salamence - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2890A8 > 51AD47
+shiny = 304870 > 006400
+shiny = 4F8D99 > 41A538
+shiny = 50B8C8 > 79D56B
+shiny = 602020 > 7F4018
+shiny = 63BAC0 > 7CD76C
+shiny = 808090 > 45A235
+shiny = 98C8D0 > 93EB7E
+shiny = A04040 > B46B41
+shiny = A0A0B0 > A099C0
+shiny = A9AFB9 > ABA7CB
+shiny = B73D58 > C1744C
+shiny = C05060 > DE7B51
+shiny = D85878 > F08960
+shiny = E65964 > F78E62
+shiny = E8E8F8 > FFEEC0
+shiny = EFF5F8 > E1DCFB

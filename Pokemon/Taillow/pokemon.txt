@@ -1,0 +1,49 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Taillow
+dex  = 276
+type = Normal / Flying
+
+hp         = 40
+attack     = 55
+defense    = 30
+sp_attack  = 30
+sp_defense = 30
+speed      = 85
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 2.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Swellow
+evolve_level = 22
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Peck
+learn = 5, Focus Energy
+learn = 9, Quick Attack
+learn = 13, Wing Attack
+learn = 17, Double Team
+learn = 21, Aerial Ace
+learn = 25, Quick Guard
+learn = 29, Agility
+learn = 33, Air Slash
+learn = 37, Endeavor
+learn = 41, Brave Bird
+learn = 45, Reversal
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Aerial Ace, Sunny Day, Rain Dance
+tm = U-turn, Sleep Talk, Rest, Fly, Substitute, Toxic

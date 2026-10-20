@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Banette
+dex  = 354
+type = Ghost
+
+hp         = 64
+attack     = 115
+defense    = 65
+sp_attack  = 83
+sp_defense = 63
+speed      = 65
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 12.5      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Knock Off
+learn = 1, Night Shade
+learn = 1, Screech
+learn = 1, Spite
+learn = 16, Will-O-Wisp
+learn = 19, Shadow Sneak
+learn = 22, Hex
+learn = 26, Curse
+learn = 30, Shadow Ball
+learn = 34, Role Play
+learn = 40, Sucker Punch
+learn = 46, Trick
+learn = 53, Phantom Force
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Psybeam, Confuse Ray, Thief, Trailblaze
+tm = Pounce, Charge Beam, Facade, Hex, Icy Wind, Night Shade
+tm = Fling, Endure, Sunny Day, Rain Dance, Shadow Claw, Foul Play
+tm = Sleep Talk, Dazzling Gleam, Metronome, Thunder Wave, Rest, Taunt
+tm = Swords Dance, Imprison, Dark Pulse, Skill Swap, Gunk Shot, Substitute
+tm = Will-O-Wisp, Trick, Shadow Ball, Psychic, Encore, Thunderbolt
+tm = Calm Mind, Helping Hand, Nasty Plot, Phantom Force, Giga Impact, Trick Room
+tm = Hyper Beam, Thunder, Tera Blast, Spite, Knock Off, Burning Jealousy
+tm = Poltergeist, Lash Out, Pain Split, Psych Up, Skitter Smack, Throat Chop
+tm = Curse

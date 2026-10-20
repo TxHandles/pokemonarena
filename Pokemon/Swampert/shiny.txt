@@ -1,0 +1,19 @@
+# Swampert - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303F48 > 670983
+shiny = 304048 > 680B84
+shiny = 30486F > 7A017B
+shiny = 304870 > 7B017B
+shiny = 5299CA > CA6BC3
+shiny = 58687F > 8C4595
+shiny = 586880 > 8D4595
+shiny = 5878A0 > AF45AD
+shiny = 595152 > 83289B
+shiny = 5F7791 > A750C4
+shiny = 60A0D0 > D66CD5
+shiny = 7CD0FC > FF99FF
+shiny = 80B8F0 > F285F0
+shiny = A0A0C0 > CE80D5
+shiny = C8C8E0 > FFA2FA
+shiny = D7ECEF > E1E4FF
+shiny = FAFAFA > FDF3FF

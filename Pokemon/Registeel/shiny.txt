@@ -1,0 +1,20 @@
+# Registeel - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2E3636 > 49452F
+shiny = 313131 > 003F29
+shiny = 384040 > 535039
+shiny = 505860 > 006339
+shiny = 525252 > 574B39
+shiny = 602820 > 522A12
+shiny = 687878 > 1C8255
+shiny = 6B6B6B > 706451
+shiny = 809098 > 3C9C6D
+shiny = 8C8C8C > 3D9A6B
+shiny = 98A8B0 > 70BB9C
+shiny = B8C8D0 > A3D6D4
+shiny = BDBDBD > 71CD9A
+shiny = C03838 > A14B31
+shiny = C55A84 > C3767B
+shiny = D06868 > B76F59
+shiny = E8E8F8 > CFF9FA
+shiny = EF739C > EC9995

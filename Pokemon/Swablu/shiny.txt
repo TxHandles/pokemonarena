@@ -1,0 +1,10 @@
+# Swablu - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 305078 > 82590C
+shiny = 3179C5 > B1823C
+shiny = 407098 > A4782D
+shiny = 5890B0 > C59649
+shiny = 60A2E8 > D7C658
+shiny = 70B0D0 > E1D15D
+shiny = 83C6FE > FBE977
+shiny = E0E0E8 > FFED99

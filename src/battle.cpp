@@ -514,6 +514,7 @@ void Battle::SendOut(int s, int idx) {
         PlaySfx(Sfx::Buff);
     }
     f.flashFire = false;
+    f.shiftT = Type::None;
     f.sinceAct = 99;
     AbOnEnter(s);
 }
@@ -986,8 +987,13 @@ void Battle::UpdateStatus(int s, float dt) {
                 p.col = StatusColor(st.major);
                 p.size = 2;
                 parts.push_back(p);
-                DirectDamage(s, f.maxHp * pct, StatusColor(st.major), os);
-                if (f.state != FState::Active) return;
+                if ((st.major == Status::Poison || st.major == Status::Toxic) && AbOf(f) == Ab::PoisonHeal) {   // it thrives on poison
+                    float amt = std::min((float)f.maxHp - f.hp, f.maxHp * 0.012f);
+                    if (amt >= 1) { f.hp += amt; AddText(f.pos, "+" + std::to_string((int)amt), Color{120, 240, 130, 255}, 24); }
+                } else {
+                    DirectDamage(s, f.maxHp * pct, StatusColor(st.major), os);
+                    if (f.state != FState::Active) return;
+                }
             }
         }
         if (st.major == Status::Paralyze) {
@@ -1144,7 +1150,7 @@ void Battle::TryBeginMove(int s, int mi, Vector2 aim, bool exactAim) {
     f.dir = DirFromVec(aim);
     f.pendingAim = aim;
     f.cd[mi] = m.cooldown * f.CooldownMul() * (sd.cpu ? Params(sd.level).cooldownMul : 1.0f) * (AbOnField(Ab::Pressure, -1, s) ? 1.15f : 1.0f) *
-               (AbOf(f) == Ab::Prankster && m.power <= 0 ? 0.7f : 1.0f);
+               (AbOf(f) == Ab::Prankster && m.power <= 0 ? 0.7f : 1.0f) * (AbOf(f) == Ab::Stall ? 1.1f : (AbOf(f) == Ab::Truant ? 1.5f : 1.0f));
     f.pendingMove = mi;
     f.windupT = m.windup;
     // Sun: Solar Beam / Solar Blade fire at once. Rain: so does Electro Shot.
@@ -1178,7 +1184,7 @@ HitSpec Battle::Spec(int s, const MoveDef& m) const {
     h.special = IsSpecial(m);
     h.atk = f.Stat(StatId::Atk, h.special);
     h.lvlMul = StatMul(f.level);
-    h.t1 = f.sp->type1;
+    h.t1 = f.T1();
     h.t2 = f.sp->type2;
     h.status = m.status;
     h.statusChance = m.statusChance;
@@ -1809,9 +1815,9 @@ float Battle::ApplyHit(const HitSpec& h, int ts, Vector2 dir) {
         return 0;
     }
     if (AbBlocksHit(h, ts)) return 0;
-    float eff = TypeEffectiveness(h.type, t.sp->type1, t.sp->type2);
+    float eff = TypeEffectiveness(h.type, t.T1(), t.T2());
     if (eff <= 0 && h.ab == Ab::Scrappy && (h.type == Type::Normal || h.type == Type::Fighting) && HasType(t.sp, Type::Ghost))
-        eff = TypeEffectiveness(h.type, t.sp->type1 == Type::Ghost ? t.sp->type2 : t.sp->type1, Type::None);
+        eff = TypeEffectiveness(h.type, t.T1() == Type::Ghost ? t.T2() : t.T1(), Type::None);
     if (eff <= 0) {
         if (!h.light || t.flash <= 0) AddText(t.pos, "No effect", UI_DIM);
         t.flash = 0.05f;
@@ -1939,6 +1945,7 @@ float Battle::ApplyHit(const HitSpec& h, int ts, Vector2 dir) {
     else CheckWeakened(ts);
     bool anchored = h.ab != Ab::MoldBreaker && AbOf(t) == Ab::SuctionCups;
     if (anchored && !h.light) t.knock = t.knock * 0.25f;
+    else if (AbOf(t) == Ab::HeavyMetal && h.ab != Ab::MoldBreaker && !h.light) t.knock = t.knock * 0.6f;
     if (h.forceSwap && anchored && t.hp > 0) AddText(t.pos, "[Suction Cups] It anchored itself!", Color{255, 225, 130, 255}, 40);
     if (h.forceSwap && !anchored && t.hp > 0 && t.state == FState::Active && !t.weakened) {  // Roar, Whirlwind, Dragon Tail
         Side& tsd = sides[ts];
@@ -2795,7 +2802,7 @@ Intent Battle::ThinkAI(int s, float dt) {
                              (m.weather == Weather::Snow && HasType(f.sp, Type::Ice));
                 sc = weather == m.weather ? 0.0f : (likes ? 45.0f : 12.0f);
             } else if (m.ohko || m.fixedDmg != 0) {
-                if (!InRange(m, dist) || (TypeEffectiveness(m.type, e.sp->type1, e.sp->type2) * AbilityTypeMul(AbOf(e), m.type)) <= 0) continue;
+                if (!InRange(m, dist) || (TypeEffectiveness(m.type, e.T1(), e.T2()) * AbilityTypeMul(AbOf(e), m.type)) <= 0) continue;
                 sc = m.ohko ? 50.0f : 75.0f;
             } else if (m.transform) {
                 sc = f.transformFrom >= 0 ? 0.0f : 90.0f;  // copy the foe right away
@@ -2809,7 +2816,7 @@ Intent Battle::ThinkAI(int s, float dt) {
                 int mine = 0;
                 for (const auto& hz : hazards) mine += hz.hit.side == s && ((m.kind == MoveKind::Orbit && hz.orbit) || (m.kind == MoveKind::Trap && hz.trap));
                 if ((m.kind == MoveKind::Orbit && mine > 0) || (m.kind == MoveKind::Trap && mine >= 3) || !InRange(m, dist)) continue;
-                float eff = (TypeEffectiveness(m.type, e.sp->type1, e.sp->type2) * AbilityTypeMul(AbOf(e), m.type));
+                float eff = (TypeEffectiveness(m.type, e.T1(), e.T2()) * AbilityTypeMul(AbOf(e), m.type));
                 if (eff <= 0) continue;
                 sc = m.power > 0 ? m.power * eff * (m.kind == MoveKind::Orbit ? m.count * 0.6f : 0.8f) : 30.0f;
             } else if (m.kind == MoveKind::Buff) {
@@ -2821,7 +2828,7 @@ Intent Battle::ThinkAI(int s, float dt) {
                 sc = (dist < 40 && f.hp < f.maxHp * 0.5f) ? 40.0f : 0.0f;
             } else if (IsStatusMove(m)) {
                 if (!InRange(m, dist)) continue;
-                if ((TypeEffectiveness(m.type, e.sp->type1, e.sp->type2) * AbilityTypeMul(AbOf(e), m.type)) <= 0) continue;
+                if ((TypeEffectiveness(m.type, e.T1(), e.T2()) * AbilityTypeMul(AbOf(e), m.type)) <= 0) continue;
                 if (m.status != Status::None) {
                     bool has = IsMajorStatus(m.status) ? e.st.major != Status::None
                              : (m.status == Status::Confuse ? e.st.confuseT > 0 : (m.status == Status::Seed ? e.st.seedT > 0 : false));
@@ -2831,7 +2838,7 @@ Intent Battle::ThinkAI(int s, float dt) {
                 }
             } else {
                 if (!InRange(m, dist)) continue;
-                float eff = (TypeEffectiveness(m.type, e.sp->type1, e.sp->type2) * AbilityTypeMul(AbOf(e), m.type));
+                float eff = (TypeEffectiveness(m.type, e.T1(), e.T2()) * AbilityTypeMul(AbOf(e), m.type));
                 if (eff <= 0) continue;
                 sc = m.power * eff * (m.hits > 1 ? m.hits * 0.8f : 1.0f);
                 if (m.hex && e.st.major != Status::None) sc *= 2;
@@ -3838,7 +3845,7 @@ void Battle::DrawHud() const {
             GDrawText(info, tx, sy + 10, 10, UI_DIM);
 
             if (IsDamaging(m) || IsStatusMove(m)) {
-                float eff = TypeEffectiveness(m.type, opp.sp->type1, opp.sp->type2);
+                float eff = TypeEffectiveness(m.type, opp.T1(), opp.T2());
                 if (eff != 1.0f && (IsDamaging(m) || eff == 0)) {
                     char eb[16];
                     if (eff == 0) std::snprintf(eb, sizeof eb, "x0");
@@ -3852,7 +3859,7 @@ void Battle::DrawHud() const {
             if (!f.HasUses(k)) {
                 DrawRectangle(sx, sy, sw2, sh, Fade(UI_INK, 0.6f));
             } else if (f.cd[k] > 0.05f) {   // cooling down: dimmed, with a clock sweeping round
-                float full = m.cooldown * f.CooldownMul() * (sd.cpu ? Params(sd.level).cooldownMul : 1.0f) * (AbOf(f) == Ab::Prankster && m.power <= 0 ? 0.7f : 1.0f);
+                float full = m.cooldown * f.CooldownMul() * (sd.cpu ? Params(sd.level).cooldownMul : 1.0f) * (AbOf(f) == Ab::Prankster && m.power <= 0 ? 0.7f : 1.0f) * (AbOf(f) == Ab::Stall ? 1.1f : (AbOf(f) == Ab::Truant ? 1.5f : 1.0f));
                 float frac = std::min(1.0f, f.cd[k] / full);
                 DrawRectangleRounded({(float)sx, (float)sy, (float)sw2, (float)sh}, 0.35f, 6, Fade(UI_INK, 0.35f));
                 DrawRectangleRounded({(float)sx, (float)sy, sw2 * frac, (float)sh}, 0.35f, 6, Fade(UI_INK, 0.35f));

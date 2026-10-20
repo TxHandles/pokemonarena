@@ -1,0 +1,19 @@
+# Whiscash - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 084080 > 283249
+shiny = 182068 > 131B31
+shiny = 2060A0 > 840000
+shiny = 304088 > 2E374E
+shiny = 3F3F42 > 2A3141
+shiny = 4860A0 > 49526A
+shiny = 5062B1 > 4F5771
+shiny = 605020 > 6E2F00
+shiny = 60A0D8 > 7E8AA3
+shiny = 6880C0 > 68718A
+shiny = 6B98CF > 83829A
+shiny = 907838 > 9F561B
+shiny = B0A048 > D45300
+shiny = CCB13B > EA6515
+shiny = D0C060 > F97226
+shiny = E8E8F8 > CFD7ED
+shiny = F1DA73 > FB7829

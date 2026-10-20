@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Bagon
+dex  = 371
+type = Dragon
+
+hp         = 45
+attack     = 75
+defense    = 60
+sp_attack  = 40
+sp_defense = 30
+speed      = 50
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 42.1      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Shelgon
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Ember
+learn = 1, Leer
+learn = 5, Bite
+learn = 10, Dragon Breath
+learn = 15, Headbutt
+learn = 20, Scary Face
+learn = 25, Crunch
+learn = 31, Dragon Claw
+learn = 35, Zen Headbutt
+learn = 40, Focus Energy
+learn = 45, Flamethrower
+learn = 50, Outrage
+learn = 55, Double-Edge
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Fire Fang, Thunder Fang
+tm = Fire Spin, Facade, Rock Tomb, Dragon Tail, Endure, Sunny Day
+tm = Rain Dance, Brick Break, Zen Headbutt, Shadow Claw, Body Slam, Sleep Talk
+tm = Dragon Claw, Rest, Rock Slide, Iron Head, Dragon Dance, Substitute
+tm = Iron Defense, Crunch, Dragon Pulse, Hyper Voice, Flamethrower, Helping Hand
+tm = Fire Blast, Hydro Pump, Outrage, Draco Meteor, Tera Blast, Roar
+tm = Double-Edge, Dragon Cheer

@@ -1,0 +1,20 @@
+# Altaria - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 002060 > 071641
+shiny = 004068 > 7D5400
+shiny = 286898 > AB7C2C
+shiny = 2880A8 > 407594
+shiny = 385C78 > 9E711D
+shiny = 3D4042 > 4A4D47
+shiny = 40A8D8 > 6194B9
+shiny = 4290BB > 567D9F
+shiny = 485068 > 3D4258
+shiny = 60C0E8 > FFD17C
+shiny = 6ECCF6 > FFED66
+shiny = 708090 > 667082
+shiny = 77787A > 686972
+shiny = A8B0C0 > 9BA0B2
+shiny = BCBBBC > ABABB4
+shiny = CFDFE7 > C4CDDB
+shiny = D0E0E8 > C5CEDC
+shiny = FAFAFA > E9F1FA

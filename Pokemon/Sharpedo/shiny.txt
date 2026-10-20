@@ -1,0 +1,28 @@
+# Sharpedo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 490049
+shiny = 0A0A0A > 500050
+shiny = 1F3F68 > 900090
+shiny = 204068 > 7D007D
+shiny = 204069 > 910091
+shiny = 205888 > 79297B
+shiny = 384048 > 363135
+shiny = 3F6FA0 > C73EC5
+shiny = 4070A0 > C740C6
+shiny = 443A3C > 3B2D2D
+shiny = 485058 > A60DA0
+shiny = 4A5687 > B120AE
+shiny = 4B7DA9 > D54ED3
+shiny = 5890C0 > EA63E8
+shiny = 605010 > 615D19
+shiny = 701830 > 541B25
+shiny = 808890 > 7E777A
+shiny = 94C65A > ADD64E
+shiny = A0A8B0 > 9D969A
+shiny = A8BBBC > A9A8A7
+shiny = C05870 > E046CE
+shiny = D0A830 > CDC02C
+shiny = E8E8F8 > EAD6F2
+shiny = F8D050 > F6E952
+shiny = FAFAFA > FCE7FA
+shiny = FDEF3D > FFFF51

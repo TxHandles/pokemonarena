@@ -184,6 +184,9 @@ struct Fighter {
     float abSpd = 1, abAtk = 1, abDef = 1;  // recomputed every frame
     float abT = 0, sinceAct = 99;           // ability timer; seconds since it last used a move
     bool flashFire = false, snackUsed = false, pinchShown = false;
+    Type shiftT = Type::None;   // Color Change / Forecast: the type it has become (None = its own)
+    Type T1() const { return shiftT != Type::None ? shiftT : sp->type1; }
+    Type T2() const { return shiftT != Type::None ? Type::None : sp->type2; }
     // Ice underfoot: momentum carries you (slide is the current sliding velocity)
     float safeT = 0, mistT = 0, chantT = 0;   // Safeguard (no status), Mist (no stat drops), Lucky Chant (no crits)
     float followT = 0;                        // Follow Me / Rage Powder: foes aim at it

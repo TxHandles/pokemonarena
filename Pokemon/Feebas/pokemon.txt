@@ -1,0 +1,41 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Feebas
+dex  = 349
+type = Water
+
+hp         = 20
+attack     = 15
+defense    = 20
+sp_attack  = 10
+sp_defense = 55
+speed      = 80
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 7.4      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Milotic, Prism Scale   # (beauty in Ruby/Sapphire)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Splash
+learn = 15, Tackle
+learn = 25, Flail
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Water Pulse, Confuse Ray, Chilling Water, Facade, Swift
+tm = Icy Wind, Mud Shot, Endure, Rain Dance, Sleep Talk, Light Screen
+tm = Waterfall, Rest, Substitute, Dragon Pulse, Surf, Ice Beam
+tm = Blizzard, Tera Blast, Haze, Scale Shot, Double-Edge, Whirlpool
+tm = Muddy Water

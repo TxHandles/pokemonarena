@@ -1,0 +1,17 @@
+# Dustox - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 343433 > 3C0000
+shiny = 383838 > 400308
+shiny = 3F5721 > 5F3E3F
+shiny = 405820 > 643700
+shiny = 483870 > 490600
+shiny = 689828 > A46F19
+shiny = 73A559 > A25F17
+shiny = 7860A8 > 894D75
+shiny = 9CCE4A > DAB254
+shiny = A090D8 > BC8DC2
+shiny = A8D858 > E9AB55
+shiny = B178AE > BD79A3
+shiny = CE9D59 > C19831
+shiny = E5A4ED > E994BB
+shiny = F4E429 > F1D925

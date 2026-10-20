@@ -1,0 +1,51 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Surskit
+dex  = 283
+type = Bug / Water
+
+hp         = 40
+attack     = 30
+defense    = 32
+sp_attack  = 50
+sp_defense = 52
+speed      = 65
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 1.7      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Masquerain
+evolve_level = 22
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 6, Quick Attack
+learn = 9, Sweet Scent
+learn = 14, Soak
+learn = 17, Bubble Beam
+learn = 22, Agility
+learn = 25, Mist
+learn = 25, Haze
+learn = 35, Baton Pass
+learn = 38, Sticky Web
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Mud-Slap, Protect, Water Pulse, Acrobatics
+tm = Struggle Bug, Psybeam, Thief, Pounce, Chilling Water, Facade
+tm = Icy Wind, Mud Shot, Endure, Sunny Day, Rain Dance, Sleep Talk
+tm = Waterfall, Rest, Leech Life, Substitute, Liquidation, Giga Drain
+tm = Shadow Ball, Surf, Helping Hand, Baton Pass, Ice Beam, Hydro Pump
+tm = Blizzard, Bug Buzz, Solar Beam, Tera Blast, Haze, Bug Bite
+tm = Lunge, Psych Up, Skitter Smack

@@ -1,0 +1,16 @@
+# Cacnea - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284028 > 643900
+shiny = 386038 > 7C5B00
+shiny = 488840 > A37E00
+shiny = 4C874D > BF8E3F
+shiny = 585030 > 684E19
+shiny = 68A860 > C69E29
+shiny = 6AA451 > C39A23
+shiny = 80C078 > E1B542
+shiny = 8BCB7A > DBAF56
+shiny = BDA559 > CBA351
+shiny = C89838 > D2AF1F
+shiny = D8E0E0 > FFE176
+shiny = F3E429 > F6FC51
+shiny = F8D858 > FFDC63

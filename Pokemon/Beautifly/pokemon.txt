@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Beautifly
+dex  = 267
+type = Bug / Flying
+
+hp         = 60
+attack     = 70
+defense    = 50
+sp_attack  = 100
+sp_defense = 50
+speed      = 65
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 28.4      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Gust
+learn = 1, Bug Bite
+learn = 1, Poison Sting
+learn = 1, String Shot
+learn = 1, Harden
+learn = 1, Tackle
+learn = 12, Absorb
+learn = 15, Stun Spore
+learn = 17, Morning Sun
+learn = 20, Air Cutter
+learn = 22, Mega Drain
+learn = 25, Leech Life
+learn = 27, Attract
+learn = 30, Whirlwind
+learn = 32, Giga Drain
+learn = 35, Bug Buzz
+learn = 37, Protect
+learn = 40, Quiver Dance
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Acrobatics, Thief, Facade, Aerial Ace, Venoshock
+tm = Sunny Day, U-turn, Sleep Talk, Rest, Substitute, Shadow Ball
+tm = Energy Ball, Psychic, Giga Impact, Hyper Beam, Solar Beam, Toxic

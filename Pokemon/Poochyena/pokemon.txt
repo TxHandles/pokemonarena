@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Poochyena
+dex  = 261
+type = Dark
+
+hp         = 35
+attack     = 55
+defense    = 35
+sp_attack  = 30
+sp_defense = 30
+speed      = 35
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 13.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Mightyena
+evolve_level = 18
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 4, Howl
+learn = 7, Sand Attack
+learn = 10, Bite
+learn = 13, Leer
+learn = 16, Roar
+learn = 19, Swagger
+learn = 22, Assurance
+learn = 25, Scary Face
+learn = 28, Taunt
+learn = 31, Crunch
+learn = 34, Yawn
+learn = 36, Take Down
+learn = 40, Sucker Punch
+learn = 44, Play Rough
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Mud-Slap, Scary Face, Protect, Fire Fang
+tm = Thunder Fang, Ice Fang, Thief, Trailblaze, Facade, Snarl
+tm = Endure, Sunny Day, Rain Dance, Dig, Foul Play, Psychic Fangs
+tm = Sleep Talk, Rest, Taunt, Dark Pulse, Substitute, Crunch
+tm = Shadow Ball, Hyper Voice, Play Rough, Helping Hand, Nasty Plot, Tera Blast
+tm = Roar, Spite, Super Fang, Uproar, Lash Out, Double-Edge
+tm = Endeavor

@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Spheal
+dex  = 363
+type = Ice / Water
+
+hp         = 70
+attack     = 40
+defense    = 50
+sp_attack  = 55
+sp_defense = 50
+speed      = 25
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 39.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Sealeo
+evolve_level = 32
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Rollout
+learn = 1, Defense Curl
+learn = 4, Growl
+learn = 8, Water Gun
+learn = 12, Powder Snow
+learn = 16, Rest
+learn = 20, Snore
+learn = 24, Brine
+learn = 28, Aurora Beam
+learn = 33, Encore
+learn = 36, Body Slam
+learn = 40, Surf
+learn = 44, Blizzard
+learn = 48, Hail
+learn = 52, Sheer Cold
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Icy Wind, Rock Tomb, Endure
+tm = Rain Dance, Body Slam, Sleep Talk, Waterfall, Rest, Rock Slide
+tm = Substitute, Encore, Surf, Ice Beam, Blizzard, Earthquake
+tm = Whirlpool

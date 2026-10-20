@@ -1,0 +1,18 @@
+# Gorebyss - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 503880 > 4A2B6C
+shiny = 7262CC > 7655A7
+shiny = 7868B8 > 765AA0
+shiny = 882048 > 945200
+shiny = 8B83FD > 9075D6
+shiny = 9080D8 > 8E71BD
+shiny = 98A8C8 > FFB534
+shiny = A898F0 > A689D5
+shiny = B85060 > B88800
+shiny = C85870 > D58700
+shiny = CCCBCC > C6CBD1
+shiny = D4729B > DDA800
+shiny = D87888 > E1AC00
+shiny = E890A0 > FFB42F
+shiny = FAFAFA > FFF961
+shiny = FE9BBC > FFD03A

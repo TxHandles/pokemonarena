@@ -1,0 +1,49 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Spinda
+dex  = 327
+type = Normal
+
+hp         = 60
+attack     = 60
+defense    = 60
+sp_attack  = 60
+sp_defense = 60
+speed      = 60
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 5, Copycat
+learn = 10, Teeter Dance
+learn = 14, Psybeam
+learn = 19, Hypnosis
+learn = 23, Body Slam
+learn = 28, Sucker Punch
+learn = 37, Uproar
+learn = 41, Psych Up
+learn = 46, Double-Edge
+learn = 50, Flail
+learn = 55, Thrash
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Rock Tomb, Fling, Sunny Day
+tm = Rain Dance, Brick Break, Sleep Talk, Rest, Rock Slide, Substitute
+tm = Shadow Ball, Psychic, Calm Mind, Wild Charge, Trick Room, Toxic
+tm = Psych Up

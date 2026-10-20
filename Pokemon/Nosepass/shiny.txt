@@ -1,0 +1,19 @@
+# Nosepass - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 102048 > 453300
+shiny = 283860 > 755505
+shiny = 2B3A5E > 524112
+shiny = 2C343C > 6D4F00
+shiny = 303840 > 4D3D0A
+shiny = 343434 > 704F00
+shiny = 405888 > 9A762C
+shiny = 5080B8 > C49D52
+shiny = 516283 > A58033
+shiny = 525252 > 93701E
+shiny = 6A83BB > CCA358
+shiny = 701828 > 7B5400
+shiny = 70B0E8 > F6CC7E
+shiny = 8BA4DC > F1C577
+shiny = A02038 > 856418
+shiny = A4C5FD > FFF577
+shiny = CE605F > CF5243

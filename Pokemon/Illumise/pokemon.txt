@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Illumise
+dex  = 314
+type = Bug
+
+hp         = 65
+attack     = 47
+defense    = 75
+sp_attack  = 73
+sp_defense = 85
+speed      = 85
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 17.7      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Play Nice
+learn = 1, Tackle
+learn = 5, Sweet Scent
+learn = 9, Charm
+learn = 12, Quick Attack
+learn = 15, Struggle Bug
+learn = 19, Moonlight
+learn = 22, Wish
+learn = 26, Encore
+learn = 29, Flatter
+learn = 33, Zen Headbutt
+learn = 36, Helping Hand
+learn = 40, Bug Buzz
+learn = 43, Play Rough
+learn = 47, Infestation
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Mud-Slap, Protect, Water Pulse
+tm = Acrobatics, Struggle Bug, Confuse Ray, Thief, Disarming Voice, Trailblaze
+tm = Pounce, Charge Beam, Facade, Aerial Ace, Swift, Draining Kiss
+tm = Air Cutter, Fling, Endure, Sunny Day, Rain Dance, Brick Break
+tm = Zen Headbutt, U-turn, Air Slash, Thunder Punch, Ice Punch, Sleep Talk
+tm = Light Screen, Dazzling Gleam, Metronome, Thunder Wave, Rest, Substitute
+tm = Trick, Giga Drain, Tailwind, Shadow Ball, Encore, Thunderbolt
+tm = Play Rough, Helping Hand, Baton Pass, Bug Buzz, Thunder, Solar Beam
+tm = Tera Blast, Bug Bite, Focus Punch, Psych Up, Double-Edge, Endeavor
+tm = Skitter Smack

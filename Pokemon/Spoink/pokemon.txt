@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Spoink
+dex  = 325
+type = Psychic
+
+hp         = 60
+attack     = 25
+defense    = 35
+sp_attack  = 70
+sp_defense = 80
+speed      = 60
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 30.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Grumpig
+evolve_level = 32
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Splash
+learn = 7, Confusion
+learn = 10, Growl
+learn = 14, Psybeam
+learn = 18, Psych Up
+learn = 22, Confuse Ray
+learn = 29, Rest
+learn = 29, Power Gem
+learn = 33, Snore
+learn = 38, Psyshock
+learn = 40, Payback
+learn = 44, Psychic
+learn = 50, Bounce
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Psybeam, Confuse Ray, Thief, Trailblaze
+tm = Chilling Water, Charge Beam, Facade, Snarl, Swift, Icy Wind
+tm = Stored Power, Night Shade, Endure, Sunny Day, Rain Dance, Snowscape
+tm = Psyshock, Zen Headbutt, Body Slam, Sleep Talk, Reflect, Light Screen
+tm = Dazzling Gleam, Grass Knot, Thunder Wave, Rest, Taunt, Imprison
+tm = Flash Cannon, Skill Swap, Power Gem, Substitute, Trick, Shadow Ball
+tm = Psychic, Encore, Amnesia, Calm Mind, Helping Hand, Psychic Terrain
+tm = Trick Room, Tera Blast, Lunge, Uproar, Psych Up, Endeavor
+tm = Future Sight, Expanding Force

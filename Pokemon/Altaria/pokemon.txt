@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Altaria
+dex  = 334
+type = Dragon / Flying
+
+hp         = 75
+attack     = 70
+defense    = 90
+sp_attack  = 70
+sp_defense = 105
+speed      = 80
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 20.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Dragon Pulse
+learn = 1, Disarming Voice
+learn = 1, Mist
+learn = 1, Pluck
+learn = 1, Growl
+learn = 1, Peck
+learn = 12, Fury Attack
+learn = 16, Round
+learn = 20, Dragon Breath
+learn = 24, Safeguard
+learn = 28, Sing
+learn = 32, Cotton Guard
+learn = 38, Take Down
+learn = 44, Moonblast
+learn = 50, Perish Song
+learn = 56, Sky Attack
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Acrobatics, Thief, Disarming Voice
+tm = Trailblaze, Fire Spin, Facade, Aerial Ace, Bulldoze, Swift
+tm = Endure, Sunny Day, Rain Dance, Snowscape, Body Slam, Sleep Talk
+tm = Dragon Claw, Dazzling Gleam, Rest, Fly, Dragon Dance, Substitute
+tm = Will-O-Wisp, Tailwind, Dragon Pulse, Hyper Voice, Heat Wave, Flamethrower
+tm = Play Rough, Helping Hand, Ice Beam, Fire Blast, Earthquake, Giga Impact
+tm = Outrage, Hurricane, Hyper Beam, Brave Bird, Solar Beam, Draco Meteor
+tm = Tera Blast, Roar, Haze, Weather Ball, Dual Wingbeat, Double-Edge
+tm = Endeavor, Feather Dance, Breaking Swipe, Dragon Cheer, Alluring Voice

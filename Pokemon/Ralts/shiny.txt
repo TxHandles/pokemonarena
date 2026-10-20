@@ -1,0 +1,20 @@
+# Ralts - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 104020 > 003055
+shiny = 288038 > 00698E
+shiny = 484850 > 945715
+shiny = 48B058 > 3294BB
+shiny = 4B3941 > 904600
+shiny = 68C880 > 51ADD6
+shiny = 7E7974 > 80417C
+shiny = 7FCD6B > 5CB2DA
+shiny = 802038 > 754C2A
+shiny = 808090 > 824897
+shiny = A8A8B0 > AB6EBF
+shiny = ACACB1 > B38CB1
+shiny = B83048 > C86A11
+shiny = C8C8D8 > D0A7D3
+shiny = D94F6F > EA8733
+shiny = E8E8F8 > F0C6F3
+shiny = F06868 > EBB345
+shiny = F679A4 > FFAA58

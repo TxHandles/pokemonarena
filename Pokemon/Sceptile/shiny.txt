@@ -1,0 +1,18 @@
+# Sceptile - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 285010 > 4D837A
+shiny = 403008 > 65000F
+shiny = 405818 > 438E79
+shiny = 509030 > 5CAA92
+shiny = 51956B > 8FCBC3
+shiny = 681818 > 496E69
+shiny = 786818 > 64A790
+shiny = 80B048 > 80CDB3
+shiny = 8AE2A3 > A9FDE6
+shiny = 982828 > B0742C
+shiny = A0D068 > AEE4F4
+shiny = A34543 > B98C4C
+shiny = C8A038 > 9AC5B9
+shiny = E35C61 > FFC55E
+shiny = EED750 > BEFFE5
+shiny = F8D858 > C2FFE9

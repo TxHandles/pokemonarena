@@ -1,0 +1,22 @@
+# Jirachi - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 205850 > 780000
+shiny = 388070 > B61F00
+shiny = 506868 > 9E001B
+shiny = 54B79D > 76C098
+shiny = 58A090 > 839485
+shiny = 78C8B0 > FA551A
+shiny = 889898 > A17876
+shiny = A87008 > A97B00
+shiny = AAAB9E > BC8B81
+shiny = B0B8B8 > C79795
+shiny = B19209 > BA9900
+shiny = C89800 > CCA102
+shiny = D0D0E0 > E6AFB7
+shiny = D7C005 > E4C621
+shiny = D8B840 > E2BF3B
+shiny = E0E0F0 > F6BFC6
+shiny = E8E8F8 > FEC7CE
+shiny = F8D858 > FFDF57
+shiny = FAFAFA > FFEAE5
+shiny = FEFB38 > FFFF50

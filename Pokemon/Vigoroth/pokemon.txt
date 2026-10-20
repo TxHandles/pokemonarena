@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Vigoroth
+dex  = 288
+type = Normal
+
+hp         = 80
+attack     = 80
+defense    = 80
+sp_attack  = 55
+sp_defense = 55
+speed      = 90
+
+size   = 1.12
+height = 1.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 46.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Slaking
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Focus Energy
+learn = 1, Scratch
+learn = 1, Encore
+learn = 1, Uproar
+learn = 14, Fury Swipes
+learn = 17, Endure
+learn = 23, Slash
+learn = 27, Throat Chop
+learn = 33, Counter
+learn = 37, Focus Punch
+learn = 43, Reversal
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Low Kick, Thief
+tm = Trailblaze, Chilling Water, Facade, Aerial Ace, Bulldoze, Metal Claw
+tm = Icy Wind, Mud Shot, Rock Tomb, Low Sweep, Fling, Endure
+tm = Sunny Day, Rain Dance, Dig, False Swipe, Brick Break, Zen Headbutt
+tm = Shadow Claw, Bulk Up, Body Slam, Fire Punch, Thunder Punch, Ice Punch
+tm = Sleep Talk, Seed Bomb, Drain Punch, Metronome, Thunder Wave, Poison Jab
+tm = Stomping Tantrum, Rest, Rock Slide, Taunt, Gunk Shot, Substitute
+tm = X-Scissor, Shadow Ball, Hyper Voice, Encore, Flamethrower, Thunderbolt
+tm = Play Rough, Amnesia, Helping Hand, Reversal, Ice Beam, Fire Blast
+tm = Blizzard, Earthquake, Outrage, Focus Blast, Thunder, Solar Beam
+tm = Tera Blast, Roar, Knock Off, Uproar, Focus Punch, Lash Out
+tm = Double-Edge, Endeavor, Throat Chop, Curse

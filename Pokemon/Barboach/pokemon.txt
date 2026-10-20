@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Barboach
+dex  = 339
+type = Water / Ground
+
+hp         = 50
+attack     = 48
+defense    = 43
+sp_attack  = 46
+sp_defense = 41
+speed      = 60
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 1.9      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Whiscash
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Mud-Slap
+learn = 6, Rest
+learn = 6, Snore
+learn = 12, Water Pulse
+learn = 18, Amnesia
+learn = 24, Aqua Tail
+learn = 31, Muddy Water
+learn = 36, Earthquake
+learn = 42, Future Sight
+learn = 48, Fissure
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Water Pulse, Chilling Water, Facade
+tm = Bulldoze, Swift, Icy Wind, Mud Shot, Rock Tomb, Endure
+tm = Sunny Day, Rain Dance, Sandstorm, Zen Headbutt, Sleep Talk, Waterfall
+tm = Stomping Tantrum, Rest, Rock Slide, Dragon Dance, Substitute, Liquidation
+tm = Stealth Rock, Surf, Amnesia, Helping Hand, Earth Power, Ice Beam
+tm = Hydro Pump, Blizzard, Earthquake, Stone Edge, Outrage, Tera Blast
+tm = High Horsepower, Double-Edge, Whirlpool, Muddy Water, Future Sight

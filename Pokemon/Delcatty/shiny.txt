@@ -1,0 +1,19 @@
+# Delcatty - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3F3068 > 8F0000
+shiny = 403068 > 900000
+shiny = 604888 > BD463E
+shiny = 7B4A9B > CD4834
+shiny = 9868C8 > EA5A3F
+shiny = A37A41 > BF8039
+shiny = AC72BC > F66546
+shiny = B07848 > C8803F
+shiny = BF8FD7 > FF805E
+shiny = C090D8 > FF815F
+shiny = C49BDC > FF997A
+shiny = E0B838 > FFBE4B
+shiny = E2C372 > FFC971
+shiny = E8D080 > FFD57E
+shiny = E8E8F8 > FFEDD1
+shiny = F7F78C > FFFF90
+shiny = FAFAFA > FFFFC4

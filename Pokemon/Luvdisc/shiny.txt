@@ -1,0 +1,21 @@
+# Luvdisc - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 185FAC > 5874C3
+shiny = 323242 > 6D4E00
+shiny = 343434 > 6A5100
+shiny = 848473 > D77718
+shiny = 882048 > 8E6300
+shiny = 935151 > AC7F00
+shiny = A03060 > A47500
+shiny = BB6A6A > C5C300
+shiny = D06088 > D7A100
+shiny = D86898 > E1A900
+shiny = E08098 > F2B909
+shiny = E28297 > F4BB0D
+shiny = E8979F > FFCA26
+shiny = E898A0 > FFCB27
+shiny = F5D4C4 > FFF857
+shiny = F67A8B > F8BC0C
+shiny = F8B090 > FFB354
+shiny = F8C0B8 > FFEC4C
+shiny = FCB3A3 > FFE340

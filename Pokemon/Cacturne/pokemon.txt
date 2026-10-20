@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Cacturne
+dex  = 332
+type = Grass / Dark
+
+hp         = 70
+attack     = 115
+defense    = 60
+sp_attack  = 115
+sp_defense = 60
+speed      = 55
+
+size   = 1.12
+height = 1.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 77.4      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Spiky Shield
+learn = 1, Poison Sting
+learn = 1, Absorb
+learn = 1, Growth
+learn = 1, Leer
+learn = 1, Destiny Bond
+learn = 10, Leech Seed
+learn = 13, Sand Attack
+learn = 16, Bullet Seed
+learn = 19, Power Trip
+learn = 22, Ingrain
+learn = 26, Payback
+learn = 30, Spikes
+learn = 35, Sucker Punch
+learn = 38, Pin Missile
+learn = 44, Energy Ball
+learn = 49, Cotton Spore
+learn = 54, Sandstorm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Low Kick, Thief, Trailblaze
+tm = Facade, Bulldoze, Swift, Magical Leaf, Fling, Venoshock
+tm = Endure, Sunny Day, Rain Dance, Sandstorm, Dig, Bullet Seed
+tm = Brick Break, Zen Headbutt, Foul Play, Body Slam, Thunder Punch, Sleep Talk
+tm = Seed Bomb, Drain Punch, Grass Knot, Poison Jab, Stomping Tantrum, Rest
+tm = Taunt, Swords Dance, Spikes, Toxic Spikes, Dark Pulse, Substitute
+tm = Giga Drain, Shadow Ball, Energy Ball, Encore, Helping Hand, Grassy Terrain
+tm = Nasty Plot, Giga Impact, Focus Blast, Leaf Storm, Hyper Beam, Solar Beam
+tm = Tera Blast, Spite, Knock Off, Lunge, Focus Punch, Grassy Glide
+tm = Lash Out, Endeavor, Skitter Smack, Throat Chop, Curse

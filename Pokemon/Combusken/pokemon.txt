@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Combusken
+dex  = 256
+type = Fire / Fighting
+
+hp         = 60
+attack     = 85
+defense    = 60
+sp_attack  = 85
+sp_defense = 60
+speed      = 55
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 19.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Blaziken
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Double Kick
+learn = 1, Scratch
+learn = 1, Ember
+learn = 1, Quick Attack
+learn = 1, Growl
+learn = 9, Flame Charge
+learn = 12, Detect
+learn = 15, Sand Attack
+learn = 20, Aerial Ace
+learn = 25, Slash
+learn = 30, Bounce
+learn = 35, Focus Energy
+learn = 40, Blaze Kick
+learn = 45, Bulk Up
+learn = 50, Reversal
+learn = 55, Flare Blitz
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Low Kick, Thief, Fire Spin
+tm = Facade, Aerial Ace, Swift, Rock Tomb, Flame Charge, Low Sweep
+tm = Fling, Endure, Sunny Day, Dig, Brick Break, Shadow Claw
+tm = Bulk Up, Body Slam, Fire Punch, Thunder Punch, Sleep Talk, Poison Jab
+tm = Rest, Rock Slide, Swords Dance, Substitute, Will-O-Wisp, Heat Wave
+tm = Flamethrower, Helping Hand, Baton Pass, Reversal, Fire Blast, Fire Pledge
+tm = Overheat, Focus Blast, Flare Blitz, Close Combat, Tera Blast, Vacuum Wave
+tm = Uproar, Focus Punch, Double-Edge, Temper Flare, Coaching, Feather Dance
+tm = Curse

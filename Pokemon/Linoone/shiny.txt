@@ -1,0 +1,26 @@
+# Linoone - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 285078 > C18300
+shiny = 402810 > 731200
+shiny = 404850 > 22190C
+shiny = 4080B8 > 8585A1
+shiny = 4C4644 > 4E4638
+shiny = 4F4840 > 973500
+shiny = 504840 > 9C3B00
+shiny = 528DCD > FFC33F
+shiny = 686878 > 44362E
+shiny = 6C6868 > 443625
+shiny = 706858 > C45C1A
+shiny = 775942 > 725B3F
+shiny = 775A43 > 725C40
+shiny = 785840 > 89614D
+shiny = 7F7B7D > 564737
+shiny = 947A5B > A8826A
+shiny = 987058 > 907356
+shiny = A8B8D0 > B6B6B6
+shiny = B8B0A8 > BBAF9C
+shiny = BFA394 > D5AC9D
+shiny = CCC3CA > EACBCA
+shiny = D8D0B8 > F5D8C3
+shiny = E8E8F8 > EFE7E1
+shiny = F6E6ED > FFEFED

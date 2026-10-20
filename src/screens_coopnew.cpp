@@ -107,7 +107,7 @@ void DrawCoopSetup(const Game& g) {
 }
 
 // ------------------------------------------------------------------ Johto: Professor Elm's starters
-// One at a time: the host (player 1) picks, then player 2, then Silver takes two of the four left.
+// One at a time: the host (player 1) picks, then player 2, then Silver takes two of the ones left.
 
 namespace {
 int JohtoTaken(const Game& g, int who) { return SpeciesIndex(g.coopP[who].starter2); }
@@ -164,6 +164,11 @@ static void UpdateJohtoCoopStarter(Game& g) {
     Toast(g, g.coopP[turn].name + " chose " + AllSpecies()[sp].name + "!");
 }
 
+static const char* NumberWord(int n) {
+    static const char* w[] = {"none", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
+    return n >= 0 && n <= 10 ? w[n] : TextFormat("%d", n);
+}
+
 static void DrawJohtoCoopStarter(const Game& g) {
     DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     DrawTextCentered("WELCOME TO JOHTO", VW / 2, 12, 20, UI_GOLD);
@@ -208,7 +213,7 @@ static void DrawJohtoCoopStarter(const Game& g) {
                                    : "waits for player 1";
         GDrawText(st, x + 8, 274, 10, mine ? PCol(p) : UI_DIM);
     }
-    DrawTextCentered("A red-haired boy lurks by the lab window... he'll grab two of the four you don't take.", VW / 2, 320, 10, Color{255, 150, 150, 255}, false);
+    DrawTextCentered(TextFormat("A red-haired boy lurks by the lab window... he'll grab two of the %s you don't take.", NumberWord(std::max(0, n - 2))), VW / 2, 320, 10, Color{255, 150, 150, 255}, false);
     DrawTextCentered(online ? "Esc: back to the hub (until you take one)" : "Player 1 Back: back to the hub", VW / 2, 340, 10, UI_DIM, false);
     DrawToast(g);
 }

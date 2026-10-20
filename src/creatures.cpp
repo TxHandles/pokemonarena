@@ -222,7 +222,7 @@ bool ParseCreatureFile(const std::string& path, SpeciesDef& sp, std::string& rep
                 if (c == std::string::npos) break;
                 p = c + 1;
             }
-            if (sp.statEvos.size() != 3) { log += TextFormat("    line %d: write it like  evolve_by_stats = Hitmonlee, Hitmonchan, Hitmontop\n", ln); sp.statEvos.clear(); }
+            if (sp.statEvos.size() != 3 && sp.statEvos.size() != 2) { log += TextFormat("    line %d: write it like  evolve_by_stats = Hitmonlee, Hitmonchan, Hitmontop  (or two: Silcoon, Cascoon)\n", ln); sp.statEvos.clear(); }
             else if (sp.evolvesTo.empty()) sp.evolvesTo = sp.statEvos[0];
         } else if (key == "evolve_trade" || key == "evolves_by_trade" || key == "trade_evolution") {
             EvoAlt e;

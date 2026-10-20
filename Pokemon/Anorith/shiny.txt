@@ -1,0 +1,22 @@
+# Anorith - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 403F3F > 403F49
+shiny = 404048 > 404052
+shiny = 487038 > AB7E29
+shiny = 54805C > BE8D52
+shiny = 686870 > 68687B
+shiny = 709870 > D6B76D
+shiny = 80A878 > E8B678
+shiny = 84AC8B > EECB89
+shiny = 881838 > 984162
+shiny = A84050 > B9627E
+shiny = BFBAB9 > BDBAC2
+shiny = C07068 > D68D9C
+shiny = C8C8D8 > C8C8E2
+shiny = CDCDDD > CDCDE7
+shiny = CECEDE > CECEE4
+shiny = D8D8E8 > D8D8EE
+shiny = DEDEEE > DEDEF0
+shiny = DFDFEF > DFDFF1
+shiny = E8E8F8 > E8E8FA
+shiny = F4727B > F28F91

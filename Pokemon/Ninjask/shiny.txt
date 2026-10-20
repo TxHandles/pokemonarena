@@ -1,0 +1,16 @@
+# Ninjask - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 383048 > 7E4C36
+shiny = 43403F > 885B47
+shiny = 605870 > AD765E
+shiny = 6A5F59 > B37C61
+shiny = 702020 > 952108
+shiny = 906010 > 815906
+shiny = 969291 > C5B475
+shiny = C03838 > F46905
+shiny = C09040 > B18839
+shiny = CB7E49 > B57A3C
+shiny = E8C030 > DCB542
+shiny = EE504A > F9724E
+shiny = F0E048 > EEDD43
+shiny = FED46A > F2C96A

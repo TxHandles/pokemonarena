@@ -1,0 +1,13 @@
+# Skitty - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 383858 > 750C00
+shiny = 603838 > 710000
+shiny = 806848 > B2470B
+shiny = B05058 > B4473E
+shiny = BE9244 > CDA120
+shiny = D0A048 > DEAF30
+shiny = EE8383 > F97A43
+shiny = F5F58B > FFFF81
+shiny = F88898 > FF814B
+shiny = F8E080 > FFBC76
+shiny = FEB4A4 > FF8465

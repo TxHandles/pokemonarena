@@ -1,0 +1,12 @@
+# Kirlia - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 288038 > 00618E
+shiny = 48B058 > 328CBB
+shiny = 68C880 > 51A4D6
+shiny = 70A16E > 2E85B7
+shiny = 802038 > 754C2A
+shiny = 81D36B > 7BABD2
+shiny = B83048 > C76212
+shiny = DE5172 > EE8237
+shiny = F06868 > FF9344
+shiny = FC829C > FFA85B

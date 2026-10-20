@@ -1,0 +1,21 @@
+# Masquerain - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 003500
+shiny = 405070 > 005400
+shiny = 41506E > 106E1C
+shiny = 505058 > 146F19
+shiny = 525252 > 005600
+shiny = 587098 > 05741C
+shiny = 681820 > 164D00
+shiny = 84C5F6 > 67C668
+shiny = 88B0C8 > 54B253
+shiny = A04030 > 2E5B00
+shiny = A0D0E0 > B3C800
+shiny = B0D8E8 > 7CDA77
+shiny = BC8B9B > 4B9E3F
+shiny = C4F5FD > B1EEA4
+shiny = C85848 > 65960F
+shiny = D86878 > 459030
+shiny = E8E8F8 > E1EA6A
+shiny = F27857 > 6E982B
+shiny = FAFAFA > F2FB78

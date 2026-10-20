@@ -32,11 +32,11 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
   32 stages from `story.txt`: three trainers before each of 8 gyms (Brock, Misty, Lt. Surge, Erika,
   Koga, Sabrina, Blaine, Giovanni). Gyms give badges. Wins unlock new base-form creatures and coins.
   After the eighth badge: the rival on Route 22, Victory Road, then the Pokemon League.
-- **Starters and the rival** – six starters to choose from: Bulbasaur, Charmander, Squirtle, Chikorita,
-  Cyndaquil and Totodile (solo, local co-op and online co-op). The rival picks once and keeps his choice
-  for every rival battle, the Championship included: alone, one of the two starters that beat yours, at
-  random (take Charmander and he gets Squirtle or Totodile); in co-op, two of the four starters neither of
-  you took, at random, and he brings both. The pick is saved with the profile / co-op save (online, the
+- **Starters and the rival** – nine starters to choose from: Bulbasaur, Charmander, Squirtle, Chikorita,
+  Cyndaquil, Totodile, Treecko, Torchic and Mudkip (solo, local co-op and online co-op). The rival picks once
+  and keeps his choice for every rival battle, the Championship included: alone, one of the starters that beat
+  yours, at random (take Charmander and he gets Squirtle, Totodile or Mudkip); in co-op, two of the seven
+  starters neither of you took, at random, and he brings both. The pick is saved with the profile / co-op save (online, the
   host picks and the guest gets it with the shared progress).
 - **Shiny Pokemon** – about 1 in 512 new Pokemon is shiny: wild ones (training, rare encounters),
   legendaries, gifts, fossils and starters. A shiny keeps its shiny colours for good (saved with it,
@@ -72,8 +72,8 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
 - **Johto** – a second region on its own map (`johto.png`), opened by beating the Kanto Champion: the hub's
   first item becomes **Travel to Johto!** (and, once Kanto is done, Left/Right on it switches between the story
   and the Battle Tower). Professor Elm gives a second starter at level 60 with the same rules as Kanto: alone,
-  pick any of the six and Silver takes one of the two that beat it; in co-op the host picks, then player 2,
-  then Silver takes two of the remaining four at random (online, each player picks on their own turn and the
+  pick any of the nine and Silver takes one of the ones that beat it; in co-op the host picks, then player 2,
+  then Silver takes two of the remaining seven at random (online, each player picks on their own turn and the
   guest gets Silver's pick from the host). 38 battles follow HeartGold/SoulSilver from Cherrygrove to Lance
   (levels 60–88): the eight Johto gyms (Falkner, Bugsy, Whitney, Morty, Chuck, Jasmine, Pryce, Clair), Silver's
   five fights, the Team Rocket executives, the Sudowoodo and the shiny Red Gyarados (wild bosses that **join

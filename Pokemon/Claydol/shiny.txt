@@ -1,0 +1,23 @@
+# Claydol - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 2C232E
+shiny = 090909 > 312833
+shiny = 0A0A0A > 322934
+shiny = 3B332B > 63535A
+shiny = 464141 > 70626F
+shiny = 585040 > 837275
+shiny = 695E5E > 807F77
+shiny = 705848 > 987C7F
+shiny = 882840 > A25A72
+shiny = 887858 > B49C97
+shiny = 888898 > B9ADC5
+shiny = 987818 > C39D76
+shiny = B8B8C0 > FFED4C
+shiny = BBA8A9 > E8CFDF
+shiny = C04878 > D680A8
+shiny = D2775A > EFA5A1
+shiny = D8B858 > FFDFB5
+shiny = E88870 > FFB8B7
+shiny = E8E8F8 > F0E8F0
+shiny = FDEAA5 > FFFBE1
+shiny = FE7C8B > FFB3C9

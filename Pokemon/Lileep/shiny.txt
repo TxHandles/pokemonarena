@@ -1,0 +1,17 @@
+# Lileep - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 282058 > 006548
+shiny = 581028 > 8B3900
+shiny = 603890 > 208E70
+shiny = 8860B0 > 51B897
+shiny = 8D86C7 > 6CD7B3
+shiny = A03058 > C95C18
+shiny = A090D8 > 7BE4C1
+shiny = B87838 > C38300
+shiny = B96180 > F38E3F
+shiny = C04060 > E47E2E
+shiny = D06888 > F9A664
+shiny = D0B848 > EABD27
+shiny = DDCA56 > EFD213
+shiny = E38EA6 > FFC581
+shiny = F4B9B4 > FFE094

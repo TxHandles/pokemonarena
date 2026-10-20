@@ -1,0 +1,20 @@
+# Poochyena - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303838 > 512700
+shiny = 323232 > 421100
+shiny = 3F384E > 583400
+shiny = 403850 > 7F5308
+shiny = 413A50 > 5B3600
+shiny = 505058 > 6F400E
+shiny = 525251 > 724B14
+shiny = 687070 > 916730
+shiny = 6A6A6A > 8D632C
+shiny = 882828 > 9A332E
+shiny = 909090 > B7884F
+shiny = A4A4AC > CE9D63
+shiny = B8B8B8 > E3B075
+shiny = C03838 > 874323
+shiny = C5C5CD > EFD67C
+shiny = CC5241 > 995231
+shiny = EAD71C > 75A3D2
+shiny = F8D858 > FFD188

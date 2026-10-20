@@ -1,0 +1,18 @@
+# Swalot - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 193F51
+shiny = 384850 > 005570
+shiny = 402860 > 063D72
+shiny = 604878 > 385C8E
+shiny = 785890 > 516EA5
+shiny = 8868A0 > 5489CB
+shiny = 937ACD > 6C91DA
+shiny = A01818 > 426298
+shiny = A080C0 > 70A2E7
+shiny = A88038 > E76617
+shiny = B49BCD > 89BAFF
+shiny = B890D8 > 85B5FC
+shiny = D86868 > 7C9DDB
+shiny = E8B840 > FD782E
+shiny = ECCB4A > EEA24D
+shiny = F56353 > F947AA

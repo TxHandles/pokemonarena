@@ -1,0 +1,29 @@
+# Swellow - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 090909 > 004526
+shiny = 0A0A0A > 014627
+shiny = 103048 > 006E4D
+shiny = 304870 > 258C6B
+shiny = 333233 > 037250
+shiny = 404040 > 1E825E
+shiny = 476797 > 4CAE8C
+shiny = 486798 > 4CAE8C
+shiny = 486898 > 4DAF8D
+shiny = 525252 > 389771
+shiny = 585010 > 399468
+shiny = 6788C0 > 65D894
+shiny = 682040 > 287C59
+shiny = 6868B8 > 5CB999
+shiny = 6888C0 > 71D3B0
+shiny = 988828 > 7AD3A0
+shiny = A5ADF7 > CEC7D8
+shiny = B04050 > 62AD85
+shiny = B54251 > 69B086
+shiny = C43852 > FF7F1E
+shiny = D0D0E8 > FFF083
+shiny = D85058 > 7EC79C
+shiny = E0D048 > B8FFD9
+shiny = E8E8F8 > B3FFE8
+shiny = F5627A > FFC357
+shiny = FAFAFA > FFFFE2
+shiny = FDC047 > FFEF72

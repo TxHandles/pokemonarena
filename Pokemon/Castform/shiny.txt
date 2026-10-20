@@ -1,0 +1,15 @@
+# Castform - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0A0A0A > 1C001C
+shiny = 353535 > 563C5B
+shiny = 404050 > 3B1B40
+shiny = 525252 > 4C2B4F
+shiny = 606070 > 5C3A60
+shiny = 808090 > 7C5880
+shiny = 838372 > 7E647F
+shiny = 9B9B9B > 967098
+shiny = A0A0B0 > 9C769F
+shiny = C0C0D0 > BC95BF
+shiny = C3C3C3 > BEA2CA
+shiny = E8E8F8 > E4BBE7
+shiny = FAFAFA > FAE900

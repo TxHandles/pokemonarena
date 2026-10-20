@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Dusclops
+dex  = 356
+type = Ghost
+
+hp         = 40
+attack     = 70
+defense    = 130
+sp_attack  = 60
+sp_defense = 130
+speed      = 25
+
+size   = 1.12
+height = 1.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 30.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Shadow Punch
+learn = 1, Thunder Punch
+learn = 1, Gravity
+learn = 1, Astonish
+learn = 1, Bind
+learn = 1, Ice Punch
+learn = 1, Shadow Sneak
+learn = 1, Leer
+learn = 1, Disable
+learn = 1, Fire Punch
+learn = 12, Confuse Ray
+learn = 16, Night Shade
+learn = 20, Payback
+learn = 24, Will-O-Wisp
+learn = 28, Mean Look
+learn = 32, Hex
+learn = 36, Curse
+learn = 42, Shadow Ball
+learn = 48, Future Sight
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Confuse Ray, Thief, Charge Beam, Facade, Hex
+tm = Icy Wind, Night Shade, Fling, Endure, Sunny Day, Rain Dance
+tm = Brick Break, Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk
+tm = Metronome, Rest, Taunt, Imprison, Dark Pulse, Leech Life
+tm = Skill Swap, Substitute, Will-O-Wisp, Trick, Shadow Ball, Psychic
+tm = Calm Mind, Helping Hand, Ice Beam, Blizzard, Phantom Force, Giga Impact
+tm = Trick Room, Hyper Beam, Tera Blast, Haze, Spite, Gravity
+tm = Focus Punch, Poltergeist, Pain Split, Psych Up, Future Sight, Skitter Smack
+tm = Curse

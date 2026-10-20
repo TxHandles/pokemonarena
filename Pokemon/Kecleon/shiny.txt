@@ -1,0 +1,8 @@
+# Kecleon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 807040 > 885737
+shiny = BB527A > 6879E4
+shiny = D4C46A > E0AB53
+shiny = F5E5AB > FFCB87
+shiny = F8C040 > F6AA3C
+shiny = F8E078 > FFC666

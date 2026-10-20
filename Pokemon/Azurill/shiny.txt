@@ -1,0 +1,17 @@
+# Azurill - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 204078 > 006100
+shiny = 303840 > 005600
+shiny = 386898 > 2F881F
+shiny = 3D3C45 > 005C00
+shiny = 4888C0 > 52A940
+shiny = 5B84C3 > 54A840
+shiny = 649CDD > 6AC055
+shiny = 70B0F0 > 7DD367
+shiny = 84BEF7 > 9FFF8B
+shiny = A8D0F0 > B2FF99
+shiny = B83028 > B1432F
+shiny = C858A0 > 5FA439
+shiny = CB5F7C > D56452
+shiny = E8E8F8 > B8FF9A
+shiny = FAFAFA > FFFFDE

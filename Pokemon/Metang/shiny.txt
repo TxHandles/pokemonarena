@@ -1,0 +1,28 @@
+# Metang - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1F3F50 > 484E4F
+shiny = 204050 > 544F50
+shiny = 34343A > 574440
+shiny = 35353B > 584541
+shiny = 36363B > 594641
+shiny = 39393D > 5C4943
+shiny = 3E4046 > 58504A
+shiny = 3F6078 > 767176
+shiny = 406078 > 767176
+shiny = 516EA7 > A299A9
+shiny = 587FA8 > 9590A0
+shiny = 5880A8 > B1A9B7
+shiny = 628CDB > CAC8D2
+shiny = 6890D0 > AAA2C0
+shiny = 81B4FE > E9E8F3
+shiny = 8E2525 > 8F807F
+shiny = 9090A0 > BF4600
+shiny = 90C0E8 > D2D2E0
+shiny = 9292A0 > C14800
+shiny = 982828 > 9A8583
+shiny = 9898A0 > C2ACA6
+shiny = 98D8F0 > FDFFFF
+shiny = ACB2BC > E5661B
+shiny = C0C0C0 > EBD4CA
+shiny = E8E8F8 > FFFAF8
+shiny = FAFAFA > FAD000

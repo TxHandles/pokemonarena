@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Meditite
+dex  = 307
+type = Fighting / Psychic
+
+hp         = 30
+attack     = 40
+defense    = 55
+sp_attack  = 40
+sp_defense = 55
+speed      = 60
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 11.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Medicham
+evolve_level = 37
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Work Up
+learn = 1, Confusion
+learn = 9, Detect
+learn = 12, Endure
+learn = 15, Feint
+learn = 17, Force Palm
+learn = 20, Psybeam
+learn = 23, Calm Mind
+learn = 25, Zen Headbutt
+learn = 28, High Jump Kick
+learn = 31, Psych Up
+learn = 33, Acupressure
+learn = 36, Power Trick
+learn = 39, Reversal
+learn = 41, Recover
+learn = 44, Counter
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Low Kick, Psybeam, Thief, Trailblaze
+tm = Facade, Aerial Ace, Swift, Rock Tomb, Low Sweep, Stored Power
+tm = Night Shade, Fling, Endure, Sunny Day, Rain Dance, Psyshock
+tm = Brick Break, Zen Headbutt, Bulk Up, Body Slam, Fire Punch, Thunder Punch
+tm = Ice Punch, Sleep Talk, Drain Punch, Reflect, Light Screen, Metronome
+tm = Grass Knot, Poison Jab, Rest, Rock Slide, Taunt, Imprison
+tm = Skill Swap, Substitute, Trick, Shadow Ball, Psychic, Calm Mind
+tm = Helping Hand, Baton Pass, Reversal, Psychic Terrain, Focus Blast, Trick Room
+tm = Close Combat, Tera Blast, Focus Punch, Pain Split, Psych Up, Expanding Force
+tm = Upper Hand

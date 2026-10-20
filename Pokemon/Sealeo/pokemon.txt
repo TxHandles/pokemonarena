@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Sealeo
+dex  = 364
+type = Ice / Water
+
+hp         = 90
+attack     = 60
+defense    = 70
+sp_attack  = 75
+sp_defense = 70
+speed      = 45
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 87.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Walrein
+evolve_level = 44
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Swagger
+learn = 1, Water Gun
+learn = 1, Rollout
+learn = 1, Defense Curl
+learn = 1, Growl
+learn = 12, Powder Snow
+learn = 16, Rest
+learn = 20, Snore
+learn = 24, Brine
+learn = 28, Aurora Beam
+learn = 35, Encore
+learn = 40, Body Slam
+learn = 46, Surf
+learn = 52, Blizzard
+learn = 58, Hail
+learn = 64, Sheer Cold
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Icy Wind, Rock Tomb, Endure
+tm = Rain Dance, Body Slam, Sleep Talk, Waterfall, Rest, Rock Slide
+tm = Substitute, Encore, Surf, Ice Beam, Blizzard, Earthquake
+tm = Icicle Spear, Whirlpool

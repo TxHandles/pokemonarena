@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Lotad
+dex  = 270
+type = Water / Grass
+
+hp         = 40
+attack     = 30
+defense    = 30
+sp_attack  = 40
+sp_defense = 50
+speed      = 30
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 2.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Lombre
+evolve_level = 14
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Astonish
+learn = 1, Growl
+learn = 3, Absorb
+learn = 6, Water Gun
+learn = 9, Mist
+learn = 12, Mega Drain
+learn = 16, Flail
+learn = 20, Bubble Beam
+learn = 24, Leech Seed
+learn = 28, Giga Drain
+learn = 33, Rain Dance
+learn = 38, Zen Headbutt
+learn = 43, Energy Ball
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Water Pulse, Thief, Disarming Voice, Trailblaze
+tm = Chilling Water, Facade, Magical Leaf, Icy Wind, Endure, Sunny Day
+tm = Rain Dance, Bullet Seed, Zen Headbutt, Body Slam, Sleep Talk, Seed Bomb
+tm = Grass Knot, Rest, Swords Dance, Substitute, Giga Drain, Energy Ball
+tm = Surf, Ice Beam, Grassy Terrain, Blizzard, Solar Beam, Tera Blast
+tm = Uproar, Weather Ball, Grassy Glide, Double-Edge, Whirlpool, Muddy Water

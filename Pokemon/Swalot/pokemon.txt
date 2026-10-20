@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Swalot
+dex  = 317
+type = Poison
+
+hp         = 100
+attack     = 73
+defense    = 83
+sp_attack  = 73
+sp_defense = 83
+speed      = 55
+
+size   = 1.12
+height = 1.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 80.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Body Slam
+learn = 1, Yawn
+learn = 1, Sludge
+learn = 1, Poison Gas
+learn = 1, Pound
+learn = 1, Gunk Shot
+learn = 12, Amnesia
+learn = 17, Acid Spray
+learn = 20, Encore
+learn = 25, Toxic
+learn = 30, Swallow
+learn = 30, Spit Up
+learn = 30, Stockpile
+learn = 37, Sludge Bomb
+learn = 42, Gastro Acid
+learn = 49, Belch
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Water Pulse, Acid Spray, Thief
+tm = Facade, Bulldoze, Mud Shot, Fling, Venoshock, Endure
+tm = Sunny Day, Rain Dance, Bullet Seed, Brick Break, Zen Headbutt, Body Slam
+tm = Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Seed Bomb, Metronome
+tm = Thunder Wave, Poison Jab, Rest, Swords Dance, Body Press, Toxic Spikes
+tm = Gunk Shot, Substitute, Giga Drain, Shadow Ball, Encore, Amnesia
+tm = Helping Hand, Ice Beam, Sludge Bomb, Earthquake, Giga Impact, Hyper Beam
+tm = Solar Beam, Tera Blast, Toxic, Knock Off, Pain Split, Double-Edge
+tm = Sludge Wave, Curse

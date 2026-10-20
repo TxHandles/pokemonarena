@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Trapinch
+dex  = 328
+type = Ground
+
+hp         = 45
+attack     = 100
+defense    = 45
+sp_attack  = 45
+sp_defense = 45
+speed      = 10
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 15.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Vibrava
+evolve_level = 35
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Sand Attack
+learn = 1, Astonish
+learn = 8, Bite
+learn = 12, Mud-Slap
+learn = 16, Sand Tomb
+learn = 20, Bulldoze
+learn = 24, Dig
+learn = 28, Crunch
+learn = 32, Sandstorm
+learn = 36, Earth Power
+learn = 40, Earthquake
+learn = 44, Superpower
+learn = 48, Fissure
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Struggle Bug, Facade, Bulldoze
+tm = Mud Shot, Rock Tomb, Endure, Sunny Day, Sandstorm, Dig
+tm = Body Slam, Sleep Talk, Rest, Rock Slide, Substitute, Crunch
+tm = Giga Drain, Stealth Rock, Earth Power, Earthquake, Stone Edge, Hyper Beam
+tm = Tera Blast, Sand Tomb, Bug Bite, Scorching Sands

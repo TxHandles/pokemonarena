@@ -1,0 +1,6 @@
+# Solrock - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = B86828 > CC1837
+shiny = CA6222 > D11A3A
+shiny = D88838 > F04451
+shiny = F5942A > FF5758

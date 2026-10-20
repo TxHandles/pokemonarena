@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Whiscash
+dex  = 340
+type = Water / Ground
+
+hp         = 110
+attack     = 78
+defense    = 73
+sp_attack  = 76
+sp_defense = 71
+speed      = 60
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 23.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Thrash
+learn = 1, Zen Headbutt
+learn = 1, Tickle
+learn = 1, Water Gun
+learn = 1, Mud-Slap
+learn = 1, Belch
+learn = 1, Rest
+learn = 1, Snore
+learn = 12, Water Pulse
+learn = 18, Amnesia
+learn = 24, Aqua Tail
+learn = 33, Muddy Water
+learn = 40, Earthquake
+learn = 48, Future Sight
+learn = 56, Fissure
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Water Pulse, Chilling Water
+tm = Facade, Bulldoze, Swift, Icy Wind, Mud Shot, Rock Tomb
+tm = Endure, Sunny Day, Rain Dance, Sandstorm, Zen Headbutt, Body Slam
+tm = Sleep Talk, Waterfall, Stomping Tantrum, Rest, Rock Slide, Spikes
+tm = Dragon Dance, Substitute, Liquidation, Stealth Rock, Surf, Amnesia
+tm = Helping Hand, Earth Power, Ice Beam, Hydro Pump, Blizzard, Earthquake
+tm = Stone Edge, Giga Impact, Outrage, Hyper Beam, Tera Blast, Sand Tomb
+tm = High Horsepower, Weather Ball, Double-Edge, Whirlpool, Muddy Water, Future Sight
+tm = Curse

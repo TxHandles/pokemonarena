@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Regirock
+dex  = 377
+type = Rock
+
+hp         = 80
+attack     = 100
+defense    = 200
+sp_attack  = 50
+sp_defense = 100
+speed      = 50
+
+size   = 1.23
+height = 1.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 230.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Charge Beam
+learn = 1, Rock Throw
+learn = 6, Bulldoze
+learn = 12, Ancient Power
+learn = 18, Stomp
+learn = 24, Rock Slide
+learn = 30, Curse
+learn = 36, Iron Defense
+learn = 42, Hammer Arm
+learn = 48, Stone Edge
+learn = 54, Superpower
+learn = 60, Lock-On
+learn = 66, Zap Cannon
+learn = 72, Hyper Beam
+learn = 78, Explosion
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Charge Beam, Facade, Bulldoze, Rock Tomb
+tm = Fling, Endure, Sunny Day, Sandstorm, Dig, Brick Break
+tm = Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch
+tm = Rock Blast, Thunder Wave, Stomping Tantrum, Rest, Rock Slide, Body Press
+tm = Flash Cannon, Iron Head, Power Gem, Substitute, Iron Defense, Stealth Rock
+tm = Heavy Slam, Thunderbolt, Earth Power, Earthquake, Stone Edge, Giga Impact
+tm = Focus Blast, Hyper Beam, Thunder, Tera Blast, Sand Tomb, Gravity
+tm = Smack Down, Focus Punch, Double-Edge, Meteor Beam, Curse, Hard Press

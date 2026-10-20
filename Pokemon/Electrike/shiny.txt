@@ -1,0 +1,17 @@
+# Electrike - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 203808 > 002851
+shiny = 3E4544 > 004C7D
+shiny = 588840 > 2D709F
+shiny = 66A068 > 4687B8
+shiny = 705018 > 005D8B
+shiny = 7F8846 > 3C76A6
+shiny = 80A860 > 5590C1
+shiny = 86C96A > 70ACDC
+shiny = 98C860 > 74ADDD
+shiny = B0E070 > 91DCFF
+shiny = BD4062 > A4000C
+shiny = C09028 > 608AB8
+shiny = E8E8F8 > A5DBFF
+shiny = F1EA30 > E3FA58
+shiny = F8D040 > 9CC5F3

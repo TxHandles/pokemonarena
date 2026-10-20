@@ -1,0 +1,22 @@
+# Camerupt - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 323232 > 00193D
+shiny = 484030 > 10253D
+shiny = 4890A0 > BC9D25
+shiny = 4BA4FC > F0DC69
+shiny = 582020 > 07172E
+shiny = 586060 > 9E7963
+shiny = 5E5E5B > A2775E
+shiny = 807050 > 42536C
+shiny = 9C9B90 > C0937A
+shiny = A03018 > 35384F
+shiny = A09878 > 667792
+shiny = C0B898 > 8496B2
+shiny = C84818 > 505168
+shiny = CDCDBC > F4C4A7
+shiny = D46A59 > 626782
+shiny = D86830 > 686A7F
+shiny = DF8850 > 7A7F95
+shiny = E08850 > 7A7F96
+shiny = F58B5A > 84879F
+shiny = FAFAFA > FFF2E5

@@ -1,0 +1,21 @@
+# Tropius - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 183820 > 2B5B00
+shiny = 286838 > 598A00
+shiny = 403000 > 715900
+shiny = 409048 > 80B10A
+shiny = 4F5A4D > 588400
+shiny = 51B359 > A1D337
+shiny = 598351 > 7BB100
+shiny = 786048 > AF8F2C
+shiny = 7FB860 > B0E52C
+shiny = 80B860 > B0E62C
+shiny = 95745F > E8A61E
+shiny = A07850 > EEAB20
+shiny = A0A0A0 > FFCD4F
+shiny = B87808 > 93B504
+shiny = C4A383 > FED671
+shiny = D0A818 > BBDE3D
+shiny = E5C241 > FFFB6D
+shiny = E8E8F8 > FFF275
+shiny = F8D020 > E4FF63

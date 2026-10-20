@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Delcatty
+dex  = 301
+type = Normal
+
+hp         = 70
+attack     = 65
+defense    = 65
+sp_attack  = 55
+sp_defense = 55
+speed      = 90
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 32.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Fury Swipes
+learn = 1, Tail Whip
+learn = 1, Double-Edge
+learn = 1, Facade
+learn = 1, Attract
+learn = 1, Fake Out
+learn = 1, Disarming Voice
+learn = 1, Play Rough
+learn = 1, Heal Bell
+learn = 1, Covet
+learn = 1, Growl
+learn = 1, Payback
+learn = 1, Tackle
+learn = 1, Copycat
+learn = 1, Baby-Doll Eyes
+learn = 1, Charm
+learn = 1, Sing
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Charge Beam, Facade, Sunny Day, Rain Dance, Sleep Talk
+tm = Grass Knot, Thunder Wave, Rest, Substitute, Shadow Ball, Thunderbolt
+tm = Calm Mind, Ice Beam, Blizzard, Wild Charge, Giga Impact, Hyper Beam
+tm = Thunder, Solar Beam, Toxic, Psych Up

@@ -1,0 +1,10 @@
+# Volbeat - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 782030 > 004AA0
+shiny = 888898 > A569BB
+shiny = 99AEF8 > D39AF2
+shiny = B0B0C0 > CF90E6
+shiny = B44A49 > 4777CF
+shiny = D04850 > 5A82DC
+shiny = E07078 > 6AB2FF
+shiny = ED6251 > 6FADFF

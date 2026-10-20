@@ -1,0 +1,18 @@
+# Baltoy - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 281500
+shiny = 0A0A0A > 2D1B00
+shiny = 43423F > 5D5300
+shiny = 585040 > 706200
+shiny = 827048 > 979500
+shiny = 908858 > AB9A16
+shiny = AB9A5B > C1AE2D
+shiny = AD7955 > A99132
+shiny = B0A060 > D8B947
+shiny = B85028 > 58C189
+shiny = BC594B > 57C495
+shiny = D5C57A > F4EA2C
+shiny = D87050 > 7ADD9C
+shiny = D8B880 > FED367
+shiny = DE7665 > 78E4B3
+shiny = E0C898 > FFE37C

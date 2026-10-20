@@ -1,0 +1,24 @@
+# Spheal - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0A0A0A > 420038
+shiny = 304068 > 813377
+shiny = 486B9E > A367AB
+shiny = 505038 > 4B4F2C
+shiny = 505068 > 7B387F
+shiny = 506090 > A7569C
+shiny = 658CCA > D481CA
+shiny = 6888B8 > CF7DC4
+shiny = 787050 > 736F43
+shiny = 88A8DF > E6A5ED
+shiny = 88A8E0 > F39EE7
+shiny = 8CADF2 > ECABF5
+shiny = A09070 > A89860
+shiny = B0B8D0 > FFAFF6
+shiny = C0B088 > C8B87A
+shiny = C9B984 > D1C17A
+shiny = D0D8E8 > FFCFFF
+shiny = D8C8A0 > E1D8A0
+shiny = DCE0F0 > FFD8FF
+shiny = E8E8F8 > FFE0FF
+shiny = ECEDEA > FCFCDB
+shiny = FFE6AC > FFF7B3

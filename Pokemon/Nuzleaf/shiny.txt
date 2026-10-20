@@ -1,0 +1,23 @@
+# Nuzleaf - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 203808 > 004F1F
+shiny = 406808 > 5A4152
+shiny = 443F3D > 3E243B
+shiny = 483018 > 35192E
+shiny = 54381C > 551F2B
+shiny = 57AC67 > 4EC583
+shiny = 584808 > 4A2C40
+shiny = 5B4413 > 482A3F
+shiny = 5D4317 > 482A3F
+shiny = 604020 > 48293F
+shiny = 68A008 > 5FB953
+shiny = 785028 > 5A3A50
+shiny = 90D010 > 8EF04A
+shiny = 996C59 > 78566F
+shiny = A07030 > 7D596E
+shiny = A08840 > 79717F
+shiny = BA9079 > 9B7791
+shiny = CEB783 > B59560
+shiny = E8C878 > CBA560
+shiny = E8E8F8 > DCC3B6
+shiny = F4E4A8 > E5C1D9

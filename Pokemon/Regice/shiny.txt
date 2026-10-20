@@ -1,0 +1,21 @@
+# Regice - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284860 > 005FB0
+shiny = 313131 > 004861
+shiny = 406890 > 0081D8
+shiny = 425A94 > 2F5097
+shiny = 525252 > 2C6B86
+shiny = 5A7BAD > 2596F0
+shiny = 6090B8 > 44A8FF
+shiny = 73A5D6 > 4FC0FB
+shiny = 78A8D0 > 66C1FF
+shiny = 90B8E0 > 72D4FF
+shiny = 9CD6F7 > 84F1FF
+shiny = B0E0F8 > 98FBFF
+shiny = C5B562 > B0D1BE
+shiny = C8F0F7 > B1FFFF
+shiny = C8F0F8 > B1FFFF
+shiny = CEE6FF > A8F9FE
+shiny = D8C870 > C3E5CE
+shiny = E8E888 > D5FFEA
+shiny = FAFAFA > CCFFFF

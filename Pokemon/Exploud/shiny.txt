@@ -1,0 +1,23 @@
+# Exploud - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 504868 > 624753
+shiny = 684820 > 774005
+shiny = 686098 > 6F577C
+shiny = 687088 > 816E74
+shiny = 702030 > 5F222E
+shiny = 7B2337 > 912F09
+shiny = 882840 > A21905
+shiny = 8880B8 > 8F769B
+shiny = 8B7BB5 > 8F7298
+shiny = 933843 > B02910
+shiny = A8B0C0 > C8A6B6
+shiny = ACA0DD > C899C4
+shiny = B0A8E0 > CEA0C8
+shiny = B84068 > CD4127
+shiny = B89030 > C07800
+shiny = BA8E63 > C4771C
+shiny = E6CEE2 > FFB48B
+shiny = E8D068 > FBB52F
+shiny = E8E8F8 > FFE6E6
+shiny = F5D96B > F4D24F
+shiny = FE7C8B > FF7F5A

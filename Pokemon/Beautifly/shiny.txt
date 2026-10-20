@@ -1,0 +1,23 @@
+# Beautifly - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 306098 > 562978
+shiny = 33333A > 2B0045
+shiny = 343433 > 360041
+shiny = 404048 > 390854
+shiny = 4B92ED > 955DAA
+shiny = 4C6DCE > 98794F
+shiny = 5090E0 > 2E61BB
+shiny = 535353 > 4D1D67
+shiny = 604820 > 531856
+shiny = 606067 > 662E70
+shiny = 606068 > 662E71
+shiny = 737272 > 793F82
+shiny = B0B0B0 > DAB980
+shiny = C0A830 > D2BE8A
+shiny = C6C6C6 > C48CDE
+shiny = D0D0D8 > FDD9A0
+shiny = D2D2DB > E0D1A1
+shiny = E8E8F8 > F7E7B7
+shiny = F8D868 > FFF0BB
+shiny = FAFAFA > FFF8C5
+shiny = FDBB38 > EEEC85

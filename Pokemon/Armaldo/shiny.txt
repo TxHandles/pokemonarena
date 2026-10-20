@@ -1,0 +1,22 @@
+# Armaldo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 104060 > 6B3138
+shiny = 376790 > 97585E
+shiny = 386890 > 98595F
+shiny = 4D81BB > B07182
+shiny = 505050 > 7E4348
+shiny = 6090B0 > BD7E8C
+shiny = 6B6564 > 9B585B
+shiny = 707078 > A3636F
+shiny = 75A5C4 > E3AD9A
+shiny = 80A8C8 > D896A4
+shiny = 9090A0 > 99797E
+shiny = A02850 > B83830
+shiny = A08008 > 916921
+shiny = A42B53 > BC3B33
+shiny = C04068 > A95D6C
+shiny = C0C0D0 > CAA8AC
+shiny = E65962 > FB6B4B
+shiny = E8C848 > E8BF60
+shiny = E8E8F8 > FFB39C
+shiny = F2E38A > EAC788

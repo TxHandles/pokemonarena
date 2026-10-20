@@ -37,7 +37,7 @@
 #  training_max_foes = most opponents in a normal training battle
 #  Rival battles (rival = yes): "rival" in a team is the rival's starter, evolved for its level.
 #  He picks once and keeps it: alone, one of the two starters that beat yours (at random); in
-#  co-op, two of the four starters neither of you took (at random). "rival_partner" is his second
+#  co-op, two of the starters neither of you took (seven of the nine) (at random). "rival_partner" is his second
 #  starter (co-op only). "rival_trio1" / "rival_trio2" are two of Growlithe, Exeggcute and
 #  Gyarados, picked by his starter like in Red/Blue. Any team entry can end in +N / -N levels.
 #  story_rev = 3   layout version (lets old saves keep their place when stages are added)
@@ -603,7 +603,7 @@ league = 5
 # ==========================================================================
 #  JOHTO - opens once the Kanto Champion is beaten ("Travel to Johto!" on the Story menu).
 #  You pick a second starter at start_level (same rules as Kanto); Silver takes one that beats
-#  yours (co-op: two of the four left). "rival" below is his Johto starter.
+#  yours (co-op: two of the seven left). "rival" below is his Johto starter.
 # ==========================================================================
 [region]
 name = Johto

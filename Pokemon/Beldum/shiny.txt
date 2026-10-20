@@ -1,0 +1,24 @@
+# Beldum - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 104868 > 524D59
+shiny = 33333A > 443B45
+shiny = 35353B > 463D47
+shiny = 3F3E41 > 504750
+shiny = 404040 > 51494F
+shiny = 406078 > 6D6672
+shiny = 426077 > 6D6672
+shiny = 4B6AA8 > 7C7484
+shiny = 5880A8 > 9F97A4
+shiny = 5A4E62 > 6D2700
+shiny = 606068 > 7C3600
+shiny = 618CDE > 9E96A9
+shiny = 70A0D0 > ADA6B5
+shiny = 73A1EE > ABA5B8
+shiny = 82B5FE > D7CFDF
+shiny = 882828 > 626567
+shiny = 9090A0 > B56428
+shiny = 98C8E8 > D3CCDB
+shiny = 98D8F0 > F3ECF8
+shiny = B03838 > 8C7A7A
+shiny = B8B8C8 > CEC3D0
+shiny = E8E8F8 > FFE967

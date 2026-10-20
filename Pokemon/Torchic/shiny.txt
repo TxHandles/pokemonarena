@@ -1,0 +1,12 @@
+# Torchic - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 884E48 > A49619
+shiny = A09050 > C64437
+shiny = CC6940 > D4BF41
+shiny = D06000 > AA1C00
+shiny = E8A810 > FFF269
+shiny = EED068 > F2902E
+shiny = F08010 > EDBC66
+shiny = F3962B > FFE963
+shiny = F8D060 > FF7B43
+shiny = FCD62D > FA972E

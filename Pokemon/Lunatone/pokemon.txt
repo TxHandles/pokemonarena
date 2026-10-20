@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Lunatone
+dex  = 337
+type = Rock / Psychic
+
+hp         = 90
+attack     = 55
+defense    = 65
+sp_attack  = 95
+sp_defense = 85
+speed      = 70
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 168.0      # Pokedex weight in kg
+hovers = yes
+heavy  = yes
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Moonlight
+learn = 1, Harden
+learn = 1, Tackle
+learn = 1, Moonblast
+learn = 1, Rock Throw
+learn = 1, Confusion
+learn = 5, Hypnosis
+learn = 10, Rock Polish
+learn = 15, Rock Slide
+learn = 20, Psyshock
+learn = 25, Cosmic Power
+learn = 30, Psychic
+learn = 35, Stone Edge
+learn = 40, Future Sight
+learn = 45, Magic Room
+learn = 50, Explosion
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Acrobatics, Facade, Bulldoze, Swift, Icy Wind
+tm = Rock Tomb, Stored Power, Endure, Rain Dance, Sandstorm, Psyshock
+tm = Zen Headbutt, Body Slam, Sleep Talk, Reflect, Light Screen, Rock Blast
+tm = Grass Knot, Stomping Tantrum, Rest, Rock Slide, Skill Swap, Iron Head
+tm = Power Gem, Substitute, Shadow Ball, Stealth Rock, Psychic, Calm Mind
+tm = Helping Hand, Baton Pass, Earth Power, Ice Beam, Psychic Terrain, Nasty Plot
+tm = Blizzard, Earthquake, Stone Edge, Giga Impact, Trick Room, Hyper Beam
+tm = Sand Tomb, Gyro Ball, Weather Ball, Future Sight

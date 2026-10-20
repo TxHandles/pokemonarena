@@ -1,0 +1,22 @@
+# Kyogre - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 183858 > 7C0083
+shiny = 286098 > AB32B3
+shiny = 313131 > 5C005E
+shiny = 383838 > 650066
+shiny = 3F7FC0 > CE56D6
+shiny = 4080C0 > CF57D6
+shiny = 425A94 > A92AB0
+shiny = 525252 > 840F83
+shiny = 5A73BD > C94ED0
+shiny = 60A0C0 > EE76F2
+shiny = 6B94E6 > EB70F3
+shiny = 707880 > 807686
+shiny = 807018 > C747BA
+shiny = 80B8D8 > FF90FF
+shiny = 8C8C84 > 998A91
+shiny = 98A8B0 > AAA5B8
+shiny = B54A3A > F1326B
+shiny = BDBDB5 > FF9AFF
+shiny = C8D8F0 > FFB5FF
+shiny = FAFAFA > FFFAFF

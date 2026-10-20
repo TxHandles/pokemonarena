@@ -1,0 +1,29 @@
+# Slaking - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 21222B
+shiny = 483828 > 43302C
+shiny = 504858 > 4D4050
+shiny = 514857 > 4E404F
+shiny = 525252 > 3F3F49
+shiny = 604848 > 584147
+shiny = 644548 > 493641
+shiny = 783848 > 862B05
+shiny = 7D6F6C > 655C65
+shiny = 7F6757 > 775F5C
+shiny = 806858 > 78605D
+shiny = 907860 > 887068
+shiny = 908898 > 8E7F8F
+shiny = A85068 > B84226
+shiny = A87D73 > 9B7777
+shiny = A88068 > 9C7971
+shiny = BCC5CD > D1A24F
+shiny = C0C0D0 > CF9F4D
+shiny = C8B098 > C3A196
+shiny = CFA793 > BD9F91
+shiny = D07088 > 9C6B19
+shiny = D8C8A0 > D6B8A3
+shiny = E8E8F7 > E3DDE3
+shiny = E8E8F8 > F9C672
+shiny = EC729A > B96D84
+shiny = FAFAFA > FFE9EC
+shiny = FDD4AC > DDBDA8

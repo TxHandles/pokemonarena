@@ -1,0 +1,16 @@
+# Glalie - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2880C0 > DC2500
+shiny = 2B2B3A > 444350
+shiny = 383848 > 51515E
+shiny = 414042 > 5A595E
+shiny = 505060 > 6B6B78
+shiny = 56575A > 717176
+shiny = 579CC4 > 79A9B3
+shiny = 707888 > 8F94A1
+shiny = 78D1FF > A3DDEA
+shiny = 798189 > 989DA2
+shiny = 98A0B0 > 8AA69D
+shiny = ADB2BD > 9DB9AC
+shiny = C0C8D8 > C7D9D3
+shiny = FAFAFA > F1FFF8

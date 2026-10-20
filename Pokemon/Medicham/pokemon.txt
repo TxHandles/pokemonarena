@@ -1,0 +1,63 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Medicham
+dex  = 308
+type = Fighting / Psychic
+
+hp         = 60
+attack     = 60
+defense    = 75
+sp_attack  = 60
+sp_defense = 75
+speed      = 80
+
+size   = 1.12
+height = 1.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 31.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Thunder Punch
+learn = 1, Ice Punch
+learn = 1, Detect
+learn = 1, Work Up
+learn = 1, Confusion
+learn = 1, Fire Punch
+learn = 12, Endure
+learn = 15, Feint
+learn = 17, Force Palm
+learn = 20, Psybeam
+learn = 23, Calm Mind
+learn = 25, Zen Headbutt
+learn = 28, High Jump Kick
+learn = 31, Psych Up
+learn = 33, Acupressure
+learn = 36, Power Trick
+learn = 47, Recover
+learn = 53, Counter
+learn = 53, Axe Kick
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Low Kick, Psybeam, Thief, Trailblaze
+tm = Facade, Aerial Ace, Swift, Rock Tomb, Low Sweep, Stored Power
+tm = Night Shade, Fling, Endure, Sunny Day, Rain Dance, Psyshock
+tm = Brick Break, Zen Headbutt, Bulk Up, Body Slam, Fire Punch, Thunder Punch
+tm = Ice Punch, Sleep Talk, Drain Punch, Reflect, Light Screen, Metronome
+tm = Grass Knot, Poison Jab, Rest, Rock Slide, Taunt, Imprison
+tm = Skill Swap, Substitute, Trick, Aura Sphere, Shadow Ball, Energy Ball
+tm = Psychic, Calm Mind, Helping Hand, Baton Pass, Reversal, Psychic Terrain
+tm = Giga Impact, Focus Blast, Trick Room, Hyper Beam, Close Combat, Tera Blast
+tm = Gravity, Vacuum Wave, Focus Punch, Pain Split, Psych Up, Expanding Force
+tm = Upper Hand

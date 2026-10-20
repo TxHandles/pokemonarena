@@ -1,0 +1,50 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Whismur
+dex  = 293
+type = Normal
+
+hp         = 64
+attack     = 51
+defense    = 23
+sp_attack  = 51
+sp_defense = 23
+speed      = 28
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 16.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Loudred
+evolve_level = 20
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Astonish
+learn = 1, Pound
+learn = 5, Echoed Voice
+learn = 10, Howl
+learn = 15, Rest
+learn = 15, Sleep Talk
+learn = 21, Stomp
+learn = 25, Roar
+learn = 30, Supersonic
+learn = 35, Uproar
+learn = 40, Screech
+learn = 45, Hyper Voice
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Fake Tears, Protect, Facade, Icy Wind, Fling, Endure
+tm = Sunny Day, Rain Dance, Zen Headbutt, Body Slam, Fire Punch, Thunder Punch
+tm = Ice Punch, Sleep Talk, Rest, Substitute, Shadow Ball, Hyper Voice
+tm = Flamethrower, Ice Beam, Fire Blast, Blizzard, Solar Beam, Uproar

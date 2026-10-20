@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Grovyle
+dex  = 253
+type = Grass
+
+hp         = 50
+attack     = 65
+defense    = 45
+sp_attack  = 85
+sp_defense = 65
+speed      = 95
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 21.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Sceptile
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leafage
+learn = 1, Leer
+learn = 1, Pound
+learn = 1, Quick Attack
+learn = 9, Mega Drain
+learn = 12, Detect
+learn = 15, Quick Guard
+learn = 20, Assurance
+learn = 25, Giga Drain
+learn = 30, Slam
+learn = 35, Double Team
+learn = 40, Leaf Blade
+learn = 45, Screech
+learn = 50, Endeavor
+learn = 55, Leaf Storm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Low Kick, Acrobatics, Thief
+tm = Trailblaze, Facade, Aerial Ace, Swift, Magical Leaf, Rock Tomb
+tm = Low Sweep, Fling, Dragon Tail, Endure, Sunny Day, Dig
+tm = Bullet Seed, False Swipe, Brick Break, Thunder Punch, Sleep Talk, Seed Bomb
+tm = Drain Punch, Grass Knot, Rest, Rock Slide, Swords Dance, Substitute
+tm = X-Scissor, Crunch, Giga Drain, Energy Ball, Helping Hand, Grassy Terrain
+tm = Grass Pledge, Leaf Storm, Solar Beam, Tera Blast, Vacuum Wave, Focus Punch
+tm = Grassy Glide, Endeavor, Breaking Swipe, Upper Hand

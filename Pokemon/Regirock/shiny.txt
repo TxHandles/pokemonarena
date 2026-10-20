@@ -1,0 +1,22 @@
+# Regirock - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 313131 > 240711
+shiny = 3D2D26 > 2C0000
+shiny = 525252 > 502D1A
+shiny = 5F271F > 2B0000
+shiny = 602820 > 6C0F00
+shiny = 705850 > 683117
+shiny = 884028 > 912D00
+shiny = 887058 > 532401
+shiny = 94734A > 582804
+shiny = 9C5231 > A74000
+shiny = A09080 > 723F1F
+shiny = B05838 > B84805
+shiny = B0A090 > 824D2C
+shiny = BD9C73 > 824C28
+shiny = C56342 > CC5414
+shiny = C8B8A8 > 925E46
+shiny = D87048 > DE611E
+shiny = E6CE9C > A87459
+shiny = E8D8C8 > D9A07E
+shiny = F78452 > FC762C

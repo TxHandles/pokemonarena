@@ -1,0 +1,23 @@
+# Seedot - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2E2E27 > 5B6052
+shiny = 403838 > 6C6C62
+shiny = 403A3C > 756A61
+shiny = 42413F > 71756A
+shiny = 483018 > 962500
+shiny = 4A3315 > 820000
+shiny = 4B3515 > 830600
+shiny = 605850 > 8F8F80
+shiny = 785028 > AF2300
+shiny = 807070 > AFAAA0
+shiny = 837766 > B3B09B
+shiny = 887828 > A97715
+shiny = 9B9383 > C9C4BA
+shiny = 9D712F > D94B18
+shiny = A07030 > DA4B19
+shiny = B0A040 > AE9F43
+shiny = B58D5E > FB6836
+shiny = C6B7AD > F4EBE4
+shiny = E8C878 > FFA75D
+shiny = F2C76A > E9C96D
+shiny = FDEB84 > FBEA88

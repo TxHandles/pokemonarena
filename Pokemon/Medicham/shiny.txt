@@ -1,0 +1,18 @@
+# Medicham - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 655749 > 4C64AE
+shiny = 707060 > 4F7EC9
+shiny = 903858 > 3D63AF
+shiny = 939383 > B6884D
+shiny = 988018 > 6F90D6
+shiny = 989890 > BC8E53
+shiny = B85068 > 617FCD
+shiny = C0A010 > 95B2F8
+shiny = C0C0B8 > E7B578
+shiny = C5526A > 6A85D4
+shiny = C86080 > 839EE8
+shiny = CDCDCC > EDD594
+shiny = E888A0 > A8C2FF
+shiny = E8E8F8 > FFF1B0
+shiny = EE729B > A0B7FF
+shiny = F8D858 > CDE9FF

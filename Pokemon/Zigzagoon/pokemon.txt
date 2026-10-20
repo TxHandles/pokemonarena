@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Zigzagoon
+dex  = 263
+type = Normal
+
+hp         = 38
+attack     = 30
+defense    = 41
+sp_attack  = 30
+sp_defense = 41
+speed      = 60
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 17.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Linoone
+evolve_level = 20
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Growl
+learn = 3, Sand Attack
+learn = 6, Tail Whip
+learn = 9, Covet
+learn = 12, Headbutt
+learn = 15, Baby-Doll Eyes
+learn = 18, Pin Missile
+learn = 21, Rest
+learn = 24, Take Down
+learn = 27, Fling
+learn = 30, Flail
+learn = 33, Belly Drum
+learn = 36, Double-Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Thief, Facade, Swift, Icy Wind
+tm = Mud Shot, Fling, Endure, Sunny Day, Rain Dance, Dig
+tm = Body Slam, Sleep Talk, Seed Bomb, Grass Knot, Thunder Wave, Rest
+tm = Gunk Shot, Substitute, Trick, Shadow Ball, Hyper Voice, Surf
+tm = Thunderbolt, Helping Hand, Ice Beam, Blizzard, Thunder, Whirlpool

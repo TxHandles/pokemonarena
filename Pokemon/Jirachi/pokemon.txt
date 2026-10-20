@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Jirachi
+dex  = 385
+type = Steel / Psychic
+
+hp         = 100
+attack     = 100
+defense    = 100
+sp_attack  = 100
+sp_defense = 100
+speed      = 100
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 1.1      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Wish
+learn = 1, Confusion
+learn = 7, Swift
+learn = 21, Life Dew
+learn = 28, Zen Headbutt
+learn = 35, Gravity
+learn = 42, Psychic
+learn = 49, Meteor Mash
+learn = 56, Healing Wish
+learn = 63, Rest
+learn = 70, Future Sight
+learn = 77, Double-Edge
+learn = 84, Cosmic Power
+learn = 91, Last Resort
+learn = 98, Doom Desire
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Mud-Slap, Protect, Water Pulse, Psybeam
+tm = Confuse Ray, Charge Beam, Facade, Swift, Icy Wind, Stored Power
+tm = Fling, Endure, Sunny Day, Rain Dance, Sandstorm, Psyshock
+tm = Zen Headbutt, U-turn, Body Slam, Fire Punch, Thunder Punch, Ice Punch
+tm = Sleep Talk, Drain Punch, Reflect, Light Screen, Dazzling Gleam, Metronome
+tm = Grass Knot, Thunder Wave, Rest, Imprison, Flash Cannon, Skill Swap
+tm = Iron Head, Substitute, Iron Defense, Trick, Aura Sphere, Shadow Ball
+tm = Stealth Rock, Energy Ball, Psychic, Encore, Thunderbolt, Play Rough
+tm = Amnesia, Calm Mind, Helping Hand, Baton Pass, Giga Impact, Trick Room
+tm = Hyper Beam, Thunder, Steel Beam, Tera Blast, Gravity, Psych Up
+tm = Double-Edge, Future Sight, Expanding Force, Meteor Beam, Metal Sound, Psychic Noise

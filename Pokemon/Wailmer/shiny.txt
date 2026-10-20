@@ -1,0 +1,10 @@
+# Wailmer - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1F3F60 > 84559A
+shiny = 204060 > 85569B
+shiny = 3068A0 > B180CA
+shiny = 3F7FBF > BA91E4
+shiny = 4080C0 > CA99E5
+shiny = 4E95C7 > CEA5F8
+shiny = 68A0E0 > DEB3FF
+shiny = 77A6C3 > E2B7FF

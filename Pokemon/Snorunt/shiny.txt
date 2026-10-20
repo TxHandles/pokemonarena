@@ -1,0 +1,23 @@
+# Snorunt - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 30303B > 383037
+shiny = 313140 > 473842
+shiny = 323242 > 483943
+shiny = 343440 > 3C343C
+shiny = 404050 > 574852
+shiny = 423E3F > 483E3F
+shiny = 584038 > 005C70
+shiny = 6ABEFF > FF7430
+shiny = 7B7A7B > 837A7B
+shiny = 906838 > 0088A3
+shiny = A84840 > CE8E00
+shiny = A8A8B8 > B2A8B2
+shiny = BE4F40 > C9B000
+shiny = C05040 > 258BA7
+shiny = C18D4F > 4AB1CB
+shiny = C89838 > 57BAD2
+shiny = E8E8F8 > FFF2FB
+shiny = F06858 > F2D222
+shiny = F5874C > FFE535
+shiny = F8D858 > 94F6FF
+shiny = F9D788 > 92F7FF

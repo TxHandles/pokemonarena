@@ -1,0 +1,18 @@
+# Spoink - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 242424 > 674536
+shiny = 303840 > 7D5A4B
+shiny = 343333 > 7A5646
+shiny = 485058 > 997464
+shiny = 535353 > 9A7059
+shiny = 606868 > B48D7C
+shiny = 681840 > 13172D
+shiny = 808888 > D8AF9D
+shiny = 903060 > 2F303E
+shiny = 929282 > E4BAA6
+shiny = B84880 > 4A4A65
+shiny = BBBBBB > FFDCC2
+shiny = E060A0 > 676581
+shiny = EF8595 > 7C7B95
+shiny = FAFAFA > CAD2E1
+shiny = FCB3A4 > 989BB3

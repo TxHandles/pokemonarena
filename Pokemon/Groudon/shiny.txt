@@ -1,0 +1,28 @@
+# Groudon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 313131 > 372F23
+shiny = 384050 > 423E41
+shiny = 3D4555 > 474346
+shiny = 404858 > 4A4649
+shiny = 485060 > 524E50
+shiny = 525252 > 57504B
+shiny = 580F07 > 284200
+shiny = 581008 > 284200
+shiny = 606878 > 706E73
+shiny = 616979 > 6B6769
+shiny = 6A7282 > 747072
+shiny = 6B6B63 > 70695C
+shiny = 788090 > 827E80
+shiny = 798191 > 837F81
+shiny = 807018 > 806E35
+shiny = 881810 > 627B28
+shiny = 8C423A > 879E24
+shiny = 8C8473 > 8F8370
+shiny = 9098B0 > A2A7A0
+shiny = B02020 > 7D923E
+shiny = B5524A > 91AB57
+shiny = B8C8D8 > C5C5C6
+shiny = D0C030 > D1BD64
+shiny = D84840 > B4C247
+shiny = F75A29 > CFDB3E
+shiny = FAFAFA > FFFFE9

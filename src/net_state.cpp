@@ -91,7 +91,7 @@ struct Ar {
         if (!writing) f.item = FindItem(item);
         v(f.focusUsed); v(f.leftAcc); v(f.sentOut); v(f.dmgDealt); v(f.dmgTaken); v(f.hurtT); v(f.hitFresh); v(f.startLevel); v(f.startSpecies); v(f.xpGained); v(f.kos);
         v(f.learnedNow); v(f.pendingLearn); v(f.evolvedNames);
-        v(f.ab); v(f.abSlot); v(f.nature); v(f.abSpd); v(f.abAtk); v(f.abDef); v(f.abT); v(f.sinceAct); v(f.flashFire); v(f.snackUsed); v(f.pinchShown);
+        v(f.ab); v(f.abSlot); v(f.nature); v(f.abSpd); v(f.abAtk); v(f.abDef); v(f.abT); v(f.sinceAct); v(f.flashFire); v(f.snackUsed); v(f.pinchShown); v(f.shiftT);
         v(f.onIce); v(f.slid); v(f.slide); v(f.safeT); v(f.mistT); v(f.chantT); v(f.followT);
         v(f.dodgeT); v(f.dodgeCd); v(f.dodgeVel); v(f.jumpT); v(f.jumpDur); v(f.jumpVel);
         v(f.sweepT); v(f.sweepDur); v(f.sweepA0); v(f.sweepA1); v(f.sweepMove); v(f.sweepMask); v(f.heldT); v(f.heldZ); v(f.pinT);

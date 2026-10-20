@@ -136,6 +136,25 @@ const AbilityDef kAbilities[] = {
     {"Suction Cups", "Anchors itself: it can't be forced out and is barely knocked back."},
     {"Super Luck", "Critical hits are more likely."},
     {"Telepathy", "Reads its teammate's mind and dodges their attacks (2v2)."},
+    {"Heavy Metal", "Its body is heavy: moves around 10% slower, but hard to knock back."},
+    {"Minus", "Special moves deal 50% more while a teammate with Plus or Minus is out (2v2)."},
+    {"Normalize", "All its moves become Normal type and hit 20% harder."},
+    {"Poison Heal", "Poison heals it instead of hurting it."},
+    {"Protean", "Changes to the type of each move it uses: every attack gets the same-type bonus."},
+    {"Simple", "Its stat changes, up and down, are twice as strong."},
+    {"Solid Rock", "Super-effective hits deal 25% less."},
+    {"Stall", "Its moves take a little longer to recharge."},
+    {"Storm Drain", "Draws in Water moves: no damage, and its Attack rises."},
+    {"Toxic Boost", "Attacks hit 50% harder while it's poisoned."},
+    {"Wind Rider", "Rides wind moves: no damage, and its Attack rises."},
+    {"Air Lock", "Calms the skies: weather has no effect while it's on the field."},
+    {"Color Change", "Takes on the type of the last move that hit it."},
+    {"Forecast", "Changes type with the weather: Fire in sun, Water in rain, Ice in snow."},
+    {"Pure Power", "Its mind powers its body: physical moves hit twice as hard."},
+    {"Rough Skin", "Melee and dash attackers take 1/16 of their max HP."},
+    {"Truant", "It loafs around: its moves take 50% longer to recharge."},
+    {"White Smoke", "Its smoke stops foes from lowering its stats."},
+    {"Wonder Guard", "Only super-effective moves can hurt it."},
 };
 bool HasWord(const std::string& s, const char* w) { return s.find(w) != std::string::npos; }
 } // namespace
@@ -161,6 +180,12 @@ bool IsSoundMoveName(const std::string& n) {
     for (auto x : w) if (HasWord(n, x)) return true;
     return false;
 }
+bool IsWindMoveName(const std::string& n) {
+    static const char* w[] = {"Gust", "Twister", "Hurricane", "Air Cutter", "Bleakwind Storm", "Heat Wave", "Icy Wind", "Petal Blizzard",
+                              "Whirlwind", "Blizzard", "Tailwind", "Fairy Wind", "Sandsear Storm", "Wildbolt Storm", "Springtide Storm", "Aeroblast"};
+    for (auto x : w) if (n == x) return true;
+    return false;
+}
 bool IsPunchMoveName(const std::string& n) {
     return HasWord(n, "Punch") || n == "Hammer Arm" || n == "Meteor Mash" || n == "Sky Uppercut" || n == "Rage Fist" || n == "Double Iron Bash" || n == "Plasma Fists";
 }
@@ -177,6 +202,7 @@ float AbilityTypeMul(Ab a, Type t) {
         case Ab::WaterAbsorb: case Ab::DrySkin: return t == Type::Water ? 0.0f : 1.0f;
         case Ab::FlashFire: return t == Type::Fire ? 0.0f : 1.0f;
         case Ab::SapSipper: return t == Type::Grass ? 0.0f : 1.0f;
+        case Ab::StormDrain: return t == Type::Water ? 0.0f : 1.0f;
         default: return 1.0f;
     }
 }

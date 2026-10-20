@@ -1,0 +1,62 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Hariyama
+dex  = 297
+type = Fighting
+
+hp         = 144
+attack     = 120
+defense    = 60
+sp_attack  = 40
+sp_defense = 60
+speed      = 50
+
+size   = 1.31
+height = 2.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 253.8      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Sand Attack
+learn = 1, Arm Thrust
+learn = 1, Brine
+learn = 1, Focus Energy
+learn = 1, Tackle
+learn = 10, Fake Out
+learn = 13, Force Palm
+learn = 16, Whirlwind
+learn = 19, Knock Off
+learn = 22, Bulk Up
+learn = 26, Belly Drum
+learn = 30, Detect
+learn = 34, Seismic Toss
+learn = 38, Focus Punch
+learn = 42, Endure
+learn = 46, Close Combat
+learn = 50, Reversal
+learn = 54, Heavy Slam
+learn = 60, Headlong Rush
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Low Kick, Thief
+tm = Chilling Water, Facade, Bulldoze, Swift, Mud Shot, Rock Tomb
+tm = Low Sweep, Fling, Endure, Sunny Day, Rain Dance, Dig
+tm = Brick Break, Zen Headbutt, Bulk Up, Body Slam, Fire Punch, Thunder Punch
+tm = Ice Punch, Sleep Talk, Drain Punch, Metronome, Poison Jab, Stomping Tantrum
+tm = Rest, Rock Slide, Taunt, Body Press, Iron Head, Substitute
+tm = Heavy Slam, Surf, Helping Hand, Reversal, Earthquake, Stone Edge
+tm = Giga Impact, Focus Blast, Hyper Beam, Close Combat, Tera Blast, Smack Down
+tm = Knock Off, Vacuum Wave, Focus Punch, Lash Out, Double-Edge, Coaching
+tm = Throat Chop, Curse, Upper Hand

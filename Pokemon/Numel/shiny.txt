@@ -1,0 +1,21 @@
+# Numel - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 305018 > 524800
+shiny = 333332 > 3F3200
+shiny = 404850 > 51470D
+shiny = 487820 > 005FAA
+shiny = 525251 > 605108
+shiny = 584838 > 413A2C
+shiny = 68A030 > 678944
+shiny = 786048 > 5E523F
+shiny = 88C840 > 89AF5C
+shiny = 8BCD6A > 6FADFF
+shiny = 96794D > 7A6A4B
+shiny = B0B888 > 9DA482
+shiny = B89038 > 98814A
+shiny = C6AF5F > AA9E69
+shiny = D8B848 > BAA762
+shiny = D8E0B8 > C4CCAE
+shiny = F0D858 > D3C576
+shiny = F3ECBD > FAEDBE
+shiny = FDDC4A > EFD594

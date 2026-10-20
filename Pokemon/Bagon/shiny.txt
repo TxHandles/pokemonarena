@@ -1,0 +1,21 @@
+# Bagon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284068 > 105F1B
+shiny = 3D3E44 > 2E553D
+shiny = 4088A0 > 57A458
+shiny = 485068 > 406952
+shiny = 5D83C1 > 30AF24
+shiny = 68A8E0 > 57D247
+shiny = 787878 > 689277
+shiny = 78C0F8 > 6DEA79
+shiny = 83B6F7 > 6CE358
+shiny = 898A8C > 94909F
+shiny = 907810 > 2AA525
+shiny = 989898 > A39EAB
+shiny = B8B8B8 > 97DF8C
+shiny = BCBCB6 > C7C3CD
+shiny = C0A048 > BA9340
+shiny = C8C8C8 > A7F09C
+shiny = E8E8F8 > A7FF84
+shiny = EAC66C > E4B864
+shiny = F3FCFD > DBFFEB

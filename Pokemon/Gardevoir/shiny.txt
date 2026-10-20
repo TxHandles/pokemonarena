@@ -1,0 +1,22 @@
+# Gardevoir - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 104020 > 004472
+shiny = 288038 > 187EAE
+shiny = 3F4241 > 4D4846
+shiny = 484850 > 4D2B4E
+shiny = 48B058 > 3294BB
+shiny = 59A17B > 4CA2D7
+shiny = 68C880 > 51ADD6
+shiny = 6A6B66 > 78716D
+shiny = 802038 > 754C2A
+shiny = 808090 > 86618B
+shiny = 80C9A1 > 7AC9FF
+shiny = A62A43 > 984A51
+shiny = A8A8B0 > B8AFB3
+shiny = B06167 > A97273
+shiny = B2DED6 > D1E2DC
+shiny = B83048 > 6D2474
+shiny = C8C8D8 > D0A7D3
+shiny = E8E8F8 > F9F0F8
+shiny = F06868 > EBB345
+shiny = FAFAFA > FFFDFC

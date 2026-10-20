@@ -1,0 +1,19 @@
+# Absol - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 293141 > 4D3759
+shiny = 40485A > A0362D
+shiny = 40485B > A0362D
+shiny = 40485C > 664E74
+shiny = 40485D > B55546
+shiny = 424144 > 644762
+shiny = 4D5D7E > BA4D42
+shiny = 606880 > 896F98
+shiny = 7385AA > ED9381
+shiny = 7880A0 > A288B7
+shiny = 802020 > 8E334D
+shiny = B0B8C8 > DCC0E6
+shiny = C5C1BC > EDC9E3
+shiny = D0D8E8 > FDE0FF
+shiny = DE5B5E > 4AC2B4
+shiny = E8E8F8 > FFF1FF
+shiny = FAFAFA > FFF5FF

@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Cacnea
+dex  = 331
+type = Grass
+
+hp         = 50
+attack     = 85
+defense    = 40
+sp_attack  = 85
+sp_defense = 40
+speed      = 35
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 51.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Cacturne
+evolve_level = 32
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Poison Sting
+learn = 1, Leer
+learn = 4, Absorb
+learn = 7, Growth
+learn = 10, Leech Seed
+learn = 13, Sand Attack
+learn = 16, Bullet Seed
+learn = 19, Power Trip
+learn = 22, Ingrain
+learn = 26, Payback
+learn = 30, Spikes
+learn = 34, Sucker Punch
+learn = 38, Pin Missile
+learn = 42, Energy Ball
+learn = 46, Cotton Spore
+learn = 50, Sandstorm
+learn = 54, Destiny Bond
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Low Kick, Thief, Trailblaze
+tm = Facade, Bulldoze, Swift, Magical Leaf, Fling, Venoshock
+tm = Endure, Sunny Day, Rain Dance, Sandstorm, Dig, Bullet Seed
+tm = Brick Break, Foul Play, Body Slam, Thunder Punch, Sleep Talk, Seed Bomb
+tm = Drain Punch, Grass Knot, Poison Jab, Rest, Swords Dance, Spikes
+tm = Toxic Spikes, Dark Pulse, Substitute, Giga Drain, Energy Ball, Encore
+tm = Helping Hand, Grassy Terrain, Nasty Plot, Leaf Storm, Solar Beam, Tera Blast
+tm = Spite, Focus Punch, Grassy Glide, Endeavor, Skitter Smack, Throat Chop
+tm = Curse

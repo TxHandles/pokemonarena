@@ -1,0 +1,17 @@
+# Surskit - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 202838 > 191929
+shiny = 284860 > 2B374C
+shiny = 333434 > 2A2425
+shiny = 486888 > 4A5671
+shiny = 49638B > 2D2C55
+shiny = 6090B8 > 687C9C
+shiny = 62A3DC > 58658F
+shiny = 78B0E0 > 65719B
+shiny = 902828 > 9C3653
+shiny = 9BCDF5 > 838BB9
+shiny = C03838 > BF536E
+shiny = D5A44A > 9A6950
+shiny = E8E8F8 > BAA7C8
+shiny = F4728B > FA98B4
+shiny = FAFAFA > CBB7D0

@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Kyogre
+dex  = 382
+type = Water
+
+hp         = 100
+attack     = 100
+defense    = 90
+sp_attack  = 150
+sp_defense = 140
+speed      = 90
+
+size   = 1.48
+height = 4.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 352.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Origin Pulse
+learn = 1, Scary Face
+learn = 1, Body Slam
+learn = 1, Ancient Power
+learn = 1, Water Pulse
+learn = 9, Aqua Tail
+learn = 18, Calm Mind
+learn = 27, Muddy Water
+learn = 36, Ice Beam
+learn = 45, Sheer Cold
+learn = 54, Aqua Ring
+learn = 72, Hydro Pump
+learn = 81, Double-Edge
+learn = 90, Water Spout
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Water Pulse, Chilling Water, Facade
+tm = Bulldoze, Icy Wind, Rock Tomb, Avalanche, Endure, Rain Dance
+tm = Brick Break, Body Slam, Sleep Talk, Waterfall, Thunder Wave, Rest
+tm = Rock Slide, Iron Head, Substitute, Liquidation, Heavy Slam, Surf
+tm = Thunderbolt, Calm Mind, Helping Hand, Ice Beam, Hydro Pump, Blizzard
+tm = Earthquake, Giga Impact, Hyper Beam, Thunder, Tera Blast, Roar
+tm = Double-Edge, Whirlpool, Muddy Water

@@ -1,0 +1,62 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Sableye
+dex  = 302
+type = Dark / Ghost
+
+hp         = 50
+attack     = 75
+defense    = 75
+sp_attack  = 65
+sp_defense = 65
+speed      = 50
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 11.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Leer
+learn = 3, Astonish
+learn = 9, Shadow Sneak
+learn = 12, Fake Out
+learn = 15, Disable
+learn = 18, Detect
+learn = 21, Night Shade
+learn = 24, Fury Swipes
+learn = 27, Knock Off
+learn = 30, Quash
+learn = 33, Shadow Claw
+learn = 36, Mean Look
+learn = 39, Power Gem
+learn = 42, Zen Headbutt
+learn = 45, Shadow Ball
+learn = 48, Foul Play
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Low Kick, Psybeam, Confuse Ray
+tm = Thief, Facade, Aerial Ace, Hex, Snarl, Metal Claw
+tm = Icy Wind, Mud Shot, Rock Tomb, Low Sweep, Night Shade, Fling
+tm = Endure, Sunny Day, Rain Dance, Dig, Brick Break, Zen Headbutt
+tm = Shadow Claw, Foul Play, Bulk Up, Body Slam, Fire Punch, Thunder Punch
+tm = Ice Punch, Sleep Talk, Drain Punch, Reflect, Light Screen, Dazzling Gleam
+tm = Metronome, Thunder Wave, Poison Jab, Rest, Taunt, Imprison
+tm = Dark Pulse, Skill Swap, Power Gem, Substitute, X-Scissor, Will-O-Wisp
+tm = Trick, Giga Drain, Shadow Ball, Energy Ball, Psychic, Encore
+tm = Calm Mind, Helping Hand, Nasty Plot, Phantom Force, Giga Impact, Hyper Beam
+tm = Tera Blast, Spite, Gravity, Gyro Ball, Knock Off, Focus Punch
+tm = Poltergeist, Lash Out, Pain Split, Psych Up, Skitter Smack, Throat Chop

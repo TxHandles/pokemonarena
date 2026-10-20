@@ -1,0 +1,22 @@
+# Lairon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 238ED3 > C92C60
+shiny = 342D3C > 004F49
+shiny = 403F40 > 004E48
+shiny = 406080 > 737556
+shiny = 484050 > 22645E
+shiny = 595959 > 0F6962
+shiny = 646071 > 787A5A
+shiny = 676070 > 7B7A59
+shiny = 686070 > 3B867F
+shiny = 6890C8 > 4CA09D
+shiny = 7C7D7D > 3F8F86
+shiny = 808090 > 5BA79F
+shiny = A0A0B0 > ADA98E
+shiny = A0A6A9 > AEAE8B
+shiny = B8B8C8 > C6C1A5
+shiny = BBC3C4 > CACBA6
+shiny = D0D0E0 > F3FBD0
+shiny = E8E8F7 > F6F1D3
+shiny = E8E8F8 > F6F1D4
+shiny = FAFAFA > FFFFD9

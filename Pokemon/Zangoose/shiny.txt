@@ -1,0 +1,20 @@
+# Zangoose - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 293141 > 373F43
+shiny = 323232 > 393834
+shiny = 485060 > 575F62
+shiny = 525252 > 5A5954
+shiny = 707888 > 80888B
+shiny = 782020 > 0055A7
+shiny = 838372 > 8C8A7A
+shiny = 98A0B0 > A8B0B3
+shiny = A03038 > 2B6AC6
+shiny = B55A5A > 448CE6
+shiny = BDBCBD > C7C5BF
+shiny = CFCFCF > DDE0D9
+shiny = D04850 > 5C89EA
+shiny = D0D0D0 > DEE1DA
+shiny = E07080 > 6CA9FF
+shiny = E8E8F8 > F6FAFC
+shiny = EE6B6B > D8877D
+shiny = FFA59C > F0B8AB

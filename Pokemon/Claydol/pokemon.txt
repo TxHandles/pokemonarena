@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Claydol
+dex  = 344
+type = Ground / Psychic
+
+hp         = 60
+attack     = 70
+defense    = 105
+sp_attack  = 70
+sp_defense = 120
+speed      = 75
+
+size   = 1.20
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 108.0      # Pokedex weight in kg
+hovers = yes
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Hyper Beam
+learn = 1, Mud-Slap
+learn = 1, Rapid Spin
+learn = 1, Harden
+learn = 1, Confusion
+learn = 1, Teleport
+learn = 9, Rock Tomb
+learn = 12, Power Trick
+learn = 15, Psybeam
+learn = 18, Ancient Power
+learn = 21, Imprison
+learn = 24, Cosmic Power
+learn = 27, Extrasensory
+learn = 30, Earth Power
+learn = 33, Self-Destruct
+learn = 38, Power Split
+learn = 38, Guard Split
+learn = 43, Sandstorm
+learn = 48, Explosion
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Hex, Rock Tomb, Stored Power
+tm = Endure, Sunny Day, Rain Dance, Sandstorm, Psyshock, Dig
+tm = Zen Headbutt, Sleep Talk, Reflect, Light Screen, Dazzling Gleam, Grass Knot
+tm = Rest, Rock Slide, Body Press, Imprison, Eerie Impulse, Skill Swap
+tm = Substitute, Iron Defense, Drill Run, Trick, Shadow Ball, Stealth Rock
+tm = Psychic, Calm Mind, Earth Power, Ice Beam, Psychic Terrain, Nasty Plot
+tm = Earthquake, Stone Edge, Giga Impact, Trick Room, Hyper Beam, Solar Beam
+tm = Sand Tomb, Gyro Ball, Future Sight

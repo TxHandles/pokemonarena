@@ -1,0 +1,21 @@
+# Deoxys - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 204840 > 005528
+shiny = 21473F > 005427
+shiny = 307868 > A2B12B
+shiny = 327667 > 228250
+shiny = 40A898 > 5DB597
+shiny = 4E5D55 > 406C3C
+shiny = 50BD99 > E5F56C
+shiny = 601010 > 646B00
+shiny = 6B4876 > 632595
+shiny = 784080 > 6F119F
+shiny = 9951FD > 0031CE
+shiny = B82828 > A3A00D
+shiny = B83E25 > AAA818
+shiny = B858D0 > 2236CF
+shiny = E04840 > DBCB16
+shiny = E8E8F8 > FFFF84
+shiny = F88050 > ECE75C
+shiny = FE4830 > D7CD42
+shiny = FF7335 > FFED3D

@@ -1,0 +1,19 @@
+# Zigzagoon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 47301A > A13D0E
+shiny = 483018 > A13D0E
+shiny = 584820 > BD5524
+shiny = 6A4431 > 8F2C00
+shiny = 784828 > 6C451C
+shiny = 788090 > C35C23
+shiny = 7F6A5B > B75020
+shiny = 986038 > B84E1B
+shiny = 988858 > D76C36
+shiny = A48C6B > DA7226
+shiny = A8B8D0 > B8AEA5
+shiny = B08058 > A57B4D
+shiny = C8B078 > FF955C
+shiny = CDBCAB > CDB492
+shiny = D8D098 > FFB277
+shiny = E8E8F8 > FFCC97
+shiny = EFE6DC > FFF6D1

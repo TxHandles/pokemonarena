@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Latias
+dex  = 380
+type = Dragon / Psychic
+
+hp         = 80
+attack     = 80
+defense    = 90
+sp_attack  = 110
+sp_defense = 130
+speed      = 110
+
+size   = 1.12
+height = 1.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 40.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Stored Power
+learn = 1, Charm
+learn = 5, Helping Hand
+learn = 10, Recover
+learn = 15, Confusion
+learn = 20, Tailwind
+learn = 25, Dragon Breath
+learn = 30, Wish
+learn = 35, Mist Ball
+learn = 40, Zen Headbutt
+learn = 45, Dragon Pulse
+learn = 50, Heal Pulse
+learn = 55, Reflect Type
+learn = 60, Psychic
+learn = 65, Guard Split
+learn = 70, Healing Wish
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Agility, Protect, Water Pulse, Disarming Voice
+tm = Chilling Water, Charge Beam, Facade, Aerial Ace, Bulldoze, Swift
+tm = Icy Wind, Draining Kiss, Air Cutter, Stored Power, Endure, Sunny Day
+tm = Rain Dance, Sandstorm, Psyshock, Zen Headbutt, Shadow Claw, Air Slash
+tm = Body Slam, Sleep Talk, Reflect, Light Screen, Waterfall, Dragon Claw
+tm = Grass Knot, Thunder Wave, Rest, Fly, Dragon Dance, Substitute
+tm = Trick, Liquidation, Aura Sphere, Tailwind, Shadow Ball, Dragon Pulse
+tm = Energy Ball, Psychic, Surf, Thunderbolt, Calm Mind, Helping Hand
+tm = Baton Pass, Ice Beam, Earthquake, Giga Impact, Outrage, Hyper Beam
+tm = Thunder, Solar Beam, Draco Meteor, Tera Blast, Roar, Weather Ball
+tm = Dual Wingbeat, Scale Shot, Psych Up, Double-Edge, Whirlpool, Future Sight
+tm = Breaking Swipe, Dragon Cheer, Alluring Voice

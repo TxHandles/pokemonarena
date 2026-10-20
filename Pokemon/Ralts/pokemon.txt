@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Ralts
+dex  = 280
+type = Psychic / Fairy
+
+hp         = 28
+attack     = 25
+defense    = 25
+sp_attack  = 45
+sp_defense = 35
+speed      = 40
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 6.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Kirlia
+evolve_level = 20
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Disarming Voice
+learn = 1, Growl
+learn = 3, Double Team
+learn = 6, Confusion
+learn = 9, Hypnosis
+learn = 12, Draining Kiss
+learn = 15, Teleport
+learn = 18, Psybeam
+learn = 21, Life Dew
+learn = 24, Charm
+learn = 27, Calm Mind
+learn = 30, Psychic
+learn = 33, Heal Pulse
+learn = 36, Dream Eater
+learn = 39, Future Sight
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Psybeam, Confuse Ray, Thief, Disarming Voice
+tm = Charge Beam, Facade, Swift, Magical Leaf, Icy Wind, Draining Kiss
+tm = Stored Power, Fling, Endure, Sunny Day, Rain Dance, Psyshock
+tm = Zen Headbutt, Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk
+tm = Reflect, Light Screen, Dazzling Gleam, Metronome, Grass Knot, Thunder Wave
+tm = Rest, Taunt, Imprison, Skill Swap, Substitute, Will-O-Wisp
+tm = Trick, Shadow Ball, Hyper Voice, Psychic, Encore, Thunderbolt
+tm = Calm Mind, Helping Hand, Psychic Terrain, Misty Terrain, Trick Room, Tera Blast
+tm = Knock Off, Pain Split, Psych Up, Future Sight, Expanding Force, Alluring Voice

@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Registeel
+dex  = 379
+type = Steel
+
+hp         = 80
+attack     = 75
+defense    = 150
+sp_attack  = 75
+sp_defense = 150
+speed      = 50
+
+size   = 1.26
+height = 1.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 205.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Charge Beam
+learn = 1, Metal Claw
+learn = 6, Bulldoze
+learn = 12, Ancient Power
+learn = 18, Stomp
+learn = 24, Iron Head
+learn = 24, Flash Cannon
+learn = 30, Curse
+learn = 36, Iron Defense
+learn = 36, Amnesia
+learn = 42, Hammer Arm
+learn = 48, Heavy Slam
+learn = 54, Superpower
+learn = 60, Lock-On
+learn = 66, Zap Cannon
+learn = 72, Hyper Beam
+learn = 78, Explosion
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Charge Beam, Facade, Bulldoze, Metal Claw
+tm = Rock Tomb, Fling, Endure, Sunny Day, Rain Dance, Sandstorm
+tm = Brick Break, Shadow Claw, Body Slam, Thunder Punch, Ice Punch, Sleep Talk
+tm = Thunder Wave, Stomping Tantrum, Rest, Rock Slide, Body Press, Flash Cannon
+tm = Iron Head, Substitute, Iron Defense, Stealth Rock, Heavy Slam, Ice Spinner
+tm = Thunderbolt, Amnesia, Earthquake, Giga Impact, Focus Blast, Hyper Beam
+tm = Thunder, Steel Beam, Tera Blast, Sand Tomb, Gravity, Focus Punch
+tm = Double-Edge, Meteor Beam, Metal Sound, Curse, Hard Press

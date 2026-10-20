@@ -1,0 +1,17 @@
+# Cacturne - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284028 > 5A2A00
+shiny = 333333 > 494949
+shiny = 386038 > 724B00
+shiny = 3F734A > 6E040B
+shiny = 488840 > 996D00
+shiny = 505050 > 686868
+shiny = 525251 > 6A6A69
+shiny = 599251 > C56547
+shiny = 68A860 > A63E32
+shiny = 7AAB62 > C3AC5F
+shiny = 80A840 > C08E27
+shiny = 9BCD8B > E7CE80
+shiny = A8C878 > E6AF4C
+shiny = E0C82B > F5D47E
+shiny = F8D858 > FFC961

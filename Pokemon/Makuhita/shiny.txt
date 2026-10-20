@@ -1,0 +1,17 @@
+# Makuhita - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 242B33 > 700015
+shiny = 353434 > 7E031D
+shiny = 384050 > 8D192A
+shiny = 505870 > AC3841
+shiny = 595959 > AD3940
+shiny = 706010 > 745011
+shiny = 882840 > 7B492C
+shiny = 9A9ABB > FF8083
+shiny = AC8442 > A99542
+shiny = B84068 > A4414A
+shiny = B89838 > BA883E
+shiny = E0C868 > E6B66B
+shiny = E4BB4A > E1CC5B
+shiny = F4727A > DD7165
+shiny = F4ED72 > FBFA83

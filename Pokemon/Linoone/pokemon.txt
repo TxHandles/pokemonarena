@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Linoone
+dex  = 264
+type = Normal
+
+hp         = 78
+attack     = 70
+defense    = 61
+sp_attack  = 50
+sp_defense = 61
+speed      = 100
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 32.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Slash
+learn = 1, Sand Attack
+learn = 1, Baby-Doll Eyes
+learn = 1, Growl
+learn = 1, Pin Missile
+learn = 1, Tail Whip
+learn = 1, Tackle
+learn = 1, Switcheroo
+learn = 9, Covet
+learn = 12, Headbutt
+learn = 15, Hone Claws
+learn = 18, Fury Swipes
+learn = 23, Rest
+learn = 28, Take Down
+learn = 33, Fling
+learn = 38, Flail
+learn = 43, Belly Drum
+learn = 48, Double-Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Thief, Facade, Swift, Icy Wind
+tm = Mud Shot, Fling, Endure, Sunny Day, Rain Dance, Dig
+tm = Shadow Claw, Body Slam, Sleep Talk, Seed Bomb, Grass Knot, Thunder Wave
+tm = Stomping Tantrum, Rest, Gunk Shot, Substitute, Trick, Shadow Ball
+tm = Hyper Voice, Surf, Thunderbolt, Play Rough, Helping Hand, Ice Beam
+tm = Blizzard, Giga Impact, Hyper Beam, Thunder, Whirlpool, Throat Chop

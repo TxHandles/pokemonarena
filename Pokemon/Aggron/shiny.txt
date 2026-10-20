@@ -1,0 +1,24 @@
+# Aggron - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 342D3C > 1E5F51
+shiny = 404041 > 0B6861
+shiny = 406080 > 848668
+shiny = 483F50 > 357466
+shiny = 484050 > 347566
+shiny = 4E4D49 > 308475
+shiny = 52B3FF > 94B7C6
+shiny = 5D6060 > 398A83
+shiny = 686070 > 4B9C8E
+shiny = 6890C8 > A4AE8B
+shiny = 767676 > 64B6AF
+shiny = 808090 > 78B9A8
+shiny = 848492 > 74C7C0
+shiny = 909098 > A8B088
+shiny = A83838 > 589684
+shiny = B0B0C0 > CAD2A9
+shiny = C5C1CC > CCCAB0
+shiny = D05858 > D46B6D
+shiny = D0D0D8 > EAF2C8
+shiny = E7E7F7 > FBFFD9
+shiny = E8E8F8 > F1F1D9
+shiny = FAFAFA > FFFFDF

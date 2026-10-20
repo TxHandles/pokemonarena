@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Makuhita
+dex  = 296
+type = Fighting
+
+hp         = 72
+attack     = 60
+defense    = 30
+sp_attack  = 20
+sp_defense = 30
+speed      = 25
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 86.4      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Hariyama
+evolve_level = 24
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Focus Energy
+learn = 1, Tackle
+learn = 4, Sand Attack
+learn = 7, Arm Thrust
+learn = 10, Fake Out
+learn = 13, Force Palm
+learn = 16, Whirlwind
+learn = 19, Knock Off
+learn = 22, Bulk Up
+learn = 25, Belly Drum
+learn = 28, Detect
+learn = 31, Seismic Toss
+learn = 34, Focus Punch
+learn = 37, Endure
+learn = 40, Close Combat
+learn = 43, Reversal
+learn = 46, Heavy Slam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Low Kick, Thief, Chilling Water
+tm = Facade, Bulldoze, Swift, Mud Shot, Rock Tomb, Low Sweep
+tm = Fling, Endure, Sunny Day, Rain Dance, Dig, Brick Break
+tm = Zen Headbutt, Bulk Up, Body Slam, Fire Punch, Thunder Punch, Ice Punch
+tm = Sleep Talk, Drain Punch, Metronome, Poison Jab, Stomping Tantrum, Rest
+tm = Rock Slide, Taunt, Body Press, Substitute, Heavy Slam, Surf
+tm = Helping Hand, Reversal, Earthquake, Stone Edge, Focus Blast, Close Combat
+tm = Tera Blast, Smack Down, Knock Off, Vacuum Wave, Focus Punch, Double-Edge
+tm = Coaching, Upper Hand

@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Shroomish
+dex  = 285
+type = Grass
+
+hp         = 60
+attack     = 40
+defense    = 60
+sp_attack  = 40
+sp_defense = 60
+speed      = 35
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 4.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Breloom
+evolve_level = 23
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Absorb
+learn = 1, Tackle
+learn = 5, Stun Spore
+learn = 8, Leech Seed
+learn = 12, Mega Drain
+learn = 15, Headbutt
+learn = 19, Poison Powder
+learn = 26, Giga Drain
+learn = 29, Growth
+learn = 33, Toxic
+learn = 36, Seed Bomb
+learn = 40, Spore
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Fake Tears, Protect, Pounce, Facade
+tm = Swift, Magical Leaf, Venoshock, Endure, Sunny Day, Rain Dance
+tm = Bullet Seed, False Swipe, Zen Headbutt, Body Slam, Sleep Talk, Seed Bomb
+tm = Drain Punch, Grass Knot, Rest, Gunk Shot, Substitute, Giga Drain
+tm = Energy Ball, Helping Hand, Grassy Terrain, Sludge Bomb, Solar Beam, Tera Blast
+tm = Toxic

@@ -1,0 +1,22 @@
+# Mightyena - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0A0A0A > 391300
+shiny = 303838 > 683F06
+shiny = 333333 > 643B02
+shiny = 403850 > 73430B
+shiny = 505058 > 885924
+shiny = 525252 > 8D5A20
+shiny = 687070 > AA7840
+shiny = 7A7A7A > BB8348
+shiny = 802020 > 7E4910
+shiny = 807888 > BA844D
+shiny = 9098A0 > CFA744
+shiny = A4A4AC > DFB451
+shiny = A8A0B8 > DFB351
+shiny = A9A2B9 > E0B553
+shiny = B0B8C0 > DEC64C
+shiny = C4C4CC > FFD570
+shiny = CC5241 > 4EAAE6
+shiny = E04040 > C38045
+shiny = F8D858 > FFEA75
+shiny = FAFAFA > FFF2B1

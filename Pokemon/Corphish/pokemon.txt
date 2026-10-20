@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Corphish
+dex  = 341
+type = Water
+
+hp         = 43
+attack     = 80
+defense    = 65
+sp_attack  = 50
+sp_defense = 35
+speed      = 35
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 11.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Crawdaunt
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Harden
+learn = 4, Leer
+learn = 8, Taunt
+learn = 12, Bubble Beam
+learn = 16, Knock Off
+learn = 20, Double Hit
+learn = 24, Protect
+learn = 28, Night Slash
+learn = 32, Razor Shell
+learn = 36, Swords Dance
+learn = 40, Crunch
+learn = 44, Crabhammer
+learn = 48, Endeavor
+learn = 52, Guillotine
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Water Pulse, Thief, Chilling Water, Facade
+tm = Metal Claw, Icy Wind, Mud Shot, Rock Tomb, Fling, Endure
+tm = Rain Dance, Dig, False Swipe, Brick Break, Body Slam, Sleep Talk
+tm = Waterfall, Rest, Rock Slide, Taunt, Swords Dance, Dragon Dance
+tm = Substitute, Iron Defense, X-Scissor, Crunch, Liquidation, Surf
+tm = Ice Beam, Hydro Pump, Blizzard, Sludge Bomb, Tera Blast, Knock Off
+tm = Double-Edge, Endeavor, Whirlpool, Muddy Water

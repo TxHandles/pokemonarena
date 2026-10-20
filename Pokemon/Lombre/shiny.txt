@@ -1,0 +1,19 @@
+# Lombre - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 285020 > 00495B
+shiny = 3D423C > 010001
+shiny = 487040 > 1C687C
+shiny = 4A744D > 206C81
+shiny = 62B148 > 5CA2B2
+shiny = 689840 > 4A8E9E
+shiny = 70A810 > 5A9BA8
+shiny = 789888 > 3F4040
+shiny = 7AE589 > D6FD7B
+shiny = 90D010 > 71A3B7
+shiny = 95DB63 > 79AEC6
+shiny = 98C0A0 > ADDC39
+shiny = BD6758 > 4E7F95
+shiny = DE4852 > E16B1E
+shiny = E85840 > ED7625
+shiny = E8E8F8 > E6FF72
+shiny = F0F7EF > E5FF70

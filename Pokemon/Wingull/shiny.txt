@@ -1,0 +1,11 @@
+# Wingull - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 304870 > 2F4C1D
+shiny = 406890 > 019A00
+shiny = 5090B8 > 6E8F5B
+shiny = 678CFF > 5BCB29
+shiny = 68A0D8 > 60D62B
+shiny = 8F826C > 9D8894
+shiny = 9EBCFF > BEC3FF
+shiny = A0C8E0 > C1CDF5
+shiny = B0B8C8 > C5BEE2

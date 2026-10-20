@@ -1,0 +1,26 @@
+# Relicanth - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0A0A0A > 005143
+shiny = 302F30 > 117B6B
+shiny = 323242 > 187F71
+shiny = 39394C > 25887A
+shiny = 3D2D26 > 1B7C6B
+shiny = 402E26 > 257D6B
+shiny = 432E27 > 217F6E
+shiny = 5C524A > 4AA593
+shiny = 604038 > 409785
+shiny = 686050 > 5AB4A0
+shiny = 785848 > 5CB19E
+shiny = 81766E > 67BBC3
+shiny = 886E58 > 907D60
+shiny = 887868 > 78D1BC
+shiny = 8C7464 > 77CEBA
+shiny = 907060 > 69BAC1
+shiny = A89880 > AB9774
+shiny = A99981 > 9BF5DE
+shiny = AE947D > AD9472
+shiny = B02850 > 68AF9E
+shiny = C0B098 > CDBFA0
+shiny = CA5D66 > C07B6E
+shiny = D3C1A7 > D6C09B
+shiny = D8C8A8 > BAFFFF

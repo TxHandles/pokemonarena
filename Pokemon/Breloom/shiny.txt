@@ -1,0 +1,24 @@
+# Breloom - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 203810 > 490000
+shiny = 213A11 > 4B0000
+shiny = 305020 > 610000
+shiny = 487030 > 841000
+shiny = 4D5B4F > 740000
+shiny = 504830 > 630000
+shiny = 519B59 > B03E24
+shiny = 602020 > A55900
+shiny = 68A840 > BE4B2B
+shiny = 77C867 > 97AF55
+shiny = 806838 > 76581F
+shiny = 80C058 > DA6240
+shiny = A02828 > 8E4800
+shiny = B08838 > A1792A
+shiny = B49C54 > B58345
+shiny = C84040 > F5973D
+shiny = D0474A > FFCF3B
+shiny = D0B870 > EA684A
+shiny = DFD18D > E5B679
+shiny = E8D090 > EBB67C
+shiny = E8E8F8 > EED4BF
+shiny = FAFAFA > FFE6C6

@@ -1,0 +1,17 @@
+# Treecko - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 083830 > 980019
+shiny = 304818 > AF2224
+shiny = 305838 > C13633
+shiny = 374834 > BD0030
+shiny = 388868 > E7554B
+shiny = 406828 > CC2628
+shiny = 458244 > E14F43
+shiny = 681818 > 003C23
+shiny = 6CAA4A > 46A680
+shiny = 902020 > C4222E
+shiny = 98A820 > 54AB81
+shiny = A0DB3C > 86D9B5
+shiny = B83030 > C08471
+shiny = C8D878 > 83DCB3
+shiny = D76675 > F5E6BD

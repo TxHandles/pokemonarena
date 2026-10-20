@@ -237,6 +237,10 @@ int EvolutionIndexFor(int idx, int nature) {
     int e = EvolutionIndex(idx);
     if (e < 0) return e;
     const SpeciesDef& sp = AllSpecies()[idx];
+    if (sp.statEvos.size() == 2) {   // Wurmple: its hidden personality (here, its nature) decides
+        int t = SpeciesIndex(sp.statEvos[nature >= 0 ? nature % 2 : 0]);
+        return t >= 0 && t != idx ? t : e;
+    }
     if (sp.statEvos.size() != 3) return e;
     // Attack vs Defense: the base stats are equal for Tyrogue, so its nature decides.
     float atk = sp.atk * (nature >= 0 ? NatureMul(nature, NS_ATK) : 1.0f);
@@ -417,6 +421,8 @@ std::string EvolutionHint(int idx) {
     int e = EvolutionIndex(idx);
     if (e >= 0 && sp.statEvos.size() == 3)
         parts.push_back(sp.statEvos[0] + ", " + sp.statEvos[1] + " or " + sp.statEvos[2] + " at level " + std::to_string(sp.evolveLevel) + " (whichever suits its Attack and Defense)");
+    else if (e >= 0 && sp.statEvos.size() == 2)
+        parts.push_back(sp.statEvos[0] + " or " + sp.statEvos[1] + " at level " + std::to_string(sp.evolveLevel) + " (its nature decides)");
     else if (e >= 0) parts.push_back(AllSpecies()[e].name + " at level " + std::to_string(sp.evolveLevel));
     for (const auto& a : sp.evoAlts) {
         if (SpeciesIndex(a.to) < 0) continue;
@@ -440,7 +446,7 @@ int EvolvedFormAt(int idx, int level) {
         int e = EvolutionIndex(idx);
         if (e >= 0 && level >= AllSpecies()[idx].evolveLevel) {
             const auto& se = AllSpecies()[idx].statEvos;   // Tyrogue: any of the three
-            int pick = se.size() == 3 ? SpeciesIndex(se[GetRandomValue(0, 2)]) : -1;
+            int pick = se.size() >= 2 ? SpeciesIndex(se[GetRandomValue(0, (int)se.size() - 1)]) : -1;
             idx = pick >= 0 ? pick : e;
             continue;
         }

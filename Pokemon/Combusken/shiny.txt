@@ -1,0 +1,11 @@
+# Combusken - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 703008 > 582D11
+shiny = A05010 > 804E2F
+shiny = B8A058 > C6B86C
+shiny = C86810 > A06947
+shiny = D4AD57 > E7B45B
+shiny = EE7B43 > BC8160
+shiny = F08010 > F0912C
+shiny = F8D060 > FFD76D
+shiny = FDEC82 > FFF18A

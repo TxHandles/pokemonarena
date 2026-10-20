@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Swablu
+dex  = 333
+type = Normal / Flying
+
+hp         = 45
+attack     = 40
+defense    = 60
+sp_attack  = 40
+sp_defense = 75
+speed      = 50
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 1.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Altaria
+evolve_level = 35
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Peck
+learn = 4, Disarming Voice
+learn = 8, Mist
+learn = 12, Fury Attack
+learn = 16, Round
+learn = 20, Dragon Breath
+learn = 24, Safeguard
+learn = 28, Sing
+learn = 32, Cotton Guard
+learn = 36, Take Down
+learn = 40, Moonblast
+learn = 44, Perish Song
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Acrobatics, Thief, Disarming Voice
+tm = Trailblaze, Facade, Aerial Ace, Swift, Endure, Sunny Day
+tm = Rain Dance, Body Slam, Sleep Talk, Dazzling Gleam, Rest, Fly
+tm = Substitute, Tailwind, Dragon Pulse, Hyper Voice, Heat Wave, Play Rough
+tm = Helping Hand, Ice Beam, Hurricane, Brave Bird, Solar Beam, Tera Blast
+tm = Haze, Dual Wingbeat, Endeavor, Feather Dance, Dragon Cheer

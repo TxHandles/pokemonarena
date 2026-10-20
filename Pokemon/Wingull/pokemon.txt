@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Wingull
+dex  = 278
+type = Water / Flying
+
+hp         = 40
+attack     = 30
+defense    = 30
+sp_attack  = 55
+sp_defense = 30
+speed      = 85
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 9.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Pelipper
+evolve_level = 25
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Growl
+learn = 5, Quick Attack
+learn = 10, Supersonic
+learn = 15, Wing Attack
+learn = 20, Water Pulse
+learn = 26, Agility
+learn = 30, Air Slash
+learn = 35, Mist
+learn = 40, Roost
+learn = 45, Hurricane
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Water Pulse, Acrobatics, Thief
+tm = Chilling Water, Facade, Aerial Ace, Swift, Icy Wind, Air Cutter
+tm = Endure, Rain Dance, Snowscape, U-turn, Air Slash, Sleep Talk
+tm = Waterfall, Rest, Fly, Substitute, Liquidation, Tailwind
+tm = Surf, Helping Hand, Ice Beam, Hydro Pump, Blizzard, Hurricane
+tm = Brave Bird, Tera Blast, Knock Off, Dual Wingbeat, Whirlpool, Muddy Water
+tm = Feather Dance

@@ -1,0 +1,27 @@
+# Vigoroth - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333333 > 3B2C23
+shiny = 403848 > 493B00
+shiny = 525152 > 5B4941
+shiny = 603030 > 4E3D00
+shiny = 605868 > 6C5B0E
+shiny = 625765 > 6C5B0C
+shiny = 652121 > 6A2B00
+shiny = 681818 > 8E1900
+shiny = 785048 > 775933
+shiny = 838383 > 978336
+shiny = 844A44 > 6E5905
+shiny = 906860 > 867122
+shiny = 9E535B > D25624
+shiny = A83838 > 765D08
+shiny = B0A8B0 > C1AA5B
+shiny = BC9B7B > B19E7A
+shiny = C4C4C4 > DCC473
+shiny = D05858 > EF6B36
+shiny = D7CFD7 > EBD180
+shiny = D8D0D8 > ECD281
+shiny = E7E7F7 > FFE897
+shiny = E88078 > FF8C54
+shiny = E8E8F8 > FFE998
+shiny = F5626A > FF9229
+shiny = FAFAFA > FFFAA6

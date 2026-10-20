@@ -1,0 +1,18 @@
+# Cascoon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 343434 > 004E00
+shiny = 504078 > 0B5A00
+shiny = 545354 > 1E6F00
+shiny = 7868A0 > 3F8F43
+shiny = 802038 > 1B5E00
+shiny = 9C63C4 > 518E1A
+shiny = 9C7B9C > 61A300
+shiny = A098C8 > 79BD1F
+shiny = B83048 > 447F00
+shiny = CCA4ED > 94D33C
+shiny = D0C8E8 > AAEE52
+shiny = E5D2F6 > C1FB81
+shiny = E8E8F8 > C7FF6D
+shiny = F06868 > F58360
+shiny = F46352 > F3815C
+shiny = FAFAFA > D4FF92

@@ -1,0 +1,22 @@
+# Marshtomp - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 23505A > 542177
+shiny = 305060 > 57227A
+shiny = 3F3E3E > 4A1169
+shiny = 408080 > 972CB0
+shiny = 53B6AB > E17DF0
+shiny = 58B8B0 > E480F3
+shiny = 607880 > 9726AE
+shiny = 61747A > 8047A1
+shiny = 67DDC5 > FFA1FF
+shiny = 80A0B0 > C254DA
+shiny = 8CFBDC > FFAAFF
+shiny = A04810 > E98C11
+shiny = A54A10 > ED8F16
+shiny = B0C0D0 > E977FF
+shiny = BFE8DC > FFB5FF
+shiny = C05810 > E1A400
+shiny = DD755A > EBE300
+shiny = E8E8F8 > FEFAFF
+shiny = F08010 > FFCE23
+shiny = FAFAFA > FFB9FF

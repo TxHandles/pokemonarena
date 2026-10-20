@@ -1,0 +1,43 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Wynaut
+dex  = 360
+type = Psychic
+
+hp         = 95
+attack     = 23
+defense    = 48
+sp_attack  = 23
+sp_defense = 48
+speed      = 23
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 14.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Wobbuffet
+evolve_level = 15
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Splash
+learn = 1, Destiny Bond
+learn = 1, Mirror Coat
+learn = 1, Encore
+learn = 1, Counter
+learn = 1, Amnesia
+learn = 1, Charm
+learn = 1, Safeguard
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Encore, Amnesia

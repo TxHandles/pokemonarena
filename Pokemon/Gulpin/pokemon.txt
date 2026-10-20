@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Gulpin
+dex  = 316
+type = Poison
+
+hp         = 70
+attack     = 43
+defense    = 53
+sp_attack  = 43
+sp_defense = 53
+speed      = 40
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 10.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Swalot
+evolve_level = 26
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Pound
+learn = 5, Yawn
+learn = 8, Poison Gas
+learn = 10, Sludge
+learn = 12, Amnesia
+learn = 17, Acid Spray
+learn = 20, Encore
+learn = 25, Toxic
+learn = 28, Stockpile
+learn = 28, Spit Up
+learn = 28, Swallow
+learn = 33, Sludge Bomb
+learn = 36, Gastro Acid
+learn = 41, Belch
+learn = 44, Pain Split
+learn = 49, Gunk Shot
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Water Pulse, Acid Spray, Thief
+tm = Facade, Mud Shot, Fling, Venoshock, Endure, Sunny Day
+tm = Rain Dance, Bullet Seed, Body Slam, Fire Punch, Thunder Punch, Ice Punch
+tm = Sleep Talk, Seed Bomb, Thunder Wave, Poison Jab, Rest, Swords Dance
+tm = Toxic Spikes, Gunk Shot, Substitute, Giga Drain, Shadow Ball, Encore
+tm = Amnesia, Helping Hand, Ice Beam, Sludge Bomb, Solar Beam, Tera Blast
+tm = Toxic, Pain Split, Sludge Wave, Curse

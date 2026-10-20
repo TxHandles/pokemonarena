@@ -1,0 +1,19 @@
+# Corphish - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 463B39 > 654F34
+shiny = 581800 > 630E33
+shiny = 585040 > 78653A
+shiny = 707890 > B56485
+shiny = 787060 > 9B8659
+shiny = 983008 > A1413B
+shiny = A09880 > C5AF7C
+shiny = B0B0C0 > FD9085
+shiny = B59370 > D1AC72
+shiny = BC573F > C26668
+shiny = C04820 > B45671
+shiny = C5BD9C > ECD59B
+shiny = D86840 > D97A7A
+shiny = E88860 > EA8AA5
+shiny = E8E8F8 > FFF9E9
+shiny = EADBB7 > FEECBC
+shiny = F67A42 > E8859F

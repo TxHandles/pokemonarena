@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Slakoth
+dex  = 287
+type = Normal
+
+hp         = 60
+attack     = 60
+defense    = 60
+sp_attack  = 35
+sp_defense = 35
+speed      = 30
+
+size   = 1.03
+height = 0.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 24.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Vigoroth
+evolve_level = 18
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Yawn
+learn = 1, Scratch
+learn = 6, Encore
+learn = 9, Slack Off
+learn = 14, Headbutt
+learn = 17, Amnesia
+learn = 22, Covet
+learn = 25, Throat Chop
+learn = 30, Counter
+learn = 33, Flail
+learn = 38, Play Rough
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Thief, Chilling Water, Facade
+tm = Aerial Ace, Metal Claw, Icy Wind, Mud Shot, Rock Tomb, Fling
+tm = Endure, Sunny Day, Rain Dance, False Swipe, Brick Break, Zen Headbutt
+tm = Shadow Claw, Bulk Up, Body Slam, Fire Punch, Thunder Punch, Ice Punch
+tm = Sleep Talk, Seed Bomb, Metronome, Poison Jab, Rest, Rock Slide
+tm = Gunk Shot, Substitute, X-Scissor, Shadow Ball, Encore, Flamethrower
+tm = Thunderbolt, Play Rough, Amnesia, Helping Hand, Ice Beam, Fire Blast
+tm = Blizzard, Thunder, Solar Beam, Tera Blast, Focus Punch, Throat Chop
+tm = Curse

@@ -1,0 +1,22 @@
+# Dusclops - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 414040 > 7A0010
+shiny = 42403C > 7A000B
+shiny = 484030 > 7B000A
+shiny = 685850 > 575247
+shiny = 696960 > AD312F
+shiny = 787878 > C0433E
+shiny = 887870 > C44540
+shiny = 8B8B7C > CD5241
+shiny = 902020 > 8D0012
+shiny = A0A0A0 > EF6C63
+shiny = A8B0C8 > FF7C74
+shiny = B8B0B0 > FF7E73
+shiny = B8B3B3 > FF8473
+shiny = C2C2AD > FF917D
+shiny = D06060 > D34844
+shiny = DE6141 > E15C40
+shiny = DEDBC3 > D7C8BC
+shiny = E0D8D8 > D8C6C8
+shiny = E8E8F8 > FFB5A8
+shiny = FAFAFA > FFC9B5

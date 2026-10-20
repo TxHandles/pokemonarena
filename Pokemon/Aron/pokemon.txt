@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Aron
+dex  = 304
+type = Steel / Rock
+
+hp         = 50
+attack     = 70
+defense    = 100
+sp_attack  = 40
+sp_defense = 40
+speed      = 30
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 60.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Lairon
+evolve_level = 32
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Harden
+learn = 1, Tackle
+learn = 4, Metal Claw
+learn = 8, Rock Tomb
+learn = 12, Roar
+learn = 16, Headbutt
+learn = 20, Protect
+learn = 24, Rock Slide
+learn = 28, Iron Head
+learn = 33, Metal Sound
+learn = 36, Take Down
+learn = 40, Autotomize
+learn = 44, Iron Tail
+learn = 48, Iron Defense
+learn = 52, Heavy Slam
+learn = 56, Double-Edge
+learn = 60, Metal Burst
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Rock Tomb, Endure, Sunny Day
+tm = Rain Dance, Sandstorm, Dig, Shadow Claw, Body Slam, Sleep Talk
+tm = Rest, Rock Slide, Body Press, Iron Head, Substitute, Iron Defense
+tm = Stealth Rock, Heavy Slam, Earth Power, Reversal, Earthquake, Uproar

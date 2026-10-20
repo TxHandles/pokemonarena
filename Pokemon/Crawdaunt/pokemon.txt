@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Crawdaunt
+dex  = 342
+type = Water / Dark
+
+hp         = 63
+attack     = 120
+defense    = 85
+sp_attack  = 90
+sp_defense = 55
+speed      = 55
+
+size   = 1.12
+height = 1.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 32.8      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Swift
+learn = 1, Water Gun
+learn = 1, Taunt
+learn = 1, Harden
+learn = 1, Leer
+learn = 12, Bubble Beam
+learn = 16, Knock Off
+learn = 20, Double Hit
+learn = 24, Protect
+learn = 28, Night Slash
+learn = 34, Razor Shell
+learn = 40, Swords Dance
+learn = 46, Crunch
+learn = 52, Crabhammer
+learn = 58, Endeavor
+learn = 64, Guillotine
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Water Pulse, Thief, Chilling Water
+tm = Facade, Snarl, Metal Claw, Swift, Icy Wind, Mud Shot
+tm = Rock Tomb, Fling, Avalanche, Endure, Rain Dance, Dig
+tm = False Swipe, Brick Break, Body Slam, Sleep Talk, Waterfall, Rest
+tm = Rock Slide, Taunt, Swords Dance, Dark Pulse, Dragon Dance, Substitute
+tm = Iron Defense, X-Scissor, Crunch, Liquidation, Surf, Ice Beam
+tm = Nasty Plot, Hydro Pump, Blizzard, Sludge Bomb, Giga Impact, Hyper Beam
+tm = Close Combat, Tera Blast, Spite, Knock Off, Lash Out, Double-Edge
+tm = Endeavor, Whirlpool, Muddy Water, Sludge Wave, Hard Press

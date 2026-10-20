@@ -1,0 +1,17 @@
+# Trapinch - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 463D3C > 004B00
+shiny = 686868 > 107800
+shiny = 6B6B6B > 167B00
+shiny = 6E6E6E > 1C7E00
+shiny = 703030 > 204537
+shiny = 787878 > 2B8806
+shiny = A85848 > 4B6F5F
+shiny = A98981 > 669282
+shiny = BD6252 > 4B7761
+shiny = C87850 > 688D7A
+shiny = D1BAB5 > 74C94D
+shiny = D47362 > 6B8F7E
+shiny = E09870 > 85C0B1
+shiny = F59473 > 8DC4B5
+shiny = F8F6F1 > A9FF82

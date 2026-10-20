@@ -1,0 +1,61 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Slaking
+dex  = 289
+type = Normal
+
+hp         = 150
+attack     = 160
+defense    = 100
+sp_attack  = 95
+sp_defense = 65
+speed      = 100
+
+size   = 1.27
+height = 2.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 130.5      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Swagger
+learn = 1, Yawn
+learn = 1, Scratch
+learn = 1, Slack Off
+learn = 1, Encore
+learn = 1, Sucker Punch
+learn = 17, Amnesia
+learn = 23, Covet
+learn = 27, Throat Chop
+learn = 33, Counter
+learn = 39, Flail
+learn = 45, Fling
+learn = 52, Mega Kick
+learn = 63, Hammer Arm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Low Kick, Thief
+tm = Trailblaze, Pounce, Chilling Water, Facade, Aerial Ace, Bulldoze
+tm = Metal Claw, Icy Wind, Mud Shot, Rock Tomb, Low Sweep, Fling
+tm = Endure, Sunny Day, Rain Dance, Dig, False Swipe, Brick Break
+tm = Zen Headbutt, Shadow Claw, Bulk Up, Body Slam, Fire Punch, Thunder Punch
+tm = Ice Punch, Sleep Talk, Seed Bomb, Drain Punch, Metronome, Thunder Wave
+tm = Poison Jab, Stomping Tantrum, Rest, Rock Slide, Taunt, Body Press
+tm = Gunk Shot, Substitute, X-Scissor, Shadow Ball, Hyper Voice, Heavy Slam
+tm = Encore, Flamethrower, Thunderbolt, Play Rough, Amnesia, Helping Hand
+tm = Reversal, Ice Beam, Fire Blast, Blizzard, Wild Charge, Earthquake
+tm = Giga Impact, Outrage, Focus Blast, Hyper Beam, Thunder, Solar Beam
+tm = Tera Blast, Roar, Smack Down, Knock Off, High Horsepower, Uproar
+tm = Focus Punch, Lash Out, Double-Edge, Endeavor, Throat Chop, Curse
+tm = Hard Press

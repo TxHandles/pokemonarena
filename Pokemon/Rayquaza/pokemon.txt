@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Rayquaza
+dex  = 384
+type = Dragon / Flying
+
+hp         = 105
+attack     = 150
+defense    = 90
+sp_attack  = 150
+sp_defense = 90
+speed      = 95
+
+size   = 1.50
+height = 7.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 206.5      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Air Slash
+learn = 1, Twister
+learn = 1, Scary Face
+learn = 1, Ancient Power
+learn = 1, Dragon Ascent
+learn = 9, Crunch
+learn = 18, Dragon Dance
+learn = 27, Extreme Speed
+learn = 36, Dragon Pulse
+learn = 45, Hyper Voice
+learn = 54, Rest
+learn = 63, Fly
+learn = 72, Hurricane
+learn = 81, Outrage
+learn = 90, Hyper Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Facade, Aerial Ace, Bulldoze
+tm = Swift, Icy Wind, Rock Tomb, Fling, Dragon Tail, Avalanche
+tm = Endure, Sunny Day, Rain Dance, Sandstorm, Brick Break, U-turn
+tm = Shadow Claw, Bulk Up, Air Slash, Body Slam, Sleep Talk, Waterfall
+tm = Dragon Claw, Thunder Wave, Rest, Rock Slide, Swords Dance, Fly
+tm = Iron Head, Dragon Dance, Substitute, Crunch, Tailwind, Dragon Pulse
+tm = Stealth Rock, Hyper Voice, Energy Ball, Surf, Flamethrower, Thunderbolt
+tm = Helping Hand, Earth Power, Ice Beam, Fire Blast, Hydro Pump, Blizzard
+tm = Wild Charge, Earthquake, Stone Edge, Giga Impact, Outrage, Overheat
+tm = Focus Blast, Hurricane, Hyper Beam, Thunder, Solar Beam, Draco Meteor
+tm = Tera Blast, Roar, Gyro Ball, Scale Shot, Double-Edge, Whirlpool
+tm = Meteor Beam, Breaking Swipe, Dragon Cheer

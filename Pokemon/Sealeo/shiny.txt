@@ -1,0 +1,21 @@
+# Sealeo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 304068 > 85347B
+shiny = 307090 > B162A7
+shiny = 429CCB > D58EE5
+shiny = 4898C8 > DC8AD3
+shiny = 505038 > 964484
+shiny = 505068 > 722F79
+shiny = 6AC6F6 > F3B2FC
+shiny = 767E82 > 8C8B54
+shiny = 787050 > 7C855B
+shiny = 808898 > CC80D5
+shiny = 88C0F0 > FFB5FF
+shiny = B0B8D0 > FFB2FF
+shiny = B8A870 > C2B656
+shiny = D0D8E8 > FFD2FF
+shiny = D2DAEA > DDF1E3
+shiny = D3DAEA > C4C8DF
+shiny = D8D098 > E6DE7D
+shiny = EAD09B > EAE8B0
+shiny = F8FFFF > FFFFC3

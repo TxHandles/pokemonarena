@@ -1,0 +1,40 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Clamperl
+dex  = 366
+type = Water
+
+hp         = 35
+attack     = 64
+defense    = 85
+sp_attack  = 74
+sp_defense = 55
+speed      = 32
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 52.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Huntail, Deep Sea Tooth
+evolve_item = Gorebyss, Deep Sea Scale
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Whirlpool
+learn = 1, Iron Defense
+learn = 50, Shell Smash
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Rain Dance, Sleep Talk, Waterfall, Rest
+tm = Substitute, Surf, Ice Beam, Blizzard, Toxic, Scald

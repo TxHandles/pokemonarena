@@ -1,0 +1,23 @@
+# Nincada - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 204818 > 274900
+shiny = 31293E > 55505E
+shiny = 31293F > 55505E
+shiny = 383C24 > 2B3600
+shiny = 387028 > 367000
+shiny = 444344 > 54413E
+shiny = 589040 > 797D00
+shiny = 605840 > 515200
+shiny = 605870 > 7E6159
+shiny = 757570 > 8F7E67
+shiny = 787088 > 987971
+shiny = 78B058 > ACB464
+shiny = 908058 > 96884C
+shiny = 9890A0 > B48E33
+shiny = ABACAB > DC853C
+shiny = ACDE6A > A6ED5B
+shiny = AD9B85 > B4A37A
+shiny = B8B0C0 > DAB9AA
+shiny = C3CAC6 > C7C152
+shiny = E8E8F8 > FFE485
+shiny = FAFAFA > FBF281

@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Flygon
+dex  = 330
+type = Ground / Dragon
+
+hp         = 80
+attack     = 100
+defense    = 80
+sp_attack  = 80
+sp_defense = 80
+speed      = 100
+
+size   = 1.12
+height = 2.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 82.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Dragon Claw
+learn = 1, Sand Attack
+learn = 1, Bulldoze
+learn = 1, Dragon Breath
+learn = 1, Supersonic
+learn = 12, Mud-Slap
+learn = 16, Sand Tomb
+learn = 20, Dragon Tail
+learn = 24, Screech
+learn = 28, Bug Buzz
+learn = 32, Sandstorm
+learn = 38, Earth Power
+learn = 44, Earthquake
+learn = 52, Uproar
+learn = 60, Dragon Rush
+learn = 68, Boomburst
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Mud-Slap, Protect, Struggle Bug, Fire Spin
+tm = Facade, Aerial Ace, Bulldoze, Swift, Mud Shot, Rock Tomb
+tm = Air Cutter, Dragon Tail, Endure, Sunny Day, Sandstorm, Dig
+tm = U-turn, Air Slash, Body Slam, Fire Punch, Thunder Punch, Sleep Talk
+tm = Dragon Claw, Rest, Rock Slide, Fly, Dragon Dance, Substitute
+tm = Crunch, Giga Drain, Tailwind, Dragon Pulse, Stealth Rock, Heat Wave
+tm = Flamethrower, Helping Hand, Earth Power, Fire Blast, Earthquake, Stone Edge
+tm = Giga Impact, Outrage, Bug Buzz, Hyper Beam, Solar Beam, Draco Meteor
+tm = Tera Blast, Sand Tomb, Bug Bite, Vacuum Wave, Uproar, Dual Wingbeat
+tm = Scale Shot, Double-Edge, Scorching Sands, Throat Chop, Breaking Swipe, Dragon Cheer
+tm = Alluring Voice, Psychic Noise

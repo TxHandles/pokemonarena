@@ -28,11 +28,14 @@ std::vector<ItemDef> Build() {
 
     // Evolution stones (used from Party & Box)
     add("Fire Stone", ItemFx::Stone, 0, 300, 1, "Evolves Vulpix, Growlithe and Eevee (into Flareon).", Type::Fire);
-    add("Water Stone", ItemFx::Stone, 0, 300, 1, "Evolves Poliwhirl, Shellder, Staryu and Eevee (into Vaporeon).", Type::Water);
+    add("Water Stone", ItemFx::Stone, 0, 300, 1, "Evolves Poliwhirl, Shellder, Staryu, Lombre and Eevee (into Vaporeon).", Type::Water);
     add("Thunder Stone", ItemFx::Stone, 0, 300, 1, "Evolves Pikachu and Eevee (into Jolteon).", Type::Electric);
-    add("Leaf Stone", ItemFx::Stone, 0, 300, 2, "Evolves Gloom, Weepinbell and Exeggcute.", Type::Grass);
+    add("Leaf Stone", ItemFx::Stone, 0, 300, 2, "Evolves Gloom, Weepinbell, Exeggcute and Nuzleaf.", Type::Grass);
     add("Sun Stone", ItemFx::Stone, 0, 300, 2, "Evolves Gloom (into Bellossom) and Sunkern.", Type::Fire);
-    add("Moon Stone", ItemFx::Stone, 0, 400, 2, "Evolves Nidorina, Nidorino, Clefairy and Jigglypuff.", Type::Fairy);
+    add("Moon Stone", ItemFx::Stone, 0, 400, 2, "Evolves Nidorina, Nidorino, Clefairy, Jigglypuff and Skitty.", Type::Fairy);
+    add("Deep Sea Tooth", ItemFx::Stone, 0, 600, 3, "A fang that gleams a sharp silver. Evolves Clamperl into Huntail.", Type::Water);
+    add("Deep Sea Scale", ItemFx::Stone, 0, 600, 3, "A scale that shines a faint pink. Evolves Clamperl into Gorebyss.", Type::Water);
+    add("Prism Scale", ItemFx::Stone, 0, 800, 3, "A mysterious scale that shines in all the colors of the rainbow. Evolves Feebas into Milotic.", Type::Water);
     add("Linking Cord", ItemFx::Stone, 0, 800, 3, "Evolves the Pokemon that evolve by trading: Kadabra, Machoke, Graveler, Haunter, Onix, Scyther, Seadra, Porygon, Slowpoke (Slowking) and Poliwhirl (Politoed).", Type::Psychic);
 
     // Type boosters (+20% damage for one type)

@@ -1,0 +1,23 @@
+# Blaziken - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 4474A5 > 192226
+shiny = 604800 > 5C3000
+shiny = 681000 > 3F0000
+shiny = 934641 > 553C2B
+shiny = A81818 > 6C0000
+shiny = AC9B70 > B27F39
+shiny = B08050 > 8B5319
+shiny = B8A8A0 > C38C5C
+shiny = CFB858 > D29B30
+shiny = D0B858 > EFC9A4
+shiny = DBB79A > F5CACD
+shiny = E0A810 > D68E00
+shiny = E6663F > AA440D
+shiny = E83028 > A40000
+shiny = F0E098 > FFF1DA
+shiny = F0E8E0 > FFF8FF
+shiny = F86058 > BA301A
+shiny = F8D050 > FEC91D
+shiny = F8D866 > FFD035
+shiny = FAFAFA > EFC3A3
+shiny = FDEBB1 > FFF9EA

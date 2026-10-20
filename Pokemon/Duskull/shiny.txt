@@ -1,0 +1,16 @@
+# Duskull - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 202838 > 590000
+shiny = 384050 > 770000
+shiny = 414142 > 790000
+shiny = 484030 > 780000
+shiny = 505870 > 971B14
+shiny = 687090 > B6392B
+shiny = 737372 > B73B29
+shiny = 887870 > C2442F
+shiny = 902020 > 930000
+shiny = 935751 > AC2A1C
+shiny = 9B9B93 > F2603A
+shiny = C03838 > B3271C
+shiny = C8B8B8 > FF856B
+shiny = E0D8D8 > FFA074

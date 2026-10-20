@@ -1,0 +1,13 @@
+# Whismur - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3E3C41 > 5F2536
+shiny = 404858 > 67324C
+shiny = 503808 > 65211B
+shiny = 602848 > 6E0A3E
+shiny = 988828 > 00881D
+shiny = A05880 > AE4573
+shiny = C0A830 > 29AA3C
+shiny = D078A8 > DD689A
+shiny = E0D048 > 93DC6F
+shiny = E8A0C8 > FB8EBA
+shiny = F6D462 > 62D968

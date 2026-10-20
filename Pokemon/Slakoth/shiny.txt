@@ -1,0 +1,19 @@
+# Slakoth - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333232 > 240041
+shiny = 504040 > 420050
+shiny = 525252 > 451D63
+shiny = 6C5E59 > 601D6F
+shiny = 6E5E59 > 621C6F
+shiny = 704038 > 651F6C
+shiny = 785C54 > 5B2372
+shiny = 805850 > 641A6E
+shiny = 988058 > 9F59A4
+shiny = A83838 > 661069
+shiny = B89870 > A257A9
+shiny = BC9B7A > A65BAD
+shiny = D05858 > 88348A
+shiny = E0C890 > D183D6
+shiny = E5CDAE > F0A5F5
+shiny = E8E8F8 > FFBDFF
+shiny = F5626A > FD4E5C

@@ -1,0 +1,23 @@
+# Illumise - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 304068 > 00519F
+shiny = 333333 > 444441
+shiny = 33333A > 444448
+shiny = 404048 > 525257
+shiny = 555454 > 676666
+shiny = 58A0E8 > 02A8FF
+shiny = 683868 > AE8000
+shiny = 686870 > 7B7B80
+shiny = 705838 > 8A3000
+shiny = 887ECC > 69A3D1
+shiny = 93C5F6 > 6DCDFF
+shiny = A08828 > B24C06
+shiny = A0C0E8 > 79C8FF
+shiny = A8A8C8 > BEBDD1
+shiny = C3A8CD > A3CEE3
+shiny = C5AC29 > EA802B
+shiny = C878C8 > FFF47B
+shiny = C8B858 > C3874A
+shiny = D0B0E8 > FFFC81
+shiny = E8E8F8 > CBFFFF
+shiny = F4DC72 > EBAB6B

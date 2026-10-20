@@ -1,0 +1,19 @@
+# Taillow - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 103048 > 005332
+shiny = 304870 > 2C695E
+shiny = 313131 > 005633
+shiny = 404040 > 006742
+shiny = 486798 > 33916E
+shiny = 486898 > 1E975D
+shiny = 525252 > 1D7B54
+shiny = 6868B8 > 449B7A
+shiny = 6888C0 > 59B590
+shiny = 903050 > AD4402
+shiny = A5ADF7 > 7DE8AA
+shiny = C04858 > D75600
+shiny = C63952 > D45200
+shiny = E0D048 > AAFFC4
+shiny = F06868 > FF7A1D
+shiny = F7637B > FF7B22
+shiny = FFC446 > FFB84F

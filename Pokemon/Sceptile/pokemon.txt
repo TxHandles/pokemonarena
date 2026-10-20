@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Sceptile
+dex  = 254
+type = Grass
+
+hp         = 70
+attack     = 85
+defense    = 65
+sp_attack  = 105
+sp_defense = 85
+speed      = 120
+
+size   = 1.12
+height = 1.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 52.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Leaf Blade
+learn = 1, Leafage
+learn = 1, Leer
+learn = 1, Pound
+learn = 1, Quick Attack
+learn = 5, Mega Drain
+learn = 12, Detect
+learn = 15, Quick Guard
+learn = 20, Assurance
+learn = 25, Giga Drain
+learn = 30, Slam
+learn = 35, Double Team
+learn = 42, Screech
+learn = 49, Endeavor
+learn = 56, Leaf Storm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Low Kick, Acrobatics, Thief
+tm = Trailblaze, Facade, Aerial Ace, Bulldoze, Swift, Magical Leaf
+tm = Rock Tomb, Low Sweep, Fling, Dragon Tail, Endure, Sunny Day
+tm = Dig, Bullet Seed, False Swipe, Brick Break, Body Slam, Thunder Punch
+tm = Sleep Talk, Seed Bomb, Drain Punch, Dragon Claw, Grass Knot, Rest
+tm = Rock Slide, Swords Dance, Dragon Dance, Substitute, X-Scissor, Crunch
+tm = Giga Drain, Dragon Pulse, Energy Ball, Helping Hand, Grassy Terrain, Grass Pledge
+tm = Earthquake, Giga Impact, Frenzy Plant, Outrage, Focus Blast, Leaf Storm
+tm = Hyper Beam, Solar Beam, Tera Blast, Roar, Vacuum Wave, Solar Blade
+tm = Focus Punch, Grassy Glide, Scale Shot, Double-Edge, Endeavor, Throat Chop
+tm = Breaking Swipe, Dragon Cheer, Upper Hand

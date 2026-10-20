@@ -1,0 +1,10 @@
+# Torkoal - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 42403F > 753739
+shiny = 586068 > 985758
+shiny = 602828 > BE7E00
+shiny = 882030 > 976000
+shiny = 8C8B82 > CA8381
+shiny = D03850 > CE8A19
+shiny = D47342 > E9D349
+shiny = E6655A > D68280

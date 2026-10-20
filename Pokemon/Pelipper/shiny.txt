@@ -1,0 +1,23 @@
+# Pelipper - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 304870 > 005B00
+shiny = 3C85A3 > 3E9300
+shiny = 404040 > 473743
+shiny = 406890 > 237A00
+shiny = 505058 > 57475B
+shiny = 5088A8 > 459800
+shiny = 685010 > 6F5500
+shiny = 68A0D8 > 64B42B
+shiny = 6BADCC > 6BBD31
+shiny = 6F5511 > 765A00
+shiny = 886818 > 8E6E0A
+shiny = 888898 > 9C81A3
+shiny = 90C0E0 > B9B6E2
+shiny = A08828 > AA8D24
+shiny = B8C0D0 > D0B8DB
+shiny = C6CDCB > DEC4DD
+shiny = C8B038 > CAB065
+shiny = E0D048 > E5CF7A
+shiny = E7E7F7 > FDDFFF
+shiny = E8E8F8 > FEE0FF
+shiny = FEE644 > FFE583

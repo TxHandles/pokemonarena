@@ -55,7 +55,7 @@ void Battle::AbRefresh() {
         const Fighter& f = sides[k].Cur();
         if (Here(f) && f.ab == Ab::NeutralizingGas) gasOn = true;
     }
-    cloudNine = AbOnField(Ab::CloudNine);
+    cloudNine = AbOnField(Ab::CloudNine) || AbOnField(Ab::AirLock);
 }
 
 void Battle::AbPopup(int s, const std::string& text) {
@@ -149,7 +149,7 @@ void Battle::AbOnEnter(int s) {
         case Ab::Pressure: AbPopup(s, f.sp->name + " is exerting its Pressure!"); break;
         case Ab::Unnerve: AbPopup(s, "Its foes are too nervous to snack!"); break;
         case Ab::NeutralizingGas: AbPopup(s, "Neutralizing gas filled the area!"); break;
-        case Ab::CloudNine: AbPopup(s, "The effects of weather disappeared."); break;
+        case Ab::CloudNine: case Ab::AirLock: AbPopup(s, "The effects of weather disappeared."); break;
         case Ab::MoldBreaker: AbPopup(s, f.sp->name + " breaks the mold!"); break;
         case Ab::Illuminate: AbPopup(s, "The arena lit up!"); break;
         default: break;
@@ -181,8 +181,19 @@ void Battle::AbTick(int s, float dt) {
         case Ab::Unburden: if (f.focusUsed) f.abSpd = 1.6f; break;
         case Ab::Guts: if (status) f.abAtk = f.st.major == Status::Burn ? 1.5f / 0.75f : 1.5f; break;
         case Ab::Hustle: f.abAtk = 1.5f; break;
-        case Ab::HugePower: f.abAtk = 2.0f; break;
+        case Ab::HugePower: case Ab::PurePower: f.abAtk = 2.0f; break;
+        case Ab::Forecast: {   // its type follows the weather
+            Type ft = w == Weather::Sun ? Type::Fire : (w == Weather::Rain ? Type::Water : (w == Weather::Snow ? Type::Ice : Type::None));
+            if (ft != f.shiftT) { f.shiftT = ft; AbPopup(s, f.sp->name + (ft == Type::None ? " returned to normal!" : " transformed!")); }
+        } break;
         case Ab::LightMetal: f.abSpd = 1.1f; break;
+        case Ab::HeavyMetal: f.abSpd = 0.9f; break;
+        case Ab::ToxicBoost: if (f.st.major == Status::Poison || f.st.major == Status::Toxic) f.abAtk = 1.5f; break;
+        case Ab::Simple:   // every stat change counts twice
+            f.abAtk = f.buffMul[0] * f.dropMul[0];
+            f.abDef = f.buffMul[1] * f.dropMul[1];
+            f.abSpd = f.buffMul[2] * f.dropMul[2];
+            break;
         case Ab::MarvelScale: if (status) f.abDef = 1.5f; break;
         case Ab::EarlyBird: if (f.st.major == Status::Sleep) f.st.majorT -= dt; break;
         default: break;
@@ -275,6 +286,9 @@ bool Battle::AbBlocksHit(const HitSpec& h, int ts) {
     };
     switch (ta) {
         case Ab::Levitate: if (h.type == Type::Ground && h.name != "Sand Attack") return unaffected("It floats above it!"); break;
+        case Ab::WonderGuard:
+            if (h.power > 0 && TypeEffectiveness(h.type, t.T1(), t.T2()) <= 1) return unaffected("It wasn't hurt!");
+            break;
         case Ab::VoltAbsorb: if (h.type == Type::Electric) return absorb(0.25f); break;
         case Ab::WaterAbsorb: case Ab::DrySkin: if (h.type == Type::Water) return absorb(0.25f); break;
         case Ab::LightningRod:
@@ -288,6 +302,18 @@ bool Battle::AbBlocksHit(const HitSpec& h, int ts) {
                 bool was = t.flashFire;
                 t.flashFire = true;
                 return unaffected(was ? "It absorbed the fire!" : "Its Fire moves powered up!");
+            }
+            break;
+        case Ab::StormDrain:
+            if (h.type == Type::Water) {
+                if (!h.light) Buff(t, StatId::Atk, 1.5f, 8);
+                return unaffected("It drew in the water! ATK rose!");
+            }
+            break;
+        case Ab::WindRider:
+            if (IsWindMoveName(h.name)) {
+                if (!h.light) Buff(t, StatId::Atk, 1.5f, 8);
+                return unaffected("It rode the wind! ATK rose!");
             }
             break;
         case Ab::SapSipper:
@@ -334,7 +360,7 @@ float Battle::AbDamageMul(const HitSpec& h, int ts, float eff, bool crit) const 
     float m = 1;
     switch (ta) {
         case Ab::ThickFat: if (h.type == Type::Fire || h.type == Type::Ice) m *= 0.5f; break;
-        case Ab::Filter: if (eff > 1) m *= 0.75f; break;
+        case Ab::Filter: case Ab::SolidRock: if (eff > 1) m *= 0.75f; break;
         case Ab::Multiscale: if (t.hp >= t.maxHp) m *= 0.5f; break;
         case Ab::DrySkin: if (h.type == Type::Fire) m *= 1.25f; break;
         case Ab::Unaware: if (h.atkStage > 0) m /= h.atkStage; break;
@@ -365,11 +391,16 @@ void Battle::AbAfterHit(const HitSpec& h, int ts, float dmg, bool crit, float hp
         AbPopup(ts, t.sp->name + " endured the hit!");
     }
     if (dmg <= 0 || h.light) return;
+    if (ta == Ab::ColorChange && t.hp > 0 && (t.T1() != h.type || t.T2() != Type::None)) {   // it takes on the hit's type
+        t.shiftT = h.type;
+        AbPopup(ts, t.sp->name + " became " + TypeName(h.type) + " type!");
+    }
     Fighter* a = nullptr;
     if (h.side >= 0 && h.side < N() && sides[h.side].active == h.fighter && sides[h.side].Cur().state == FState::Active)
         a = &sides[h.side].Cur();
     if (h.contact && a) {
         switch (ta) {
+            case Ab::RoughSkin: DirectDamage(h.side, a->maxHp / 16.0f, Color{200, 170, 140, 255}, ts); break;
             case Ab::Static: if (a->st.major == Status::None && Chance(0.3f)) { AbPopup(ts, "Zap!"); TryStatus(h.side, Status::Paralyze, ts); } break;
             case Ab::PoisonPoint: if (a->st.major == Status::None && Chance(0.3f)) { AbPopup(ts, "Ouch!"); TryStatus(h.side, Status::Poison, ts); } break;
             case Ab::FlameBody: if (a->st.major == Status::None && Chance(0.3f)) { AbPopup(ts, "Hot!"); TryStatus(h.side, Status::Burn, ts); } break;
@@ -465,7 +496,7 @@ bool Battle::AbBlocksLower(int ts, StatId stat, int src, const std::string& move
     }
     bool block = false;
     switch (a) {
-        case Ab::ClearBody: block = true; break;
+        case Ab::ClearBody: case Ab::WhiteSmoke: block = true; break;
         case Ab::HyperCutter: block = stat == StatId::Atk; break;
         case Ab::BigPecks: block = stat == StatId::Def; break;
         case Ab::KeenEye: block = IsAccuracyMoveName(moveName); break;
@@ -523,12 +554,14 @@ void Battle::AbSpec(HitSpec& h, const Fighter& f, const MoveDef& m) const {
             h.flinchChance = std::min(1.0f, h.flinchChance * 2);
             break;
         case Ab::Stench: if (m.power > 0) h.flinchChance = std::max(h.flinchChance, 0.1f); break;
-        case Ab::Plus:
+        case Ab::Normalize: if (m.power > 0) { h.type = Type::Normal; mul = 1.2f; } break;
+        case Ab::Protean: if (m.power > 0 && m.type != h.t1 && m.type != h.t2) mul = 1.5f; break;
+        case Ab::Plus: case Ab::Minus:
             if (h.special && m.power > 0) {
                 int me = -1;
                 for (int k = 0; k < N(); k++) if (&sides[k].Cur() == &f) me = k;
                 for (int k = 0; me >= 0 && k < N(); k++)
-                    if (k != me && sides[k].teamId == sides[me].teamId && Here(sides[k].Cur()) && AbOf(sides[k].Cur()) == Ab::Plus) mul = 1.5f;
+                    if (k != me && sides[k].teamId == sides[me].teamId && Here(sides[k].Cur()) && (AbOf(sides[k].Cur()) == Ab::Plus || AbOf(sides[k].Cur()) == Ab::Minus)) mul = 1.5f;
             }
             break;
         default: break;

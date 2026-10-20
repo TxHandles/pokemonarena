@@ -1,0 +1,19 @@
+# Feebas - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 102840 > 1C1F31
+shiny = 305070 > 4B4959
+shiny = 483820 > 522F4D
+shiny = 5078A0 > 616D89
+shiny = 6392D8 > 898BB1
+shiny = 685830 > 543056
+shiny = 70A0D0 > 93A6BE
+shiny = 887848 > 956D8C
+shiny = 8FB3F5 > ADACD0
+shiny = A89858 > 936C93
+shiny = AAAE9E > C8A0C4
+shiny = B08F5B > 906790
+shiny = C0C0D0 > BA93C4
+shiny = C8B870 > B38AB2
+shiny = DB616D > AC799D
+shiny = E1C07C > C095BE
+shiny = E8E8F8 > E2B9EC

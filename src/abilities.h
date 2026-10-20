@@ -3,7 +3,7 @@
 #include <string>
 #include "types.h"
 
-// Pokemon abilities (every ability used by the first 251), adapted to real-time battles.
+// Pokemon abilities (every ability used by the first 386), adapted to real-time battles.
 enum class Ab : uint8_t {
     None,
     Adaptability,
@@ -139,6 +139,9 @@ enum class Ab : uint8_t {
     SuctionCups,
     SuperLuck,
     Telepathy,
+    // Gen 3
+    HeavyMetal, Minus, Normalize, PoisonHeal, Protean, Simple, SolidRock, Stall, StormDrain, ToxicBoost, WindRider,
+    AirLock, ColorChange, Forecast, PurePower, RoughSkin, Truant, WhiteSmoke, WonderGuard,
     Count
 };
 
@@ -152,6 +155,7 @@ const char* AbilityName(Ab a);
 
 // Move-name groups some abilities care about.
 bool IsSoundMoveName(const std::string& name);
+bool IsWindMoveName(const std::string& name);   // Wind Rider
 bool IsPunchMoveName(const std::string& name);
 bool IsPowderMoveName(const std::string& name);
 bool IsAccuracyMoveName(const std::string& name);   // Sand Attack, Smokescreen... (Keen Eye)

@@ -1,0 +1,22 @@
+# Loudred - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 293141 > 3D2057
+shiny = 3F3C43 > 502B5E
+shiny = 504868 > 61377C
+shiny = 684820 > 7C4000
+shiny = 686098 > 7B50A5
+shiny = 686395 > 7C53A4
+shiny = 687088 > 815F9F
+shiny = 7A76BB > 9166C4
+shiny = 882840 > A32D0F
+shiny = 8880B8 > 9D70C6
+shiny = 9392E3 > AD82E9
+shiny = A8B0C0 > C39EDD
+shiny = B0A8E0 > DAA0D9
+shiny = B6AFF2 > E1A7E7
+shiny = B84068 > CF462D
+shiny = B89030 > D78000
+shiny = D06B89 > E2744C
+shiny = E8D068 > FFBE47
+shiny = E8E8F8 > FFD5FF
+shiny = EBD05D > FFBF3F

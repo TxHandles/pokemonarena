@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Tropius
+dex  = 357
+type = Grass / Flying
+
+hp         = 99
+attack     = 68
+defense    = 83
+sp_attack  = 72
+sp_defense = 87
+speed      = 51
+
+size   = 1.27
+height = 2.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 100.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Razor Leaf
+learn = 1, Growth
+learn = 1, Leer
+learn = 1, Leaf Storm
+learn = 1, Gust
+learn = 6, Sweet Scent
+learn = 10, Stomp
+learn = 16, Magical Leaf
+learn = 21, Whirlwind
+learn = 30, Wide Guard
+learn = 36, Air Slash
+learn = 41, Body Slam
+learn = 46, Outrage
+learn = 50, Synthesis
+learn = 56, Solar Beam
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Trailblaze, Facade, Aerial Ace, Bulldoze
+tm = Magical Leaf, Air Cutter, Dragon Tail, Endure, Sunny Day, Rain Dance
+tm = Bullet Seed, Zen Headbutt, U-turn, Air Slash, Body Slam, Sleep Talk
+tm = Seed Bomb, Grass Knot, Stomping Tantrum, Rest, Swords Dance, Body Press
+tm = Fly, Dragon Dance, Substitute, Giga Drain, Tailwind, Dragon Pulse
+tm = Energy Ball, Helping Hand, Grassy Terrain, Earthquake, Giga Impact, Outrage
+tm = Leaf Storm, Hurricane, Hyper Beam, Solar Beam, Tera Blast, Roar
+tm = Spite, Solar Blade, Dual Wingbeat, Double-Edge, Petal Blizzard, Curse

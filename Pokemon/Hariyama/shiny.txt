@@ -1,0 +1,24 @@
+# Hariyama - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 182858 > 11194D
+shiny = 343434 > 4F2C4C
+shiny = 405088 > 3C407A
+shiny = 483808 > 58314D
+shiny = 535251 > 704A6B
+shiny = 602008 > 552A48
+shiny = 62599A > 564A8B
+shiny = 685040 > 754C6C
+shiny = 6880B0 > 676DA5
+shiny = B07820 > 861215
+shiny = B85810 > 9C6885
+shiny = B85910 > 9D6985
+shiny = B89868 > C294B4
+shiny = BF7F3E > 911E1E
+shiny = D08038 > BC88A6
+shiny = D8B840 > D9422C
+shiny = D8C898 > FECD62
+shiny = E5836A > C892B4
+shiny = E8E8F8 > FAF0CC
+shiny = EFD1A0 > FFD96D
+shiny = F0E8C0 > FBEFA9
+shiny = FCCC4A > F65A3F

@@ -1,0 +1,20 @@
+# Banette - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 293141 > 003E57
+shiny = 333232 > 003F4E
+shiny = 404860 > 005674
+shiny = 483810 > 492107
+shiny = 4B3210 > 4B1906
+shiny = 525251 > 23606F
+shiny = 606880 > 2C7796
+shiny = 72726A > 447988
+shiny = 8080A0 > 4C89B1
+shiny = 8C7020 > 687861
+shiny = 902020 > 7C0A19
+shiny = 93938B > 6C9AB1
+shiny = A08028 > 809170
+shiny = C8A030 > CA8631
+shiny = CCAB41 > C0A11C
+shiny = D45263 > 9F7290
+shiny = F5D449 > EAC833
+shiny = FBABCB > C5BEED

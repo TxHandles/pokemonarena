@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Seviper
+dex  = 336
+type = Poison
+
+hp         = 73
+attack     = 100
+defense    = 60
+sp_attack  = 100
+sp_defense = 60
+speed      = 65
+
+size   = 1.12
+height = 2.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 52.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Swagger
+learn = 1, Wrap
+learn = 4, Bite
+learn = 6, Lick
+learn = 9, Poison Tail
+learn = 11, Feint
+learn = 14, Screech
+learn = 19, Glare
+learn = 21, Poison Fang
+learn = 24, Venoshock
+learn = 29, Gastro Acid
+learn = 31, Poison Jab
+learn = 34, Haze
+learn = 39, Crunch
+learn = 41, Belch
+learn = 44, Coil
+learn = 46, Sludge Bomb
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Fire Fang, Thunder Fang, Ice Fang
+tm = Acid Spray, Thief, Trailblaze, Pounce, Facade, Poison Tail
+tm = Bulldoze, Snarl, Venoshock, Endure, Sunny Day, Rain Dance
+tm = Dig, Brick Break, Zen Headbutt, Psychic Fangs, Body Slam, Sleep Talk
+tm = Seed Bomb, Poison Jab, Rest, Taunt, Swords Dance, Dark Pulse
+tm = Iron Head, Gunk Shot, Substitute, X-Scissor, Crunch, Giga Drain
+tm = Flamethrower, Helping Hand, Reversal, Sludge Bomb, Earthquake, Giga Impact
+tm = Hyper Beam, Tera Blast, Haze, Toxic, Knock Off, Lash Out
+tm = Double-Edge, Endeavor, Sludge Wave, Skitter Smack, Throat Chop, Breaking Swipe
+tm = Curse

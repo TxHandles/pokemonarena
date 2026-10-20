@@ -1,0 +1,16 @@
+# Lunatone - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2D353C > 00639E
+shiny = 404858 > 0078BE
+shiny = 414040 > 336FA3
+shiny = 605020 > 6E5824
+shiny = 7F733D > 907B42
+shiny = 907838 > 9D8142
+shiny = A03070 > 3A8BD6
+shiny = B0A048 > C1A85B
+shiny = BCA459 > CBAD67
+shiny = CFBB62 > DFCB54
+shiny = D04890 > 68ACFB
+shiny = D0C060 > E2C875
+shiny = DECE6A > E5D658
+shiny = E65B73 > 7E80FF

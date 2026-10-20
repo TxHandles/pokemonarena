@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Swampert
+dex  = 260
+type = Water / Ground
+
+hp         = 100
+attack     = 110
+defense    = 90
+sp_attack  = 85
+sp_defense = 90
+speed      = 60
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 81.9      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Mud Shot
+learn = 1, Tackle
+learn = 1, Growl
+learn = 9, Rock Throw
+learn = 12, Protect
+learn = 15, Supersonic
+learn = 20, Water Pulse
+learn = 25, Rock Slide
+learn = 30, Take Down
+learn = 35, Amnesia
+learn = 42, Muddy Water
+learn = 49, Screech
+learn = 56, Endeavor
+learn = 63, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Water Pulse, Low Kick
+tm = Chilling Water, Facade, Bulldoze, Icy Wind, Mud Shot, Rock Tomb
+tm = Fling, Avalanche, Endure, Rain Dance, Dig, Brick Break
+tm = Bulk Up, Body Slam, Ice Punch, Sleep Talk, Waterfall, Poison Jab
+tm = Stomping Tantrum, Rest, Rock Slide, Body Press, Substitute, Liquidation
+tm = Stealth Rock, Surf, Amnesia, Helping Hand, Earth Power, Ice Beam
+tm = Hydro Pump, Blizzard, Water Pledge, Earthquake, Stone Edge, Giga Impact
+tm = Hydro Cannon, Outrage, Focus Blast, Hyper Beam, Tera Blast, Roar
+tm = Sand Tomb, Smack Down, Knock Off, High Horsepower, Uproar, Focus Punch
+tm = Weather Ball, Flip Turn, Double-Edge, Endeavor, Whirlpool, Muddy Water
+tm = Sludge Wave, Curse, Hard Press

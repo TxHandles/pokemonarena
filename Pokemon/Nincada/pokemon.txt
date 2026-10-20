@@ -1,0 +1,47 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Nincada
+dex  = 290
+type = Bug / Ground
+
+hp         = 31
+attack     = 45
+defense    = 90
+sp_attack  = 30
+sp_defense = 30
+speed      = 40
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Ninjask
+evolve_level = 20   # (Shedinja, the empty shell left behind, isn't given)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Sand Attack
+learn = 1, Scratch
+learn = 5, Harden
+learn = 10, False Swipe
+learn = 15, Mud-Slap
+learn = 21, Absorb
+learn = 25, Metal Claw
+learn = 30, Fury Swipes
+learn = 35, Mind Reader
+learn = 40, Dig
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Endure, Sunny Day, Sandstorm, Dig
+tm = False Swipe, Sleep Talk, Rest, Leech Life, Substitute, X-Scissor
+tm = Giga Drain, Shadow Ball, Bug Buzz, Solar Beam

@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Camerupt
+dex  = 323
+type = Fire / Ground
+
+hp         = 70
+attack     = 100
+defense    = 70
+sp_attack  = 105
+sp_defense = 75
+speed      = 40
+
+size   = 1.26
+height = 1.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 220.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Rock Slide
+learn = 1, Focus Energy
+learn = 1, Ember
+learn = 1, Fissure
+learn = 1, Tackle
+learn = 1, Eruption
+learn = 1, Growl
+learn = 12, Bulldoze
+learn = 15, Incinerate
+learn = 19, Amnesia
+learn = 22, Lava Plume
+learn = 26, Earth Power
+learn = 29, Curse
+learn = 31, Take Down
+learn = 39, Yawn
+learn = 46, Earthquake
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Mud-Slap, Scary Face, Protect, Trailblaze
+tm = Fire Spin, Facade, Bulldoze, Mud Shot, Rock Tomb, Flame Charge
+tm = Endure, Sunny Day, Rain Dance, Sandstorm, Dig, Zen Headbutt
+tm = Body Slam, Sleep Talk, Stomping Tantrum, Rest, Rock Slide, Body Press
+tm = Flash Cannon, Iron Head, Substitute, Will-O-Wisp, Stealth Rock, Heat Wave
+tm = Heavy Slam, Flamethrower, Amnesia, Helping Hand, Earth Power, Fire Blast
+tm = Earthquake, Stone Edge, Giga Impact, Overheat, Hyper Beam, Flare Blitz
+tm = Solar Beam, Tera Blast, Roar, Smack Down, High Horsepower, Heat Crash
+tm = Lash Out, Double-Edge, Endeavor, Temper Flare, Scorching Sands, Curse

@@ -1,0 +1,20 @@
+# Walrein - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 304068 > 793077
+shiny = 454345 > 7D3376
+shiny = 47658B > 945EA2
+shiny = 4F81BC > BC71BC
+shiny = 505038 > 804985
+shiny = 505068 > 8D4288
+shiny = 507FB0 > B96EB8
+shiny = 5080B0 > BA6FB9
+shiny = 68A0D8 > DC8FDB
+shiny = 7BBDFE > EEB4FF
+shiny = 808898 > 86828D
+shiny = 88B8F8 > F8A9F7
+shiny = B0B8D0 > B7B2C1
+shiny = C09818 > DC98D1
+shiny = D0D8E8 > E4E1E9
+shiny = D3E2E3 > DBDADC
+shiny = FFD231 > F6CD78
+shiny = FFEEB4 > FFE9FF

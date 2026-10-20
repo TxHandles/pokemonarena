@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Cradily
+dex  = 346
+type = Rock / Grass
+
+hp         = 86
+attack     = 81
+defense    = 97
+sp_attack  = 81
+sp_defense = 107
+speed      = 43
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 60.4      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Acid
+learn = 1, Confuse Ray
+learn = 1, Wrap
+learn = 1, Astonish
+learn = 1, Leech Seed
+learn = 12, Ingrain
+learn = 16, Ancient Power
+learn = 20, Mega Drain
+learn = 24, Brine
+learn = 28, Amnesia
+learn = 32, Gastro Acid
+learn = 36, Giga Drain
+learn = 43, Stockpile
+learn = 43, Swallow
+learn = 43, Spit Up
+learn = 48, Energy Ball
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Mud Shot, Rock Tomb, Endure
+tm = Sunny Day, Sandstorm, Dig, Bullet Seed, Body Slam, Sleep Talk
+tm = Seed Bomb, Rock Blast, Grass Knot, Rest, Rock Slide, Swords Dance
+tm = Substitute, Giga Drain, Stealth Rock, Energy Ball, Amnesia, Earth Power
+tm = Grassy Terrain, Sludge Bomb, Earthquake, Stone Edge, Giga Impact, Hyper Beam
+tm = Solar Beam, Sludge Wave

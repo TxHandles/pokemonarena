@@ -1,0 +1,24 @@
+# Milotic - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 203858 > 724F00
+shiny = 385880 > A66600
+shiny = 473B3E > 654D46
+shiny = 504898 > 5D3B5A
+shiny = 5080A8 > C59700
+shiny = 526C99 > C07C00
+shiny = 605840 > 5E4829
+shiny = 70A0D0 > EBB800
+shiny = 77BCFC > FFD331
+shiny = 800848 > 5674A5
+shiny = A54654 > 7F9CCC
+shiny = B83050 > B2171D
+shiny = B83070 > 839DD1
+shiny = BEAD8A > BA9B73
+shiny = D0A840 > C49848
+shiny = E8D8A8 > EBCF97
+shiny = E9606A > ADBDF6
+shiny = F06870 > EC563E
+shiny = F06898 > B7D0FF
+shiny = F6DAAE > F5D39C
+shiny = F8F0D8 > F9DCBA
+shiny = FAFAFA > FBF2D8

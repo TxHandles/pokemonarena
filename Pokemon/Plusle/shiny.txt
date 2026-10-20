@@ -1,0 +1,18 @@
+# Plusle - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 333332 > 372D0D
+shiny = 535251 > 584B2A
+shiny = 705830 > 765111
+shiny = 882840 > 82041A
+shiny = A88868 > AF8147
+shiny = B84858 > B03132
+shiny = BC4A49 > B23F0F
+shiny = BCA441 > C59C36
+shiny = C8A860 > CFA04C
+shiny = E07078 > DA5A51
+shiny = E3CE61 > EEC559
+shiny = E8E8F8 > F3E0C3
+shiny = F8E088 > FFD778
+shiny = FAFAFA > FFF2CB
+shiny = FD7259 > EF6042
+shiny = FDFD7A > FFF27C

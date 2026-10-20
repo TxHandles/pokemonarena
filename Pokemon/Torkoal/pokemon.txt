@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Torkoal
+dex  = 324
+type = Fire
+
+hp         = 70
+attack     = 85
+defense    = 140
+sp_attack  = 85
+sp_defense = 70
+speed      = 20
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 80.4      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Smog
+learn = 1, Ember
+learn = 4, Withdraw
+learn = 8, Rapid Spin
+learn = 12, Smokescreen
+learn = 16, Clear Smog
+learn = 20, Flame Wheel
+learn = 24, Protect
+learn = 28, Lava Plume
+learn = 32, Body Slam
+learn = 36, Iron Defense
+learn = 40, Flamethrower
+learn = 44, Curse
+learn = 48, Heat Wave
+learn = 52, Amnesia
+learn = 56, Inferno
+learn = 60, Shell Smash
+learn = 64, Eruption
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Fire Spin, Facade, Bulldoze, Rock Tomb
+tm = Flame Charge, Endure, Sunny Day, Sandstorm, Zen Headbutt, Body Slam
+tm = Sleep Talk, Stomping Tantrum, Rest, Rock Slide, Body Press, Substitute
+tm = Iron Defense, Will-O-Wisp, Stealth Rock, Heat Wave, Heavy Slam, Flamethrower
+tm = Amnesia, Helping Hand, Earth Power, Fire Blast, Sludge Bomb, Earthquake
+tm = Stone Edge, Giga Impact, Overheat, Hyper Beam, Flare Blitz, Solar Beam
+tm = Tera Blast, Gyro Ball, Heat Crash, Weather Ball, Burning Jealousy, Double-Edge
+tm = Temper Flare, Scorching Sands, Curse

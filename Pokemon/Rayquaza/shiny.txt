@@ -1,0 +1,25 @@
+# Rayquaza - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 104018 > 131700
+shiny = 306830 > 30391B
+shiny = 313131 > 1C0609
+shiny = 323232 > 1D080B
+shiny = 333333 > 1D090C
+shiny = 4A735A > 424437
+shiny = 509050 > 505D3A
+shiny = 525252 > 3A282A
+shiny = 529C6B > 57684D
+shiny = 78B870 > 75825A
+shiny = 84D694 > 889E79
+shiny = 907818 > 6B4B1B
+shiny = 981818 > 5A0005
+shiny = 98A8B0 > 84777D
+shiny = 98E090 > 979D92
+shiny = B55263 > BE4941
+shiny = C0A028 > 767164
+shiny = C59C3A > E4CE31
+shiny = C5FFD6 > B6C6BD
+shiny = C82828 > 82131B
+shiny = C8D8F0 > D0E7E6
+shiny = F0C830 > FFFB3D
+shiny = FFCE3A > FFFF45

@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Groudon
+dex  = 383
+type = Ground
+
+hp         = 100
+attack     = 150
+defense    = 140
+sp_attack  = 100
+sp_defense = 90
+speed      = 90
+
+size   = 1.42
+height = 3.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 950.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Mud Shot
+learn = 1, Lava Plume
+learn = 1, Scary Face
+learn = 1, Ancient Power
+learn = 1, Precipice Blades
+learn = 9, Earth Power
+learn = 18, Bulk Up
+learn = 27, Earthquake
+learn = 36, Hammer Arm
+learn = 45, Fissure
+learn = 54, Rest
+learn = 72, Fire Blast
+learn = 81, Solar Beam
+learn = 90, Eruption
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Fire Fang, Facade
+tm = Aerial Ace, Bulldoze, Metal Claw, Mud Shot, Rock Tomb, Fling
+tm = Endure, Sunny Day, Sandstorm, Dig, Brick Break, Zen Headbutt
+tm = Shadow Claw, Bulk Up, Body Slam, Fire Punch, Thunder Punch, Sleep Talk
+tm = Rock Blast, Dragon Claw, Thunder Wave, Stomping Tantrum, Rest, Rock Slide
+tm = Swords Dance, Body Press, Spikes, Iron Head, Substitute, Will-O-Wisp
+tm = Crunch, Dragon Pulse, Stealth Rock, Heat Wave, Heavy Slam, Flamethrower
+tm = Thunderbolt, Helping Hand, Earth Power, Fire Blast, Earthquake, Stone Edge
+tm = Giga Impact, Overheat, Focus Blast, Hyper Beam, Thunder, Solar Beam
+tm = Tera Blast, Roar, Sand Tomb, Smack Down, High Horsepower, Heat Crash
+tm = Focus Punch, Double-Edge, Scorching Sands

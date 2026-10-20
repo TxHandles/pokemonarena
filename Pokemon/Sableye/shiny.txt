@@ -1,0 +1,20 @@
+# Sableye - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 189878 > D88A00
+shiny = 305088 > 6B4E2C
+shiny = 403068 > 543715
+shiny = 443F42 > 593E16
+shiny = 44A0AF > EB9617
+shiny = 5078B8 > BA8447
+shiny = 584090 > 6C4B2B
+shiny = 645E82 > AD742C
+shiny = 7860B0 > 8E6A48
+shiny = 78A0E0 > BF9C76
+shiny = 7D71AC > 997651
+shiny = 9080D8 > AE8866
+shiny = 99CEE5 > FFC81E
+shiny = 9F92DE > F1AF68
+shiny = C03838 > 16CE54
+shiny = CD6055 > D79141
+shiny = E85870 > 39FB82
+shiny = E8E8F8 > FFE6B8

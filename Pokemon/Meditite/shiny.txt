@@ -1,0 +1,24 @@
+# Meditite - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 284060 > 690000
+shiny = 333333 > 52294C
+shiny = 383840 > 572E5A
+shiny = 406898 > 99271D
+shiny = 426B94 > 9C2A1E
+shiny = 4790DF > C74E41
+shiny = 505058 > 714774
+shiny = 525252 > 642F66
+shiny = 5890C0 > D2482B
+shiny = 85858D > AB7DA6
+shiny = 888898 > AE80B1
+shiny = A0A0B0 > C798CA
+shiny = B0B8C8 > DEAEE1
+shiny = B83028 > D64B24
+shiny = BCBCBC > CEBBD3
+shiny = D4D4D4 > E6D3EB
+shiny = D66C74 > BB4F5F
+shiny = D8E0E8 > FFD5FF
+shiny = D9E1E9 > EEE0FD
+shiny = DAE1EA > EFE0FD
+shiny = E8E8F8 > FBE8FF
+shiny = FAFAFA > FFD4FF

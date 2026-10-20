@@ -1,0 +1,22 @@
+# Shedinja - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 383048 > 42182A
+shiny = 3B3338 > 431925
+shiny = 3E3628 > 59351B
+shiny = 403820 > 533015
+shiny = 4B4640 > 542D2C
+shiny = 605870 > 7B5052
+shiny = 685010 > 9E753A
+shiny = 786840 > 94683B
+shiny = 787088 > 937994
+shiny = 827970 > A4785F
+shiny = A08840 > DBB06D
+shiny = AA934B > E6BB78
+shiny = B8B0C0 > BF98AD
+shiny = B8B8B8 > F8C88F
+shiny = C8B068 > FFD996
+shiny = DEC66B > FFF0A1
+shiny = E8E8F8 > FFF8FF
+shiny = EDDD99 > FFFFC0
+shiny = F0D878 > FFF9A7
+shiny = FAFAFA > FFF9FF
