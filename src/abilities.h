@@ -3,7 +3,7 @@
 #include <string>
 #include "types.h"
 
-// Pokemon abilities (every ability used by the first 386), adapted to real-time battles.
+// Pokemon abilities (every ability used by the first 493), adapted to real-time battles.
 enum class Ab : uint8_t {
     None,
     Adaptability,
@@ -142,6 +142,7 @@ enum class Ab : uint8_t {
     // Gen 3
     HeavyMetal, Minus, Normalize, PoisonHeal, Protean, Simple, SolidRock, Stall, StormDrain, ToxicBoost, WindRider,
     AirLock, ColorChange, Forecast, PurePower, RoughSkin, Truant, WhiteSmoke, WonderGuard,
+    BadDreams, FlareBoost, FlowerGift, Heatproof, Klutz, MotorDrive, Multitype, Sharpness, SlowStart, SnowWarning,   // Gen 4
     Count
 };
 

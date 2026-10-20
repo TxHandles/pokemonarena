@@ -5,7 +5,7 @@
 
 // The legendary Pokemon: one-off boss encounters where they live in the games. Each can be
 // fought again until someone catches it (3 balls alone, 6 in co-op taking turns), then it's gone.
-enum class LegendUnlock { Badges8, Champion, AfterMewtwo, AfterStage };
+enum class LegendUnlock { Badges8, Champion, AfterMewtwo, AfterStage, AfterCatch };   // AfterCatch: once the legendary named in "after" is caught
 struct LegendDef {
     const char* species;
     const char* place;        // where it lives
@@ -22,8 +22,9 @@ struct LegendDef {
     const char* after = "";   // AfterStage: the story stage (its name) that has to be beaten first
     const char* hint = "";    // AfterStage: what the list says while it's locked
 };
-constexpr int LEGEND_COUNT = 11;
+constexpr int LEGEND_COUNT = 21;
 // 0 Articuno, 1 Zapdos, 2 Moltres, 3 Mewtwo, 4 Mew (Kanto); 5 Raikou, 6 Entei, 7 Suicune, 8 Ho-Oh,
-// 9 Lugia, 10 Celebi (Johto)
+// 9 Lugia, 10 Celebi (Johto); 11 Regirock, 12 Regice, 13 Registeel, 14 Latias, 15 Latios, 16 Groudon,
+// 17 Kyogre, 18 Rayquaza, 19 Jirachi, 20 Deoxys (Hoenn)
 const LegendDef& Legend(int id);
 constexpr int LEGEND_THROWS_SOLO = 3, LEGEND_THROWS_COOP = 6;

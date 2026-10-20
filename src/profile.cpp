@@ -16,6 +16,20 @@ std::string Trim(const std::string& s) {
     return a == std::string::npos ? "" : s.substr(a, b - a + 1);
 }
 
+void ReadSet(const std::string& v, std::set<std::string>& out) {
+    std::string part;
+    std::istringstream bs(v);
+    while (std::getline(bs, part, '|')) {
+        part = Trim(part);
+        if (!part.empty()) out.insert(part);
+    }
+}
+std::string JoinSet(const std::set<std::string>& s) {
+    std::string o;
+    for (const auto& e : s) o += (o.empty() ? "" : " | ") + e;
+    return o;
+}
+
 std::string FileNameFor(const std::string& name) {
     std::string f;
     for (char c : name) f += (std::isalnum((unsigned char)c) || c == '-' || c == '_') ? c : '_';
@@ -60,6 +74,7 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
     OwnedMon* cur = nullptr;
     std::string line;
     bool sawBag = false;
+    int postV = 0;
     while (std::getline(ss, line)) {
         line = Trim(line);
         if (line.empty() || line[0] == '#') continue;
@@ -94,6 +109,10 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "rival") out.rival = v;
             else if (k == "starter2") out.starter2 = v;
             else if (k == "rival2") out.rival2 = v;
+            else if (k == "starter3") out.starter3 = v;
+            else if (k == "rival3") out.rival3 = v;
+            else if (k == "post_v") postV = iv;
+            else if (k == "post_done") ReadSet(v, out.postDone);
             else if (k == "wins") out.wins = iv;
             else if (k == "losses") out.losses = iv;
             else if (k == "training_wins") out.trainingWins = iv;
@@ -174,6 +193,7 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
     DexRegisterOwned(out);
     if (out.storyRev <= 0) out.storyRev = out.mons.empty() ? Story().rev : 1;
     if (out.storyRev < Story().rev) { out.storyStage = StoryStageForRev(out.storyStage, out.storyRev); out.storyRev = Story().rev; }
+    FixPostgame(out.storyStage, out.postDone, postV == 0);
     return true;
 }
 
@@ -203,6 +223,10 @@ std::string ProfileToText(const Profile& p) {
     if (!p.starter.empty()) o += "starter = " + p.starter + "\n";
     if (!p.starter2.empty()) o += "starter2 = " + p.starter2 + "\n";
     if (!p.rival2.empty()) o += "rival2 = " + p.rival2 + "\n";
+    if (!p.starter3.empty()) o += "starter3 = " + p.starter3 + "\n";
+    if (!p.rival3.empty()) o += "rival3 = " + p.rival3 + "\n";
+    o += "post_v = 1\n";
+    if (!p.postDone.empty()) o += "post_done = " + JoinSet(p.postDone) + "\n";
     std::string bd;
     for (size_t i = 0; i < p.badges.size(); i++) bd += (i ? " | " : "") + p.badges[i];
     o += "badges = " + bd + "\n";
@@ -434,6 +458,7 @@ bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out) {
     std::istringstream ss(text);
     UnloadFileText(text);
     std::string line;
+    int postV = 0;
     while (std::getline(ss, line)) {
         line = Trim(line);
         if (line.empty() || line[0] == '#') continue;
@@ -451,9 +476,12 @@ bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out) {
         else if (k == "snorlax_who") { std::istringstream rs(v); rs >> out.snorlaxWho[0] >> out.snorlaxWho[1]; }
         else if (k == "dojo_first") out.dojoFirst = iv;
         else if (k == "tower") { std::istringstream ts(v); ts >> out.towerFloor >> out.towerBest >> out.towerRuns; }
-        else if (k == "legends") { std::istringstream ls(v); ls >> out.legends; for (int i = 0; i < 16; i++) if (!(ls >> out.legendWho[i])) { out.legendWho[i] = -1; break; } }
+        else if (k == "legends") { std::istringstream ls(v); ls >> out.legends; for (int i = 0; i < 32; i++) if (!(ls >> out.legendWho[i])) { out.legendWho[i] = -1; break; } }
         else if (k == "rival") { size_t c = v.find(','); out.rival[0] = Trim(v.substr(0, c)); out.rival[1] = c == std::string::npos ? "" : Trim(v.substr(c + 1)); }
         else if (k == "rival2") { size_t c = v.find(','); out.rival2[0] = Trim(v.substr(0, c)); out.rival2[1] = c == std::string::npos ? "" : Trim(v.substr(c + 1)); }
+        else if (k == "rival3") { size_t c = v.find(','); out.rival3[0] = Trim(v.substr(0, c)); out.rival3[1] = c == std::string::npos ? "" : Trim(v.substr(c + 1)); }
+        else if (k == "post_v") postV = iv;
+        else if (k == "post_done") ReadSet(v, out.postDone);
         else if (k == "run1" || k == "run2") {
             CoopSave::RunStats& r = out.run[k == "run2" ? 1 : 0];
             std::istringstream rs(v);
@@ -470,6 +498,7 @@ bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out) {
     }
     if (out.storyRev <= 0) out.storyRev = 1;
     if (out.storyRev < Story().rev) { out.storyStage = StoryStageForRev(out.storyStage, out.storyRev); out.storyRev = Story().rev; }
+    FixPostgame(out.storyStage, out.postDone, postV == 0);
     return true;
 }
 
@@ -482,10 +511,13 @@ bool SaveCoop(const CoopSave& c) {
     o += TextFormat("snorlax_who = %d %d\ndojo_first = %d\n", c.snorlaxWho[0], c.snorlaxWho[1], c.dojoFirst);
     o += TextFormat("tower = %d %d %d\n", c.towerFloor, c.towerBest, c.towerRuns);
     o += TextFormat("legends = %d", c.legends);
-    for (int i = 0; i < 16; i++) o += TextFormat(" %d", c.legendWho[i]);
+    for (int i = 0; i < 32; i++) o += TextFormat(" %d", c.legendWho[i]);
     o += "\n";
     if (!c.rival[0].empty()) o += "rival = " + c.rival[0] + ", " + c.rival[1] + "\n";
     if (!c.rival2[0].empty()) o += "rival2 = " + c.rival2[0] + ", " + c.rival2[1] + "\n";
+    if (!c.rival3[0].empty()) o += "rival3 = " + c.rival3[0] + ", " + c.rival3[1] + "\n";
+    o += "post_v = 1\n";
+    if (!c.postDone.empty()) o += "post_done = " + JoinSet(c.postDone) + "\n";
     o += "# leaderboard: KOs, damage, caught, MVP battles, fainted, battles\n";
     for (int p = 0; p < 2; p++)
         o += TextFormat("run%d = %d %d %d %d %d %d\n", p + 1, c.run[p].kos, c.run[p].damage, c.run[p].caught, c.run[p].mvp, c.run[p].faints, c.run[p].battles);
@@ -494,3 +526,10 @@ bool SaveCoop(const CoopSave& c) {
     o += "badges = " + bd + "\n";
     return SaveFileText(CoopFile(c.p[0], c.p[1]).c_str(), (char*)o.c_str());
 }
+
+std::string& RegionStarter(Profile& p, int r) { return r >= 2 ? p.starter3 : r == 1 ? p.starter2 : p.starter; }
+const std::string& RegionStarter(const Profile& p, int r) { return r >= 2 ? p.starter3 : r == 1 ? p.starter2 : p.starter; }
+std::string& RegionRival(Profile& p, int r) { return r >= 2 ? p.rival3 : r == 1 ? p.rival2 : p.rival; }
+const std::string& RegionRival(const Profile& p, int r) { return r >= 2 ? p.rival3 : r == 1 ? p.rival2 : p.rival; }
+std::string* CoopRival(CoopSave& c, int r) { return r >= 2 ? c.rival3 : r == 1 ? c.rival2 : c.rival; }
+const std::string* CoopRival(const CoopSave& c, int r) { return r >= 2 ? c.rival3 : r == 1 ? c.rival2 : c.rival; }

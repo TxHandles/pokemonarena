@@ -155,6 +155,16 @@ const AbilityDef kAbilities[] = {
     {"Truant", "It loafs around: its moves take 50% longer to recharge."},
     {"White Smoke", "Its smoke stops foes from lowering its stats."},
     {"Wonder Guard", "Only super-effective moves can hurt it."},
+    {"Bad Dreams", "Sleeping foes lose 1/16 of their max HP every 2 seconds."},
+    {"Flare Boost", "Special moves deal 50% more while it's burned."},
+    {"Flower Gift", "In harsh sunlight its Attack and Defense rise by half."},
+    {"Heatproof", "Fire moves deal half damage to it."},
+    {"Klutz", "It can't use its held item."},
+    {"Motor Drive", "Electric moves don't hurt it - they raise its Speed instead."},
+    {"Multitype", "Arceus, the Original One: its type and power can't be changed."},
+    {"Sharpness", "Slicing moves deal 50% more."},
+    {"Slow Start", "For its first 10 seconds out, its Attack and Speed are halved."},
+    {"Snow Warning", "Brings snow when it enters the battle."},
 };
 bool HasWord(const std::string& s, const char* w) { return s.find(w) != std::string::npos; }
 } // namespace

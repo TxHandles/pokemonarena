@@ -546,7 +546,7 @@ void StartBattleFromSelect(Game& g) {
             }
             if (st.rival) {   // Blue in Kanto, Silver in Johto
                 EnsureRival(g, st.region);
-                SetRivalContext(SpeciesIndex(st.region >= 1 ? g.profile.rival2 : g.profile.rival), -1);
+                SetRivalContext(SpeciesIndex(RegionRival(g.profile, st.region)), -1);
             }
             g.cpuTeam = MakeCpuTeam(&st, avg, MAX_TEAM_SIZE);
             b.team = g.cpuTeam;
@@ -669,12 +669,20 @@ void StartBattleFromSelect(Game& g) {
                 if (st.rival) {
                     // The rival brings both of his starters (two of the ones neither player took).
                     EnsureRival(g, st.region);
-                    const std::string* rv = st.region >= 1 ? g.coopSave.rival2 : g.coopSave.rival;
+                    const std::string* rv = CoopRival(g.coopSave, st.region);
                     SetRivalContext(SpeciesIndex(rv[0]), SpeciesIndex(rv[1]));
                     std::vector<std::string> team = st.team;
                     bool hasPartner = false;
                     for (auto& e : team) hasPartner |= e.rfind("rival_partner", 0) == 0;
-                    if (!hasPartner) team.insert(team.end() - (team.empty() ? 0 : 1), "rival_partner");
+                    if (!hasPartner) {   // at the same stage of evolution as the main starter ("rival@20" -> "rival_partner@20")
+                        std::string partner = "rival_partner";
+                        for (const auto& e : team)
+                            if (e.rfind("rival", 0) == 0 && (e.size() == 5 || e[5] == '@' || e[5] == ' ')) {
+                                size_t at = e.find('@');
+                                if (at != std::string::npos) partner += e.substr(at, e.find(' ', at) == std::string::npos ? std::string::npos : e.find(' ', at) - at);
+                            }
+                        team.insert(team.end() - (team.empty() ? 0 : 1), partner);
+                    }
                     // (no random padding: the rival's team is exactly his own Pokemon)
                     while ((int)team.size() > MAX_TEAM_SIZE) team.erase(team.begin());
                     st.team = team;
@@ -792,7 +800,7 @@ void StartBattleFromSelect(Game& g) {
         bool hasStage = (g.mode == Mode::Story || g.mode == Mode::CoopStory) && (g.tower || g.legend >= 0 || (g.stageIdx >= 0 && g.stageIdx < (int)Story().stages.size()));
         if (hasStage) stv = ActiveStage(g);
         const StageDef* st = hasStage ? &stv : nullptr;
-        if (st && st->IsGym() && st->towerFloor <= 0) su.leader = st->trainer;   // the leader's picture and cut-ins
+        if (st && (st->IsGym() || st->IsLeague()) && st->towerFloor <= 0) su.leader = st->trainer;   // the leader's picture and cut-ins
         su.season = SeasonOf(clock);
         if (su.arena == ArenaKind::Stadium) {   // trainers fight where they stand; wild Pokemon where they live
             if (st) su.venue = (uint8_t)(st->venue.empty() ? VenueForPlace(st->name) : VenueByName(st->venue));
@@ -813,8 +821,8 @@ void StartBattleFromSelect(Game& g) {
         if (g.legend >= 0) {   // a legendary brings its own weather
             su.night = false;
             su.daylight = true;
-            su.weather = su.arena == ArenaKind::Seafoam ? Weather::Snow : su.arena == ArenaKind::PowerPlant ? Weather::Rain
-                       : su.arena == ArenaKind::Ember ? Weather::Sun : Weather::None;
+            su.weather = su.arena == ArenaKind::Seafoam ? Weather::Snow : su.arena == ArenaKind::PowerPlant || su.arena == ArenaKind::MarineCave ? Weather::Rain
+                       : su.arena == ArenaKind::Ember ? Weather::Sun : su.arena == ArenaKind::DesertRuins ? Weather::Sand : Weather::None;
         }
     }
     g.battle.Start(su);

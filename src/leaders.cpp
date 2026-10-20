@@ -91,6 +91,16 @@ const char* LeaderLastStandLine(const std::string& trainer) {
         {"jasmine", "Steel holds firm... even at the very end."},
         {"pryce", "Ice that has lasted this long doesn't crack easily."},
         {"clair", "Dragons never yield - and neither do I!"},
+        {"roxanne", "The textbook says a cornered rock is the hardest one to move."},
+        {"brawly", "Here comes the big wave - ride it or wipe out!"},
+        {"wattson", "Wahahaha! Still got one more jolt in me!"},
+        {"flannery", "I'm not burned out yet - this last one's my hottest!"},
+        {"norman", "A father doesn't go down easily. Show me everything you've got."},
+        {"winona", "Even with one wing left, we'll fly."},
+        {"tate", "One left? We can still move as one!"},
+        {"liza", "One left? We can still move as one!"},
+        {"juan", "Allow me one final, elegant flourish."},
+        {"wallace", "The last of my Pokemon is the most beautiful of all."},
     };
     auto it = lines.find(Lower(LeaderShortName(trainer)));
     return it != lines.end() ? it->second : "Down to the last Pokemon - but not out yet!";

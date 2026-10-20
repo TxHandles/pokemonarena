@@ -187,7 +187,7 @@ float Fighter::Stat(StatId s, bool special) const {
     if (s == StatId::Atk && !special && st.major == Status::Burn) v *= 0.75f;  // burns weaken physical attacks
     if (s == StatId::Atk) v *= envAtk;
     if (s == StatId::Atk && !special) v *= abAtk;   // Guts, Hustle
-    if (s == StatId::Def) v *= abDef;               // Marvel Scale
+    if (s == StatId::Def) v *= abDef * envDef;      // Marvel Scale; the arena
     if (item) {
         if (s == StatId::Atk && (item->fx == ItemFx::AtkMul || item->fx == ItemFx::ChoiceBand)) v *= item->value;
         if (s == StatId::Def && item->fx == ItemFx::DefMul) v *= item->value;
@@ -1238,6 +1238,7 @@ HitSpec Battle::Spec(int s, const MoveDef& m) const {
     }
     for (int i = 0; i < f.nMoves; i++)
         if (f.moves[i].name == m.name) { h.moveIdx = i; break; }
+    if (m.power > 0) h.dmgMul *= FieldMoveMul(s, h.type, h.special);
     AbSpec(h, f, m);
     return h;
 }

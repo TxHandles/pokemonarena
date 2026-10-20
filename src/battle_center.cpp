@@ -512,7 +512,7 @@ void Battle::UpdateCenterpiece(float dt) {
             c.spinRate += (base - c.spinRate) * std::min(1.0f, dt * 0.25f);
             c.spin = std::remainder(c.spin + c.spinRate * dt, 2 * PI_F);
         } break;
-        default: break;
+        default: HoennCenterUpdate(dt); break;
     }
 }
 
@@ -801,7 +801,7 @@ void Battle::CenterHit(const HitSpec& h, Vector2 dir, bool physical) {
             AddFx(FxKind::Flash, c.pos, 0.12f, kBeam, 40, 50);
             PlaySfx(Sfx::Shield);
         } break;
-        default: break;
+        default: HoennCenterHit(h, dir, physical); break;
     }
 }
 
@@ -1284,7 +1284,7 @@ void Battle::DrawCenterBody(const Obstacle& o) const {
             if (fl > 0) VGlow(lamp, 24, WHITE, 0.7f);
             VNorm();
         } break;
-        default: break;
+        default: DrawHoennCenterBody(o); break;
     }
 }
 

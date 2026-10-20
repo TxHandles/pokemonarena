@@ -477,6 +477,13 @@ void Parse(const char* text, StoryDef& st, std::string& log) {
             if (k == "name") reg->name = v;
             else if (k == "map_image") reg->mapImage = v;
             else if (k == "start_level") reg->startLevel = std::max(1, std::min(MAX_LEVEL, std::atoi(v.c_str())));
+            else if (k == "start_avg") reg->startAvg = std::atoi(v.c_str());
+            else if (k == "rival") reg->rivalName = v;
+            else if (k == "intro") reg->intro = v;
+            else if (k == "watch") reg->watch = v;
+            else if (k == "watch_coop") reg->watchCoop = v;
+            else if (k == "reveal") reg->reveal = v;
+            else if (k == "reveal_quote") reg->revealQuote = v;
             else if (k == "town") {
                 auto parts = SplitList(v);
                 if (parts.size() >= 3) reg->towns.push_back({parts[0], (float)std::atof(parts[1].c_str()), (float)std::atof(parts[2].c_str())});
@@ -523,6 +530,13 @@ void Parse(const char* text, StoryDef& st, std::string& log) {
             else if (k == "double") cur->dbl = !IsNo(v);
             else if (k == "partner") { cur->partner = v; cur->dbl = true; }
             else if (k == "partner_team") cur->partnerTeam = SplitList(v);
+            else if (k == "floor") cur->floor = std::max(0, std::min(MAX_LEVEL, std::atoi(v.c_str())));
+            else if (k == "postgame") cur->postgame = !IsNo(v);
+            else if (k == "story") cur->story = v;
+            else if (k == "card") cur->card = v;
+            else if (k == "card_after") cur->cardAfter = v;
+            else if (k == "card_pokemon") cur->cardMon = v;
+            else if (k == "gift") cur->gift = v;
             else if (k == "coins" || k == "prize") cur->coins = std::max(0, std::atoi(v.c_str()));
             else if (k == "map") {
                 auto parts = SplitList(v);
@@ -682,6 +696,23 @@ int StoryStageForRev(int stage, int fromRev) {
     return std::min(stage, (int)Story().stages.size());
 }
 
+int NextStoryStage(int stage) {
+    const auto& v = Story().stages;
+    int n = (int)v.size();
+    stage++;
+    while (stage >= 0 && stage < n && v[stage].postgame) stage++;
+    return std::min(stage, n);
+}
+
+void FixPostgame(int& stage, std::set<std::string>& done, bool oldSave) {
+    const auto& v = Story().stages;
+    int n = (int)v.size();
+    if (oldSave)
+        for (int i = 0; i < std::min(stage, n); i++)
+            if (v[i].postgame) done.insert(v[i].name);
+    while (stage >= 0 && stage < n && v[stage].postgame) stage++;
+}
+
 StageDef RematchStage(const StageDef& stage) {
     StageDef r = stage;
     int top = -99;
@@ -795,6 +826,7 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
     if (stage) {
         entries = stage->team;
         offset = stage->levelOffset;
+        if (stage->floor > 0) avg = std::max(avg, stage->floor);   // a low-level tag-along can't drag it down
     } else {
         for (int i = 0; i < teamSize; i++) entries.push_back("random");
         offset = GetRandomValue(-1, 1);
@@ -818,6 +850,12 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
             std::isdigit((unsigned char)e.back())) {
             extra = std::atoi(e.c_str() + sp + 1);
             e = Trim(e.substr(0, sp));
+        }
+        // "@N": evolved the way it would be at level N in the games (May's partners at each meeting).
+        int evoAt = -1;
+        {
+            size_t at = e.find('@');
+            if (at != std::string::npos) { evoAt = std::max(1, std::atoi(e.c_str() + at + 1)); e = Trim(e.substr(0, at)); }
         }
         int level = std::max(2, std::min(MAX_LEVEL, avg + offset + extra + GetRandomValue(0, 1)));
         if (stage && stage->baseLevel > 0) {   // built for a level, like the games; your level only nudges it
@@ -843,11 +881,21 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
                 for (auto& c : kTrio)
                     if (trio.size() < 2 && c.second != t && std::find(trio.begin(), trio.end(), std::string(c.first)) == trio.end()) trio.push_back(c.first);
                 idx = SpeciesIndex(trio[std::min(trio.size() - 1, (size_t)(l == "rival_trio1" ? 0 : 1))]);
+            } else if (l == "rival_hoenn1" || l == "rival_hoenn2") {
+                // Emerald: May's two partners are the two of Wingull, Lotad and Slugma that don't share her starter's type.
+                std::vector<std::string> two;
+                Type t = st >= 0 ? AllSpecies()[st].type1 : Type::Normal;
+                Type t2 = gRivalSecond >= 0 ? AllSpecies()[gRivalSecond].type1 : Type::None;
+                const std::pair<const char*, Type> kLines[] = {{"Wingull", Type::Water}, {"Lotad", Type::Grass}, {"Slugma", Type::Fire}};
+                for (auto& c : kLines) if (c.second != t && c.second != t2) two.push_back(c.first);
+                for (auto& c : kLines)
+                    if (two.size() < 2 && c.second != t && std::find(two.begin(), two.end(), std::string(c.first)) == two.end()) two.push_back(c.first);
+                idx = SpeciesIndex(two[std::min(two.size() - 1, (size_t)(l == "rival_hoenn1" ? 0 : 1))]);
             } else {
                 idx = st;
             }
             if (idx < 0) idx = RandomBase(Type::Normal, true);
-            idx = EvolvedFormAt(idx, level);
+            idx = EvolvedFormAt(idx, evoAt > 0 ? evoAt : level);
         } else if (l.rfind("random", 0) == 0) {
             std::string ty = Trim(e.substr(6));
             Type t = Type::Normal;

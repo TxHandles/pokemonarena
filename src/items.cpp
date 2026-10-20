@@ -36,7 +36,7 @@ std::vector<ItemDef> Build() {
     add("Deep Sea Tooth", ItemFx::Stone, 0, 600, 3, "A fang that gleams a sharp silver. Evolves Clamperl into Huntail.", Type::Water);
     add("Deep Sea Scale", ItemFx::Stone, 0, 600, 3, "A scale that shines a faint pink. Evolves Clamperl into Gorebyss.", Type::Water);
     add("Prism Scale", ItemFx::Stone, 0, 800, 3, "A mysterious scale that shines in all the colors of the rainbow. Evolves Feebas into Milotic.", Type::Water);
-    add("Linking Cord", ItemFx::Stone, 0, 800, 3, "Evolves the Pokemon that evolve by trading: Kadabra, Machoke, Graveler, Haunter, Onix, Scyther, Seadra, Porygon, Slowpoke (Slowking) and Poliwhirl (Politoed).", Type::Psychic);
+    add("Linking Cord", ItemFx::Stone, 0, 800, 3, "Evolves the Pokemon that evolve by trading: Kadabra, Machoke, Graveler, Haunter, Onix, Scyther, Seadra, Porygon, Slowpoke (Slowking), Poliwhirl (Politoed).", Type::Psychic);
 
     // Type boosters (+20% damage for one type)
     struct TB { const char* n; Type t; int badges; };

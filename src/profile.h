@@ -56,7 +56,15 @@ struct Profile {
     std::string rival;                 // the rival's starter (picked once: one of the two that beat yours)
     std::string starter2;              // Johto: the starter Professor Elm gave you (empty = not in Johto yet)
     std::string rival2;                // Johto: Silver's starter (picked once, like Blue's)
+    std::string starter3;              // Hoenn: the starter Professor Birch gave you
+    std::string rival3;                // Hoenn: May's starter
+    std::set<std::string> postDone;    // optional post-game battles beaten (their stage names: "Mt. Silver")
 };
+// A region's starter gift and its rival's pick (region 1 Johto, 2 Hoenn; 0 = the first starter / Blue).
+std::string& RegionStarter(Profile& p, int region);
+const std::string& RegionStarter(const Profile& p, int region);
+std::string& RegionRival(Profile& p, int region);
+const std::string& RegionRival(const Profile& p, int region);
 void DexSee(Profile& p, const std::string& species);
 bool DexHasSeen(const Profile& p, const std::string& species);
 bool DexHasCaught(const Profile& p, const std::string& species);
@@ -88,9 +96,14 @@ struct CoopSave {
     int towerFloor = 0, towerBest = 0, towerRuns = 0;   // the Battle Tower, climbed together
     int legends = 0;                   // bit k: legendary k was caught (by legendWho[k])
     std::string rival[2];              // the rival's two starters (picked once, from the four you didn't take)
-    int legendWho[16] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};   // by legend id (legend.h)
+    int legendWho[32] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};   // by legend id (legend.h)
     std::string rival2[2];             // Johto: Silver's two starters (from the four the players didn't take there)
+    std::string rival3[2];             // Hoenn: May's two
+    std::set<std::string> postDone;    // optional post-game battles beaten together
 };
+std::string* CoopRival(CoopSave& c, int region);   // the rival's two picks for a region
+const std::string* CoopRival(const CoopSave& c, int region);
 bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out);   // false = none yet (out is fresh)
 bool SaveCoop(const CoopSave& c);
 int HealCost(const OwnedMon& m);       // coins to fully heal (revive costs more)

@@ -165,6 +165,7 @@ struct Fighter {
 
     // Arena effects (recomputed every frame) and catching
     float envSpeed = 1, envAtk = 1, envTickT = 0, portalCd = 0, regenAcc = 0;
+    float envDef = 1;   // the arena's defense boost (Norman's Defense room, Steven's meteorites)
     bool dashObsHit = false;
     bool weakened = false;   // dropped low in a catchable battle: dazed, then retreats
     float dazeT = 0;
@@ -201,7 +202,7 @@ struct Fighter {
     float rollT = 0, rollBoost = 1, rollDist = 0, rollTrailT = 0;
     int rollMove = -1, rollMask = 0, rollBounces = 0;
     Vector2 rollVel{0, 0};
-    bool Holds(ItemFx fx) const { return item && item->fx == fx; }
+    bool Holds(ItemFx fx) const { return item && item->fx == fx && ab != Ab::Klutz; }
 
     // Progress during this battle (read by the game afterwards)
     bool sentOut = false;
@@ -507,6 +508,17 @@ private:
     void UpdateLights(float dt);      // Karen's drifting lights
     void UpdateLegendField(float dt); // legendary lairs: strikes from above, Mewtwo's pulse, Mew's teleports
     void FieldEffectsOn(int s, float dt);
+    // Hoenn arenas (battle_hoenn.cpp)
+    void UpdateHoenn(float dt);               // eclipses, cracking tiles, rain, surges, meteors
+    void HoennEffectsOn(int s, float dt);     // what the Hoenn arenas do to whoever stands where
+    float FieldMoveMul(int s, Type t, bool special) const;   // the arena's boost to a move (Twin Moons, the rain, the meteorite)
+    Vector2 HoennPull(int s) const;           // CPU: Hoenn arena awareness
+    void HoennFieldReact(Vector2 at, const HitSpec& h, float radius);   // Ice refreezes Juan's lake
+    void HoennCenterUpdate(float dt);
+    void HoennCenterHit(const HitSpec& h, Vector2 dir, bool physical);
+    void DrawHoennFloor() const;
+    void DrawHoennTop() const;
+    void DrawHoennCenterBody(const Obstacle& o) const;
     void ObstacleImpact(Obstacle& o, const HitSpec& h, Vector2 dir, bool physical);
     void ObstaclesInArea(Vector2 c, float r, const HitSpec& h, bool physical, Vector2 fromPos);
     void TryElectrify(Vector2 at, const HitSpec& h);   // a move landed here: the field reacts (FieldReact)

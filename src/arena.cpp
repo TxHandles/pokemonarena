@@ -86,6 +86,11 @@ Theme ThemeFor(ArenaKind k) {
         case ArenaKind::Steel:    return {{40, 50, 64, 255}, {34, 44, 56, 255}, {120, 130, 144, 255}, {96, 106, 120, 255}, {150, 160, 174, 255}, {210, 170, 80, 255}};
         case ArenaKind::Dark:     return {{20, 16, 28, 255}, {16, 12, 24, 255}, {50, 42, 64, 255}, {38, 32, 50, 255}, {64, 54, 80, 255}, {120, 60, 140, 255}};
         case ArenaKind::JohtoChampion: return {{40, 28, 52, 255}, {34, 22, 44, 255}, {120, 60, 56, 255}, {96, 46, 44, 255}, {170, 120, 70, 255}, {240, 200, 80, 255}};
+        case ArenaKind::Balance:  return {{70, 52, 40, 255}, {60, 44, 34, 255}, {150, 120, 90, 255}, {120, 94, 70, 255}, {176, 146, 110, 255}, {200, 160, 70, 255}};
+        case ArenaKind::TwinMoons: return {{40, 30, 62, 255}, {34, 26, 54, 255}, {110, 90, 140, 255}, {86, 70, 116, 255}, {140, 118, 170, 255}, {240, 190, 90, 255}};
+        case ArenaKind::Sootopolis: return {{36, 52, 76, 255}, {30, 44, 66, 255}, {120, 130, 150, 255}, {96, 106, 126, 255}, {150, 160, 180, 255}, {90, 160, 230, 255}};
+        case ArenaKind::HoennChampion: return {{30, 50, 80, 255}, {26, 42, 70, 255}, {200, 200, 210, 255}, {160, 160, 176, 255}, {230, 230, 240, 255}, {110, 180, 240, 255}};
+        case ArenaKind::MeteorFalls: return {{34, 30, 44, 255}, {28, 24, 38, 255}, {80, 74, 92, 255}, {64, 58, 76, 255}, {100, 94, 112, 255}, {160, 140, 230, 255}};
         default:                  return {{58, 48, 72, 255}, {48, 40, 62, 255}, {104, 96, 112, 255}, {84, 76, 94, 255}, {112, 104, 120, 255}, {90, 76, 60, 255}};
     }
 }
@@ -593,6 +598,73 @@ Color FloorBase(ArenaKind k, float wx, float wy) {
             }
             return c;
         }
+        case ArenaKind::Balance: {   // Petalburg Gym: four rooms, each with its own floor, and the walls between them
+            int room = (wx < ARENA_W / 2 ? 0 : 1) + (wy < ARENA_H / 2 ? 0 : 2);
+            static const Color base[4] = {{176, 206, 226, 255}, {182, 178, 172, 255}, {184, 214, 168, 255}, {218, 170, 140, 255}};
+            Color c;
+            if (room == 1) c = BevelTile(wx, wy, 40, 40, base[1], Lit(base[1], 0.95f), Color{110, 104, 98, 255}, true, 8);   // stone
+            else c = Planks(wx, wy, 14, 110, base[room], Lit(base[room], 0.6f), 33 + room);
+            float wallX = std::fabs(wx - ARENA_W / 2), wallY = std::fabs(wy - ARENA_H / 2) * 1.6f;
+            bool doorX = std::fabs(wy - ARENA_H * 0.13f) < 28 || std::fabs(wy - ARENA_H * 0.87f) < 28 || std::fabs(wy - ARENA_H / 2) < 30;
+            bool doorY = std::fabs(wx - ARENA_W * 0.17f) < 30 || std::fabs(wx - ARENA_W * 0.83f) < 30 || std::fabs(wx - ARENA_W / 2) < 30;
+            if ((wallX < 4 && !doorX) || (wallY < 5 && !doorY)) c = Lit(Color{140, 100, 70, 255}, 0.85f + 0.1f * N2(wx * 0.3f, wy * 0.3f));
+            if ((wallX < 1.2f && !doorX) || (wallY < 1.5f && !doorY)) c = Color{220, 190, 120, 255};
+            float edge = std::min(std::min(wx, ARENA_W - wx), std::min(wy, ARENA_H - wy) * 1.2f);
+            if (edge < 7) c = Lit(Color{120, 90, 60, 255}, 0.9f);
+            return c;
+        }
+        case ArenaKind::TwinMoons: {   // Mossdeep Gym: polished violet stone, a gold seam down the middle
+            Color c = BevelTile(wx, wy, 40, 40, Color{92, 78, 120, 255}, Color{84, 70, 112, 255}, Color{50, 42, 70, 255}, false, 10);
+            float sheen = std::sin((wx + wy) * 0.025f);
+            if (sheen > 0.85f) c = MixF(c, Color{170, 150, 210, 255}, (sheen - 0.85f) * 2);
+            if (std::fabs(wx - ARENA_W / 2) < 2) c = Color{230, 190, 90, 255};
+            float d = std::sqrt((wx - ARENA_W / 2) * (wx - ARENA_W / 2) + (wy - ARENA_H / 2) * (wy - ARENA_H / 2));
+            if (std::fabs(d - 50) < 1.5f) c = Color{230, 190, 90, 255};
+            return c;
+        }
+        case ArenaKind::Sootopolis: {   // Juan's crater lake: deep water, with rock where the teams start and under the font
+            float d0 = std::sqrt((wx - 120) * (wx - 120) + (wy - ARENA_H / 2) * (wy - ARENA_H / 2));
+            float d1 = std::sqrt((wx - (ARENA_W - 120)) * (wx - (ARENA_W - 120)) + (wy - ARENA_H / 2) * (wy - ARENA_H / 2));
+            float dc = std::sqrt((wx - ARENA_W / 2) * (wx - ARENA_W / 2) + (wy - ARENA_H / 2) * (wy - ARENA_H / 2));
+            float rock = std::max(std::max(62 - d0, 62 - d1), 34 - dc);
+            if (rock > 0) {
+                Color c = RockGround(wx, wy, Color{132, 136, 150, 255}, Color{112, 116, 132, 255}, 77);
+                if (rock < 3) c = Lit(c, 0.75f);
+                return c;
+            }
+            float depth = Fbm(wx * 0.015f, wy * 0.02f);
+            Color c = MixF(Color{30, 70, 130, 255}, Color{40, 100, 170, 255}, depth);
+            float caus = std::fabs(std::sin(wx * 0.07f + std::sin(wy * 0.05f) * 2) * std::sin(wy * 0.09f + std::sin(wx * 0.04f)));
+            if (caus > 0.8f) c = MixF(c, Color{120, 190, 240, 255}, (caus - 0.8f) * 2.5f);
+            return c;
+        }
+        case ArenaKind::HoennChampion: {   // Wallace's hall: white marble with blue inlay, a wave crest in the middle
+            Color c = ((tx + ty) & 1) ? Color{236, 240, 246, 255} : Color{222, 228, 238, 255};
+            float vein = std::fabs(N2(wx * 0.05f + tx * 3, wy * 0.05f + ty * 5) - 0.5f);
+            if (vein < 0.01f) c = Lit(c, 0.9f + vein * 8);
+            if (lineX || lineY) c = Color{110, 170, 230, 255};
+            float edge = std::min(std::min(wx, ARENA_W - wx), std::min(wy, ARENA_H - wy) * 1.2f);
+            if (edge < 8) c = Lit(Color{60, 110, 180, 255}, 0.95f + 0.1f * N2(wx * 0.4f, wy * 0.4f));
+            else if (edge < 11) c = Color{230, 210, 140, 255};
+            float dx = wx - ARENA_W / 2, dy = wy - ARENA_H / 2, d = std::sqrt(dx * dx + dy * dy);
+            if (d < 80) {
+                c = MixF(c, Color{70, 130, 200, 255}, 0.55f);
+                float wave = std::sin(dx * 0.12f) * 8 - dy;   // a stylised wave
+                if (std::fabs(wave) < 3) c = Color{240, 248, 255, 255};
+                if (std::fabs(d - 77) < 2.5f) c = Color{230, 210, 140, 255};
+            }
+            return c;
+        }
+        case ArenaKind::MeteorFalls: {   // a cave floor with streams of meltwater and blue meteor dust
+            Color c = VenueFloor(Venue::Cave, 1, wx, wy);
+            c = Mix(c, Color{70, 64, 96, 255}, 0.3f);
+            float stream = std::fabs(wy - (ARENA_H * 0.3f + std::sin(wx * 0.02f) * 40));
+            float stream2 = std::fabs(wy - (ARENA_H * 0.78f + std::sin(wx * 0.025f + 2) * 30));
+            float st = std::min(stream, stream2);
+            if (st < 9) c = MixF(Color{50, 100, 160, 255}, Color{110, 170, 230, 255}, Clamp01(1 - st / 9) * 0.6f + 0.2f * N2(wx * 0.3f, wy * 0.2f));
+            if (Speck(wx, wy, 5501) == 0 && Hf((int)wx, (int)wy, 7) < 0.3f) c = Color{170, 160, 255, 255};
+            return c;
+        }
         default: {   // the plain stadium: packed clay
             float m = Fbm(wx * 0.02f, wy * 0.03f);
             Color c = MixF(Color{196, 166, 120, 255}, Color{214, 186, 138, 255}, m * 1.3f - 0.15f);
@@ -1037,6 +1109,11 @@ Venue LairVenue(ArenaKind k) {
         case ArenaKind::Ember: return Venue::Volcano;
         case ArenaKind::Unknown: return Venue::Cave;
         case ArenaKind::Faraway: return Venue::Forest;
+        case ArenaKind::DesertRuins: return Venue::Beach;
+        case ArenaKind::AncientTomb: return Venue::Cave;
+        case ArenaKind::MarineCave: return Venue::Cave;
+        case ArenaKind::SkyPillar: return Venue::Mountain;
+        case ArenaKind::BirthIsland: return Venue::Beach;
         default: return Venue::Stadium;
     }
 }
@@ -1069,6 +1146,47 @@ Color LairFloor(ArenaKind k, float wx, float wy) {
             Color c = VenueFloor(Venue::Volcano, 1, wx, wy);
             float sc = N2(wx * 0.05f + 30, wy * 0.07f);
             if (sc > 0.7f) c = MixF(c, Color{110, 46, 30, 255}, (sc - 0.7f) * 2.5f);   // scorched ground
+            return c;
+        }
+        case ArenaKind::DesertRuins: {   // desert sand around the old ruins' flagstones
+            Color c = Sand(wx, wy, true);
+            float m = Fbm(wx * 0.03f + 7, wy * 0.04f);
+            if (m > 0.62f) {
+                float loc[4];
+                Color f = BevelTile(wx, wy, 32, 32, Color{196, 170, 120, 255}, Color{184, 158, 110, 255}, Color{130, 108, 76, 255}, true, 10, loc);
+                c = MixF(c, f, Smooth(0.62f, 0.68f, m));
+            }
+            float ripple = std::sin(wx * 0.15f + std::sin(wy * 0.05f) * 3);
+            if (ripple > 0.9f) c = Lit(c, 1.05f);
+            return c;
+        }
+        case ArenaKind::AncientTomb: {   // dark stone blocks with old carvings
+            Color c = BevelTile(wx, wy, 40, 40, Color{72, 70, 80, 255}, Color{64, 62, 72, 255}, Color{36, 34, 42, 255}, true, 10);
+            float lx = std::fmod(wx, 40.0f), ly = std::fmod(wy, 40.0f);
+            if (((int)(wx / 40) + (int)(wy / 40)) % 3 == 0 && std::fabs(lx - 20) < 6 && std::fabs(ly - 20) < 6 && (std::fabs(lx - 20) < 1 || std::fabs(ly - 20) < 1))
+                c = Color{110, 104, 90, 255};   // the braille-like dots of the old script
+            return c;
+        }
+        case ArenaKind::MarineCave: {   // dark, deep water in a sea cave
+            float depth = Fbm(wx * 0.015f, wy * 0.02f);
+            Color c = MixF(Color{16, 40, 80, 255}, Color{30, 70, 120, 255}, depth);
+            float caus = std::fabs(std::sin(wx * 0.06f + std::sin(wy * 0.05f) * 2) * std::sin(wy * 0.08f + std::sin(wx * 0.04f)));
+            if (caus > 0.82f) c = MixF(c, Color{80, 150, 210, 255}, (caus - 0.82f) * 2.5f);
+            return c;
+        }
+        case ArenaKind::SkyPillar: {   // the tower's top: old green-grey stone tiles (the tiles that crumble line up with these)
+            float gx = std::fmod(wx - 10 + 400, 40.0f), gy = std::fmod(wy + 400, 40.0f);
+            Color c = MixF(Color{120, 136, 120, 255}, Color{100, 116, 104, 255}, Fbm(wx * 0.04f, wy * 0.05f));
+            if (gx < 1.2f || gy * DEPTH < 0.8f) c = Color{60, 70, 62, 255};
+            if (N2(wx * 0.1f + 3, wy * 0.1f) > 0.75f) c = MixF(c, Color{90, 130, 70, 255}, 0.4f);   // moss
+            return c;
+        }
+        case ArenaKind::BirthIsland: {   // bare volcanic rock and a strange triangle mark
+            Color c = RockGround(wx, wy, Color{110, 104, 104, 255}, Color{90, 84, 86, 255}, 91);
+            float dx = (wx - ARENA_W / 2) / 70, dy = (wy - ARENA_H / 2) / 70;
+            bool in = dy < 0.5f && dy > -0.8f && std::fabs(dx) < (dy + 0.8f) * 0.77f;
+            bool inner = dy < 0.42f && dy > -0.66f && std::fabs(dx) < (dy + 0.66f) * 0.77f;
+            if (in && !inner) c = Color{220, 90, 70, 255};
             return c;
         }
         default: return Color{100, 100, 100, 255};
@@ -1260,6 +1378,15 @@ Image BuildImage(ArenaKind kind, const Field* f) {
                     }, Color{60, 26, 18, 255}, 2.0f);
                     break;
                 case Zone::Web: break;   // drawn live (fire burns webs away)
+                case Zone::Pool:   // Wallace's shallow pools: clear water over blue tiles
+                    HiEllipse(cv, z, [](float wx, float wy, float edge) {
+                        Color c = MixF(Color{90, 160, 220, 255}, Color{130, 200, 240, 255}, N2(wx * 0.08f, wy * 0.1f));
+                        float caus = std::fabs(std::sin(wx * 0.2f + std::sin(wy * 0.15f) * 2));
+                        if (caus > 0.9f) c = MixF(c, WHITE, (caus - 0.9f) * 3);
+                        if (edge < 4) c = Lit(c, 0.8f + edge * 0.05f);
+                        return c;
+                    }, Color{230, 210, 140, 255}, 2.0f);
+                    break;
             }
         }
         if (f->spikeBand > 0) {  // toxic spikes along the edges
@@ -1415,6 +1542,16 @@ Color GymColor(ArenaKind k) {
         case ArenaKind::Steel: return Color{180, 190, 205, 255};
         case ArenaKind::Dark: return Color{130, 80, 160, 255};
         case ArenaKind::JohtoChampion: return Color{220, 60, 60, 255};
+        case ArenaKind::Balance: return Color{220, 170, 80, 255};
+        case ArenaKind::TwinMoons: return Color{200, 140, 240, 255};
+        case ArenaKind::Sootopolis: return Color{80, 170, 240, 255};
+        case ArenaKind::HoennChampion: return Color{110, 190, 250, 255};
+        case ArenaKind::MeteorFalls: return Color{170, 150, 240, 255};
+        case ArenaKind::DesertRuins: return Color{220, 170, 90, 255};
+        case ArenaKind::AncientTomb: return Color{180, 180, 200, 255};
+        case ArenaKind::MarineCave: return Color{60, 120, 230, 255};
+        case ArenaKind::SkyPillar: return Color{90, 200, 120, 255};
+        case ArenaKind::BirthIsland: return Color{240, 110, 90, 255};
         default: return Color{230, 200, 90, 255};
     }
 }

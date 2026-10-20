@@ -90,7 +90,13 @@ bool LegendOpen(const Game& g, int id, std::string* why) {
             int at = -1;
             for (int i = 0; i < (int)Story().stages.size(); i++)
                 if (Story().stages[i].region == L.region && Story().stages[i].name == L.after) { at = i; break; }
-            if (at < 0 || CurStage(g) <= at) { if (why) *why = std::string(L.hint) + "."; return false; }
+            bool done = at >= 0 && (Story().stages[at].postgame ? PostgameBeaten(g, at) : CurStage(g) > at);
+            if (!done) { if (why) *why = std::string(L.hint) + "."; return false; }
+        } break;
+        case LegendUnlock::AfterCatch: {
+            int other = -1;
+            for (int i = 0; i < LEGEND_COUNT; i++) if (std::string(Legend(i).species) == L.after) other = i;
+            if (other < 0 || LegendCaughtBy(g, other) < 0) { if (why) *why = std::string(L.hint) + "."; return false; }
         } break;
     }
     if (SpeciesOf(id) < 0) { if (why) *why = "This Pokemon is missing from the Pokemon folder."; return false; }
@@ -216,20 +222,32 @@ void DrawLegends(const Game& g) {
         bool open = LegendOpen(g, i, &why);
         int by = LegendCaughtBy(g, i);
         bool known = open || by >= 0 || L.unlock == LegendUnlock::Badges8 || (L.unlock == LegendUnlock::Champion && BadgeCount(g) >= 8) || KantoDone(g);
-        if (L.region >= 1) known = open || by >= 0 || StoryDone(g) || L.unlock != LegendUnlock::AfterStage || std::string(L.after) != "Champion's Room";
+        if (L.region >= 1) known = open || by >= 0 || StoryDone(g) || (L.unlock != LegendUnlock::AfterStage && L.unlock != LegendUnlock::AfterCatch) ||
+                                   (L.unlock == LegendUnlock::AfterStage && std::string(L.after) != "Champion's Room" && std::string(L.after) != "Meteor Falls");
         int ph = rowH - 2;
         DrawPanel(x, y, w, ph, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : (open ? GymColor(L.arena) : Color{70, 64, 92, 255}));
         int sp = SpeciesOf(i);
         if (sp >= 0) DrawSpeciesFit(sp, VIEW_FRONT, x + 22, y + ph - 3, ph - 6, by >= 0 || open ? WHITE : (known ? Color{20, 18, 30, 255} : Color{10, 10, 16, 255}));
         int ty = ph < 40 ? 2 : 4, step = ph < 40 ? 11 : 12;
-        GDrawText(known ? L.species : "???", x + 44, y + ty, 10, sel ? UI_GOLD : UI_TEXT);
-        GDrawText(known ? L.place : (L.region >= 1 ? "Somewhere in Johto" : "Somewhere in Kanto"), x + 44, y + ty + step, 10, UI_DIM);
+        bool tight = ph < 30;   // Hoenn has ten: the name and where it lives share a line
+        std::string where = known ? L.place : "Somewhere in " + RegionInfo(L.region).name;
+        if (tight) {
+            GDrawText(known ? L.species : "???", x + 44, y + 1, 10, sel ? UI_GOLD : UI_TEXT);
+            int wx = x + 44 + TextW(known ? L.species : "???", 10) + 6;
+            while (where.size() > 3 && wx + TextW(where.c_str(), 10) > x + w - 4) where = where.substr(0, where.size() - 4) + "..";   // fit the row
+            GDrawText(where.c_str(), wx, y + 1, 10, UI_DIM);
+            step = 10;
+            ty = -9;
+        } else {
+            GDrawText(known ? L.species : "???", x + 44, y + ty, 10, sel ? UI_GOLD : UI_TEXT);
+            GDrawText(where.c_str(), x + 44, y + ty + step, 10, UI_DIM);
+        }
         std::string status;
         Color sc = UI_DIM;
         if (by >= 0) { status = g.coop ? "Caught by " + Prof(g, by).name : std::string("Caught!"); sc = Color{120, 230, 130, 255}; }
         else if (open) { status = TextFormat("Waiting - about Lv%d", LegendLevel(i, avg)); sc = GymColor(L.arena); }
         else status = L.unlock == LegendUnlock::Badges8 ? "Needs all 8 badges" : L.unlock == LegendUnlock::Champion ? "Champion only"
-                    : L.unlock == LegendUnlock::AfterStage ? L.hint : "Needs the Old Sea Map";
+                    : L.unlock == LegendUnlock::AfterStage || L.unlock == LegendUnlock::AfterCatch ? L.hint : "Needs the Old Sea Map";
         GDrawText(status.c_str(), x + 44, y + ty + step * 2, 10, sc);
         if (g.on.active && g.on.partnerReady == 200 + i) GDrawText("<", x + w - 12, y + 4, 10, kP2);
     }
@@ -238,7 +256,8 @@ void DrawLegends(const Game& g) {
     std::string why;
     bool open = LegendOpen(g, g.legendSel, &why);
     int by = LegendCaughtBy(g, g.legendSel);
-    bool known = open || by >= 0 || (L.unlock != LegendUnlock::AfterMewtwo && std::string(L.after) != "Champion's Room") || StoryDone(g);
+    bool known = open || by >= 0 || (L.unlock != LegendUnlock::AfterMewtwo && L.unlock != LegendUnlock::AfterCatch && std::string(L.after) != "Champion's Room" &&
+                                     std::string(L.after) != "Meteor Falls") || StoryDone(g);
     DrawPanel(x, 228, w, 104);
     DrawWrapped(known ? L.lore : "Old stories tell of a Pokemon far older than any other...", x + 6, 233, w - 12, 10, UI_TEXT);
     if (!open && by < 0) DrawWrapped(why.c_str(), x + 6, 306, w - 12, 10, Color{255, 170, 120, 255});

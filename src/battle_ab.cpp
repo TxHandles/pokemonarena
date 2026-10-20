@@ -94,6 +94,13 @@ void Battle::AbOnEnter(int s) {
             weatherTick = 1.0f;
             AbPopup(s, "It started to rain!");
             break;
+        case Ab::SnowWarning:
+            weather = Weather::Snow;
+            weatherT = 10;
+            weatherTick = 1.0f;
+            AbPopup(s, "It started to snow!");
+            break;
+        case Ab::SlowStart: AbPopup(s, f.sp->name + " can't get it going!"); break;
         case Ab::SandStream:
             weather = Weather::Sand;
             weatherT = 10;
@@ -196,6 +203,15 @@ void Battle::AbTick(int s, float dt) {
             break;
         case Ab::MarvelScale: if (status) f.abDef = 1.5f; break;
         case Ab::EarlyBird: if (f.st.major == Status::Sleep) f.st.majorT -= dt; break;
+        case Ab::FlowerGift: if (w == Weather::Sun) { f.abAtk = 1.5f; f.abDef = 1.5f; } break;
+        case Ab::SlowStart: if (f.state == FState::Active && f.stateT < 10) { f.abAtk = 0.5f; f.abSpd = 0.5f; } break;
+        case Ab::BadDreams:
+            if ((int)(time / 2) != (int)((time - dt) / 2))
+                for (int ts : FoeSlots(s)) {
+                    Fighter& t = sides[ts].Cur();
+                    if (Here(t) && t.st.major == Status::Sleep && t.hp > 0) DirectDamage(ts, t.maxHp / 16.0f, Color{150, 90, 200, 255}, s);
+                }
+            break;
         default: break;
     }
     auto heal = [&](float frac) {
@@ -290,6 +306,12 @@ bool Battle::AbBlocksHit(const HitSpec& h, int ts) {
             if (h.power > 0 && TypeEffectiveness(h.type, t.T1(), t.T2()) <= 1) return unaffected("It wasn't hurt!");
             break;
         case Ab::VoltAbsorb: if (h.type == Type::Electric) return absorb(0.25f); break;
+        case Ab::MotorDrive:
+            if (h.type == Type::Electric) {
+                if (!h.light) Buff(t, StatId::Spd, 1.5f, 8);
+                return unaffected("It's charged up! SPD rose!");
+            }
+            break;
         case Ab::WaterAbsorb: case Ab::DrySkin: if (h.type == Type::Water) return absorb(0.25f); break;
         case Ab::LightningRod:
             if (h.type == Type::Electric) {
@@ -360,6 +382,7 @@ float Battle::AbDamageMul(const HitSpec& h, int ts, float eff, bool crit) const 
     float m = 1;
     switch (ta) {
         case Ab::ThickFat: if (h.type == Type::Fire || h.type == Type::Ice) m *= 0.5f; break;
+        case Ab::Heatproof: if (h.type == Type::Fire) m *= 0.5f; break;
         case Ab::Filter: case Ab::SolidRock: if (eff > 1) m *= 0.75f; break;
         case Ab::Multiscale: if (t.hp >= t.maxHp) m *= 0.5f; break;
         case Ab::DrySkin: if (h.type == Type::Fire) m *= 1.25f; break;
@@ -534,6 +557,13 @@ void Battle::AbSpec(HitSpec& h, const Fighter& f, const MoveDef& m) const {
         case Ab::Swarm: if (pinch && m.type == Type::Bug) mul = 1.5f; break;
         case Ab::Technician: if (m.power > 0 && m.power <= 60) mul = 1.5f; break;
         case Ab::IronFist: if (IsPunchMoveName(m.name)) mul = 1.2f; break;
+        case Ab::FlareBoost: if (h.special && f.st.major == Status::Burn) mul = 1.5f; break;
+        case Ab::Sharpness: {
+            static const char* kSlice[] = {"Cut", "Slash", "Leaf Blade", "Night Slash", "Psycho Cut", "Sacred Sword", "X-Scissor", "Air Slash",
+                                           "Air Cutter", "Aqua Cutter", "Razor Leaf", "Solar Blade", "Fury Cutter", "Cross Poison", "Razor Shell",
+                                           "Stone Axe", "Ceaseless Edge", "Kowtow Cleave", "Bitter Blade", "Secret Sword", "Behemoth Blade", "Population Bomb", "Aerial Ace"};
+            for (const char* k : kSlice) if (m.name == k) mul = 1.5f;
+        } break;
         case Ab::Reckless: if (m.recoil > 0) mul = 1.2f; break;
         case Ab::RockHead: h.recoil = 0; break;
         case Ab::FlashFire: if (f.flashFire && m.type == Type::Fire) mul = 1.5f; break;

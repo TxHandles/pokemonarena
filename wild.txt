@@ -865,3 +865,195 @@ pokemon = walk, Phanpy, 10, 80-88
 pokemon = walk, Larvitar, 5, 80-88, rare
 pokemon = walk, Misdreavus, 10, 80-88
 pokemon = walk, Sneasel, 5, 80-88, rare
+
+# ==========================================================================
+#  HOENN (Pokemon Emerald encounter tables). Levels follow the story's level range there.
+# ==========================================================================
+
+[Routes 101 to 103]
+unlock = Route 103
+pokemon = walk, Zigzagoon, 30, 84-89
+pokemon = walk, Wurmple, 20, 84-89
+pokemon = walk, Poochyena, 25, 84-89
+pokemon = walk, Lotad, 10, 84-89
+pokemon = walk, Seedot, 10, 84-89
+pokemon = walk, Ralts, 5, 84-89, rare
+pokemon = surf, Wingull, 35, 84-89
+pokemon = surf, Tentacool, 65, 84-89
+pokemon = super-rod, Wailmer, 60, 84-89
+pokemon = super-rod, Sharpedo, 40, 86-90
+
+[Petalburg Woods]
+unlock = Petalburg Woods
+pokemon = walk, Shroomish, 20, 84-89
+pokemon = walk, Slakoth, 15, 84-89
+pokemon = walk, Taillow, 20, 84-89
+pokemon = walk, Wurmple, 25, 84-89
+pokemon = walk, Silcoon, 10, 84-89
+pokemon = walk, Cascoon, 10, 84-89
+
+[Route 116 and Rusturf Tunnel]
+unlock = Rusturf Tunnel
+pokemon = walk, Whismur, 35, 85-90
+pokemon = walk, Nincada, 20, 85-90
+pokemon = walk, Skitty, 15, 85-90
+pokemon = walk, Taillow, 20, 85-90
+pokemon = walk, Abra, 10, 85-90
+
+[Granite Cave]
+unlock = Dewford Gym
+pokemon = walk, Makuhita, 30, 85-90
+pokemon = walk, Geodude, 20, 85-90
+pokemon = walk, Zubat, 20, 85-90
+pokemon = walk, Aron, 20, 85-90
+pokemon = walk, Abra, 7, 85-90
+pokemon = walk, Sableye, 3, 86-90, rare
+
+[Routes 105 to 109]
+unlock = Oceanic Museum
+pokemon = surf, Tentacool, 60, 85-90
+pokemon = surf, Wingull, 35, 85-90
+pokemon = surf, Pelipper, 5, 86-90
+pokemon = old-rod, Magikarp, 70, 85-90
+pokemon = old-rod, Tentacool, 30, 85-90
+pokemon = super-rod, Wailmer, 100, 85-90
+
+[Route 110 and New Mauville]
+unlock = Route 110
+pokemon = walk, Electrike, 30, 86-91
+pokemon = walk, Plusle, 10, 86-91
+pokemon = walk, Minun, 10, 86-91
+pokemon = walk, Gulpin, 15, 86-91
+pokemon = walk, Oddish, 15, 86-91
+pokemon = walk, Magnemite, 10, 86-91
+pokemon = walk, Voltorb, 10, 86-91
+
+[Route 117 and Verdanturf]
+unlock = Mauville Gym
+pokemon = walk, Volbeat, 15, 86-91
+pokemon = walk, Illumise, 15, 86-91
+pokemon = walk, Roselia, 15, 86-91
+pokemon = walk, Marill, 15, 86-91
+pokemon = walk, Oddish, 25, 86-91
+pokemon = walk, Seedot, 15, 86-91
+pokemon = surf, Marill, 100, 86-91
+
+[Route 111 Desert]
+unlock = Mauville Gym
+pokemon = walk, Sandshrew, 35, 87-92
+pokemon = walk, Trapinch, 25, 87-92
+pokemon = walk, Cacnea, 20, 87-92
+pokemon = walk, Baltoy, 20, 87-92
+
+[Fiery Path and Route 112]
+unlock = Mt. Chimney
+pokemon = walk, Numel, 30, 87-92
+pokemon = walk, Slugma, 15, 87-92
+pokemon = walk, Torkoal, 15, 87-92
+pokemon = walk, Koffing, 15, 87-92
+pokemon = walk, Grimer, 10, 87-92
+pokemon = walk, Machop, 15, 87-92
+
+[Routes 113 and 114]
+unlock = Mt. Chimney Summit
+pokemon = walk, Spinda, 25, 87-92
+pokemon = walk, Skarmory, 10, 87-92
+pokemon = walk, Swablu, 25, 87-92
+pokemon = walk, Seviper, 15, 87-92
+pokemon = walk, Lotad, 10, 87-92
+pokemon = walk, Nuzleaf, 15, 87-92
+
+[Meteor Falls Caves]
+unlock = Lavaridge Gym
+pokemon = walk, Zubat, 30, 88-93
+pokemon = walk, Golbat, 20, 88-93
+pokemon = walk, Solrock, 45, 88-93
+pokemon = walk, Bagon, 5, 88-93, rare
+pokemon = surf, Zubat, 40, 88-93
+pokemon = surf, Solrock, 60, 88-93
+pokemon = super-rod, Barboach, 70, 88-93
+pokemon = super-rod, Whiscash, 30, 89-93
+
+[Routes 118 and 119]
+unlock = Route 119
+pokemon = walk, Linoone, 25, 89-94
+pokemon = walk, Tropius, 10, 89-94
+pokemon = walk, Kecleon, 10, 89-94
+pokemon = walk, Oddish, 25, 89-94
+pokemon = walk, Electrike, 20, 89-94
+pokemon = walk, Manectric, 10, 89-94
+pokemon = super-rod, Carvanha, 90, 89-94
+pokemon = super-rod, Feebas, 10, 89-94, rare
+
+[Routes 120 and 121]
+unlock = Fortree Gym
+pokemon = walk, Absol, 10, 89-94
+pokemon = walk, Shuppet, 20, 89-94
+pokemon = walk, Duskull, 20, 89-94
+pokemon = walk, Kecleon, 10, 89-94
+pokemon = walk, Oddish, 20, 89-94
+pokemon = walk, Linoone, 20, 89-94
+
+[Safari Zone]
+unlock = Lilycove City
+pokemon = walk, Pikachu, 10, 90-95
+pokemon = walk, Doduo, 15, 90-95
+pokemon = walk, Girafarig, 15, 90-95
+pokemon = walk, Phanpy, 15, 90-95
+pokemon = walk, Natu, 15, 90-95
+pokemon = walk, Pinsir, 8, 90-95
+pokemon = walk, Heracross, 7, 90-95
+pokemon = walk, Rhyhorn, 10, 90-95
+pokemon = walk, Wobbuffet, 5, 90-95
+
+[Mt. Pyre Slopes]
+unlock = Mt. Pyre
+pokemon = walk, Shuppet, 35, 90-95
+pokemon = walk, Duskull, 30, 90-95
+pokemon = walk, Vulpix, 15, 90-95
+pokemon = walk, Meditite, 15, 90-95
+pokemon = walk, Chimecho, 5, 90-95, rare
+
+[Shoal Cave]
+unlock = Mossdeep Gym
+pokemon = walk, Spheal, 40, 91-96
+pokemon = walk, Snorunt, 20, 91-96
+pokemon = walk, Zubat, 20, 91-96
+pokemon = walk, Golbat, 20, 91-96
+
+[Routes 124 to 128]
+unlock = Mossdeep Gym
+pokemon = surf, Tentacool, 40, 91-96
+pokemon = surf, Wingull, 30, 91-96
+pokemon = surf, Pelipper, 10, 91-96
+pokemon = surf, Clamperl, 20, 91-96
+pokemon = super-rod, Chinchou, 25, 91-96
+pokemon = super-rod, Corsola, 20, 91-96
+pokemon = super-rod, Luvdisc, 30, 91-96
+pokemon = super-rod, Sharpedo, 20, 91-96
+pokemon = super-rod, Relicanth, 5, 92-96, rare
+
+[Sky Pillar Tower]
+unlock = Sootopolis Gym
+pokemon = walk, Claydol, 25, 93-98
+pokemon = walk, Altaria, 20, 93-98
+pokemon = walk, Banette, 20, 93-98
+pokemon = walk, Golbat, 20, 93-98
+pokemon = walk, Sableye, 15, 93-98
+
+[Victory Road (Hoenn)]
+unlock = Victory Road B2F
+pokemon = walk, Hariyama, 15, 94-99
+pokemon = walk, Loudred, 15, 94-99
+pokemon = walk, Lairon, 15, 94-99
+pokemon = walk, Medicham, 15, 94-99
+pokemon = walk, Golbat, 15, 94-99
+pokemon = walk, Mawile, 15, 94-99
+pokemon = walk, Sableye, 10, 94-99
+
+[Desert Underpass and Mirage Island]
+unlock = Meteor Falls
+pokemon = walk, Ditto, 40, 95-100
+pokemon = walk, Whismur, 25, 95-100
+pokemon = walk, Loudred, 30, 95-100
+pokemon = walk, Wynaut, 5, 95-100, rare

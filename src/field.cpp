@@ -11,11 +11,15 @@ const char* kNames[ARENA_COUNT] = {"Stadium", "Stone Gym", "Cascade Gym", "Power
                                    "Swamp Gym", "Trick Room Gym", "Volcano Gym", "Hideout Gym",
                                    "Frozen Chamber", "Brawler's Ring", "Haunted Hall", "Dragon's Den", "Champion's Stadium",
                                    "Seafoam Depths", "Power Plant", "Moltres's Nest", "Cerulean Cave", "Faraway Island",
-                                   "Skyway Gym", "Hive Gym", "Moomoo Gym", "Lighthouse Gym", "Shadow Chamber", "Champion's Hall"};
+                                   "Skyway Gym", "Hive Gym", "Moomoo Gym", "Lighthouse Gym", "Shadow Chamber", "Champion's Hall",
+                                   "Balance Gym", "Twin Moons Gym", "Sootopolis Gym", "Waterfall Hall", "Meteor Falls",
+                                   "Desert Ruins", "Ancient Tomb", "Marine Cave", "Sky Pillar", "Birth Island"};
 const char* kKeys[ARENA_COUNT] = {"stadium", "rock", "water", "electric", "grass", "poison", "psychic", "fire", "ground",
                                   "ice", "fighting", "ghost", "dragon", "champion",
                                   "seafoam", "powerplant", "ember", "unknown", "faraway",
-                                  "flying", "bug", "normal", "steel", "dark", "johtochampion"};
+                                  "flying", "bug", "normal", "steel", "dark", "johtochampion",
+                                  "balance", "twinmoons", "sootopolis", "hoennchampion", "meteorfalls",
+                                  "desertruins", "ancienttomb", "marinecave", "skypillar", "birthisland"};
 
 float Rf(float a, float b) { return a + (b - a) * (float)SimRand(0, 10000) / 10000.0f; }
 
@@ -102,6 +106,16 @@ const char* ArenaTwist(ArenaKind k) {
         case ArenaKind::Steel: return "The lighthouse beam sweeps the floor: in the light Steel types hit harder and everyone else slows down. Hit the lamp to reverse it and spin it faster.";
         case ArenaKind::Dark: return "Lights out, except three drifting pools of light. In the dark, Dark types hit harder and move faster - everyone else fights better in the light.";
         case ArenaKind::JohtoChampion: return "Lance's hall: the spotlight roams the floor and powers up whoever stands in it, while his dragon statues breathe fire across the room.";
+        case ArenaKind::Balance: return "Norman's four rooms: Speed, Defense, Recovery and Strength - each powers up whoever stands in it (Normal types share in the rooms next door too). Hit the scale and your foes' rooms turn against them.";
+        case ArenaKind::TwinMoons: return "Half sun, half moon: in the sun Fire and Psychic moves hit harder; in the moon Psychic moves do, and everyone else slows down. Every few seconds an eclipse swaps them. Hit the dial to bring it early - Dark moves jam it.";
+        case ArenaKind::Sootopolis: return "Cracked ice over a crater lake: stand still too long and it gives way. Water types swim fast and hit harder in the water - everyone else sinks. Ice moves freeze it again. Hit the font for rain on your side - Grass or Electric stops it.";
+        case ArenaKind::HoennChampion: return "Wallace's hall: the spotlight powers up whoever stands in it (Water types most of all), pools ring the floor, and the waterfall's surge sweeps everyone across. Hit the crystal to send it at your foes.";
+        case ArenaKind::MeteorFalls: return "Meteorites give cover, and fragments rain down on the glowing marks - on everyone. Steel and Rock types stand firmer beside the stones. Crack the great meteorite open to power up your side's special moves.";
+        case ArenaKind::DesertRuins: return "A sandstorm that never ends, and boulders crash down on the challengers where the markers glow.";
+        case ArenaKind::AncientTomb: return "A dark tomb crossed by a sweeping beam: in the light Steel types hit harder and everyone else slows. Steel shards fall on the challengers where the markers glow.";
+        case ArenaKind::MarineCave: return "Kyogre's flooded cave: endless rain, deep water that only Water types swim through, and spouts that burst up under the challengers.";
+        case ArenaKind::SkyPillar: return "The top of the Sky Pillar: the floor crumbles under anyone who stands still, gusts sweep across, and dragon meteors fall on the challengers.";
+        case ArenaKind::BirthIsland: return "Bare rock under a strange triangle: Deoxys teleports around the island, and psychic shards fall on the challengers.";
         default: return "A classic stadium. No tricks.";
     }
 }
@@ -349,6 +363,87 @@ void Field::Build(ArenaKind k, Venue v, int seasonIn) {
             }
             lightT = 3.0f;
             break;
+        case ArenaKind::Balance:   // a few wooden partitions at the doorways between the rooms
+            for (int k = 0; k < 4; k++) {
+                Obstacle o;
+                o.kind = Obstacle::Crate;
+                o.pos = {k < 2 ? ARENA_W / 2 : (k == 2 ? ARENA_W * 0.17f : ARENA_W * 0.83f), k < 2 ? (k == 0 ? ARENA_H * 0.13f : ARENA_H * 0.87f) : ARENA_H / 2};
+                o.radius = 12;
+                o.height = 18;
+                o.hp = o.maxHp = 120;
+                o.seed = (uint32_t)SimRand(1, 0x3fffffff);
+                obs.push_back(o);
+            }
+            break;
+        case ArenaKind::TwinMoons:
+            AddObstacles(*this, Obstacle::Pillar, 4, 10, 30, 130, 95, 170, ARENA_W - 170, 70, ARENA_H - 70);
+            phase = (uint8_t)SimRand(0, 1);
+            phaseT = 12.0f;
+            break;
+        case ArenaKind::Sootopolis:
+        case ArenaKind::SkyPillar: {   // tiles over the whole floor, except solid rock where the teams start
+            for (float y = TILE / 2; y < ARENA_H; y += TILE)
+                for (float x = TILE / 2 + 10; x < ARENA_W - 10; x += TILE) {
+                    Vector2 c{x, y};
+                    if (Dist2(c, kSpawns[0]) < 60 || Dist2(c, kSpawns[1]) < 60) continue;
+                    if (k == ArenaKind::Sootopolis && Dist2(c, Vector2{ARENA_W / 2, ARENA_H / 2}) < 40) continue;   // the font's rock
+                    Tile t;
+                    t.pos = c;
+                    tiles.push_back(t);
+                }
+            if (k == ArenaKind::SkyPillar) {
+                AddObstacles(*this, Obstacle::Pillar, 3, 10, 30, 150, 100, 160, ARENA_W - 160);
+                windDir = {SimRand(0, 1) ? 1.0f : -1.0f, 0};
+                windT = 8.0f;
+                strikeT = 4.0f;
+            }
+        } break;
+        case ArenaKind::HoennChampion: {
+            spot = spotTo = {ARENA_W / 2, ARENA_H / 2};
+            spotT = 5.0f;
+            phaseT = 16.0f;
+            const Vector2 pools[6] = {{ARENA_W * 0.2f, ARENA_H * 0.16f}, {ARENA_W * 0.5f, ARENA_H * 0.12f}, {ARENA_W * 0.8f, ARENA_H * 0.16f},
+                                      {ARENA_W * 0.2f, ARENA_H * 0.86f}, {ARENA_W * 0.5f, ARENA_H * 0.9f}, {ARENA_W * 0.8f, ARENA_H * 0.86f}};
+            for (const Vector2& p : pools) {   // shallow pools ringing the floor
+                Zone z;
+                z.kind = Zone::Pool;
+                z.pos = p;
+                z.rx = Rf(40, 50);
+                z.ry = z.rx * Rf(0.7f, 0.85f);
+                z.seed = (uint32_t)SimRand(1, 0x3fffffff);
+                zones.push_back(z);
+            }
+        } break;
+        case ArenaKind::MeteorFalls:
+            AddObstacles(*this, Obstacle::Pillar, 5, 12, 30, 100, 80, 150, ARENA_W - 150);
+            strikeT = 5.0f;
+            break;
+        case ArenaKind::DesertRuins:
+            AddObstacles(*this, Obstacle::Pillar, 5, 11, 28, 110, 85, 150, ARENA_W - 150);
+            strikeT = 4.0f;
+            break;
+        case ArenaKind::AncientTomb:
+            AddObstacles(*this, Obstacle::MetalPillar, 4, 11, 30, 120, 90, 150, ARENA_W - 150, 70, ARENA_H - 70);
+            strikeT = 4.0f;
+            break;
+        case ArenaKind::MarineCave: {
+            for (int s = 0; s < 2; s++) {   // rock ledges under each team's start, and a few more
+                Zone z;
+                z.kind = Zone::Platform;
+                z.pos = kSpawns[s];
+                z.rx = 46;
+                z.ry = 42;
+                z.seed = (uint32_t)SimRand(1, 0x3fffffff);
+                zones.push_back(z);
+            }
+            AddZones(*this, Zone::Platform, 5, 24, 36, 90, 95);
+            strikeT = 3.5f;
+        } break;
+        case ArenaKind::BirthIsland:
+            AddObstacles(*this, Obstacle::Boulder, 4, 9, 12, 110, 80);
+            strikeT = 4.0f;
+            blinkT = 9.0f;
+            break;
         case ArenaKind::JohtoChampion: {
             spot = spotTo = {ARENA_W / 2, ARENA_H / 2};
             spotT = 5.0f;
@@ -387,7 +482,12 @@ void Field::PlaceCenterpiece() {
         case ArenaKind::Flying: ck = Centerpiece::Vane; break;
         case ArenaKind::Bug: ck = Centerpiece::Hive; break;
         case ArenaKind::Normal: ck = Centerpiece::MilkTank; break;
-        case ArenaKind::Steel: ck = Centerpiece::Lamp; break;
+        case ArenaKind::Steel: case ArenaKind::AncientTomb: ck = Centerpiece::Lamp; break;
+        case ArenaKind::Balance: ck = Centerpiece::Scale; break;
+        case ArenaKind::TwinMoons: ck = Centerpiece::Dial; break;
+        case ArenaKind::Sootopolis: ck = Centerpiece::Font; break;
+        case ArenaKind::HoennChampion: ck = Centerpiece::Crystal; break;
+        case ArenaKind::MeteorFalls: ck = Centerpiece::Meteorite; break;
         default: return;
     }
     Centerpiece& c = center;
@@ -408,6 +508,11 @@ void Field::PlaceCenterpiece() {
         case Centerpiece::Hive:      c.radius = 16; clear = 54; c.charge = 100; break;
         case Centerpiece::MilkTank:  c.radius = 18; clear = 54; c.charge = 100; break;
         case Centerpiece::Lamp:      c.radius = 16; clear = 56; c.spin = Rf(0, 6.28f); c.spinRate = 0.55f; break;
+        case Centerpiece::Scale:     c.radius = 16; clear = 54; break;
+        case Centerpiece::Dial:      c.radius = 15; clear = 54; break;
+        case Centerpiece::Font:      c.radius = 14; clear = 0; break;
+        case Centerpiece::Crystal:   c.radius = 13; clear = 50; break;
+        case Centerpiece::Meteorite: c.radius = 22; clear = 60; break;
         default: break;
     }
     if (ck == Centerpiece::Drain) {   // the middle of the pool: the drain replaces the platform there
@@ -498,7 +603,8 @@ void Field::PlacePortals() {
 }
 
 bool Field::IsWater(Vector2 p) const {
-    if (kind != ArenaKind::Water) return false;
+    if (kind == ArenaKind::Sootopolis) return Broken(p);
+    if (Rules() != ArenaKind::Water) return false;
     for (const auto& z : zones)
         if (z.kind == Zone::Platform && z.Contains(p)) return false;
     return true;

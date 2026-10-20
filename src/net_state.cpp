@@ -83,7 +83,7 @@ struct Ar {
         v(f.cd); v(f.uses); v(f.hitstun); v(f.flash); v(f.animT); v(f.moving); v(f.pendingMove); v(f.windupT); v(f.pendingAim);
         v(f.dashing); v(f.dashT); v(f.dashVel); v(f.dashMove); v(f.dashHit); v(f.buffMul); v(f.buffT); v(f.dropMul); v(f.dropT);
         v(f.st); v(f.shieldT); v(f.rechargeT); v(f.burrowed); v(f.leaping); v(f.burrowT); v(f.burrowMove); v(f.burrowTarget);
-        v(f.volleyMove); v(f.volleyLeft); v(f.volleyT); v(f.evolveTo); v(f.envSpeed); v(f.envAtk); v(f.envTickT); v(f.portalCd);
+        v(f.volleyMove); v(f.volleyLeft); v(f.volleyT); v(f.evolveTo); v(f.envSpeed); v(f.envAtk); v(f.envTickT); v(f.portalCd); v(f.envDef);
         v(f.regenAcc); v(f.dashObsHit); v(f.weakened); v(f.dazeT); v(f.retired); v(f.counterT); v(f.endureT); v(f.lastHitBy);
         v(f.lent); v(f.owner); v(f.boss); v(f.shiny);
         std::string item = f.item ? f.item->name : std::string();
@@ -109,6 +109,7 @@ struct Ar {
     void v(Wisp& w) { v(w.pos); v(w.vel); v(w.life); v(w.respawnT); v(w.seed); }
     void v(Zone& z) { v(z.kind); v(z.pos); v(z.rx); v(z.ry); v(z.seed); }
     void v(Portal& p) { v(p.pos); v(p.age); }
+    void v(Tile& t) { v(t.pos); v(t.state); v(t.standT); v(t.t); }
     void v(Turret& t) { v(t.pos); v(t.dir); v(t.warnT); v(t.aimAt); }
     void v(Centerpiece& c) {
         v(c.kind); v(c.pos); v(c.home); v(c.vel); v(c.radius); v(c.phase); v(c.t); v(c.charge); v(c.spin); v(c.spinRate);
@@ -120,6 +121,8 @@ struct Ar {
         v(f.wisps); v(f.spot); v(f.spotTo); v(f.spotT); v(f.strikeT); v(f.pulseT); v(f.blinkT);
         v(f.windDir); v(f.windT); v(f.windOn); v(f.lights); v(f.lightTo); v(f.lightT);
         v(f.center);
+        v(f.tiles); v(f.phaseT); v(f.phase); v(f.warnT); v(f.jamT); v(f.rainOwner); v(f.rainT); v(f.surgeT); v(f.surgeDir);
+        v(f.scaleOwner); v(f.scaleT); v(f.glowOwner); v(f.glowT);
     }
     void v(Projectile& p) {
         v(p.hit); v(p.pos); v(p.vel); v(p.traveled); v(p.maxDist); v(p.radius); v(p.homing); v(p.lob); v(p.drop); v(p.start);
@@ -186,6 +189,8 @@ struct BattleIO {
         for (const auto& w : b.field.wisps) { f(w.pos.x); f(w.life); }
         f(b.field.spot.x);
         f(b.field.strikeT); f(b.field.blinkT);
+        for (const auto& t : b.field.tiles) { i(t.state); f(t.standT); }
+        i(b.field.phase); f(b.field.phaseT); f(b.field.rainT); f(b.field.surgeT); f(b.field.scaleT); f(b.field.glowT);
         i(b.field.center.phase); f(b.field.center.t); f(b.field.center.pos.x); f(b.field.center.charge); i(b.field.center.owner);
         return h;
     }

@@ -1,4 +1,5 @@
 #pragma once
+#include <set>
 #include <string>
 #include <vector>
 #include "battle.h"
@@ -29,13 +30,20 @@ struct StageDef {
     bool dbl = false;               // a double battle: the foes fight two at a time (alone, a CPU teammate fights beside you)
     std::string partner;            // a double battle where this trainer fights beside you (alone): "Lance"
     std::vector<std::string> partnerTeam;   // the partner's Pokemon (same format as team)
+    int floor = 0;                  // > 0: the level the stage is built from never drops below this (a low-level tag-along can't drag it down)
+    bool postgame = false;          // optional: the story moves on past it; it's fought from the Map (Red, Steven)
+    std::string story;              // narration shown with the intro ("Team Magma has stolen the Meteorite...")
+    std::string card;               // "Title | text": a story card shown the first time this battle comes up
+    std::string cardAfter;          // "Title | text": a story card after the first win
+    std::string cardMon;            // a Pokemon pictured on those cards (Groudon...)
+    std::string gift;               // a Pokemon everyone gets after the first win (Castform, Beldum)
     bool IsLegend() const { return legend > 0; }
     bool IsGym() const { return !badge.empty(); }
     bool IsLeague() const { return league > 0; }
     bool IsChampion() const { return league >= 5; }
     bool IsBoss() const { return IsGym() || IsLeague(); }   // can be rematched from the Map
     bool IsTowerBoss() const { return towerFloor > 0 && towerFloor % 10 == 0; }
-    bool BigIntro() const { return IsBoss() || IsTowerBoss(); }   // the packed-stadium intro
+    bool BigIntro() const { return IsBoss() || IsTowerBoss() || (postgame && arena != ArenaKind::Stadium); }   // the packed-stadium intro
     bool Indoors() const { return (IsGym() || IsLeague() || arena != ArenaKind::Stadium) && !outdoor; }
     // Trainers' Pokemon are never catchable (you can't steal them): new Pokemon come from the wild.
     bool Catchable() const { return false; }
@@ -72,6 +80,13 @@ struct StoryDef {
         std::vector<Town> towns;
         int first = 0, end = 0;
         int startLevel = 5;
+        int startAvg = 0;           // != 0: the starter gift's level follows your team (average + this), at least startLevel
+        std::string rivalName;      // "Silver", "May"
+        std::string intro;          // the starter screen's welcome ("Professor Elm in New Bark Town has...")
+        std::string watch;          // the line about the rival before they choose
+        std::string watchCoop;      // the same in co-op (%s = how many they choose from)
+        std::string reveal;         // what happens when the rival takes theirs (%s = their Pokemon)
+        std::string revealQuote;    // and what the rival says
     };
     std::vector<Region> regions;
 };
@@ -90,6 +105,10 @@ void SetRivalContext(int main, int second);
 int PickRivalSolo(int mine);
 void PickRivalCoop(int a, int b, int out[2]);
 int StoryStageForRev(int stage, int fromRev);                   // an old save's stage index in the current layout
+// Post-game battles (postgame = yes) sit off the main road: the story's next stage skips them.
+// oldSave: a save from before they were optional - the ones it had passed were beaten.
+void FixPostgame(int& stage, std::set<std::string>& done, bool oldSave);
+int NextStoryStage(int stage);   // after winning `stage`: the next one on the main road
 
 // Story time. Every battle (or a Wait) moves the clock on one step: day and night alternate,
 // and every 4 steps the season changes, Spring -> Summer -> Fall -> Winter.

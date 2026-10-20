@@ -118,6 +118,14 @@ Color BadgeColor(const std::string& b) {
     if (b == "Mineral") return {190, 200, 215, 255};
     if (b == "Glacier") return {150, 220, 250, 255};
     if (b == "Rising") return {90, 110, 230, 255};
+    if (b == "Stone") return {180, 140, 100, 255};
+    if (b == "Knuckle") return {220, 120, 70, 255};
+    if (b == "Dynamo") return {250, 210, 70, 255};
+    if (b == "Heat") return {240, 90, 50, 255};
+    if (b == "Balance") return {200, 170, 110, 255};
+    if (b == "Feather") return {140, 200, 240, 255};
+    if (b == "Mind") return {220, 120, 220, 255};
+    if (b == "Rain") return {80, 160, 240, 255};
     return {200, 200, 210, 255};
 }
 

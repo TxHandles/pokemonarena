@@ -50,7 +50,8 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
 - **Gen 2 (first wave)** – Chikorita, Bayleef, Meganium, Cyndaquil, Quilava, Typhlosion, Totodile,
   Croconaw and Feraligatr, built like the original 151: Pokedex stats, entries, abilities, Scarlet/Violet
   level-up moves and TMs, evolutions (16/32, 14/36, 18/30). They aren't found in the wild.
-- **Gym leaders** – pictures of the 16 Kanto and Johto gym leaders (Leaders/, cut from the user's sheet)
+- **Gym leaders** – pictures of the 16 Kanto and Johto gym leaders, plus Hoenn's eight (Tate and Liza walk out
+  together) and Champion Wallace (Leaders/, cut from the user's sheet)
   appear in the gym intro (the leader walks out under a spotlight next to their line), on the VS splash
   as the battle starts, and in a cut-in with a last-stand line when they're down to their last Pokemon
   (rematches too). Drop a PNG named after a trainer in Leaders/ to add one (src/leaders.*).
@@ -82,6 +83,25 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
   the Map's Legendary tab (open it while the Map shows Johto): Raikou, Entei and Suicune after the Fog Badge, Ho-Oh
   and Lugia after the Kimono Girls, Celebi after Lance. `wild.txt` has 23 Johto training areas. In
   `story.txt` a `[region]` block (name, map_image, start_level, towns) starts each new region.
+  Red on Mt. Silver is a **post-game challenge** now (`postgame = yes`): the story moves on to Hoenn after
+  Lance, and Red is fought from the Map (old saves that already beat him keep the win).
+- **Hoenn** – the third region, on the Emerald town map (`hoenn.png`), opened by beating Lance (in co-op,
+  the shared save). Professor Birch gives a third starter at your team's average −3 (at least Lv 85), and
+  **May** is the rival (a counter alone, two of the seven left in co-op, online too). 38 battles follow
+  Emerald from Route 103 to Champion Wallace: the eight Hoenn gyms (Roxanne, Brawly, Wattson, Flannery,
+  Norman, Winona, Tate & Liza as a double battle, Juan), May five times (her partners follow Emerald: the
+  two of Wingull, Lotad and Slugma that don't share her starter's type, evolving as the story goes on), Wally
+  twice, Team Aqua and Team Magma up to Maxie and Archie, Steven fighting beside you at the Space Center,
+  the invisible Kecleon and the Electrode in disguise (bosses that join you), the Elite Four Sidney, Phoebe,
+  Glacia and Drake, and Wallace (the Hoenn Hall of Fame). Steven waits at Meteor Falls as the post-game
+  challenge. Hoenn levels follow your team (`level = +N`) with a **floor** (`floor = 85`: the team average
+  never counts lower), so a low-level tag-along can't make a gym easy, and nothing goes over 100.
+  The story is told on **story cards** (`card` / `card_after` in story.txt: the move to Littleroot, Archie at
+  the museum, the Meteorite, Groudon and Kyogre waking, the weather war, Rayquaza, Steven's challenge) and
+  narration lines on the battle intros (`story`). **Gifts** (`gift = Castform`): Castform after the Weather
+  Institute, Beldum after Wallace. Ten legendaries on the Map's Legendary tab: Regirock, Regice and
+  Registeel and Rayquaza after the Rain Badge, Latias, Latios, Groudon and Kyogre after Wallace, Jirachi after
+  you beat Steven, Deoxys once Rayquaza is caught. `wild.txt` has 20 Hoenn training areas.
 - **Battle Tower** – after the Championship, the hub's first item. Endless floors of trainers: their
   levels climb with the floor (your team's average −1, +1 every 4 floors), the CPU plays Hard from floor
   5, both sides bring 3 (4 from floor 10, 5 from 20, 6 from 30), every 5th floor is fought in a gym arena
@@ -250,12 +270,22 @@ middle:
 | Lighthouse Gym (Jasmine) | Steel pillars. **Lighthouse**: its beam sweeps the floor; in the light Steel types get ×1.25 ATK and everyone else is dazzled (×0.75 speed). A hit reverses it and spins it faster for a while. |
 | Shadow Chamber (Karen) | Lights out but for three drifting pools of light. Out of the light Dark types get ×1.2 ATK and ×1.15 speed (their eyes glow); in the light everyone else gets ×1.1 ATK. |
 | Champion's Hall (Lance, Johto) | The Champion's spotlight plus four dragon statues breathing fire (like the Dragon's Den). |
+| Balance Gym (Norman) | Four rooms: Speed (×1.25 speed), Defense (×1.25 DEF), Recovery (1% max HP/s) and Strength (×1.2 ATK) for whoever stands in them; Normal types also get half of the two rooms next door. **Balance scale**: a hit tips it your way for 10 s, and your foes' rooms work against them (slower, softer, weaker, draining). |
+| Twin Moons Gym (Tate & Liza) | A double battle on a floor split into a sun half and a moon half. In the sun Fire and Psychic moves ×1.15; in the moon Psychic moves ×1.15 and everyone else ×0.9 speed. Psychic types ×1.15 ATK anywhere; Solrock heals in the sun, Lunatone in the moon. Every 12 s an eclipse swaps the halves (1.5 s warning). **Sun–moon dial**: a hit brings the eclipse now; a Dark hit jams it for 10 s. |
+| Sootopolis Gym (Juan) | Cracked ice over a crater lake: stand on a tile 2 s and it cracks, 2 s more and it breaks (3% max HP and you're in the water unless you're a Water type). In the water Water types swim (×1.35 speed, ×1.15 ATK) and everyone else wades (×0.6). Tiles freeze again after 15 s, or at once under an Ice move. **Rain font**: a hit brings 12 s of rain for your side (Water ×1.25, Fire ×0.75); Grass or Electric stops it. |
+| Waterfall Hall (Wallace) | The Champion's spotlight (Water types get ×1.3 in it) and six shallow pools (Water types ×1.17 speed, others ×0.8). Every 15–20 s the waterfall on the back wall surges (1.6 s warning): a wave rolls across the floor pushing everyone, then a rain shower for 8 s. **Crystal**: a hit sends the surge rolling away from you. |
+| Meteor Falls (Steven) | Meteorites for cover; Steel and Rock types next to one ×1.15 DEF. Every 6 s two meteor fragments fall on markers near anyone (Rock 55, both sides). **Great meteorite**: a heavy hit cracks it open and your side's special moves get ×1.2 for 10 s; it reforms after 25 s. |
 
 | Seafoam Depths (Articuno) | Ice rules (rinks, ice pillars) and endless snow. Every 5 s two hailstones fall on markers near the challengers (Ice 50, 10% freeze). |
 | Power Plant (Zapdos) | Electric coils and rain. Every 4.5 s two lightning bolts strike near the challengers (Electric 55, 30% paralysis). |
 | Moltres's Nest | Victory Road's lava pools under a blazing sun. Every 5 s two burning rocks drop near the challengers (Fire 50, 30% burn). |
 | Cerulean Cave (Mewtwo) | Deep pools slow you, crystal pillars, Mewtwo hurls a psychic boulder every 3.5 s (Psychic 60) and sends a psychic pulse rippling out every 9–12 s. |
-| Faraway Island (Mew) | Jungle: trees and tall grass. Mew teleports to a random patch of grass every 8–11 s, and in the grass it's ×1.1 faster and heals 0.15% HP/s. |
+| Faraway Island (Mew) | Jungle: trees and tall grass. Mew teleports to a random patch of grass every 8–11 s, and in the grass it's ×1.1 faster and heals 0.15% HP/s. Latias and Latios use it as Southern Island. |
+| Desert Ruins (Regirock) | A sandstorm that never ends (0.5% HP/s to challengers that aren't Rock, Ground or Steel). Every 5 s two boulders fall near the challengers (Rock 50). Regice uses Seafoam Depths. |
+| Ancient Tomb (Registeel) | Dark stone and the lighthouse beam: in the light Steel types hit harder and everyone else slows. Every 5 s two steel shards fall (Steel 50). |
+| Marine Cave (Kyogre) | Deep water (Cascade rules, rock ledges) under heavy rain. Every 4.5 s two water spouts hit near the challengers (Water 55, a big push). Groudon's Terra Cave is Moltres's Nest under its sun. |
+| Sky Pillar (Rayquaza) | Crumbling tiles: stand still 2 s and a tile cracks, 2 s more and you fall through (5% max HP, back up beside the hole); holes settle after 12 s. Skyway gusts, and two dragon meteors every 5 s (Dragon 55). |
+| Birth Island (Deoxys) | Bare rock and a red triangle. Deoxys teleports across the island every 8–11 s and psychic shards fall near the challengers (Psychic 55). Jirachi is met at Meteor Falls, where the meteors only hit the challengers. |
 
 Lair hazards only hit the challengers and stop once the legendary is weakened. A legendary boss is also a
 slightly bigger target (hit radius ×1.25). Catch odds per ball: (8% + up to 30% the lower its HP was when it

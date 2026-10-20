@@ -6,11 +6,15 @@
 #include "raylib.h"
 #include "types.h"
 
+constexpr float ARENA_W_F = 620.0f, ARENA_H_F = 480.0f;   // the arena's size (arena.h has them as ARENA_W / ARENA_H)
+
 // Arenas. Stadium is the plain one; the rest are the eight gym stadiums.
 enum class ArenaKind { Stadium, Rock, Water, Electric, Grass, Poison, Psychic, Fire, Ground,
                        Ice, Fighting, Ghost, Dragon, Champion,               // the Pokemon League
                        Seafoam, PowerPlant, Ember, Unknown, Faraway,         // legendary encounters
                        Flying, Bug, Normal, Steel, Dark, JohtoChampion,      // Johto (Falkner, Bugsy, Whitney, Jasmine, Karen, Lance)
+                       Balance, TwinMoons, Sootopolis, HoennChampion, MeteorFalls,   // Hoenn (Norman, Tate & Liza, Juan, Wallace, Steven)
+                       DesertRuins, AncientTomb, MarineCave, SkyPillar, BirthIsland, // Hoenn legendary lairs
                        Count };
 // A legendary's lair plays by an existing arena's rules (plus its own extras): Seafoam = Ice,
 // Power Plant = Electric, Moltres's nest = Fire, Faraway Island = Grass. Cerulean Cave is its own.
@@ -21,10 +25,16 @@ inline ArenaKind ArenaRules(ArenaKind k) {
         case ArenaKind::Ember: return ArenaKind::Fire;
         case ArenaKind::Faraway: return ArenaKind::Grass;
         case ArenaKind::JohtoChampion: return ArenaKind::Champion;   // Lance's hall: the spotlight, plus his dragon statues
+        case ArenaKind::HoennChampion: return ArenaKind::Champion;   // Wallace's hall: the spotlight, plus pools and the waterfall
+        case ArenaKind::AncientTomb: return ArenaKind::Steel;        // Registeel's tomb: the lighthouse beam in the dark
+        case ArenaKind::MarineCave: return ArenaKind::Water;         // Kyogre's cave: the Cascade Gym's water
+        case ArenaKind::SkyPillar: return ArenaKind::Flying;         // Rayquaza's summit: Skyway gusts
         default: return k;
     }
 }
-inline bool IsLegendArena(ArenaKind k) { return k >= ArenaKind::Seafoam && k <= ArenaKind::Faraway; }
+inline bool IsLegendArena(ArenaKind k) {
+    return (k >= ArenaKind::Seafoam && k <= ArenaKind::Faraway) || (k >= ArenaKind::DesertRuins && k <= ArenaKind::BirthIsland);
+}
 constexpr int ARENA_COUNT = (int)ArenaKind::Count;
 const char* ArenaName(ArenaKind k);         // "Stone Gym" etc.
 const char* ArenaKey(ArenaKind k);          // "rock" etc. (story.txt)
@@ -73,7 +83,7 @@ struct Obstacle {
 
 // Ellipse areas on the floor (world units).
 struct Zone {
-    enum Kind { Platform, TallGrass, PoisonPool, LavaPool, Web } kind = Platform;   // Web: Bugsy's (drawn live: fire burns it away)
+    enum Kind { Platform, TallGrass, PoisonPool, LavaPool, Web, Pool } kind = Platform;   // Web: Bugsy's (drawn live: fire burns it away); Pool: Wallace's shallow pools
     Vector2 pos{0, 0};
     float rx = 30, ry = 30;
     uint32_t seed = 0;    // edge shape (Wobble)
@@ -130,8 +140,14 @@ struct Turret {
 //   Hive (Bugsy): a hit sends a homing swarm at the hitter's foes. Fire smokes it out for a while.
 //   MilkTank (Whitney): a hit spills Moomoo Milk pools by the hitter that heal (Normal types twice as much).
 //   Lamp (Jasmine): the lighthouse lamp sweeps a beam round; a hit reverses it and speeds it up.
+//   Scale (Norman): tips toward whoever hit it last - their foes' rooms turn against them for a while.
+//   Dial (Tate & Liza): the sun-moon dial; a hit brings the eclipse early, a Dark hit jams it.
+//   Font (Juan): a hit calls up rain for the hitter's side; Grass or Electric stops it.
+//   Crystal (Wallace): a hit sets off the waterfall's surge early, rolling away from the hitter.
+//   Meteorite (Steven): a heavy hit cracks it open - it glows and powers up the hitter's side, then reforms.
 struct Centerpiece {
-    enum Kind : uint8_t { None, Boulder, Drain, Generator, Bloom, Vat, Orb, Vent, Spinner, Vane, Hive, MilkTank, Lamp } kind = None;
+    enum Kind : uint8_t { None, Boulder, Drain, Generator, Bloom, Vat, Orb, Vent, Spinner, Vane, Hive, MilkTank, Lamp,
+                          Scale, Dial, Font, Crystal, Meteorite } kind = None;
     Vector2 pos{0, 0}, home{0, 0}, vel{0, 0};
     float radius = 18;
     uint8_t phase = 0;        // what it's doing now (per kind)
@@ -152,6 +168,14 @@ struct Wisp {
     float life = 0;       // > 0: out and hunting (seconds left)
     float respawnT = 0;   // gone: back after this
     uint32_t seed = 0;
+};
+
+// Juan's cracked ice and the Sky Pillar's crumbling floor: square tiles that crack and give way.
+struct Tile {
+    Vector2 pos{0, 0};    // centre
+    uint8_t state = 0;    // 0 solid, 1 cracked, 2 broken (water / a hole)
+    float standT = 0;     // how long someone has stood on it since it last changed
+    float t = 0;          // broken: seconds until it freezes / settles back
 };
 
 struct Field {
@@ -177,6 +201,31 @@ struct Field {
     uint8_t windOn = 0;             // 0 calm, 1 the windsocks warn, 2 a gust is blowing
     std::vector<Vector2> lights, lightTo;   // Karen's chamber: drifting pools of light
     float lightT = 0;
+    // Hoenn
+    std::vector<Tile> tiles;        // Juan's ice / the Sky Pillar floor
+    float phaseT = 0;               // Twin Moons: next eclipse; Wallace: next surge
+    uint8_t phase = 0;              // Twin Moons: 0 = sun on the left, 1 = moon on the left
+    float warnT = 0;                // > 0: an eclipse / a surge is coming
+    float jamT = 0;                 // Twin Moons: the dial jammed by a Dark move
+    int rainOwner = -1;             // Juan's Rain Font: the team the rain falls for
+    float rainT = 0;
+    float surgeT = -1;              // Wallace: >= 0 while the waterfall's wave rolls across (0..1)
+    Vector2 surgeDir{0, 1};
+    int scaleOwner = -1;            // Norman's scale: tipped toward this team
+    float scaleT = 0;
+    int glowOwner = -1;             // Steven's meteorite: cracked open for this team
+    float glowT = 0;
+    static constexpr float TILE = 40;
+    int TileAt(Vector2 p) const {   // -1: no tile there (solid rock)
+        for (size_t i = 0; i < tiles.size(); i++)
+            if (std::fabs(p.x - tiles[i].pos.x) <= TILE / 2 && std::fabs(p.y - tiles[i].pos.y) <= TILE / 2) return (int)i;
+        return -1;
+    }
+    bool Broken(Vector2 p) const { int i = TileAt(p); return i >= 0 && tiles[i].state == 2; }
+    // Norman's rooms: 0 Speed (top left), 1 Defense (top right), 2 Recovery (bottom left), 3 Strength (bottom right)
+    static int RoomAt(Vector2 p) { return (p.x < ARENA_W_F / 2 ? 0 : 1) + (p.y < ARENA_H_F / 2 ? 0 : 2); }
+    // Tate & Liza: is this spot in the sun half?
+    bool SunAt(Vector2 p) const { return (p.x < ARENA_W_F / 2) == (phase == 0); }
     static constexpr float SPOT_R = 44, LIGHT_R = 48, BEAM_HALF = 0.24f;
     ArenaKind Rules() const { return ArenaRules(kind); }
     bool InSpot(Vector2 p) const { float dx = p.x - spot.x, dy = p.y - spot.y; return Rules() == ArenaKind::Champion && dx * dx + dy * dy < SPOT_R * SPOT_R; }

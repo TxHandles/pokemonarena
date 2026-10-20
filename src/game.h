@@ -125,8 +125,10 @@ struct Game {
     std::string nameBuf;
     Profile profile;            // the Story Mode profile in use
     int starterSel = 0;
-    bool johtoPick = false;     // the starter screens are Professor Elm's gift on arriving in Johto
-    float johtoRevealT = -1;    // >= 0: Silver has just taken his starters (shown, then the hub)
+    int regionPick = 0;         // > 0: the starter screens are that region's gift on arriving (1 Johto: Elm, 2 Hoenn: Birch)
+    float regionRevealT = -1;   // >= 0: the rival has just taken their starters (shown, then the hub)
+    std::string cardTitle, cardText, cardMon;   // a story card waiting to be read (cardTitle empty = none)
+    int cardFor = -2;           // the stage whose pre-battle card was shown (-2 none)
     bool hubTower = false;      // hub: the first item shows the Battle Tower instead of the next story battle
     int myCreSel = 0;
 
@@ -354,10 +356,14 @@ bool StoryDone(const Game& g);                // every region's story is done (J
 int CurStage(const Game& g);                  // the next story battle (solo or co-op)
 bool RegionDone(const Game& g, int region);   // that region's Champion is beaten
 bool KantoDone(const Game& g);                // the Kanto Champion is beaten: the Battle Tower is open, Johto awaits
-bool NeedsJohtoStarter(const Game& g);        // Johto reached, but someone hasn't got Professor Elm's starter yet
-void BeginJohtoStarter(Game& g);              // to the starter screen for the Johto gift
-// After the Johto starters are chosen: Silver takes his (yours on the left, his on the right).
-void DrawSilverReveal(const Game& g, const std::vector<std::string>& yours, const std::vector<std::string>& his);
+int NeedsRegionStarter(const Game& g);        // a new region reached (1 Johto, 2 Hoenn), but someone hasn't got its starter yet (0 = no)
+void BeginRegionStarter(Game& g);              // to the starter screen for that region's gift
+int RegionGiftLevel(const Game& g, int region, int who = 0);
+std::string RegionRivalName(int region);                          // "Silver", "May"
+std::string RegionWatchLine(int region, bool coop, int left);     // the rival watching before you choose
+std::string RegionIntroLine(int region, const std::string& who, int level);   // the level that region's starter gift comes at
+// After the region's starters are chosen: the rival takes theirs (yours on the left, theirs on the right).
+void DrawRivalReveal(const Game& g, const std::vector<std::string>& yours, const std::vector<std::string>& his);
 void BeginTowerFloor(Game& g, int floor, uint32_t seed);   // set up the next Tower battle (then the intro screen)
 uint32_t TowerSeedFor(const Game& g);         // this run's floors (the same on both online computers)
 void UpdateShop(Game& g);            void DrawShop(const Game& g);
@@ -422,6 +428,12 @@ bool StartGymRematch(Game& g, int stage);   // from the Map: false (with a toast
 int BadgeCount(const Game& g);
 int& StoryClock(Game& g);                   // shared time of day / season (co-op save or profile)
 int StoryClock(const Game& g);
-void EnsureRival(Game& g, int region = 0);  // the rival (Blue in Kanto, Silver in Johto) picks his starter(s) once per save
+void EnsureRival(Game& g, int region = 0);  // the rival (Blue in Kanto, Silver in Johto, May in Hoenn) picks their starter(s) once per save
+// Story cards: a full-screen page of the story (shown over the hub or a battle's intro until read).
+void ShowStoryCard(Game& g, const std::string& titleAndText, const std::string& mon = "");
+bool StoryCardUp(const Game& g);
+bool UpdateStoryCard(Game& g);   // true while the card takes the input
+void DrawStoryCard(const Game& g);
+bool PostgameBeaten(const Game& g, int stage);   // an optional post-game battle (Red, Steven) has been won
 int ProfileStarter(const Profile& p);       // species index of the starter they chose (-1 unknown)
 void StoryTimeStep(Game& g, bool announce); // one step of time (a battle or a Wait)

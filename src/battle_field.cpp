@@ -193,9 +193,10 @@ void Battle::UpdateField(float dt) {
     if (field.kind == ArenaKind::Ghost && live) UpdateWisps(dt);
     if ((field.kind == ArenaKind::Dragon || field.kind == ArenaKind::JohtoChampion) && live) UpdateStatues(dt);
     if (field.Rules() == ArenaKind::Champion) UpdateSpotlight(dt);
-    if (field.kind == ArenaKind::Flying && live) UpdateWind(dt);
+    if ((field.kind == ArenaKind::Flying || field.kind == ArenaKind::SkyPillar) && live) UpdateWind(dt);
     if (field.kind == ArenaKind::Dark) UpdateLights(dt);
     if (IsLegendArena(field.kind) && live) UpdateLegendField(dt);
+    UpdateHoenn(dt);
 
     for (int s = 0; s < N(); s++) FieldEffectsOn(s, dt);
 }
@@ -301,6 +302,11 @@ void Battle::UpdateLegendField(float dt) {
         case ArenaKind::PowerPlant: c = {Type::Electric, 55, Status::Paralyze, 0.3f, 2, 4.5f, 15}; break;
         case ArenaKind::Ember: c = {Type::Fire, 50, Status::Burn, 0.3f, 2, 5.0f, 15}; break;
         case ArenaKind::Unknown: c = {Type::Psychic, 60, Status::None, 0, 1, 3.5f, 18}; break;
+        case ArenaKind::DesertRuins: c = {Type::Rock, 50, Status::None, 0, 2, 5.0f, 16}; break;
+        case ArenaKind::AncientTomb: c = {Type::Steel, 50, Status::None, 0, 2, 5.0f, 15}; break;
+        case ArenaKind::MarineCave: c = {Type::Water, 55, Status::None, 0, 2, 4.5f, 17}; break;
+        case ArenaKind::SkyPillar: c = {Type::Dragon, 55, Status::None, 0, 2, 5.0f, 16}; break;
+        case ArenaKind::BirthIsland: c = {Type::Psychic, 55, Status::None, 0, 2, 5.0f, 15}; break;
         default: break;
     }
     if (c.count > 0) {
@@ -322,7 +328,8 @@ void Battle::UpdateLegendField(float dt) {
                 p.target = p.pos = at;
                 p.dur = 1.25f;
                 p.t = -k * 0.3f;
-                p.z = 110;
+                p.z = field.kind == ArenaKind::MarineCave ? 0.0f : 110.0f;   // Kyogre's spouts burst up from below
+                if (field.kind == ArenaKind::MarineCave) p.hit.knock = 2.2f;
                 p.radius = c.radius;
                 p.spin = Frand(0, 6);
                 projs.push_back(p);
@@ -345,6 +352,27 @@ void Battle::UpdateLegendField(float dt) {
             AddText(bf.pos, "A wave of psychic power!", Color{220, 140, 255, 255}, 34);
             Shake(2);
             PlaySfx(Sfx::Buff);
+        }
+    }
+    if (field.kind == ArenaKind::BirthIsland) {   // Deoxys teleports across its island
+        field.blinkT -= dt;
+        if (field.blinkT <= 0) {
+            field.blinkT = Frand(8.0f, 11.0f);
+            Vector2 to{Frand(90, ARENA_W - 90), Frand(60, ARENA_H - 60)};
+            for (int tries = 0; tries < 8; tries++) {
+                bool ok = Dist(to, bf.pos) > 120;
+                for (int s = 0; s < N(); s++) if (sides[s].teamId == 0 && Dist(sides[s].Cur().pos, to) < 70) ok = false;
+                if (ok) break;
+                to = {Frand(90, ARENA_W - 90), Frand(60, ARENA_H - 60)};
+            }
+            Burst(bf.pos, Color{255, 120, 90, 255}, 16, 70, 10);
+            bf.pos = to;
+            bf.pendingMove = -1;
+            bf.dashing = false;
+            bf.knock = {0, 0};
+            Burst(bf.pos, Color{120, 220, 255, 255}, 16, 70, 10);
+            AddText(bf.pos, bf.sp->name + " teleported!", Color{120, 220, 255, 255}, 34);
+            PlaySfx(Sfx::Shield);
         }
     }
     if (field.kind == ArenaKind::Faraway) {   // Mew teleports to another patch of tall grass
@@ -438,6 +466,7 @@ void Battle::FieldEffectsOn(int s, float dt) {
     Fighter& f = sides[s].Cur();
     f.envSpeed = 1;
     f.envAtk = 1;
+    f.envDef = 1;
     f.portalCd = std::max(0.0f, f.portalCd - dt);
     if (f.state != FState::Active || f.burrowed || f.hp <= 0) return;
     const SpeciesDef* sp = f.sp;
@@ -649,6 +678,7 @@ void Battle::FieldEffectsOn(int s, float dt) {
             break;
         default: break;
     }
+    HoennEffectsOn(s, dt);
 }
 
 // ---------------------------------------------------------------- Obstacles
@@ -773,6 +803,7 @@ void Battle::TryElectrify(Vector2 at, const HitSpec& h) { FieldReact(at, h, 0); 
 void Battle::FieldReact(Vector2 at, const HitSpec& h, float radius) {
     if (h.power <= 0) return;
     CenterReact(at, h, radius);
+    HoennFieldReact(at, h, radius);
     if (h.type == Type::Fire && field.kind == ArenaKind::Bug) {   // Bugsy's webs go up in flames
         for (const Zone& z : field.zones) {
             if (z.kind != Zone::Web || !z.Contains(at, radius + 6)) continue;
@@ -1261,6 +1292,7 @@ Vector2 Battle::FieldPull(int s) const {
             break;
         default: break;
     }
+    pull += HoennPull(s);
     return pull;
 }
 
@@ -1831,6 +1863,7 @@ void Battle::DrawFieldFloor() const {
             break;
         default: break;
     }
+    DrawHoennFloor();
     // Fallen trees and pillar rubble lie on the floor.
     for (const Obstacle& o : field.obs) {
         if (o.alive) continue;
@@ -2005,6 +2038,7 @@ void Battle::DrawFieldTop() const {
             }
         }
     }
+    DrawHoennTop();
 }
 
 // Bruno's ring: corner posts and three ropes (red, white, blue). The back and sides go under

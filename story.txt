@@ -44,6 +44,14 @@
 #                   fight beside you (the CPU runs them); in co-op it is the usual 2v2.
 #  partner = Lance  a double battle where this trainer fights beside you instead (alone);
 #  partner_team = Gyarados, Dragonite +1   his Pokemon (same format as team)
+#  postgame = yes  optional: the story goes on past it, and it's fought from the Map once the
+#                   region's Champion is beaten (Red on Mt. Silver, Steven at Meteor Falls)
+#  floor = 85       the stage is built from at least this team average (Hoenn: level = +N)
+#  story = ...      a narration line on the battle's intro
+#  card = Title | text        a story page the first time the battle comes up
+#  card_after = Title | text  a story page after the first win
+#  card_pokemon = Groudon     who is pictured on those pages
+#  gift = Castform  everyone is given this Pokemon after the first win
 #  story_rev = 3   layout version (lets old saves keep their place when stages are added)
 # ==========================================================================
 
@@ -1051,3 +1059,545 @@ cpu = hard
 catch = no
 venue = mountain
 outdoor = yes
+postgame = yes
+
+# ==========================================================================
+#  HOENN - opens once Johto's Champion Lance is beaten ("Travel to Hoenn!" on the Story menu).
+#  Red on Mt. Silver is a post-game challenge now (from the Map), so he doesn't block the way.
+#  Professor Birch gives a third starter at your team's average -3 (at least start_level); May,
+#  his daughter, takes one that beats yours (co-op: two of the seven left). "rival" below is hers.
+#  Hoenn follows your team: every stage is "level = +N" over your average, with a floor (the
+#  average never counts as lower than it) so a low-level tag-along can't make a gym easy.
+#  rival_hoenn1 / rival_hoenn2: May's two partners (Emerald: the two of Wingull, Lotad and
+#  Slugma that don't share her starter's type). "@N" evolves a Pokemon the way it would be at
+#  level N in the games (Combusken on Route 110, Blaziken by Lilycove).
+#  story = a narration line on the intro; card / card_after = "Title | text": a story page before
+#  the battle (the first time) / after the first win; card_pokemon = who's pictured on them.
+#  gift = a Pokemon everyone is given after the first win.
+# ==========================================================================
+[region]
+name = Hoenn
+map_image = hoenn.png
+start_level = 85
+start_avg = -3
+rival = May
+intro = Professor Birch is being chased by a wild Zigzagoon on Route 101! Grab a Poke Ball from his bag, {name} - it's level {level}.
+watch = Birch's daughter May is watching from the path... she'll pick the one that beats yours.
+watch_coop = May is watching from the path... she'll take two of the {left} you don't pick.
+reveal = Professor Birch's daughter May took {mons}. She's your rival now!
+reveal_quote = I've been helping my dad research Pokemon all over Hoenn. Let's see if you can keep up!
+town = Littleroot Town, 246, 606
+town = Oldale Town, 246, 506
+town = Petalburg City, 150, 502
+town = Rustboro City, 74, 358
+town = Dewford Town, 170, 758
+town = Slateport City, 370, 590
+town = Mauville City, 368, 384
+town = Verdanturf Town, 246, 374
+town = Fallarbor Town, 208, 188
+town = Lavaridge Town, 274, 274
+town = Fortree City, 450, 188
+town = Lilycove City, 650, 274
+town = Mossdeep City, 934, 332
+town = Sootopolis City, 810, 452
+town = Pacifidlog Town, 702, 606
+town = Ever Grande City, 1084, 536
+
+# ---------------------------------------------------------------- Chapter 1: Littleroot Town to Rustboro City
+[stage]
+name = Route 103
+map = 246, 452
+trainer = Rival May
+card = Moving to Littleroot | The moving truck rattles to a stop in Littleroot Town. Your dad, Norman, has just become the Gym Leader of Petalburg City, and your new neighbor is Professor Birch - who you've already rescued from a wild Zigzagoon with one of his own Poke Balls. His daughter May has a Pokemon too, and she's waiting for you on Route 103.
+story = May, Professor Birch's daughter, is out on Route 103 helping her dad map where Pokemon live.
+say = There you are! Dad says you've battled in two regions already. Then show me what a real trainer can do - I won't go easy on my new neighbor!
+team = rival_hoenn1@12 -2, rival_hoenn2@12 -2, rival@12
+level = 0
+floor = 80
+cpu = normal
+catch = no
+rival = yes
+venue = route
+
+[stage]
+name = Petalburg Woods
+map = 70, 432
+trainer = Team Aqua Grunt
+story = A man in a striped bandana has a Devon researcher backed against a tree, demanding the papers in his bag.
+say = Hand over those Devon papers! Huh? A kid wants to get in the way of Team Aqua? You'll regret that!
+team = Zubat -2, Carvanha -1, Poochyena +1
+level = 0
+floor = 80
+cpu = normal
+venue = forest
+
+[stage]
+name = Rustboro City
+map = 96, 334
+trainer = Rival May
+story = Back in Petalburg, your dad lent a sickly boy named Wally a Zigzagoon, and he caught his very first Pokemon - a Ralts - before moving to Verdanturf for the clean air. May heard all about it.
+say = Did you see Wally catch that Ralts? Everyone's starting their journey! I've caught a few more Pokemon since Route 103 - let's see who's grown more!
+team = rival_hoenn1@15 -1, rival_hoenn2@15 -1, rival@15 +1
+level = 1
+floor = 80
+cpu = normal
+catch = no
+rival = yes
+venue = city
+
+[stage]
+name = Rustboro Gym
+map = 74, 358
+trainer = Leader Roxanne
+say = Welcome to the Rustboro Gym. I became a Gym Leader to put what I learned at the Trainer's School into practice. Let's see what the textbooks say about you!
+team = Geodude -2, Geodude -2, Omastar -1, Kabutops -1, Nosepass +1
+level = 0
+floor = 80
+cpu = hard
+arena = rock
+badge = Stone
+
+# ---------------------------------------------------------------- Chapter 2: Rusturf Tunnel, Dewford and Slateport
+[stage]
+name = Rusturf Tunnel
+map = 162, 364
+trainer = Hiker Mike
+story = Mr. Stone, the president of Devon, asks you to take a letter to his son Steven in Dewford and the stolen Devon Goods to Captain Stern in Slateport. The thief has fled into Rusturf Tunnel - and a hiker blocks the way.
+say = The Aqua fellow ran deeper in, but he won't get past the rockslide. Neither will you, unless you get past my Pokemon first!
+team = Geodude -1, Geodude -1, Machop +1
+level = 0
+floor = 80
+cpu = normal
+venue = cave
+
+[stage]
+name = Dewford Gym
+map = 170, 758
+trainer = Leader Brawly
+story = The grunt handed back the Devon Goods and ran. Mr. Briney and his Wingull Peeko ferried you across the sea to the little island of Dewford.
+say = I'm Brawly! I came to Dewford to train in its big waves. My Pokemon ride every wave of battle - let's see you keep your balance!
+team = Machop -2, Meditite -2, Hitmontop -1, Machamp -1, Makuhita +1
+level = 1
+floor = 80
+cpu = hard
+arena = fighting
+badge = Knuckle
+
+[stage]
+name = Oceanic Museum
+map = 392, 612
+trainer = Team Aqua Grunts
+story = You delivered the letter to Steven deep in Granite Cave - "We'll meet again," he said. Now two Aqua grunts block the museum's second floor, after Captain Stern's submarine parts.
+say = Those parts belong to Team Aqua now! Two of us against one kid? This won't take long!
+card_after = Archie | A big man with a bandana and a sailor's swagger pushes through the museum doors. "I am Archie, the leader of Team Aqua. All life began in the sea - and we will expand it, for the sake of every Pokemon. Remember this, child: don't meddle with us again." He leaves with his grunts... for now.
+team = Carvanha -2, Zubat -2, Carvanha -1, Poochyena -1
+level = 1
+floor = 80
+cpu = normal
+double = yes
+venue = city
+
+# ---------------------------------------------------------------- Chapter 3: Route 110 and Mauville City
+[stage]
+name = Route 110
+map = 356, 470
+trainer = Rival May
+say = I've been to Slateport's market and back! I even found out how Pokemon evolve faster near the sea. Ready for round three?
+team = rival_hoenn1@20 -1, rival_hoenn2@20 -1, rival@20 +1
+level = 1
+floor = 81
+cpu = hard
+catch = no
+rival = yes
+venue = route
+
+[stage]
+name = Cycling Road
+map = 340, 528
+trainer = Triathlete Jacob
+say = I ride Cycling Road twice a day, rain or shine! Can your Pokemon keep pace with a triathlete's?
+team = Voltorb -1, Voltorb -1, Magnemite +1
+level = 1
+floor = 81
+cpu = normal
+venue = bridge
+
+[stage]
+name = Mauville City
+map = 396, 404
+trainer = Wally
+story = Wally is visiting his uncle in Mauville. He wants to travel with you - and his uncle says he can, if he wins a battle.
+say = Please battle me! If I win, I can go on a journey too. Ralts and I have been practicing every day!
+team = Zigzagoon -1, Roselia -1, Ralts +1
+level = 1
+floor = 81
+cpu = normal
+venue = city
+
+[stage]
+name = Mauville Gym
+map = 368, 384
+trainer = Leader Wattson
+say = Wahahahah! So you're the trainer who made it this far! Mauville runs on my electricity - let's see if you can handle a full charge!
+team = Voltorb -2, Electrike -2, Magneton -1, Ampharos -1, Manectric +2
+level = 1
+floor = 81
+cpu = hard
+arena = electric
+badge = Dynamo
+
+# ---------------------------------------------------------------- Chapter 4: Mt. Chimney and Lavaridge Town
+[stage]
+name = Mt. Chimney
+map = 304, 244
+trainer = Magma Admin Tabitha
+story = Wattson asked you to shut off the runaway generator under New Mauville. On the way north, the cable car up Mt. Chimney is crawling with red hoods.
+card = The Meteorite | At Meteor Falls, Team Magma snatched a Meteorite from Professor Cozmo - Team Aqua arrived too late to stop them. Now Magma has climbed Mt. Chimney with it. Their leader Maxie believes its power can set off the volcano.
+say = Hehehe! The boss is up at the crater with the Meteorite. Nobody interrupts Team Magma's plan - least of all you!
+team = Numel -2, Poochyena -2, Numel -1, Zubat +1
+level = 1
+floor = 82
+cpu = hard
+venue = mountain
+
+[stage]
+name = Mt. Chimney Summit
+map = 326, 214
+trainer = Magma Leader Maxie
+story = Archie and his grunts are already on the summit - but Maxie has the Meteorite in the machine.
+say = More land for people to live on, and for Pokemon to thrive! That is what Team Magma wants. A child who can't see that is only in the way.
+team = Mightyena -1, Zubat -1, Camerupt +2
+level = 2
+floor = 82
+cpu = hard
+venue = volcano
+
+[stage]
+name = Lavaridge Gym
+map = 274, 274
+trainer = Leader Flannery
+story = With Maxie beaten, the Meteorite is out of his machine. Below the summit, Lavaridge's hot springs steam.
+say = Welcome... no, wait. Puny trainer, welcome to my... ugh. I only just took over from my grandfather - but I'll burn you to a crisp all the same!
+team = Numel -2, Slugma -2, Camerupt -1, Houndoom -1, Torkoal +2
+level = 2
+floor = 82
+cpu = hard
+arena = fire
+badge = Heat
+
+# ---------------------------------------------------------------- Chapter 5: Petalburg City
+[stage]
+name = Petalburg Gym
+map = 150, 502
+trainer = Leader Norman
+card = Father and Son | Your dad said he would only accept your challenge once you had four badges. You have them now. Norman is waiting in the last room of his gym, the one you've walked past every day since you moved to Hoenn.
+say = So you finally have four badges. I'm proud of you... but in this gym, I'm a Gym Leader first. Give it everything - I know I will!
+team = Spinda -2, Vigoroth -2, Linoone -1, Kangaskhan -1, Blissey -1, Slaking +2
+level = 2
+floor = 82
+cpu = hard
+arena = balance
+badge = Balance
+
+# ---------------------------------------------------------------- Chapter 6: Route 119 to Fortree City
+[stage]
+name = Weather Institute
+map = 432, 280
+trainer = Aqua Admin Shelly
+story = Team Aqua has stormed the Weather Institute on Route 119. They want its research on Castform - and on the weather itself.
+say = Ahahaha! The institute's data on rain will help us call up the sea. Don't make me laugh - you think you can stop Team Aqua alone?
+team = Carvanha -1, Zubat -1, Mightyena +1
+level = 2
+floor = 83
+cpu = hard
+venue = lab
+gift = Castform
+
+[stage]
+name = Route 119
+map = 456, 324
+trainer = Rival May
+say = I heard you saved the Weather Institute! My Pokemon and I came all this way through the rain to battle you - let's go!
+team = rival_hoenn1@31 -1, rival_hoenn2@31 -1, rival@31 +1
+level = 2
+floor = 83
+cpu = hard
+catch = no
+rival = yes
+venue = route
+outdoor = yes
+
+[stage]
+name = Route 120
+map = 560, 300
+trainer = The Invisible Pokemon
+story = On Route 120, Steven hands you the Devon Scope. "Something you can't see is blocking that bridge. Try this."
+say = You look through the Devon Scope... a Kecleon, perfectly camouflaged, turns visible and attacks!
+team = Kecleon +3
+level = 3
+floor = 83
+cpu = hard
+catch = no
+reward = no
+join = yes
+venue = bridge
+
+[stage]
+name = Fortree Gym
+map = 450, 188
+trainer = Leader Winona
+say = I am Winona. My bird Pokemon and I have soared through the skies above Fortree together. Witness the elegant choreography of the sky!
+team = Swablu -2, Tropius -2, Pelipper -1, Skarmory -1, Dragonite -1, Altaria +2
+level = 3
+floor = 83
+cpu = hard
+arena = flying
+badge = Feather
+
+# ---------------------------------------------------------------- Chapter 7: Lilycove, Mt. Pyre and the two hideouts
+[stage]
+name = Lilycove City
+map = 628, 296
+trainer = Rival May
+say = This is it - my last challenge before I go home to help Dad with his research. I'm going all out. Don't hold back either!
+team = Tropius -1, rival_hoenn1@34 -1, rival_hoenn2@34 -1, rival@36 +2
+level = 2
+floor = 84
+cpu = hard
+catch = no
+rival = yes
+venue = city
+
+[stage]
+name = Mt. Pyre
+map = 552, 352
+trainer = Breeder Gabrielle
+story = Mt. Pyre, where the spirits of Pokemon rest. Fog rolls in from the sea.
+card_after = The Orbs | At the summit, Team Aqua and Team Magma shove past the old couple who guard Mt. Pyre's treasures. Archie takes the Blue Orb. Maxie takes the Red Orb. "With these, Kyogre..." "...and Groudon will awaken." Both teams vanish into the fog.
+say = I've raised every one of my Pokemon from an Egg. They're all grown up now - and very protective!
+team = Delcatty -1, Mightyena -1, Linoone -1, Ludicolo -1, Shiftry -1, Swellow +1
+level = 2
+floor = 84
+cpu = hard
+venue = mountain
+
+[stage]
+name = Magma Hideout
+map = 262, 226
+trainer = Magma Admin Courtney
+story = Deep in Jagged Pass, a hidden door leads into the mountain. Team Magma has dug a hideout around something enormous, sleeping in the magma.
+say = ...Target found. Intruder. Analysis: you will lose. ...Ahaha. Commencing elimination.
+team = Mightyena -1, Weezing -1, Camerupt +1
+level = 3
+floor = 84
+cpu = hard
+venue = hideout
+
+[stage]
+name = Magma Hideout Depths
+map = 244, 246
+trainer = Magma Leader Maxie
+card_pokemon = Groudon
+card_after = Groudon Wakes | Maxie holds up the Red Orb. Light pours from it - and in the magma pool, Groudon opens its eyes. With a roar that shakes the whole mountain, it bursts out of the hideout and disappears. "What... it ignored the Orb?" For the first time, Maxie looks afraid.
+say = Fufufu... you came all this way just to watch Groudon awaken? Then watch closely - after I've dealt with you.
+team = Mightyena -1, Crobat -1, Camerupt +2
+level = 3
+floor = 84
+cpu = hard
+venue = volcano
+
+[stage]
+name = Aqua Hideout
+map = 700, 250
+trainer = Aqua Admin Matt
+story = Lilycove's cave hides Team Aqua's base. You're too late: Archie has already sailed off in Captain Stern's stolen submarine to find Kyogre.
+say = Hoo, hah! The boss is long gone, kid! You'll have to make do with me - and I'm the toughest admin there is!
+team = Mightyena -1, Golbat -1, Sharpedo +1
+level = 3
+floor = 84
+cpu = hard
+venue = hideout
+
+[stage]
+name = Aqua Hideout Storeroom
+map = 724, 268
+trainer = The Suspicious Poke Ball
+say = You reach for a Poke Ball lying on the floor... it's an Electrode! It's glowing - and getting ready to explode!
+team = Electrode +3
+level = 3
+floor = 84
+cpu = hard
+catch = no
+reward = no
+join = yes
+venue = hideout
+
+# ---------------------------------------------------------------- Chapter 8: Mossdeep City
+[stage]
+name = Mossdeep Space Center
+map = 958, 352
+trainer = Magma Leader Maxie & Magma Admin Tabitha
+card = The Space Center | Team Magma has stormed the Mossdeep Space Center to steal the rocket fuel and pour it into Mt. Chimney. Steven is there. "Let's do this together," he says, and his Metang floats out beside you.
+say = The rocket fuel will set the volcano roaring and give Groudon all the land it wants. Even with Steven beside you, you can't stop that now!
+team = Mightyena -1, Camerupt -1, Crobat -1, Mightyena -1, Camerupt +1, Golbat -1
+level = 3
+floor = 85
+cpu = hard
+partner = Steven
+partner_team = Skarmory -1, Aggron -1, Metang +1
+venue = lab
+
+[stage]
+name = Mossdeep Gym
+map = 934, 332
+trainer = Leader Tate & Liza
+say = Hehehe... were you surprised? That there are two Gym Leaders? We're twins! We don't need to talk - we just know what the other is thinking. Can you beat our combination?
+team = Claydol -2, Xatu -2, Hypno -1, Slowpoke -2, Solrock +2, Lunatone +2
+level = 3
+floor = 85
+cpu = hard
+arena = twinmoons
+badge = Mind
+double = yes
+
+# ---------------------------------------------------------------- Chapter 9: Seafloor Cavern and Sootopolis City
+[stage]
+name = Seafloor Cavern
+map = 884, 486
+trainer = Aqua Admin Shelly
+story = Diving from the stolen submarine, you follow Team Aqua into the Seafloor Cavern, deep under Route 128.
+say = Ahahaha! You actually followed us down here? The leader is in the inner chamber with the Blue Orb. You won't get there!
+team = Golbat -1, Sharpedo -1, Mightyena +1
+level = 3
+floor = 86
+cpu = hard
+venue = cave
+
+[stage]
+name = Seafloor Cavern Depths
+map = 908, 506
+trainer = Aqua Leader Archie
+card_pokemon = Kyogre
+card_after = The Weather War | Archie raises the Blue Orb and Kyogre wakes. It swims away, and endless rain falls over Hoenn. Over Sootopolis, Groudon's blazing sun meets Kyogre's storm, and the two titans clash in the crater. Maxie and Archie stare at what they've done. "This isn't what I wanted..." Wallace and Steven send you to the Sky Pillar: only Rayquaza can stop this.
+say = So you're the child who keeps getting in my way. Kyogre sleeps just beyond this chamber. With the Blue Orb, the sea will cover all!
+team = Mightyena -1, Crobat -1, Sharpedo +2
+level = 4
+floor = 86
+cpu = hard
+venue = cave
+
+[stage]
+name = Sootopolis Gym
+map = 810, 452
+trainer = Leader Juan
+card_pokemon = Rayquaza
+card = Rayquaza | At the top of the Sky Pillar, Rayquaza wakes. It streaks across the sky to Sootopolis and, with one deafening roar, calms Groudon and Kyogre. The rain stops, the sun softens, and the two titans sink back into the deep. Sootopolis Gym opens its doors.
+say = Ah, this Gym had a confident Leader once - Wallace, my student. Now it is I, Juan, who will show you the elegance of water. Let us dance!
+team = Luvdisc -2, Whiscash -2, Sealeo -1, Crawdaunt -1, Kingdra +2
+level = 4
+floor = 86
+cpu = hard
+arena = sootopolis
+badge = Rain
+
+# ---------------------------------------------------------------- Chapter 10: Victory Road
+[stage]
+name = Victory Road B2F
+map = 1056, 568
+trainer = Cooltrainer Vito
+say = I trained deep down here so I'd be ready for the League. My team covers every type you can bring!
+team = Dodrio -1, Kadabra -1, Electrode -1, Shiftry +1
+level = 3
+floor = 86
+cpu = hard
+venue = cave
+
+[stage]
+name = Victory Road
+map = 1072, 584
+trainer = Wally
+story = A familiar face waits at the end of Victory Road - healthy, confident, and with a full team.
+say = I've been waiting for you! I'm not the boy who could barely walk anymore. Ralts and I grew up together. This time, I'm going to win!
+team = Altaria -1, Delcatty -1, Roselia -1, Magneton -1, Gardevoir +2
+level = 4
+floor = 86
+cpu = hard
+venue = cave
+
+# ---------------------------------------------------------------- The Pokemon League (Ever Grande City)
+[stage]
+name = Sidney's Room
+map = 1066, 512
+trainer = Elite Four Sidney
+say = I'm Sidney of the Elite Four. I like that look you're giving me. Let's have a battle that can only happen here in the League!
+team = Mightyena -1, Cacturne -1, Shiftry -1, Crawdaunt -1, Absol +1
+level = 4
+floor = 88
+cpu = hard
+arena = dark
+league = 1
+
+[stage]
+name = Phoebe's Room
+map = 1080, 500
+trainer = Elite Four Phoebe
+say = I trained on Mt. Pyre, where the spirits gather. My Pokemon and I share a bond that reaches beyond this world. Can you feel it?
+team = Dusclops -1, Banette -1, Banette -1, Sableye -1, Dusclops +1
+level = 4
+floor = 88
+cpu = hard
+arena = ghost
+league = 2
+
+[stage]
+name = Glacia's Room
+map = 1096, 500
+trainer = Elite Four Glacia
+say = I came all the way from far away to find a trainer worth battling. Show me your hot passion - before my ice freezes it solid!
+team = Glalie -1, Sealeo -1, Glalie -1, Sealeo -1, Walrein +1
+level = 4
+floor = 88
+cpu = hard
+arena = ice
+league = 3
+
+[stage]
+name = Drake's Room
+map = 1110, 512
+trainer = Elite Four Drake
+say = I am Drake, the last of the Elite Four. A trainer must know what their Pokemon truly need. Do you? Prove it against my dragons!
+team = Shelgon -1, Altaria -1, Kingdra -1, Flygon -1, Salamence +1
+level = 5
+floor = 88
+cpu = hard
+arena = dragon
+league = 4
+
+[stage]
+name = Champion's Room
+map = 1088, 528
+trainer = Champion Wallace
+say = Welcome. I am Wallace, the Pokemon League Champion. I'll show you the true elegance of battle - a performance worthy of the strongest trainer in Hoenn!
+card_after = Steven's Challenge | You're Hoenn's Champion! Back in Mossdeep, Steven's house is empty except for a Poke Ball and a note: "This Beldum is for you. When you're ready, come and find me at Meteor Falls. I want to see how strong you've become - in a real battle."
+card_pokemon = Beldum
+gift = Beldum
+team = Wailord -1, Tentacruel -1, Whiscash -1, Ludicolo -1, Gyarados -1, Milotic +1
+level = 5
+floor = 88
+cpu = hard
+arena = hoennchampion
+league = 5
+
+# ---------------------------------------------------------------- Meteor Falls (after Wallace)
+[stage]
+name = Meteor Falls
+map = 104, 236
+trainer = Steven
+say = I knew you'd come. I've traveled all over Hoenn searching for rare stones - and for a trainer like you. Let's see who's stronger, Champion!
+team = Skarmory -1, Claydol -1, Aggron -1, Cradily -1, Armaldo -1, Metagross +2
+level = 6
+floor = 90
+cpu = hard
+catch = no
+arena = meteorfalls
+postgame = yes
