@@ -54,7 +54,7 @@ struct Ar {
         v(m.fixedDmg); v(m.powerMod); v(m.forceSwap); v(m.ohko); v(m.selfKO); v(m.counter); v(m.endure);
         v(m.falseSwipe); v(m.haze); v(m.cure); v(m.metronome); v(m.copycat); v(m.transform); v(m.payDay);
         v(m.original); v(m.cat); v(m.abFx); v(m.scope);
-        v(m.arc); v(m.tether); v(m.sleepOnly); v(m.antiAir); v(m.pin); v(m.throwKind);
+        v(m.arc); v(m.tether); v(m.sleepOnly); v(m.antiAir); v(m.pin); v(m.throwKind); v(m.clears); v(m.trail);
     }
     void v(HitSpec& h) {
         v(h.side); v(h.fighter); v(h.name); v(h.type); v(h.power); v(h.light); v(h.atk); v(h.lvlMul); v(h.t1); v(h.t2);
@@ -95,6 +95,7 @@ struct Ar {
         v(f.onIce); v(f.slid); v(f.slide); v(f.safeT); v(f.mistT); v(f.chantT); v(f.followT);
         v(f.dodgeT); v(f.dodgeCd); v(f.dodgeVel); v(f.jumpT); v(f.jumpDur); v(f.jumpVel);
         v(f.sweepT); v(f.sweepDur); v(f.sweepA0); v(f.sweepA1); v(f.sweepMove); v(f.sweepMask); v(f.heldT); v(f.heldZ); v(f.pinT);
+        v(f.rollT); v(f.rollBoost); v(f.rollDist); v(f.rollTrailT); v(f.rollMove); v(f.rollMask); v(f.rollBounces); v(f.rollVel);
     }
     void v(Side& s) {
         v(s.team); v(s.active); v(s.teamId); v(s.input); v(s.target); v(s.tag); v(s.damageDealt); v(s.cpu); v(s.earnXp);
@@ -109,10 +110,15 @@ struct Ar {
     void v(Zone& z) { v(z.kind); v(z.pos); v(z.rx); v(z.ry); v(z.seed); }
     void v(Portal& p) { v(p.pos); v(p.age); }
     void v(Turret& t) { v(t.pos); v(t.dir); v(t.warnT); v(t.aimAt); }
+    void v(Centerpiece& c) {
+        v(c.kind); v(c.pos); v(c.home); v(c.vel); v(c.radius); v(c.phase); v(c.t); v(c.charge); v(c.spin); v(c.spinRate);
+        v(c.owner); v(c.fireT); v(c.mask); v(c.bounces); v(c.hitCd); v(c.flash); v(c.marks);
+    }
     void v(Field& f) {
         v(f.kind); v(f.obs); v(f.zones); v(f.portals); v(f.turrets); v(f.portalT); v(f.turretT); v(f.lavaT); v(f.tickT);
         v(f.electrifyCd); v(f.waterFlash); v(f.spikeBand); v(f.puddles); v(f.puddleT); v(f.moundT); v(f.venue); v(f.season);
         v(f.wisps); v(f.spot); v(f.spotTo); v(f.spotT); v(f.strikeT); v(f.pulseT); v(f.blinkT);
+        v(f.center);
     }
     void v(Projectile& p) {
         v(p.hit); v(p.pos); v(p.vel); v(p.traveled); v(p.maxDist); v(p.radius); v(p.homing); v(p.lob); v(p.drop); v(p.start);
@@ -164,7 +170,7 @@ struct BattleIO {
             i(sd.active);
             for (const auto& fi : sd.team) {
                 f(fi.hp); f(fi.pos.x); f(fi.pos.y); i((int)fi.state); i(fi.species); f(fi.cd[0]); f(fi.cd[1]); f(fi.cd[2]); f(fi.cd[3]);
-                i(fi.xp); i((int)fi.st.major);
+                i(fi.xp); i((int)fi.st.major); f(fi.rollT);
             }
         }
         i((int)b.projs.size());
@@ -179,6 +185,7 @@ struct BattleIO {
         for (const auto& w : b.field.wisps) { f(w.pos.x); f(w.life); }
         f(b.field.spot.x);
         f(b.field.strikeT); f(b.field.blinkT);
+        i(b.field.center.phase); f(b.field.center.t); f(b.field.center.pos.x); f(b.field.center.charge); i(b.field.center.owner);
         return h;
     }
 };

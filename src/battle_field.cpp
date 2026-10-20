@@ -28,6 +28,7 @@ const Color kSpot{255, 236, 170, 255};
 // ---------------------------------------------------------------- Per-frame field update
 
 void Battle::UpdateField(float dt) {
+    UpdateCenterpiece(dt);
     field.electrifyCd = std::max(0.0f, field.electrifyCd - dt);
     field.waterFlash = std::max(0.0f, field.waterFlash - dt);
     // Barriers made by Wall moves fade away.
@@ -553,6 +554,7 @@ void Battle::FieldEffectsOn(int s, float dt) {
 
 void Battle::ObstacleImpact(Obstacle& o, const HitSpec& h, Vector2 dir, bool physical) {
     if (!o.Blocks()) return;
+    if (o.kind == Obstacle::Center) { CenterHit(h, dir, physical); return; }
     if (field.Rules() == ArenaKind::Ice && o.kind == Obstacle::Pillar && h.type == Type::Fire && h.power > 0) {
         o.alive = false;
         o.respawnT = 12.0f;
@@ -669,6 +671,7 @@ void Battle::TryElectrify(Vector2 at, const HitSpec& h) { FieldReact(at, h, 0); 
 //   Fire: ice melts, puddles boil away.     Water: splashes leave a small puddle.
 void Battle::FieldReact(Vector2 at, const HitSpec& h, float radius) {
     if (h.power <= 0) return;
+    CenterReact(at, h, radius);
     switch (h.type) {
         case Type::Electric: {
             for (Puddle& pd : field.puddles)
@@ -988,6 +991,7 @@ Vector2 Battle::FieldPull(int s) const {
     const Fighter& f = sides[s].Cur();
     const SpeciesDef* sp = f.sp;
     bool air = IsAirborne(*sp);
+    pull += CenterAvoid(s);
 
     for (const Obstacle& o : field.obs) {
         if (!o.Blocks()) continue;
@@ -1110,6 +1114,7 @@ void Battle::DrawObstacle(const Obstacle& o) const {
     int x = (int)std::round(b.x), y = (int)std::round(b.y);
     int r = (int)o.radius, h = (int)o.height;
     switch (o.kind) {
+        case Obstacle::Center: DrawCenterBody(o); return;
         case Obstacle::Pillar: {
             if (!o.alive) return;
             // The look depends on where it stands, and its seed picks a variant.
@@ -1595,6 +1600,7 @@ void Battle::DrawFieldFloor() const {
 }
 
 void Battle::DrawFieldTop() const {
+    DrawCenterTop();
     if (field.kind == ArenaKind::Fighting) DrawRingRopes(true);
     if (field.kind == ArenaKind::Ghost) {   // lights out: only the candles, the creatures and the wisps glow
         float dark = 0.40f + 0.03f * std::sin(time * 7) + 0.02f * std::sin(time * 13.3f);

@@ -97,7 +97,7 @@ bool Ranged(MoveKind k) {
            k == MoveKind::Tether || k == MoveKind::Grapple;
 }
 bool Lunge(MoveKind k) { return k == MoveKind::Melee || k == MoveKind::Dash || k == MoveKind::Blink || k == MoveKind::Leap || k == MoveKind::Burrow ||
-                              k == MoveKind::Throw; }
+                              k == MoveKind::Throw || k == MoveKind::Roll; }
 
 // The type's cast flourish around the user: particles themed on the element, scaled by power.
 void Flourish(Type t, Vector2 at, float k, Vector2 aim, Color glow) {

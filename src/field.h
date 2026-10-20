@@ -51,7 +51,7 @@ inline float Wobble(uint32_t seed, float ang) {
 }
 
 struct Obstacle {
-    enum Kind { Pillar, Tree, Coil, Boulder, MetalPillar, TempWall, SnowMound, Crate } kind = Pillar;
+    enum Kind { Pillar, Tree, Coil, Boulder, MetalPillar, TempWall, SnowMound, Crate, Center } kind = Pillar;   // Center: a gym's centerpiece (its body)
     uint32_t seed = 0;    // picks its look (shape variant, details)
     Vector2 pos{0, 0};
     float radius = 12, height = 28;
@@ -115,6 +115,31 @@ struct Turret {
     Vector2 aimAt{0, 0};
 };
 
+// A gym's signature centerpiece, in the middle of the arena.
+//   Boulder (Brock): a heavy hit knocks it loose and it rolls, crushing what's in its path.
+//   Drain (Misty): opens into a whirlpool that drags everyone in. Ice freezes it shut; Electric shocks everyone caught in it.
+//   Generator (Surge): charges from hits (Electric most) and overloads in a paralysing shockwave. Ground drains it.
+//   Bloom (Erika): opens and puffs sleep pollen. Fire burns it down; Grass types heal in the pollen.
+//   Vat (Koga): a hit bursts it, spilling a wave of sludge away from whoever hit it.
+//   Orb (Sabrina): fires at the foes of whoever hit it last. Dark moves knock it out for a while.
+//   Vent (Blaine): rumbles, then erupts, raining lava bombs on marked spots. Water calms it; Fire sets it off early.
+//   Spinner (Giovanni): a turntable that carries battlers around and flings them off when it reverses. Ground jams it.
+struct Centerpiece {
+    enum Kind : uint8_t { None, Boulder, Drain, Generator, Bloom, Vat, Orb, Vent, Spinner } kind = None;
+    Vector2 pos{0, 0}, home{0, 0}, vel{0, 0};
+    float radius = 18;
+    uint8_t phase = 0;        // what it's doing now (per kind)
+    float t = 0;              // time left in this phase
+    float charge = 0;         // Generator: 0..100; Bloom: growth; Vat: fill
+    float spin = 0, spinRate = 0;   // Drain / Spinner / Boulder: turn angle and speed
+    int owner = -1;           // Orb: the team it fights for (-1 none)
+    float fireT = 0;          // Orb: next shot
+    int mask = 0, bounces = 0;      // Boulder: who it has run over (per pass), wall bounces
+    float hitCd = 0;          // short guard after it reacts, so one move doesn't set it off twice
+    float flash = 0;          // a hit flash (drawing)
+    std::vector<Vector2> marks;     // Vent: where the lava bombs will land
+};
+
 // Agatha's hall: a will-o'-wisp drifts toward anything that isn't a Ghost and burns it.
 struct Wisp {
     Vector2 pos{0, 0}, vel{0, 0};
@@ -137,6 +162,7 @@ struct Field {
     std::vector<Puddle> puddles;
     float puddleT = 4, moundT = 6;   // next new puddle (rain) / snow mound (snow)
     std::vector<Wisp> wisps;         // Ghost hall
+    Centerpiece center;              // the gym's centerpiece (kind None outside the eight gyms)
     Vector2 spot{0, 0}, spotTo{0, 0};   // Champion's stadium: the roaming spotlight
     float spotT = 0;
     float strikeT = 0, pulseT = 0, blinkT = 0;   // legendary lairs: falling strikes, Mewtwo's pulse, Mew's teleport
@@ -149,4 +175,5 @@ struct Field {
     bool InZone(Vector2 p, Zone::Kind k, float pad = 0) const;
     bool InSpikes(Vector2 p) const;
     void PlacePortals();
+    void PlaceCenterpiece();
 };

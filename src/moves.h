@@ -34,6 +34,7 @@ enum class MoveKind {
     Tether,     // latches a line onto the foe: drains, binds or pins it until it breaks free
     Grapple,    // a vine / tongue / chain shot that yanks the foe in when it connects
     Throw,      // grabs a foe in reach and hurls it (extra damage into walls, rocks and hazards)
+    Roll,       // curls up and rolls, ricocheting off walls, rocks and foes like a pinball; stronger each bounce
     Count
 };
 
@@ -115,6 +116,10 @@ struct MoveDef {
     bool antiAir = false;          // Grapple: knocks a jumping foe out of the air (Smack Down)
     float pin = 0;                 // Grapple: the foe can't switch out for this long (Anchor Shot, Spirit Shackle)
     uint8_t throwKind = 0;         // Throw: 0 hurl, 1 carry up and drop (Sky Drop)
+    // Roll: speed = rolling speed, duration = how long it can roll, bounces = how many ricochets before it stops,
+    // amount = damage gained per bounce (0.2 = +20%)
+    bool clears = false;           // Roll: sweeps away traps, spikes and burning patches it rolls over (Rapid Spin, Steel Roller)
+    bool trail = false;            // Roll: leaves short-lived burning patches behind (Flame Wheel)
 };
 
 const std::vector<MoveDef>& MoveLibrary();

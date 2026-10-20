@@ -1,5 +1,6 @@
 #include "rng.h"
 #include "field.h"
+#include <algorithm>
 #include <cctype>
 #include <cmath>
 #include "arena.h"
@@ -75,14 +76,14 @@ const char* ArenaName(ArenaKind k) { return kNames[(int)k]; }
 
 const char* ArenaTwist(ArenaKind k) {
     switch (k) {
-        case ArenaKind::Rock: return "Stone pillars block shots. Heavy Pokemon can smash them and hurl them across the field.";
-        case ArenaKind::Water: return "Mostly water: Water types speed up, others slow down, flyers hover over it. Electric hits shock the whole pool!";
-        case ArenaKind::Electric: return "Tesla coils zap anyone close by - but Electric types near a coil get stronger and faster.";
-        case ArenaKind::Grass: return "Trees block shots, heavy hits knock them down, Fire burns them. Grass types power up in the tall grass.";
-        case ArenaKind::Poison: return "Poison pools hurt anything but Poison types, and toxic spikes shrink the field.";
-        case ArenaKind::Psychic: return "Four portals teleport anything that enters them - and they keep moving.";
-        case ArenaKind::Fire: return "Lava pools burn non-Fire types and spit fireballs. Rocks give a little cover.";
-        case ArenaKind::Ground: return "Steel pillars give cover. Every 10 seconds the wall cannons fire - watch for the red lines!";
+        case ArenaKind::Rock: return "Stone pillars block shots. Heavy Pokemon can smash them and hurl them across the field. Hit the Great Boulder hard and it rolls, crushing anything in its way.";
+        case ArenaKind::Water: return "Mostly water: Water types speed up, others slow down, flyers hover over it. Electric hits shock the whole pool! The drain in the middle opens into a whirlpool - Ice freezes it shut.";
+        case ArenaKind::Electric: return "Tesla coils zap anyone close by - but Electric types near a coil get stronger and faster. Hits charge the generator until it overloads - Ground drains it.";
+        case ArenaKind::Grass: return "Trees block shots, heavy hits knock them down, Fire burns them. Grass types power up in the tall grass. The giant flower puffs sleep pollen - Fire burns it down.";
+        case ArenaKind::Poison: return "Poison pools hurt anything but Poison types, and toxic spikes shrink the field. Burst the sludge vat and the wave sprays toward your foes.";
+        case ArenaKind::Psychic: return "Four portals teleport anything that enters them - and they keep moving. Hit the orb in the middle and it fires at your foes - Dark moves knock it out.";
+        case ArenaKind::Fire: return "Lava pools burn non-Fire types and spit fireballs. Rocks give a little cover. The volcano erupts on the glowing marks - Water calms it, Fire sets it off.";
+        case ArenaKind::Ground: return "Steel pillars give cover. Every 10 seconds the wall cannons fire - watch for the red lines! The turntable carries you round and flings you off when it reverses - Ground jams it.";
         case ArenaKind::Ice: return "Endless snow. Ice rinks send you sliding (Ice types skate faster). Ice pillars melt under Fire and grow back.";
         case ArenaKind::Fighting: return "A boxing ring: knocked into the ropes, you bounce back in! Fighting types hit harder in the center ring.";
         case ArenaKind::Ghost: return "Lights out. Will-o'-wisps drift toward anything that isn't a Ghost and can burn it. Ghost types move faster in the dark.";
@@ -315,6 +316,54 @@ void Field::Build(ArenaKind k, Venue v, int seasonIn) {
             break;
         default: break;
     }
+    PlaceCenterpiece();
+}
+
+// The gym's signature centerpiece goes in the middle; whatever was placed there makes room for it.
+void Field::PlaceCenterpiece() {
+    Centerpiece::Kind ck = Centerpiece::None;
+    switch (kind) {
+        case ArenaKind::Rock: ck = Centerpiece::Boulder; break;
+        case ArenaKind::Water: ck = Centerpiece::Drain; break;
+        case ArenaKind::Electric: ck = Centerpiece::Generator; break;
+        case ArenaKind::Grass: ck = Centerpiece::Bloom; break;
+        case ArenaKind::Poison: ck = Centerpiece::Vat; break;
+        case ArenaKind::Psychic: ck = Centerpiece::Orb; break;
+        case ArenaKind::Fire: ck = Centerpiece::Vent; break;
+        case ArenaKind::Ground: ck = Centerpiece::Spinner; break;
+        default: return;
+    }
+    Centerpiece& c = center;
+    c = Centerpiece();
+    c.kind = ck;
+    c.pos = c.home = {ARENA_W / 2, ARENA_H / 2};
+    float clear = 0;
+    switch (ck) {
+        case Centerpiece::Boulder:   c.radius = 26; clear = 56; break;
+        case Centerpiece::Drain:     c.radius = 110; clear = 0; c.t = 9; break;   // radius: how far the pull reaches
+        case Centerpiece::Generator: c.radius = 20; clear = 56; c.charge = 20; break;
+        case Centerpiece::Bloom:     c.radius = 20; clear = 56; c.t = 8; break;
+        case Centerpiece::Vat:       c.radius = 20; clear = 52; c.charge = 100; break;
+        case Centerpiece::Orb:       c.radius = 13; clear = 50; break;
+        case Centerpiece::Vent:      c.radius = 26; clear = 64; c.t = 10; break;
+        case Centerpiece::Spinner:   c.radius = 74; clear = 84; c.spinRate = 0.9f; c.owner = 1; c.t = 9; break;
+        default: break;
+    }
+    if (ck == Centerpiece::Drain) {   // the middle of the pool: the drain replaces the platform there
+        zones.erase(std::remove_if(zones.begin(), zones.end(), [&](const Zone& z) {
+            return z.kind == Zone::Platform && Dist2(z.pos, c.pos) < 70; }), zones.end());
+    }
+    obs.erase(std::remove_if(obs.begin(), obs.end(), [&](const Obstacle& o) { return Dist2(o.pos, c.pos) < clear + o.radius; }), obs.end());
+    zones.erase(std::remove_if(zones.begin(), zones.end(), [&](const Zone& z) {
+        return z.kind != Zone::Platform && Dist2(z.pos, c.pos) < clear + std::max(z.rx, z.ry); }), zones.end());
+    if (ck == Centerpiece::Spinner || ck == Centerpiece::Drain) return;   // on the floor: nothing to bump into
+    Obstacle o;   // its body: blocks shots and walkers like any obstacle, and hits on it reach the centerpiece
+    o.kind = Obstacle::Center;
+    o.pos = c.pos;
+    o.radius = c.radius;
+    o.height = ck == Centerpiece::Orb ? 46 : (ck == Centerpiece::Vent ? 40 : 40);
+    o.seed = 1;
+    obs.push_back(o);
 }
 
 const char* VenueName(Venue v) {
@@ -375,6 +424,7 @@ Venue RandomWildVenue(int roll) {
 void Field::PlacePortals() {
     portals.clear();
     std::vector<Vector2> taken;
+    taken.push_back({ARENA_W / 2, ARENA_H / 2});   // the psychic orb stands in the middle
     for (int i = 0; i < 4; i++) {
         Vector2 p;
         if (!Place(p, taken, 130, 50, 60, ARENA_W - 60, 50, ARENA_H - 50)) p = {Rf(80, ARENA_W - 80), Rf(60, ARENA_H - 60)};

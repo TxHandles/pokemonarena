@@ -46,6 +46,7 @@ struct B {
             case MoveKind::Tether:     m.range = 140; m.duration = 3.0f; m.windup = 0.12f; m.tether = 1; break;
             case MoveKind::Grapple:    m.speed = 320; m.range = 150; m.radius = 5; m.windup = 0.1f; m.amount = 1; break;
             case MoveKind::Throw:      m.range = 26; m.radius = 95; m.duration = 0.55f; m.windup = 0.1f; break;
+            case MoveKind::Roll:       m.speed = 250; m.range = 200; m.radius = 10; m.duration = 2.0f; m.bounces = 4; m.amount = 0.15f; m.windup = 0.25f; break;
             default: break;
         }
     }
@@ -98,6 +99,9 @@ struct B {
     B& sleepOnly() { m.sleepOnly = true; return *this; }
     B& antiAir() { m.antiAir = true; return *this; }
     B& pinFor(float t) { m.pin = t; return *this; }
+    B& boost(float b) { m.amount = b; return *this; }
+    B& clears() { m.clears = true; return *this; }
+    B& fireTrail() { m.trail = true; return *this; }
     B& toss(float dist) { m.radius = dist; return *this; }
     B& skyDrop() { m.throwKind = 1; m.duration = 1.0f; return *this; }
     B& pullFrac(float f) { m.amount = f; return *this; }
@@ -122,7 +126,7 @@ std::vector<MoveDef> Build() {
     add(B("Tail Whip", T::Normal, K::Burst, 0, 6).radius(70).windup(0.15f).low(St::Def, 1));
     add(B("Smokescreen", T::Normal, K::Zone, 0, 7).radius(30).dur(3.5f).low(St::Spd, 0.6f));
     add(B("Double Team", T::Normal, K::Blink, 0, 6).range(90));
-    add(B("Rapid Spin", T::Normal, K::Burst, 50, 2.2f).radius(30).knock(1.3f));
+    add(B("Rapid Spin", T::Normal, K::Roll, 50, 2.8f).speed(300).dur(0.9f).bounce(2).boost(0.1f).clears());
     add(B("Skull Bash", T::Normal, K::Dash, 130, 6).windup(0.8f).range(130));
     add(B("Nuzzle", T::Electric, K::Dash, 20, 2.5f).st(S::Paralyze, 1.0f).range(80));
     add(B("Flame Burst", T::Fire, K::Lob, 70, 2.2f).patch(10, 2.5f, 16));
@@ -143,7 +147,7 @@ std::vector<MoveDef> Build() {
     add(B("Ember", T::Fire, K::Projectile, 40, 0.7f).patch(8, 2.5f, 13).st(S::Burn, 0.1f));
     add(B("Fire Fang", T::Fire, K::Melee, 65, 0.9f).st(S::Burn, 0.1f));
     add(B("Fire Punch", T::Fire, K::Melee, 75, 1.1f).st(S::Burn, 0.1f));
-    add(B("Flame Wheel", T::Fire, K::Dash, 60, 2.2f).st(S::Burn, 0.1f));
+    add(B("Flame Wheel", T::Fire, K::Roll, 60, 3.5f).speed(260).dur(1.6f).bounce(3).st(S::Burn, 0.1f).fireTrail());
     add(B("Fire Spin", T::Fire, K::Zone, 14, 5).dur(4).st(S::Burn, 0.1f));
     add(B("Will-O-Wisp", T::Fire, K::Projectile, 0, 6).homing(3).speed(150).st(S::Burn, 1));
     add(B("Flamethrower", T::Fire, K::Sweep, 90, 3.2f).windup(0.35f).range(200).arc(1.0f).dur(0.5f).st(S::Burn, 0.1f));
@@ -343,7 +347,7 @@ std::vector<MoveDef> Build() {
     add(B("Magnet Bomb", T::Steel, K::Projectile, 60, 1.2f).homing(6));
     add(B("Mirror Shot", T::Steel, K::Projectile, 65, 1.2f).radius(5));
     add(B("Steel Wing", T::Steel, K::Melee, 70, 1.0f).radius(18));
-    add(B("Gyro Ball", T::Steel, K::Burst, 80, 3.5f).radius(38));
+    add(B("Gyro Ball", T::Steel, K::Roll, 80, 4.5f).speed(220).dur(2.0f).bounce(4).radius(12));
     add(B("Flash Cannon", T::Steel, K::Beam, 80, 2.6f).low(St::Def, 0.1f));
     add(B("Iron Head", T::Steel, K::Melee, 80, 1.3f).st(S::Flinch, 0.3f));
     add(B("Meteor Mash", T::Steel, K::Dash, 90, 3.2f));
@@ -433,7 +437,7 @@ std::vector<MoveDef> Build() {
     add(B("Ice Hammer", T::Ice, K::Melee, 100, 2.6f).self(St::Spd));
     add(B("Glaciate", T::Ice, K::Wave, 65, 3.5f).low(St::Spd, 1));
     add(B("Aurora Veil", T::Ice, K::Wall, 0, 7).count(5).dur(5));
-    add(B("Ice Ball", T::Ice, K::Dash, 60, 1.6f).range(110));
+    add(B("Ice Ball", T::Ice, K::Roll, 40, 4).speed(240).dur(2.4f).bounce(5).boost(0.3f).st(S::Freeze, 0.05f));
     add(B("Triple Axel", T::Ice, K::Melee, 30, 1.6f).hits(3));
     add(B("Ice Spinner", T::Ice, K::Orbit, 55, 7).count(3).dur(4).st(S::Freeze, 0.05f));
     add(B("Sheer Cold", T::Ice, K::Cone, 0, 9).range(70).ohko());
@@ -511,13 +515,13 @@ std::vector<MoveDef> Build() {
     add(B("Struggle Bug", T::Bug, K::Cone, 50, 1.8f).low(St::Atk, 1));
     add(B("Infestation", T::Bug, K::Tether, 20, 6).tether(2).range(100).dur(3.5f).spec());
     add(B("Pollen Puff", T::Bug, K::Lob, 90, 2.6f));
-    add(B("Steamroller", T::Bug, K::Dash, 65, 1.6f).st(S::Flinch, 0.3f));
+    add(B("Steamroller", T::Bug, K::Roll, 65, 3.5f).speed(270).dur(1.7f).bounce(3).st(S::Flinch, 0.3f));
     add(B("Silk Barrier", T::Bug, K::Wall, 0, 6).count(3));
 
     // ---------------- Rock
     add(B("Rock Wrecker", T::Rock, K::Dash, 150, 9).range(130).windup(0.4f).recharge(1.5f));
     add(B("Smack Down", T::Rock, K::Grapple, 50, 1.8f).range(150).pullFrac(0.5f).antiAir());
-    add(B("Rollout", T::Rock, K::Dash, 45, 1.2f).range(120));
+    add(B("Rollout", T::Rock, K::Roll, 40, 4).speed(230).dur(2.4f).bounce(5).boost(0.3f));
     add(B("Diamond Storm", T::Rock, K::Rain, 35, 5).rain(7, 13).radius(40));
     add(B("Wide Guard", T::Rock, K::Wall, 0, 6).count(5).dur(4));
     add(B("Accelerock", T::Rock, K::Dash, 40, 1.0f).quick().range(115));
@@ -573,7 +577,7 @@ std::vector<MoveDef> Build() {
     add(B("Gear Grind", T::Steel, K::Boomerang, 50, 1.5f).range(140).phys());
     add(B("King's Shield", T::Steel, K::Wall, 0, 6).count(3).dur(5));
     add(B("Make It Rain", T::Steel, K::Rain, 35, 5).rain(7, 13).radius(42));
-    add(B("Steel Roller", T::Steel, K::Dash, 130, 5).range(130));
+    add(B("Steel Roller", T::Steel, K::Roll, 130, 6).speed(290).dur(1.8f).bounce(3).boost(0.1f).clears());
     add(B("Mirror Ricochet", T::Steel, K::Projectile, 65, 1.8f).bounce(3).speed(280));
 
     // ---------------- Fairy
@@ -991,6 +995,7 @@ const char* MoveKindName(MoveKind k) {
         case MoveKind::Tether:     return "Tether";
         case MoveKind::Grapple:    return "Grapple";
         case MoveKind::Throw:      return "Throw";
+        case MoveKind::Roll:       return "Roll";
         default: return "";
     }
 }
@@ -1013,6 +1018,7 @@ bool ParseMoveKind(const std::string& s, MoveKind& out) {
     if (k == "drain" || k == "leash" || k == "link") { out = MoveKind::Tether; return true; }
     if (k == "hook" || k == "whip" || k == "lasso") { out = MoveKind::Grapple; return true; }
     if (k == "grab" || k == "toss") { out = MoveKind::Throw; return true; }
+    if (k == "roll" || k == "spin" || k == "rollout") { out = MoveKind::Roll; return true; }
     return false;
 }
 
@@ -1123,6 +1129,12 @@ std::string DescribeMove(const MoveDef& m) {
             d = m.amount < 0.99f ? "Lashes out and tugs the foe toward you" : "Hooks the foe and yanks it to you";
             if (m.antiAir) d = "Knocks a jumping foe out of the air and pulls it in";
             break;
+        case MoveKind::Roll:
+            d = TextFormat("Rolls and ricochets off walls, rocks and foes (%d bounces)", m.bounces);
+            if (m.amount >= 0.25f) d += ", harder every bounce";
+            if (m.clears) d += ", sweeps away hazards";
+            if (m.trail) d += ", leaves a trail of fire";
+            break;
         case MoveKind::Throw: d = m.throwKind == 1 ? "Grabs the foe, carries it up and drops it" : "Grabs the foe and hurls it (harder into walls and rocks)"; break;
         case MoveKind::Weather:
             d = m.weather == Weather::Rain ? "Rain: Water x1.5, Fire x0.5, puddles form"
@@ -1133,7 +1145,7 @@ std::string DescribeMove(const MoveDef& m) {
         default: break;
     }
     if (m.hits > 1) d += TextFormat(", %d hits", m.hits);
-    if (m.bounces > 0) d += TextFormat(", ricochets %d time%s", m.bounces, m.bounces > 1 ? "s" : "");
+    if (m.bounces > 0 && m.kind != MoveKind::Roll) d += TextFormat(", ricochets %d time%s", m.bounces, m.bounces > 1 ? "s" : "");
     if (m.metronome) d = "Uses a random move";
     if (m.copycat) d = "Copies the foe's last move";
     if (m.kind == MoveKind::Buff && m.amount <= 1.0f && !m.haze) d = "But nothing happened!";

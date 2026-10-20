@@ -684,3 +684,375 @@ void Battle::DrawCombatLinks() const {
         }
     }
 }
+
+// ---------------------------------------------------------------- Rolls (pinball)
+// The user curls into a ball and rolls along its aim, steering a little. It ricochets off the arena wall,
+// rocks, pillars and summoned walls, and bounces off any foe it hits (each foe once per pass: a fresh
+// wall bounce lets it hit them again). Every bounce makes it faster and harder-hitting. A Protect stops it
+// dead; a dodge or a jump lets it roll past.
+
+namespace {
+enum class RollStyle { Rock, Ice, Bug, Steel, Gyro, Spin, Fire, Plain };
+RollStyle RollStyleFor(const std::string& n, Type t) {
+    if (n == "Rollout") return RollStyle::Rock;
+    if (n == "Ice Ball") return RollStyle::Ice;
+    if (n == "Steamroller") return RollStyle::Bug;
+    if (n == "Steel Roller") return RollStyle::Steel;
+    if (n == "Gyro Ball") return RollStyle::Gyro;
+    if (n == "Rapid Spin") return RollStyle::Spin;
+    if (n == "Flame Wheel") return RollStyle::Fire;
+    switch (t) {
+        case Type::Rock: case Type::Ground: return RollStyle::Rock;
+        case Type::Ice: return RollStyle::Ice;
+        case Type::Bug: return RollStyle::Bug;
+        case Type::Steel: return RollStyle::Steel;
+        case Type::Fire: return RollStyle::Fire;
+        default: return RollStyle::Plain;
+    }
+}
+float RollRadius(RollStyle st) { return st == RollStyle::Steel ? 11.0f : (st == RollStyle::Spin ? 9.0f : 10.0f); }
+Vector2 Reflect(Vector2 v, Vector2 n) { return v - n * (2 * Dot(v, n)); }
+}
+
+void Battle::StartRoll(int s, int mi, const MoveDef& m, Vector2 aim) {
+    Fighter& f = sides[s].Cur();
+    f.rollMove = mi;
+    f.rollT = std::max(0.3f, m.duration);
+    f.rollVel = SafeNorm(aim, {1, 0}) * (m.speed > 0 ? m.speed : 250.0f);
+    f.rollBoost = 1;
+    f.rollMask = 0;
+    f.rollBounces = 0;
+    f.rollDist = 0;
+    f.rollTrailT = 0;
+    f.dashing = false;
+    Color tc = TypeColor(m.type);
+    AddFx(FxKind::Shock, f.pos, 0.3f, tc, 20, 0);
+    for (int i = 0; i < 8; i++) {   // a kick of dust as it takes off
+        Vector2 d = RandDirC();
+        Emit(PK::Smoke, f.pos - aim * 4.0f + d * 3.0f, 1, d * Frand(15, 35) - aim * 40.0f, Frand(4, 12), 0.5f, 2.8f, Cc(195, 185, 170), false).grow = 5;
+    }
+    PlaySfx(Sfx::Shoot);
+}
+
+void Battle::EndRoll(int s, bool bonk) {
+    Fighter& f = sides[s].Cur();
+    if (f.rollT <= 0) return;
+    f.rollT = 0;
+    f.knock = f.rollVel * (bonk ? -0.5f : 0.25f);
+    f.rechargeT = std::max(f.rechargeT, bonk ? 0.6f : 0.25f);
+    if (bonk) {
+        f.hitstun = std::max(f.hitstun, 0.5f);
+        AddText(f.pos, "Bonk!", UI_DIM, 34);
+    }
+    AddFx(FxKind::Ring, f.pos, 0.3f, Cc(240, 235, 225), 14, 2);
+    for (int i = 0; i < 6; i++) {
+        Vector2 d = RandDirC();
+        Emit(PK::Smoke, f.pos + d * 4.0f, 2, d * Frand(15, 40), Frand(5, 15), 0.5f, 3.0f, Cc(200, 192, 180), false).grow = 6;
+    }
+}
+
+void Battle::UpdateRoll(int s, float dt, Vector2 steer) {
+    Fighter& f = sides[s].Cur();
+    if (f.rollMove < 0 || f.rollMove >= f.nMoves) { f.rollT = 0; return; }
+    const MoveDef& m = f.moves[f.rollMove];
+    if (f.hitstun > 0.2f) { EndRoll(s, false); return; }   // knocked out of it
+    RollStyle st = RollStyleFor(m.name, m.type);
+    float R = RollRadius(st);
+    float base = m.speed > 0 ? m.speed : 250.0f;
+    f.rollT -= dt;
+    // steering: turn a little toward the stick / the CPU's chosen direction
+    float sl = Len(steer);
+    float speed = Len(f.rollVel);
+    if (sl > 0.15f && speed > 1) {
+        Vector2 want = steer * (1.0f / sl);
+        float cur = std::atan2(f.rollVel.y, f.rollVel.x), tgt = std::atan2(want.y, want.x);
+        float da = std::remainder(tgt - cur, 2 * PI_F);
+        float turn = 2.2f * dt;
+        cur += std::max(-turn, std::min(turn, da));
+        f.rollVel = Vector2{std::cos(cur), std::sin(cur)} * speed;
+    }
+    Vector2 dir = SafeNorm(f.rollVel, {1, 0});
+    f.pos += f.rollVel * dt;
+    f.rollDist += speed * dt;
+    f.aim = dir;
+    f.dir = DirFromVec(dir);
+    f.animT += dt;
+    HitSpec h = Spec(s, m);
+    h.dmgMul *= f.rollBoost;
+    Color tc = TypeColor(m.type);
+
+    auto bounce = [&](Vector2 n, Vector2 at, bool wall) {
+        f.rollVel = Reflect(f.rollVel, n);
+        float sp = std::min(base * 1.45f, Len(f.rollVel) * 1.07f);
+        f.rollVel = SafeNorm(f.rollVel, n) * sp;
+        f.rollBounces++;
+        f.rollBoost += m.amount;
+        if (wall) f.rollMask = 0;   // a fresh pass: the foes can be hit again
+        f.rollT = std::max(f.rollT, 0.35f);   // a ricochet always gets to carry on a little
+        AddFx(FxKind::Shock, at, 0.3f, tc, 16 + f.rollBounces * 2.0f, 4);
+        Color spark = st == RollStyle::Ice ? Cc(220, 245, 255) : (st == RollStyle::Fire ? Cc(255, 190, 80) : Cc(255, 240, 190));
+        int n2 = st == RollStyle::Gyro || st == RollStyle::Steel ? 12 : 7;
+        for (int i = 0; i < n2; i++) {
+            Vector2 d = SafeNorm(n + RandDirC() * 0.8f, n);
+            Emit(PK::Spark, at, 6, d * Frand(60, 160), Frand(10, 50), 0.25f, 1.2f, spark, false).drag = 3;
+        }
+        PK chip = st == RollStyle::Ice ? PK::Shard : (st == RollStyle::Fire ? PK::Ember : PK::Debris);
+        for (int i = 0; i < 4; i++)
+            Emit(chip, at, 4, SafeNorm(n + RandDirC(), n) * Frand(30, 80), Frand(30, 70), 0.5f, 1.5f,
+                 st == RollStyle::Ice ? Cc(200, 235, 255) : (st == RollStyle::Fire ? Cc(255, 140, 40) : Cc(150, 125, 95)), chip != PK::Ember).spin = Frand(-10, 10);
+        Shake(std::min(4, 1 + f.rollBounces / 2), 0.15f);
+        PlaySfx(Sfx::Thud);
+        if (f.rollBounces >= 2) AddText(at, TextFormat("x%.1f", f.rollBoost), UI_GOLD, 24);
+    };
+
+    // the arena wall
+    if (f.pos.x < R) { f.pos.x = R; bounce({1, 0}, {0, f.pos.y}, true); }
+    else if (f.pos.x > ARENA_W - R) { f.pos.x = ARENA_W - R; bounce({-1, 0}, {ARENA_W, f.pos.y}, true); }
+    if (f.pos.y < R) { f.pos.y = R; bounce({0, 1}, {f.pos.x, 0}, true); }
+    else if (f.pos.y > ARENA_H - R) { f.pos.y = ARENA_H - R; bounce({0, -1}, {f.pos.x, ARENA_H}, true); }
+    // rocks, pillars, trees, summoned walls (heavy rollers can crack them)
+    for (Obstacle& o : field.obs) {
+        if (!o.Blocks()) continue;
+        Vector2 to = f.pos - o.pos;
+        float d = Len(to);
+        if (d >= o.radius + R * 0.8f) continue;
+        Vector2 n = d > 0.01f ? to * (1.0f / d) : -dir;
+        f.pos = o.pos + n * (o.radius + R * 0.8f + 0.5f);
+        if (Dot(f.rollVel, n) < 0) {
+            Vector2 at = o.pos + n * o.radius;
+            bounce(n, at, true);
+            ObstacleImpact(o, h, -n, true);
+        }
+    }
+    // foes: hit and bounce off them
+    for (int ts : FoeSlots(s)) {
+        if (f.rollMask & (1 << ts)) continue;
+        if (!Hittable(ts)) continue;
+        Fighter& e = sides[ts].Cur();
+        if (e.JumpZ() > 8) continue;   // hopped over it
+        Vector2 to = f.pos - e.pos;
+        float d = Len(to);
+        if (d >= R + HitR(e)) continue;
+        f.rollMask |= 1 << ts;
+        if (e.shieldT > 0) {   // Protect: stopped dead
+            ApplyHit(h, ts, dir);
+            EndRoll(s, true);
+            return;
+        }
+        Vector2 ep = e.pos;
+        float dealt = ApplyHit(h, ts, dir);
+        TryElectrify(ep, h);
+        if (dealt > 0) {
+            Vector2 n = d > 0.01f ? to * (1.0f / d) : -dir;
+            f.pos = e.pos + n * (R + HitR(e) + 0.5f);
+            bounce(n, e.pos + n * HitR(e), false);
+            AddFx(FxKind::Hit, ep, 0.2f, tc, 14, 8).type = m.type;
+        }
+    }
+    // rolling over the field: sweep away hazards, leave a trail of fire
+    if (m.clears) {
+        for (auto& hz : hazards) {
+            if (hz.orbit || hz.life <= 0 || hz.hit.side == s || !Foes(s, hz.hit.side)) continue;
+            if (Dist(hz.pos, f.pos) > hz.radius + R) continue;
+            hz.life = 0;
+            AddFx(FxKind::Ring, hz.pos, 0.3f, Cc(240, 240, 240), hz.radius + 6, 1);
+            for (int i = 0; i < 6; i++) Emit(PK::Smoke, hz.pos + RandDirC() * 4.0f, 2, RandDirC() * 40.0f + dir * 40.0f, 10, 0.5f, 3.0f, Cc(210, 205, 195), false).grow = 6;
+            AddText(hz.pos, "Swept away!", UI_TEXT, 30);
+        }
+    }
+    f.rollTrailT -= dt;
+    if (m.trail && f.rollTrailT <= 0) {
+        f.rollTrailT = 0.12f;
+        HitSpec ph = h;
+        ph.patchPower = std::max(4, m.power / 8);
+        ph.patchRadius = 8;
+        ph.patchTime = 1.8f;
+        ph.dmgMul = 1;
+        SpawnPatch(ph, f.pos - dir * R);
+    }
+    // what it throws up as it rolls
+    {
+        Vector2 back = f.pos - dir * (R * 0.8f);
+        switch (st) {
+            case RollStyle::Ice:
+                Emit(PK::Snow, back + RandDirC() * 3.0f, 2, -dir * 20.0f + RandDirC() * 15.0f, Frand(5, 20), 0.5f, 1.4f, Cc(225, 245, 255), false);
+                if (SimRand(0, 2) == 0) Emit(PK::Glow, back, 3, RandDirC() * 10.0f, 5, 0.4f, 1.0f, Cc(170, 225, 255), false);
+                break;
+            case RollStyle::Fire:
+                Emit(PK::Flame, back + RandDirC() * 3.0f, Frand(3, 9), -dir * 30.0f + RandDirC() * 10.0f, Frand(15, 35), Frand(0.25f, 0.4f), Frand(1.6f, 2.4f), Cc(255, 150, 50), false).drag = 4;
+                if (SimRand(0, 1)) Emit(PK::Ember, back, 6, RandDirC() * 30.0f, Frand(20, 50), 0.6f, 1.0f, Cc(255, 200, 90), false);
+                break;
+            case RollStyle::Gyro: case RollStyle::Steel:
+                if (SimRand(0, 1)) Emit(PK::Spark, back, 1, RandDirC() * Frand(40, 100) - dir * 40.0f, Frand(20, 50), 0.2f, 1.0f, Cc(255, 230, 160), false).drag = 3;
+                if (SimRand(0, 2) == 0) Emit(PK::Smoke, back, 1, -dir * 15.0f, 4, 0.5f, 2.6f, Cc(190, 185, 180), false).grow = 4;
+                break;
+            case RollStyle::Spin:
+                if (SimRand(0, 1)) Emit(PK::Ring, f.pos, R, {0, 0}, 0, 0.25f, 1.4f, Cc(235, 240, 255), false).grow = 14;
+                break;
+            default:   // dust and pebbles
+                if (SimRand(0, 1)) Emit(PK::Smoke, back, 1, -dir * 20.0f + RandDirC() * 10.0f, 4, 0.5f, 2.6f, Cc(185, 170, 150), false).grow = 4;
+                if (SimRand(0, 3) == 0) Emit(PK::Debris, back, 2, RandDirC() * 30.0f - dir * 20.0f, Frand(20, 40), 0.4f, 1.2f, Cc(140, 115, 85), true).spin = Frand(-10, 10);
+                break;
+        }
+    }
+    if (f.rollT <= 0 || f.rollBounces > m.bounces) EndRoll(s, false);
+}
+
+void Battle::DrawRollBall(int s) const {
+    const Fighter& f = sides[s].Cur();
+    if (f.rollMove < 0 || f.rollMove >= f.nMoves) return;
+    const MoveDef& m = f.moves[f.rollMove];
+    RollStyle st = RollStyleFor(m.name, m.type);
+    float R = RollRadius(st);
+    float ang = f.rollDist / R;   // how far it has turned
+    Vector2 dir = SafeNorm(f.rollVel, {1, 0});
+    Vector2 sd = SafeNorm(Vector2{dir.x, dir.y * DEPTH}, {1, 0});
+    Color tc = TypeColor(m.type);
+    float hop = std::fabs(std::sin(f.rollDist * 0.09f)) * 1.5f;   // a little bounce as it rolls over bumps
+    Vector2 g = ToScreen(f.pos);
+    Vector2 c = ToScreen(f.pos, R * 0.9f + hop);
+    VShadow({g.x, g.y + 1}, R * 1.05f, R * 0.4f, 0.55f);
+
+    // after-images streaming behind it
+    for (int k = 3; k >= 1; k--) {
+        Vector2 p = c - sd * (R * 0.9f * k);
+        DrawCircleV(p, R * (1 - k * 0.12f), Fade(ColorBrightness(tc, 0.2f), 0.12f * (4 - k)));
+    }
+    float speedK = Clamp01((Len(f.rollVel) - 150) / 200);
+    for (int i = 0; i < 4; i++) {   // speed lines
+        float off = (i - 1.5f) * R * 0.5f;
+        Vector2 o{-sd.y * off, sd.x * off};
+        DrawLineEx(c + o - sd * (R + 2.0f), c + o - sd * (R + 8.0f + 8 * speedK + (i % 2) * 4), 1.0f, Fade(WHITE, 0.35f + 0.3f * speedK));
+    }
+    // the body: a solid ball, then its pattern turning with the roll, then light on top
+    auto stripes = [&](Color col, int n, float w) {   // bands that sweep across the face as it turns
+        for (int i = 0; i < n; i++) {
+            float ph = std::fmod(ang + i * 2 * PI_F / n, 2 * PI_F);
+            if (ph > PI_F) continue;   // on the far side
+            float x = std::cos(ph) * R * 0.92f;
+            float half = std::sqrt(std::max(0.0f, R * R - x * x)) * 0.92f;
+            Vector2 a = c + sd * x + Vector2{-sd.y, sd.x} * half, b = c + sd * x - Vector2{-sd.y, sd.x} * half;
+            DrawLineEx(a, b, w * (0.4f + 0.6f * std::sin(ph)), col);
+        }
+    };
+    switch (st) {
+        case RollStyle::Rock: {
+            DrawCircleV(c, R + 1, Cc(70, 55, 40));
+            DrawCircleV(c, R, Cc(150, 120, 85));
+            stripes(Cc(110, 85, 60), 4, 2.4f);
+            for (int i = 0; i < 5; i++) {   // pebbly flecks
+                float a2 = ang + i * 1.3f;
+                if (std::sin(a2) < 0) continue;
+                DrawCircleV(c + sd * (std::cos(a2) * R * 0.7f) + Vector2{-sd.y, sd.x} * ((i - 2) * R * 0.3f), 1.2f, Cc(185, 160, 120));
+            }
+            DrawCircleV(c + Vector2{-R * 0.35f, -R * 0.4f}, R * 0.3f, Fade(Cc(210, 190, 150), 0.6f));
+        } break;
+        case RollStyle::Ice: {
+            DrawCircleV(c, R + 1, Cc(70, 120, 170));
+            DrawCircleV(c, R, Cc(170, 220, 250));
+            stripes(Cc(235, 250, 255), 5, 1.4f);
+            for (int i = 0; i < 6; i++) {   // facets
+                float a2 = i * PI_F / 3 + ang * 0.5f;
+                DrawLineEx(c, c + Vector2{std::cos(a2), std::sin(a2)} * R * 0.85f, 0.7f, Fade(WHITE, 0.45f));
+            }
+            VAdd();
+            VGlow(c, R * 1.8f, Cc(150, 210, 255), 0.22f);
+            float tw = 0.5f + 0.5f * std::sin(time * 14);
+            VGlow(c + Vector2{-R * 0.4f, -R * 0.45f}, 3 + tw * 2, WHITE, 0.9f);
+            VNorm();
+        } break;
+        case RollStyle::Bug: {   // a segmented shell wheel
+            DrawCircleV(c, R + 1, Cc(50, 25, 50));
+            DrawCircleV(c, R, Cc(140, 60, 120));
+            for (int i = 0; i < 8; i++) {
+                float a2 = ang + i * PI_F / 4;
+                Vector2 e{std::cos(a2), std::sin(a2)};
+                DrawLineEx(c + e * (R * 0.35f), c + e * R, 1.4f, Cc(70, 30, 70));
+                DrawCircleV(c + e * (R * 0.72f), 1.3f, Cc(240, 200, 60));
+            }
+            DrawCircleV(c, R * 0.35f, Cc(90, 40, 90));
+            DrawCircleV(c, R * 0.18f, Cc(240, 200, 60));
+        } break;
+        case RollStyle::Steel: {   // a heavy metal drum with rivets and a glint sweeping across
+            DrawCircleV(c, R + 1.2f, Cc(50, 55, 65));
+            DrawCircleV(c, R, Cc(150, 158, 172));
+            DrawCircleV(c, R * 0.72f, Cc(120, 128, 142));
+            for (int i = 0; i < 6; i++) {
+                float a2 = ang + i * PI_F / 3;
+                DrawCircleV(c + Vector2{std::cos(a2), std::sin(a2)} * (R * 0.86f), 1.2f, Cc(220, 225, 235));
+            }
+            DrawLineEx(c + Vector2{std::cos(ang), std::sin(ang)} * (R * 0.7f), c - Vector2{std::cos(ang), std::sin(ang)} * (R * 0.7f), 1.6f, Cc(90, 96, 110));
+            VAdd();
+            float gl = std::fmod(time * 1.5f, 1.0f);
+            VGlow(c + Vector2{(gl - 0.5f) * R * 1.6f, -R * 0.4f}, 4, WHITE, 0.8f);
+            VGlow(c, R * 1.8f, Cc(200, 210, 230), 0.25f);
+            VNorm();
+        } break;
+        case RollStyle::Gyro: {   // a spinning top, tilted, with rings whirling round its rim
+            Vector2 top = c + Vector2{0, -R * 0.2f};
+            DrawEllipse((int)top.x, (int)top.y, R * 1.25f, R * 0.7f, Cc(60, 66, 80));
+            DrawEllipse((int)top.x, (int)top.y - 1, R * 1.15f, R * 0.6f, Cc(160, 170, 190));
+            for (int i = 0; i < 6; i++) {
+                float a2 = ang * 2 + i * PI_F / 3;
+                Vector2 p{top.x + std::cos(a2) * R * 0.95f, top.y - 1 + std::sin(a2) * R * 0.5f};
+                DrawCircleV(p, 1.6f, std::sin(a2) > 0 ? Cc(255, 220, 120) : Cc(110, 118, 135));
+            }
+            DrawTriangle(Vector2{top.x - R * 0.6f, top.y + 1}, Vector2{top.x, top.y + R * 1.0f}, Vector2{top.x + R * 0.6f, top.y + 1}, Cc(100, 108, 125));
+            DrawCircleV(Vector2{top.x, top.y - 1}, 2.2f, Cc(255, 230, 140));
+            VAdd();
+            VRingE(top, R * 1.5f, R * 0.75f, 1.0f, Fade(Cc(255, 230, 160), 0.6f), 24);
+            VGlow({top.x, top.y + R}, 7, Cc(255, 220, 140), 0.6f);   // sparks where it grinds the floor
+            VNorm();
+        } break;
+        case RollStyle::Spin: {   // a shell spinning so fast it's a blur of whirl lines
+            DrawCircleV(c, R + 1, Cc(70, 75, 95));
+            DrawCircleV(c, R, ColorBrightness(tc, 0.15f));
+            for (int i = 0; i < 3; i++) {
+                float a0 = ang * 2 + i * 2 * PI_F / 3;
+                Vector2 prev = c;
+                for (int k = 1; k <= 6; k++) {
+                    float r = R * k / 6.0f, a2 = a0 + k * 0.45f;
+                    Vector2 p = c + Vector2{std::cos(a2), std::sin(a2)} * r;
+                    DrawLineEx(prev, p, 1.2f, Fade(WHITE, 0.75f));
+                    prev = p;
+                }
+            }
+            VAdd();
+            VRingE(c, R * 1.4f, R * 1.4f * 0.6f, 1.2f, Fade(WHITE, 0.5f), 24);
+            VNorm();
+        } break;
+        case RollStyle::Fire: {   // a wheel of fire: a dark core inside a ring of tongues of flame
+            DrawCircleV(c, R * 0.8f, Cc(90, 30, 20));
+            DrawCircleV(c, R * 0.55f, Cc(150, 50, 25));
+            VAdd();
+            for (int i = 0; i < 10; i++) {
+                float a2 = ang + i * PI_F / 5;
+                float fl = 0.6f + 0.4f * std::sin(time * 25 + i * 1.7f);
+                Vector2 e{std::cos(a2), std::sin(a2)};
+                Vector2 tip = c + e * (R * (1.0f + 0.45f * fl)) - sd * (R * 0.35f * fl);   // flames lean back
+                DrawTriangle(c + Vector2{-e.y, e.x} * 3.0f + e * (R * 0.6f), tip, c - Vector2{-e.y, e.x} * 3.0f + e * (R * 0.6f), Fade(Cc(255, 140, 40), 0.8f));
+                DrawTriangle(c - Vector2{-e.y, e.x} * 3.0f + e * (R * 0.6f), tip, c + Vector2{-e.y, e.x} * 3.0f + e * (R * 0.6f), Fade(Cc(255, 140, 40), 0.8f));
+            }
+            VRingE(c, R * 0.85f, R * 0.85f, 2.0f, Fade(Cc(255, 220, 120), 0.9f), 24);
+            VGlow(c, R * 2.6f, Cc(255, 120, 30), 0.55f);
+            VNorm();
+        } break;
+        default: {
+            DrawCircleV(c, R + 1, ColorBrightness(tc, -0.5f));
+            DrawCircleV(c, R, tc);
+            stripes(ColorBrightness(tc, -0.3f), 4, 2.0f);
+        } break;
+    }
+    if (st != RollStyle::Gyro) {   // a highlight on top, the type's light around it
+        DrawCircleV(c + Vector2{-R * 0.35f, -R * 0.42f}, R * 0.22f, Fade(WHITE, 0.45f));
+        VAdd();
+        VGlow(c, R * 1.7f, tc, 0.25f + 0.1f * (f.rollBoost - 1));
+        VNorm();
+    }
+    if (f.flash > 0) DrawCircleV(c, R + 1, Fade(WHITE, 0.7f));
+    if (f.rollBoost > 1.29f) {   // charged up from bounces: a hot rim
+        VAdd();
+        VRingE(c, R + 2, R + 2, 1.2f, Fade(UI_GOLD, std::min(0.9f, (f.rollBoost - 1) * 0.8f)), 24);
+        VNorm();
+    }
+}

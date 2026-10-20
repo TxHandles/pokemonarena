@@ -173,6 +173,24 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
 
 ## Gym and League arenas (src/field.*, src/battle_field.cpp, src/arena.cpp)
 
+**Gym centerpieces (src/battle_center.cpp)** – each of the eight gyms has one big interactive set piece in the
+middle:
+- Brock: the **Great Boulder**. A heavy hit (or a Rock/Ground/Fighting/Steel hit) knocks it loose and it rolls,
+  smashing pillars and crushing anyone in its path – you included – until it shatters; a new one rises later.
+- Misty: the **Whirlpool Drain** opens every so often and drags everyone toward its damaging eye (Water types
+  resist it). Ice freezes it shut; Electric during the whirlpool shocks everyone caught in it.
+- Surge: the **Generator** charges from hits (Electric most) and slowly by itself, crackles at anyone leaning on
+  it, then overloads in a paralysing shockwave that supercharges Electric types. A Ground hit drains it.
+- Erika: the **Giant Flower** opens and puffs sleep pollen; Grass types heal in it. Fire burns it down for a while;
+  knocking it makes it open early.
+- Koga: the **Sludge Vat** – hit it when full and it bursts in the direction you hit it, poisoning your foes and
+  leaving toxic puddles that only hurt them.
+- Sabrina: the **Psychic Orb** fights for whoever hit it last, firing at their foes; Dark moves knock it out.
+- Blaine: the **Volcano** rumbles, marks where the lava bombs will land, then erupts. Water calms it, Fire sets it
+  off early.
+- Giovanni: the **Turntable** carries anyone standing on it round and round and flings them off when it reverses.
+  Ground moves (Earthquake...) jam it.
+
 | Arena | Twist |
 |---|---|
 | Stone Gym (Brock) | 7 stone pillars block shots and beams. Heavy creatures (flag `heavy`, or size ≥ 1.15) break them with melee/dash/burst and the pillar flies off as a power-70 Rock boulder. Pillars grow back after 20 s. |
@@ -221,6 +239,9 @@ Combat links (src/battle_combat.cpp):
   reach, an obstacle in the line, a dodge or a switch breaks it.
 - **Grapple** – a vine/tongue/chain shot that yanks the foe toward the user on a hit (Vine Whip, Power Whip,
   Lick, Anchor Shot and Spirit Shackle – which also pin – and Smack Down, which knocks jumpers out of the air).
+- **Roll** – curl up and roll, steering a little, ricocheting off walls, rocks and foes like a pinball; each bounce
+  makes it faster and stronger (Rollout, Ice Ball, Steamroller, Steel Roller, Gyro Ball, Rapid Spin, Flame Wheel).
+  Rapid Spin and Steel Roller sweep away hazards; Flame Wheel leaves a trail of fire. A Protect stops it dead.
 - **Throw** – grab a foe in reach and hurl it (Seismic Toss, Vital Throw, Storm Throw, Circle Throw,
   Submission, Sky Drop – lift and drop). Slamming into an obstacle (x1.35), the arena wall (x1.3) or a hazard
   (x1.2) does extra damage. Ghosts can't be grabbed by Fighting throws; legendaries barely move.
@@ -358,6 +379,7 @@ reacts fast and aims perfectly: Easy wins ~9%, Normal ~31%, Hard ~57%.
 | `src/moves.*` | move kinds, status effects, the move library, move descriptions |
 | `src/data.*` | built-in species, learnsets, evolutions, XP and level math |
 | `src/battle.*` | the fight: movement, every move kind, statuses, XP, level-ups, evolution, weakening for catches, CPU AI, HUD |
+| `src/battle_center.cpp` | the gym centerpieces (behaviour and drawing) |
 | `src/battle_combat.cpp` | sweeping beams, tethers, grapples and throws, and their drawing |
 | `src/field.*`, `src/battle_field.cpp` | gym arena layouts and their mechanics (obstacles, zones, portals, cannons, electrified water) |
 | `src/profile.*` | save profiles and growth outside battle |

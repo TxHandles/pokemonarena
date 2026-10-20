@@ -193,6 +193,10 @@ struct Fighter {
     int sweepMove = -1, sweepMask = 0;
     float heldT = 0, heldZ = 0;   // grabbed: can't act; heldZ = carried height (throws)
     float pinT = 0;               // can't switch out (Mean Look, Anchor Shot, Spirit Shackle)
+    // Roll (Rollout, Gyro Ball...): rolling as a ball, ricocheting
+    float rollT = 0, rollBoost = 1, rollDist = 0, rollTrailT = 0;
+    int rollMove = -1, rollMask = 0, rollBounces = 0;
+    Vector2 rollVel{0, 0};
     bool Holds(ItemFx fx) const { return item && item->fx == fx; }
 
     // Progress during this battle (read by the game afterwards)
@@ -439,6 +443,7 @@ public:
     int payDayCoins = 0;        // coins scattered by Pay Day (Story Mode adds them after a win)
     Weather CurrentWeather() const { return weather; }
     Weather Wx() const { return cloudNine ? Weather::None : weather; }   // weather as it affects battlers (Cloud Nine)
+    void DebugCenter();   // gallery: set the gym centerpiece off
     void DebugCast(int s, const char* move);   // effect showcase (autotest builds)
     void DebugHold();
     void DebugWeather(Weather w) { weather = natural = w; weatherT = w == Weather::None ? 0 : 1e6f; }  // tests only
@@ -541,6 +546,21 @@ private:
     void StartThrow(int s, int ts, const MoveDef& m, const HitSpec& h, Vector2 aim);
     void UpdateGrabs(float dt);
     bool Held(int s) const;
+    void StartRoll(int s, int mi, const MoveDef& m, Vector2 aim);
+    void UpdateRoll(int s, float dt, Vector2 steer);
+    void EndRoll(int s, bool bonk);
+    void DrawRollBall(int s) const;   // visual only: a battler rolling as a ball
+    // Gym centerpieces (battle_center.cpp)
+    Obstacle* CenterBody();
+    void UpdateCenterpiece(float dt);
+    void CenterHit(const HitSpec& h, Vector2 dir, bool physical);
+    void CenterReact(Vector2 at, const HitSpec& h, float radius);
+    void CenterJam();
+    Vector2 CenterAvoid(int s) const;
+    Vector2 ClampToArenaC(Vector2 p) const;
+    void DrawCenterFloor() const;
+    void DrawCenterBody(const Obstacle& o) const;
+    void DrawCenterTop() const;
     void DrawCombatLinks() const;   // visual only: sweeping beams, tether lines, hook lines, held battlers
     // Visual effects (battle_vfx.cpp). All spawned in the simulation so they stay in step online.
     Particle& Emit(PK k, Vector2 pos, float z, Vector2 vel, float vz, float life, float size, Color c, bool grav = false);

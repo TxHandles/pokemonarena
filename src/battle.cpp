@@ -66,6 +66,7 @@ bool InRange(const MoveDef& m, float d) {
         case MoveKind::Tether: return d < m.range * 0.8f;
         case MoveKind::Grapple: return d < m.range * 0.9f && d > 30;
         case MoveKind::Throw:  return d < m.range + 16;
+        case MoveKind::Roll:   return d < 170 && d > 25;
         default: return true;
     }
 }
@@ -77,7 +78,7 @@ float IdealRange(const Fighter& f) {
         switch (m.kind) {
             case MoveKind::Melee: case MoveKind::Burst: case MoveKind::Dash: case MoveKind::Zone:
             case MoveKind::Wave: case MoveKind::Blink: case MoveKind::Burrow:
-            case MoveKind::Orbit: case MoveKind::Cone: case MoveKind::Leap: case MoveKind::Throw: closeP += m.power; break;
+            case MoveKind::Orbit: case MoveKind::Cone: case MoveKind::Leap: case MoveKind::Throw: case MoveKind::Roll: closeP += m.power; break;
             case MoveKind::Projectile: case MoveKind::Spread: case MoveKind::Beam: case MoveKind::Lob:
             case MoveKind::Chain: case MoveKind::Rain: case MoveKind::Boomerang: case MoveKind::Trap:
             case MoveKind::Vortex: case MoveKind::Sweep: case MoveKind::Tether: case MoveKind::Grapple: farP += m.power; break;
@@ -498,6 +499,8 @@ void Battle::SendOut(int s, int idx) {
     f.shieldT = f.rechargeT = 0;
     f.sweepT = f.heldT = f.heldZ = f.pinT = 0;
     f.sweepMask = 0;
+    f.rollT = 0;
+    f.rollMove = -1;
     f.sentOut = true;
     for (int k = 0; k < 3; k++) { f.buffMul[k] = 1; f.buffT[k] = 0; f.dropMul[k] = 1; f.dropT[k] = 0; }
     f.st.confuseT = f.st.flinchT = f.st.seedT = 0;
@@ -747,7 +750,7 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
 
     f.pos += f.knock * dt;
     f.knock *= std::exp(-9 * dt);
-    if (f.state != FState::Active) { f.dodgeT = f.jumpT = 0; f.sweepT = 0; return; }
+    if (f.state != FState::Active) { f.dodgeT = f.jumpT = 0; f.sweepT = 0; f.rollT = 0; return; }
 
     UpdateStatus(s, dt);
     if (f.state != FState::Active) return;
@@ -817,6 +820,10 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
         return;
     }
 
+    if (f.rollT > 0) {   // rolling as a ball: steer a little, ricochet off whatever it meets
+        UpdateRoll(s, dt, it.move);
+        return;
+    }
     if (f.sweepT > 0) {   // a sweeping beam: rooted until it has swung across
         UpdateSweep(s, dt);
         return;
@@ -1367,6 +1374,7 @@ void Battle::Execute(int s, int mi, bool first, const MoveDef* override) {
                 TryElectrify(tp, h);
             }
         } break;
+        case MoveKind::Roll: StartRoll(s, mi, m, a); break;
         case MoveKind::Dash: {
             float t = m.quick ? 0.12f : 0.22f;
             f.dashing = true;
@@ -2911,6 +2919,15 @@ void Battle::DrawProjectile(const Projectile& p) const {
 void Battle::DrawFighter(int s) const {
     const Fighter& f = sides[s].Cur();
     if (f.state == FState::Benched || f.state == FState::Fainted) return;
+    if (f.rollT > 0 && f.state == FState::Active) {   // rolling as a ball: the ball, with its HP bar riding above it
+        DrawRollBall(s);
+        Vector2 b = ToScreen(f.pos, 26);
+        DrawHpBarFx((int)b.x - 10, (int)b.y, 20, 2, f.displayHp / f.maxHp, AnimHpTrail(s), time);
+        Color tc = TeamColor(sides[s].teamId);
+        DrawRectangle((int)b.x - 2, (int)b.y - 6, 5, 1, tc);
+        DrawRectangle((int)b.x - 1, (int)b.y - 5, 3, 1, tc);
+        return;
+    }
     if (f.burrowed && !f.leaping) {
         Vector2 g = ToScreen(f.pos);
         if (f.moves[f.burrowMove].type == Type::Flying) {   // high in the sky: a shadow sweeping the ground, a glint above
@@ -3148,6 +3165,7 @@ void Battle::Draw(bool banners) const {
     }
     DrawBattleArena(time, hype);
     DrawFieldFloor();
+    DrawCenterFloor();
     DrawWeatherFloor();
     DrawPuddles();
     DrawAnimUnder();

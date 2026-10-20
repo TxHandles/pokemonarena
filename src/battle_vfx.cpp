@@ -312,6 +312,14 @@ void Battle::CastVfx(int s, const MoveDef& m, const HitSpec& h, Vector2 a) {
             AddFx(FxKind::Hit, mouth, 0.1f, L.glow, 6, 9).type = m.type;
             for (int i = 0; i < 4; i++) Emit(PK::Pixel, mouth, 9, Rot(a, Frand(-0.5f, 0.5f)) * Frand(40, 90), Frand(0, 15), 0.25f, 1.0f, Cc(240, 235, 220), false);
         } break;
+        case MoveKind::Roll: {   // curling up: a ring tightening around the user as it tucks into a ball
+            Fx& fx = AddFx(FxKind::Mind, f.pos, 0.3f, L.glow, 14, 6);
+            fx.type = m.type;
+            for (int i = 0; i < 6; i++) {
+                Vector2 d = RandDir();
+                Emit(PK::Glow, f.pos + d * 14.0f, 6, d * -40.0f, Frand(0, 10), 0.3f, 1.2f, L.glow, false).drag = 3;
+            }
+        } break;
         case MoveKind::Throw: {   // a grab: dust kicked up as the user plants and reaches
             for (int i = 0; i < 6; i++) {
                 Particle& p = Emit(PK::Smoke, f.pos - a * 4.0f + RandDir() * 4.0f, 1, RandDir() * Frand(20, 45), Frand(4, 10), 0.5f, 2.8f, Cc(190, 180, 165), false);
@@ -662,7 +670,7 @@ void Battle::DebugHold() {
         f.hp = (float)f.maxHp;
         f.knock = {0, 0};
         if (s == 0) { f.st = StatusState(); f.hitstun = 0; f.rechargeT = 0; }
-        if (!f.dashing && !f.burrowed && f.heldT <= 0) f.pos = Vector2{s == 0 ? 295.0f - gVfxDemoGap / 2 : 295.0f + gVfxDemoGap / 2, 250.0f};
+        if (!f.dashing && !f.burrowed && f.heldT <= 0 && f.rollT <= 0) f.pos = Vector2{s == 0 ? 295.0f - gVfxDemoGap / 2 : 295.0f + gVfxDemoGap / 2, 250.0f};
         f.aim = SafeNorm(Vector2{s == 0 ? 1.0f : -1.0f, 0});
     }
     introT = 0;
