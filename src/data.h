@@ -65,6 +65,8 @@ struct SpeciesDef {
     float spriteSize = 0;       // pokemon.txt sprite_size: picture size set by hand (0 = from the Pokedex)
     float drawScale = 1.0f;     // battle picture size and hit area: from Pokedex height/weight (see FinishSizes)
     bool custom = false;   // defined or changed by a creatures/ folder
+    // Mega Evolution: this is the Mega form of megaOf, reached in battle by holding megaStone (pokemon.txt mega_of / mega_stone)
+    std::string megaOf, megaStone;
 };
 
 // All playable creatures: the built-ins, then anything added from the creatures/ folder.
@@ -88,6 +90,9 @@ int EvolutionIndex(int speciesIndex);         // -1 if it doesn't evolve (or tar
 bool IsBaseForm(int speciesIndex);            // nothing evolves into it
 bool CanEvolve(int speciesIndex);             // by level, stone or friendship
 int BaseFormOf(int speciesIndex);             // first stage of its line
+bool IsMegaForm(int speciesIndex);           // a Mega Evolution (only reached in battle)
+int MegaFormFor(int speciesIndex, const std::string& item);   // the Mega form this species reaches holding this item (-1 none)
+std::vector<int> MegaFormsOf(int speciesIndex);   // its Mega forms (the Dex page shows them)
 bool InSpeciesPool(int speciesIndex);         // can show up as an opponent / reward / free-play pick
 int StoneEvolution(int speciesIndex, const std::string& item);   // target, or -1
 int FriendshipEvolution(int speciesIndex, int friendship, int night = -1);   // target, or -1 (night: 0 day, 1 night, -1 any)
@@ -103,6 +108,8 @@ constexpr int START_FRIENDSHIP = 70;
 constexpr int MAX_FRIENDSHIP = 255;
 // Final form reachable at a level, following evolutions (for CPU opponents).
 int EvolvedFormAt(int speciesIndex, int level);
+int PreEvolutionOf(int speciesIndex);           // what it evolves from (-1 = a base form)
+int RealisticFormAt(int speciesIndex, int level);   // a trainer's Pokemon: steps back down its line if it couldn't have evolved yet at this level (Kabutops at Lv11 -> Kabuto)
 // Heavy (explicit flag or size >= 1.15) and airborne (hovers, Flying type or winged).
 bool IsHeavy(const SpeciesDef& sp);
 bool IsAirborne(const SpeciesDef& sp);

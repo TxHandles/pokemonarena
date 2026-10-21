@@ -1,0 +1,22 @@
+# Mega Clefable: the Mega Evolution of Clefable (official Mega stats, types and ability). Not caught or met on its
+# own: a Clefable holding the Clefablite Mega Evolves into it in battle (once per battle).
+name = Mega Clefable
+dex  = 36
+type = Fairy / Flying
+mega_of = Clefable
+mega_stone = Clefablite
+
+hp         = 95
+attack     = 80
+defense    = 93
+sp_attack  = 135
+sp_defense = 110
+speed      = 70
+
+height = 1.7      # Pokedex height in meters
+weight = 42.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Magic Bounce
+category = 

@@ -29,6 +29,11 @@ int gAutoSheetPage = 0;
 // One frame of whatever screen a game is on (the overworld runs a second, smaller game in a
 // split-screen half for a co-op player's own battles).
 void UpdateScreenOf(Game& g, float dt) {
+    if (g.encounterT > 0) {   // a wild encounter's wipe, then straight into the battle
+        g.encounterT -= dt;
+        if (g.encounterT <= 0) { g.encounterT = 0; g.encounterBlank = false; StartBattleFromSelect(g); }
+        return;
+    }
     switch (g.screen) {
         case Screen::Title: UpdateTitle(g); break;
         case Screen::Settings: UpdateSettings(g); break;
@@ -117,6 +122,7 @@ void DrawScreenOf(const Game& g) {
         case Screen::Shop: DrawShop(g); break;
         case Screen::World: DrawWorld(g); break;
     }
+    if (g.encounterT > 0) DrawEncounterWipe(g);
 }
 
 int main() {

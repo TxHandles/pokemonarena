@@ -1,0 +1,13 @@
+# Mega Aerodactyl - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 484060 > 5D4060
+shiny = 63529C > 1C1BA3
+shiny = 7B63AD > 3C2DB7
+shiny = 805880 > 4F4C8A
+shiny = 8070B0 > A970B0
+shiny = 846B6B > 9F5B87
+shiny = 9088C8 > BA88C8
+shiny = 9C8C8C > BC7BA8
+shiny = B0B0E0 > D0B0E0
+shiny = B888C0 > 7074DE
+shiny = BDBDBD > EDB5D6

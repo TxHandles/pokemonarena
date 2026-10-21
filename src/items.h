@@ -30,6 +30,8 @@ enum class ItemFx {
     KeyItem,        // story items (fossils): not sold, not held
     ConfuseGuard,   // confusion wears off much sooner (Yellow Flute)
     ExpAll,         // a Bag item: co-op, your partner's party gets value x the XP of your solo wild battles
+    Medicine,       // a Bag item used in battle from an item hotkey: heals `value` of max HP and cures `cure` (Potions, Full Heal, berries)
+    MegaStone,      // held: lets its Pokemon Mega Evolve in battle (`move` = the Pokemon it works for); sold after a Champion
 };
 
 struct ItemDef {
@@ -42,6 +44,9 @@ struct ItemDef {
     int badges = 0;   // gym badges needed before the shop sells it
     std::string move; // TM: the move it teaches
     int tmNo = 0;     // TM: its number (Scarlet/Violet numbering)
+    int cure = 0;     // Medicine: the conditions it cures (CURE_ bits)
+    static constexpr int CURE_POISON = 1, CURE_PARALYZE = 2, CURE_SLEEP = 4, CURE_BURN = 8, CURE_FREEZE = 16, CURE_CONFUSE = 32, CURE_ALL = 63;
+    static constexpr int AFTER_CHAMPION = 50;   // badges value: sold once you've beaten a Champion (Mega Stones)
 };
 
 const std::vector<ItemDef>& ItemList();
@@ -50,3 +55,6 @@ bool IsBall(const ItemDef& d);
 bool IsStone(const ItemDef& d);
 bool IsHoldable(const ItemDef& d);   // not a ball, stone or TM
 bool IsTM(const ItemDef& d);
+bool IsMegaStone(const ItemDef& d);
+bool IsMedicine(const ItemDef& d);   // used in battle from an item hotkey
+constexpr float ITEM_COOLDOWN = 30.0f;   // seconds before an item slot can be used again

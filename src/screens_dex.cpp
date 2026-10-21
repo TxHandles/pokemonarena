@@ -102,6 +102,8 @@ void DrawWherePage(const Game& g, int idx, int x, int y, int w, int h) {
                             : n == "Hitmonlee" || n == "Hitmonchan" ? "The Saffron Dojo's prize."
                             : n == "Snorlax" ? "Sleeping on Routes 16 and 12."
                             : n == "Porygon" ? "A Celadon Game Corner prize."
+                            : n == "Wobbuffet" || n == "Cubone" ? "A Goldenrod Game Corner prize."
+                            : n == "Zorua" || n == "Larvesta" || n == "Deino" ? "A Nimbasa Game Corner prize."
                             : sp.starter ? "Not in the wild - a starter Pokemon."
                             : "Not in the wild - evolve or trade for it.";
         DrawWrapped(special, x + 10, ty, w - 20, 10, ink);
@@ -200,10 +202,18 @@ void UpdatePokedex(Game& g) {
         }
         return;
     }
-    if (in.back || n == 0) { PlaySfx(Sfx::MenuBack); EnterStoryHub(g); g.hubSel = 7; return; }
+    if (in.back || n == 0) { PlaySfx(Sfx::MenuBack); EnterStoryHub(g); g.hubSel = 7; g.dexMega = 0; return; }
+    {   // Tab / X: flip to its Mega form(s) and back (once it's caught)
+        int idx = list[std::max(0, std::min(n - 1, g.dexSel))];
+        auto megas = MegaFormsOf(idx);
+        if (in.sort && !megas.empty() && DexHasCaught(DexProfile(g), AllSpecies()[idx].name)) {
+            g.dexMega = (g.dexMega + 1) % ((int)megas.size() + 1);
+            PlaySfx(g.dexMega ? Sfx::Evolve : Sfx::MenuMove);
+        }
+    }
     if (in.confirm) {
         int idx = list[std::max(0, std::min(n - 1, g.dexSel))];
-        if (DexHasSeen(DexProfile(g), AllSpecies()[idx].name)) { g.dexWhere = true; g.dexWhereSel = 0; PlaySfx(Sfx::MenuOk); }
+        if (DexHasSeen(DexProfile(g), AllSpecies()[idx].name)) { g.dexWhere = true; g.dexWhereSel = 0; g.dexMega = 0; PlaySfx(Sfx::MenuOk); }
         else PlaySfx(Sfx::MenuBack);
         return;
     }
@@ -221,6 +231,7 @@ void UpdatePokedex(Game& g) {
     if (in.left) step = -10;
     if (in.right) step = 10;
     if (step) {
+        g.dexMega = 0;
         g.dexSel = std::max(0, std::min(n - 1, g.dexSel + step));
         PlaySfx(Sfx::MenuMove);
     }
@@ -269,9 +280,11 @@ void DrawPokedex(const Game& g) {
     if (list.empty()) return;
 
     // Entry
-    int idx = list[std::max(0, std::min((int)list.size() - 1, g.dexSel))];
+    int baseIdx = list[std::max(0, std::min((int)list.size() - 1, g.dexSel))];
+    bool s = DexHasSeen(P, AllSpecies()[baseIdx].name), c = DexHasCaught(P, AllSpecies()[baseIdx].name);
+    auto megas = MegaFormsOf(baseIdx);
+    int idx = (c && g.dexMega > 0 && g.dexMega <= (int)megas.size()) ? megas[g.dexMega - 1] : baseIdx;   // its Mega form, if flipped to
     const SpeciesDef& sp = AllSpecies()[idx];
-    bool s = DexHasSeen(P, sp.name), c = DexHasCaught(P, sp.name);
     int x = 212, w = VW - x - 6;
     if (g.dexWhere && s) {
         DrawWherePage(g, idx, x, 28, w, 312);
@@ -280,12 +293,20 @@ void DrawPokedex(const Game& g) {
     DrawPanel(x, 28, w, 312, Color{240, 236, 228, 255}, Color{60, 40, 50, 255});
     DrawPanel(x + 8, 36, 116, 112, Color{200, 225, 210, 255}, Color{90, 110, 100, 255});
     DrawSpeciesFit(idx, VIEW_FRONT, x + 66, 142, 100, s ? WHITE : Color{30, 34, 40, 255});
+    if (c && !megas.empty()) {   // it has a Mega form: a rainbow tab to flip to it
+        const char* t = idx != baseIdx ? "Tab: back" : (megas.size() > 1 ? "Tab: Mega forms" : "Tab: Mega form");
+        int tw = TextW(t, 10) + 8;
+        DrawRectangle(x + 12, 38, tw, 12, Fade(UI_INK, 0.8f));
+        for (int i = 0; i < tw; i++) DrawRectangle(x + 12 + i, 49, 1, 1, ColorFromHSV(std::fmod(i * 7.0f + (float)GetTime() * 200.0f, 360.0f), 0.7f, 1.0f));
+        GDrawText(t, x + 16, 39, 10, WHITE);
+    }
     const Color ink{40, 34, 50, 255}, soft{100, 92, 110, 255};
     int tx = x + 134;
     GDrawText(TextFormat("No. %03d", sp.dex), tx, 38, 10, soft);
     GDrawText(s ? sp.name.c_str() : "?????", tx, 52, 20, ink);
     if (s) {
-        std::string cat = (sp.category.empty() ? std::string("Unknown") : sp.category) + " Pokemon";
+        std::string cat = idx != baseIdx ? TextFormat("Mega Evolution - holds the %s", sp.megaStone.c_str())
+                                         : (sp.category.empty() ? std::string("Unknown") : sp.category) + " Pokemon";
         GDrawText(cat.c_str(), tx, 76, 10, soft);
         int bx = tx;
         bx += DrawTypeBadge(sp.type1, bx, 92) + 4;
@@ -298,25 +319,31 @@ void DrawPokedex(const Game& g) {
         GDrawText("Not seen yet.", tx, 80, 10, soft);
     }
     int y = 156;
-    if (s) y = DrawWrapped(sp.dexEntry.empty() ? "No data." : sp.dexEntry.c_str(), x + 10, y, w - 20, 10, ink, 12) + 4;
+    if (s) {
+        const SpeciesDef& base = AllSpecies()[baseIdx];
+        const std::string& entry = !sp.dexEntry.empty() ? sp.dexEntry : base.dexEntry;
+        y = DrawWrapped(entry.empty() ? "No data." : entry.c_str(), x + 10, y, w - 20, 10, ink, 12) + 4;
+    }
     if (s) {   // where to find it (any Pokemon you've seen, even in a gym battle)
         int stage = g.coop ? g.coopSave.storyStage : g.profile.storyStage, locked = 0;
-        auto places = WildPlacesFor(idx, stage, locked);
+        auto places = WildPlacesFor(baseIdx, stage, locked);
         std::string where;
         for (size_t k = 0; k < places.size(); k++) where += (k ? ", " : "") + places[k];
         if (!places.empty() && locked > 0) where += TextFormat(" (+%d more further on)", locked);
-        const std::string& n = sp.name;
+        const std::string& n = AllSpecies()[baseIdx].name;
         std::string special = n == "Eevee" ? "a gift for a Pokemon that loves you"
                             : n == "Omanyte" || n == "Kabuto" ? "revived from a Mt. Moon fossil at the Cinnabar Lab"
                             : n == "Aerodactyl" ? "revived from the Pewter Museum's Old Amber at the Cinnabar Lab"
                             : n == "Hitmonlee" || n == "Hitmonchan" ? "the Saffron Dojo's prize"
                             : n == "Snorlax" ? "sleeping on Routes 16 and 12"
                             : n == "Porygon" || n == "Abra" || n == "Clefairy" || n == "Scyther" || n == "Pinsir" || n == "Dratini" ? "Celadon Game Corner prize"
+                            : n == "Ekans" || n == "Sandshrew" || n == "Cubone" || n == "Wobbuffet" ? "Goldenrod Game Corner prize"
+                            : n == "Zorua" || n == "Larvesta" || n == "Deino" ? "Nimbasa Game Corner prize"
                             : "";
         if (places.empty()) {
             if (!special.empty()) where = special;
             else if (locked > 0) where = "somewhere further along your journey";
-            else if (sp.starter) where = "not in the wild - a starter Pokemon";
+            else if (AllSpecies()[baseIdx].starter) where = "not in the wild - a starter Pokemon";
             else where = "not in the wild - evolve or trade for it";
         } else if (!special.empty()) {
             where += "; " + special;
@@ -353,7 +380,7 @@ void DrawPokedex(const Game& g) {
     }
     // Evolution family
     if (s) {
-        auto links = FamilyLinks(idx);
+        auto links = FamilyLinks(baseIdx);
         if (!links.empty() && y < 330) {
             GDrawText("Evolution", x + 10, y, 10, soft);
             int lx = x + 70, ly = y;
@@ -361,12 +388,12 @@ void DrawPokedex(const Game& g) {
                 if (ly > 326) break;
                 auto nm = [&](int i) { return DexHasSeen(P, AllSpecies()[i].name) ? AllSpecies()[i].name : std::string("?????"); };
                 std::string t = nm(l.first) + "  >  " + nm(l.second) + "  (" + MethodText(l.first, l.second) + ")";
-                GDrawText(t.c_str(), lx, ly, 10, (l.first == idx || l.second == idx) ? ink : soft);
+                GDrawText(t.c_str(), lx, ly, 10, (l.first == baseIdx || l.second == baseIdx) ? ink : soft);
                 ly += 11;
             }
         }
     }
-    GDrawText("Up/Down browse   Left/Right jump 10   Enter where to find it   Esc back", 8, 346, 10, Color{255, 220, 220, 255});
+    GDrawText("Up/Down browse   Left/Right jump 10   Enter where to find it   Tab Mega form   Esc back", 8, 346, 10, Color{255, 220, 220, 255});
 }
 
 // ------------------------------------------------------------------ Trading

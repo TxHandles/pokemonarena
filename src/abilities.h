@@ -146,6 +146,7 @@ enum class Ab : uint8_t {
     Defeatist, Illusion, IronBarbs, Mummy, SlushRush, Teravolt, Turboblaze, VictoryStar, ZenMode,   // Gen 5
     AromaVeil, AuraBreak, Bulletproof, CheekPouch, DarkAura, FairyAura, FlowerVeil, FurCoat, GaleWings, Gooey, GrassPelt,
     Magician, MegaLauncher, Pixilate, Refrigerate, StanceChange, StrongJaw, SweetVeil, Symbiosis, ToughClaws,   // Gen 6
+    Aerilate, ParentalBond, InnardsOut,   // Mega Evolutions (Mega Pinsir, Mega Kangaskhan, Mega Victreebel)
     Count
 };
 

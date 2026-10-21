@@ -46,7 +46,8 @@ bool MenuKeyPressed(int layout, Act a) {
     return (k[0] && IsKeyPressed(k[0])) || (k[1] && IsKeyPressed(k[1]));
 }
 bool MenuPadPressed(int p, Act a) {
-    int b = DefaultPadButton(a);
+    int b = a == Act::Up ? GAMEPAD_BUTTON_LEFT_FACE_UP : a == Act::Down ? GAMEPAD_BUTTON_LEFT_FACE_DOWN : a == Act::Left ? GAMEPAD_BUTTON_LEFT_FACE_LEFT
+          : a == Act::Right ? GAMEPAD_BUTTON_LEFT_FACE_RIGHT : DefaultPadButton(a);   // menus: the D-pad always navigates
     return b && IsGamepadAvailable(p) && IsGamepadButtonPressed(p, b);
 }
 } // namespace
@@ -74,6 +75,9 @@ PlayerInput ReadInput(int p, bool twoPlayer) {
     in.swapPrev = KeyPressed(lay, Act::SwapPrev);
     if (KeyPressed(lay, Act::Target)) in.target = 1;
     in.jump = KeyPressed(lay, Act::Jump);
+    in.mega = KeyPressed(lay, Act::Mega);
+    const Act items[4] = {Act::Item1, Act::Item2, Act::Item3, Act::Item4};
+    for (int i = 0; i < 4; i++) in.item[i] = KeyPressed(lay, items[i]);
     in.swapHeld = KeyDown(lay, Act::Swap);
     if (!twoPlayer) {   // keys 1-6: straight to that team slot
         const int nums[6] = {KEY_ONE, KEY_TWO, KEY_THREE, KEY_FOUR, KEY_FIVE, KEY_SIX};
@@ -100,6 +104,13 @@ PlayerInput ReadInput(int p, bool twoPlayer) {
         if (PadDown(p, Act::Down)) y += 1;
         if (PadDown(p, Act::Up)) y -= 1;
         bool any = ax != 0 || ay != 0;
+        if (IsGamepadButtonDown(p, GAMEPAD_BUTTON_LEFT_FACE_RIGHT)) in.dpad.x += 1;
+        if (IsGamepadButtonDown(p, GAMEPAD_BUTTON_LEFT_FACE_LEFT)) in.dpad.x -= 1;
+        if (IsGamepadButtonDown(p, GAMEPAD_BUTTON_LEFT_FACE_DOWN)) in.dpad.y += 1;
+        if (IsGamepadButtonDown(p, GAMEPAD_BUTTON_LEFT_FACE_UP)) in.dpad.y -= 1;
+        if (PadPressed(p, Act::Mega)) { in.mega = true; any = true; }
+        for (int i = 0; i < 4; i++)
+            if (PadPressed(p, items[i])) { in.item[i] = true; any = true; }
         for (int i = 0; i < 4; i++)
             if (PadPressed(p, moves[i])) { in.attack[i] = true; any = true; }
         if (PadPressed(p, Act::Swap)) { in.swap = true; any = true; }
@@ -207,6 +218,11 @@ const char* DodgeKeyLabel(int player, bool twoPlayer) { return Label(player, two
 const char* JumpKeyLabel(int player, bool twoPlayer) { return Label(player, twoPlayer, Act::Jump); }
 const char* SwapPrevKeyLabel(int player, bool twoPlayer) { return Label(player, twoPlayer, Act::SwapPrev); }
 const char* TargetKeyLabel(int player, bool twoPlayer) { return Label(player, twoPlayer, Act::Target); }
+const char* MegaKeyLabel(int player, bool twoPlayer) { return Label(player, twoPlayer, Act::Mega); }
+const char* ItemKeyLabel(int player, int slot, bool twoPlayer) {
+    const Act items[4] = {Act::Item1, Act::Item2, Act::Item3, Act::Item4};
+    return Label(player, twoPlayer, items[slot & 3]);
+}
 static const char* MenuLabel(int player, bool twoPlayer, Act a) {   // menus use the default bindings
     if (gUsedPad[player] && IsGamepadAvailable(player)) return PadButtonName(DefaultPadButton(a));
     int lay = Layout(player, twoPlayer);

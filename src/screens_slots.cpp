@@ -1,5 +1,7 @@
-// Celadon Game Corner: the slot machines and the prize counter (a tab of the shop).
+// The Game Corner: the slot machines and the prize counter (a tab of the shop) - every region's prizes.
 #include <algorithm>
+#include <string>
+#include <vector>
 #include <cmath>
 #include <cctype>
 #include "arena.h"
@@ -26,19 +28,39 @@ const int kLine[5][3] = {{0, 0, 0}, {-1, -1, -1}, {1, 1, 1}, {-1, 0, 1}, {1, 0, 
 int LinesFor(int bet) { return bet >= 3 ? 5 : bet == 2 ? 3 : 1; }
 constexpr float SPIN_SPEED = 14.0f;   // symbols per second
 
-// The prize counter: the FireRed / LeafGreen prizes (both versions' Pokemon), plus a few rarer extras.
-struct Prize { const char* name; int price; bool mon; const char* tmMove; };
+// The prize counter: each region's Game Corner prizes, stocked once the story reaches that city -
+// Celadon (FireRed / LeafGreen), Goldenrod (Gold / Silver / Crystal), Mauville (Emerald), Veilstone
+// (Platinum), and Nimbasa (Black / White had no Game Corner: Unova's stand-in prizes, in its style).
+struct Prize { const char* name; int price; bool mon; const char* tmMove; int region; };
 const Prize kPrizes[] = {
-    {"Abra", 180, true, nullptr},          {"Clefairy", 500, true, nullptr},       {"Pinsir", 2500, true, nullptr},
-    {"Dratini", 2800, true, nullptr},      {"Scyther", 5500, true, nullptr},       {"Porygon", 9999, true, nullptr},
-    {"Smoke Ball", 800, false, nullptr},   {"Miracle Seed", 1000, false, nullptr}, {"Charcoal", 1000, false, nullptr},
-    {"Mystic Water", 1000, false, nullptr}, {"Yellow Flute", 1600, false, nullptr},
-    {"TM Ice Beam", 4000, false, "Ice Beam"}, {"TM Thunderbolt", 4000, false, "Thunderbolt"},
-    {"TM Flamethrower", 4000, false, "Flamethrower"}, {"TM Shadow Ball", 4500, false, "Shadow Ball"},
-    {"Leftovers", 3000, false, nullptr},   {"Focus Band", 4000, false, nullptr},   {"Choice Scarf", 5000, false, nullptr},
-    {"Life Orb", 6000, false, nullptr},    {"Master Ball", 20000, false, nullptr},
+    // Kanto - Celadon
+    {"Abra", 180, true, nullptr, 0},          {"Clefairy", 500, true, nullptr, 0},       {"Pinsir", 2500, true, nullptr, 0},
+    {"Dratini", 2800, true, nullptr, 0},      {"Scyther", 5500, true, nullptr, 0},       {"Porygon", 9999, true, nullptr, 0},
+    {"Smoke Ball", 800, false, nullptr, 0},   {"Miracle Seed", 1000, false, nullptr, 0}, {"Charcoal", 1000, false, nullptr, 0},
+    {"Mystic Water", 1000, false, nullptr, 0}, {"Yellow Flute", 1600, false, nullptr, 0},
+    {"TM Ice Beam", 4000, false, "Ice Beam", 0}, {"TM Thunderbolt", 4000, false, "Thunderbolt", 0},
+    {"TM Flamethrower", 4000, false, "Flamethrower", 0}, {"TM Shadow Ball", 4500, false, "Shadow Ball", 0},
+    {"Leftovers", 3000, false, nullptr, 0},   {"Focus Band", 4000, false, nullptr, 0},   {"Choice Scarf", 5000, false, nullptr, 0},
+    {"Life Orb", 6000, false, nullptr, 0},    {"Master Ball", 20000, false, nullptr, 0},
+    // Johto - Goldenrod
+    {"Ekans", 700, true, nullptr, 1},         {"Sandshrew", 700, true, nullptr, 1},      {"Cubone", 800, true, nullptr, 1},
+    {"Wobbuffet", 1500, true, nullptr, 1},
+    {"TM Thunder", 5500, false, "Thunder", 1}, {"TM Blizzard", 5500, false, "Blizzard", 1}, {"TM Fire Blast", 5500, false, "Fire Blast", 1},
+    // Hoenn - Mauville
+    {"TM Psychic", 3500, false, "Psychic", 2}, {"TM Shadow Claw", 2500, false, "Shadow Claw", 2},
+    {"Shell Bell", 2000, false, nullptr, 2},  {"Scope Lens", 2500, false, nullptr, 2},
+    // Sinnoh - Veilstone
+    {"TM Substitute", 2000, false, "Substitute", 3}, {"TM Endure", 2000, false, "Endure", 3},
+    {"TM Swords Dance", 4000, false, "Swords Dance", 3}, {"TM Rest", 6000, false, "Rest", 3},
+    {"Expert Belt", 3000, false, nullptr, 3}, {"Quick Claw", 2000, false, nullptr, 3},
+    // Unova - Nimbasa
+    {"Zorua", 6500, true, nullptr, 4},        {"Larvesta", 8000, true, nullptr, 4},      {"Deino", 9000, true, nullptr, 4},
+    {"TM Volt Switch", 3000, false, "Volt Switch", 4}, {"TM Scald", 4000, false, "Scald", 4},
+    {"Rocky Helmet", 3500, false, nullptr, 4}, {"Eviolite", 3500, false, nullptr, 4},
 };
 constexpr int NPRIZES = (int)(sizeof kPrizes / sizeof kPrizes[0]);
+const char* kCornerCity[5] = {"celadon", "goldenrod", "mauville", "veilstone", "nimbasa"};
+const char* kCornerName[5] = {"Celadon", "Goldenrod", "Mauville", "Veilstone", "Nimbasa"};
 constexpr int TOP_ROWS = 3;   // play, buy 50, buy 500
 const int kBuyCoins[2] = {50, 500}, kBuyCost[2] = {25, 250};
 
@@ -50,13 +72,27 @@ const ItemDef* PrizeItem(const Prize& p) {
     return nullptr;
 }
 
-int CornerStage() {
+int CornerStage(int region) {   // the region's Game Corner city: its first story stage there (-1 none)
     for (int i = 0; i < (int)Story().stages.size(); i++) {
+        if (Story().stages[i].region != region) continue;
         std::string n = Story().stages[i].name;
         for (char& c : n) c = (char)std::tolower((unsigned char)c);
-        if (n.find("celadon") != std::string::npos) return i;
+        if (n.find(kCornerCity[region]) != std::string::npos) return i;
     }
-    return 0;
+    return -1;
+}
+
+bool CornerRegionOpen(const Game& g, int region) {
+    int st = CornerStage(region);
+    return st >= 0 && (g.coop ? g.coopSave.storyStage : g.profile.storyStage) >= st;
+}
+
+std::vector<int> OpenPrizes(const Game& g) {   // what the counter stocks right now
+    std::vector<int> v;
+    for (int i = 0; i < NPRIZES; i++)
+        if (CornerRegionOpen(g, kPrizes[i].region) && (!kPrizes[i].mon || SpeciesIndex(kPrizes[i].name) >= 0) && (kPrizes[i].mon || PrizeItem(kPrizes[i])))
+            v.push_back(i);
+    return v;
 }
 
 int ReelAt(int r, float pos, int row) {   // the symbol 'row' rows below the top of a reel at 'pos'
@@ -150,13 +186,17 @@ void DrawSymbol(int sym, int cx, int cy, float alpha, float s = 1.0f) {
 
 } // namespace
 
-bool GameCornerOpen(const Game& g) { return (g.coop ? g.coopSave.storyStage : g.profile.storyStage) >= CornerStage(); }
+bool GameCornerOpen(const Game& g) {
+    for (int r = 0; r < 5; r++) if (CornerRegionOpen(g, r)) return true;
+    return false;
+}
 
 // ------------------------------------------------------------------ the prize counter (shop tab)
 
 void UpdateGameCorner(Game& g, const PlayerInput& in) {
     if (!GameCornerOpen(g)) return;
-    int n = TOP_ROWS + NPRIZES;
+    auto open = OpenPrizes(g);
+    int n = TOP_ROWS + (int)open.size();
     if (in.up) { g.shopSel = (g.shopSel + n - 1) % n; PlaySfx(Sfx::MenuMove); }
     if (in.down) { g.shopSel = (g.shopSel + 1) % n; PlaySfx(Sfx::MenuMove); }
     g.shopSel = std::max(0, std::min(g.shopSel, n - 1));
@@ -182,7 +222,7 @@ void UpdateGameCorner(Game& g, const PlayerInput& in) {
         Toast(g, TextFormat("Got %d Game Corner coins!", kBuyCoins[k]));
         return;
     }
-    const Prize& pr = kPrizes[g.shopSel - TOP_ROWS];
+    const Prize& pr = kPrizes[open[g.shopSel - TOP_ROWS]];
     if (p.casino < pr.price) { Toast(g, "Not enough Game Corner coins!"); PlaySfx(Sfx::MenuBack); return; }
     if (pr.mon) {
         int sp = SpeciesIndex(pr.name);
@@ -207,11 +247,13 @@ void DrawGameCorner(const Game& g) {
     const Profile& p = g.profile;
     if (!GameCornerOpen(g)) {
         DrawPanel(120, 120, 400, 80);
-        DrawTextCentered("CELADON GAME CORNER", VW / 2, 134, 20, Color{255, 120, 200, 255});
-        DrawTextCentered("Reach Celadon City to visit the Game Corner.", VW / 2, 170, 10, UI_DIM, false);
+        DrawTextCentered("GAME CORNER", VW / 2, 134, 20, Color{255, 120, 200, 255});
+        DrawTextCentered("Reach Celadon, Goldenrod, Mauville, Veilstone or Nimbasa City", VW / 2, 164, 10, UI_DIM, false);
+        DrawTextCentered("to visit the Game Corner.", VW / 2, 178, 10, UI_DIM, false);
         return;
     }
-    int n = TOP_ROWS + NPRIZES, rows = 13;
+    auto open = OpenPrizes(g);
+    int n = TOP_ROWS + (int)open.size(), rows = 13;
     int first = std::max(0, std::min(g.shopSel - rows / 2, n - rows));
     for (int i = first; i < std::min(n, first + rows); i++) {
         int y = 56 + (i - first) * 21;
@@ -227,7 +269,7 @@ void DrawGameCorner(const Game& g) {
             const char* pr = TextFormat("%d coins", kBuyCost[i - 1]);
             GDrawText(pr, 340 - TextW(pr, 10), y + 5, 10, kBuyCost[i - 1] <= p.coins ? Color{255, 200, 60, 255} : Color{255, 120, 100, 255});
         } else {
-            const Prize& pz = kPrizes[i - TOP_ROWS];
+            const Prize& pz = kPrizes[open[i - TOP_ROWS]];
             if (pz.mon) {
                 int sp = SpeciesIndex(pz.name);
                 if (sp >= 0) DrawSpeciesFit(sp, VIEW_FRONT, 32, y + 18, 16);
@@ -244,25 +286,34 @@ void DrawGameCorner(const Game& g) {
                     DrawRectangle(28, y + 5, 9, 9, d && d->fx == ItemFx::TypeBoost ? TypeColor(d->type) : Color{140, 220, 255, 255});
                 }
                 int have = d ? BagCount(p, d->name) : 0;
-                if (have > 0) GDrawText(TextFormat("x%d", have), 230, y + 5, 10, UI_DIM);
+                if (have > 0) GDrawText(TextFormat("x%d", have), 226, y + 5, 10, UI_DIM);
             }
             GDrawText(pz.name, 46, y + 5, 10, tc);
+            GDrawText(kCornerName[pz.region], 262, y + 5, 10, Color{150, 120, 160, 255});   // which Game Corner it comes from
             const char* pr = TextFormat("%d", pz.price);
             GDrawText(pr, 340 - TextW(pr, 10), y + 5, 10, pz.price <= p.casino ? Color{255, 150, 220, 255} : Color{255, 120, 100, 255});
         }
     }
     // the details panel
     DrawPanel(362, 56, 258, 150);
-    GDrawText("CELADON GAME CORNER", 372, 64, 10, Color{255, 120, 200, 255});
+    {
+        std::string open5;
+        for (int r = 0; r < 5; r++) if (CornerRegionOpen(g, r)) open5 += (open5.empty() ? "" : ", ") + std::string(kCornerName[r]);
+        GDrawText("GAME CORNER", 372, 64, 10, Color{255, 120, 200, 255});
+        (void)open5;   // (each prize row names its Game Corner)
+    }
     GDrawText(TextFormat("Game Corner coins: %d", p.casino), 372, 80, 10, Color{255, 150, 220, 255});
     std::string desc;
     if (g.shopSel == 0) desc = "Three reels: line up 7s (300), Rocket R's (100), Pikachu or Psyduck (15), Magnemite (6) or Shellder (4). "
                                "A cherry on the left reel pays 2. Bet 3 coins to play all 5 lines!";
     else if (g.shopSel < TOP_ROWS) desc = "Trade your coins for Game Corner coins to play the slots or spend at the prize counter.";
     else {
-        const Prize& pz = kPrizes[g.shopSel - TOP_ROWS];
-        if (pz.mon) desc = std::string("A prize Pokemon. ") + pz.name + " joins at about your team's level." +
+        const Prize& pz = kPrizes[open[g.shopSel - TOP_ROWS]];
+        if (pz.mon) desc = std::string("A prize Pokemon from the ") + kCornerName[pz.region] + " Game Corner. " + pz.name + " joins at about your team's level." +
                            (std::string(pz.name) == "Porygon" ? " You can't find it anywhere else!" : "");
+        else if (pz.region > 0) {
+            if (const ItemDef* d = PrizeItem(pz)) desc = std::string(kCornerName[pz.region]) + " prize: " + (d->fx == ItemFx::TM ? "teaches " + d->move + ". Used up when taught." : d->desc);
+        }
         else if (const ItemDef* d = PrizeItem(pz)) desc = d->fx == ItemFx::TM ? "Teaches " + d->move + ". Used up when taught." : d->desc;
     }
     DrawWrapped(desc.c_str(), 372, 98, 238, 10, UI_TEXT, 12);

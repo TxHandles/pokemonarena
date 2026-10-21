@@ -52,6 +52,8 @@ struct Profile {
     std::string boxFilter;             // Box filter: "" all, "type:Fire", "evolve", "item", "hurt"
     int towerFloor = 0;                // Battle Tower: floors cleared in the current run (next = +1)
     int towerBest = 0;                 // the highest floor ever cleared
+    int raidDay = -1;                  // the Daily Raid: the day it was last fought (one try a day)
+    int raidWins = 0;
     int towerRuns = 0;                 // runs finished (a lost floor ends a run)
     std::vector<std::string> hof;      // Hall of Fame entries, oldest first: "partner|Species:Lv,Species:Lv,..."
     uint64_t legends = 0;              // bit k: legendary k (legend.h) was caught - its encounter is closed
@@ -61,6 +63,7 @@ struct Profile {
     std::string starter3;              // Hoenn: the starter Professor Birch gave you
     std::string rival3;                // Hoenn: May's starter
     std::string starter4, rival4;      // Sinnoh: Rowan's gift and Barry's pick
+    std::string hotItems[4];           // the battle item hotkeys (D-pad up / right / down / left): Medicine from the Bag
     std::string starter5, rival5;      // Unova: Juniper's gift and Cheren's pick
     std::set<std::string> postDone;    // optional post-game battles beaten (their stage names: "Mt. Silver")
     std::vector<int> regionOrder;      // the regions in the order this story plays them (empty: a new story, not chosen yet)
@@ -99,6 +102,7 @@ struct CoopSave {
     int snorlaxWho[2] = {-1, -1};      // who got the Snorlax of each encounter (-1 = nobody yet)
     int dojoFirst = -1;                // who picks first at the Fighting Dojo (the MVP of that battle)
     int towerFloor = 0, towerBest = 0, towerRuns = 0;   // the Battle Tower, climbed together
+    int raidDay = -1, raidWins = 0;    // the Daily Raid together (one a day, separate from your solo saves)
     uint64_t legends = 0;              // bit k: legendary k was caught (by legendWho[k])
     std::string rival[2];              // the rival's two starters (picked once, from the four you didn't take)
     int legendWho[64];                 // by legend id (legend.h): who caught it (-1 nobody)

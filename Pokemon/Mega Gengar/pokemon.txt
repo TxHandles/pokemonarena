@@ -1,0 +1,22 @@
+# Mega Gengar: the Mega Evolution of Gengar (official Mega stats, types and ability). Not caught or met on its
+# own: a Gengar holding the Gengarite Mega Evolves into it in battle (once per battle).
+name = Mega Gengar
+dex  = 94
+type = Ghost / Poison
+mega_of = Gengar
+mega_stone = Gengarite
+
+hp         = 60
+attack     = 65
+defense    = 80
+sp_attack  = 170
+sp_defense = 95
+speed      = 130
+
+height = 1.4      # Pokedex height in meters
+weight = 40.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Shadow Tag
+category = 

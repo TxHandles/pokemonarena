@@ -407,6 +407,7 @@ void WildEncounter(Game& g, int i) {
     if (t.profile.trainArea != m.wild) { t.profile.trainArea = m.wild; t.rareSpecies = -1; }
     t.ow.wildBattle = true;
     t.ow.wildArea = m.wild;
+    t.encounterBlank = g.coop;
     if (!SaveProfile(t.profile)) Toast(g, "Could not save the profile!");
     StartTrainingBattle(t);
 }
@@ -575,6 +576,7 @@ WalkIn ReadWalk(const Game& g, int i) {
 #endif
         in = LocalCoop(g) ? ReadInput(i, true) : ReadInput(0, false);
     bool up = in.move.y < -0.5f, down = in.move.y > 0.5f, left = in.move.x < -0.5f, right = in.move.x > 0.5f;
+    up |= in.dpad.y < 0; down |= in.dpad.y > 0; left |= in.dpad.x < 0; right |= in.dpad.x > 0;   // the D-pad still walks here
     if (!LocalCoop(g)) {
         up |= IsKeyDown(KEY_UP); down |= IsKeyDown(KEY_DOWN); left |= IsKeyDown(KEY_LEFT); right |= IsKeyDown(KEY_RIGHT);
         r.run = IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT);
@@ -981,7 +983,8 @@ void DrawMapAt(const OwMap& m, const View& c, float ox, float oy) {
 // A person: 16x24, feet at the bottom of the tile. frame 0 standing, 1/2 walking.
 void DrawChar(const View& c, int sprite, int face, int frame, float mx, float my, float lift = 0) {
     if (!gChars.id) return;
-    int col = (face == 0 ? 0 : face == 1 ? 3 : 6) + frame;
+    static const int kCol[3] = {1, 0, 2};   // the sheet's columns: step, stand, step (frame 0 = standing still)
+    int col = (face == 0 ? 0 : face == 1 ? 3 : 6) + kCol[frame < 0 || frame > 2 ? 0 : frame];
     Rectangle src{(float)col * 16, (float)sprite * 24, face == 3 ? -16.0f : 16.0f, 24};
     Vector2 p = Scr(c, mx, my + T - 24 - lift);
     DrawEllipse((int)(p.x + 8 * Z), (int)(Scr(c, mx, my + T - 1).y), 6 * Z, 2 * Z, Fade(BLACK, 0.25f));

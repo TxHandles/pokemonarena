@@ -69,6 +69,9 @@ struct SideSetup {
     int input = -1;              // human input (0 = player 1, 1 = player 2); -1 = by index
     std::string tag;             // short tag over the creature in 2v2 ("P1", "P2", "CPU")
     bool dummy = false;          // practice dummy: stands still, never faints
+    std::string hot[4];          // battle items in the four hotkey slots (Medicine), and how many of each it carries
+    int hotN[4] = {0, 0, 0, 0};
+    int squad = -1;              // the raid: this player's squad (0 / 1); its slots share one controller and come in in waves
 };
 
 struct BattleSetup {
@@ -86,6 +89,7 @@ struct BattleSetup {
     uint8_t venue = 0;           // Venue (field.h): the look of a non-gym battle
     int season = -1;             // Story season (outdoor venues dress for it), -1 none
     bool practice = false;       // practice arena: nobody faints, no XP
+    bool raid = false;           // the Daily Raid: your whole party fights at once (small name plates for the allies)
     std::string leader;          // a gym battle: the leader ("Leader Brock"), for their picture and cut-ins (Leaders/)
 };
 
@@ -109,7 +113,9 @@ struct Fighter {
     int transformFrom = -1;              // Transform: the real species (-1 = not transformed)
     std::array<MoveDef, 4> origMoves;   // Transform: the real moves
     int origN = 0;
-    int RealSpecies() const { return transformFrom >= 0 ? transformFrom : species; }
+    int megaFrom = -1;                   // Mega Evolved: the base species (it stays Mega for the rest of the battle)
+    int megaTo = -1;                     // Mega Evolving right now: the Mega form
+    int RealSpecies() const { return megaFrom >= 0 ? megaFrom : transformFrom >= 0 ? transformFrom : species; }
     int nMoves = 0;
 
     int maxHp = 1;
@@ -365,6 +371,8 @@ struct Intent {
     bool swapBack = false;   // swap to the previous creature instead of the next
     int swapTo = -1;         // swap straight to this team slot
     bool dodge = false, jump = false;
+    bool mega = false;
+    int item = -1;           // use the item in this hotkey slot
     bool hasAim = false;
     Vector2 aim{1, 0};
 };
@@ -384,6 +392,12 @@ struct Side {
     AILevel level = AILevel::Normal;
     std::string label;
     float swapCd = 0;
+    bool megaUsed = false;   // one Mega Evolution a battle for each player
+    std::string hot[4];      // item hotkeys: the item, how many are left, the slot's cooldown, how many it started with
+    int hotN[4] = {0, 0, 0, 0}, hotStart[4] = {0, 0, 0, 0};
+    float hotCd[4] = {0, 0, 0, 0};
+    int HotUsed(int k) const { return hotStart[k] - hotN[k]; }
+    int squad = -1;          // the raid: whose squad (0 / 1) - the player steers one of its slots, the CPU the rest
     int swapTo = -1;
     float manualT = 0;       // a player picked this target themselves: keep it for a while
     bool dummy = false;      // practice dummy
@@ -417,6 +431,8 @@ public:
     const BattleSetup& Setup() const { return setup; }
     void PracticeCycleDummies();   // practice arena: every dummy turns into the next type
     const Field& GetField() const { return field; }
+    bool CanMega(int s) const;     // that slot's Pokemon on the field holds its Mega Stone and the player hasn't Mega Evolved yet
+    float MegaFreeze() const { return megaFreezeT; }
 
 private:
     void PracticeNextDummy(int s, bool announce);
@@ -440,11 +456,12 @@ private:
     int envLevel = 50;          // arena hazards hit like a creature of this level
     Weather weather = Weather::None;
     float weatherT = 0, weatherTick = 0;
-    MoveDef lastMove[4];        // for Mirror Move / Copycat (by slot)
-    bool hasLastMove[4] = {false, false, false, false};
+    MoveDef lastMove[16];       // for Mirror Move / Copycat (by slot; up to 16 slots - a co-op raid has 13)
+    bool hasLastMove[16] = {};
     SimRng rng;                 // all of the battle's randomness (see rng.h)
     bool gasOn = false, cloudNine = false;   // Neutralizing Gas / Cloud Nine on the field
     Weather natural = Weather::None;         // the day's weather: comes back when a weather move wears off
+    float megaFreezeT = 0;                   // a Mega Evolution: everything else pauses for a moment
     float hype = 0;                          // how loud the gym crowd is (visual only, not saved)
     friend struct BattleIO;     // online: save / load the whole battle (net_state.cpp)
 public:
@@ -557,6 +574,13 @@ private:
     void GiveXp(int s, int amount);
     void LevelUp(int s);
     void FinishEvolution(int s);
+    void StartMega(int s);
+    bool UseHotItem(int s, int slot);
+    int HotSide(int s) const;          // the slot whose item hotkeys this slot uses (a raid squad shares its leader's)
+    bool SquadFighting(int squad) const;   // a raid squad still has a Pokemon up on the field
+    void RaidControl(PlayerInput in[2]);   // the raid: Swap moves your control between your squad's Pokemon on the field   // false: nothing to use it on (or empty / cooling down)
+    bool ItemWouldHelp(const Fighter& f, const ItemDef& d) const;
+    void FinishMega(int s);
     bool Targetable(int s) const;
     bool Hittable(int s) const;      // targetable and not mid-dodge (attacks pass through a dodge)
     void StartDodge(int s, Vector2 dir);

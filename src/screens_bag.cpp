@@ -8,14 +8,17 @@
 #include "audio.h"
 #include "game.h"
 #include "items.h"
+#include "input.h"
 #include "legend.h"
 #include "moves.h"
 #include "sprites.h"
 #include "ui.h"
 
 namespace {
-const char* kPockets[5] = {"Poke Balls", "Held Items", "Evolution Stones", "TMs", "Key Items"};
-const Color kPocketCol[5] = {{226, 70, 70, 255}, {80, 170, 230, 255}, {120, 200, 110, 255}, {170, 120, 220, 255}, {236, 180, 60, 255}};
+constexpr int POCKETS = 6;
+const char* kPockets[POCKETS] = {"Poke Balls", "Medicine", "Held Items", "Evolution Stones", "TMs", "Key Items"};
+const Color kPocketCol[POCKETS] = {{226, 70, 70, 255}, {240, 120, 170, 255}, {80, 170, 230, 255}, {120, 200, 110, 255}, {170, 120, 220, 255}, {236, 180, 60, 255}};
+const char* kSlotDir[4] = {"Up", "Right", "Down", "Left"};
 
 struct BagRow {
     const ItemDef* item = nullptr;   // nullptr: a special key item (name / desc below)
@@ -25,10 +28,11 @@ struct BagRow {
 
 int Pocket(const ItemDef& d) {
     if (IsBall(d)) return 0;
-    if (IsStone(d)) return 2;
-    if (IsTM(d)) return 3;
-    if (d.fx == ItemFx::KeyItem || d.fx == ItemFx::ExpAll) return 4;
-    return 1;
+    if (IsMedicine(d)) return 1;
+    if (IsStone(d)) return 3;
+    if (IsTM(d)) return 4;
+    if (d.fx == ItemFx::KeyItem || d.fx == ItemFx::ExpAll) return 5;
+    return 2;
 }
 
 std::vector<BagRow> Rows(const Game& g, int pocket) {
@@ -45,9 +49,9 @@ std::vector<BagRow> Rows(const Game& g, int pocket) {
         r.count = n;
         v.push_back(r);
     }
-    if (pocket == 3)
+    if (pocket == 4)
         std::sort(v.begin(), v.end(), [](const BagRow& a, const BagRow& b) { return a.item->tmNo < b.item->tmNo; });
-    if (pocket == 4) {   // the story's key items
+    if (pocket == 5) {   // the story's key items
         BagRow b;
         b.name = "Badge Case";
         b.desc = TextFormat("Holds your Gym Badges: %d of 8 collected.", BadgeCount(g));
@@ -105,6 +109,26 @@ void DrawItemIcon(const ItemDef& d, float cx, float cy, float s) {
     } else if (d.fx == ItemFx::KeyItem || d.fx == ItemFx::ExpAll) {
         DrawPoly({cx, cy}, 5, 5.5f * s, 0, Color{120, 100, 80, 255});
         DrawPoly({cx, cy}, 5, 4.0f * s, 0, Color{200, 180, 140, 255});
+    } else if (IsMedicine(d)) {
+        bool berry = d.name.find("Berry") != std::string::npos;
+        if (berry) {   // a round berry with a leaf
+            Color c = d.name == "Oran Berry" ? Color{70, 110, 220, 255} : d.name == "Sitrus Berry" ? Color{240, 210, 70, 255}
+                    : d.name == "Pecha Berry" ? Color{250, 160, 190, 255} : d.name == "Cheri Berry" ? Color{230, 60, 60, 255}
+                    : d.name == "Chesto Berry" ? Color{110, 70, 170, 255} : d.name == "Rawst Berry" ? Color{90, 190, 120, 255}
+                    : d.name == "Aspear Berry" ? Color{240, 230, 110, 255} : d.name == "Persim Berry" ? Color{240, 140, 60, 255} : Color{120, 200, 90, 255};
+            DrawCircleV({cx, cy + 0.5f * s}, 4.6f * s, ColorBrightness(c, -0.45f));
+            DrawCircleV({cx, cy + 0.5f * s}, 3.8f * s, c);
+            DrawCircleV({cx - 1.4f * s, cy - 0.8f * s}, 1.0f * s, Fade(WHITE, 0.7f));
+            DrawTriangle({cx, cy - 3.5f * s}, {cx + 4 * s, cy - 6 * s}, {cx + 1.5f * s, cy - 2.5f * s}, Color{70, 160, 60, 255});
+        } else {   // a spray bottle: purple Potions, gold Max / Full Restore, blue status heals
+            bool potion = d.value > 0;
+            Color c = !potion ? Color{90, 160, 230, 255} : d.value >= 1 ? Color{240, 190, 60, 255}
+                    : d.value >= 0.5f ? Color{220, 80, 170, 255} : d.value >= 0.3f ? Color{230, 90, 90, 255} : Color{150, 90, 210, 255};
+            DrawRectangleRounded({cx - 3.5f * s, cy - 2.5f * s, 7 * s, 8 * s}, 0.4f, 6, ColorBrightness(c, -0.4f));
+            DrawRectangleRounded({cx - 2.8f * s, cy - 1.8f * s, 5.6f * s, 6.6f * s}, 0.4f, 6, c);
+            DrawRectangle((int)(cx - 1.5f * s), (int)(cy - 5.5f * s), (int)(3 * s), (int)(3 * s), Color{220, 220, 230, 255});
+            DrawRectangle((int)(cx - 2.2f * s), (int)(cy + 0.2f * s), (int)(4.4f * s), (int)std::max(1.0f, 1.4f * s), Fade(WHITE, 0.75f));
+        }
     } else if (d.fx == ItemFx::TypeBoost) {
         DrawRectangle((int)(cx - 4.5f * s), (int)(cy - 4.5f * s), (int)(9 * s), (int)(9 * s), TypeColor(d.type));
     } else {
@@ -130,16 +154,40 @@ static void DrawKeyIcon(const std::string& name, float cx, float cy, float s) {
 }
 
 void OpenBag(Game& g) {
-    g.bagTab = std::max(0, std::min(4, g.bagTab));
+    g.bagTab = std::max(0, std::min(POCKETS - 1, g.bagTab));
+    g.bagAssign = false;
     g.bagSel = 0;
     g.screen = Screen::Bag;
 }
 
 void UpdateBag(Game& g) {
     PlayerInput in = MenuInput();
+    if (g.bagAssign) {   // picking the hotkey for a Medicine: a direction picks the slot, confirm sets it
+        const auto rows = Rows(g, g.bagTab);
+        if (in.back || rows.empty()) { g.bagAssign = false; PlaySfx(Sfx::MenuBack); return; }
+        if (in.up) g.bagSlot = 0;
+        if (in.right) g.bagSlot = 1;
+        if (in.down) g.bagSlot = 2;
+        if (in.left) g.bagSlot = 3;
+        if (in.up || in.right || in.down || in.left) PlaySfx(Sfx::MenuMove);
+        if (in.confirm) {
+            Profile& p = g.profile;
+            const std::string& nm = rows[std::min(g.bagSel, (int)rows.size() - 1)].name;
+            if (p.hotItems[g.bagSlot] == nm) { p.hotItems[g.bagSlot].clear(); Toast(g, nm + " taken off the " + kSlotDir[g.bagSlot] + " slot."); }
+            else {
+                for (auto& h : p.hotItems) if (h == nm) h.clear();   // one slot per item
+                p.hotItems[g.bagSlot] = nm;
+                Toast(g, nm + TextFormat(" set to item slot %d (%s).", g.bagSlot + 1, kSlotDir[g.bagSlot]));
+            }
+            StorySaveProfile(g);
+            g.bagAssign = false;
+            PlaySfx(Sfx::MenuOk);
+        }
+        return;
+    }
     if (in.back) { PlaySfx(Sfx::MenuBack); EnterStoryHub(g); g.hubSel = 6; return; }
     if (in.left || in.right) {
-        g.bagTab = (g.bagTab + (in.left ? 4 : 1)) % 5;
+        g.bagTab = (g.bagTab + (in.left ? POCKETS - 1 : 1)) % POCKETS;
         g.bagSel = 0;
         PlaySfx(Sfx::MenuMove);
     }
@@ -149,7 +197,12 @@ void UpdateBag(Game& g) {
     if (in.confirm && n > 0) {
         const auto rows = Rows(g, g.bagTab);
         const BagRow& r = rows[std::min(g.bagSel, n - 1)];
-        if (r.item && (IsStone(*r.item) || IsTM(*r.item) || IsHoldable(*r.item)))
+        if (r.item && IsMedicine(*r.item)) {
+            g.bagAssign = true;
+            g.bagSlot = 0;
+            for (int k = 0; k < 4; k++) if (g.profile.hotItems[k] == r.name) g.bagSlot = k;
+            PlaySfx(Sfx::MenuOk);
+        } else if (r.item && (IsStone(*r.item) || IsTM(*r.item) || IsHoldable(*r.item)))
             Toast(g, IsHoldable(*r.item) ? "Give it to a Pokemon from Party & Box." : "Use it on a Pokemon from Party & Box.");
         else if (r.item && IsBall(*r.item)) Toast(g, "Throw it at a weakened wild Pokemon after a battle.");
     }
@@ -172,8 +225,8 @@ void DrawBag(const Game& g) {
     // left: the backpack and pocket tabs
     DrawPanel(10, 36, 150, 290, Color{24, 60, 70, 235}, pc);
     Backpack(55, 62, g.bagTab, g.t);
-    for (int i = 0; i < 5; i++) {
-        int y = 116 + i * 22;
+    for (int i = 0; i < POCKETS; i++) {
+        int y = 112 + i * 20;
         bool sel = g.bagTab == i;
         DrawPanel(18, y, 134, 18, sel ? kPocketCol[i] : Color{30, 70, 80, 255}, sel ? WHITE : ColorBrightness(kPocketCol[i], -0.3f));
         GDrawText(kPockets[i], 26, y + 4, 10, sel ? UI_INK : UI_TEXT);
@@ -184,8 +237,8 @@ void DrawBag(const Game& g) {
             GDrawText(c, 146 - TextW(c, 10), y + 4, 10, sel ? UI_INK : UI_DIM);
         }
     }
-    GDrawText("< Left / Right >", 40, 232, 10, UI_DIM);
-    GDrawText("switch pockets", 44, 244, 10, UI_DIM);
+    GDrawText("< Left / Right >", 40, 240, 10, UI_DIM);
+    GDrawText("switch pockets", 44, 252, 10, UI_DIM);
 
     // right: the items
     auto rows = Rows(g, g.bagTab);
@@ -194,8 +247,8 @@ void DrawBag(const Game& g) {
     DrawRectangle(170, 36, 230, 18, pc);
     GDrawText(kPockets[g.bagTab], 178, 40, 10, UI_INK);
     if (n == 0) {
-        const char* empty[5] = {"No Poke Balls. Buy some at the Poke Mart!", "No held items. The Poke Mart sells them.",
-                                "No evolution stones.", "No TMs. The Poke Mart sells them.", ""};
+        const char* empty[POCKETS] = {"No Poke Balls. Buy some at the Poke Mart!", "No Medicine. The Poke Mart sells Potions, status heals and berries.",
+                                "No held items. The Poke Mart sells them.", "No evolution stones.", "No TMs. The Poke Mart sells them.", ""};
         DrawWrapped(empty[g.bagTab], 180, 66, 210, 10, Color{90, 90, 100, 255});
     }
     int rowsShown = 13, sel = std::min(g.bagSel, std::max(0, n - 1));
@@ -239,10 +292,39 @@ void DrawBag(const Game& g) {
             if (r.item) {
                 const char* how = IsBall(*r.item) ? "Thrown at weakened wild Pokemon after a battle."
                                 : IsStone(*r.item) ? "Use it on a Pokemon from Party & Box."
-                                : IsHoldable(*r.item) ? "Give it to a Pokemon to hold from Party & Box." : "";
+                                : IsHoldable(*r.item) ? "Give it to a Pokemon to hold from Party & Box."
+                                : IsMedicine(*r.item) ? "Enter: put it on an item hotkey. In battle, press that hotkey to use it on your Pokemon (30 s cooldown)." : "";
                 if (*how) DrawWrapped(how, 420, y, 200, 10, UI_DIM);
             }
         }
+    }
+    if (g.bagTab == 1) {   // the item hotkeys, laid out like the D-pad
+        DrawPanel(410, 212, 220, 114, Color{24, 60, 70, 235}, g.bagAssign ? UI_GOLD : pc);
+        GDrawText(g.bagAssign ? "Pick a slot + Enter (Esc cancels)" : "Item hotkeys in battle (D-pad)", 418, 216, 10, UI_GOLD);
+        const int ox = 520, oy = 272;
+        const Vector2 at[4] = {{0, -30}, {62, 0}, {0, 30}, {-62, 0}};
+        DrawRectangle(ox - 8, oy - 22, 16, 44, Color{40, 40, 50, 255});   // the D-pad cross
+        DrawRectangle(ox - 22, oy - 8, 44, 16, Color{40, 40, 50, 255});
+        for (int k = 0; k < 4; k++) {
+            int cx = ox + (int)at[k].x, cy = oy + (int)at[k].y;
+            bool hi = g.bagAssign && g.bagSlot == k;
+            DrawPanel(cx - 42, cy - 11, 84, 22, hi ? Color{90, 80, 40, 255} : Color{30, 70, 80, 255}, hi ? UI_GOLD : ColorBrightness(pc, -0.3f));
+            const ItemDef* d = FindItem(p.hotItems[k]);
+            const char* key = ItemKeyLabel(0, k, false);
+            if (d) {
+                DrawItemIcon(*d, (float)cx - 32, (float)cy, 1.0f);
+                std::string nm = d->name;
+                if (TextW(nm.c_str(), 10) > 62) { size_t sp = nm.find(' '); if (sp != std::string::npos) nm = nm.substr(0, sp); }
+                GDrawText(nm.c_str(), cx - 23, cy - 10, 10, UI_TEXT);
+                GDrawText(TextFormat("x%d   key %s", BagCount(p, d->name), key), cx - 23, cy, 10, BagCount(p, d->name) > 0 ? UI_DIM : Color{230, 110, 100, 255});
+            } else {
+                GDrawText(TextFormat("%d: empty", k + 1), cx - 36, cy - 10, 10, UI_DIM);
+                GDrawText(TextFormat("key %s", key), cx - 36, cy, 10, UI_DIM);
+            }
+        }
+        GDrawText("Left/Right pocket   Up/Down item   Enter set hotkey   Esc / B back", 12, 340, 10, Color{220, 240, 240, 255});
+        DrawToast(g);
+        return;
     }
     // who's holding what
     DrawPanel(410, 212, 220, 114, Color{24, 60, 70, 235}, pc);

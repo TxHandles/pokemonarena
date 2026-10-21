@@ -23,7 +23,8 @@ for d, k in key.items():
         img.save(os.path.join(folder, f'{pre}_{k}_{c + 1}.png'))
 icon = os.path.join(OFF, 'versions/generation-vii/icons', f'{pid}.png')
 from PIL import Image
-po = Image.open(icon).convert('RGBA') if os.path.exists(icon) else Image.open(os.path.join(folder, f'{pre}_1_mae_1.png')).convert('RGBA')
+chart = os.path.join(root, 'charts', f'{name} portrait.png')   # the user's pixel chart, read by chart_pair.py
+po = Image.open(chart).convert('RGBA') if os.path.exists(chart) else Image.open(icon).convert('RGBA') if os.path.exists(icon) else Image.open(os.path.join(folder, f'{pre}_1_mae_1.png')).convert('RGBA')
 po.crop(po.getbbox()).save(os.path.join(folder, f'Pokemon-{pre}-{name.replace(" ", "-")}.png'))
 m = {}
 if SHEETS[name][5]:
@@ -39,4 +40,4 @@ if SHEETS[name][5]:
 rest = Counter({c: n for c, n in shinygen.our_colours(folder).items() if c not in m})
 m.update(shinygen.match(rest, shinygen.official_map(OFF, pid), shinygen.spatial_votes(folder, OFF, pid)))
 shinygen.write(folder, m, 'mega', name)
-print(name, 'shiny colours', len(m), 'portrait', 'icon' if os.path.exists(icon) else 'front frame')
+print(name, 'shiny colours', len(m), 'portrait', 'chart' if os.path.exists(chart) else 'icon' if os.path.exists(icon) else 'front frame')

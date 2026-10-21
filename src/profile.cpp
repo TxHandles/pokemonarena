@@ -132,10 +132,12 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "box_sort") out.boxSort = std::max(0, iv);
             else if (k == "box_filter") out.boxFilter = v;
             else if (k == "tower") { std::istringstream ts(v); ts >> out.towerFloor >> out.towerBest >> out.towerRuns; }
+            else if (k == "raid") { std::istringstream rs(v); rs >> out.raidDay >> out.raidWins; }
             else if (k == "hof") { if (!v.empty()) out.hof.push_back(v); }
             else if (k == "legends") out.legends = std::strtoull(v.c_str(), nullptr, 10);
             else if (k == "rival") out.rival = v;
             else if (k == "starter2") out.starter2 = v;
+            else if (k.size() == 8 && k.rfind("hotitem", 0) == 0 && k[7] >= '1' && k[7] <= '4') out.hotItems[k[7] - '1'] = v;
             else if (k == "rival2") out.rival2 = v;
             else if (k == "starter3") out.starter3 = v;
             else if (k == "rival3") out.rival3 = v;
@@ -254,11 +256,13 @@ std::string ProfileToText(const Profile& p) {
     if (p.boxSort) o += TextFormat("box_sort = %d\n", p.boxSort);
     if (!p.boxFilter.empty()) o += "box_filter = " + p.boxFilter + "\n";
     if (p.towerFloor || p.towerBest || p.towerRuns) o += TextFormat("tower = %d %d %d\n", p.towerFloor, p.towerBest, p.towerRuns);
+    if (p.raidDay >= 0 || p.raidWins) o += TextFormat("raid = %d %d\n", p.raidDay, p.raidWins);
     for (const auto& h : p.hof) o += "hof = " + h + "\n";
     if (p.legends) o += "legends = " + std::to_string(p.legends) + "\n";
     if (!p.rival.empty()) o += "rival = " + p.rival + "\n";
     if (!p.starter.empty()) o += "starter = " + p.starter + "\n";
     if (!p.starter2.empty()) o += "starter2 = " + p.starter2 + "\n";
+    for (int i = 0; i < 4; i++) if (!p.hotItems[i].empty()) o += "hotitem" + std::to_string(i + 1) + " = " + p.hotItems[i] + "\n";
     if (!p.rival2.empty()) o += "rival2 = " + p.rival2 + "\n";
     if (!p.starter3.empty()) o += "starter3 = " + p.starter3 + "\n";
     if (!p.rival3.empty()) o += "rival3 = " + p.rival3 + "\n";
@@ -525,6 +529,7 @@ bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out) {
         else if (k == "snorlax_who") { std::istringstream rs(v); rs >> out.snorlaxWho[0] >> out.snorlaxWho[1]; }
         else if (k == "dojo_first") out.dojoFirst = iv;
         else if (k == "tower") { std::istringstream ts(v); ts >> out.towerFloor >> out.towerBest >> out.towerRuns; }
+        else if (k == "raid") { std::istringstream rs(v); rs >> out.raidDay >> out.raidWins; }
         else if (k == "legends") { std::istringstream ls(v); ls >> out.legends; for (int i = 0; i < 64; i++) if (!(ls >> out.legendWho[i])) { out.legendWho[i] = -1; break; } }
         else if (k == "rival") { size_t c = v.find(','); out.rival[0] = Trim(v.substr(0, c)); out.rival[1] = c == std::string::npos ? "" : Trim(v.substr(c + 1)); }
         else if (k == "rival2") { size_t c = v.find(','); out.rival2[0] = Trim(v.substr(0, c)); out.rival2[1] = c == std::string::npos ? "" : Trim(v.substr(c + 1)); }
@@ -566,6 +571,7 @@ bool SaveCoop(const CoopSave& c) {
         if (!c.owMap[p].empty()) o += "ow_pos" + std::to_string(p) + " = " + c.owMap[p] + "|" + std::to_string(c.owX[p]) + "|" + std::to_string(c.owY[p]) + "|" + std::to_string(c.owFace[p]) + "\n";
     o += TextFormat("snorlax_who = %d %d\ndojo_first = %d\n", c.snorlaxWho[0], c.snorlaxWho[1], c.dojoFirst);
     o += TextFormat("tower = %d %d %d\n", c.towerFloor, c.towerBest, c.towerRuns);
+    o += TextFormat("raid = %d %d\n", c.raidDay, c.raidWins);
     o += "legends = " + std::to_string(c.legends);
     for (int i = 0; i < 64; i++) o += TextFormat(" %d", c.legendWho[i]);
     o += "\n";

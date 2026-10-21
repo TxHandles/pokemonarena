@@ -1,5 +1,6 @@
 // Story Mode: profiles, starter, hub, creature list, post-battle growth, evolution, moves, rewards.
 #include <algorithm>
+#include <ctime>
 #include <cmath>
 #include <cstdio>
 #include "arena.h"
@@ -397,6 +398,7 @@ void OpenHealingCenter(Game& g) {
 void EnterStoryHub(Game& g) {
     ApplySaveOrder(g);   // the story laid out in this save's region order
     g.tower = false;
+    g.raid = false;
     g.legend = -1;
     if (g.coop) {
         if (g.coopActive >= 0) {  // done with one player's Shop / Healing Center / Party & Box
@@ -800,7 +802,7 @@ void DrawStoryCard(const Game& g) {
 void UpdateStoryHub(Game& g) {
     if (UpdateStoryCard(g)) return;
     PlayerInput in = MenuInput();
-    const int N = 12;
+    const int N = 13;
     if (HubNav(g, in, N, false)) return;
     if (g.hubSel == 1 && (in.left || in.right)) { CycleTrainArea(g, in.left ? -1 : 1); SaveOrWarn(g); return; }
     if (g.hubSel == 0 && (in.left || in.right) && KantoDone(g) && !StoryDone(g)) { g.hubTower = !g.hubTower; PlaySfx(Sfx::MenuMove); return; }
@@ -863,6 +865,11 @@ void UpdateStoryHub(Game& g) {
             break;
         case 10:
             EnterWorld(g);
+            break;
+        case 11:
+            if (g.profile.raidDay == RaidToday()) { Toast(g, "You've fought today's raid. A new boss appears tomorrow!"); break; }
+            if (HealthyCount(g.profile) == 0) { Toast(g, "Your whole team has fainted! Visit the Healing Center first."); OpenHealingCenter(g); break; }
+            StartRaid(g);
             break;
         case HUB_GEAR:
             g.settingsSel = 0;
@@ -1026,7 +1033,10 @@ void DrawStoryHub(const Game& g) {
     for (const auto& m : p.mons) hurt += (!m.boxed && m.hp < 0.999f) ? 1 : 0;
     int dexCaught = 0;
     for (const auto& sp : AllSpecies()) if (sp.dex > 0 && sp.custom && DexHasCaught(p, sp.name)) dexCaught++;
-    std::string items[12] = {
+    RaidInfo raid = RaidOfDay(RaidToday());
+    bool raidDone = p.raidDay == RaidToday();
+    std::string raidLabel = raid.species < 0 ? std::string("Daily Raid") : (raidDone ? "Daily Raid: done - back tomorrow" : "Daily Raid: " + AllSpecies()[raid.species].name + (raid.shiny ? " (shiny!)" : ""));
+    std::string items[13] = {
         HubFirstLabel(g, tower, p.storyStage, p.towerFloor, p.towerBest),
         (rare ? "RARE in " : "Training: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
         MapHubLabel(g),
@@ -1038,20 +1048,22 @@ void DrawStoryHub(const Game& g) {
         IsNight(p.clock) ? "Wait until morning" : "Wait until night",
         "Practice arena",
         "Walk around (test): " + WorldPlaceName(g),
+        raidLabel,
         "Save and quit",
     };
-    for (int i = 0; i < 12; i++) {
-        int y = 26 + i * 15;
+    for (int i = 0; i < 13; i++) {
+        int y = 26 + i * 14;
         bool sel = g.hubSel == i;
         Color c = sel ? UI_GOLD : UI_TEXT;
         if (i == 1 && rare) c = Color{255, 150, 230, 255};
         if (i == 2 && items[2].size() > 3) c = sel ? UI_GOLD : Color{255, 200, 120, 255};   // legendaries waiting
-        DrawHubTile(i == 11 ? 11 : i == 10 ? 2 : i, items[i].c_str(), rx, y, rw, sel, c, UiEnterT(i, 0.03f), (float)GetTime());
+        if (i == 11) c = raidDone ? (sel ? UI_GOLD : UI_DIM) : sel ? UI_GOLD : Color{255, 120, 200, 255};
+        DrawHubTile(i == 12 ? 11 : i == 11 ? 10 : i == 10 ? 2 : i, items[i].c_str(), rx, y, rw, sel, c, UiEnterT(i, 0.03f), (float)GetTime());
     }
     DrawTimePanel(p.clock, 402, 30);
 
     // Team
-    int ty = 26 + 12 * 15 + 8;
+    int ty = 26 + 13 * 14 + 6;
     std::vector<const OwnedMon*> party;
     for (const auto& m : p.mons) if (!m.boxed) party.push_back(&m);
     GDrawText(TextFormat("Party (%d/%d)", (int)party.size(), PARTY_SIZE), rx, ty, 10, UI_DIM);
@@ -2348,6 +2360,13 @@ void ProcessStoryBattleEnd(Game& g) {
         if (OnlineMine(g, w))
             for (const Fighter* f : foes)
                 if (f->sentOut) DexSee(Prof(g, w), AllSpecies()[f->RealSpecies()].name);
+    for (int s = 0; s < b.NumSlots(); s++) {   // the battle items you used come out of your Bag
+        const Side& sd = b.GetSide(s);
+        if (sd.teamId != 0) continue;
+        int who = coop ? (sd.input == 1 ? 1 : 0) : 0;
+        for (int k = 0; k < 4; k++)
+            for (int n = 0; n < sd.HotUsed(k); n++) BagTake(Prof(g, who), sd.hot[k]);
+    }
     // Exp. Share: after a win every Pokemon you brought gets a share of the foes' XP - more for
     // the ones that fought, less for the ones that sat on the bench.
     int bonus = 0;
@@ -2502,6 +2521,13 @@ void ProcessStoryBattleEnd(Game& g) {
             badges.push_back(st->badge);
             g.resultLines.push_back(std::string(coop ? "You both earned the " : "You earned the ") + st->badge + " Badge!");
         }
+        if (g.raid) {
+            if (coop) g.coopSave.raidWins++;
+            else g.profile.raidWins++;
+            for (int w = 0; w < players; w++) Prof(g, w).coins += 1500;
+            g.resultLines.push_back("Raid cleared! A 1500-coin bonus for the whole team.");
+            g.resultLines.push_back("The raid boss is worn out - now's your chance to catch it!");
+        }
         if (legend) {
             LegendBattleOver(g, b, damage);
         } else if (b.Setup().catchable) {
@@ -2521,6 +2547,7 @@ void ProcessStoryBattleEnd(Game& g) {
                 float ch = 0.35f + 0.55f * (1.0f - std::min(1.0f, c.hpFrac / 0.25f));
                 ch *= std::max(0.6f, std::min(1.3f, 1.0f + (myAvg - f.level) * 0.03f));
                 if (!IsBaseForm(c.species)) ch *= 0.8f;
+                if (g.raid) ch *= AllSpecies()[c.species].legendary ? 0.45f : 0.65f;   // a raid boss is tougher to hold
                 c.chance = std::max(0.05f, std::min(0.95f, ch));
                 g.catchCands.push_back(c);
             }
@@ -2538,6 +2565,7 @@ void ProcessStoryBattleEnd(Game& g) {
             if (!g.catchPending) g.resultLines.push_back("Every foe was knocked out - nothing left to catch.");
         }
     }
+    if (!g.won && g.raid) g.resultLines.push_back("The raid boss was too strong this time. A new one appears tomorrow!");
     if (g.won) {
         wins++;
         if (storyBattle && g.stageIdx == stage && g.stageIdx < (int)Story().stages.size()) {
@@ -3628,7 +3656,7 @@ float BallChance(float base, const ItemDef* ball) {
 // This player's turn is over: what they threw at leaves the pool, then the next player picks.
 void EndCatchTurn(Game& g) {
     if (g.on.active && g.catchWho == g.on.me) OnlineSendCatch(g.catchPoolPick);
-    if (g.catchPoolPick >= 0 && g.catchPoolPick < (int)g.catchPool.size()) g.catchPool.erase(g.catchPool.begin() + g.catchPoolPick);
+    if (!g.raid && g.catchPoolPick >= 0 && g.catchPoolPick < (int)g.catchPool.size()) g.catchPool.erase(g.catchPool.begin() + g.catchPoolPick);
     g.catchPoolPick = -1;
     g.catchTurn++;
     if (g.catchTurn < (int)g.catchOrder.size() && !g.catchPool.empty()) {
@@ -3671,6 +3699,7 @@ void UpdateCatch(Game& g, float dt) {
             g.catchFled = t.fled;
             g.catchBoxed = false;
             g.catchPhase = 1;
+            g.catchBall.clear();
             g.catchT = 0;
             PlaySfx(Sfx::Shoot);
             return;
@@ -3707,6 +3736,7 @@ void UpdateCatch(Game& g, float dt) {
         if (balls.empty()) { Toast(g, "No Poke Balls! Buy some at the Shop."); PlaySfx(Sfx::MenuBack); return; }
         const ItemDef* ball = balls[g.ballSel];
         BagTake(P, ball->name);
+        g.catchBall = ball->name;
         SaveWho(g, g.catchWho);
         if (g.catchPoolPick < 0) g.catchPoolPick = g.catchSel;  // first throw: this one is taken
         // Once you throw at one, the others leave.
@@ -3846,69 +3876,140 @@ void DrawCatch(const Game& g) {
     const auto& c = g.catchCands[0];
     float t = g.catchT;
     Vector2 mon{VW / 2.0f, 190};
-    Vector2 from{120, 320};
+    Vector2 from{110, 330};
     float resultAt = 1.3f + g.catchShakes * 0.6f;
     bool inBall = t >= 0.9f && !(g.catchPhase == 2 && !g.catchOk);
-    {   // a spotlight on the ground
+    Color top = g.catchBall.empty() ? Color{230, 60, 60, 255} : BallColor(g.catchBall);
+    auto hash = [](int i, int k) { unsigned h = (unsigned)i * 2654435761u ^ (unsigned)k * 40503u; h ^= h >> 13; h *= 0x5bd1e995u; h ^= h >> 15; return (h & 0xffff) / 65535.0f; };
+    int shakesSeen = g.catchPhase == 1 && t > 1.1f ? std::min(g.catchShakes, (int)((t - 1.1f) / 0.6f) + 1) : (g.catchPhase == 2 ? g.catchShakes : 0);
+    {   // the stage: rays of light turning slowly behind it, darker with every shake (the tension builds)
+        float tension = g.catchPhase == 1 ? 0.12f * shakesSeen : 0;
         BeginBlendMode(BLEND_ADDITIVE);
-        DrawEllipse((int)mon.x, (int)mon.y + 20, 70, 16, Fade(Color{255, 240, 200, 255}, 0.10f));
-        DrawEllipse((int)mon.x, (int)mon.y + 20, 44, 10, Fade(Color{255, 240, 200, 255}, 0.10f));
+        for (int i = 0; i < 10; i++) {
+            float a = i * PI / 5 + g.t * 0.15f;
+            Vector2 p1{mon.x + std::cos(a) * 420, mon.y + std::sin(a) * 420}, p2{mon.x + std::cos(a + 0.12f) * 420, mon.y + std::sin(a + 0.12f) * 420};
+            DrawTriangle(mon, p2, p1, Fade(Color{255, 230, 170, 255}, 0.035f));
+        }
+        DrawEllipse((int)mon.x, (int)mon.y + 22, 80, 18, Fade(Color{255, 240, 200, 255}, 0.10f));
+        DrawEllipse((int)mon.x, (int)mon.y + 22, 50, 11, Fade(Color{255, 240, 200, 255}, 0.12f));
         EndBlendMode();
+        if (tension > 0) {   // a vignette that pulses like a heartbeat
+            float beat = 0.5f + 0.5f * std::sin(t * 9.0f);
+            for (int r = 0; r < 6; r++) DrawRectangleLinesEx({(float)r * 6, (float)r * 6, (float)VW - r * 12, (float)VH - r * 12}, 6, Fade(BLACK, (tension + 0.05f * beat) * (1 - r / 6.0f)));
+        }
     }
-    if (!inBall && !(g.catchPhase == 2 && g.catchFled)) {
-        float white = (t > 0.7f && t < 0.9f) ? (t - 0.7f) / 0.2f : 0.0f;
-        float shrink = (t > 0.7f && t < 0.9f && g.catchPhase != 2) ? 1 - (t - 0.7f) / 0.2f : 1.0f;
-        int box = std::max(4, (int)(90 * shrink));
-        DrawSpeciesFit(ShinyIdx(c.species, c.shiny), VIEW_FRONT, (int)mon.x, (int)mon.y + 20 - (int)((1 - shrink) * 20), box, WHITE);
-        if (white > 0) {   // pulled into the ball as red light
+    // the Pokemon: breathing while it waits, pulled into the ball as red light, or bursting back out
+    bool burst = g.catchPhase == 2 && !g.catchOk;
+    float burstU = burst ? std::min(1.0f, (t - resultAt) / 0.35f) : 0;
+    if (!inBall && !(burst && g.catchFled && t > resultAt + 0.9f)) {
+        float white = (t > 0.7f && t < 0.9f && !burst) ? (t - 0.7f) / 0.2f : 0.0f;
+        float shrink = (t > 0.7f && t < 0.9f && !burst) ? 1 - (t - 0.7f) / 0.2f : 1.0f;
+        float breathe = 1 + 0.025f * std::sin(g.t * 3.0f);
+        float pop = burst ? (burstU < 1 ? 0.3f + 0.7f * burstU + 0.18f * std::sin(burstU * PI) : 1.0f) : 1.0f;
+        float sx = 0;
+        if (burst && burstU >= 1) sx = std::sin(t * 30) * 3 * std::max(0.0f, 1 - (t - resultAt - 0.35f) * 2);   // shakes itself off
+        if (burst && g.catchFled && t > resultAt + 0.5f) sx += (t - resultAt - 0.5f) * 520;   // runs off
+        int box = std::max(4, (int)(90 * shrink * breathe * pop));
+        DrawSpeciesFit(ShinyIdx(c.species, c.shiny), VIEW_FRONT, (int)(mon.x + sx), (int)mon.y + 20 - (int)((1 - shrink) * 20), box, WHITE);
+        if (white > 0) {   // red light streaming into the open ball
             BeginBlendMode(BLEND_ADDITIVE);
-            for (int k = -2; k <= 2; k++) DrawLineEx({mon.x + k * 4 * shrink, mon.y - 10 * shrink}, {mon.x, mon.y + 18}, 2, Fade(Color{255, 90, 80, 255}, white * 0.8f));
-            DrawCircleV({mon.x, mon.y - 5}, 30 * shrink + 6, Fade(Color{255, 120, 100, 255}, white * 0.35f));
+            for (int k = -3; k <= 3; k++) DrawLineEx({mon.x + k * 6 * shrink, mon.y - 14 * shrink}, {mon.x, mon.y + 6}, 2.5f, Fade(Color{255, 90, 80, 255}, white * 0.85f));
+            DrawCircleV({mon.x, mon.y - 5}, 34 * shrink + 6, Fade(Color{255, 120, 100, 255}, white * 0.4f));
+            for (int i = 0; i < 14; i++) {   // sparks spiralling in
+                float a = i * 0.9f + t * 9, r = (1 - white) * 40 + 4;
+                DrawCircleV({mon.x + std::cos(a) * r, mon.y - 5 + std::sin(a) * r * 0.7f}, 1.6f, Fade(Color{255, 200, 190, 255}, white));
+            }
             EndBlendMode();
         }
     }
-    if (t < 0.7f) {  // the throw
-        float u = t / 0.7f;
-        Vector2 p = LerpV(from, mon, u);
-        p.y -= std::sin(u * PI) * 90;
-        DrawPokeBall(p.x, p.y, 6, u * 720);
-    } else {
-        Vector2 ground{mon.x, mon.y + 18};
-        float rot = 0, squash = 0;
-        if (g.catchPhase == 1 && t > 1.1f) {
-            float k = std::fmod(t - 1.1f, 0.6f);
-            if (k < 0.3f) { rot = std::sin(k / 0.3f * PI * 2) * 30; squash = std::sin(k / 0.3f * PI) * 0.12f; }
-            // the button blinks red while it decides
-            if (k < 0.12f) {
+    Vector2 ground{mon.x, mon.y + 18};
+    if (t < 0.7f) {   // the throw: an arc with a fading trail of spinning balls and sparkles
+        for (int k = 5; k >= 0; k--) {
+            float u = std::max(0.0f, t / 0.7f - k * 0.035f);
+            Vector2 p = LerpV(from, {mon.x, mon.y - 6}, u);
+            p.y -= std::sin(u * PI) * 110;
+            if (k == 0) ::DrawPokeBall(p, 8, u * 900, 0, top);
+            else ::DrawPokeBall(p, 8 - k * 0.6f, u * 900, 0, top, (unsigned char)(120 - k * 20));
+            if (k == 0) {
                 BeginBlendMode(BLEND_ADDITIVE);
-                DrawCircleV({ground.x, ground.y - 9}, 6, Fade(Color{255, 80, 70, 255}, 0.6f));
+                for (int i = 0; i < 4; i++) DrawCircleV({p.x - 8 - i * 5 + hash(i, (int)(t * 30)) * 6, p.y + (hash(i + 7, (int)(t * 30)) - 0.5f) * 10}, 1.2f, Fade(WHITE, 0.6f));
                 EndBlendMode();
             }
         }
-        if (t < 1.1f && t >= 0.7f) {   // dropping to the ground with a bounce
-            float u = (t - 0.7f) / 0.4f;
-            ground.y -= std::fabs(std::cos(u * PI * 1.5f)) * (1 - u) * 26;
-        }
-        DrawEllipse((int)mon.x, (int)mon.y + 28, 12, 3, Fade(BLACK, 0.4f));
-        (void)squash;
-        if (g.catchPhase == 2 && !g.catchOk) {
-            float u = std::min(1.0f, (t - resultAt) / 0.3f);
-            DrawPokeBall(ground.x - 20 * u, ground.y + 10 * u, 6, 0);
-        } else {
-            ::DrawPokeBall({ground.x, ground.y}, 9, rot, 0, Color{230, 60, 60, 255});
-            if (g.catchPhase == 2 && g.catchOk) {   // the click: a star burst and sparkles
-                float u = std::min(1.0f, (t - resultAt) / 0.6f);
+    } else if (t < 0.9f && !burst) {   // it hits and pops open in a flash
+        float u = (t - 0.7f) / 0.2f;
+        Vector2 p{mon.x, mon.y - 6 - u * 8};
+        ::DrawPokeBall(p, 10, 0, std::sin(u * PI) * 1.0f, top);
+        BeginBlendMode(BLEND_ADDITIVE);
+        DrawCircleV(p, 22 * u + 6, Fade(WHITE, 0.5f * (1 - u)));
+        DrawRing(p, 10 + u * 50, 12 + u * 52, 0, 360, 40, Fade(WHITE, 0.7f * (1 - u)));
+        EndBlendMode();
+    } else {
+        float rot = 0, squash = 0;
+        if (g.catchPhase == 1 && t > 1.1f) {   // the shakes: wind up, rock, settle - with a puff of dust
+            float k = std::fmod(t - 1.1f, 0.6f);
+            int which = (int)((t - 1.1f) / 0.6f);
+            float dir = which % 2 ? -1.0f : 1.0f;
+            if (k < 0.36f) {
+                float v = k / 0.36f;
+                rot = dir * (std::sin(v * PI * 2) * 34 * (1 - v * 0.3f));
+                squash = std::sin(v * PI) * 0.12f;
+                ground.x += dir * std::sin(v * PI * 2) * 3;
+            }
+            if (k < 0.3f) {
+                float d = k / 0.3f;
+                for (int i = 0; i < 4; i++) {
+                    float side = i < 2 ? -1.0f : 1.0f;
+                    DrawCircleV({ground.x + side * (8 + d * 14 + i % 2 * 4), ground.y + 8 - d * 4 - i % 2 * 3}, 2.5f * (1 - d) + 0.5f, Fade(Color{200, 190, 170, 255}, 0.6f * (1 - d)));
+                }
+            }
+            if (k < 0.14f) {   // the button blinks while it decides
                 BeginBlendMode(BLEND_ADDITIVE);
-                for (int i = 0; i < 8; i++) {
-                    float a = i * PI / 4 + 0.3f;
-                    float r0 = 10 + u * 34, r1 = r0 + 8 * (1 - u);
+                DrawCircleV({ground.x, ground.y - 2}, 9, Fade(Color{255, 80, 70, 255}, 0.7f));
+                EndBlendMode();
+            }
+        }
+        if (t < 1.1f && !burst) {   // closing, then dropping to the ground with a bounce
+            float u = (t - 0.9f) / 0.2f;
+            ground.y -= std::fabs(std::cos(u * PI * 1.5f)) * (1 - u) * 30;
+        }
+        DrawEllipse((int)ground.x, (int)mon.y + 28, 12 + (int)(squash * 30), 3, Fade(BLACK, 0.4f));
+        if (burst) {   // it breaks free: the ball bursts open in a flash and rolls away
+            float u = std::min(1.0f, (t - resultAt) / 0.5f);
+            ::DrawPokeBall({ground.x - 34 * u, ground.y + 6 * u}, 11, -u * 400, u < 0.4f ? 1.0f : 1.0f - (u - 0.4f), top);
+            BeginBlendMode(BLEND_ADDITIVE);
+            DrawCircleV(ground, 40 * burstU + 6, Fade(WHITE, 0.55f * (1 - burstU)));
+            for (int i = 0; i < 10; i++) {
+                float a = i * PI / 5 + 0.2f, r = 8 + burstU * 46;
+                DrawCircleV({ground.x + std::cos(a) * r, ground.y - 6 + std::sin(a) * r * 0.7f}, 2.0f * (1 - burstU) + 0.3f, Fade(Color{255, 210, 190, 255}, 1 - burstU));
+            }
+            EndBlendMode();
+        } else {
+            ::DrawPokeBall({ground.x, ground.y - 2 - squash * 10}, 12 * (1 + squash * 0.5f), rot, 0, top);
+            if (g.catchPhase == 2 && g.catchOk) {   // the click: a gold flash, a star burst, confetti and twinkles
+                float u = std::min(1.0f, (t - resultAt) / 0.6f);
+                if (u < 1) DrawRectangle(0, 0, VW, VH, Fade(Color{255, 240, 190, 255}, 0.25f * (1 - u)));
+                BeginBlendMode(BLEND_ADDITIVE);
+                for (int i = 0; i < 12; i++) {
+                    float a = i * PI / 6 + 0.3f;
+                    float r0 = 10 + u * 44, r1 = r0 + 12 * (1 - u);
                     DrawLineEx({ground.x + std::cos(a) * r0, ground.y + std::sin(a) * r0 * 0.8f}, {ground.x + std::cos(a) * r1, ground.y + std::sin(a) * r1 * 0.8f}, 2, Fade(UI_GOLD, 1 - u));
                 }
-                DrawCircleV(ground, 26 * (1 - u) + 4, Fade(Color{255, 240, 180, 255}, 0.4f * (1 - u)));
+                DrawCircleV(ground, 30 * (1 - u) + 4, Fade(Color{255, 240, 180, 255}, 0.45f * (1 - u)));
                 EndBlendMode();
+                float ct = t - resultAt;
+                for (int i = 0; i < 40; i++) {   // confetti falling in the spotlight
+                    float x0 = hash(i, 1) * VW, sp = 40 + hash(i, 2) * 60, ph = hash(i, 3) * 6;
+                    float y = -10 + ct * sp + hash(i, 4) * 40 - 40;
+                    if (y < -8 || y > VH) continue;
+                    float x = x0 + std::sin(ct * 3 + ph) * 12;
+                    Color cc = ColorFromHSV(hash(i, 5) * 360, 0.6f, 1.0f);
+                    float w2 = 2 + 1.5f * std::fabs(std::sin(ct * 6 + ph));
+                    DrawRectangle((int)x, (int)y, (int)w2, 3, cc);
+                }
                 for (int i = 0; i < 3; i++) {
                     float ph = std::fmod(t * 1.5f + i * 0.33f, 1.0f);
-                    DrawShinyStar(ground.x - 16 + i * 16, ground.y - 18 - ph * 16, 3.5f * (1 - ph) + 1);
+                    DrawShinyStar(ground.x - 18 + i * 18, ground.y - 18 - ph * 18, 3.5f * (1 - ph) + 1);
                 }
             }
         }
@@ -4141,15 +4242,24 @@ int StoryNewMonLevel(const Profile& p) { return NewMonLevel(p); }
 void StorySaveProfile(Game& g) { SaveOrWarn(g); }
 
 namespace {
+bool AnyChampion(const Game& g) {
+    for (int r = 0; r < RegionCount(); r++) if (RegionDone(g, r)) return true;
+    return false;
+}
+bool ShopLocked(const Game& g, const ItemDef& d) {
+    if (d.badges == ItemDef::AFTER_CHAMPION) return !AnyChampion(g);
+    return BadgeCount(g) < d.badges;
+}
 std::vector<const ItemDef*> ShopList(int tab) {
     std::vector<const ItemDef*> v;
     for (const auto& d : ItemList()) {
         if (d.badges >= 99) continue;   // story and Game Corner items
-        if ((tab == 0 && IsBall(d)) || (tab == 1 && (IsHoldable(d) || d.fx == ItemFx::ExpAll)) || (tab == 2 && IsStone(d)) || (tab == 3 && IsTM(d))) v.push_back(&d);
+        if ((tab == 0 && (IsBall(d) || IsMedicine(d))) || (tab == 1 && (IsHoldable(d) || d.fx == ItemFx::ExpAll)) || (tab == 2 && IsStone(d)) || (tab == 3 && IsTM(d))) v.push_back(&d);
     }
     return v;
 }
 const char* BadgeNeedText(int badges) {
+    if (badges == ItemDef::AFTER_CHAMPION) return "Beat a Champion first";
     static const char* names[9] = {"", "Boulder", "Cascade", "Thunder", "Rainbow", "Soul", "Marsh", "Volcano", "Earth"};
     return badges >= 1 && badges <= 8 ? TextFormat("Needs the %s Badge", names[badges]) : "Locked";
 }
@@ -4206,7 +4316,7 @@ void UpdateShop(Game& g) {
     if (!in.confirm) return;
     const ItemDef& d = *list[g.shopSel];
     Profile& p = g.profile;
-    if (BadgeCount(g) < d.badges) { Toast(g, std::string(BadgeNeedText(d.badges)) + " to buy this."); PlaySfx(Sfx::MenuBack); return; }
+    if (ShopLocked(g, d)) { Toast(g, std::string(BadgeNeedText(d.badges)) + " to buy this."); PlaySfx(Sfx::MenuBack); return; }
     if (d.fx == ItemFx::ExpAll && BagCount(p, d.name) > 0) { Toast(g, "You already have the Exp. All."); PlaySfx(Sfx::MenuBack); return; }
     if (p.coins < d.price) { Toast(g, "Not enough coins!"); PlaySfx(Sfx::MenuBack); return; }
     p.coins -= d.price;
@@ -4299,7 +4409,7 @@ void DrawShop(const Game& g) {
     DrawCoins(p.coins, 16, 12);
     GDrawText(TextFormat("Badges: %d", BadgeCount(g)), VW - 80, 13, 10, UI_DIM);
     if (g.coop) GDrawText(TextFormat("Shopping: %s", p.name.c_str()), 240, 13, 10, g.coopActive == 1 ? Color{120, 230, 255, 255} : UI_GOLD);
-    const char* tabs[6] = {"Poke Balls", "Held items", "Evo stones", "TMs", "Move Relearner", "Game Corner"};
+    const char* tabs[6] = {"Balls & Meds", "Held items", "Evo stones", "TMs", "Move Relearner", "Game Corner"};
     for (int i = 0; i < 6; i++) {
         int x = 20 + i * 100;
         bool sel = g.shopTab == i;
@@ -4317,7 +4427,7 @@ void DrawShop(const Game& g) {
         const ItemDef& d = *list[i];
         int y = 56 + (i - first) * 21;
         bool sel = g.shopSel == i;
-        bool locked = BadgeCount(g) < d.badges;
+        bool locked = ShopLocked(g, d);
         DrawPanel(20, y, 330, 19, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
         if (IsBall(d)) {
             DrawCircle(32, y + 9, 5, UI_INK);
@@ -4370,7 +4480,7 @@ void DrawShop(const Game& g) {
         if (!line.empty()) GDrawText(line.c_str(), 372, ly, 10, UI_TEXT);
         GDrawText(TextFormat("Price: %d coins", d.price), 372, 150, 10, Color{255, 200, 60, 255});
         GDrawText(TextFormat("In your bag: %d", BagCount(p, d.name)), 372, 164, 10, UI_DIM);
-        if (BadgeCount(g) < d.badges) GDrawText(BadgeNeedText(d.badges), 372, 178, 10, Color{255, 130, 100, 255});
+        if (ShopLocked(g, d)) GDrawText(BadgeNeedText(d.badges), 372, 178, 10, Color{255, 130, 100, 255});
         int held = 0;
         for (const auto& m : p.mons) held += m.item == d.name;
         if (held) GDrawText(TextFormat("Held by %d of your Pokemon", held), 372, 178, 10, Color{140, 220, 255, 255});
@@ -4394,11 +4504,12 @@ void DrawShop(const Game& g) {
         DrawToast(g);
         return;
     }
-    DrawPanel(362, 204, 258, 72);
+    DrawPanel(362, 204, 258, 80);
     GDrawText("Each Pokemon can hold one item.", 372, 212, 10, UI_DIM);
     GDrawText("Equip items and use stones in Party & Box.", 372, 226, 10, UI_DIM);
     GDrawText("More items unlock with each badge.", 372, 240, 10, UI_DIM);
-    GDrawText("Balls are used up when thrown.", 372, 254, 10, UI_DIM);
+    GDrawText("Balls are used up when thrown;", 372, 254, 10, UI_DIM);
+    GDrawText("set Medicine on hotkeys in the Bag.", 372, 266, 10, UI_DIM);
     GDrawText("Left/Right tab   Up/Down choose   Enter buy   Esc back", 20, 340, 10, UI_DIM);
     DrawToast(g);
 }
@@ -4555,7 +4666,7 @@ void UpdateCoopHub(Game& g) {
         if (in.confirm || in.back) { g.showBoard = false; PlaySfx(Sfx::MenuBack); }
         return;
     }
-    const int N = 13;
+    const int N = 14;
     if (HubNav(g, in, N, true)) return;
     bool online = g.on.active;
     if (online) g.coopWho = g.on.me;  // online: your own Shop / Healing Center / Party & Box / Bag / Pokedex
@@ -4579,7 +4690,15 @@ void UpdateCoopHub(Game& g) {
     if (!in.confirm) return;
     PlaySfx(Sfx::MenuOk);
     int stages = (int)Story().stages.size();
-    if (online && (g.hubSel == 0 || g.hubSel == 1 || g.hubSel == 8) && OnlineWaiting(g)) return;
+    if (online && (g.hubSel == 0 || g.hubSel == 1 || g.hubSel == 8 || g.hubSel == 12) && OnlineWaiting(g)) return;
+    if (g.hubSel == 12) {   // the Daily Raid together: each of you brings 6, all 12 on the field
+        if (g.coopSave.raidDay == RaidToday()) { Toast(g, "You've fought today's raid together. A new boss appears tomorrow!"); return; }
+        for (int p = 0; p < 2; p++)
+            if ((!online || p == g.on.me) && HealthyCount(g.coopP[p]) == 0) { Toast(g, g.coopP[p].name + "'s party has all fainted! Visit the Healing Center first."); return; }
+        if (online) { OnlineSetReady(g, g.on.myReady == KIND_RAID ? 0 : KIND_RAID); return; }
+        StartCoopRaid(g);
+        return;
+    }
     bool tower = g.hubSel == 0 && (StoryDone(g) || (KantoDone(g) && g.hubTower));
     if (g.hubSel == 0 && !tower && CanChooseRegion(g)) {   // a region is done: player 1 (online: the host) picks the next
         if (online && g.on.me != 0) { Toast(g, g.coopP[0].name + " picks the next region."); return; }
@@ -4745,7 +4864,9 @@ void DrawCoopHubBase(const Game& g) {
     int left = every - (g.coopSave.trainingWins % every) - 1;
     const std::string& wn = g.coopP[g.coopWho].name;
     bool partnerTrading = g.on.active && g.on.partnerInTrade;
-    std::string items[13] = {
+    RaidInfo craid = RaidOfDay(RaidToday());
+    bool craidDone = g.coopSave.raidDay == RaidToday();
+    std::string items[14] = {
         CoopFirstLabel(g, done || (KantoDone(g) && g.hubTower), pv.storyStage),
         (rare ? "RARE 2v2 in " : "Training 2v2: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
         MapHubLabel(g),
@@ -4758,11 +4879,12 @@ void DrawCoopHubBase(const Game& g) {
         IsNight(g.coopSave.clock) ? "Wait until morning" : "Wait until night",
         "Practice arena",
         "Walk around (test): " + WorldPlaceName(g),
+        craidDone ? std::string("Daily Raid: done - back tomorrow") : "Daily Raid: " + (craid.species >= 0 ? AllSpecies()[craid.species].name : std::string("?")) + (craid.shiny ? " (shiny!)" : ""),
         "Save and quit",
     };
     DrawTimePanel(g.coopSave.clock, 304, 30);
     bool partnerHere = g.on.active && g.on.partnerCursor >= 0 && (g.on.partnerActivity.empty() || g.on.partnerActivity == "in the hub");
-    for (int i = 0; i < 13; i++) {
+    for (int i = 0; i < 14; i++) {
         int y = 6 + i * 12;
         bool sel = g.hubSel == i;
         DrawPanel(rx, y, rw, 11, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
@@ -4770,9 +4892,10 @@ void DrawCoopHubBase(const Game& g) {
         if (i == 1 && rare) c = Color{255, 150, 230, 255};
         if (i == 8 && partnerTrading) c = Color{140, 230, 150, 255};
         if (i == 2 && items[2].size() > 3) c = sel ? UI_GOLD : Color{255, 200, 120, 255};   // legendaries waiting
+        if (i == 12) c = craidDone ? (sel ? UI_GOLD : UI_DIM) : sel ? UI_GOLD : Color{255, 120, 200, 255};
         GDrawText(items[i].c_str(), rx + 8, y + 1, 10, c);
-        if (g.on.active && (i == 0 || i == 1 || i == 2)) {   // ready count: the battle starts at 2/2 (Map: a legendary hunt)
-            int kind = i == 0 ? (done ? KIND_TOWER : 1) : 2;
+        if (g.on.active && (i == 0 || i == 1 || i == 2 || i == 12)) {   // ready count: the battle starts at 2/2 (Map: a legendary hunt)
+            int kind = i == 0 ? (done ? KIND_TOWER : 1) : i == 12 ? KIND_RAID : 2;
             bool r[2];
             if (i == 2) {
                 auto lg = [](int k) { return IsLegendKind(k); };
@@ -5001,7 +5124,124 @@ void StartTrainingBattle(Game& g) {
         }
         g.rareSpecies = PickRareSpecies(owned, n ? sum / n : 5);
     }
+    Screen was = g.screen;
     BeginTeamSelect(g);
+    if (g.ow.active && g.ow.wildBattle && !g.on.active) {
+        // Walking around: no team screen - your party as it stands (first healthy ones in order), after the
+        // classic flash-and-wipe.
+        for (int i = 0; i < (int)g.roster[0].size() && (int)g.picks[0].size() < g.teamSize; i++)
+            if (g.roster[0][i].hpFrac > 0) g.picks[0].push_back(i);
+        if (!g.picks[0].empty()) {
+            g.ready[0] = g.ready[1] = true;
+            g.screen = g.encounterBlank ? Screen::Select : was;   // (a co-op player's own little game ends when it's back on World)
+            g.encounterT = ENCOUNTER_WIPE_T;
+            PlaySfx(Sfx::Buff);
+        }
+    }
+}
+
+// ------------------------------------------------------------------ the Daily Raid
+int RaidToday() {
+    time_t now = time(nullptr);
+    tm lt = *localtime(&now);
+    // days since 1970-01-01 for the local calendar date (a civil-from-days inverse)
+    int y = lt.tm_year + 1900, m = lt.tm_mon + 1, d = lt.tm_mday;
+    y -= m <= 2;
+    int era = (y >= 0 ? y : y - 399) / 400;
+    int yoe = y - era * 400;
+    int doy = (153 * (m + (m > 2 ? -3 : 9)) + 2) / 5 + d - 1;
+    int doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
+    return era * 146097 + doe - 719468;
+}
+
+RaidInfo RaidOfDay(int day) {
+    RaidInfo r;
+    r.day = day;
+    std::vector<int> pool;   // final forms, legendaries and starters - anything but a Mega
+    for (int i = 0; i < (int)AllSpecies().size(); i++) {
+        const SpeciesDef& sp = AllSpecies()[i];
+        if (sp.dex <= 0 || !InSpeciesPool(i) || IsMegaForm(i)) continue;
+        bool final = EvolutionIndex(i) < 0 && sp.evoAlts.empty() && sp.statEvos.empty();
+        if (final || sp.legendary || sp.starter) pool.push_back(i);
+    }
+    if (pool.empty()) return r;
+    uint32_t h = (uint32_t)day * 2654435761u ^ 0x5eedu;
+    h ^= h >> 15; h *= 0x2c1b3c6du; h ^= h >> 12; h *= 0x297a2d39u; h ^= h >> 15;
+    r.species = pool[h % pool.size()];
+    r.shiny = ((h >> 20) % 16) == 0;   // 1 in 16 (wild ones are much rarer)
+    return r;
+}
+
+void StartCoopRaid(Game& g) {
+    g.stageIdx = -1;
+    g.legend = -1;
+    g.tower = false;
+    g.mode = Mode::CoopTraining;
+    g.rareBattle = false;
+    g.raid = true;
+    g.raidTeam1.clear();
+    g.raidTaken.clear();
+    g.coopSave.raidDay = RaidToday();
+    BeginTeamSelect(g);
+    PlaySfx(Sfx::Status);
+}
+
+void StartRaid(Game& g) {
+    // Solo: pick Team 1 and Team 2 from the party and the Box (the team screen, twice), then the wipe.
+    g.stageIdx = -1;
+    g.legend = -1;
+    g.tower = false;
+    g.mode = Mode::Training;
+    g.rareBattle = false;
+    g.raid = true;
+    g.raidTeam1.clear();
+    g.raidTaken.clear();
+    BeginTeamSelect(g);
+    g.roster[0] = ProfileRoster(g.profile, false);   // the Box too
+    int healthy = 0;
+    for (const auto& e : g.roster[0]) healthy += e.hpFrac > 0;
+    g.teamSize = std::max(1, std::min(MAX_TEAM_SIZE, healthy));
+    PlaySfx(Sfx::Status);
+}
+
+// The wild-encounter transition: the screen flashes white three times, then black bars sweep in from both
+// sides while a Poke Ball spins up in the middle.
+void DrawEncounterWipe(const Game& g) {
+    float u = 1.0f - g.encounterT / ENCOUNTER_WIPE_T;
+    u = std::max(0.0f, std::min(1.0f, u));
+    if (g.encounterBlank) DrawRectangle(0, 0, VW, VH, Color{12, 12, 20, 255});
+    const float FL = 0.36f;
+    if (u < FL) {
+        float k = u / FL * 3.0f;              // three flashes
+        float f = std::fmod(k, 1.0f);
+        float a = f < 0.5f ? std::sin(f * 2 * PI) : 0.0f;
+        DrawRectangle(0, 0, VW, VH, Fade(WHITE, 0.85f * std::max(0.0f, a)));
+        DrawRectangle(0, 0, VW, VH, Fade(BLACK, 0.15f * k / 3.0f));
+        return;
+    }
+    float w = (u - FL) / (1.0f - FL);         // 0..1: the bars close in
+    const int BARS = 12;
+    int bh = VH / BARS + 1;
+    for (int i = 0; i < BARS; i++) {
+        float d = std::min(1.0f, std::max(0.0f, w * 1.35f - (i % 3) * 0.08f));
+        float e = 1 - (1 - d) * (1 - d);      // ease out
+        int len = (int)(VW * e);
+        if (i % 2 == 0) DrawRectangle(0, i * bh, len, bh, Color{12, 12, 20, 255});
+        else DrawRectangle(VW - len, i * bh, len, bh, Color{12, 12, 20, 255});
+    }
+    // a Poke Ball spinning up out of the dark
+    float r = 10 + 46 * w;
+    float rot = w * 540.0f;
+    Vector2 c{VW / 2.0f, VH / 2.0f};
+    float al = std::min(1.0f, w * 2.0f) * (w > 0.85f ? (1 - (w - 0.85f) / 0.15f) : 1.0f);
+    unsigned char A = (unsigned char)(255 * std::max(0.0f, al));
+    DrawCircleV(c, r + 3, Color{0, 0, 0, A});
+    DrawCircleSector(c, r, rot + 180, rot + 360, 32, Color{220, 50, 50, A});
+    DrawCircleSector(c, r, rot, rot + 180, 32, Color{240, 240, 240, A});
+    Vector2 dir{std::cos(rot * DEG2RAD), std::sin(rot * DEG2RAD)};
+    DrawLineEx({c.x - dir.x * r, c.y - dir.y * r}, {c.x + dir.x * r, c.y + dir.y * r}, std::max(2.0f, r * 0.12f), Color{0, 0, 0, A});
+    DrawCircleV(c, r * 0.28f, Color{0, 0, 0, A});
+    DrawCircleV(c, r * 0.18f, Color{250, 250, 250, A});
 }
 
 // A 2v2 training battle for both co-op players (the hub, or teaming up in tall grass).

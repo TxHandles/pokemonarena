@@ -10,6 +10,9 @@ struct PlayerInput {
     bool pause = false;
     bool dodge = false;      // quick invulnerable dash (cooldown)
     bool jump = false;       // hop: over water, puddles and low obstacles (no invulnerability)
+    bool mega = false;       // Mega Evolve (the Pokemon holds its Mega Stone; once a battle)
+    bool item[4] = {false, false, false, false};   // use the item in that hotkey slot (the D-pad on a gamepad)
+    Vector2 dpad{0, 0};      // the gamepad's D-pad held (it walks in the overworld; in battle it's the item slots)
     int target = 0;          // switch targets: +1 next foe, -1 previous (right stick / key)
     int swapTo = -1;         // swap straight to this team slot (keys 1-6, the Quick Select wheel)
     bool swapHeld = false;   // the Swap button is held down (hold it for the Quick Select wheel)
@@ -35,5 +38,7 @@ const char* DodgeKeyLabel(int player, bool twoPlayer);
 const char* JumpKeyLabel(int player, bool twoPlayer);
 const char* SwapPrevKeyLabel(int player, bool twoPlayer);
 const char* TargetKeyLabel(int player, bool twoPlayer);
+const char* MegaKeyLabel(int player, bool twoPlayer);
+const char* ItemKeyLabel(int player, int slot, bool twoPlayer);
 const char* ConfirmLabel(int player, bool twoPlayer);
 const char* BackLabel(int player, bool twoPlayer);

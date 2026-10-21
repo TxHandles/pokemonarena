@@ -1,0 +1,22 @@
+# Mega Slowbro: the Mega Evolution of Slowbro (official Mega stats, types and ability). Not caught or met on its
+# own: a Slowbro holding the Slowbronite Mega Evolves into it in battle (once per battle).
+name = Mega Slowbro
+dex  = 80
+type = Water / Psychic
+mega_of = Slowbro
+mega_stone = Slowbronite
+
+hp         = 95
+attack     = 75
+defense    = 180
+sp_attack  = 130
+sp_defense = 80
+speed      = 30
+
+height = 2.0      # Pokedex height in meters
+weight = 120.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Shell Armor
+category = 

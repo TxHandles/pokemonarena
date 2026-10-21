@@ -1,0 +1,22 @@
+# Mega Kangaskhan: the Mega Evolution of Kangaskhan (official Mega stats, types and ability). Not caught or met on its
+# own: a Kangaskhan holding the Kangaskhanite Mega Evolves into it in battle (once per battle).
+name = Mega Kangaskhan
+dex  = 115
+type = Normal
+mega_of = Kangaskhan
+mega_stone = Kangaskhanite
+
+hp         = 105
+attack     = 125
+defense    = 100
+sp_attack  = 60
+sp_defense = 100
+speed      = 100
+
+height = 2.2      # Pokedex height in meters
+weight = 100.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Parental Bond
+category = 

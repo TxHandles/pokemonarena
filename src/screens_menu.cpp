@@ -429,17 +429,22 @@ void DrawControls(const Game& g) {
         DrawTextCentered(TextFormat("Gamepad %d: %s   (left stick always moves)", pad + 1, st), VW / 2, 52, 10, UI_DIM, false);
     }
 
-    int x = 150, w = 340, y0 = 66;
-    GDrawText(padTab ? "Button" : "Key", x + 150, y0 - 2, 10, UI_DIM);
-    if (!padTab) GDrawText("Alternate", x + 250, y0 - 2, 10, UI_DIM);
+    const int PER_COL = (ACT_COUNT + 1) / 2;   // two columns of actions
+    int w = 296, y0 = 66, x = 0;
+    for (int c = 0; c < 2; c++) {
+        int hx = (c == 0 ? VW / 2 - w - 6 : VW / 2 + 6);
+        GDrawText(padTab ? "Button" : "Key", hx + 120, y0 - 2, 10, UI_DIM);
+        if (!padTab) GDrawText("Alternate", hx + 205, y0 - 2, 10, UI_DIM);
+    }
     for (int a = 0; a < ACT_COUNT; a++) {
-        int y = y0 + 10 + a * 16;
+        x = a < PER_COL ? VW / 2 - w - 6 : VW / 2 + 6;
+        int y = y0 + 10 + (a % PER_COL) * 16;
         bool rowSel = g.ctrlRow == a + 1;
         DrawPanel(x, y, w, 15, rowSel ? UI_PANEL_LIGHT : UI_PANEL, rowSel ? UI_GOLD : Color{70, 64, 92, 255});
         GDrawText(ActName((Act)a), x + 10, y + 3, 10, rowSel ? UI_GOLD : UI_TEXT);
         int cols = padTab ? 1 : 2;
         for (int col = 0; col < cols; col++) {
-            int cx = x + 150 + col * 100;
+            int cx = x + 120 + col * 85;
             bool cellSel = rowSel && g.ctrlCol == col;
             const char* label;
             bool conflict = false;
@@ -453,7 +458,7 @@ void DrawControls(const Game& g) {
                 for (int o = 0; o < ACT_COUNT; o++)
                     for (int oc = 0; oc < 2; oc++) conflict |= (o != a || oc != col) && k && Cfg().keys[g.ctrlTab][o][oc] == k;
             }
-            if (cellSel) DrawRectangle(cx - 4, y + 1, 80, 14, Fade(UI_GOLD, 0.25f));
+            if (cellSel) DrawRectangle(cx - 4, y + 1, 78, 14, Fade(UI_GOLD, 0.25f));
             if (cellSel && g.capturing) {
                 bool blink = ((int)(g.t * 4) % 2) == 0;
                 GDrawText(padTab ? "press a button" : "press a key", cx, y + 3, 10, blink ? UI_GOLD : UI_TEXT);
@@ -462,7 +467,7 @@ void DrawControls(const Game& g) {
             }
         }
     }
-    int ry = y0 + 10 + ACT_COUNT * 16 + 4;
+    int ry = y0 + 10 + PER_COL * 16 + 4;
     DrawMenuItem("Reset this page to defaults", VW / 2, ry, 10, g.ctrlRow == ACT_COUNT + 1);
     DrawMenuItem("Back", VW / 2, ry + 16, 10, g.ctrlRow == ACT_COUNT + 2);
     GDrawText(g.capturing ? "Esc cancels   Backspace clears the binding"

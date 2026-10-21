@@ -22,6 +22,7 @@ enum class Screen {
 // with story stage N, KIND_LEGEND+id a legendary, KIND_TOWER the Battle Tower.
 constexpr int KIND_LEGEND = 1000;
 constexpr int KIND_TOWER = 2000;
+constexpr int KIND_RAID = 3000;          // the Daily Raid (co-op)
 inline bool IsLegendKind(int k) { return k >= KIND_LEGEND && k < KIND_TOWER; }
 inline bool IsRematchKind(int k) { return k >= 3 && k < KIND_LEGEND; }
 
@@ -116,6 +117,13 @@ struct Game {
     int titleMenu = 0;                      // title: 0 main, 1 Co-op, 2 Quick Battle
     float screenT = 0;            // seconds since the screen last changed (menu animations)
     int bagTab = 0, bagSel = 0;             // the Bag: pocket and item
+    bool raid = false;           // the Daily Raid battle (your whole party at once vs one boss)
+    std::vector<CombatantSpec> raidTeam1;   // solo raid: Team 1, picked first (the team screen then picks Team 2)
+    std::vector<int> raidTaken;             // solo raid: roster entries already on Team 1
+    std::string catchBall;     // the ball just thrown (its colours in the catch animation)
+    float encounterT = 0;      // walking around: the wild-encounter wipe is playing, then the battle starts
+    bool encounterBlank = false;   // (a co-op player's own little game: no map behind the wipe)
+    bool bagAssign = false; int bagSlot = 0; // the Bag: putting a Medicine on an item hotkey (which slot)
     bool areaPick = false;                  // training team select: the "where to train" menu is open
     float swapHoldT = 0;                    // solo story battles: how long Swap has been held
     bool wheel = false, wheelRelease = false;   // the Quick Select wheel is open / wait for Swap to be let go
@@ -288,6 +296,7 @@ struct Game {
     int dexSel = 0, dexScroll = 0, dexWho = 0;
     bool dexWhere = false;        // Pokedex: the 'where to find it' page
     int dexWhereSel = 0;
+    int dexMega = 0;          // Pokedex: 0 = the Pokemon, 1+ = showing its Mega form
     // Trading (co-op)
     int tradeCur[2] = {0, 0}, tradeScroll[2] = {0, 0}, tradeOffer[2] = {-1, -1};
     bool tradeReady[2] = {false, false};
@@ -401,6 +410,13 @@ void OpenTrade(Game& g);
 void ApplyTrade(Game& g, const int idx[2], const OwnedMon mon[2]);
 std::string MonToText(const OwnedMon& m);
 bool MonFromText(const std::string& text, OwnedMon& out);
+constexpr float ENCOUNTER_WIPE_T = 1.35f;   // the wild-encounter flash and wipe (seconds)
+void DrawEncounterWipe(const Game& g);
+struct RaidInfo { int species = -1; bool shiny = false; int day = 0; };
+int RaidToday();                           // days since 1970 in local time (the raid changes at midnight)
+RaidInfo RaidOfDay(int day);               // that day's boss: any final form, legendary or starter
+void StartRaid(Game& g);
+void StartCoopRaid(Game& g);               // co-op: each player picks 6 on the team screen                   // the Daily Raid: straight in with the whole healthy party
 void StartTrainingBattle(Game& g);  // a training battle in the current training area (the team screen first)
 void StartCoopTrainingBattle(Game& g);   // the same, 2v2 for both co-op players
 void SetTrainingWild(Game& g);      // training battles use the chosen area's wild Pokemon (wild.h)

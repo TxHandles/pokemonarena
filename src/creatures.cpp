@@ -233,6 +233,10 @@ bool ParseCreatureFile(const std::string& path, SpeciesDef& sp, std::string& rep
             size_t c = val.find(',');
             sp.ability1 = Trim(val.substr(0, c));
             sp.ability2 = c == std::string::npos ? "" : Trim(val.substr(c + 1));
+        } else if (key == "mega_of") {
+            sp.megaOf = Trim(val);
+        } else if (key == "mega_stone") {
+            sp.megaStone = Trim(val);
         } else if (key == "hidden_ability") {
             sp.hiddenAbility = Trim(val);
         } else if (key == "category" || key == "species_category") {

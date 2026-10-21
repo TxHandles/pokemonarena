@@ -1,0 +1,9 @@
+# Mega Alakazam - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 6F4F3F > 8E4864
+shiny = 7B4A6B > AB59A8
+shiny = 906D60 > C16782
+shiny = 947B31 > A3792A
+shiny = A56B8C > D37ECE
+shiny = C5AD31 > D6AC31
+shiny = E6DE3A > EED300

@@ -10,6 +10,7 @@
 #include "ui.h"
 #include "vec.h"
 #include "rlgl.h"
+void DrawItemIcon(const ItemDef& d, float cx, float cy, float scale);   // (screens_bag.cpp)
 
 namespace {
 
@@ -146,7 +147,8 @@ Sfx SoundFor(const MoveDef& m) {
 
 void LearnNewMoves(Fighter& f, std::vector<FloatText>& texts, bool evolving = false) {
     if (f.transformFrom >= 0) return;  // a transformed creature learns nothing (it changes back after)
-    for (const MoveDef& m : MovesLearnedAt(*f.sp, f.level, evolving)) {
+    const SpeciesDef& learner = AllSpecies()[f.megaFrom >= 0 ? f.megaFrom : f.species];   // a Mega learns its base form's moves
+    for (const MoveDef& m : MovesLearnedAt(learner, f.level, evolving)) {
         bool known = false;
         for (int i = 0; i < f.nMoves; i++) known |= f.moves[i].name == m.name;
         for (const auto& p : f.pendingLearn) known |= p == m.name;
@@ -426,6 +428,12 @@ void Battle::Start(const BattleSetup& su) {
         sd.input = ss.cpu ? -1 : (ss.input >= 0 ? ss.input : std::min(si, 1));
         sd.tag = ss.tag;
         sd.dummy = ss.dummy;
+        sd.squad = ss.squad;
+        for (int k = 0; k < 4; k++) {
+            sd.hot[k] = ss.hotN[k] > 0 ? ss.hot[k] : std::string();
+            sd.hotN[k] = sd.hotStart[k] = sd.hot[k].empty() ? 0 : ss.hotN[k];
+            sd.hotCd[k] = 0;
+        }
         for (const CombatantSpec& c : ss.team) {
             Fighter f;
             f.owner = c.owner;
@@ -460,9 +468,12 @@ void Battle::Start(const BattleSetup& su) {
         std::vector<int> mine;
         for (int s = 0; s < N(); s++)
             if (sides[s].teamId == t) mine.push_back(s);
-        for (size_t k = 0; k < mine.size(); k++) {
-            float y = ARENA_H / 2 + (mine.size() > 1 ? (k == 0 ? -70.0f : 70.0f) : 0.0f);
-            sides[mine[k]].lastPos = {t == 0 ? 120.0f : ARENA_W - 120, y};
+        int n = (int)mine.size();
+        float gap = n <= 2 ? 140.0f : std::min(140.0f, (ARENA_H - 90.0f) / (n - 1));
+        for (int k = 0; k < n; k++) {
+            float y = ARENA_H / 2 + (n > 1 ? (k - (n - 1) / 2.0f) * gap : 0.0f);
+            float x = n > 2 ? 100.0f + (k % 2) * 45.0f : 120.0f;   // a crowd stands staggered
+            sides[mine[k]].lastPos = {t == 0 ? x : ARENA_W - x, y};
         }
     }
     int lvSum = 0, lvN = 0;
@@ -532,6 +543,24 @@ void Battle::Update(float dt, const PlayerInput in[2]) {
     SimRngScope rngScope(rng);
     AbRefresh();
     time += dt;
+    if (megaFreezeT > 0) {   // a Mega Evolution: the battle holds still while it glows and bursts
+        megaFreezeT -= dt;
+        for (int s = 0; s < N(); s++) {
+            Fighter& f = sides[s].Cur();
+            if (f.state != FState::Evolving || f.megaTo < 0) continue;
+            f.stateT += dt;
+            f.animT += dt;
+            if (SimRand(0, 1) < 0.7f) {   // rainbow sparks spiral in
+                float a = Frand(0, 2 * PI_F);
+                Color c = ColorFromHSV(std::fmod(f.stateT * 360.0f + Frand(0, 120), 360.0f), 0.7f, 1.0f);
+                Particle& p = Emit(PK::Spark, f.pos + Vector2{std::cos(a) * 26, std::sin(a) * 14}, Frand(4, 30), Vector2{-std::cos(a) * 40, -std::sin(a) * 22}, 0, 0.45f, 2.0f, c, false);
+                (void)p;
+            }
+            if (megaFreezeT <= 0) FinishMega(s);
+        }
+        UpdateEffects(dt);
+        return;
+    }
     hype = std::max(0.0f, hype - dt * 0.35f);
     if (introT > 0) introT -= dt;
     bool canAct = introT <= 0 && winner < 0;
@@ -558,12 +587,14 @@ void Battle::Update(float dt, const PlayerInput in[2]) {
     }
 
     static const PlayerInput none{};
+    PlayerInput li[2] = {in[0], in[1]};
+    if (setup.raid) RaidControl(li);
     for (int s = 0; s < N(); s++) {
         int pi = sides[s].input;
-        if (!sides[s].cpu && pi >= 0 && pi < 2 && in[pi].target != 0) CycleTarget(s, in[pi].target);
+        if (!sides[s].cpu && pi >= 0 && pi < 2 && li[pi].target != 0) CycleTarget(s, li[pi].target);
         PickTarget(s, dt);
         int ii = sides[s].input;
-        UpdateSide(s, dt, ii >= 0 && ii < 2 ? in[ii] : none, canAct);
+        UpdateSide(s, dt, ii >= 0 && ii < 2 ? li[ii] : none, canAct);
     }
 
     auto solid = [](const Fighter& f) {
@@ -669,6 +700,7 @@ void Battle::Update(float dt, const PlayerInput in[2]) {
 void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
     Side& sd = sides[s];
     sd.swapCd = std::max(0.0f, sd.swapCd - dt);
+    for (float& c : sd.hotCd) c = std::max(0.0f, c - dt);
     for (auto& tf : sd.team)
         for (float& c : tf.cd) c = std::max(0.0f, c - dt);
 
@@ -714,6 +746,7 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
             return;
         case FState::Evolving:
             f.knock = {0, 0};
+            if (f.megaTo >= 0) { FinishMega(s); return; }   // (the freeze ran out)
             if (f.stateT >= 1.8f) FinishEvolution(s);
             return;
         case FState::Fainting:
@@ -729,13 +762,14 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
             bool someoneEvolving = false;
             for (int k = 0; k < N(); k++) someoneEvolving |= sides[k].Cur().state == FState::Evolving;
             if (someoneEvolving || winner >= 0) return;
+            if (sd.squad >= 0 && SquadFighting(sd.squad)) return;   // the raid: the next wave comes in together
             int n = sd.NextAlive(sd.active);
             if (n >= 0) {
                 if (sd.sendT >= 0) {
                     sd.sendT -= dt;
                     if (sd.sendT < 0) SendOut(s, n);
                 }
-            } else if (PartnerWithBench(s) >= 0) {
+            } else if (sd.squad < 0 && PartnerWithBench(s) >= 0) {
                 // Out of creatures: take over a teammate's benched one (the CPU does it right away,
                 // a player presses Swap).
                 if (sd.cpu) {
@@ -769,6 +803,13 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
 
     Intent it;
     if (canAct && !gVfxDemo && !sd.dummy) it = sd.cpu ? ThinkAI(s, dt) : HumanIntent(in);
+    if (canAct && sd.cpu && !sd.dummy && f.stateT > 1.0f && CanMega(s)) it.mega = true;   // a CPU with its stone Mega Evolves right away
+    if (sd.squad >= 0) { it.swap = it.swapBack = false; it.swapTo = -1; }   // a raid squad doesn't swap: its next wave waits
+    if (it.mega && CanMega(s)) { StartMega(s); return; }
+    if (canAct && sd.cpu && sd.squad < 0 && !sd.dummy && f.hp > 0 && f.hp < f.maxHp * 0.3f)   // bosses with Potions use one when they're low
+        for (int k = 0; k < 4; k++)
+            if (sd.hotN[k] > 0 && sd.hotCd[k] <= 0) { it.item = k; break; }
+    if (it.item >= 0 && canAct) UseHotItem(s, it.item);
     int os = sd.target;
 
     // Underground / in the sky: travel to the target, then erupt.
@@ -1079,6 +1120,9 @@ Intent Battle::HumanIntent(const PlayerInput& in) const {
     it.swapTo = in.swapTo;
     it.dodge = in.dodge;
     it.jump = in.jump;
+    it.mega = in.mega;
+    for (int k = 0; k < 4; k++)
+        if (in.item[k]) { it.item = k; break; }
     for (int k = 0; k < 4; k++)
         if (in.attack[k]) { it.attack = k; break; }
     return it;
@@ -2301,6 +2345,150 @@ void Battle::FinishEvolution(int s) {
     }
 }
 
+bool Battle::ItemWouldHelp(const Fighter& f, const ItemDef& d) const {
+    if (f.hp <= 0 || f.state != FState::Active) return false;
+    if (d.value > 0 && f.hp < f.maxHp) return true;
+    const Status m = f.st.major;
+    int c = d.cure;
+    if ((c & ItemDef::CURE_POISON) && (m == Status::Poison || m == Status::Toxic)) return true;
+    if ((c & ItemDef::CURE_PARALYZE) && m == Status::Paralyze) return true;
+    if ((c & ItemDef::CURE_SLEEP) && m == Status::Sleep) return true;
+    if ((c & ItemDef::CURE_BURN) && m == Status::Burn) return true;
+    if ((c & ItemDef::CURE_FREEZE) && m == Status::Freeze) return true;
+    if ((c & ItemDef::CURE_CONFUSE) && f.st.confuseT > 0) return true;
+    return false;
+}
+
+int Battle::HotSide(int s) const {
+    if (sides[s].squad < 0) return s;
+    for (int k = 0; k < N(); k++) if (sides[k].squad == sides[s].squad) return k;
+    return s;
+}
+
+bool Battle::SquadFighting(int q) const {
+    for (const auto& sd : sides) {
+        if (sd.squad != q) continue;
+        const Fighter& f = sd.Cur();
+        if (f.hp > 0 && f.state != FState::Fainted && f.state != FState::Fainting && f.state != FState::Benched) return true;
+    }
+    return false;
+}
+
+void Battle::RaidControl(PlayerInput in[2]) {
+    for (int p = 0; p < 2; p++) {
+        int cur = -1;
+        std::vector<int> mine;
+        for (int s = 0; s < N(); s++)
+            if (sides[s].squad == p) { mine.push_back(s); if (!sides[s].cpu && sides[s].input == p) cur = s; }
+        if (cur < 0 || mine.size() < 2) continue;
+        auto up = [&](int s) { const Fighter& f = sides[s].Cur(); return f.hp > 0 && (f.state == FState::Active || f.state == FState::Entering); };
+        int dir = in[p].swap ? 1 : in[p].swapPrev ? -1 : 0;
+        if (dir == 0 && !up(cur)) dir = 1;   // yours went down: take over the next one still fighting
+        in[p].swap = in[p].swapPrev = false;
+        in[p].swapTo = -1;
+        if (dir == 0) continue;
+        int at = (int)(std::find(mine.begin(), mine.end(), cur) - mine.begin()), n = (int)mine.size();
+        for (int k = 1; k < n; k++) {
+            int s = mine[((at + dir * k) % n + n) % n];
+            if (!up(s)) continue;
+            sides[cur].cpu = true;
+            sides[cur].input = -1;
+            sides[s].cpu = false;
+            sides[s].input = p;
+            sides[s].ai = AIBrain();
+            AddText(sides[s].Cur().pos + Vector2{0, -30}, "You're on " + sides[s].Cur().sp->name + "!", TeamColor(0), 24);
+            break;
+        }
+    }
+}
+
+bool Battle::UseHotItem(int s, int k) {
+    if (k < 0 || k > 3) return false;
+    Fighter& f = sides[s].Cur();
+    Side& sd = sides[HotSide(s)];   // a raid squad's items are its leader's
+    const ItemDef* d = FindItem(sd.hot[k]);
+    if (!d || sd.hotN[k] <= 0 || sd.hotCd[k] > 0 || !IsMedicine(*d)) return false;
+    if (!ItemWouldHelp(f, *d)) {
+        if (!sides[s].cpu) AddText(f.pos + Vector2{0, -20}, d->name + " won't have any effect.", UI_DIM, 30);
+        return false;
+    }
+    sd.hotN[k]--;
+    sd.hotCd[k] = ITEM_COOLDOWN;
+    std::string who = sides[s].cpu ? sides[s].label + " used a " : "Used a ";
+    AddText(f.pos + Vector2{0, -26}, who + d->name + "!", Color{150, 240, 170, 255}, 44);
+    if (d->value > 0 && f.hp < f.maxHp) {
+        float before = f.hp;
+        f.hp = std::min((float)f.maxHp, f.hp + std::max(1.0f, std::round(f.maxHp * d->value)));
+        AddText(f.pos + Vector2{0, -14}, TextFormat("+%d", (int)(f.hp - before)), Color{110, 230, 130, 255}, 36);
+    }
+    if (d->cure) {
+        const Status m = f.st.major;
+        int c = d->cure;
+        bool cured = ((c & ItemDef::CURE_POISON) && (m == Status::Poison || m == Status::Toxic)) || ((c & ItemDef::CURE_PARALYZE) && m == Status::Paralyze) ||
+                     ((c & ItemDef::CURE_SLEEP) && m == Status::Sleep) || ((c & ItemDef::CURE_BURN) && m == Status::Burn) || ((c & ItemDef::CURE_FREEZE) && m == Status::Freeze);
+        if (cured) {
+            AddText(f.pos + Vector2{0, -2}, std::string(StatusName(m)) + " cured!", Color{200, 240, 255, 255}, 30);
+            f.st.major = Status::None;
+            f.st.majorT = f.st.tickT = f.st.paraT = f.st.paraStunT = 0;
+            f.st.toxicN = 0;
+        }
+        if ((c & ItemDef::CURE_CONFUSE) && f.st.confuseT > 0) f.st.confuseT = 0;
+    }
+    for (int i = 0; i < 14; i++) {   // green sparkles rising
+        Particle& p = Emit(PK::Spark, f.pos + Vector2{Frand(-10, 10), Frand(-4, 4)}, Frand(0, 10), {Frand(-6, 6), Frand(-3, 3)}, Frand(30, 60), 0.7f, 1.8f,
+                           d->cure && d->value <= 0 ? Color{150, 210, 255, 255} : Color{120, 240, 150, 255}, false);
+        (void)p;
+    }
+    f.flash = std::max(f.flash, 0.15f);
+    PlaySfx(Sfx::Heal);
+    return true;
+}
+
+bool Battle::CanMega(int s) const {
+    const Side& sd = sides[s];
+    const Fighter& f = sd.Cur();
+    if (sd.megaUsed || f.megaFrom >= 0 || f.transformFrom >= 0 || f.state != FState::Active || !f.item || !IsMegaStone(*f.item)) return false;
+    if (f.burrowed || f.dashing || Held(s) || f.weakened || f.hp <= 0 || winner >= 0 || megaFreezeT > 0) return false;
+    return MegaFormFor(f.species, f.item->name) >= 0;
+}
+
+void Battle::StartMega(int s) {
+    Fighter& f = sides[s].Cur();
+    f.megaTo = MegaFormFor(f.species, f.item->name);
+    if (f.megaTo < 0) return;
+    sides[s].megaUsed = true;
+    f.state = FState::Evolving;
+    f.stateT = 0;
+    f.pendingMove = -1;
+    f.volleyLeft = 0;
+    f.dodgeT = f.jumpT = 0;
+    f.knock = {0, 0};
+    megaFreezeT = 1.0f;
+    AddText(f.pos + Vector2{0, -28}, f.sp->name + "'s " + f.item->name + " is reacting!", Color{255, 200, 255, 255}, 50);
+    PlaySfx(Sfx::Evolve);
+}
+
+void Battle::FinishMega(int s) {
+    Fighter& f = sides[s].Cur();
+    if (f.megaTo < 0) return;
+    std::string from = f.sp->name;
+    f.megaFrom = f.species;
+    f.species = f.megaTo;
+    f.sp = &AllSpecies()[f.species];
+    f.megaTo = -1;
+    f.ab = AbilityByName(f.sp->ability1);   // a Mega has one ability (its slot is kept for afterwards)
+    f.RecalcHp(true);   // (Megas keep their HP stat)
+    f.state = FState::Active;
+    f.stateT = 0;
+    f.flash = 0.35f;
+    AbOnEnter(s);
+    AddText(f.pos + Vector2{0, -28}, from + " Mega Evolved into " + f.sp->name + "!", UI_GOLD, 50);
+    for (int k = 0; k < 6; k++) Burst(f.pos, ColorFromHSV(k * 60.0f, 0.65f, 1.0f), 10, 90 + k * 12, 8);
+    AddFx(FxKind::Ring, f.pos, 0.5f, Color{255, 220, 255, 255}, 44);
+    Shake(3, 0.35f);
+    PlaySfx(Sfx::Win);
+}
+
 void Battle::SpawnProjectile(const HitSpec& h, const MoveDef& m, Vector2 pos, Vector2 dir) {
     Projectile p;
     p.hit = h;
@@ -3019,8 +3207,24 @@ void Battle::DrawFighter(int s) const {
         // Glow white and flicker between the old and new forms, faster and faster.
         float u = f.stateT / 1.8f;
         float rate = 3.0f + u * 14.0f;
+        if (f.megaTo >= 0) { u = std::min(1.0f, f.stateT); rate = 4.0f + u * 18.0f; }
         if (u > 0.25f && ((int)(f.stateT * rate) % 2) && f.evolveTo >= 0) species = f.evolveTo;
-        white = 0.55f + 0.45f * std::sin(f.stateT * 12.0f);
+        if (u > 0.35f && ((int)(f.stateT * rate) % 2) && f.megaTo >= 0) species = f.megaTo;
+        if (f.megaTo >= 0) {   // a rainbow aura: rings of colour that swell into the burst
+            Vector2 g = ToScreen(f.pos);
+            float hh = CreatureHeight(f.species, f.dir);
+            VAdd();
+            for (int k = 0; k < 3; k++) {
+                Color c = ColorFromHSV(std::fmod(f.stateT * 300.0f + k * 120.0f, 360.0f), 0.75f, 1.0f);
+                VGlow({g.x, g.y - hh * 0.45f}, 16 + u * 18 + k * 5 + 3 * std::sin(f.stateT * 10 + k), c, 0.5f + 0.3f * u);
+                float a = f.stateT * 5.0f + k * 2.094f;   // three coloured orbs circling in
+                float rr = 30 * (1 - u) + 8;
+                VGlow({g.x + std::cos(a) * rr, g.y - hh * 0.45f + std::sin(a) * rr * 0.5f}, 6, c, 0.9f);
+            }
+            VRingE({g.x, g.y}, 10 + u * 22, (10 + u * 22) * DEPTH, 1.5f, ColorFromHSV(std::fmod(f.stateT * 400.0f, 360.0f), 0.7f, 1.0f), 28);
+            VNorm();
+        }
+        white = f.megaTo >= 0 ? 0.25f + 0.25f * std::sin(f.stateT * 14.0f) : 0.55f + 0.45f * std::sin(f.stateT * 12.0f);
         sx = sy = 1.0f + 0.08f * std::sin(f.stateT * 9.0f);
         z = 3.0f * std::sin(u * PI_F);
     }
@@ -3153,7 +3357,7 @@ void Battle::DrawFighter(int s) const {
             DrawRectangle(mx - w / 2 - 2, my - 10, w + 4, 10, StatusColor(f.st.major));
             GDrawText(tag, mx - w / 2, my - 10, 10, UI_INK);
         }
-        if (IsDoubles() && !sides[s].tag.empty()) {  // who controls it
+        if (IsDoubles() && !sides[s].tag.empty() && !(setup.raid && sides[s].squad >= 0 && sides[s].cpu)) {  // who controls it (a raid: only the one you steer)
             const char* tg = sides[s].tag.c_str();
             Color tgc = sides[s].input == 0 ? UI_GOLD : (sides[s].input == 1 ? Color{120, 230, 255, 255} : tc);
             DrawTextOutlined(tg, mx - TextW(tg, 10) / 2, *tag ? my - 22 : my - 11, 10, tgc);
@@ -3670,11 +3874,26 @@ void Battle::DrawHud() const {
     }
     if (bottom.size() > 2) bottom.resize(2);
 
-    int perTeam[2] = {0, 0};
+    int perTeam[2] = {0, 0}, minis = 0;
+    if (setup.raid) {   // the raid: just you on the big panel, so the boss's panel takes the right
+        bottom.clear();
+        for (int s = 0; s < N(); s++) if (sides[s].teamId == 0 && !sides[s].cpu) bottom.push_back(s);
+    }
     for (int s = 0; s < N(); s++) {
         const Side& sd = sides[s];
         const Fighter& f = sd.Cur();
         Color tc = TeamColor(sd.teamId);
+        if (setup.raid && sd.teamId == 0 && sd.cpu) {   // a raid ally: a small plate - name, level and HP
+            int ctrl = 0;
+            for (const auto& o : sides) ctrl += o.teamId == 0 && !o.cpu;
+            int x = 4, y = 3 + ctrl * 23 + 2 + minis++ * 14, pw = 168;
+            DrawRectangle(x, y, pw, 13, Fade(Color{24, 22, 40, 255}, 0.75f));
+            DrawRectangle(x, y, 2, 13, sd.squad == 1 ? Color{120, 230, 255, 255} : UI_GOLD);
+            bool out = f.hp <= 0;
+            GDrawText(TextFormat("%s Lv%d", f.sp->name.c_str(), f.level), x + 5, y + 1, 10, out ? UI_DIM : UI_TEXT);
+            DrawHpBar(x + 104, y + 5, 60, 3, std::max(0.0f, f.displayHp / f.maxHp));
+            continue;
+        }
         bool compact = IsDoubles();
         int pw = 250, ph = compact ? 21 : 29;
         int x = sd.teamId == 0 ? 4 : VW - 4 - pw;
@@ -3797,8 +4016,17 @@ void Battle::DrawHud() const {
             else if (mine) std::snprintf(jb, sizeof jb, "[%s] jump", JumpKeyLabel(pl, tp));
             else jb[0] = 0;
             int dw = TextW(db, 10), jw = *jb ? TextW(jb, 10) + 10 : 0;
-            int tw = dw + jw + 10, tx0 = mx + mw - tw;
-            if (IsDoubles()) tx0 -= TextW(sd.tag.empty() ? sd.label.c_str() : sd.tag.c_str(), 10) + 10;   // room for the P1 / P2 tag
+            int tagW = IsDoubles() ? TextW(sd.tag.empty() ? sd.label.c_str() : sd.tag.c_str(), 10) + 10 : 0;   // room for the P1 / P2 tag
+            const Side& hs2 = sides[HotSide(s)];
+            bool strip = false;
+            for (int k = 0; k < 4; k++) strip |= !hs2.hot[k].empty();
+            int minX = mx + (strip ? 44 * 4 + 6 : 0);   // keep clear of the item hotkeys on the left
+            if (mx + mw - tagW - (dw + jw + 10) < minX && *jb) {   // no room: the dodge alone (the jump key is in the Controls)
+                std::snprintf(jb, sizeof jb, "%s", IsDoubles() && mine ? TextFormat("[%s] target", TargetKeyLabel(pl, tp)) : "");
+                jw = *jb ? TextW(jb, 10) + 10 : 0;
+                if (mx + mw - tagW - (dw + jw + 10) < minX) { jb[0] = 0; jw = 0; }
+            }
+            int tw = dw + jw + 10, tx0 = mx + mw - tw - tagW;
             DrawRectangle(tx0, my - 12, tw, 12, Fade(UI_INK, 0.85f));
             DrawRectangle(tx0, my - 12, tw, 1, tc);
             if (f.dodgeCd > 0) {   // fills back up
@@ -3809,6 +4037,49 @@ void Battle::DrawHud() const {
             if (*jb) GDrawText(jb, tx0 + 5 + dw + 10, my - 11, 10, UI_GOLD);
         }
 
+        const Side& hs = sides[HotSide(s)];   // (a raid squad's items)
+        bool hasHot = false;
+        for (int k = 0; k < 4; k++) hasHot |= !hs.hot[k].empty();
+        if (!sd.cpu && hasHot) {   // the item hotkeys: a little strip on the left above the moves
+            bool mine = gLocalInput < 0 || sd.input == gLocalInput;
+            int pl = gLocalInput >= 0 ? 0 : std::max(0, sd.input);
+            bool tp = gLocalInput >= 0 ? false : setup.twoPlayer;
+            const int cw = 44;
+            DrawRectangle(mx, my - 12, cw * 4 + 2, 12, Fade(UI_INK, 0.85f));
+            DrawRectangle(mx, my - 12, cw * 4 + 2, 1, tc);
+            for (int k = 0; k < 4; k++) {
+                int cx = mx + 2 + k * cw;
+                const ItemDef* d = FindItem(hs.hot[k]);
+                if (!d) { GDrawText("-", cx + 15, my - 11, 10, UI_DIM); continue; }
+                bool ready = hs.hotN[k] > 0 && hs.hotCd[k] <= 0;
+                if (mine) {
+                    const char* key = ItemKeyLabel(pl, k, tp);
+                    std::string ks = key;
+                    if (ks.rfind("D-", 0) == 0) ks = ks.substr(2, 1);   // D-Up -> U
+                    GDrawText(ks.c_str(), cx, my - 11, 10, ready ? UI_GOLD : UI_DIM);
+                }
+                DrawItemIcon(*d, (float)cx + 16, (float)my - 6, 0.85f);
+                if (hs.hotCd[k] > 0 && hs.hotN[k] > 0) {
+                    float fr = hs.hotCd[k] / ITEM_COOLDOWN;
+                    DrawRectangle(cx + 11, my - 11 + (int)(10 * (1 - fr)), 11, (int)std::ceil(10 * fr), Fade(UI_INK, 0.7f));
+                    GDrawText(TextFormat("%ds", (int)std::ceil(hs.hotCd[k])), cx + 24, my - 11, 10, UI_DIM);
+                } else {
+                    GDrawText(TextFormat("x%d", hs.hotN[k]), cx + 24, my - 11, 10, hs.hotN[k] > 0 ? UI_TEXT : Color{200, 90, 90, 255});
+                }
+            }
+        }
+        if (!sd.cpu && CanMega(s)) {   // Mega Evolution is ready: a rainbow tab on the left above the moves
+            bool mine = gLocalInput < 0 || sd.input == gLocalInput;
+            int pl = gLocalInput >= 0 ? 0 : std::max(0, sd.input);
+            bool tp = gLocalInput >= 0 ? false : setup.twoPlayer;
+            char mb[48];
+            if (mine) std::snprintf(mb, sizeof mb, "[%s] MEGA EVOLVE", MegaKeyLabel(pl, tp));
+            else std::snprintf(mb, sizeof mb, "MEGA ready");
+            int tw = TextW(mb, 10) + 10, ty = hasHot ? my - 24 : my - 12;   // above the item strip
+            DrawRectangle(mx, ty, tw, 12, Fade(UI_INK, 0.85f));
+            for (int i = 0; i < tw; i++) DrawRectangle(mx + i, ty, 1, 1, ColorFromHSV(std::fmod(i * 6.0f + time * 240.0f, 360.0f), 0.7f, 1.0f));
+            GDrawText(mb, mx + 5, ty + 1, 10, ColorFromHSV(std::fmod(time * 120.0f, 360.0f), 0.35f, 1.0f));
+        }
         const Fighter& opp = sides[sd.target >= 0 ? sd.target : AnyFoe(s)].Cur();
         for (int k = 0; k < 4; k++) {
             int sx = mx + 3 + (k % 2) * 154, sy = my + 4 + (k / 2) * 21;

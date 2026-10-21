@@ -259,6 +259,15 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
   out of the Host / Join pages. Testing aid: ARENA_NET_LAG_MS=80 delays every message.
 - **Stalemates** – if no one loses HP for 30 s (or a battle passes 200 s), sudden death starts.
 
+## Daily Raid
+
+A new raid boss every day (any final form, legendary or starter; 1 in 16 is shiny), one try a day
+(solo saves and the co-op save each get their own). Solo: pick Team 1 and Team 2 (party and Box).
+All of Team 1 fights at once - you steer one, the CPU the rest; Swap moves you to another of yours on
+the field (and you're moved automatically if yours goes down). When Team 1 is all down, Team 2 comes
+in together. Co-op / online co-op: each player brings 6, all 12 fight at once, and both of you get a
+try at catching the boss after a win. Win: a 1500-coin bonus, then the catch.
+
 ## Walking around (overworld, test build)
 
 "Walk around (test)" in the Story / co-op menu puts you on the map: your room in Pallet Town, Route 1
@@ -268,7 +277,8 @@ goes back to the menu (your place is saved).
 
 - Story trainers stand on the map and challenge you when they spot you (Blue in Oak's Lab, the
   Youngster on Route 1, Blue at Viridian's west exit when the story is there).
-- Tall grass: wild Pokemon from that route (one at a time).
+- Tall grass: wild Pokemon from that route (one at a time), straight into battle with your party (a
+  flash-and-wipe, no team screen). Wild Pokemon are never more than 1 level above your strongest.
 - The Pokemon Center Nurse heals, the Mart clerk sells; your lead Pokemon follows you; black out and
   you're back home with Mom.
 - Local co-op: split screen (Red and Leaf). Each player's wild battle, Healing Center and Mart run in
@@ -492,9 +502,29 @@ of the shared keyboard, and two gamepads (keys used twice show in red).
 | 1 player | WASD / arrows | J K L I (alt F G H T) | U (alt Q) | Y (alt Z) | Space (alt L-Shift) | E (alt O) | Esc / P |
 | 2P – Player 1 | WASD | F G H T | Q | Z | E (alt L-Shift) | R | Esc / P |
 | 2P – Player 2 | Arrows | Numpad 1–4 (alt , . / ;) | Numpad 0 / R-Shift | Numpad . (alt ]) | Numpad 5 (alt L) | Numpad 6 (alt ') | Numpad Enter |
-| Gamepad | Left stick / d-pad | A B X Y | RT / R2 | LT / L2 | LB / L1 | RB / R1 | Start |
+| Gamepad | Left stick | A B X Y | RT / R2 | LT / L2 | LB / L1 | RB / R1 | Start |
+
+| Default | Mega Evolve | Item slots 1–4 |
+|---|---|---|
+| 1 player | M | C V B N |
+| 2P – Player 1 | X | 1 2 3 4 |
+| 2P – Player 2 | Numpad 8 (alt M) | Numpad 9 + - * |
+| Gamepad | L3 (left stick click) | D-pad up / right / down / left |
+
+The D-pad no longer moves in battle (it still walks on the overworld and moves through menus).
 
 Swap next / back step forward or backward through your party (skipping fainted ones).
+
+**Mega Evolution** – a Pokemon holding its Mega Stone (sold in the Shop for 5000 once you've beaten a
+Champion) can Mega Evolve once per battle (each player once in co-op): press Mega while it's out. The
+battle pauses for a second while it glows; it stays Mega for the rest of the battle, even if you swap it
+out. 19 Megas: the Kanto 15 plus Legends Z-A's Clefable, Victreebel, Starmie and Dragonite. Some bosses
+Mega Evolve too (team tokens `mega`, `mega x`, `mega y`, and `rmega` for rematches only, in story.txt).
+
+**Battle items** – Medicine (Potions, status heals, berries) from the Shop goes in the Bag's Medicine
+pocket; Enter there puts it on one of the four item hotkeys. In battle, press that hotkey to use it on
+your Pokemon on the field. Each slot has a 30-second cooldown. Gym Leaders, the Elite Four and Champions
+carry 3 Potions; no other trainer uses items.
 
 **Quick Select (solo Story Mode)** – hold Swap (RT) for about half a second: the battle pauses and a
 wheel of your team appears. Point at a Pokemon with the right stick (or left stick / WASD) and press A to

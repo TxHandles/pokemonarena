@@ -1,0 +1,22 @@
+# Mega Charizard Y: the Mega Evolution of Charizard (official Mega stats, types and ability). Not caught or met on its
+# own: a Charizard holding the Charizardite Y Mega Evolves into it in battle (once per battle).
+name = Mega Charizard Y
+dex  = 6
+type = Fire / Flying
+mega_of = Charizard
+mega_stone = Charizardite Y
+
+hp         = 78
+attack     = 104
+defense    = 78
+sp_attack  = 159
+sp_defense = 115
+speed      = 100
+
+height = 1.7      # Pokedex height in meters
+weight = 100.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Drought
+category = 

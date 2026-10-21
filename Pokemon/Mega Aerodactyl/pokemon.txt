@@ -1,0 +1,22 @@
+# Mega Aerodactyl: the Mega Evolution of Aerodactyl (official Mega stats, types and ability). Not caught or met on its
+# own: a Aerodactyl holding the Aerodactylite Mega Evolves into it in battle (once per battle).
+name = Mega Aerodactyl
+dex  = 142
+type = Rock / Flying
+mega_of = Aerodactyl
+mega_stone = Aerodactylite
+
+hp         = 80
+attack     = 135
+defense    = 85
+sp_attack  = 70
+sp_defense = 95
+speed      = 150
+
+height = 2.1      # Pokedex height in meters
+weight = 79.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Tough Claws
+category = 

@@ -86,6 +86,71 @@ std::vector<ItemDef> Build() {
     add("Life Orb", ItemFx::LifeOrb, 1.3f, 700, 7, "Damage +30%, but each attack costs a little HP.");
     add("Choice Band", ItemFx::ChoiceBand, 1.35f, 700, 7, "ATK +35%, but cooldowns 15% longer.");
     add("Exp. All", ItemFx::ExpAll, 0.5f, 5000, 0, "Co-op: when you beat wild Pokemon on your own while walking around, your partner's party shares in it - half your XP, split between them. Stays in your Bag.");
+    // Medicine: carried in the Bag, used in battle from the four item hotkeys (30 s cooldown per slot)
+    auto med = [&](const char* name, float heal, int cure, int price, int badges, const char* desc, Type t) {
+        add(name, ItemFx::Medicine, heal, price, badges, desc, t);
+        v.back().cure = cure;
+    };
+    using I = ItemDef;
+    med("Potion", 0.20f, 0, 200, 0, "Restores 20% of a Pokemon's max HP.", Type::Normal);
+    med("Super Potion", 0.35f, 0, 700, 2, "Restores 35% of a Pokemon's max HP.", Type::Normal);
+    med("Hyper Potion", 0.55f, 0, 1500, 4, "Restores 55% of a Pokemon's max HP.", Type::Normal);
+    med("Max Potion", 1.0f, 0, 2500, 6, "Fully restores a Pokemon's HP.", Type::Normal);
+    med("Full Restore", 1.0f, I::CURE_ALL, 3000, 8, "Fully restores HP and cures every status condition and confusion.", Type::Normal);
+    med("Antidote", 0, I::CURE_POISON, 100, 0, "Cures poison.", Type::Poison);
+    med("Paralyze Heal", 0, I::CURE_PARALYZE, 200, 0, "Cures paralysis.", Type::Electric);
+    med("Awakening", 0, I::CURE_SLEEP, 100, 1, "Wakes up a sleeping Pokemon.", Type::Psychic);
+    med("Burn Heal", 0, I::CURE_BURN, 200, 1, "Heals a burn.", Type::Fire);
+    med("Ice Heal", 0, I::CURE_FREEZE, 100, 1, "Thaws a frozen Pokemon.", Type::Ice);
+    med("Full Heal", 0, I::CURE_ALL, 400, 3, "Cures every status condition and confusion.", Type::Normal);
+    med("Oran Berry", 0.12f, 0, 80, 0, "A berry that restores 12% of max HP.", Type::Grass);
+    med("Sitrus Berry", 0.25f, 0, 300, 3, "A berry that restores 25% of max HP.", Type::Grass);
+    med("Pecha Berry", 0, I::CURE_POISON, 60, 0, "A sweet berry that cures poison.", Type::Grass);
+    med("Cheri Berry", 0, I::CURE_PARALYZE, 80, 0, "A spicy berry that cures paralysis.", Type::Grass);
+    med("Chesto Berry", 0, I::CURE_SLEEP, 60, 1, "A dry berry that wakes up a sleeping Pokemon.", Type::Grass);
+    med("Rawst Berry", 0, I::CURE_BURN, 80, 1, "A bitter berry that heals a burn.", Type::Grass);
+    med("Aspear Berry", 0, I::CURE_FREEZE, 60, 1, "A sour berry that thaws a frozen Pokemon.", Type::Grass);
+    med("Persim Berry", 0, I::CURE_CONFUSE, 100, 2, "A berry that snaps a Pokemon out of confusion.", Type::Grass);
+    med("Lum Berry", 0, I::CURE_ALL, 500, 5, "A berry that cures every status condition and confusion.", Type::Grass);
+    // Mega Stones: held by their Pokemon, they let it Mega Evolve once per battle (sold after your first Champion)
+    add("Venusaurite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Venusaur: in battle, press Mega to Mega Evolve it into Mega Venusaur (once per battle).", Type::Grass);
+    v.back().move = "Venusaur";
+    add("Charizardite X", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Charizard: in battle, press Mega to Mega Evolve it into Mega Charizard X (once per battle).", Type::Fire);
+    v.back().move = "Charizard";
+    add("Charizardite Y", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Charizard: in battle, press Mega to Mega Evolve it into Mega Charizard Y (once per battle).", Type::Fire);
+    v.back().move = "Charizard";
+    add("Blastoisinite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Blastoise: in battle, press Mega to Mega Evolve it into Mega Blastoise (once per battle).", Type::Water);
+    v.back().move = "Blastoise";
+    add("Beedrillite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Beedrill: in battle, press Mega to Mega Evolve it into Mega Beedrill (once per battle).", Type::Bug);
+    v.back().move = "Beedrill";
+    add("Pidgeotite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Pidgeot: in battle, press Mega to Mega Evolve it into Mega Pidgeot (once per battle).", Type::Normal);
+    v.back().move = "Pidgeot";
+    add("Alakazite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Alakazam: in battle, press Mega to Mega Evolve it into Mega Alakazam (once per battle).", Type::Psychic);
+    v.back().move = "Alakazam";
+    add("Slowbronite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Slowbro: in battle, press Mega to Mega Evolve it into Mega Slowbro (once per battle).", Type::Water);
+    v.back().move = "Slowbro";
+    add("Gengarite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Gengar: in battle, press Mega to Mega Evolve it into Mega Gengar (once per battle).", Type::Ghost);
+    v.back().move = "Gengar";
+    add("Kangaskhanite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Kangaskhan: in battle, press Mega to Mega Evolve it into Mega Kangaskhan (once per battle).", Type::Normal);
+    v.back().move = "Kangaskhan";
+    add("Pinsirite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Pinsir: in battle, press Mega to Mega Evolve it into Mega Pinsir (once per battle).", Type::Bug);
+    v.back().move = "Pinsir";
+    add("Gyaradosite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Gyarados: in battle, press Mega to Mega Evolve it into Mega Gyarados (once per battle).", Type::Water);
+    v.back().move = "Gyarados";
+    add("Aerodactylite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Aerodactyl: in battle, press Mega to Mega Evolve it into Mega Aerodactyl (once per battle).", Type::Rock);
+    v.back().move = "Aerodactyl";
+    add("Mewtwonite X", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Mewtwo: in battle, press Mega to Mega Evolve it into Mega Mewtwo X (once per battle).", Type::Psychic);
+    v.back().move = "Mewtwo";
+    add("Mewtwonite Y", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Mewtwo: in battle, press Mega to Mega Evolve it into Mega Mewtwo Y (once per battle).", Type::Psychic);
+    v.back().move = "Mewtwo";
+    add("Clefablite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Clefable: in battle, press Mega to Mega Evolve it into Mega Clefable (once per battle).", Type::Fairy);
+    v.back().move = "Clefable";
+    add("Victreebelite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Victreebel: in battle, press Mega to Mega Evolve it into Mega Victreebel (once per battle).", Type::Grass);
+    v.back().move = "Victreebel";
+    add("Starminite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Starmie: in battle, press Mega to Mega Evolve it into Mega Starmie (once per battle).", Type::Water);
+    v.back().move = "Starmie";
+    add("Dragoninite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Dragonite: in battle, press Mega to Mega Evolve it into Mega Dragonite (once per battle).", Type::Dragon);
+    v.back().move = "Dragonite";
     // Fossils from Mt. Moon (revived at the Cinnabar Lab)
     add("Helix Fossil", ItemFx::KeyItem, 0, 0, 99, "A fossil of an ancient spiral-shelled Pokemon. The Cinnabar Lab can revive it.", Type::Rock);
     add("Dome Fossil", ItemFx::KeyItem, 0, 0, 99, "A fossil of an ancient Pokemon with a domed shell. The Cinnabar Lab can revive it.", Type::Rock);
@@ -129,5 +194,7 @@ const ItemDef* FindItem(const std::string& name) {
 
 bool IsBall(const ItemDef& d) { return d.fx == ItemFx::Ball; }
 bool IsStone(const ItemDef& d) { return d.fx == ItemFx::Stone; }
-bool IsHoldable(const ItemDef& d) { return d.fx != ItemFx::Ball && d.fx != ItemFx::Stone && d.fx != ItemFx::TM && d.fx != ItemFx::KeyItem && d.fx != ItemFx::ExpAll; }
+bool IsHoldable(const ItemDef& d) { return d.fx != ItemFx::Ball && d.fx != ItemFx::Stone && d.fx != ItemFx::TM && d.fx != ItemFx::KeyItem && d.fx != ItemFx::ExpAll && d.fx != ItemFx::Medicine; }
 bool IsTM(const ItemDef& d) { return d.fx == ItemFx::TM; }
+bool IsMegaStone(const ItemDef& d) { return d.fx == ItemFx::MegaStone; }
+bool IsMedicine(const ItemDef& d) { return d.fx == ItemFx::Medicine; }

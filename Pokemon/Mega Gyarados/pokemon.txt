@@ -1,0 +1,22 @@
+# Mega Gyarados: the Mega Evolution of Gyarados (official Mega stats, types and ability). Not caught or met on its
+# own: a Gyarados holding the Gyaradosite Mega Evolves into it in battle (once per battle).
+name = Mega Gyarados
+dex  = 130
+type = Water / Dark
+mega_of = Gyarados
+mega_stone = Gyaradosite
+
+hp         = 95
+attack     = 155
+defense    = 109
+sp_attack  = 70
+sp_defense = 130
+speed      = 81
+
+height = 6.5      # Pokedex height in meters
+weight = 305.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+ability = Mold Breaker
+category = 

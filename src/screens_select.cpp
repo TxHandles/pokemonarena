@@ -185,7 +185,7 @@ void BeginTeamSelect(Game& g) {
     if (g.mode == Mode::Doubles) g.teamSize = std::min(3, g.teamSize);
     if (g.tower)   // the Battle Tower heals everyone: anyone in the party can fight
         for (int p = 0; p < 2; p++) for (auto& e : g.roster[p]) e.hpFrac = 1;
-    if (IsCoop(g.mode)) g.teamSize = 3;  // each player brings up to 3 of their party
+    if (IsCoop(g.mode)) g.teamSize = g.raid ? MAX_TEAM_SIZE : 3;  // each player brings up to 3 of their party (a raid: 6)
     else if (g.tower) g.teamSize = TowerTeamSize(g.towerFloor);
     else if (IsStoryMode(g.mode)) g.teamSize = std::min(g.teamSize, HealthyCount(g.profile));
     if (!IsCoop(g.mode))  // co-op: each player locks in early if they have fewer
@@ -197,7 +197,7 @@ void BeginTeamSelect(Game& g) {
 }
 
 namespace {
-bool TrainingSelect(const Game& g) { return (g.mode == Mode::Training || g.mode == Mode::CoopTraining) && !g.tower && g.legend < 0; }
+bool TrainingSelect(const Game& g) { return (g.mode == Mode::Training || g.mode == Mode::CoopTraining) && !g.tower && g.legend < 0 && !g.raid; }
 
 // Training: the "where to train" menu (X / Tab on the team screen).
 void UpdateAreaPick(Game& g) {
@@ -279,6 +279,7 @@ Profile& SelProfile(Game& g, int p) { return IsCoop(g.mode) ? g.coopP[p] : g.pro
 const Profile& SelProfile(const Game& g, int p) { return IsCoop(g.mode) ? g.coopP[p] : g.profile; }
 
 bool SelBoxAllowed(const Game& g, int p) {
+    if (g.raid && !IsCoop(g.mode)) return false;   // the solo raid lists the Box already
     return IsStoryMode(g.mode) && !(g.on.active && p != g.on.me);
 }
 
@@ -458,8 +459,12 @@ void UpdateSelect(Game& g, float dt) {
         auto& pk = g.picks[p];
         bool already = std::find(pk.begin(), pk.end(), c) != pk.end();
         bool lockIn = !g.ready[p] && !pk.empty() && (in.swap || (in.confirm && (already || (int)pk.size() >= g.teamSize)));
+        if (g.raid && !g.ready[p] && pk.empty() && !g.raidTeam1.empty() && in.swap) lockIn = true;   // Team 2 can be left empty
         if (in.confirm && !lockIn && !g.ready[p] && (int)pk.size() < g.teamSize && !already) {
-            if (IsStoryMode(g.mode) && c < n && ros[c].hpFrac <= 0) {
+            if (g.raid && std::find(g.raidTaken.begin(), g.raidTaken.end(), c) != g.raidTaken.end()) {
+                Toast(g, AllSpecies()[ros[c].species].name + " is already on Team 1");
+                PlaySfx(Sfx::MenuBack);
+            } else if (IsStoryMode(g.mode) && c < n && ros[c].hpFrac <= 0) {
                 Toast(g, AllSpecies()[ros[c].species].name + " has fainted - heal it at the Healing Center");
                 PlaySfx(Sfx::MenuBack);
             } else {
@@ -489,6 +494,21 @@ void UpdateSelect(Game& g, float dt) {
     }
     if (online) return;  // the host starts the battle once both teams are in (screens_online.cpp)
     if (players == 1) g.ready[1] = g.ready[0];
+    if (g.raid && !IsCoop(g.mode) && g.ready[0] && g.raidTeam1.empty()) {
+        // the solo raid: that was Team 1 - now Team 2 (it comes in when all of Team 1 is down)
+        for (int i : g.picks[0]) g.raidTeam1.push_back(FromEntry(g.roster[0][i]));
+        g.raidTaken = g.picks[0];
+        g.picks[0].clear();
+        g.ready[0] = g.ready[1] = false;
+        int left = 0;
+        for (int i = 0; i < (int)g.roster[0].size(); i++)
+            if (g.roster[0][i].hpFrac > 0 && std::find(g.raidTaken.begin(), g.raidTaken.end(), i) == g.raidTaken.end()) left++;
+        g.teamSize = std::min(MAX_TEAM_SIZE, left);
+        if (left == 0) { g.ready[0] = g.ready[1] = true; }   // nobody left for Team 2: straight in
+        else Toast(g, "Team 1 is set! Now pick Team 2 - it comes in when all of Team 1 is down.");
+        PlaySfx(Sfx::MenuOk);
+        if (left > 0) return;
+    }
 
     if (g.ready[0] && g.ready[1]) {
         if (g.startDelay < 0) g.startDelay = 0.7f;
@@ -603,6 +623,7 @@ void StartBattleFromSelect(Game& g) {
             }
         } break;
         case Mode::Training:
+            if (g.raid) break;   // the Daily Raid: built below
             su.catchable = true;
             SetTrainingWild(g);   // the Pokemon that live in the chosen training area
             if (g.rareBattle && g.rareSpecies >= 0) {
@@ -634,6 +655,7 @@ void StartBattleFromSelect(Game& g) {
             break;
         case Mode::CoopStory:
         case Mode::CoopTraining: {
+            if (g.raid) break;   // the Daily Raid: built below
             // 2v2: each player's slot against the CPU team split across two slots.
             std::vector<SideSetup> v(2);
             for (int p = 0; p < 2; p++) {
@@ -795,6 +817,83 @@ void StartBattleFromSelect(Game& g) {
             b.level = Cfg().cpuLevel;
         } break;
     }
+    if (g.raid) {
+        // The Daily Raid: every Pokemon you brought is on the field at once - you steer one, the CPU the rest
+        // (Swap moves you between them). Solo, Team 2 waits and comes in when all of Team 1 is down.
+        bool coopRaid = g.mode == Mode::CoopTraining;
+        std::vector<CombatantSpec> first[2], second;
+        for (int p = 0; p < (coopRaid ? 2 : 1); p++)
+            for (int i : g.picks[p]) {
+                CombatantSpec c = FromEntry(g.roster[p][i]);
+                c.owner = p;
+                (coopRaid || g.raidTeam1.empty() ? first[p] : second).push_back(c);
+            }
+        if (!coopRaid && !g.raidTeam1.empty()) first[0] = g.raidTeam1;
+        int top = 1, onField = 0;
+        for (int p = 0; p < 2; p++) for (const auto& c : first[p]) { top = std::max(top, c.level); onField++; }
+        for (const auto& c : second) top = std::max(top, c.level);
+        RaidInfo r = RaidOfDay(RaidToday());
+        CombatantSpec boss;
+        boss.species = std::max(0, r.species);
+        boss.level = std::min(MAX_LEVEL, std::max(12, top + 8));
+        boss.moves = MovesAtLevel(AllSpecies()[boss.species], boss.level);
+        boss.shiny = r.shiny;
+        boss.boss = 1.0f + (coopRaid ? 4.0f : 4.5f) * std::max(1, onField);   // a long fight: every one of yours is hitting it
+        g.cpuTeam = {boss};
+        std::vector<SideSetup> v;
+        for (int p = 0; p < (coopRaid ? 2 : 1); p++) {
+            int n = (int)first[p].size();
+            for (int k = 0; k < n; k++) {
+                SideSetup sd;
+                sd.team = {first[p][k]};
+                if (!coopRaid) for (int j = k; j < (int)second.size(); j += n) sd.team.push_back(second[j]);   // Team 2, spread over the slots
+                sd.squad = p;
+                sd.team_ = 0;
+                sd.earnXp = true;
+                sd.level = AILevel::Hard;
+                sd.cpu = k != 0;
+                sd.input = k == 0 ? p : -1;
+#ifdef ARENA_AUTOTEST
+                if (gAutoPlayP1) { sd.cpu = true; sd.input = -1; }
+#endif
+                sd.label = k == 0 ? (coopRaid ? g.coopP[p].name : g.profile.name) : "Ally";
+                sd.tag = coopRaid ? (p == 0 ? "P1" : "P2") : "YOU";
+                v.push_back(sd);
+            }
+        }
+        SideSetup bs;
+        bs.team = g.cpuTeam;
+        bs.cpu = true;
+        bs.level = AILevel::Hard;
+        bs.label = "Raid Boss";
+        bs.tag = "RAID";
+        bs.team_ = 1;
+        v.push_back(bs);
+        su.side = v;
+        su.raid = true;
+        if (coopRaid) { g.coopSave.raidDay = RaidToday(); if (!g.on.active || g.on.me == 0) SaveCoop(g.coopSave); }   // one try a day, win or lose
+        else { g.profile.raidDay = RaidToday(); SaveProfile(g.profile); }
+        su.catchable = true;
+        su.trainerBattle = true;
+        su.arena = ArenaKind::Stadium;
+    }
+    if ((g.mode == Mode::Training || g.mode == Mode::CoopTraining) && !g.raid) {
+        // Wild Pokemon are never more than 1 level above your strongest Pokemon in the battle.
+        int top = 1;
+        for (const auto& sd : su.side)
+            if (sd.team_ == 0 || &sd == &su.side[0])
+                for (const auto& c : sd.team) top = std::max(top, c.level);
+        for (auto& sd : su.side) {
+            if (sd.team_ == 0 || &sd == &su.side[0]) continue;
+            for (auto& c : sd.team)
+                if (c.level > top + 1 && c.boss <= 0) {
+                    c.level = std::max(2, top + 1);
+                    c.moves = MovesAtLevel(AllSpecies()[c.species], c.level);
+                }
+        }
+        for (auto& c : g.cpuTeam)
+            if (c.level > top + 1 && c.boss <= 0) { c.level = std::max(2, top + 1); c.moves = MovesAtLevel(AllSpecies()[c.species], c.level); }
+    }
     if (g.tower)   // the Battle Tower: everyone fights at full health (and the profile's HP isn't touched)
         for (auto& sd : su.side)
             if (sd.team_ == 0 || &sd == &su.side[0]) for (auto& c : sd.team) c.hpFrac = 1;
@@ -804,7 +903,30 @@ void StartBattleFromSelect(Game& g) {
         bool hasStage = (g.mode == Mode::Story || g.mode == Mode::CoopStory) && (g.tower || g.legend >= 0 || (g.stageIdx >= 0 && g.stageIdx < (int)Story().stages.size()));
         if (hasStage) stv = ActiveStage(g);
         const StageDef* st = hasStage ? &stv : nullptr;
-        if (st && (st->IsGym() || st->IsLeague()) && st->towerFloor <= 0) su.leader = st->trainer;   // the leader's picture and cut-ins
+        if (st && (st->IsGym() || st->IsLeague()) && st->towerFloor <= 0) {
+            su.leader = st->trainer;   // the leader's picture and cut-ins
+            // Gym Leaders, the Elite Four and Champions carry 3 Potions (no other trainer uses items)
+            int lv = 0;
+            for (const auto& c : g.cpuTeam) lv = std::max(lv, c.level);
+            const char* pot = st->IsChampion() ? "Full Restore" : st->IsLeague() || lv >= 40 ? "Hyper Potion" : lv >= 20 ? "Super Potion" : "Potion";
+            for (auto& sd : su.side)
+                if (sd.cpu && sd.team_ != 0 && &sd != &su.side[0]) { sd.hot[0] = pot; sd.hotN[0] = 3; }
+        }
+        // your item hotkeys (the Bag's Medicine), each player their own
+        for (int i = 0; i < (int)su.side.size(); i++) {
+            SideSetup& sd = su.side[i];
+            if (sd.cpu && !(i == 0 && g.mode == Mode::Story)) continue;
+            const Profile* P = nullptr;
+            if (g.mode == Mode::CoopStory || g.mode == Mode::CoopTraining) { if (sd.input == 0 || sd.input == 1) P = &g.coopP[sd.input]; }
+            else if (i == 0) P = &g.profile;
+            if (!P) continue;
+            for (int k = 0; k < 4; k++) {
+                const ItemDef* d = FindItem(P->hotItems[k]);
+                if (!d || !IsMedicine(*d)) continue;
+                sd.hot[k] = d->name;
+                sd.hotN[k] = BagCount(*P, d->name);
+            }
+        }
         su.season = SeasonOf(clock);
         if (su.arena == ArenaKind::Stadium) {   // trainers fight where they stand; wild Pokemon where they live
             if (st) su.venue = (uint8_t)(st->venue.empty() ? VenueForPlace(st->name) : VenueByName(st->venue));
@@ -872,9 +994,15 @@ void DrawSelect(const Game& g) {
     const auto& ros = ViewRoster(g);
     int vp = g.shared ? 0 : g.pickPhase;
     std::string head = TextFormat("CHOOSE YOUR TEAM  (1-%d)", g.teamSize);
+    if (g.raid && !IsCoop(g.mode)) {
+        RaidInfo ri = RaidOfDay(RaidToday());
+        head = g.raidTeam1.empty() ? "DAILY RAID: PICK TEAM 1" : "DAILY RAID: PICK TEAM 2";
+        DrawTextCentered(TextFormat("vs %s%s - all of a team fights at once; you steer one (Swap: switch), the CPU the rest", ri.species >= 0 ? AllSpecies()[ri.species].name.c_str() : "?",
+                                    ri.shiny ? " (shiny!)" : ""), VW / 2, 24, 10, Color{255, 150, 220, 255}, false);
+    }
     if (!g.shared) head = std::string(vp == 0 ? "PLAYER 1" : "PLAYER 2") + ": CHOOSE YOUR TEAM";
     if (IsCoop(g.mode)) {
-        head = std::string(vp == 0 ? "PLAYER 1" : "PLAYER 2") + ": PICK UP TO 3";
+        head = std::string(vp == 0 ? "PLAYER 1" : "PLAYER 2") + (g.raid ? ": PICK UP TO 6" : ": PICK UP TO 3");
         std::string vs;
         if (g.mode == Mode::CoopStory) {
             const StageDef st = ActiveStage(g);
@@ -884,6 +1012,9 @@ void DrawSelect(const Game& g) {
                             st.towerFloor > 0 ? TextFormat(" - Battle Tower floor %d", st.towerFloor)
                             : IsRematch(g) && st.IsBoss() ? " - REMATCH (scaled to your level)"
                             : st.IsGym() ? TextFormat(" - %s Badge", st.badge.c_str()) : st.IsChampion() ? " - CHAMPIONSHIP" : st.IsLeague() ? " - Elite Four" : "");
+        } else if (g.raid) {
+            RaidInfo ri = RaidOfDay(RaidToday());
+            vs = TextFormat("DAILY RAID vs %s%s - all 12 fight at once; you steer one (Swap: switch)", ri.species >= 0 ? AllSpecies()[ri.species].name.c_str() : "?", ri.shiny ? " (shiny!)" : "");
         } else if (g.rareBattle && g.rareSpecies >= 0) {
             vs = TextFormat("RARE in %s: a wild %s - weaken it to catch!   X / Tab: area", TrainAreaName(g).c_str(), AllSpecies()[g.rareSpecies].name.c_str());
         } else {
@@ -923,6 +1054,11 @@ void DrawSelect(const Game& g) {
                 DrawRectangle(x + 1, y + 1, w - 2, h - 2, Fade(UI_INK, 0.6f));
                 GDrawText("FAINTED", x + 30, y + 20, 10, Color{255, 120, 100, 255});
             }
+        }
+        if (g.raid && std::find(g.raidTaken.begin(), g.raidTaken.end(), i) != g.raidTaken.end()) {   // already on Team 1
+            DrawRectangle(x + 1, y + 1, w - 2, h - 2, Fade(UI_INK, 0.55f));
+            DrawRectangle(x + w - 24, y + h - 14, 22, 11, UI_GOLD);
+            GDrawText("T1", x + w - 21, y + h - 13, 10, UI_INK);
         }
         for (int p = 0; p < 2; p++) {
             if (!g.shared && p != vp) continue;
@@ -979,7 +1115,19 @@ void DrawSelect(const Game& g) {
                 GDrawText(st.IsLegend() ? "Weaken it, then you get 3 balls to catch it" : st.towerFloor > 0 ? "Battle Tower: everyone fights at full health" : st.IsChampion() ? "The Championship!" : st.IsLeague() ? "Elite Four: lose and the League starts over"
                          : st.IsGym() ? "Gym battle" : "Trainer battle: catch wild ones in training", x + 6, y + 122, 10, UI_DIM);
             } else {
-                if (g.rareBattle && g.rareSpecies >= 0) {
+                if (g.raid) {
+                    RaidInfo ri = RaidOfDay(RaidToday());
+                    DrawTextShadow("DAILY RAID", x + 6, y + 24, 20, Color{255, 120, 200, 255});
+                    if (ri.species >= 0) {
+                        DrawRectangle(x + 200, y + 24, 80, 80, UI_PANEL_LIGHT);
+                        DrawSpeciesFit(ShinyIdx(ri.species, ri.shiny), VIEW_FRONT, x + 240, y + 102, 72);
+                        GDrawText(TextFormat("%s%s - a boss with a huge HP pool", AllSpecies()[ri.species].name.c_str(), ri.shiny ? " (shiny!)" : ""), x + 6, y + 50, 10, UI_TEXT);
+                    }
+                    GDrawText("Team 1 all fights at once: you steer one,", x + 6, y + 66, 10, UI_TEXT);
+                    GDrawText("the CPU the rest. Swap: take over another.", x + 6, y + 78, 10, UI_TEXT);
+                    GDrawText("Team 2 comes in when Team 1 is all down.", x + 6, y + 92, 10, UI_TEXT);
+                    GDrawText("Win, then try to catch it! One try a day.", x + 6, y + 108, 10, UI_GOLD);
+                } else if (g.rareBattle && g.rareSpecies >= 0) {
                     DrawTextShadow("RARE ENCOUNTER!", x + 6, y + 24, 20, Color{255, 150, 230, 255});
                     DrawRectangle(x + 200, y + 24, 80, 80, UI_PANEL_LIGHT);
                     DrawSpeciesFit(g.rareSpecies, VIEW_FRONT, x + 240, y + 102, 72);

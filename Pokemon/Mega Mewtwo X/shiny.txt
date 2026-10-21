@@ -1,0 +1,19 @@
+# Mega Mewtwo X - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2984FF > 8BDD54
+shiny = 2C84FE > 8BDD54
+shiny = 303131 > 353829
+shiny = 313131 > 363829
+shiny = 4F4E4F > 51544D
+shiny = 525252 > 545850
+shiny = 6B426B > 6A565B
+shiny = 7B6B84 > 807B77
+shiny = 8C5A8C > 82697D
+shiny = 9C8CA5 > 9F9794
+shiny = A459A5 > 6EB958
+shiny = B573A5 > AE8392
+shiny = C5B5CE > C3BFC4
+shiny = C7C0D2 > C5CAC8
+shiny = DF89E8 > CE9FCC
+shiny = E6DEEF > E6E7E7
+shiny = E7E9ED > F3F0E2

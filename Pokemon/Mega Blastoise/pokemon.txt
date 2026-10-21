@@ -1,0 +1,22 @@
+# Mega Blastoise: the Mega Evolution of Blastoise (official Mega stats, types and ability). Not caught or met on its
+# own: a Blastoise holding the Blastoisinite Mega Evolves into it in battle (once per battle).
+name = Mega Blastoise
+dex  = 9
+type = Water
+mega_of = Blastoise
+mega_stone = Blastoisinite
+
+hp         = 79
+attack     = 103
+defense    = 120
+sp_attack  = 135
+sp_defense = 115
+speed      = 78
+
+height = 1.6      # Pokedex height in meters
+weight = 101.1      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Mega Launcher
+category = 

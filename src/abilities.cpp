@@ -194,6 +194,9 @@ const AbilityDef kAbilities[] = {
     {"Sweet Veil", "It can't fall asleep, like Insomnia."},
     {"Symbiosis", "It shares its item with a partner (no effect in battle here)."},
     {"Tough Claws", "Contact moves deal 30% more."},
+    {"Aerilate", "Normal moves become Flying moves and deal 20% more."},
+    {"Parental Bond", "Its baby attacks too: damaging moves deal 25% more."},
+    {"Innards Out", "When it's knocked out, its attacker loses as much HP as it had left before the hit (up to half of the attacker's max)."},
 };
 bool HasWord(const std::string& s, const char* w) { return s.find(w) != std::string::npos; }
 } // namespace

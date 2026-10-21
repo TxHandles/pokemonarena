@@ -1,0 +1,22 @@
+# Mega Beedrill: the Mega Evolution of Beedrill (official Mega stats, types and ability). Not caught or met on its
+# own: a Beedrill holding the Beedrillite Mega Evolves into it in battle (once per battle).
+name = Mega Beedrill
+dex  = 15
+type = Bug / Poison
+mega_of = Beedrill
+mega_stone = Beedrillite
+
+hp         = 65
+attack     = 150
+defense    = 40
+sp_attack  = 15
+sp_defense = 80
+speed      = 145
+
+height = 1.4      # Pokedex height in meters
+weight = 40.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+ability = Adaptability
+category = 

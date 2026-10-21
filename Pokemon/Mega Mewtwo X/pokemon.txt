@@ -1,0 +1,22 @@
+# Mega Mewtwo X: the Mega Evolution of Mewtwo (official Mega stats, types and ability). Not caught or met on its
+# own: a Mewtwo holding the Mewtwonite X Mega Evolves into it in battle (once per battle).
+name = Mega Mewtwo X
+dex  = 150
+type = Psychic / Fighting
+mega_of = Mewtwo
+mega_stone = Mewtwonite X
+
+hp         = 106
+attack     = 190
+defense    = 100
+sp_attack  = 154
+sp_defense = 100
+speed      = 130
+
+height = 2.3      # Pokedex height in meters
+weight = 127.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+ability = Steadfast
+category = 

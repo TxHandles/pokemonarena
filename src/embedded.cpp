@@ -48,7 +48,7 @@ std::string RestoreEmbeddedFiles() {
     int restored = 0, failed = 0;
     // Data updates: files this game version changed are refreshed once (the old copy is kept
     // next to it as .old). Everything else is only written when it's missing, so your edits stay.
-    const int DATA_VERSION = 25;
+    const int DATA_VERSION = 27;
     struct Upd { const char* path; int version; };
     static const Upd kUpdated[] = {
         {"Pokemon/Bulbasaur/pokemon.txt", 2}, {"Pokemon/Pikachu/pokemon.txt", 2},
@@ -84,6 +84,8 @@ std::string RestoreEmbeddedFiles() {
         {"Pokemon/Aipom/pokemon.txt", 23}, {"Pokemon/Misdreavus/pokemon.txt", 23}, {"Pokemon/Murkrow/pokemon.txt", 23}, {"Pokemon/Sneasel/pokemon.txt", 23}, {"Pokemon/Magneton/pokemon.txt", 23}, {"Pokemon/Lickitung/pokemon.txt", 23}, {"Pokemon/Rhydon/pokemon.txt", 23}, {"Pokemon/Tangela/pokemon.txt", 23}, {"Pokemon/Electabuzz/pokemon.txt", 23}, {"Pokemon/Magmar/pokemon.txt", 23}, {"Pokemon/Togetic/pokemon.txt", 23}, {"Pokemon/Yanma/pokemon.txt", 23}, {"Pokemon/Eevee/pokemon.txt", 23}, {"Pokemon/Gligar/pokemon.txt", 23}, {"Pokemon/Piloswine/pokemon.txt", 23}, {"Pokemon/Porygon2/pokemon.txt", 23}, {"Pokemon/Kirlia/pokemon.txt", 23}, {"Pokemon/Snorunt/pokemon.txt", 23}, {"Pokemon/Nosepass/pokemon.txt", 23}, {"Pokemon/Dusclops/pokemon.txt", 23}, {"Pokemon/Roselia/pokemon.txt", 23},   // Gen 4 evolutions
         {"story.txt", 24}, {"wild.txt", 24},   // Sinnoh: the fourth region
         {"story.txt", 25}, {"wild.txt", 25},   // Unova: the fifth region
+        {"story.txt", 26},   // Mega Evolution: bosses that Mega Evolve
+        {"story.txt", 27}, {"Pokemon/Eevee/pokemon.txt", 27},   // Roxanne's team; Sylveon on hold with Gen 6
     };
     std::string verPath = base + "data_version.txt";
     int have = 1;
@@ -119,6 +121,17 @@ std::string RestoreEmbeddedFiles() {
                 }
                 if (old) UnloadFileData(old);
                 if (!same) { std::remove(path.c_str()); updated++; }
+            }
+        }
+        if (have < 27) {   // Gen 6 (Kalos) is on hold until its sprites match: its folders move aside (nothing is deleted)
+            static const char* kGen6[] = {"Aegislash", "Amaura", "Aromatisse", "Aurorus", "Avalugg", "Barbaracle", "Bergmite", "Binacle", "Braixen", "Bunnelby", "Carbink", "Chesnaught", "Chespin", "Clauncher", "Clawitzer", "Dedenne", "Delphox", "Diancie", "Diggersby", "Doublade", "Dragalge", "Espurr", "Fennekin", "Flabebe", "Fletchinder", "Fletchling", "Floette", "Florges", "Froakie", "Frogadier", "Furfrou", "Gogoat", "Goodra", "Goomy", "Gourgeist", "Greninja", "Hawlucha", "Heliolisk", "Helioptile", "Honedge", "Hoopa", "Inkay", "Klefki", "Litleo", "Malamar", "Meowstic", "Noibat", "Noivern", "Pancham", "Pangoro", "Phantump", "Pumpkaboo", "Pyroar", "Quilladin", "Scatterbug", "Skiddo", "Skrelp", "Sliggoo", "Slurpuff", "Spewpa", "Spritzee", "Swirlix", "Sylveon", "Talonflame", "Trevenant", "Tyrantrum", "Tyrunt", "Vivillon", "Volcanion", "Xerneas", "Yveltal", "Zygarde"};
+            for (const char* n : kGen6) {
+                std::string from = base + "Pokemon/" + n;
+                if (!DirectoryExists(from.c_str())) continue;
+                MakeDirs(base, "Pokemon/_gen6_on_hold/x");
+                std::string to = base + "Pokemon/_gen6_on_hold/" + n;
+                if (DirectoryExists(to.c_str())) continue;
+                if (std::rename(from.c_str(), to.c_str()) == 0) updated++;
             }
         }
         SaveFileText(verPath.c_str(), (char*)TextFormat("%d", DATA_VERSION));

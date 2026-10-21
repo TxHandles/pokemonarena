@@ -1,0 +1,21 @@
+# Mega Gengar - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 313131 > 6E5865
+shiny = 392A48 > 5B5B5B
+shiny = 525252 > 937C8A
+shiny = 573B6B > 9C9C9C
+shiny = 604274 > B1ABAC
+shiny = 6B5294 > EDE4EC
+shiny = 7B63B5 > FFF9FF
+shiny = 826199 > E1D9DA
+shiny = 9C7BD6 > FEFFFF
+shiny = 9E518F > CF7FAE
+shiny = A5638C > FDDCDE
+shiny = B19BBD > B1ABAC
+shiny = B37C5B > E4BC7A
+shiny = B56B94 > FFE7EA
+shiny = C56363 > 5C5D5D
+shiny = D55362 > 5B5B5B
+shiny = D8CAE0 > E1D9DA
+shiny = EF7B73 > 797877
+shiny = EFB5AD > F3CFCB

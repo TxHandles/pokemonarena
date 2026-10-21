@@ -1,0 +1,22 @@
+# Mega Venusaur: the Mega Evolution of Venusaur (official Mega stats, types and ability). Not caught or met on its
+# own: a Venusaur holding the Venusaurite Mega Evolves into it in battle (once per battle).
+name = Mega Venusaur
+dex  = 3
+type = Grass / Poison
+mega_of = Venusaur
+mega_stone = Venusaurite
+
+hp         = 80
+attack     = 100
+defense    = 123
+sp_attack  = 122
+sp_defense = 120
+speed      = 80
+
+height = 2.4      # Pokedex height in meters
+weight = 155.5      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+ability = Thick Fat
+category = 

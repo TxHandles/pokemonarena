@@ -1,0 +1,22 @@
+# Mega Starmie: the Mega Evolution of Starmie (official Mega stats, types and ability). Not caught or met on its
+# own: a Starmie holding the Starminite Mega Evolves into it in battle (once per battle).
+name = Mega Starmie
+dex  = 121
+type = Water / Psychic
+mega_of = Starmie
+mega_stone = Starminite
+
+hp         = 60
+attack     = 100
+defense    = 105
+sp_attack  = 130
+sp_defense = 105
+speed      = 120
+
+height = 2.3      # Pokedex height in meters
+weight = 80.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Huge Power
+category = 

@@ -1,0 +1,22 @@
+# Mega Dragonite: the Mega Evolution of Dragonite (official Mega stats, types and ability). Not caught or met on its
+# own: a Dragonite holding the Dragoninite Mega Evolves into it in battle (once per battle).
+name = Mega Dragonite
+dex  = 149
+type = Dragon / Flying
+mega_of = Dragonite
+mega_stone = Dragoninite
+
+hp         = 91
+attack     = 124
+defense    = 115
+sp_attack  = 145
+sp_defense = 125
+speed      = 100
+
+height = 2.2      # Pokedex height in meters
+weight = 290.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+ability = Multiscale
+category = 

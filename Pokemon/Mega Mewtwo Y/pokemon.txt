@@ -1,0 +1,22 @@
+# Mega Mewtwo Y: the Mega Evolution of Mewtwo (official Mega stats, types and ability). Not caught or met on its
+# own: a Mewtwo holding the Mewtwonite Y Mega Evolves into it in battle (once per battle).
+name = Mega Mewtwo Y
+dex  = 150
+type = Psychic
+mega_of = Mewtwo
+mega_stone = Mewtwonite Y
+
+hp         = 106
+attack     = 150
+defense    = 70
+sp_attack  = 194
+sp_defense = 120
+speed      = 140
+
+height = 1.5      # Pokedex height in meters
+weight = 33.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+ability = Insomnia
+category = 

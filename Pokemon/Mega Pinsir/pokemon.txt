@@ -1,0 +1,22 @@
+# Mega Pinsir: the Mega Evolution of Pinsir (official Mega stats, types and ability). Not caught or met on its
+# own: a Pinsir holding the Pinsirite Mega Evolves into it in battle (once per battle).
+name = Mega Pinsir
+dex  = 127
+type = Bug / Flying
+mega_of = Pinsir
+mega_stone = Pinsirite
+
+hp         = 65
+attack     = 155
+defense    = 120
+sp_attack  = 65
+sp_defense = 90
+speed      = 105
+
+height = 1.7      # Pokedex height in meters
+weight = 59.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Aerilate
+category = 

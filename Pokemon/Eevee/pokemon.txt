@@ -30,7 +30,7 @@ evolve_item = Glaceon, Ice Stone
 evolve_item = Vaporeon, Water Stone
 evolve_item = Jolteon, Thunder Stone
 evolve_item = Flareon, Fire Stone
-evolve_item = Sylveon, Shiny Stone   # (very friendly and knowing a Fairy move, in the games)
+# evolve_item = Sylveon, Shiny Stone   # (Gen 6: on hold - see art_source/Gen6_WIP)
 evolve_friendship = Espeon, 160, day      # very friendly, during the day
 evolve_friendship = Umbreon, 160, night   # very friendly, at night
 

@@ -295,6 +295,25 @@ int BaseFormOf(int idx) {
     return idx;
 }
 
+bool IsMegaForm(int idx) { return idx >= 0 && idx < (int)AllSpecies().size() && !AllSpecies()[idx].megaOf.empty(); }
+
+int MegaFormFor(int idx, const std::string& item) {
+    if (idx < 0 || idx >= (int)AllSpecies().size() || item.empty()) return -1;
+    const std::string& base = AllSpecies()[idx].name;
+    for (int i = 0; i < (int)AllSpecies().size(); i++) {
+        const SpeciesDef& m = AllSpecies()[i];
+        if (!m.megaOf.empty() && m.megaOf == base && Squash(m.megaStone) == Squash(item)) return i;
+    }
+    return -1;
+}
+
+std::vector<int> MegaFormsOf(int idx) {
+    std::vector<int> v;
+    if (idx < 0 || idx >= (int)AllSpecies().size()) return v;
+    for (int i = 0; i < (int)AllSpecies().size(); i++) if (AllSpecies()[i].megaOf == AllSpecies()[idx].name) v.push_back(i);
+    return v;
+}
+
 bool InSpeciesPool(int idx) {
     // Once the Pokemon folder holds a real roster, the built-in test creatures stop showing up
     // as opponents, rewards and free-play picks (ones you already own still work).
@@ -307,6 +326,7 @@ bool InSpeciesPool(int idx) {
         builtFor = all.size();
     }
     if (idx < 0 || idx >= (int)all.size()) return false;
+    if (!all[idx].megaOf.empty()) return false;   // Mega forms are only reached in battle
     return customCount < 20 || all[idx].custom;
 }
 
@@ -440,6 +460,31 @@ std::string EvolutionHint(int idx) {
 constexpr int CPU_STONE_LEVEL = 32;
 constexpr int CPU_FRIEND_LEVEL = 28;
 constexpr int CPU_TRADE_LEVEL = 38;
+
+int PreEvolutionOf(int idx) {
+    const auto& pre = PreEvolutions();
+    return idx >= 0 && idx < (int)pre.size() ? pre[idx] : -1;
+}
+
+// Could a trainer's Pokemon plausibly be this far evolved at this level? Level evolutions need the level
+// (a few levels' grace); stone, friendship and trade evolutions only need the form before them.
+static bool Reachable(int idx, int level, int depth = 0) {
+    int pre = PreEvolutionOf(idx);
+    if (pre < 0 || depth > 6) return true;
+    const SpeciesDef& p = AllSpecies()[pre];
+    bool byLevel = p.evolveLevel > 0 && SpeciesIndex(p.evolvesTo) == idx;
+    if (byLevel && level < p.evolveLevel - 3) return false;
+    return Reachable(pre, level, depth + 1);
+}
+
+int RealisticFormAt(int idx, int level) {
+    for (int guard = 0; guard < 6 && !Reachable(idx, level); guard++) {
+        int pre = PreEvolutionOf(idx);
+        if (pre < 0) break;
+        idx = pre;
+    }
+    return idx;
+}
 
 int EvolvedFormAt(int idx, int level) {
     for (int guard = 0; guard < 8; guard++) {

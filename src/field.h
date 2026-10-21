@@ -237,8 +237,8 @@ struct Field {
     float xT[8] = {0, 0, 0, 0, 0, 0, 0, 0};    // timers
     int xI[8] = {0, 0, 0, 0, 0, 0, 0, 0};      // state
     std::vector<Vector2> xMarks;               // doors, gears, pads, braziers, strike marks...
-    float sideT[8] = {0, 0, 0, 0, 0, 0, 0, 0}; // per battle slot (Skyla's cannons: the flight; afterwards, the landing)
-    Vector2 sideFrom[8], sideTo[8];
+    float sideT[16] = {};                      // per battle slot (Skyla's cannons: the flight; afterwards, the landing)
+    Vector2 sideFrom[16], sideTo[16];
     static constexpr float TILE = 40;
     int TileAt(Vector2 p) const {   // -1: no tile there (solid rock)
         for (size_t i = 0; i < tiles.size(); i++)

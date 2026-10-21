@@ -954,6 +954,10 @@ StageDef RematchStage(const StageDef& stage) {
     r.baseLevel = 0;            // no fixed level: follow the challenger
     r.levelOffset = 3 - top;    // the ace lands 3-4 levels above your team's average
     r.cpu = AILevel::Hard;
+    for (auto& e : r.team) {   // "rmega": this one Mega Evolves in rematches
+        size_t k = e.find(" rmega");
+        if (k != std::string::npos) e.replace(k, 6, " mega");
+    }
     return r;
 }
 
@@ -999,6 +1003,31 @@ StageDef TowerStage(int floor, uint32_t seed) {
                 if (idx >= 0) fav = AllSpecies()[idx].type1;
             }
             while ((int)r.team.size() < TowerTeamSize(floor)) r.team.insert(r.team.begin(), std::string("random ") + TypeName(fav));
+            if (floor >= 30) {   // from floor 30 the boss Mega Evolves: its Mega-capable Pokemon, or one of its favourite type joins
+                bool has = false;
+                for (const auto& e : r.team) has |= e.find(" mega") != std::string::npos;
+                for (auto& e : r.team) {
+                    if (has) break;
+                    std::string nm = Trim(e);
+                    size_t sp = nm.find_last_of(' ');
+                    if (sp != std::string::npos && (nm[sp + 1] == '+' || nm[sp + 1] == '-')) nm = Trim(nm.substr(0, sp));
+                    int idx = SpeciesIndex(nm);
+                    if (idx >= 0 && !MegaFormsOf(idx).empty()) { e += " mega"; has = true; }
+                }
+                if (!has) {
+                    std::vector<std::string> cands, any;
+                    for (int i = 0; i < (int)AllSpecies().size(); i++) {
+                        const SpeciesDef& sd = AllSpecies()[i];
+                        if (!IsMegaForm(i)) continue;
+                        int base = SpeciesIndex(sd.megaOf);
+                        if (base < 0 || AllSpecies()[base].legendary) continue;
+                        any.push_back(sd.megaOf);
+                        if (AllSpecies()[base].type1 == fav || AllSpecies()[base].type2 == fav) cands.push_back(sd.megaOf);
+                    }
+                    const auto& pool = cands.empty() ? any : cands;
+                    if (!pool.empty()) r.team[0] = pool[pick((int)pool.size())] + " mega";
+                }
+            }
             return r;
         }
     }
@@ -1069,6 +1098,22 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
             for (char& ch : lo) ch = (char)std::tolower((unsigned char)ch);
             size_t sh = lo.find(" shiny");
             if (sh != std::string::npos) { shinyMon = true; e = Trim(e.substr(0, sh) + e.substr(sh + 6)); }
+        }
+        // "mega" (or "mega x" / "mega y"): it holds its Mega Stone and Mega Evolves; "rmega": only in rematches
+        // (RematchStage turns it into "mega").
+        int megaWant = 0;   // 0 none, 1 any, 'x' / 'y'
+        {
+            std::string lo = e;
+            for (char& ch : lo) ch = (char)std::tolower((unsigned char)ch);
+            size_t rm = lo.find(" rmega");
+            if (rm != std::string::npos) { e = Trim(e.substr(0, rm) + e.substr(rm + 6)); lo = lo.substr(0, rm) + lo.substr(rm + 6); }
+            size_t mg = lo.find(" mega");
+            if (mg != std::string::npos && (mg + 5 == lo.size() || lo[mg + 5] == ' ')) {
+                megaWant = 1;
+                size_t cut = 5;
+                if (mg + 7 <= lo.size() && lo[mg + 5] == ' ' && (lo[mg + 6] == 'x' || lo[mg + 6] == 'y') && (mg + 7 == lo.size() || lo[mg + 7] == ' ')) { megaWant = lo[mg + 6]; cut = 7; }
+                e = Trim(e.substr(0, mg) + e.substr(mg + cut));
+            }
         }
         int extra = 0;
         size_t sp = e.find_last_of(' ');
@@ -1172,6 +1217,7 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
         } else {
             idx = SpeciesIndex(e);
             if (idx < 0) idx = RandomBase(Type::Normal, true);
+            else if (stage && !megaWant && !IsMegaForm(idx)) idx = RealisticFormAt(idx, level);   // no Lv11 Kabutops
         }
         used.push_back(idx);
         CombatantSpec c;
@@ -1180,6 +1226,17 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
         c.moves = MovesAtLevel(AllSpecies()[idx], level);
         if (!stage) c.shiny = RollShiny();   // wild Pokemon can be shiny (trainers' can't)
         if (shinyMon) c.shiny = true;
+        bool rivalAce = stage && stage->postgame && stage->rival && l == "rival";   // post-game rivals Mega Evolve their starter
+        if (megaWant || rivalAce) {
+            for (int mf : MegaFormsOf(idx)) {
+                const SpeciesDef& m = AllSpecies()[mf];
+                char last = m.name.empty() ? 0 : (char)std::tolower((unsigned char)m.name.back());
+                bool xy = m.name.size() > 2 && m.name[m.name.size() - 2] == ' ' && (last == 'x' || last == 'y');
+                if (megaWant > 1 && (!xy || last != megaWant)) continue;
+                c.item = m.megaStone;
+                break;
+            }
+        }
         team.push_back(c);
     }
     return team;

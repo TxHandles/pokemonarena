@@ -1,0 +1,22 @@
+# Mega Victreebel: the Mega Evolution of Victreebel (official Mega stats, types and ability). Not caught or met on its
+# own: a Victreebel holding the Victreebelite Mega Evolves into it in battle (once per battle).
+name = Mega Victreebel
+dex  = 71
+type = Grass / Poison
+mega_of = Victreebel
+mega_stone = Victreebelite
+
+hp         = 80
+attack     = 125
+defense    = 85
+sp_attack  = 135
+sp_defense = 95
+speed      = 70
+
+height = 4.5      # Pokedex height in meters
+weight = 125.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Innards Out
+category = 

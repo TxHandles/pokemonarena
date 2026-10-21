@@ -1,0 +1,37 @@
+# Mega Beedrill - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 505050 > 555654
+shiny = 525252 > 575856
+shiny = 535252 > 585856
+shiny = 67667A > 6B6C7A
+shiny = 685028 > 2F6F02
+shiny = 6B6B84 > 6F7184
+shiny = 6F6D7E > 73737F
+shiny = 73757D > 787B81
+shiny = 797499 > 7D7B94
+shiny = 7B7A76 > 7F807E
+shiny = 8988A2 > 8E8EA0
+shiny = 909090 > 949698
+shiny = 9390A7 > 9896A5
+shiny = 989CA3 > 9EA1A8
+shiny = 9A9891 > 9E9E99
+shiny = B08A2F > 66AE0B
+shiny = B2B5BB > B7BBC0
+shiny = BD8C21 > 6CB311
+shiny = BDB56B > A6BE81
+shiny = C09828 > 82B600
+shiny = C0C0C0 > C5C6C5
+shiny = C15054 > 4D912A
+shiny = C55242 > 539300
+shiny = C65242 > 544BD8
+shiny = EDF1F8 > ECF1F8
+shiny = F5CA30 > A9F053
+shiny = F5E7AB > DBF1BC
+shiny = F6CD31 > B9EB00
+shiny = F76352 > 80B049
+shiny = F7CE31 > BAEC00
+shiny = F7DE89 > B8FF6B
+shiny = F8D040 > BCEE00
+shiny = FDFDFE > FCFDFE
+shiny = FFEF84 > E5F8A8
+shiny = FFFFFF > FEFFFF

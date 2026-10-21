@@ -29,7 +29,7 @@ extern bool gAutoNetInput;
 
 namespace {
 
-constexpr uint32_t PROTOCOL = 23;   // 23: Sinnoh and Unova (new arena state, wider ready kinds, 64 legendaries, two more rival lines), 22: watching your partner's own battle, 21: the overworld (walking, the partner's position, story battles found on foot), 20: free region order (regions played in any order), 19: Hoenn (May, post-game battles, new arenas and legendaries), 18: Johto (regions, Johto starters, six new arenas), 17: Gen 2 Pokemon 161-251 and their abilities, 16: rolling moves and gym centerpieces, 15: sweeping beams, tethers, grapples and throws (battle state), 14: the legendaries moved to a Map tab (hub items renumbered), 13: new battle effects (particle kinds), 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower, 10: legendary encounters, 11: Gen 2 starters, the rival's two starters, 12: shiny Pokemon
+constexpr uint32_t PROTOCOL = 24;   // 24: Mega Evolution and battle items (input bits, battle state), 23: Sinnoh and Unova (new arena state, wider ready kinds, 64 legendaries, two more rival lines), 22: watching your partner's own battle, 21: the overworld (walking, the partner's position, story battles found on foot), 20: free region order (regions played in any order), 19: Hoenn (May, post-game battles, new arenas and legendaries), 18: Johto (regions, Johto starters, six new arenas), 17: Gen 2 Pokemon 161-251 and their abilities, 16: rolling moves and gym centerpieces, 15: sweeping beams, tethers, grapples and throws (battle state), 14: the legendaries moved to a Map tab (hub items renumbered), 13: new battle effects (particle kinds), 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower, 10: legendary encounters, 11: Gen 2 starters, the rival's two starters, 12: shiny Pokemon
 constexpr float TICK = 1.0f / 60.0f;
 constexpr int INPUT_DELAY = 2;    // ticks: our own presses take effect this much later (33 ms)
 constexpr int MAX_AHEAD = 15;     // ticks we may run ahead of what the partner has confirmed
@@ -88,7 +88,10 @@ void PackInput(W& w, const PlayerInput& in) {
     bits |= in.jump ? 64 : 0;
     bits |= in.swapPrev ? 128 : 0;
     w.u8(bits);
-    w.u8(in.target == 0 ? 0 : (in.target > 0 ? 1 : 2));
+    int b2 = in.target == 0 ? 0 : (in.target > 0 ? 1 : 2);
+    b2 |= in.mega ? 4 : 0;
+    for (int i = 0; i < 4; i++) b2 |= in.item[i] ? (8 << i) : 0;
+    w.u8(b2);
 }
 PlayerInput UnpackInput(R& r) {
     PlayerInput in;
@@ -101,12 +104,14 @@ PlayerInput UnpackInput(R& r) {
     in.jump = (bits & 64) != 0;
     in.swapPrev = (bits & 128) != 0;
     int tg = r.u8();
-    in.target = tg == 1 ? 1 : (tg == 2 ? -1 : 0);
+    in.target = (tg & 3) == 1 ? 1 : ((tg & 3) == 2 ? -1 : 0);
+    in.mega = (tg & 4) != 0;
+    for (int i = 0; i < 4; i++) in.item[i] = (tg & (8 << i)) != 0;
     return in;
 }
 bool SameInput(const PlayerInput& a, const PlayerInput& b) {
-    if (a.move.x != b.move.x || a.move.y != b.move.y || a.swap != b.swap || a.dodge != b.dodge || a.jump != b.jump || a.swapPrev != b.swapPrev || a.target != b.target) return false;
-    for (int i = 0; i < 4; i++) if (a.attack[i] != b.attack[i]) return false;
+    if (a.move.x != b.move.x || a.move.y != b.move.y || a.swap != b.swap || a.dodge != b.dodge || a.jump != b.jump || a.swapPrev != b.swapPrev || a.target != b.target || a.mega != b.mega) return false;
+    for (int i = 0; i < 4; i++) if (a.attack[i] != b.attack[i] || a.item[i] != b.item[i]) return false;
     return true;
 }
 PlayerInput Predict(const PlayerInput& last) {  // they keep moving the same way; presses don't repeat
@@ -404,6 +409,13 @@ static void HostMaybeGo(Game& g) {
     if (kind == KIND_TOWER) BeginTowerFloor(g, stageIdx, (uint32_t)rareSpecies);
     if (legend) BeginLegend(g, kind - KIND_LEGEND);
     o.myReady = o.partnerReady = 0;
+    if (kind == KIND_RAID) {
+        o.picksSent = o.partnerPicksIn = false;
+        o.partnerPickView.clear();
+        o.partnerSelCursor = -1;
+        StartCoopRaid(g);
+        return;
+    }
     o.picksSent = o.partnerPicksIn = false;
     o.partnerPickView.clear();
     o.partnerSelCursor = -1;
@@ -735,7 +747,8 @@ void OnlinePoll(Game& g) {
                 if (g.coopActive >= 0) EnterStoryHub(g);  // close the shop etc. first
                 g.tower = false;
                 g.legend = -1;
-                if (kind == KIND_TOWER) BeginTowerFloor(g, g.stageIdx, (uint32_t)g.rareSpecies);
+                if (kind == KIND_RAID) StartCoopRaid(g);
+                else if (kind == KIND_TOWER) BeginTowerFloor(g, g.stageIdx, (uint32_t)g.rareSpecies);
                 else if (kind >= KIND_LEGEND && kind < KIND_LEGEND + LEGEND_COUNT) BeginLegend(g, kind - KIND_LEGEND);
                 else if (kind != 2) g.screen = Screen::StageIntro;   // the trainer / gym intro first (3+: a rematch)
                 else BeginTeamSelect(g);

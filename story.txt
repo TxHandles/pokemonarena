@@ -44,6 +44,8 @@
 #                   fight beside you (the CPU runs them); in co-op it is the usual 2v2.
 #  partner = Lance  a double battle where this trainer fights beside you instead (alone);
 #  partner_team = Gyarados, Dragonite +1   his Pokemon (same format as team)
+#  team tokens: "Pidgeot mega" holds its Mega Stone and Mega Evolves ("mega x" / "mega y" for Charizard and
+#                Mewtwo); "rmega" only in rematches from the Map and the Battle Tower
 #  postgame = yes  optional: the story goes on past it, and it's fought from the Map once the
 #                   region's Champion is beaten (Red on Mt. Silver, Steven at Meteor Falls)
 #  floor = 85       the stage is built from at least this team average (Hoenn: level = +N)
@@ -608,7 +610,7 @@ name = Champion's Stadium
 map = 167, 252
 trainer = Champion Blue
 say = Hey! I was looking forward to seeing you. While you were working your way up, I became the Pokemon League Champion! You know what that means? I'm the most powerful trainer in the world!
-team = Pidgeot -4, Alakazam -6, Rhydon -4, rival_trio1 -2, rival_trio2 -2, rival
+team = Pidgeot -4 rmega, Alakazam -6, Rhydon -4, rival_trio1 -2, rival_trio2 -2, rival
 lv = 63
 cpu = hard
 catch = no
@@ -1041,7 +1043,7 @@ name = Champion's Room
 map = 1092, 418
 trainer = Champion Lance
 say = I've been waiting for you. I knew that you, with your skills, would eventually reach me here. As the most powerful trainer and as the Pokemon League Champion... I, Lance the Dragon master, accept your challenge!
-team = Gyarados -4, Dragonite -3, Charizard -4, Aerodactyl -4, Dragonite -3, Dragonite +1
+team = Gyarados -4 rmega, Dragonite -3, Charizard -4, Aerodactyl -4, Dragonite -3, Dragonite +1
 lv = 88
 cpu = hard
 arena = johtochampion
@@ -1150,7 +1152,7 @@ name = Rustboro Gym
 map = 74, 358
 trainer = Leader Roxanne
 say = Welcome to the Rustboro Gym. I became a Gym Leader to put what I learned at the Trainer's School into practice. Let's see what the textbooks say about you!
-team = Geodude -2, Geodude -2, Omastar -1, Kabutops -1, Nosepass +1
+team = Geodude -2, Geodude -2, Aron -1, Onix -1, Nosepass +1
 level = 0
 floor = 80
 cpu = hard
@@ -1594,7 +1596,7 @@ name = Meteor Falls
 map = 104, 236
 trainer = Steven
 say = I knew you'd come. I've traveled all over Hoenn searching for rare stones - and for a trainer like you. Let's see who's stronger, Champion!
-team = Skarmory -1, Claydol -1, Aggron -1, Cradily -1, Armaldo -1, Metagross +2
+team = Skarmory -1, Claydol -1, Aggron -1, Aerodactyl -1 mega, Armaldo -1, Metagross +2
 level = 6
 floor = 90
 cpu = hard
@@ -2337,7 +2339,7 @@ map = 1530, 700
 trainer = Champion Cynthia
 card = A Champion's Rematch | Word reaches you in the Battle Zone: Cynthia is back at the Pokemon League, and she has asked for you by name. "I've been training since our battle," her message says. "Come and see."
 say = I couldn't stop thinking about our last battle. My Pokemon want another, and so do I. This time we're even stronger!
-team = Spiritomb -1, Roserade -1, Togekiss, Lucario, Milotic -1, Garchomp +1
+team = Spiritomb -1, Alakazam -1 mega, Togekiss, Lucario, Milotic -1, Garchomp +1
 level = 6
 floor = 96
 cpu = hard

@@ -3,7 +3,7 @@
 #include "battle.h"
 
 // Rebindable actions.
-enum class Act { Up, Down, Left, Right, Move1, Move2, Move3, Move4, Swap, Pause, Dodge, Jump, SwapPrev, Target, Count };
+enum class Act { Up, Down, Left, Right, Move1, Move2, Move3, Move4, Swap, Pause, Dodge, Jump, SwapPrev, Target, Mega, Item1, Item2, Item3, Item4, Count };
 constexpr int ACT_COUNT = (int)Act::Count;
 
 // Keyboard layouts: one player alone, or the two halves of a shared keyboard.

@@ -1,0 +1,31 @@
+# Mega Charizard X - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 001907
+shiny = 1C1B23 > 002B24
+shiny = 284858 > 6C2420
+shiny = 2E4D6D > 742A28
+shiny = 2F6091 > 8A3D3A
+shiny = 313131 > 0D4335
+shiny = 31B0E4 > 4BCEDC
+shiny = 353341 > 114640
+shiny = 3A5A9C > 893B3A
+shiny = 3AADFF > 56C7EB
+shiny = 440C09 > 292C17
+shiny = 4A84BD > C34E47
+shiny = 4C4847 > 2D5B4C
+shiny = 525252 > 176F59
+shiny = 5D5C5D > 3E7061
+shiny = 63635A > 457762
+shiny = 6BCEFF > 79E8F7
+shiny = 6F95A4 > 65B5AC
+shiny = 73B5DE > 73D5DC
+shiny = 7B7B73 > 499A81
+shiny = 821F1A > 1F5F46
+shiny = 8ECBEB > 8DECEC
+shiny = 9CDEFF > 9FFAE1
+shiny = 9DD7F6 > 9BF2F6
+shiny = A0A0A0 > 82B6A5
+shiny = A5E6FF > A5FFFF
+shiny = BDBDBD > 66C0A3
+shiny = D8D8F8 > FFB8AE
+shiny = FFFFFF > D8FFF9

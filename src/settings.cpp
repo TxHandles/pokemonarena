@@ -11,7 +11,7 @@ namespace {
 
 Settings gCfg;
 
-const char* kActKeys[ACT_COUNT] = {"up", "down", "left", "right", "move1", "move2", "move3", "move4", "swap", "pause", "dodge", "jump", "swap_back", "target"};
+const char* kActKeys[ACT_COUNT] = {"up", "down", "left", "right", "move1", "move2", "move3", "move4", "swap", "pause", "dodge", "jump", "swap_back", "target", "mega", "item1", "item2", "item3", "item4"};
 const char* kLayoutKeys[LAYOUT_COUNT] = {"solo", "p1", "p2"};
 
 std::string Path() { return DataDir() + "settings.txt"; }
@@ -45,6 +45,11 @@ void ResetKeys(int layout) {
         set(Act::Jump, KEY_E, KEY_O);
         set(Act::SwapPrev, KEY_Y, KEY_Z);
         set(Act::Target, KEY_TAB, KEY_R);
+        set(Act::Mega, KEY_M);
+        set(Act::Item1, KEY_C);
+        set(Act::Item2, KEY_V);
+        set(Act::Item3, KEY_B);
+        set(Act::Item4, KEY_N);
     } else if (layout == LAYOUT_P1) {
         set(Act::Up, KEY_W);
         set(Act::Down, KEY_S);
@@ -60,6 +65,11 @@ void ResetKeys(int layout) {
         set(Act::Jump, KEY_R);
         set(Act::SwapPrev, KEY_Z);
         set(Act::Target, KEY_TAB, KEY_C);
+        set(Act::Mega, KEY_X);
+        set(Act::Item1, KEY_ONE);
+        set(Act::Item2, KEY_TWO);
+        set(Act::Item3, KEY_THREE);
+        set(Act::Item4, KEY_FOUR);
     } else {
         set(Act::Up, KEY_UP);
         set(Act::Down, KEY_DOWN);
@@ -75,15 +85,17 @@ void ResetKeys(int layout) {
         set(Act::Jump, KEY_KP_6, KEY_APOSTROPHE);
         set(Act::SwapPrev, KEY_KP_DECIMAL, KEY_RIGHT_BRACKET);
         set(Act::Target, KEY_KP_7, KEY_BACKSLASH);
+        set(Act::Mega, KEY_KP_8, KEY_M);
+        set(Act::Item1, KEY_KP_9);
+        set(Act::Item2, KEY_KP_ADD);
+        set(Act::Item3, KEY_KP_SUBTRACT);
+        set(Act::Item4, KEY_KP_MULTIPLY);
     }
 }
 
 void ResetPad(int p) {
     int* b = gCfg.pad[p];
-    b[(int)Act::Up] = GAMEPAD_BUTTON_LEFT_FACE_UP;
-    b[(int)Act::Down] = GAMEPAD_BUTTON_LEFT_FACE_DOWN;
-    b[(int)Act::Left] = GAMEPAD_BUTTON_LEFT_FACE_LEFT;
-    b[(int)Act::Right] = GAMEPAD_BUTTON_LEFT_FACE_RIGHT;
+    b[(int)Act::Up] = b[(int)Act::Down] = b[(int)Act::Left] = b[(int)Act::Right] = 0;   // the left stick moves; the D-pad holds the item slots
     b[(int)Act::Move1] = GAMEPAD_BUTTON_RIGHT_FACE_DOWN;
     b[(int)Act::Move2] = GAMEPAD_BUTTON_RIGHT_FACE_RIGHT;
     b[(int)Act::Move3] = GAMEPAD_BUTTON_RIGHT_FACE_LEFT;
@@ -94,6 +106,11 @@ void ResetPad(int p) {
     b[(int)Act::Jump] = GAMEPAD_BUTTON_RIGHT_TRIGGER_1;   // RB / R1
     b[(int)Act::SwapPrev] = GAMEPAD_BUTTON_LEFT_TRIGGER_2; // LT: swap back through the party (RT swaps forward)
     b[(int)Act::Target] = GAMEPAD_BUTTON_RIGHT_THUMB;      // R3 (flicking the right stick also switches targets)
+    b[(int)Act::Mega] = GAMEPAD_BUTTON_LEFT_THUMB;         // L3
+    b[(int)Act::Item1] = GAMEPAD_BUTTON_LEFT_FACE_UP;      // the D-pad: the four item slots
+    b[(int)Act::Item2] = GAMEPAD_BUTTON_LEFT_FACE_RIGHT;
+    b[(int)Act::Item3] = GAMEPAD_BUTTON_LEFT_FACE_DOWN;
+    b[(int)Act::Item4] = GAMEPAD_BUTTON_LEFT_FACE_LEFT;
 }
 
 const int* DefaultKeys(int layout, Act a) {
@@ -194,8 +211,12 @@ void LoadSettings() {
                         for (int nc = 0; nc < 2; nc++)
                             if (gCfg.keys[l][a][c] && gCfg.keys[l][a][c] == gCfg.keys[l][n][nc]) gCfg.keys[l][n][nc] = 0;
     }
-    for (int newAct = (int)Act::SwapPrev; newAct <= (int)Act::Target; newAct++) {
-        if ((newAct == (int)Act::SwapPrev && version >= 4) || (newAct == (int)Act::Target && version >= 5)) continue;
+    if (version < 6)   // the D-pad became the item slots: it no longer moves
+        for (int p = 0; p < 2; p++)
+            for (int a = (int)Act::Up; a <= (int)Act::Right; a++)
+                if (gCfg.pad[p][a] >= GAMEPAD_BUTTON_LEFT_FACE_UP && gCfg.pad[p][a] <= GAMEPAD_BUTTON_LEFT_FACE_LEFT) gCfg.pad[p][a] = 0;
+    for (int newAct = (int)Act::SwapPrev; newAct < ACT_COUNT; newAct++) {
+        if ((newAct == (int)Act::SwapPrev && version >= 4) || (newAct == (int)Act::Target && version >= 5) || (newAct >= (int)Act::Mega && version >= 6)) continue;
         // A new action: an older binding on the same button / key keeps it
         int n = newAct;
         for (int p = 0; p < 2; p++)
@@ -210,7 +231,7 @@ void LoadSettings() {
 }
 
 void SaveSettings() {
-    std::string o = "# Arena Clash settings (written by the game; edit in the Settings menu)\nsettings_version = 5\n";
+    std::string o = "# Arena Clash settings (written by the game; edit in the Settings menu)\nsettings_version = 6\n";
     char buf[128];
     std::snprintf(buf, sizeof buf, "fullscreen = %d\nshow_fps = %d\n", gCfg.fullscreen, gCfg.showFps); o += buf;
     std::snprintf(buf, sizeof buf, "master_volume = %d\neffects_volume = %d\n", gCfg.masterVolume, gCfg.sfxVolume); o += buf;
@@ -233,7 +254,7 @@ void SaveSettings() {
 void ApplyAudioSettings() { SetSfxVolume(gCfg.masterVolume / 100.0f, gCfg.sfxVolume / 100.0f); }
 
 const char* ActName(Act a) {
-    const char* n[ACT_COUNT] = {"Up", "Down", "Left", "Right", "Move 1", "Move 2", "Move 3", "Move 4", "Swap (next)", "Pause", "Dodge", "Jump", "Swap (back)", "Next target"};
+    const char* n[ACT_COUNT] = {"Up", "Down", "Left", "Right", "Move 1", "Move 2", "Move 3", "Move 4", "Swap (next)", "Pause", "Dodge", "Jump", "Swap (back)", "Next target", "Mega Evolve", "Item slot 1", "Item slot 2", "Item slot 3", "Item slot 4"};
     return n[(int)a];
 }
 

@@ -454,6 +454,10 @@ void Battle::AbAfterHit(const HitSpec& h, int ts, float dmg, bool crit, float hp
     Fighter* a = nullptr;
     if (h.side >= 0 && h.side < N() && sides[h.side].active == h.fighter && sides[h.side].Cur().state == FState::Active)
         a = &sides[h.side].Cur();
+    if (ta == Ab::InnardsOut && a && t.hp <= 0 && hpBefore > 0) {
+        AbPopup(ts, t.sp->name + "'s Innards Out!");
+        DirectDamage(h.side, std::min(hpBefore, a->maxHp * 0.5f), Color{170, 220, 90, 255}, ts);
+    }
     if (h.contact && a) {
         switch (ta) {
             case Ab::RoughSkin: DirectDamage(h.side, a->maxHp / 16.0f, Color{200, 170, 140, 255}, ts); break;
@@ -628,6 +632,8 @@ void Battle::AbSpec(HitSpec& h, const Fighter& f, const MoveDef& m) const {
         case Ab::Normalize: if (m.power > 0) { h.type = Type::Normal; mul = 1.2f; } break;
         case Ab::Pixilate: if (m.power > 0 && m.type == Type::Normal) { h.type = Type::Fairy; mul = 1.2f; } break;
         case Ab::Refrigerate: if (m.power > 0 && m.type == Type::Normal) { h.type = Type::Ice; mul = 1.2f; } break;
+        case Ab::Aerilate: if (m.power > 0 && m.type == Type::Normal) { h.type = Type::Flying; mul = 1.2f; } break;
+        case Ab::ParentalBond: if (m.power > 0) mul = 1.25f; break;
         case Ab::MegaLauncher: if (m.name.find("Pulse") != std::string::npos || m.name == "Aura Sphere") mul = 1.5f; break;
         case Ab::StrongJaw:
             if (m.name.find("Bite") != std::string::npos || m.name.find("Fang") != std::string::npos || m.name == "Crunch" || m.name == "Jaw Lock") mul = 1.5f;

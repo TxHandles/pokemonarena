@@ -22,7 +22,7 @@
 namespace {
 
 constexpr float PI_F = 3.14159265f;
-constexpr int MAX_SLOTS = 8;
+constexpr int MAX_SLOTS = 16;
 
 struct SlotAnim {
     int species = -1;
