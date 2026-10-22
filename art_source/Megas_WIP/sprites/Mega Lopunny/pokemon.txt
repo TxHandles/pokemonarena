@@ -1,0 +1,23 @@
+# Mega Lopunny: the Mega Evolution of Lopunny (official stats, types and ability). Not caught or met on its
+# own: a Lopunny holding the Lopunnite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Lopunny
+dex  = 428
+type = Normal / Fighting
+mega_of = Lopunny
+mega_stone = Lopunnite
+
+hp         = 65
+attack     = 136
+defense    = 94
+sp_attack  = 54
+sp_defense = 96
+speed      = 135
+
+height = 1.3      # Pokedex height in meters
+weight = 28.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Scrappy
+category = 

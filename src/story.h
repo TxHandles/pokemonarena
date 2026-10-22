@@ -11,6 +11,7 @@ struct StageDef {
     std::vector<std::string> team;  // species names, "random", or "random <Type>"
     int levelOffset = 0;            // relative to your team's average level (only without baseLevel)
     int baseLevel = 0;              // "lv": the level the battle is built for (your level nudges it a little)
+    int orig = 0;                   // "orig": the level it has in its own game (the floor when it scales to your party)
     AILevel cpu = AILevel::Normal;
     bool reward = true;             // win: choose a new creature
     ArenaKind arena = ArenaKind::Stadium;
@@ -152,5 +153,12 @@ void LoadStory(std::string& log);   // story.txt next to the game, or the built-
 
 // Build the CPU team for a stage (as written) or a random training team of teamSize if stage is null.
 std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int playerAvgLevel, int teamSize);
+// The highest level among the Pokemon brought to the battle about to start: regions after your first scale
+// their trainers and wild Pokemon to it (never below their own game's levels). Set before building a battle.
+void SetPartyTop(int level);
+// Story difficulty (0 Easy, 1 Normal, 2 Hard): trainers' levels -10% / as written / +10%. Set before building a battle.
+void SetDifficulty(int d);
+int Difficulty();
+int PartyTop();
 // Random base-form species the profile doesn't own yet (up to n).
 std::vector<int> RewardChoices(const std::vector<std::string>& ownedSpecies, int n, int storyStage = -1, int badges = 99);   // storyStage >= 0: only Pokemon that live in places reached

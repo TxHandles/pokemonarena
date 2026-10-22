@@ -1,0 +1,23 @@
+# Mega Ampharos: the Mega Evolution of Ampharos (official stats, types and ability). Not caught or met on its
+# own: a Ampharos holding the Ampharosite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Ampharos
+dex  = 181
+type = Electric / Dragon
+mega_of = Ampharos
+mega_stone = Ampharosite
+
+hp         = 90
+attack     = 95
+defense    = 105
+sp_attack  = 165
+sp_defense = 110
+speed      = 45
+
+height = 1.4      # Pokedex height in meters
+weight = 61.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Mold Breaker
+category = 

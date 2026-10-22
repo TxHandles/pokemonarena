@@ -1,0 +1,23 @@
+# Mega Gardevoir: the Mega Evolution of Gardevoir (official stats, types and ability). Not caught or met on its
+# own: a Gardevoir holding the Gardevoirite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Gardevoir
+dex  = 282
+type = Psychic / Fairy
+mega_of = Gardevoir
+mega_stone = Gardevoirite
+
+hp         = 68
+attack     = 85
+defense    = 65
+sp_attack  = 165
+sp_defense = 135
+speed      = 100
+
+height = 1.6      # Pokedex height in meters
+weight = 48.4      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Pixilate
+category = 

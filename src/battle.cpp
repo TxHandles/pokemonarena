@@ -185,6 +185,7 @@ float Fighter::Stat(StatId s, bool special) const {
     int b = s == StatId::Atk ? (special ? sp->SpAtk() : sp->atk) : (s == StatId::Def ? (special ? sp->SpDef() : sp->def) : sp->spd);
     float base = Scaled(b);
     float v = (base + 5) * StatMul(level) * buffMul[(int)s] * dropMul[(int)s];
+    v *= 1 + 0.01f * vit[s == StatId::Atk ? 1 : s == StatId::Def ? 2 : 3];   // vitamins
     v *= NatureMul(nature, s == StatId::Atk ? (special ? NS_SPA : NS_ATK) : (s == StatId::Def ? (special ? NS_SPD : NS_DEF) : NS_SPE));
     if (s == StatId::Atk && !special && st.major == Status::Burn) v *= 0.75f;  // burns weaken physical attacks
     if (s == StatId::Atk) v *= envAtk;
@@ -202,6 +203,8 @@ float Fighter::MoveSpeed() const {
     float v = 45.0f + (Scaled(sp->spd) * NatureMul(nature, NS_SPE) + 5) * buffMul[2] * dropMul[2] * 0.75f;
     if (st.major == Status::Paralyze) v *= 0.55f;
     if (item && (item->fx == ItemFx::SpeedMul || item->fx == ItemFx::ChoiceScarf)) v *= item->value;
+    if (item && item->name == "Macho Brace") v *= 0.9f;
+    v *= 1 + 0.01f * vit[3];   // Carbos
     return v * envSpeed * abSpd;
 }
 
@@ -226,7 +229,7 @@ bool Fighter::CanAct() const {
 }
 
 void Fighter::RecalcHp(bool keepDamage) {
-    int newMax = std::max(1, (int)((Scaled(sp->hp) + 60) * HP_SCALE * StatMul(level) * (boss > 0 ? boss : 1.0f)));
+    int newMax = std::max(1, (int)((Scaled(sp->hp) + 60) * HP_SCALE * StatMul(level) * (boss > 0 ? boss : 1.0f) * (1 + 0.01f * vit[0])));
     if (keepDamage) hp += newMax - maxHp;
     else hp = (float)newMax;
     maxHp = newMax;
@@ -444,6 +447,7 @@ void Battle::Start(const BattleSetup& su) {
             f.ownedId = c.ownedId;
             f.boss = c.boss;
             f.shiny = c.shiny;
+            for (int k = 0; k < 4; k++) f.vit[k] = std::max(0, std::min(VITAMIN_MAX, c.vit[k]));
             InitAbility(f, c.abilitySlot);
             f.nature = c.nature >= 0 && c.nature < NATURE_COUNT ? c.nature : SimRand(0, NATURE_COUNT - 1);
             f.item = FindItem(c.item);
@@ -671,6 +675,7 @@ void Battle::Update(float dt, const PlayerInput in[2]) {
     UpdateHazards(dt);
     UpdateTethers(dt);
     UpdateGrabs(dt);
+    UpdateThrows(dt);
     UpdateWaves(dt);
     UpdateEffects(dt);
 
@@ -719,6 +724,7 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
     f.counterT = std::max(0.0f, f.counterT - dt);
     f.endureT = std::max(0.0f, f.endureT - dt);
     f.rechargeT = std::max(0.0f, f.rechargeT - dt);
+    f.critT = std::max(0.0f, f.critT - dt);
     f.pinT = std::max(0.0f, f.pinT - dt);
     for (int k = 0; k < 3; k++) {
         if (f.buffT[k] > 0 && (f.buffT[k] -= dt) <= 0) { f.buffT[k] = 0; f.buffMul[k] = 1; }
@@ -800,6 +806,7 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
     }
 
     if (Held(s)) { f.pendingMove = -1; f.volleyLeft = 0; return; }   // grabbed: yanked in or thrown, can't act
+    if (f.inBall) { f.pendingMove = -1; f.volleyLeft = 0; return; }  // inside a Poke Ball, shaking
 
     Intent it;
     if (canAct && !gVfxDemo && !sd.dummy) it = sd.cpu ? ThinkAI(s, dt) : HumanIntent(in);
@@ -1276,10 +1283,11 @@ HitSpec Battle::Spec(int s, const MoveDef& m) const {
         if (it.fx == ItemFx::TypeBoost && it.type == m.type) h.dmgMul *= it.value;
         if (it.fx == ItemFx::LifeOrb) h.dmgMul *= it.value;
         if (it.fx == ItemFx::ExpertBelt) h.superMul = it.value;
-        if (it.fx == ItemFx::ScopeLens) h.scope = true;
+        if (it.fx == ItemFx::ScopeLens && (it.name != "Lucky Punch" || f.sp->name == "Chansey")) h.scope = true;
         if (it.fx == ItemFx::KingsRock) h.flinchChance = it.value;
         if (it.fx == ItemFx::ShellBell) h.drain += it.value;
     }
+    if (f.critT > 0 && m.power > 0) h.scope = true;   // Dire Hit
     for (int i = 0; i < f.nMoves; i++)
         if (f.moves[i].name == m.name) { h.moveIdx = i; break; }
     if (m.power > 0) h.dmgMul *= FieldMoveMul(s, h.type, h.special);
@@ -1831,7 +1839,7 @@ void Battle::Execute(int s, int mi, bool first, const MoveDef* override) {
 bool Battle::Targetable(int s) const {
     if (s < 0 || s >= N()) return false;
     const Fighter& f = sides[s].Cur();
-    return f.state == FState::Active && f.hp > 0 && !f.burrowed;
+    return f.state == FState::Active && f.hp > 0 && !f.burrowed && !f.inBall;
 }
 
 bool Battle::Hittable(int s) const { return Targetable(s) && sides[s].Cur().dodgeT <= 0 && sides[s].Cur().heldZ < 10; }   // thrown high: out of reach
@@ -2201,7 +2209,18 @@ void Battle::Faint(int s, int credit) {
     Fighter& t = sides[s].Cur();
     if (t.boss > 0 && setup.catchable && sides[s].teamId == 1 && !t.retired && t.state == FState::Active) {
         t.hp = 1;   // a legendary is never knocked out: it's weakened, then it's time to catch it
-        CheckWeakened(s);
+        if (setup.raid) { CheckWeakened(s); return; }
+        if (!t.weakened) {   // worn out: it stops fighting for 20 s - throw your Poke Balls! - then it flees
+            t.weakened = true;
+            t.dazeT = 20;
+            t.pendingMove = -1;
+            t.dashing = false;
+            t.volleyLeft = 0;
+            t.burrowed = false;
+            t.leaping = false;
+            AddText(t.pos, t.sp->name + " is worn out - throw a Poke Ball!", UI_GOLD, 60);
+            PlaySfx(Sfx::Status);
+        }
         return;
     }
     if (setup.arena != ArenaKind::Stadium && !IsLegendArena(setup.arena)) { Confetti(45); hype = 1; }   // the gym crowd goes wild
@@ -2243,7 +2262,7 @@ void Battle::CreditKo(int s, int credit) {
 }
 
 void Battle::CheckWeakened(int s) {
-    if (!setup.catchable || sides[s].teamId != 1) return;
+    if (!setup.catchable || !setup.raid || sides[s].teamId != 1) return;   // (only a raid boss: everyone else is caught in battle)
     Fighter& f = sides[s].Cur();
     if (f.weakened || f.hp <= 0 || f.state != FState::Active || f.hp > f.maxHp * 0.25f) return;
     f.weakened = true;
@@ -2304,7 +2323,7 @@ void Battle::LevelUp(int s) {
     }
     LearnNewMoves(f, texts);
 
-    int evo = f.transformFrom >= 0 ? -1 : EvolutionIndexFor(f.species, f.nature);
+    int evo = f.transformFrom >= 0 || f.Holds(ItemFx::Everstone) ? -1 : EvolutionIndexFor(f.species, f.nature);
     if (evo >= 0 && f.evolveTo < 0 && f.level >= f.sp->evolveLevel &&
         (f.state == FState::Active || f.state == FState::Entering)) {
         f.evolveTo = evo;
@@ -2337,7 +2356,7 @@ void Battle::FinishEvolution(int s) {
     Burst(f.pos, WHITE, 30, 110, 10);
     Shake(2, 0.3f);
     LearnNewMoves(f, texts, true);
-    int evo = EvolutionIndexFor(f.species, f.nature);  // another evolution already due?
+    int evo = f.Holds(ItemFx::Everstone) ? -1 : EvolutionIndexFor(f.species, f.nature);  // another evolution already due?
     if (evo >= 0 && f.level >= f.sp->evolveLevel) {
         f.evolveTo = evo;
         f.state = FState::Evolving;
@@ -2356,6 +2375,12 @@ bool Battle::ItemWouldHelp(const Fighter& f, const ItemDef& d) const {
     if ((c & ItemDef::CURE_BURN) && m == Status::Burn) return true;
     if ((c & ItemDef::CURE_FREEZE) && m == Status::Freeze) return true;
     if ((c & ItemDef::CURE_CONFUSE) && f.st.confuseT > 0) return true;
+    switch (d.boost) {   // battle items: X Attack and friends
+        case ItemDef::BOOST_ATK: case ItemDef::BOOST_DEF: case ItemDef::BOOST_SPD: return f.buffMul[d.boost] < 1.5f;
+        case ItemDef::BOOST_CRIT: return f.critT <= 0;
+        case ItemDef::BOOST_GUARD: return f.mistT <= 0 || f.st.confuseT > 0;
+        case ItemDef::BOOST_COOLDOWN: for (int k = 0; k < f.nMoves; k++) if (f.cd[k] > 0.5f) return true; return false;
+    }
     return false;
 }
 
@@ -2407,6 +2432,7 @@ bool Battle::UseHotItem(int s, int k) {
     Fighter& f = sides[s].Cur();
     Side& sd = sides[HotSide(s)];   // a raid squad's items are its leader's
     const ItemDef* d = FindItem(sd.hot[k]);
+    if (d && IsBall(*d)) return ThrowBall(s, k);
     if (!d || sd.hotN[k] <= 0 || sd.hotCd[k] > 0 || !IsMedicine(*d)) return false;
     if (!ItemWouldHelp(f, *d)) {
         if (!sides[s].cpu) AddText(f.pos + Vector2{0, -20}, d->name + " won't have any effect.", UI_DIM, 30);
@@ -2434,6 +2460,28 @@ bool Battle::UseHotItem(int s, int k) {
         }
         if ((c & ItemDef::CURE_CONFUSE) && f.st.confuseT > 0) f.st.confuseT = 0;
     }
+    if (d->boost >= 0) {   // battle items
+        int b = d->boost;
+        const char* what = "";
+        if (b <= ItemDef::BOOST_SPD) {
+            f.buffMul[b] = std::max(f.buffMul[b], 1.5f);
+            f.buffT[b] = std::max(f.buffT[b], 30.0f);
+            what = b == 0 ? "Its attacks rose!" : b == 1 ? "Its DEF rose!" : "Its speed rose!";
+        } else if (b == ItemDef::BOOST_CRIT) {
+            f.critT = 60;
+            what = "It's getting pumped!";
+        } else if (b == ItemDef::BOOST_GUARD) {
+            for (int k = 0; k < 3; k++) { f.dropMul[k] = 1; f.dropT[k] = 0; }
+            f.st.confuseT = 0;
+            f.mistT = std::max(f.mistT, 30.0f);
+            what = "It's shrouded in mist!";
+        } else if (b == ItemDef::BOOST_COOLDOWN) {
+            bool half = d->name == "Ether";
+            for (int k = 0; k < f.nMoves; k++) f.cd[k] = half ? f.cd[k] * 0.5f : 0;
+            what = half ? "Its moves are recharging!" : "Its moves are ready!";
+        }
+        AddText(f.pos + Vector2{0, -2}, what, Color{255, 220, 120, 255}, 30);
+    }
     for (int i = 0; i < 14; i++) {   // green sparkles rising
         Particle& p = Emit(PK::Spark, f.pos + Vector2{Frand(-10, 10), Frand(-4, 4)}, Frand(0, 10), {Frand(-6, 6), Frand(-3, 3)}, Frand(30, 60), 0.7f, 1.8f,
                            d->cure && d->value <= 0 ? Color{150, 210, 255, 255} : Color{120, 240, 150, 255}, false);
@@ -2444,19 +2492,143 @@ bool Battle::UseHotItem(int s, int k) {
     return true;
 }
 
+// ---- Poke Balls, thrown in battle (wild Pokemon and legendaries): FireRed's catch formula. The battle goes on
+// while it shakes; a caught Pokemon leaves the field (it counts as beaten).
+constexpr float BALL_FLY = 0.45f, BALL_SHAKE = 0.6f, BALL_COOLDOWN = 3.0f;
+static int CatchRateOf(const SpeciesDef& sp) { return sp.legendary ? 3 : sp.evolveLevel > 0 || !sp.evolvesTo.empty() ? 190 : 75; }
+bool Battle::ThrowBall(int s, int k) {
+    Side& sd = sides[HotSide(s)];
+    const ItemDef* d = FindItem(sd.hot[k]);
+    Fighter& me = sides[s].Cur();
+    if (!d || sd.hotN[k] <= 0 || sd.hotCd[k] > 0) return false;
+    if (!setup.catchable || setup.raid || setup.trainerBattle) {
+        if (!sides[s].cpu) AddText(me.pos + Vector2{0, -20}, setup.trainerBattle ? "You can't catch a Trainer's Pokemon!" : "You can't throw that now.", UI_DIM, 34);
+        return false;
+    }
+    int t = sides[s].target;
+    if (t < 0 || !Foes(s, t) || !Targetable(t)) t = -1;
+    if (t < 0) for (int o = 0; o < N(); o++) if (Foes(s, o) && Targetable(o)) { t = o; break; }
+    if (t < 0) return false;
+    for (const auto& th : throws) if (!th.done && th.to == t) return false;   // one ball at a time each
+    Fighter& f = sides[t].Cur();
+    // a = (3 max HP - 2 HP) x rate x ball / (3 max HP) x status; four shake checks of 1048560 / (16711680 / a)^(1/4)
+    float hp = std::max(1.0f, f.hp), mhp = std::max(1.0f, (float)f.maxHp);
+    float ballMul = d->value <= 0 ? 255.0f : d->value;   // the Master Ball never misses
+    if (d->name == "Net Ball" && (f.sp->type1 == Type::Water || f.sp->type1 == Type::Bug || f.sp->type2 == Type::Water || f.sp->type2 == Type::Bug)) ballMul = 3;
+    if (d->name == "Nest Ball") ballMul = std::max(1.0f, std::min(3.0f, (40 - f.level) / 10.0f));
+    float st = (f.st.major == Status::Sleep || f.st.major == Status::Freeze) ? 2.0f : f.st.major != Status::None ? 1.5f : 1.0f;
+    float a = (3 * mhp - 2 * hp) * CatchRateOf(*f.sp) * ballMul / (3 * mhp) * st;
+    BallThrow th;
+    th.from = s; th.to = t; th.ball = d->name; th.start = me.pos;
+    if (a >= 255) { th.ok = true; th.shakes = 3; }
+    else {
+        float b = 1048560.0f / std::sqrt(std::sqrt(16711680.0f / std::max(1.0f, a)));
+        int n = 0;
+        while (n < 4 && SimRand(0, 65535) < (int)b) n++;
+        th.ok = n == 4;
+        th.shakes = std::min(3, n);
+    }
+    throws.push_back(th);
+    sd.hotN[k]--;
+    sd.hotCd[k] = BALL_COOLDOWN;
+    AddText(me.pos + Vector2{0, -26}, (sides[s].cpu ? sides[s].label + " threw a " : "Threw a ") + d->name + "!", UI_GOLD, 40);
+    PlaySfx(Sfx::MenuOk);
+    return true;
+}
+void Battle::UpdateThrows(float dt) {
+    for (auto& th : throws) {
+        if (th.done) continue;
+        Fighter& f = sides[th.to].Cur();
+        float before = th.t;
+        th.t += dt;
+        if (before < BALL_FLY && th.t >= BALL_FLY) {   // it hits: the Pokemon goes in
+            if (!(f.state == FState::Active && f.hp > 0)) { th.done = true; continue; }
+            f.inBall = true;
+            f.pendingMove = -1; f.dashing = false; f.volleyLeft = 0; f.burrowed = false; f.leaping = false;
+            Burst(f.pos, Color{255, 120, 120, 255}, 10, 50, 6);
+            PlaySfx(Sfx::Shield);
+        }
+        float end = BALL_FLY + 0.3f + th.shakes * BALL_SHAKE + 0.25f;
+        if (th.t >= BALL_FLY && th.t < end) {
+            int shakeNo = (int)((th.t - BALL_FLY - 0.3f) / BALL_SHAKE);
+            int prevNo = (int)((before - BALL_FLY - 0.3f) / BALL_SHAKE);
+            if (th.t > BALL_FLY + 0.3f && shakeNo != prevNo && shakeNo < th.shakes) PlaySfx(Sfx::MenuMove);
+        }
+        if (th.t >= end) {
+            th.done = true;
+            f.inBall = false;
+            if (th.ok) {   // gotcha!
+                f.caught = true;
+                int ownerSide = th.from;
+                f.caughtBy = sides[ownerSide].Cur().owner & 1;
+                if (!sides[ownerSide].team.empty()) f.caughtBy = sides[ownerSide].team[0].owner & 1;
+                f.caughtBall = th.ball;
+                AddText(f.pos + Vector2{0, -20}, "Gotcha! " + f.sp->name + " was caught!", UI_GOLD, 60);
+                for (int i = 0; i < 16; i++) Emit(PK::Spark, f.pos + Vector2{Frand(-8, 8), Frand(-4, 4)}, Frand(4, 16), {Frand(-30, 30), Frand(-20, 10)}, Frand(20, 50), 0.8f, 2.0f, UI_GOLD, false);
+                PlaySfx(Sfx::LevelUp);
+                CreditKo(th.to, th.from);   // the experience, as for a knockout
+                Side& ts = sides[th.to];
+                f.retired = true;
+                f.state = FState::Fainted;
+                f.stateT = 0;
+                ts.lastPos = f.pos;
+                if (ts.NextAlive(ts.active) >= 0) ts.sendT = 0.6f;
+            } else {
+                AddText(f.pos + Vector2{0, -20}, th.shakes == 0 ? "Oh, no! It broke free!" : th.shakes == 1 ? "Aww! It appeared to be caught!" : th.shakes == 2 ? "Aargh! Almost had it!" : "Shoot! It was so close, too!", UI_DIM, 50);
+                Burst(f.pos, WHITE, 12, 60, 8);
+                f.flash = 0.3f;
+                PlaySfx(Sfx::Faint);
+            }
+        }
+    }
+    throws.erase(std::remove_if(throws.begin(), throws.end(), [](const BallThrow& t) { return t.done; }), throws.end());
+}
+void Battle::DrawThrows() const {
+    for (const auto& th : throws) {
+        const Fighter& f = sides[th.to].Cur();
+        const ItemDef* d = FindItem(th.ball);
+        Color top = !d ? Color{226, 52, 52, 255} : d->value <= 0 ? Color{140, 60, 190, 255} : d->value >= 2 ? Color{60, 60, 70, 255} : d->value > 1.2f ? Color{60, 110, 220, 255} : Color{226, 52, 52, 255};
+        if (th.t < BALL_FLY) {   // an arc from the thrower to the target
+            float u = th.t / BALL_FLY;
+            Vector2 p = th.start + (f.pos - th.start) * u;
+            Vector2 sc = ToScreen(p, std::sin(u * PI_F) * 40 + 6);
+            DrawPokeBall(sc, 4.5f, u * 720, 0, top);
+        } else {
+            float k = th.t - BALL_FLY - 0.3f;
+            float wob = 0;
+            if (k > 0) { int n = (int)(k / BALL_SHAKE); float ph = std::fmod(k, BALL_SHAKE) / BALL_SHAKE; if (n < th.shakes && ph < 0.5f) wob = std::sin(ph * 2 * PI_F * 2) * 25; }
+            VShadow(ToScreen(f.pos), 5, 2, 0.4f);
+            DrawPokeBall(ToScreen(f.pos, 4), 4.5f, wob, th.t < BALL_FLY + 0.3f ? 1 - (th.t - BALL_FLY) / 0.3f : 0, top);
+        }
+    }
+}
+
+// What this Pokemon can turn into: its Mega Stone's form (or a Primal Orb's), or Mega Rayquaza when it knows Dragon Ascent.
+static int MegaTargetOf(const Fighter& f) {
+    if (f.item && IsMegaStone(*f.item)) { int m = MegaFormFor(f.species, f.item->name); if (m >= 0) return m; }
+    for (int m : MegaFormsOf(f.species)) {
+        const std::string& st = AllSpecies()[m].megaStone;
+        if (st.rfind("move:", 0) != 0) continue;
+        for (int k = 0; k < f.nMoves; k++) if (f.moves[k].name == st.substr(5)) return m;
+    }
+    return -1;
+}
+static bool IsPrimal(int idx) { return idx >= 0 && AllSpecies()[idx].name.rfind("Primal ", 0) == 0; }
+
 bool Battle::CanMega(int s) const {
     const Side& sd = sides[s];
     const Fighter& f = sd.Cur();
-    if (sd.megaUsed || f.megaFrom >= 0 || f.transformFrom >= 0 || f.state != FState::Active || !f.item || !IsMegaStone(*f.item)) return false;
+    if (f.megaFrom >= 0 || f.transformFrom >= 0 || f.state != FState::Active) return false;
     if (f.burrowed || f.dashing || Held(s) || f.weakened || f.hp <= 0 || winner >= 0 || megaFreezeT > 0) return false;
-    return MegaFormFor(f.species, f.item->name) >= 0;
+    int m = MegaTargetOf(f);
+    return m >= 0 && (!sd.megaUsed || IsPrimal(m));   // Primal Reversion isn't a Mega Evolution: it doesn't use up yours
 }
 
 void Battle::StartMega(int s) {
     Fighter& f = sides[s].Cur();
-    f.megaTo = MegaFormFor(f.species, f.item->name);
+    f.megaTo = MegaTargetOf(f);
     if (f.megaTo < 0) return;
-    sides[s].megaUsed = true;
+    if (!IsPrimal(f.megaTo)) sides[s].megaUsed = true;
     f.state = FState::Evolving;
     f.stateT = 0;
     f.pendingMove = -1;
@@ -2464,7 +2636,8 @@ void Battle::StartMega(int s) {
     f.dodgeT = f.jumpT = 0;
     f.knock = {0, 0};
     megaFreezeT = 1.0f;
-    AddText(f.pos + Vector2{0, -28}, f.sp->name + "'s " + f.item->name + " is reacting!", Color{255, 200, 255, 255}, 50);
+    AddText(f.pos + Vector2{0, -28}, f.item && IsMegaStone(*f.item) ? f.sp->name + "'s " + f.item->name + " is reacting!"
+                                                                    : f.sp->name + "'s fervent wish has reached its Trainer!", Color{255, 200, 255, 255}, 50);
     PlaySfx(Sfx::Evolve);
 }
 
@@ -2482,7 +2655,7 @@ void Battle::FinishMega(int s) {
     f.stateT = 0;
     f.flash = 0.35f;
     AbOnEnter(s);
-    AddText(f.pos + Vector2{0, -28}, from + " Mega Evolved into " + f.sp->name + "!", UI_GOLD, 50);
+    AddText(f.pos + Vector2{0, -28}, IsPrimal(f.species) ? from + "'s Primal Reversion! It reverted to its primal form!" : from + " Mega Evolved into " + f.sp->name + "!", UI_GOLD, 50);
     for (int k = 0; k < 6; k++) Burst(f.pos, ColorFromHSV(k * 60.0f, 0.65f, 1.0f), 10, 90 + k * 12, 8);
     AddFx(FxKind::Ring, f.pos, 0.5f, Color{255, 220, 255, 255}, 44);
     Shake(3, 0.35f);
@@ -3121,6 +3294,7 @@ void Battle::DrawProjectile(const Projectile& p) const {
 void Battle::DrawFighter(int s) const {
     const Fighter& f = sides[s].Cur();
     if (f.state == FState::Benched || f.state == FState::Fainted) return;
+    if (f.inBall) return;   // shaking inside a Poke Ball (DrawThrows)
     if (f.rollT > 0 && f.state == FState::Active) {   // rolling as a ball: the ball, with its HP bar riding above it
         DrawRollBall(s);
         Vector2 b = ToScreen(f.pos, 26);
@@ -3580,6 +3754,7 @@ void Battle::Draw(bool banners) const {
         else if (it.kind == 1) DrawProjectile(projs[it.idx]);
         else DrawObstacle(field.obs[it.idx]);
     }
+    DrawThrows();
     DrawFieldTop();
     DrawTimeOfDay();
 
@@ -3840,6 +4015,10 @@ void Battle::Draw(bool banners) const {
     }
 }
 
+namespace { std::vector<char> gOwned; }
+void SetOwnedSpecies(std::vector<char> owned) { gOwned = std::move(owned); }
+bool OwnedSpecies(int sp) { return sp >= 0 && sp < (int)gOwned.size() && gOwned[sp]; }
+
 void Battle::DrawHud() const {
     if (weather != Weather::None) {
         const char* wn = weather == Weather::Rain ? "Rain" : weather == Weather::Sun ? "Harsh sun" : weather == Weather::Sand ? "Sandstorm" : "Snow";
@@ -3923,6 +4102,10 @@ void Battle::DrawHud() const {
         DrawTextShadow(f.sp->name.c_str(), nx, y + (compact ? 1 : 3), 10, UI_TEXT);
         int bx = nx + TextW(f.sp->name.c_str(), 10) + 4;
         if (f.shiny) { DrawShinyStar((float)bx + 3, (float)y + (compact ? 6 : 8)); bx += 9; }
+        if (sd.teamId == 1 && setup.catchable && !setup.trainerBattle && OwnedSpecies(f.RealSpecies())) {   // you have one already
+            DrawPokeBall({(float)bx + 4, (float)y + (compact ? 6.5f : 8.5f)}, 3.6f, 0);
+            bx += 11;
+        }
         std::string lv = "Lv" + std::to_string(f.level);
         GDrawText(lv.c_str(), bx, y + (compact ? 1 : 3), 10, UI_GOLD);
         bx += TextW(lv.c_str(), 10) + 4;

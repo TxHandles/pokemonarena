@@ -1,0 +1,31 @@
+# Mega Gardevoir - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 00020B > 000000
+shiny = 00060E > 000000
+shiny = 000909 > 000400
+shiny = 050509 > 000000
+shiny = 267B3C > 0A7AAB
+shiny = 313131 > 000301
+shiny = 3F584F > 000100
+shiny = 40AA57 > 398EAA
+shiny = 480E21 > 4F2A00
+shiny = 525252 > 000301
+shiny = 57A963 > 2D90B8
+shiny = 5AA552 > 418CA8
+shiny = 5BBE6F > 51A2BF
+shiny = 5DCD7B > 5EAFCC
+shiny = 6DCD82 > 61B1CE
+shiny = 7BCE73 > 5CB3CE
+shiny = 804559 > 070000
+shiny = 848484 > 101817
+shiny = 858088 > 0E1615
+shiny = A3ACAD > 2A2B29
+shiny = A54A5A > A06E40
+shiny = BAD5CA > D3DAD2
+shiny = BDBDBD > 3E4544
+shiny = C3CAD1 > 434443
+shiny = C7C0CE > 3F3E3E
+shiny = D65A6B > D98D41
+shiny = DBD3E1 > 535A5A
+shiny = E7ECF5 > 656D6D
+shiny = FFFFFF > 767E7D

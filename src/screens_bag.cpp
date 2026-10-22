@@ -16,7 +16,7 @@
 
 namespace {
 constexpr int POCKETS = 6;
-const char* kPockets[POCKETS] = {"Poke Balls", "Medicine", "Held Items", "Evolution Stones", "TMs", "Key Items"};
+const char* kPockets[POCKETS] = {"Poke Balls", "Medicine", "Items", "Evolution Stones", "TMs", "Key Items"};
 const Color kPocketCol[POCKETS] = {{226, 70, 70, 255}, {240, 120, 170, 255}, {80, 170, 230, 255}, {120, 200, 110, 255}, {170, 120, 220, 255}, {236, 180, 60, 255}};
 const char* kSlotDir[4] = {"Up", "Right", "Down", "Left"};
 
@@ -28,7 +28,7 @@ struct BagRow {
 
 int Pocket(const ItemDef& d) {
     if (IsBall(d)) return 0;
-    if (IsMedicine(d)) return 1;
+    if (IsMedicine(d) || IsPartyUse(d)) return 1;
     if (IsStone(d)) return 3;
     if (IsTM(d)) return 4;
     if (d.fx == ItemFx::KeyItem || d.fx == ItemFx::ExpAll) return 5;
@@ -129,6 +129,21 @@ void DrawItemIcon(const ItemDef& d, float cx, float cy, float s) {
             DrawRectangle((int)(cx - 1.5f * s), (int)(cy - 5.5f * s), (int)(3 * s), (int)(3 * s), Color{220, 220, 230, 255});
             DrawRectangle((int)(cx - 2.2f * s), (int)(cy + 0.2f * s), (int)(4.4f * s), (int)std::max(1.0f, 1.4f * s), Fade(WHITE, 0.75f));
         }
+    } else if (d.fx == ItemFx::Valuable) {   // a gleaming gem / nugget
+        Color c = d.name.find("Pearl") != std::string::npos ? Color{240, 236, 250, 255} : d.name.find("Star") != std::string::npos ? Color{240, 110, 110, 255}
+                : d.name.find("Mushroom") != std::string::npos ? Color{220, 120, 90, 255} : d.name.find("Berry") != std::string::npos ? Color{200, 100, 200, 255}
+                : d.name.find("PP") != std::string::npos ? Color{120, 200, 240, 255} : Color{250, 210, 70, 255};
+        DrawCircleV({cx, cy}, 4.8f * s, ColorBrightness(c, -0.45f));
+        DrawCircleV({cx, cy}, 3.8f * s, c);
+        DrawCircleV({cx - 1.4f * s, cy - 1.4f * s}, 1.0f * s, Fade(WHITE, 0.8f));
+    } else if (d.fx == ItemFx::PartyUse) {   // a candy / a drink bottle / a revive crystal
+        Color c = d.name == "Rare Candy" ? Color{120, 160, 240, 255} : d.value > 0 ? Color{250, 220, 80, 255} : Color{230, 120, 70, 255};
+        DrawPoly({cx, cy}, d.value > 0 ? 4 : 6, 5 * s, 45, ColorBrightness(c, -0.4f));
+        DrawPoly({cx, cy}, d.value > 0 ? 4 : 6, 3.8f * s, 45, c);
+    } else if (d.fx == ItemFx::Field) {   // a spray can / a coil of rope
+        Color c = d.name == "Escape Rope" ? Color{190, 140, 80, 255} : Color{120, 200, 120, 255};
+        DrawRectangleRounded({cx - 3 * s, cy - 4 * s, 6 * s, 9 * s}, 0.4f, 6, ColorBrightness(c, -0.4f));
+        DrawRectangleRounded({cx - 2.3f * s, cy - 3.3f * s, 4.6f * s, 7.6f * s}, 0.4f, 6, c);
     } else if (d.fx == ItemFx::TypeBoost) {
         DrawRectangle((int)(cx - 4.5f * s), (int)(cy - 4.5f * s), (int)(9 * s), (int)(9 * s), TypeColor(d.type));
     } else {
@@ -197,14 +212,44 @@ void UpdateBag(Game& g) {
     if (in.confirm && n > 0) {
         const auto rows = Rows(g, g.bagTab);
         const BagRow& r = rows[std::min(g.bagSel, n - 1)];
-        if (r.item && IsMedicine(*r.item)) {
+        if (r.item && (r.item->name == "Bicycle" || r.item->name == "VS Seeker")) {   // get on (or off) and go; look for rematches
+            std::string why = r.item->name == "Bicycle" ? WorldToggleBike(g) : WorldVsSeeker(g);
+            if (!why.empty()) { Toast(g, why); PlaySfx(Sfx::MenuBack); }
+            else { PlaySfx(Sfx::MenuOk); EnterStoryHub(g); }
+            return;
+        }
+        if (r.item && (r.item->fx == ItemFx::Field || r.item->name == "Itemfinder")) {   // a Repel, the Escape Rope
+            std::string why = WorldUseField(g, r.item->name);
+            if (!why.empty()) { Toast(g, why); PlaySfx(Sfx::MenuBack); }
+            else { PlaySfx(Sfx::MenuOk); EnterStoryHub(g); }
+            return;
+        }
+        if (r.item && r.item->fx == ItemFx::Valuable) {   // sold on a second press
+            if (g.bagSellArm != r.name || GetTime() - g.bagSellT > 3) {
+                g.bagSellArm = r.name;
+                g.bagSellT = GetTime();
+                Toast(g, TextFormat("Press again to sell a %s for %d coins.", r.name.c_str(), SellPrice(*r.item)));
+                PlaySfx(Sfx::MenuMove);
+                return;
+            }
+            g.bagSellArm.clear();
+            BagTake(g.profile, r.name);
+            g.profile.coins += SellPrice(*r.item);
+            StorySaveProfile(g);
+            Toast(g, TextFormat("Sold a %s for %d coins!", r.name.c_str(), SellPrice(*r.item)));
+            PlaySfx(Sfx::Heal);
+            return;
+        }
+        if (r.item && IsPartyUse(*r.item)) { Toast(g, "Use it on a Pokemon from Party & Box."); return; }
+        if (r.item && (r.item->name == "Old Rod" || r.item->name == "Good Rod" || r.item->name == "Super Rod")) { Toast(g, "Face the water and press A to fish."); return; }
+        if (r.item && (IsMedicine(*r.item) || IsBall(*r.item))) {   // Medicine and Poke Balls go on the battle hotkeys
             g.bagAssign = true;
             g.bagSlot = 0;
             for (int k = 0; k < 4; k++) if (g.profile.hotItems[k] == r.name) g.bagSlot = k;
             PlaySfx(Sfx::MenuOk);
         } else if (r.item && (IsStone(*r.item) || IsTM(*r.item) || IsHoldable(*r.item)))
             Toast(g, IsHoldable(*r.item) ? "Give it to a Pokemon from Party & Box." : "Use it on a Pokemon from Party & Box.");
-        else if (r.item && IsBall(*r.item)) Toast(g, "Throw it at a weakened wild Pokemon after a battle.");
+
     }
 }
 
@@ -264,7 +309,7 @@ void DrawBag(const Game& g) {
         if (r.item) DrawItemIcon(*r.item, 186, y + 9, 1.0f);
         else DrawKeyIcon(r.name, 186, y + 9, 1.0f);
         std::string nm = r.name;
-        if (r.item && IsTM(*r.item)) nm = TextFormat("TM%02d %s", r.item->tmNo, r.item->move.c_str());
+        if (r.item && IsTM(*r.item)) nm = r.item->hmNo ? r.item->name : TextFormat("TM%02d %s", r.item->tmNo, r.item->move.c_str());
         GDrawText(nm.c_str(), 198, y + 5, 10, Color{40, 40, 50, 255});
         if (r.count > 0) {
             const char* c = TextFormat("x%d", r.count);
@@ -286,19 +331,22 @@ void DrawBag(const Game& g) {
                 y += 16;
                 y = DrawWrapped(DescribeMove(*mv).c_str(), 420, y, 200, 10, Color{150, 190, 220, 255}) + 4;
             }
-            DrawWrapped("Teach it to a Pokemon from Party & Box (used up).", 420, y, 200, 10, UI_DIM);
+            DrawWrapped(r.item->hmNo ? "Teach it from Party & Box - an HM is never used up. Out in the world it clears the way once you have the badge." : "Teach it to a Pokemon from Party & Box (used up).", 420, y, 200, 10, UI_DIM);
         } else {
             y = DrawWrapped(r.desc.c_str(), 420, y, 200, 10, UI_TEXT) + 6;
             if (r.item) {
-                const char* how = IsBall(*r.item) ? "Thrown at weakened wild Pokemon after a battle."
+                const char* how = IsBall(*r.item) ? "Enter: put it on an item hotkey. In a wild battle, press that hotkey to throw it at your target - the weaker it is, the easier it's caught."
                                 : IsStone(*r.item) ? "Use it on a Pokemon from Party & Box."
                                 : IsHoldable(*r.item) ? "Give it to a Pokemon to hold from Party & Box."
-                                : IsMedicine(*r.item) ? "Enter: put it on an item hotkey. In battle, press that hotkey to use it on your Pokemon (30 s cooldown)." : "";
+                                : IsMedicine(*r.item) ? "Enter: put it on an item hotkey. In battle, press that hotkey to use it on your Pokemon (30 s cooldown)."
+                                : IsPartyUse(*r.item) ? "Use it on a Pokemon from Party & Box."
+                                : r.item->fx == ItemFx::Field ? "Enter: use it now (out in the world)."
+                                : r.item->fx == ItemFx::Valuable ? TextFormat("Enter twice: sell it for %d coins.", SellPrice(*r.item)) : "";
                 if (*how) DrawWrapped(how, 420, y, 200, 10, UI_DIM);
             }
         }
     }
-    if (g.bagTab == 1) {   // the item hotkeys, laid out like the D-pad
+    if (g.bagTab == 1 || g.bagTab == 0) {   // the item hotkeys, laid out like the D-pad (Medicine and Poke Balls)
         DrawPanel(410, 212, 220, 114, Color{24, 60, 70, 235}, g.bagAssign ? UI_GOLD : pc);
         GDrawText(g.bagAssign ? "Pick a slot + Enter (Esc cancels)" : "Item hotkeys in battle (D-pad)", 418, 216, 10, UI_GOLD);
         const int ox = 520, oy = 272;

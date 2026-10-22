@@ -1,0 +1,23 @@
+# Primal Groudon: the Primal form of Groudon (official stats, types and ability). Not caught or met on its
+# own: a Groudon holding the Red Orb returns to it in battle (Primal Reversion, once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Primal Groudon
+dex  = 383
+type = Ground / Fire
+mega_of = Groudon
+mega_stone = Red Orb
+
+hp         = 100
+attack     = 180
+defense    = 160
+sp_attack  = 150
+sp_defense = 90
+speed      = 90
+
+height = 5      # Pokedex height in meters
+weight = 999.7      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+ability = Desolate Land
+category = 

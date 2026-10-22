@@ -1,0 +1,23 @@
+# Mega Mawile: the Mega Evolution of Mawile (official stats, types and ability). Not caught or met on its
+# own: a Mawile holding the Mawilite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Mawile
+dex  = 303
+type = Steel / Fairy
+mega_of = Mawile
+mega_stone = Mawilite
+
+hp         = 50
+attack     = 105
+defense    = 125
+sp_attack  = 55
+sp_defense = 95
+speed      = 50
+
+height = 1      # Pokedex height in meters
+weight = 23.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Huge Power
+category = 

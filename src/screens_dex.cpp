@@ -305,7 +305,9 @@ void DrawPokedex(const Game& g) {
     GDrawText(TextFormat("No. %03d", sp.dex), tx, 38, 10, soft);
     GDrawText(s ? sp.name.c_str() : "?????", tx, 52, 20, ink);
     if (s) {
-        std::string cat = idx != baseIdx ? TextFormat("Mega Evolution - holds the %s", sp.megaStone.c_str())
+        std::string cat = idx != baseIdx ? (sp.megaStone.rfind("move:", 0) == 0 ? std::string(TextFormat("Mega Evolution - knows %s", sp.megaStone.c_str() + 5))
+                                            : sp.name.rfind("Primal ", 0) == 0 ? std::string(TextFormat("Primal Reversion - holds the %s", sp.megaStone.c_str()))
+                                            : std::string(TextFormat("Mega Evolution - holds the %s", sp.megaStone.c_str())))
                                          : (sp.category.empty() ? std::string("Unknown") : sp.category) + " Pokemon";
         GDrawText(cat.c_str(), tx, 76, 10, soft);
         int bx = tx;

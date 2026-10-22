@@ -1,0 +1,23 @@
+# Mega Garchomp: the Mega Evolution of Garchomp (official stats, types and ability). Not caught or met on its
+# own: a Garchomp holding the Garchompite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Garchomp
+dex  = 445
+type = Dragon / Ground
+mega_of = Garchomp
+mega_stone = Garchompite
+
+hp         = 108
+attack     = 170
+defense    = 115
+sp_attack  = 120
+sp_defense = 95
+speed      = 92
+
+height = 1.9      # Pokedex height in meters
+weight = 95      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Sand Force
+category = 

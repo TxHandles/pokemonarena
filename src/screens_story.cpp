@@ -16,6 +16,8 @@
 #include "leaders.h"
 #include "net.h"
 #include "legend.h"
+#include "look.h"
+#include <cctype>
 
 namespace {
 
@@ -159,6 +161,7 @@ bool SetTrainArea(Game& g, int area) {
 void SetTrainingWild(Game& g) {
     int area = g.ow.wildBattle && WildAreaIndex(g.ow.wildArea) >= 0 ? WildAreaIndex(g.ow.wildArea) : TrainArea(g);   // tall grass: that route's own
     SetWildContext(area, TrainStage(g), TrainBadges(g));
+    SetWildMethod(g.ow.wildBattle ? g.ow.wildMethod : "");   // tall grass "walk", surfing, a rod, a smashed rock
 }
 // A new rare find for the current training area (after the area changed on the team screen).
 void RepickRare(Game& g) {
@@ -355,6 +358,7 @@ void BeginTowerFloor(Game& g, int floor, uint32_t seed) {
 }
 
 StageDef ActiveStage(const Game& g) {
+    if (g.owFight) return g.owStage;
     if (g.legend >= 0) return LegendStage(g.legend);
     if (g.tower) return TowerStage(g.towerFloor, g.towerSeed);
     const auto& stages = Story().stages;
@@ -399,6 +403,7 @@ void EnterStoryHub(Game& g) {
     ApplySaveOrder(g);   // the story laid out in this save's region order
     g.tower = false;
     g.raid = false;
+    g.owFight = false;
     g.legend = -1;
     if (g.coop) {
         if (g.coopActive >= 0) {  // done with one player's Shop / Healing Center / Party & Box
@@ -493,6 +498,11 @@ void UpdateNameEntry(Game& g) {
     }
     if (IsKeyPressed(KEY_BACKSPACE) && !g.nameBuf.empty()) g.nameBuf.pop_back();
     if (IsKeyPressed(KEY_ESCAPE)) { g.screen = g.netNewTrainer ? Screen::NetMenu : Screen::ProfileSelect; g.netNewTrainer = false; return; }
+    {   // the difficulty: Left / Right (keyboard or D-pad)
+        bool l = IsKeyPressed(KEY_LEFT) || (IsGamepadAvailable(0) && IsGamepadButtonPressed(0, GAMEPAD_BUTTON_LEFT_FACE_LEFT));
+        bool r = IsKeyPressed(KEY_RIGHT) || (IsGamepadAvailable(0) && IsGamepadButtonPressed(0, GAMEPAD_BUTTON_LEFT_FACE_RIGHT));
+        if (l || r) { g.diffSel = (g.diffSel + (l ? 2 : 1)) % 3; PlaySfx(Sfx::MenuMove); }
+    }
     bool ok = IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_KP_ENTER);
     // Gamepad users: A on an empty name picks a default.
     if (IsGamepadAvailable(0) && IsGamepadButtonPressed(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN)) {
@@ -505,7 +515,65 @@ void UpdateNameEntry(Game& g) {
     if (ProfileExists(g.nameBuf)) { Toast(g, "That name is taken"); return; }
     g.profile = Profile();
     g.profile.name = g.nameBuf;
+    g.profile.difficulty = g.diffSel;
     g.profile.bag["Poke Ball"] = START_BALLS;
+    SaveOrWarn(g);
+    PlaySfx(Sfx::MenuOk);
+    for (int& v : g.cr) v = 0;   // on to the trainer creator (it starts as Red)
+    g.crSel = 0;
+    g.screen = Screen::Creator;
+}
+
+// ------------------------------------------------------------------ the trainer creator
+
+namespace {
+int IndexIn(const std::vector<std::string>& v, const char* n) {
+    for (int i = 0; i < (int)v.size(); i++) if (v[i] == n) return i;
+    return 0;
+}
+TrainerLook CreatorLook(const Game& g) {
+    TrainerLook l;
+    const auto& heads = LookHeads();
+    const auto& bodies = LookBodies();
+    l.type = g.cr[0] ? 1 : 0;
+    l.head = heads[std::max(0, std::min((int)heads.size() - 1, g.cr[1]))];
+    l.hair = g.cr[2];
+    l.body = bodies[std::max(0, std::min((int)bodies.size() - 1, g.cr[3]))];
+    l.cloth = g.cr[4];
+    l.skin = g.cr[5];
+    return l;
+}
+// How many choices each row has: poses, head, hair colour, outfit, outfit colour, skin
+int CreatorCount(int row) {
+    switch (row) {
+        case 0: return 2;
+        case 1: return (int)LookHeads().size();
+        case 3: return (int)LookBodies().size();
+        case 2: case 4: return (int)LookColourNames().size();
+        case 5: return (int)LookSkinNames().size();
+    }
+    return 1;
+}
+std::string PrettyPerson(const std::string& n) {
+    if (n == "player") return "Red";
+    if (n == "leaf") return "Leaf";
+    if (n == "rival") return "Blue";
+    std::string o;
+    bool up = true;
+    for (char ch : n) {
+        if (ch == '_') { o += ' '; up = true; continue; }
+        o += up ? (char)std::toupper((unsigned char)ch) : ch;
+        up = false;
+    }
+    if (o.size() > 2 && (o.substr(o.size() - 2) == " M" || o.substr(o.size() - 2) == " F")) o = o.substr(0, o.size() - 2) + (o.back() == 'M' ? " (m)" : " (f)");
+    return o;
+}
+} // namespace
+
+TrainerLook CreatorLookFor(const Game& g) { return CreatorLook(g); }
+
+void FinishCreator(Game& g) {
+    g.profile.look = LookText(CreatorLook(g));
     SaveOrWarn(g);
     PlaySfx(Sfx::MenuOk);
     if (g.netNewTrainer) {   // online co-op: back to the online menu with the new trainer chosen
@@ -519,6 +587,76 @@ void UpdateNameEntry(Game& g) {
     BeginRegionChoose(g, 0);
 }
 
+void UpdateCreator(Game& g) {
+    PlayerInput in = MenuInput();
+    if (in.up) { g.crSel = (g.crSel + 6) % 7; PlaySfx(Sfx::MenuMove); }
+    if (in.down) { g.crSel = (g.crSel + 1) % 7; PlaySfx(Sfx::MenuMove); }
+    if (g.crSel < 6 && (in.left || in.right)) {
+        int n = CreatorCount(g.crSel);
+        int& v = g.cr[g.crSel];
+        v = (v + (in.left ? n - 1 : 1)) % n;
+        if (g.crSel == 0) {   // a boy or a girl: Red's or Leaf's poses, and their own look to start from
+            const auto& heads = LookHeads();
+            const auto& bodies = LookBodies();
+            const char* was = v ? "player" : "leaf";
+            const char* now = v ? "leaf" : "player";
+            if (heads[g.cr[1]] == was) g.cr[1] = IndexIn(heads, now);
+            if (bodies[g.cr[3]] == was) g.cr[3] = IndexIn(bodies, now);
+        }
+        PlaySfx(Sfx::MenuMove);
+    }
+    if (in.sort) {   // a random trainer
+        for (int r = 1; r < 6; r++) g.cr[r] = GetRandomValue(0, CreatorCount(r) - 1);
+        PlaySfx(Sfx::MenuOk);
+    }
+    if (in.confirm && g.crSel == 6) { FinishCreator(g); return; }
+    if (in.confirm) { g.crSel = 6; PlaySfx(Sfx::MenuMove); }
+}
+
+void DrawCreator(const Game& g) {
+    DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
+    DrawTextCentered("YOUR TRAINER", VW / 2, 14, 30, UI_GOLD);
+    DrawTextCentered("Mix and match: one trainer's head and hair, another's outfit, in your own colours.", VW / 2, 48, 10, UI_DIM, false);
+    TrainerLook l = CreatorLook(g);
+    // the preview: turning round and walking, then on the Bicycle and surfing
+    Texture2D walk = LookChars(l), acts = LookActions(l);
+    DrawPanel(36, 70, 196, 248, UI_PANEL, Color{70, 64, 92, 255});
+    if (walk.id) {
+        int faces[4] = {0, 3, 1, 2};   // down, right, up, left
+        int face = faces[((int)(g.t / 1.4f)) % 4];
+        static const int kCol[4] = {1, 0, 2, 0};
+        int col = (face == 0 ? 0 : face == 1 ? 3 : 6) + kCol[((int)(g.t * 5)) % 4];
+        Rectangle src{(float)col * 16, 0, face == 3 ? -16.0f : 16.0f, 32};
+        DrawEllipse(134, 222, 26, 7, Fade(BLACK, 0.3f));
+        DrawTexturePro(walk, src, {102, 94, 64, 128}, {0, 0}, 0, WHITE);
+    }
+    if (acts.id) {
+        int f = ((int)(g.t * 5)) % 3;
+        static const int kCol[3] = {1, 0, 2};
+        DrawTexturePro(acts, {(float)(6 + kCol[f]) * 32, 0, 32, 32}, {54, 238, 64, 64}, {0, 0}, 0, WHITE);
+        DrawTexturePro(acts, {64, 32, 32, 32}, {150, 238, 64, 64}, {0, 0}, 0, WHITE);
+        GDrawText("Bicycle", 66, 302, 10, UI_DIM);
+        GDrawText("Surfing", 164, 302, 10, UI_DIM);
+    }
+    static const char* kRow[7] = {"Poses", "Head & hair", "Hair colour", "Outfit", "Outfit colour", "Skin", "Done"};
+    std::string head = PrettyPerson(l.head), body = PrettyPerson(l.body);
+    const char* vals[6] = {g.cr[0] ? "Girl (Leaf's)" : "Boy (Red's)", head.c_str(), LookColourNames()[g.cr[2]], body.c_str(),
+                           LookColourNames()[g.cr[4]], LookSkinNames()[g.cr[5]]};
+    for (int r = 0; r < 7; r++) {
+        int idx = r;
+        int y = 74 + r * 34;
+        bool sel = g.crSel == idx;
+        DrawPanel(250, y, 352, 28, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
+        if (idx == 6) { DrawTextCentered("Done - start your journey", 426, y + 9, 10, sel ? UI_GOLD : Color{140, 220, 150, 255}, false); continue; }
+        GDrawText(kRow[r], 262, y + 9, 10, sel ? UI_GOLD : UI_TEXT);
+        const char* shown = vals[idx];
+        std::string t = std::string(sel ? "<  " : "") + shown + (sel ? "  >" : "");
+        GDrawText(t.c_str(), 590 - TextW(t.c_str(), 10), y + 9, 10, sel ? UI_TEXT : UI_DIM);
+    }
+    GDrawText("Up / Down pick   Left / Right change   Tab (X) random   Enter on Done to finish", 20, 340, 10, UI_DIM);
+    DrawToast(g);
+}
+
 void DrawNameEntry(const Game& g) {
     DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     DrawTextCentered("NEW PROFILE", VW / 2, 60, 30, UI_GOLD);
@@ -527,6 +665,15 @@ void DrawNameEntry(const Game& g) {
     std::string shown = g.nameBuf + ((((int)(g.t * 2)) % 2) ? "_" : " ");
     DrawTextCentered(shown.c_str(), VW / 2, 138, 20, UI_TEXT, false);
     DrawTextCentered("Enter to confirm   Esc to cancel   (gamepad: A uses a default name)", VW / 2, 176, 10, UI_DIM, false);
+    static const char* kDiff[3] = {"Easy", "Normal", "Hard"};
+    static const char* kDiffTip[3] = {"Trainers are 10% lower level and battle less cleverly.",
+                                       "Trainers as they are in the games.",
+                                       "Trainers are 10% higher level and battle at their sharpest."};
+    DrawTextCentered("Story difficulty", VW / 2, 206, 10, UI_TEXT, false);
+    DrawPanel(VW / 2 - 90, 220, 180, 24, UI_PANEL_LIGHT, UI_GOLD);
+    DrawTextCentered(TextFormat("<  %s  >", kDiff[g.diffSel]), VW / 2, 226, 10, g.diffSel == 0 ? Color{120, 220, 140, 255} : g.diffSel == 2 ? Color{240, 120, 110, 255} : UI_GOLD, false);
+    DrawTextCentered(kDiffTip[g.diffSel], VW / 2, 252, 10, UI_DIM, false);
+    DrawTextCentered("Left / Right to change (you can change it later in Settings)", VW / 2, 268, 10, UI_DIM, false);
     DrawToast(g);
 }
 
@@ -702,10 +849,7 @@ void DrawStarter(const Game& g) {
 // ------------------------------------------------------------------ hub
 
 namespace {
-bool NextTrainingIsRare(int trainingWins) {
-    int every = std::max(1, Story().rareEvery);
-    return (trainingWins + 1) % every == 0;
-}
+bool NextTrainingIsRare(int) { return false; }   // (the "rare every Nth battle" is gone: not a real Pokemon mechanic)
 bool NextTrainingIsRare(const Profile& p) { return NextTrainingIsRare(p.trainingWins); }
 } // namespace
 
@@ -799,19 +943,52 @@ void DrawStoryCard(const Game& g) {
     if (GetTime() - gCardShown > 0.5) DrawTextCentered("Enter: continue", VW / 2, y + h - 18, 10, UI_DIM, false);
 }
 
+namespace {
+// "Leave Story Mode?": back (or Save and quit) on the hub asks first. True while it's open (it takes the input).
+template <class F> bool UpdateQuitAsk(Game& g, const PlayerInput& in, F quit) {
+    if (!g.quitAsk) return false;
+    if (in.up || in.down) { g.quitSel = 1 - g.quitSel; PlaySfx(Sfx::MenuMove); }
+    if (in.back) { g.quitAsk = false; PlaySfx(Sfx::MenuBack); return true; }
+    if (in.confirm) {
+        g.quitAsk = false;
+        if (g.quitSel == 0) { PlaySfx(Sfx::MenuOk); quit(); }
+        else PlaySfx(Sfx::MenuBack);
+    }
+    return true;
+}
+void AskQuit(Game& g) { g.quitAsk = true; g.quitSel = 1; PlaySfx(Sfx::MenuMove); }
+void DrawQuitAsk(const Game& g) {
+    if (!g.quitAsk) return;
+    DrawRectangle(0, 0, VW, VH, Fade(BLACK, 0.55f));
+    int w = 230, h = 92, x = VW / 2 - w / 2, y = VH / 2 - h / 2;
+    DrawPanel(x, y, w, h, WHITE, UI_INK);
+    bool online = g.coop && g.on.active;
+    DrawTextCentered(online ? "Leave the online game?" : "Leave Story Mode?", VW / 2, y + 10, 10, UI_INK, false);
+    DrawTextCentered("Your progress is saved.", VW / 2, y + 26, 10, Color{90, 90, 100, 255}, false);
+    const char* opt[2] = {"Yes, leave", "No, stay"};
+    for (int k = 0; k < 2; k++) {
+        int oy = y + 46 + k * 18;
+        if (g.quitSel == k) DrawRectangle(x + 40, oy - 3, w - 80, 16, Color{255, 220, 120, 255});
+        DrawTextCentered(opt[k], VW / 2, oy, 10, UI_INK, false);
+    }
+}
+} // namespace
+
 void UpdateStoryHub(Game& g) {
     if (UpdateStoryCard(g)) return;
     PlayerInput in = MenuInput();
+    if (UpdateQuitAsk(g, in, [&]() { SaveOrWarn(g); GoTitle(g); })) return;
     const int N = 13;
     if (HubNav(g, in, N, false)) return;
     if (g.hubSel == 1 && (in.left || in.right)) { CycleTrainArea(g, in.left ? -1 : 1); SaveOrWarn(g); return; }
     if (g.hubSel == 0 && (in.left || in.right) && KantoDone(g) && !StoryDone(g)) { g.hubTower = !g.hubTower; PlaySfx(Sfx::MenuMove); return; }
-    if (in.back) { SaveOrWarn(g); GoTitle(g); return; }
+    if (in.back) { AskQuit(g); return; }
     if (!in.confirm) return;
     PlaySfx(Sfx::MenuOk);
     int stages = (int)Story().stages.size();
     bool tower = StoryDone(g) || (KantoDone(g) && g.hubTower);
     if (g.hubSel == 0 && !tower && CanChooseRegion(g)) { BeginRegionChoose(g, 1); return; }
+    if (g.hubSel == 0 && !tower && WorldRequired(g)) g.hubSel = 10;   // Kanto's story is walked: off to the world
     if (g.hubSel == 0 && !tower && NeedsRegionStarter(g) >= 0) { BeginRegionStarter(g); return; }
     if (((g.hubSel == 0 && !tower) || g.hubSel == 1) && HealthyCount(g.profile) == 0) {
         Toast(g, "Your whole team has fainted! Visit the Healing Center first.");
@@ -877,8 +1054,7 @@ void UpdateStoryHub(Game& g) {
             g.screen = Screen::Settings;
             break;
         default:
-            SaveOrWarn(g);
-            GoTitle(g);
+            AskQuit(g);
             break;
     }
 }
@@ -892,6 +1068,7 @@ std::string CoopFirstLabel(const Game& g, bool tower, int storyStage) {
     if (tower) s = TextFormat("Battle Tower 2v2: floor %d  (best %d)", g.coopSave.towerFloor + 1, g.coopSave.towerBest);
     else if (CanChooseRegion(g)) s = g.on.active && g.on.me != 0 ? "The host picks the next region..." : "Choose the next region!";
     else if (int r = NeedsRegionStarter(g); r >= 0) s = "Travel to " + RegionInfo(r).name + " together!";
+    else if (WorldRequired(g)) s = "Continue your journey together: " + WorldPlaceName(g);
     else s = LeagueProgress(storyStage) >= 0 ? (StageRegion(storyStage) >= 1 ? RegionInfo(StageRegion(storyStage)).name + " League (2v2)" : "Pokemon League (2v2)") : "Story battle (2v2)";
     return swap ? "< " + s + " >" : s;
 }
@@ -901,6 +1078,7 @@ std::string HubFirstLabel(const Game& g, bool tower, int storyStage, int towerFl
     if (tower) s = TextFormat("Battle Tower: floor %d  (best %d)", towerFloor + 1, towerBest);
     else if (CanChooseRegion(g)) s = "Choose your next region!";
     else if (int r = NeedsRegionStarter(g); r >= 0) s = "Travel to " + RegionInfo(r).name + "!";
+    else if (WorldRequired(g)) s = "Continue your journey: " + WorldPlaceName(g);
     else s = LeagueProgress(storyStage) >= 0 ? (StageRegion(storyStage) >= 1 ? RegionInfo(StageRegion(storyStage)).name + " League" : "Pokemon League") : "Story battle";
     return swap ? "< " + s + " >" : s;
 }
@@ -1038,7 +1216,7 @@ void DrawStoryHub(const Game& g) {
     std::string raidLabel = raid.species < 0 ? std::string("Daily Raid") : (raidDone ? "Daily Raid: done - back tomorrow" : "Daily Raid: " + AllSpecies()[raid.species].name + (raid.shiny ? " (shiny!)" : ""));
     std::string items[13] = {
         HubFirstLabel(g, tower, p.storyStage, p.towerFloor, p.towerBest),
-        (rare ? "RARE in " : "Training: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
+        (rare ? "RARE in " : "Training: ") + TrainAreaName(g) + (left < 0 ? "" : ""),
         MapHubLabel(g),
         GameCornerOpen(g) ? "Shop & Game Corner" : "Shop",
         hurt ? TextFormat("Healing Center (%d hurt)", hurt) : "Healing Center",
@@ -1097,6 +1275,7 @@ void DrawStoryHub(const Game& g) {
     GDrawText("Enter choose   Esc save and leave", rx, 346, 10, UI_DIM);
     DrawToast(g);
     DrawStoryCard(g);
+    DrawQuitAsk(g);
 }
 
 // ------------------------------------------------------------------ map
@@ -1585,11 +1764,21 @@ std::vector<std::string> HeldItemsInBag(const Profile& p) {
     return v;
 }
 
-// Stones in the bag that would evolve this creature.
+// Items in the bag that would do something for this creature: stones that would evolve it, then Rare Candy,
+// Revives and vitamins.
+int VitaminSlot(const ItemDef& d) { return d.fx == ItemFx::PartyUse && d.boost >= 0 && d.boost < 4 ? d.boost : -1; }
+bool PartyItemHelps(const OwnedMon& m, const ItemDef& d) {
+    if (!IsPartyUse(d)) return false;
+    if (int k = VitaminSlot(d); k >= 0) return m.vit[k] < VITAMIN_MAX;
+    if (d.value > 0) return m.hp <= 0;   // Revive
+    return m.level < MAX_LEVEL;          // Rare Candy
+}
 std::vector<std::string> UsableStones(const Profile& p, const OwnedMon& m) {
     std::vector<std::string> v;
     for (const auto& s : EvolutionStonesFor(MonSpecies(m)))
-        if (BagCount(p, s) > 0) v.push_back(s);
+        if (BagCount(p, s) > 0 && m.item != "Everstone") v.push_back(s);
+    for (const auto& d : ItemList())
+        if (BagCount(p, d.name) > 0 && PartyItemHelps(m, d)) v.push_back(d.name);
     return v;
 }
 
@@ -1600,7 +1789,7 @@ bool CanLearnTM(const OwnedMon& m, const std::string& move) {
     int si = MonSpecies(m);
     if (si < 0) return false;
     const auto& v = AllSpecies()[si].tmMoves;
-    return std::find(v.begin(), v.end(), move) != v.end();
+    return std::find(v.begin(), v.end(), move) != v.end() || CanLearnHM(AllSpecies()[si].name, move);
 }
 // TMs in the bag this creature can learn (and doesn't know yet), as item names.
 std::vector<std::string> UsableTMs(const Profile& p, const OwnedMon& m) {
@@ -1627,7 +1816,8 @@ std::vector<std::pair<int, std::string>> RelearnMoves(const OwnedMon& m) {
     return v;
 }
 void PayForLearn(Profile& p, int src, const std::string& item) {
-    if (src == 1) BagTake(p, item);
+    const ItemDef* d = FindItem(item);
+    if (src == 1 && !(d && IsHM(*d))) BagTake(p, item);   // an HM is never used up
     else if (src == 2) p.coins -= RELEARN_PRICE;
 }
 void Forgot(OwnedMon& m, const std::string& mv) {
@@ -1739,7 +1929,7 @@ std::vector<std::pair<int, std::string>> ActOptions(const Game& g) {
         o.push_back({ACT_ITEM, m.item.empty() ? "Give a held item" : "Change held item"});
     }
     if (m.moves.size() > 1) o.push_back({ACT_MOVES, "Rearrange moves (buttons)"});
-    if (!UsableStones(p, m).empty()) o.push_back({ACT_STONE, "Use an evolution stone"});
+    if (!UsableStones(p, m).empty()) o.push_back({ACT_STONE, "Use an item"});
     { int n = (int)UsableTMs(p, m).size(); if (n > 0) o.push_back({ACT_TM, TextFormat("Use a TM (%d it can learn)", n)}); }
     if (g.boxTab == 1) o.push_back({ACT_RELEASE, "Release into the wild"});
     o.push_back({ACT_CANCEL, "Cancel"});
@@ -1809,6 +1999,46 @@ void UpdateMyCreatures(Game& g) {
         if (!in.confirm) return;
         g.stonePick = false;
         g.moveOrder = false;
+        if (const ItemDef* d = FindItem(stones[g.itemSel]); d && IsPartyUse(*d)) {   // Rare Candy, Revive, a vitamin
+            BagTake(p, d->name);
+            if (int k = VitaminSlot(*d); k >= 0) {
+                m.vit[k]++;
+                static const char* kWhat[4] = {"max HP", "attacks", "defenses", "speed"};
+                Toast(g, TextFormat("%s's %s rose! (%d/%d)", m.species.c_str(), kWhat[k], m.vit[k], VITAMIN_MAX));
+                m.friendship = std::min(MAX_FRIENDSHIP, m.friendship + 3);
+                SaveOrWarn(g);
+                PlaySfx(Sfx::Buff);
+                return;
+            }
+            if (d->value > 0) {
+                m.hp = d->value;
+                Toast(g, m.species + " was revived!");
+                SaveOrWarn(g);
+                PlaySfx(Sfx::Heal);
+                return;
+            }
+            Growth gr;   // Rare Candy: up one level, with its new moves and any evolution
+            AddXp(m, std::max(1, XpForLevel(m.level + 1) - m.xp), gr);
+            m.friendship = std::min(MAX_FRIENDSHIP, m.friendship + 3);
+            for (const auto& mv : gr.learned) Toast(g, m.species + " learned " + mv + "!");
+            Toast(g, TextFormat("%s grew to Lv%d!", m.species.c_str(), m.level));
+            SaveOrWarn(g);
+            PlaySfx(Sfx::LevelUp);
+            int who = g.coop ? g.coopActive : 0;
+            g.evoQueue.clear();
+            g.learnQueue.clear();
+            for (const auto& mv : gr.wantsToLearn) g.learnQueue.push_back({list[g.myCreSel], mv, who});
+            if (gr.evolveTo >= 0) g.evoQueue.push_back({list[g.myCreSel], gr.evolveTo, who});
+            if (!g.evoQueue.empty() || !g.learnQueue.empty()) {
+                g.rewardsPending = 0;
+                g.rewardWho.clear();
+                g.catchPending = false;
+                g.returnToParty = true;
+                g.evoT = 0;
+                AdvanceStoryQueues(g);
+            }
+            return;
+        }
         int to = StoneEvolution(MonSpecies(m), stones[g.itemSel]);
         if (to < 0) return;
         BagTake(p, stones[g.itemSel]);
@@ -1928,6 +2158,7 @@ void UpdateMyCreatures(Game& g) {
 
     if (in.back) { PlaySfx(Sfx::MenuBack); EnterStoryHub(g); g.hubSel = 5; return; }
     if (in.left || in.right) { g.boxTab = 1 - g.boxTab; g.myCreSel = 0; PlaySfx(Sfx::MenuMove); return; }
+    if (in.sort && g.boxTab == 0 && !g.on.active) { PlaySfx(Sfx::MenuOk); StartPractice(g); return; }   // try your party's moves on dummies
     if ((in.sort || in.filter) && g.boxTab == 1) {
         if (in.sort) p.boxSort = (p.boxSort + 1) % 6;
         if (in.filter) {
@@ -2045,7 +2276,7 @@ void DrawMyCreatures(const Game& g) {
             GDrawText("Pokemon you catch or receive", 16, 74, 10, UI_DIM);
             GDrawText("go here when your party is full.", 16, 86, 10, UI_DIM);
         }
-        GDrawText("Left/Right switch tab   Esc back", 212, 340, 10, UI_DIM);
+        GDrawText(g.on.active ? "Left/Right switch tab   Esc back" : "Left/Right switch tab   Tab practice arena   Esc back", 212, 340, 10, UI_DIM);
         DrawToast(g);
         return;
     }
@@ -2241,12 +2472,17 @@ void DrawMyCreatures(const Game& g) {
         int py = 180 - h / 2;
         DrawRectangle(0, 0, VW, VH, Fade(UI_INK, 0.5f));
         DrawPanel(190, py, 260, h, UI_PANEL, UI_GOLD);
-        GDrawText(TextFormat("Use a stone on %s", m.species.c_str()), 200, py + 8, 10, UI_GOLD);
+        GDrawText(TextFormat("Use an item on %s", m.species.c_str()), 200, py + 8, 10, UI_GOLD);
         for (int i = 0; i < N; i++) {
             int y = py + 24 + i * 16;
             bool on = g.itemSel == i;
             if (on) DrawRectangle(194, y - 2, 252, 14, UI_PANEL_LIGHT);
             if (i == N - 1) { GDrawText("Cancel", 202, y, 10, on ? UI_GOLD : UI_TEXT); continue; }
+            const ItemDef* sd = FindItem(stones[i]);
+            if (sd && IsPartyUse(*sd)) {
+                GDrawText(TextFormat("%s (x%d)", stones[i].c_str(), BagCount(p, stones[i])), 202, y, 10, on ? UI_GOLD : UI_TEXT);
+                continue;
+            }
             int to = StoneEvolution(idx, stones[i]);
             GDrawText(TextFormat("%s (x%d)  ->  %s", stones[i].c_str(), BagCount(p, stones[i]), to >= 0 ? AllSpecies()[to].name.c_str() : "?"),
                      202, y, 10, on ? UI_GOLD : UI_TEXT);
@@ -2367,6 +2603,29 @@ void ProcessStoryBattleEnd(Game& g) {
         for (int k = 0; k < 4; k++)
             for (int n = 0; n < sd.HotUsed(k); n++) BagTake(Prof(g, who), sd.hot[k]);
     }
+    for (const Fighter* fp : foes) {   // Pokemon caught with a Poke Ball during the battle join whoever threw it
+        const Fighter& f = *fp;
+        if (!f.caught) continue;
+        int who = coop ? (f.caughtBy & 1) : 0;
+        Profile& P = Prof(g, who);
+        OwnedMon m = NewMon(f.RealSpecies(), f.level);
+        m.moves.clear();
+        if (f.transformFrom >= 0) for (int i = 0; i < f.origN; i++) m.moves.push_back(f.origMoves[i].name);
+        else for (int i = 0; i < f.nMoves; i++) m.moves.push_back(f.moves[i].name);
+        m.abilitySlot = f.abSlot;
+        m.nature = f.nature;
+        m.shiny = f.shiny;
+        m.hp = std::max(0.01f, std::min(1.0f, f.hp / (float)std::max(1, f.maxHp)));
+        m.caught = true;
+        bool boxed = false;
+        if (OnlineMine(g, who)) { boxed = AddMon(P, m); DexSee(P, AllSpecies()[f.RealSpecies()].name); }
+        if (coop) g.coopSave.run[who & 1].caught++;
+        g.resultLines.push_back((coop ? P.name + " caught " : std::string("You caught ")) + AllSpecies()[f.RealSpecies()].name + "!" + (boxed ? " (sent to the Box)" : ""));
+        if (g.legend >= 0) {   // a legendary: it's gone from its lair now
+            if (coop) { g.coopSave.legends |= 1ull << g.legend; g.coopSave.legendWho[g.legend] = who; }
+            else g.profile.legends |= 1ull << g.legend;
+        }
+    }
     // Exp. Share: after a win every Pokemon you brought gets a share of the foes' XP - more for
     // the ones that fought, less for the ones that sat on the bench.
     int bonus = 0;
@@ -2434,7 +2693,7 @@ void ProcessStoryBattleEnd(Game& g) {
             }
             // Catch any evolution that's due (e.g. an evolution added later in a pokemon.txt).
             int idx = MonSpecies(m);
-            int evo = idx >= 0 ? EvolutionIndexFor(idx, m.nature) : -1;
+            int evo = idx >= 0 && m.item != "Everstone" ? EvolutionIndexFor(idx, m.nature) : -1;
             bool queued = false;
             for (const auto& e : g.evoQueue) queued |= e.mon == f.ownedId && e.who == who;
             if (mine && evo >= 0 && !queued && m.level >= AllSpecies()[idx].evolveLevel) g.evoQueue.push_back({f.ownedId, evo, who});
@@ -2468,10 +2727,11 @@ void ProcessStoryBattleEnd(Game& g) {
             if (t && t->fainted) d = wiped ? -15 : -5;
             else if (wiped) d = -8;
             else if (g.won) d = (t && t->fought) ? 5 : 2;
+            if (d > 0 && m.item == "Soothe Bell") d *= 2;
             m.friendship = std::max(0, std::min(MAX_FRIENDSHIP, m.friendship + d));
             // Friendship evolutions happen after a win.
             int idx = MonSpecies(m);
-            int to = g.won ? FriendshipEvolution(idx, m.friendship, IsNight(StoryClock(g)) ? 1 : 0) : -1;
+            int to = g.won && m.item != "Everstone" ? FriendshipEvolution(idx, m.friendship, IsNight(StoryClock(g)) ? 1 : 0) : -1;
             bool queued = false;
             for (const auto& e : g.evoQueue) queued |= e.mon == i && e.who == w;
             if (to >= 0 && !queued && OnlineMine(g, w)) g.evoQueue.push_back({i, to, w});
@@ -2501,8 +2761,12 @@ void ProcessStoryBattleEnd(Game& g) {
     bool training = g.mode == Mode::Training || g.mode == Mode::CoopTraining;
     StageDef stv;
     bool legend = g.legend >= 0;
-    if (storyBattle || g.tower || legend) stv = ActiveStage(g);
-    const StageDef* st = storyBattle || g.tower || legend ? &stv : nullptr;
+    if (storyBattle || g.tower || legend || g.owFight) stv = ActiveStage(g);
+    const StageDef* st = storyBattle || g.tower || legend || g.owFight ? &stv : nullptr;
+    if (g.owFight && g.won && !g.owFightFlag.empty()) (coop ? g.coopSave.owFlags : g.profile.owFlags).insert(g.owFightFlag);   // a route trainer: beaten for good
+    if (!g.ow.staticFlag.empty() && g.won) (coop ? g.coopSave.owFlags : g.profile.owFlags).insert(g.ow.staticFlag);   // a Pokemon met on the map: gone for good
+    g.ow.staticFlag.clear();
+    g.ow.staticLevel = 0;
     if (g.won) {
         // Coins: every player gets their own full share.
         int coins = WinCoins(st, foeLv);
@@ -2528,9 +2792,11 @@ void ProcessStoryBattleEnd(Game& g) {
             g.resultLines.push_back("Raid cleared! A 1500-coin bonus for the whole team.");
             g.resultLines.push_back("The raid boss is worn out - now's your chance to catch it!");
         }
-        if (legend) {
-            LegendBattleOver(g, b, damage);
-        } else if (b.Setup().catchable) {
+        if (legend) {   // caught in battle, above - or worn out, it got away
+            bool got = false;
+            for (const Fighter* fp : foes) got |= fp->caught;
+            if (!got && g.legend < LEGEND_COUNT) g.resultLines.push_back(std::string(Legend(g.legend).species) + " got away! Come back and try again.");
+        } else if (b.Setup().catchable && g.raid) {   // only the raid boss is caught after the battle (co-op: you both get a try)
             myAvg = myN ? myAvg / myN : foeLv;
             for (const Fighter* fp : foes) {
                 const Fighter& f = *fp;
@@ -2568,13 +2834,22 @@ void ProcessStoryBattleEnd(Game& g) {
     if (!g.won && g.raid) g.resultLines.push_back("The raid boss was too strong this time. A new one appears tomorrow!");
     if (g.won) {
         wins++;
-        if (storyBattle && g.stageIdx == stage && g.stageIdx < (int)Story().stages.size()) {
+        auto& owf = coop ? g.coopSave.owFlags : g.profile.owFlags;
+        bool ahead = storyBattle && g.stageIdx > stage && g.stageIdx < (int)Story().stages.size() && StageWalked(g.stageIdx) &&
+                     !owf.count("story:" + Story().stages[g.stageIdx].name);   // the walked map: won ahead of the list's order
+        if (storyBattle && (g.stageIdx == stage || ahead) && g.stageIdx < (int)Story().stages.size()) {
             // No free Pokemon for story wins: you catch them in the wild (training battles).
             const StageDef& beat = Story().stages[g.stageIdx];
             if (beat.snorlax) SnorlaxReward(g, beat.snorlax, damage[0], damage[1], foeLv);
             if (beat.join) JoinReward(g, beat, damage[0], damage[1], foeLv);
             if (coop && beat.name.find("Dojo") != std::string::npos) g.coopSave.dojoFirst = damage[1] > damage[0] ? 1 : 0;
-            stage = NextStoryStage(stage);
+            if (ahead) owf.insert("story:" + beat.name);
+            else stage = NextStoryStage(stage);
+            if (StageWalked(g.stageIdx) && beat.IsChampion()) {   // the walked map: FireRed's optional trainers don't hold the region back
+                int end = RegionInfo(beat.region).end;
+                while (stage < end && stage < (int)Story().stages.size()) stage = NextStoryStage(stage);
+            }
+            while (stage < (int)Story().stages.size() && StageWalked(stage) && (StageSkipped(stage) || owf.count("story:" + Story().stages[stage].name))) stage = NextStoryStage(stage);   // past the ones already won
             StoryGifts(g, beat);
             if (beat.IsLeague() && !beat.IsChampion()) g.resultLines.push_back(beat.trainer + " is beaten! On to the next room...");
             if (ChampionMoment(beat)) {
@@ -2619,7 +2894,15 @@ void ProcessStoryBattleEnd(Game& g) {
     } else {
         losses++;
         if (legend) g.resultLines.push_back(std::string(Legend(g.legend).species) + " was too strong... Heal up, train and come back to " + Legend(g.legend).place + ".");
-        if (storyBattle && g.stageIdx == stage && st->IsLeague() && st->league > 1) {   // the League is one run
+        if (storyBattle && st->IsLeague() && StageWalked(g.stageIdx)) {   // the walked League: lose and the Elite Four start over
+            auto& owf = coop ? g.coopSave.owFlags : g.profile.owFlags;
+            bool any = false;
+            for (int i = 0; i < (int)Story().stages.size(); i++)
+                if (Story().stages[i].IsLeague() && Story().stages[i].region == st->region) any |= owf.erase("story:" + Story().stages[i].name) > 0;
+            int start = LeagueStartStage(st->region);
+            if (start >= 0 && stage > start && stage <= g.stageIdx) { stage = start; any = true; }
+            if (any) g.resultLines.push_back("The Elite Four challenge starts over from the beginning.");
+        } else if (storyBattle && g.stageIdx == stage && st->IsLeague() && st->league > 1) {   // the League is one run
             int start = LeagueStartStage(st->region);
             if (start >= 0 && start < stage) {
                 stage = start;
@@ -4082,44 +4365,18 @@ void UpdateHeal(Game& g) {
     }
     if (!in.confirm || gHealAnim > 0.4f) return;
     auto healed = [&](int only) { gHealAnim = 1.6f; gHealOnly = only; PlaySfx(Sfx::Heal); SaveOrWarn(g); };
-    if (g.healSel == 0) {
-        if (EmergencyHeal(p)) {
-            for (int i : party) p.mons[i].hp = 1;
-            Toast(g, "The nurse patched up your team for free. Take care out there!");
-            healed(-1);
-            return;
-        }
-        int cost = HealAllCost(p);
-        if (cost == 0) { Toast(g, "Your party is already at full health."); return; }
-        if (cost > p.coins) {
-            // Heal as many as the coins allow, cheapest first.
-            std::vector<int> order;
-            for (int i : party) if (HealCost(p.mons[i]) > 0) order.push_back(i);
-            std::sort(order.begin(), order.end(), [&](int a, int b) { return HealCost(p.mons[a]) < HealCost(p.mons[b]); });
-            int count = 0;
-            for (int i : order) {
-                int c = HealCost(p.mons[i]);
-                if (c > p.coins) continue;
-                p.coins -= c;
-                p.mons[i].hp = 1;
-                count++;
-            }
-            if (!count) { Toast(g, "Not enough coins!"); PlaySfx(Sfx::MenuBack); return; }
-            Toast(g, TextFormat("Not enough coins for everyone - healed %d.", count));
-        } else {
-            p.coins -= cost;
-            for (int i : party) p.mons[i].hp = 1;
-            Toast(g, "We've restored your Pokemon to full health!");
-        }
+    if (g.healSel == 0) {   // like the games: free, fainted Pokemon too
+        bool any = false;
+        for (int i : party) any |= p.mons[i].hp < 0.999f;
+        if (!any) { Toast(g, "Your party is already at full health."); return; }
+        for (int i : party) p.mons[i].hp = 1;
+        Toast(g, "We've restored your Pokemon to full health! We hope to see you again!");
         healed(-1);
         return;
     }
     int slot = g.healSel - 1;
     OwnedMon& m = p.mons[party[slot]];
-    int cost = HealCost(m);
-    if (cost == 0) { Toast(g, m.species + " is already healthy."); return; }
-    if (cost > p.coins) { Toast(g, "Not enough coins!"); PlaySfx(Sfx::MenuBack); return; }
-    p.coins -= cost;
+    if (m.hp >= 0.999f) { Toast(g, m.species + " is already healthy."); return; }
     bool revived = m.hp <= 0;
     m.hp = 1;
     Toast(g, revived ? m.species + " was revived!" : m.species + " is fully healed!");
@@ -4153,8 +4410,9 @@ void DrawHeal(const Game& g) {
     auto party = HealParty(p);
     int n = (int)party.size();
     int N = n + 2;
-    bool emergency = EmergencyHeal(p);
-    int allCost = HealAllCost(p);
+    bool emergency = false;
+    int allCost = 0;   // (healing is free, like the games: "allCost" is just whether anyone needs it)
+    for (int i : party) allCost |= p.mons[i].hp < 0.999f;
     float t = g.t;
 
     // left: the counter, the nurse's words and the healing machine
@@ -4163,8 +4421,7 @@ void DrawHeal(const Game& g) {
     GDrawText("Welcome to the Pokemon Center!", 26, 52, 10, deep);
     DrawWrapped("We restore your tired Pokemon to full health. Only your party is treated here - Pokemon in the Box rest until they rejoin your team.",
                 26, 68, 196, 10, Color{90, 70, 80, 255});
-    GDrawText("Heal: about 3 coins per level", 26, 132, 10, Color{120, 100, 110, 255});
-    GDrawText("Revive: 6 per level + 10", 26, 144, 10, Color{120, 100, 110, 255});
+    GDrawText("Healing is free - fainted Pokemon too.", 26, 132, 10, Color{120, 100, 110, 255});
     // the healing machine with a socket per party Pokemon
     DrawRectangleRounded({30, 176, 186, 80}, 0.2f, 8, Color{90, 96, 110, 255});
     DrawRectangleRounded({36, 182, 174, 68}, 0.2f, 8, Color{60, 64, 76, 255});
@@ -4207,10 +4464,7 @@ void DrawHeal(const Game& g) {
             DrawRectangle(x + 13, y + 7, 2, 8, WHITE);
             DrawRectangle(x + 10, y + 10, 8, 2, WHITE);
             GDrawText(tl, x + 26, y + 6, 10, emergency ? Color{40, 150, 70, 255} : ink);
-            if (!emergency && allCost) {
-                const char* c = TextFormat("%d coins", allCost);
-                GDrawText(c, x + w - 10 - TextW(c, 10), y + 6, 10, allCost <= p.coins ? Color{190, 130, 20, 255} : red);
-            }
+            if (allCost) GDrawText("Free", x + w - 10 - TextW("Free", 10), y + 6, 10, Color{40, 150, 70, 255});
         } else if (i == N - 1) {
             GDrawText("Back", x + 26, y + 6, 10, ink);
         } else {
@@ -4226,12 +4480,11 @@ void DrawHeal(const Game& g) {
             DrawHpBar(x + 60, y + 22, 134, 4, m.hp);
             const char* st = m.hp <= 0 ? "Fainted" : (m.hp >= 0.999f ? "Healthy" : TextFormat("%d%%", (int)std::round(m.hp * 100)));
             GDrawText(st, x + 206, y + 19, 10, m.hp <= 0 ? red : (m.hp >= 0.999f ? Color{40, 150, 70, 255} : ink));
-            int c = HealCost(m);
-            const char* ct = c ? TextFormat("%d coins", c) : "-";
-            GDrawText(ct, x + w - 10 - TextW(ct, 10), y + 12, 10, c == 0 ? Color{160, 160, 170, 255} : (c <= p.coins ? Color{190, 130, 20, 255} : red));
+            const char* ct = m.hp < 0.999f ? "Free" : "-";
+            GDrawText(ct, x + w - 10 - TextW(ct, 10), y + 12, 10, m.hp >= 0.999f ? Color{160, 160, 170, 255} : Color{40, 150, 70, 255});
         }
     }
-    GDrawText("Win battles to earn coins: trainers pay well, gym leaders pay a lot.", 16, 326, 10, Color{120, 100, 110, 255});
+    GDrawText("Win battles to earn money: trainers pay well, gym leaders pay a lot.", 16, 326, 10, Color{120, 100, 110, 255});
     GDrawText("Up/Down choose   Enter heal   Esc / B back", 16, 340, 10, Color{120, 100, 110, 255});
     DrawToast(g);
 }
@@ -4254,7 +4507,7 @@ std::vector<const ItemDef*> ShopList(int tab) {
     std::vector<const ItemDef*> v;
     for (const auto& d : ItemList()) {
         if (d.badges >= 99) continue;   // story and Game Corner items
-        if ((tab == 0 && (IsBall(d) || IsMedicine(d))) || (tab == 1 && (IsHoldable(d) || d.fx == ItemFx::ExpAll)) || (tab == 2 && IsStone(d)) || (tab == 3 && IsTM(d))) v.push_back(&d);
+        if ((tab == 0 && (IsBall(d) || IsMedicine(d) || IsPartyUse(d) || d.fx == ItemFx::Field)) || (tab == 1 && (IsHoldable(d) || d.fx == ItemFx::ExpAll)) || (tab == 2 && IsStone(d)) || (tab == 3 && IsTM(d))) v.push_back(&d);
     }
     return v;
 }
@@ -4686,7 +4939,8 @@ void UpdateCoopHub(Game& g) {
         SaveCoop(g.coopSave);
         GoTitle(g);
     };
-    if (in.back) { leave(); return; }
+    if (UpdateQuitAsk(g, in, leave)) return;
+    if (in.back) { AskQuit(g); return; }
     if (!in.confirm) return;
     PlaySfx(Sfx::MenuOk);
     int stages = (int)Story().stages.size();
@@ -4710,6 +4964,7 @@ void UpdateCoopHub(Game& g) {
         BeginRegionStarter(g);
         return;
     }
+    if (g.hubSel == 0 && !tower && WorldRequired(g)) g.hubSel = 11;   // Kanto's story is walked: off to the world (co-op: item 11)
     if (online && (g.hubSel == 0 || g.hubSel == 1)) {
         // Online: say what you want to do; it starts when your partner picks the same.
         int kind = g.hubSel == 0 ? (tower ? KIND_TOWER : 1) : 2;
@@ -4803,7 +5058,7 @@ void UpdateCoopHub(Game& g) {
             g.screen = Screen::Settings;
             break;
         default:
-            leave();
+            AskQuit(g);
             break;
     }
 }
@@ -4868,7 +5123,7 @@ void DrawCoopHubBase(const Game& g) {
     bool craidDone = g.coopSave.raidDay == RaidToday();
     std::string items[14] = {
         CoopFirstLabel(g, done || (KantoDone(g) && g.hubTower), pv.storyStage),
-        (rare ? "RARE 2v2 in " : "Training 2v2: ") + TrainAreaName(g) + (rare ? "!" : TextFormat("  (%d to a rare)", left)),
+        (rare ? "RARE 2v2 in " : "Training 2v2: ") + TrainAreaName(g) + (left < 0 ? "" : ""),
         MapHubLabel(g),
         GameCornerOpen(g) ? "Shop & Game Corner" : "Shop",
         "Healing Center",
@@ -4995,6 +5250,7 @@ void DrawCoopHub(const Game& g) {
     DrawCoopHubBase(g);
     if (g.showBoard) DrawLeaderboard(g);
     DrawStoryCard(g);
+    DrawQuitAsk(g);
 }
 
 // ------------------------------------------------------------------ Hall of Fame

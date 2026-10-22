@@ -1,0 +1,10 @@
+# Mega Ampharos - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 6E5F28 > 7D3977
+shiny = 8E1A11 > 1D3AC4
+shiny = BE912B > BD70AD
+shiny = C5A54A > CD81BF
+shiny = CFAD59 > D589CE
+shiny = EECC50 > F6A6E3
+shiny = F3D556 > FDAEEB
+shiny = FFE642 > FFC3ED

@@ -1,0 +1,36 @@
+# Mega Steelix - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 008CCE > B9A05F
+shiny = 010D17 > 352300
+shiny = 0A1C25 > 403000
+shiny = 0E0E18 > 3B2302
+shiny = 2A4451 > 6D5913
+shiny = 2D303E > 5B4800
+shiny = 303A46 > 655109
+shiny = 313131 > 5C4800
+shiny = 364651 > 725D17
+shiny = 40424C > 715B14
+shiny = 424A55 > 78621D
+shiny = 515E6A > 8E7631
+shiny = 525252 > 877220
+shiny = 5A6B73 > A08A39
+shiny = 606572 > 987F39
+shiny = 65707B > A38942
+shiny = 6B7B9C > B69D4E
+shiny = 7B848C > BFA653
+shiny = 899BA7 > D6BC69
+shiny = 97A1AF > DFC471
+shiny = A1A2B1 > DDBF76
+shiny = A5ADB5 > CFC860
+shiny = A8ACBD > EDD17D
+shiny = B0BAC9 > DED56E
+shiny = B1C9D4 > E9E279
+shiny = BCC2D1 > E7DE76
+shiny = C2CDDA > F1E880
+shiny = C5E6EF > FFFCAF
+shiny = C6C1D2 > FFE095
+shiny = CED6D6 > FBF186
+shiny = E4EDE2 > FFFF96
+shiny = FFC5DE > FFF0A6
+shiny = FFF7BD > FFFF9C
+shiny = FFFFFF > FFFDA5

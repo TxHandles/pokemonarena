@@ -1,0 +1,23 @@
+# Mega Sharpedo: the Mega Evolution of Sharpedo (official stats, types and ability). Not caught or met on its
+# own: a Sharpedo holding the Sharpedonite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Sharpedo
+dex  = 319
+type = Water / Dark
+mega_of = Sharpedo
+mega_stone = Sharpedonite
+
+hp         = 70
+attack     = 140
+defense    = 70
+sp_attack  = 110
+sp_defense = 65
+speed      = 105
+
+height = 2.5      # Pokedex height in meters
+weight = 130.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Strong Jaw
+category = 

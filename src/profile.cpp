@@ -121,6 +121,7 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "starter") out.starter = v;
             else if (k == "train_area") out.trainArea = v;
             else if (k == "ow_map") out.owMap = v;
+            else if (k == "ow_flags") { std::stringstream fs(v); std::string f; while (std::getline(fs, f, ';')) if (!f.empty()) out.owFlags.insert(f); }
             else if (k == "ow_pos") std::sscanf(v.c_str(), "%d %d %d", &out.owX, &out.owY, &out.owFace);
             else if (k == "fossil") out.fossil = v;
             else if (k == "fossil_revived") out.fossilRevived = iv != 0;
@@ -133,6 +134,9 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "box_filter") out.boxFilter = v;
             else if (k == "tower") { std::istringstream ts(v); ts >> out.towerFloor >> out.towerBest >> out.towerRuns; }
             else if (k == "raid") { std::istringstream rs(v); rs >> out.raidDay >> out.raidWins; }
+            else if (k == "look") out.look = v;
+            else if (k == "repel") out.repel = std::max(0, iv);
+            else if (k == "difficulty") out.difficulty = std::max(0, std::min(2, iv));
             else if (k == "hof") { if (!v.empty()) out.hof.push_back(v); }
             else if (k == "legends") out.legends = std::strtoull(v.c_str(), nullptr, 10);
             else if (k == "rival") out.rival = v;
@@ -195,6 +199,7 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "ot") cur->ot = v;
             else if (k == "nature") cur->nature = NatureByName(v);
             else if (k == "shiny") cur->shiny = iv != 0;
+            else if (k == "vit") std::sscanf(v.c_str(), "%d %d %d %d", &cur->vit[0], &cur->vit[1], &cur->vit[2], &cur->vit[3]);
             else if (k == "forgotten") {
                 cur->forgotten.clear();
                 std::string part;
@@ -246,6 +251,7 @@ std::string ProfileToText(const Profile& p) {
     o += TextFormat("story_stage = %d\nwins = %d\nlosses = %d\ntraining_wins = %d\ncoins = %d\n", p.storyStage, p.wins, p.losses, p.trainingWins, p.coins);
     o += TextFormat("story_rev = %d\nclock = %d\n", p.storyRev > 0 ? p.storyRev : Story().rev, p.clock);
     if (!p.trainArea.empty()) o += "train_area = " + p.trainArea + "\n";
+    if (!p.owFlags.empty()) { std::string f; for (const auto& x : p.owFlags) f += (f.empty() ? "" : ";") + x; o += "ow_flags = " + f + "\n"; }
     if (!p.owMap.empty()) o += "ow_map = " + p.owMap + "\now_pos = " + std::to_string(p.owX) + " " + std::to_string(p.owY) + " " + std::to_string(p.owFace) + "\n";
     if (!p.fossil.empty()) o += "fossil = " + p.fossil + TextFormat("\nfossil_revived = %d\n", p.fossilRevived ? 1 : 0);
     if (p.eeveeGift) o += "eevee_gift = 1\n";
@@ -257,6 +263,9 @@ std::string ProfileToText(const Profile& p) {
     if (!p.boxFilter.empty()) o += "box_filter = " + p.boxFilter + "\n";
     if (p.towerFloor || p.towerBest || p.towerRuns) o += TextFormat("tower = %d %d %d\n", p.towerFloor, p.towerBest, p.towerRuns);
     if (p.raidDay >= 0 || p.raidWins) o += TextFormat("raid = %d %d\n", p.raidDay, p.raidWins);
+    if (!p.look.empty()) o += "look = " + p.look + "\n";
+    if (p.repel) o += TextFormat("repel = %d\n", p.repel);
+    o += TextFormat("difficulty = %d\n", p.difficulty);
     for (const auto& h : p.hof) o += "hof = " + h + "\n";
     if (p.legends) o += "legends = " + std::to_string(p.legends) + "\n";
     if (!p.rival.empty()) o += "rival = " + p.rival + "\n";
@@ -308,6 +317,7 @@ std::string ProfileToText(const Profile& p) {
         if (!m.ot.empty()) o += "ot = " + m.ot + "\n";
         if (m.nature >= 0) o += std::string("nature = ") + NatureName(m.nature) + "\n";
         if (m.shiny) o += "shiny = 1\n";
+        if (m.vit[0] || m.vit[1] || m.vit[2] || m.vit[3]) o += TextFormat("vit = %d %d %d %d\n", m.vit[0], m.vit[1], m.vit[2], m.vit[3]);
     }
     return o;
 }
@@ -386,6 +396,7 @@ CombatantSpec MonCombatant(const Profile& p, int i) {
     c.abilitySlot = m.abilitySlot < 0 ? 0 : m.abilitySlot;
     c.nature = m.nature < 0 ? 0 : m.nature;
     c.shiny = m.shiny;
+    for (int k = 0; k < 4; k++) c.vit[k] = m.vit[k];
     return c;
 }
 
@@ -445,7 +456,7 @@ void AddXp(OwnedMon& m, int xp, Growth& g) {
         g.levelsGained++;
         CollectNewMoves(m, idx, m.level, g);
     }
-    if (idx >= 0 && g.evolveTo < 0) {
+    if (idx >= 0 && g.evolveTo < 0 && m.item != "Everstone") {
         int evo = EvolutionIndexFor(idx, m.nature);
         if (evo >= 0 && m.level >= AllSpecies()[idx].evolveLevel) g.evolveTo = evo;
     }
@@ -517,6 +528,7 @@ bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out) {
         else if (k == "story_rev") out.storyRev = iv;
         else if (k == "clock") out.clock = std::max(0, iv);
         else if (k == "train_area") out.trainArea = v;
+        else if (k == "ow_flags") { std::stringstream fs(v); std::string f; while (std::getline(fs, f, ';')) if (!f.empty()) out.owFlags.insert(f); }
         else if (k == "ow_pos0" || k == "ow_pos1") {   // map|x|y|face
             int p = k.back() - '0';
             size_t bar = v.find('|');
@@ -567,6 +579,7 @@ bool SaveCoop(const CoopSave& c) {
     o += TextFormat("story_stage = %d\nwins = %d\nlosses = %d\ntraining_wins = %d\n", c.storyStage, c.wins, c.losses, c.trainingWins);
     o += TextFormat("story_rev = %d\nclock = %d\n", c.storyRev > 0 ? c.storyRev : Story().rev, c.clock);
     if (!c.trainArea.empty()) o += "train_area = " + c.trainArea + "\n";
+    if (!c.owFlags.empty()) { std::string f; for (const auto& x : c.owFlags) f += (f.empty() ? "" : ";") + x; o += "ow_flags = " + f + "\n"; }
     for (int p = 0; p < 2; p++)
         if (!c.owMap[p].empty()) o += "ow_pos" + std::to_string(p) + " = " + c.owMap[p] + "|" + std::to_string(c.owX[p]) + "|" + std::to_string(c.owY[p]) + "|" + std::to_string(c.owFace[p]) + "\n";
     o += TextFormat("snorlax_who = %d %d\ndojo_first = %d\n", c.snorlaxWho[0], c.snorlaxWho[1], c.dojoFirst);

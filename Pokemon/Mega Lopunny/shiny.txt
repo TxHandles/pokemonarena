@@ -1,0 +1,27 @@
+# Mega Lopunny - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000106 > 1B1228
+shiny = 000809 > 1B162A
+shiny = 090202 > 211226
+shiny = 0C0001 > 221125
+shiny = 0D0904 > 231627
+shiny = 313131 > 483C58
+shiny = 3B3A29 > 554550
+shiny = 432B1A > 573743
+shiny = 67543C > 7E6169
+shiny = 715F43 > 896C72
+shiny = 766A49 > 90777A
+shiny = 84634A > 8F3B5F
+shiny = 8E6B46 > A3797C
+shiny = A17D58 > B68C8F
+shiny = A58F63 > BE9D9B
+shiny = B57352 > C89F8B
+shiny = C19B67 > D7AAA5
+shiny = C4AD78 > DB81A1
+shiny = C5B573 > CB847C
+shiny = DEDCB7 > F1A8A2
+shiny = E4CDA4 > FDA1C2
+shiny = F2DEAD > F8ADA6
+shiny = F77B8C > E3969B
+shiny = FFF79C > FFC1B6
+shiny = FFFFFF > FFCCC9

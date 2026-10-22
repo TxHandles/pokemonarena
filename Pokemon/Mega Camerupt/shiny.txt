@@ -1,0 +1,22 @@
+# Mega Camerupt - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 4A1A18 > 000D25
+shiny = 6B6C58 > 254D72
+shiny = 736B4A > 3B4C65
+shiny = 85503B > 333F58
+shiny = 944252 > 39415B
+shiny = 958864 > B28059
+shiny = 9C8C73 > A6866B
+shiny = A7321D > 393B53
+shiny = C0A96F > C8A374
+shiny = C22C1F > 45455D
+shiny = C94E1D > 58576D
+shiny = CB3921 > 4D4C65
+shiny = CE5A5A > 585D79
+shiny = CE6E3A > 666A80
+shiny = CEC5A5 > DCBE9E
+shiny = DBC97A > 9CAAC1
+shiny = E2471F > 5D5B72
+shiny = E25424 > 666479
+shiny = E64231 > 5D5B74
+shiny = F77B5A > 7E7F98

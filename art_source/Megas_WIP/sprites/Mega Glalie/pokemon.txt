@@ -1,0 +1,23 @@
+# Mega Glalie: the Mega Evolution of Glalie (official stats, types and ability). Not caught or met on its
+# own: a Glalie holding the Glalitite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Glalie
+dex  = 362
+type = Ice
+mega_of = Glalie
+mega_stone = Glalitite
+
+hp         = 80
+attack     = 120
+defense    = 80
+sp_attack  = 120
+sp_defense = 80
+speed      = 100
+
+height = 2.1      # Pokedex height in meters
+weight = 350.2      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+ability = Refrigerate
+category = 

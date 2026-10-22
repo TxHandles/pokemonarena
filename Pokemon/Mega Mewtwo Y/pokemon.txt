@@ -20,3 +20,4 @@ heavy  = yes
 winged = no
 ability = Insomnia
 category = 
+sprite_size = 1.32   # (tools/mega_sizes.py) so it looks bigger than Mewtwo

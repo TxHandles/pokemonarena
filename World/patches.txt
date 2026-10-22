@@ -1,0 +1,381 @@
+# Hand-made changes on top of the FireRed maps (tools/frlg_world.py merges this into world.txt).
+#
+# Top-level lines (before the first [patch ...]) go to the top of world.txt.
+# [patch Map Name] then any of:
+#   stage x y Story Stage [| before | after | sprite | sight]   the person there fights that story battle
+#   at x y: line          a line for the person standing at x y (need = Item|text|text, if = flag, unless = flag)
+#   drop npc|sign|door|item|spot x y      remove it
+#   set key = value       change a map key
+#   anything else         added to the map as written
+#
+# Flags: got:FLAG_... (FireRed's "got it" flags, set by gifts), story:<Stage> (a story battle won ahead of
+# the list), stage:<Stage> (won), badge:Name, item:Name, a & b (both), !flag (not).
+
+walked = Kanto
+
+# Story stages with no FireRed trainer where the ladder put them: they count as done on the walked map.
+story_skip = Route 1
+story_skip = Diglett's Cave
+story_skip = Celadon Park
+story_skip = Safari Zone
+story_skip = Seafoam Islands
+story_skip = Cinnabar Volcano
+
+# A save that began its journey before the world could be walked starts in the Pokemon Center of the town
+# before its next battle ("<Town> Pokemon Center", else where Fly lands in <Town>).
+story_town = Oak's Lab | Pallet Town
+story_town = Route 1 | Pallet Town
+story_town = Route 22 | Viridian City
+story_town = Viridian Forest | Viridian City
+story_town = Pewter Outskirts | Pewter City
+story_town = Pewter Gym | Pewter City
+story_town = Mt. Moon | Pewter City
+story_town = Cerulean City | Cerulean City
+story_town = Nugget Bridge | Cerulean City
+story_town = Route 24 | Cerulean City
+story_town = Cerulean Gym | Cerulean City
+story_town = Route 6 | Vermilion City
+story_town = S.S. Anne | Vermilion City
+story_town = S.S. Anne Deck | Vermilion City
+story_town = Diglett's Cave | Vermilion City
+story_town = Vermilion Gym | Vermilion City
+story_town = Rock Tunnel | Cerulean City
+story_town = Route 8 | Lavender Town
+story_town = Celadon Park | Celadon City
+story_town = Celadon Gym | Celadon City
+story_town = Route 16 | Celadon City
+story_town = Cycling Road | Celadon City
+story_town = Safari Zone | Fuchsia City
+story_town = Route 15 | Fuchsia City
+story_town = Fuchsia Gym | Fuchsia City
+story_town = Silph Co. | Saffron City
+story_town = Lavender Town | Lavender Town
+story_town = Pokemon Tower | Lavender Town
+story_town = Route 12 | Lavender Town
+story_town = Saffron Streets | Saffron City
+story_town = Saffron Dojo | Saffron City
+story_town = Silph Co. 7F | Saffron City
+story_town = Saffron Gym | Saffron City
+story_town = Seafoam Islands | Fuchsia City
+story_town = Cinnabar Mansion | Cinnabar Island
+story_town = Cinnabar Volcano | Cinnabar Island
+story_town = Cinnabar Gym | Cinnabar Island
+story_town = Rocket Hideout | Celadon City
+story_town = Rocket Hideout B2 | Celadon City
+story_town = Rocket Hideout B4 | Celadon City
+story_town = Viridian Gym | Viridian City
+story_town = Route 22 Gate | Viridian City
+story_town = Victory Road | Viridian City
+story_town = Lorelei's Chamber | Indigo Plateau
+story_town = Bruno's Ring | Indigo Plateau
+story_town = Agatha's Hall | Indigo Plateau
+story_town = Lance's Den | Indigo Plateau
+story_town = Champion's Stadium | Indigo Plateau
+
+# The Seagallop sails to the Sevii Islands your passes allow (Vermilion's harbor is open after the League).
+ferry = Vermilion City | Vermilion City | 24 32 | item:Tri-Pass
+ferry = One Island | One Island Harbor | 8 5 | item:Tri-Pass
+ferry = Two Island | Two Island Harbor | 8 5 | item:Tri-Pass
+ferry = Three Island | Three Island Harbor | 8 5 | item:Tri-Pass
+ferry = Four Island | Four Island Harbor | 8 5 | item:Rainbow Pass
+ferry = Five Island | Five Island Harbor | 8 5 | item:Rainbow Pass
+ferry = Six Island | Six Island Harbor | 8 5 | item:Rainbow Pass
+ferry = Seven Island | Seven Island Harbor | 8 5 | item:Rainbow Pass
+
+# ------------------------------------------------------------------ Pallet Town
+[patch Your House 1F]
+drop npc 8 4
+npc = 8 4 mom left 0 give|Mom: All boys leave home someday. It said so on TV./Oh, before you go - take these! They're Running Shoes. Hold B (or Shift) to run!|Running Shoes|1|shoes|Mom: {PLAYER}! You should take a quick rest.
+
+[patch Pallet Town]
+drop npc 10 8
+
+[patch Oak's Lab]
+stage 5 4 Oak's Lab | Blue: Wait, {PLAYER}! Let's check out our Pokemon! Come on, I'll take you on! | Blue: What? Unbelievable! I picked the wrong Pokemon! | rival | 4
+drop npc 6 3
+npc = 6 3 prof_oak down 0 deliver|Oak's Parcel|parcel_done|Oak: Oh, {PLAYER}! How is my old Pokemon?/Ah! This is the custom Poke Ball I ordered! Thank you!/{PLAYER}, take these too. Catching Pokemon is how you fill your Pokedex!|Poke Ball|5|Oak: {PLAYER}, raise your young Pokemon by battling!/Viridian City's Mart has something for me, I hear.|Oak: The world is full of Pokemon! Go out and meet them all!
+
+# ------------------------------------------------------------------ Viridian City
+[patch Viridian City Poke Mart]
+drop npc 2 3
+npc = 2 3 clerk right 0 give|Hey! You came from Pallet Town?/You know Prof. Oak, right? His order came in./Will you take it to him?|Oak's Parcel|1|got_parcel|Okay! Say hi to Prof. Oak for me!
+unless = got_parcel
+npc = 2 3 clerk right 0 shop|Hi there! May I help you?
+if = got_parcel
+
+[patch Viridian City]
+block = 22 11 parcel_done|Old man: You can't go through here!/This is private property!|Girl: Oh, Grandpa! Don't be so mean! He hasn't had his coffee yet.
+block = 36 11 badge:Boulder&badge:Cascade&badge:Thunder&badge:Rainbow&badge:Soul&badge:Marsh&badge:Volcano|Viridian Gym's doors are locked...
+
+[patch Route 22]
+stage 25 4 Route 22 | Blue: Hey! {PLAYER}! You're going to the Pokemon League? Forget it! You probably don't have any Badges. Let's see how strong your Pokemon got! | Blue: Awww! You just lucked out! | rival | 8
+at 25 4: if = parcel_done
+npc = 25 5 rival right 8 trainer|Route 22 Gate|Blue: {PLAYER}! What a surprise to see you here! So, you're going to the Pokemon League? Well, I'll show you how much better I am!|Blue: What? Unbelievable! I'm still not good enough...
+if = badge:Earth
+
+# ------------------------------------------------------------------ Viridian Forest, Pewter
+[patch Viridian Forest]
+stage 47 45 Viridian Forest
+
+[patch Pewter City Gym]
+stage 3 8 Pewter Outskirts
+stage 6 5 Pewter Gym
+
+[patch Pewter City]
+block = 42 21 badge:Boulder|You're a Trainer, right? Brock's looking for new challengers!/Go and see him at the Gym first!
+block = 42 22 badge:Boulder|You're a Trainer, right? Brock's looking for new challengers!/Go and see him at the Gym first!
+block = 42 23 badge:Boulder|You're a Trainer, right? Brock's looking for new challengers!/Go and see him at the Gym first!
+block = 43 23 badge:Boulder|You're a Trainer, right? Brock's looking for new challengers!/Go and see him at the Gym first!
+
+[patch Mt. Moon 1F]
+stage 7 10 Mt. Moon
+
+# ------------------------------------------------------------------ Cerulean
+[patch Cerulean City]
+stage 22 0 Cerulean City | Blue: Yo! {PLAYER}! You're still struggling along back here? Let me see how good you are! | Blue: Hey! Take it easy! You won already! | rival | 4
+
+[patch Route 24]
+stage 12 15 Nugget Bridge
+stage 5 21 Route 24
+
+[patch Cerulean City Gym]
+stage 8 6 Cerulean Gym
+
+[patch Cerulean City Bike Shop]
+drop npc 9 3
+npc = 9 3 man left 0 exchange|Bike Voucher|Bicycle|Hi! Welcome to our Bike Shop. Our Bicycles are a steal at a million!|How do you like your new Bicycle? You can take it out on Cycling Road!
+
+# ------------------------------------------------------------------ Vermilion, S.S. Anne
+[patch Route 6]
+stage 12 21 Route 6
+
+[patch S.S. Anne B1F Room 1]
+stage 3 2 S.S. Anne
+
+[patch S.S. Anne 2F Corridor]
+stage 30 2 S.S. Anne Deck | Blue: Bonjour! {PLAYER}! Imagine seeing you here! Let's see how your Pokemon are doing! | Blue: Humph! At least you're raising your Pokemon! | rival | 4
+
+[patch Vermilion City Gym]
+stage 5 2 Vermilion Gym
+
+# ------------------------------------------------------------------ Rock Tunnel, Route 8, Celadon
+[patch Rock Tunnel 1F]
+stage 26 28 Rock Tunnel
+
+[patch Route 8]
+stage 40 3 Route 8
+stage 41 3 Route 8
+
+[patch Celadon City Gym]
+stage 6 4 Celadon Gym
+
+[patch Celadon City Game Corner]
+drop sign 11 1
+spot = 11 1 flag|poster_switch
+gate = 16 2 poster_switch
+
+[patch Rocket Hideout B1F]
+stage 4 9 Rocket Hideout
+
+[patch Rocket Hideout B2F]
+stage 20 6 Rocket Hideout B2
+
+[patch Rocket Hideout B4F]
+stage 19 4 Rocket Hideout B4
+
+# ------------------------------------------------------------------ Lavender, Snorlax
+[patch Pokemon Tower 2F]
+stage 16 5 Lavender Town | Blue: Hey, {PLAYER}! What brings you here? Your Pokemon don't look dead! I'll knock them out a little! | Blue: What? You stinker! I took it easy on you, too! | rival | 4
+
+[patch Pokemon Tower 5F]
+stage 19 7 Pokemon Tower
+
+[patch Route 12]
+drop npc 14 70
+npc = 14 70 mon:Snorlax down 0 trainer|Route 12|Snorlax woke up! It attacked in a grumpy rage!|Snorlax calmed down and lumbered back to the mountains.
+need = Poke Flute|A sleeping Pokemon blocks the way!|{PLAYER} played the Poke Flute!
+
+[patch Route 16]
+drop npc 31 13
+npc = 31 13 mon:Snorlax down 0 trainer|Route 16|Snorlax woke up! It attacked in a grumpy rage!|Snorlax calmed down and lumbered back to the mountains.
+need = Poke Flute|A sleeping Pokemon blocks the way!|{PLAYER} played the Poke Flute!
+
+[patch Route 17]
+stage 4 18 Cycling Road
+
+[patch Route 15]
+stage 37 14 Route 15
+
+# ------------------------------------------------------------------ Fuchsia
+[patch Fuchsia City Gym]
+stage 7 13 Fuchsia Gym
+
+[patch Fuchsia City Warden's House]
+drop npc 3 5
+npc = 3 5 old_man_2 down 0 deliver|Gold Teeth|got:FLAG_GOT_HM04|Warden: Ah! My teeth! Thanks, kid! Here, take this!|HM04 Strength|1|Warden: Hif fuff hefifoo! Ha lof ha feef ee hafahi ho. Heff hee fwee!|Warden: Inside HM04 you'll find Strength. It lets Pokemon move boulders outside of battle.
+
+# ------------------------------------------------------------------ Saffron
+[patch Route 5 South Entrance]
+block = 3 5 item:Tea|Guard: I'm on guard duty. Gee, I'm thirsty, though!/Oh, wait there, the road's closed.
+block = 4 5 item:Tea|Guard: I'm on guard duty. Gee, I'm thirsty, though!/Oh, wait there, the road's closed.
+block = 5 5 item:Tea|Guard: I'm on guard duty. Gee, I'm thirsty, though!/Oh, wait there, the road's closed.
+
+[patch Route 6 North Entrance]
+block = 3 5 item:Tea|Guard: I'm on guard duty. Gee, I'm thirsty, though!/Oh, wait there, the road's closed.
+block = 4 5 item:Tea|Guard: I'm on guard duty. Gee, I'm thirsty, though!/Oh, wait there, the road's closed.
+block = 5 5 item:Tea|Guard: I'm on guard duty. Gee, I'm thirsty, though!/Oh, wait there, the road's closed.
+
+[patch Route 7 East Entrance]
+block = 6 4 item:Tea|Guard: I'm on guard duty. Gee, I'm thirsty, though!/Oh, wait there, the road's closed.
+block = 6 5 item:Tea|Guard: I'm on guard duty. Gee, I'm thirsty, though!/Oh, wait there, the road's closed.
+block = 6 6 item:Tea|Guard: I'm on guard duty. Gee, I'm thirsty, though!/Oh, wait there, the road's closed.
+
+[patch Route 8 West Entrance]
+block = 6 4 item:Tea|Guard: I'm on guard duty. Gee, I'm thirsty, though!/Oh, wait there, the road's closed.
+block = 6 5 item:Tea|Guard: I'm on guard duty. Gee, I'm thirsty, though!/Oh, wait there, the road's closed.
+block = 6 6 item:Tea|Guard: I'm on guard duty. Gee, I'm thirsty, though!/Oh, wait there, the road's closed.
+
+[patch Silph Co 2F]
+stage 28 18 Silph Co.
+
+[patch Silph Co 7F]
+stage 2 6 Silph Co. 7F | Blue: What kept you, {PLAYER}? Hahaha! I thought you'd turn up if I waited here! I'll take you on! | Blue: Oh, man! So, you are ready for Boss Rocket! | rival | 4
+
+[patch Saffron City Gym]
+stage 24 10 Saffron Streets
+stage 14 11 Saffron Gym
+
+[patch Saffron City Dojo]
+stage 6 5 Saffron Dojo
+
+# ------------------------------------------------------------------ Cinnabar
+[patch Pokemon Mansion 2F]
+stage 5 23 Cinnabar Mansion
+
+[patch Cinnabar Island]
+block = 20 5 item:Secret Key|The door is locked...
+
+[patch Cinnabar Island Gym]
+stage 5 4 Cinnabar Gym
+
+# ------------------------------------------------------------------ Viridian Gym, Route 23, the League
+[patch Viridian City Gym]
+stage 2 2 Viridian Gym
+
+[patch Route 23]
+block = 13 149 badge:Cascade|You can pass here only if you have the Cascade Badge.
+block = 12 148 badge:Cascade|You can pass here only if you have the Cascade Badge.
+block = 11 148 badge:Cascade|You can pass here only if you have the Cascade Badge.
+block = 10 148 badge:Cascade|You can pass here only if you have the Cascade Badge.
+block = 14 149 badge:Cascade|You can pass here only if you have the Cascade Badge.
+block = 7 140 badge:Thunder|You can pass here only if you have the Thunder Badge.
+block = 4 139 badge:Thunder|You can pass here only if you have the Thunder Badge.
+block = 5 139 badge:Thunder|You can pass here only if you have the Thunder Badge.
+block = 6 140 badge:Thunder|You can pass here only if you have the Thunder Badge.
+block = 12 123 badge:Rainbow|You can pass here only if you have the Rainbow Badge.
+block = 10 122 badge:Rainbow|You can pass here only if you have the Rainbow Badge.
+block = 11 122 badge:Rainbow|You can pass here only if you have the Rainbow Badge.
+block = 13 123 badge:Rainbow|You can pass here only if you have the Rainbow Badge.
+block = 11 111 badge:Soul|You can pass here only if you have the Soul Badge.
+block = 8 109 badge:Soul|You can pass here only if you have the Soul Badge.
+block = 9 109 badge:Soul|You can pass here only if you have the Soul Badge.
+block = 10 109 badge:Soul|You can pass here only if you have the Soul Badge.
+block = 11 109 badge:Soul|You can pass here only if you have the Soul Badge.
+block = 12 109 badge:Soul|You can pass here only if you have the Soul Badge.
+block = 12 111 badge:Soul|You can pass here only if you have the Soul Badge.
+block = 13 112 badge:Soul|You can pass here only if you have the Soul Badge.
+block = 14 112 badge:Soul|You can pass here only if you have the Soul Badge.
+block = 15 112 badge:Soul|You can pass here only if you have the Soul Badge.
+block = 9 94 badge:Marsh|You can pass here only if you have the Marsh Badge.
+block = 8 94 badge:Marsh|You can pass here only if you have the Marsh Badge.
+block = 7 94 badge:Marsh|You can pass here only if you have the Marsh Badge.
+block = 5 92 badge:Marsh|You can pass here only if you have the Marsh Badge.
+block = 4 92 badge:Marsh|You can pass here only if you have the Marsh Badge.
+block = 3 92 badge:Marsh|You can pass here only if you have the Marsh Badge.
+block = 2 92 badge:Marsh|You can pass here only if you have the Marsh Badge.
+block = 12 61 badge:Volcano|You can pass here only if you have the Volcano Badge.
+block = 10 60 badge:Volcano|You can pass here only if you have the Volcano Badge.
+block = 11 60 badge:Volcano|You can pass here only if you have the Volcano Badge.
+block = 13 61 badge:Volcano|You can pass here only if you have the Volcano Badge.
+block = 1 31 badge:Earth|You can pass here only if you have the Earth Badge.
+block = 1 32 badge:Earth|You can pass here only if you have the Earth Badge.
+block = 1 33 badge:Earth|You can pass here only if you have the Earth Badge.
+block = 1 34 badge:Earth|You can pass here only if you have the Earth Badge.
+block = 1 35 badge:Earth|You can pass here only if you have the Earth Badge.
+block = 1 36 badge:Earth|You can pass here only if you have the Earth Badge.
+block = 4 35 badge:Earth|You can pass here only if you have the Earth Badge.
+block = 5 35 badge:Earth|You can pass here only if you have the Earth Badge.
+
+[patch Victory Road 3F]
+stage 11 16 Victory Road
+
+[patch Lorelei's Room]
+stage 6 5 Lorelei's Chamber | Lorelei: Welcome to the Pokemon League! I am Lorelei of the Elite Four! No one can best me when it comes to icy Pokemon! | Lorelei: You're better than I thought. Go on ahead. | lorelei | 4
+block = 6 3 stage:Lorelei's Chamber|Lorelei: You must defeat me to go on!
+
+[patch Bruno's Room]
+stage 6 5 Bruno's Ring | Bruno: I am Bruno of the Elite Four! Through rigorous training, people and Pokemon can become stronger! | Bruno: My job is done. Go face your next challenge. | bruno | 4
+block = 6 3 stage:Bruno's Ring|Bruno: You must defeat me to go on!
+
+[patch Agatha's Room]
+stage 6 5 Agatha's Hall | Agatha: I am Agatha of the Elite Four. Oak's taken a lot of interest in you, child! I'll show you how a real Trainer battles! | Agatha: You win! I see what the old duff sees in you now. | agatha | 4
+block = 6 3 stage:Agatha's Hall|Agatha: You must defeat me to go on!
+
+[patch Lance's Room]
+stage 6 8 Lance's Den | Lance: I am Lance, the dragon Trainer. You know that dragons are mythical Pokemon. I'll show you their power! | Lance: I still can't believe my dragons lost to you, {PLAYER}! | lance | 4
+block = 6 6 stage:Lance's Den|Lance: You must defeat me to go on!
+
+[patch Champion's Room]
+stage 6 8 Champion's Stadium | Blue: Hey! I was looking forward to seeing you, {PLAYER}! I'm the most powerful Trainer in the world! | Blue: NO! That can't be! You beat me at my best! | rival | 4
+drop npc 6 15
+
+# ------------------------------------------------------------------ the Seagallop, the Sevii Islands
+[patch Vermilion City]
+drop npc 24 33
+npc = 24 33 sailor up 0 ferry|Ahoy! Would you like to board a Seagallop ferry?
+block = 22 35 item:S.S. Ticket&!got:FLAG_GOT_HM01|Sailor: Welcome to the S.S. Anne! Excuse me, do you have a ticket?/(You need an S.S. Ticket to board. Once she sets sail, she won't be back until next year.)
+block = 23 35 item:S.S. Ticket&!got:FLAG_GOT_HM01|Sailor: Welcome to the S.S. Anne! Excuse me, do you have a ticket?/(You need an S.S. Ticket to board. Once she sets sail, she won't be back until next year.)
+block = 24 35 item:S.S. Ticket&!got:FLAG_GOT_HM01|Sailor: Welcome to the S.S. Anne! Excuse me, do you have a ticket?/(You need an S.S. Ticket to board. Once she sets sail, she won't be back until next year.)
+
+[patch One Island Harbor]
+drop npc 8 6
+npc = 8 6 sailor up 0 ferry|Ahoy, there! Where do you want to sail?
+[patch Two Island Harbor]
+drop npc 8 6
+npc = 8 6 sailor up 0 ferry|Ahoy, there! Where do you want to sail?
+[patch Three Island Harbor]
+drop npc 8 6
+npc = 8 6 sailor up 0 ferry|Ahoy, there! Where do you want to sail?
+[patch Four Island Harbor]
+drop npc 8 6
+npc = 8 6 sailor up 0 ferry|Ahoy, there! Where do you want to sail?
+[patch Five Island Harbor]
+drop npc 8 6
+npc = 8 6 sailor up 0 ferry|Ahoy, there! Where do you want to sail?
+[patch Six Island Harbor]
+drop npc 8 6
+npc = 8 6 sailor up 0 ferry|Ahoy, there! Where do you want to sail?
+[patch Seven Island Harbor]
+drop npc 8 6
+npc = 8 6 sailor up 0 ferry|Ahoy, there! Where do you want to sail?
+
+[patch Cinnabar Island]
+drop npc 20 7
+npc = 20 7 bill right 0 give|Bill: Hey, {PLAYER}! Congratulations on becoming the Champion!/I'm heading out to One Island to visit a friend of mine, Celio. Want to come along?/Here, take this. It's a pass for the Seagallop ferries!|Tri-Pass|1|got_tripass|Bill: Take the Seagallop from Vermilion City's harbor! I'll see you on One Island.
+if = stage:Champion's Stadium
+
+[patch One Island Pokemon Center]
+drop npc 15 6
+npc = 15 6 celio up 0 deliver|Ruby|ruby_given|Celio: That's... a Ruby! You found it on Mt. Ember? Thank you!/With this, the Network Machine can link farther! I've added the other islands to your pass.|Rainbow Pass|1|Celio: Hello, {PLAYER}! I'm Celio. I'm trying to link this island's PC with Kanto's./I need a gem, a Ruby. They say one sleeps deep inside Mt. Ember.|Celio: Thanks to the Ruby, the islands are linked! Next I need a Sapphire...
+unless = ruby_given
+npc = 15 6 celio up 0 deliver|Sapphire|sapphire_given|Celio: The Sapphire! You got it back from Team Rocket! Thank you, {PLAYER}!/The Network Machine is complete. Now we can trade with Pokemon from far away regions!||1|Celio: The last gem is a Sapphire. They say it's hidden in the Dotted Hole on Six Island.|Celio: Thank you, {PLAYER}! The network links us to faraway lands now.
+if = ruby_given
+
+# ------------------------------------------------------------------ the Battle Tower (Seven Island's Trainer Tower) and the Raid Den
+[patch Trainer Tower]
+drop npc 11 7
+npc = 11 7 union_room_receptionist left 0 tower|Welcome to the Battle Tower! Climb as high as you can!
+drop door 10 2
+
+[patch Route 2]
+npc = 6 10 raidboss down 0 raid

@@ -1,0 +1,23 @@
+# Mega Metagross: the Mega Evolution of Metagross (official stats, types and ability). Not caught or met on its
+# own: a Metagross holding the Metagrossite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Metagross
+dex  = 376
+type = Steel / Psychic
+mega_of = Metagross
+mega_stone = Metagrossite
+
+hp         = 80
+attack     = 145
+defense    = 150
+sp_attack  = 105
+sp_defense = 110
+speed      = 110
+
+height = 2.5      # Pokedex height in meters
+weight = 942.9      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+ability = Tough Claws
+category = 

@@ -1,0 +1,23 @@
+# Mega Altaria: the Mega Evolution of Altaria (official stats, types and ability). Not caught or met on its
+# own: a Altaria holding the Altarianite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Altaria
+dex  = 334
+type = Dragon / Fairy
+mega_of = Altaria
+mega_stone = Altarianite
+
+hp         = 75
+attack     = 110
+defense    = 110
+sp_attack  = 110
+sp_defense = 105
+speed      = 80
+
+height = 1.5      # Pokedex height in meters
+weight = 20.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+ability = Pixilate
+category = 

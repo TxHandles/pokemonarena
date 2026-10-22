@@ -1,0 +1,23 @@
+# Mega Aggron: the Mega Evolution of Aggron (official stats, types and ability). Not caught or met on its
+# own: a Aggron holding the Aggronite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Aggron
+dex  = 306
+type = Steel
+mega_of = Aggron
+mega_stone = Aggronite
+
+hp         = 70
+attack     = 140
+defense    = 230
+sp_attack  = 60
+sp_defense = 80
+speed      = 50
+
+height = 2.2      # Pokedex height in meters
+weight = 395      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+ability = Filter
+category = 

@@ -1,0 +1,23 @@
+# Mega Gallade: the Mega Evolution of Gallade (official stats, types and ability). Not caught or met on its
+# own: a Gallade holding the Galladite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Gallade
+dex  = 475
+type = Psychic / Fighting
+mega_of = Gallade
+mega_stone = Galladite
+
+hp         = 68
+attack     = 165
+defense    = 95
+sp_attack  = 65
+sp_defense = 115
+speed      = 110
+
+height = 1.6      # Pokedex height in meters
+weight = 56.4      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Inner Focus
+category = 

@@ -1,0 +1,24 @@
+# Mega Sceptile - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 023A22 > 274A4E
+shiny = 087840 > 3C907C
+shiny = 18561C > 2F6861
+shiny = 186226 > 287B68
+shiny = 19481F > 225B56
+shiny = 47832B > 5D958B
+shiny = 4A734A > 43917E
+shiny = 4A9C52 > 64B59F
+shiny = 73CE73 > 94E7CE
+shiny = 758D39 > 64AD96
+shiny = 7BAE4C > 7DCBB2
+shiny = 8EC765 > A2DAEA
+shiny = 8FDC6B > B2ECFB
+shiny = 906819 > 5F837A
+shiny = A3D86E > A6F5DB
+shiny = A5EF9C > B8FFF2
+shiny = AD4A52 > 628684
+shiny = AFC169 > A7DBEC
+shiny = DAD965 > F8B851
+shiny = E6525A > FFC65E
+shiny = F7E629 > FFC659
+shiny = FFAD52 > EE9762

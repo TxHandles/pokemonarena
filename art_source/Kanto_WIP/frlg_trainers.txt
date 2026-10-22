@@ -1,0 +1,547 @@
+[Viridian Forest]
+Bug Catcher Rick | Weedle 6, Caterpie 6
+Bug Catcher Doug | Weedle 7, Kakuna 7, Weedle 7
+Bug Catcher Sammy | Weedle 9
+Bug Catcher Anthony | Caterpie 7, Caterpie 8
+Bug Catcher Charlie | Metapod 7, Caterpie 7, Metapod 7
+
+[Pewter Gym]
+Camper Liam | Geodude 10, Sandshrew 11
+
+[Route 3]
+Youngster Ben | Rattata 11, Ekans 11
+Youngster Calvin | Spearow 14
+Bug Catcher Colton | Caterpie 10, Weedle 10, Caterpie 10
+Bug Catcher Greg | Weedle 9, Kakuna 9, Caterpie 9, Metapod 9
+Bug Catcher James | Caterpie 11, Metapod 11
+Lass Janice | Pidgey 9, Pidgey 9
+Lass Sally | Rattata 10, Nidoran F 10
+Lass Robin | Jigglypuff 14
+
+[Mt. Moon]
+Hiker Marcos | Geodude 10, Geodude 10, Onix 10
+Youngster Josh | Rattata 10, Rattata 10, Zubat 10
+Lass Miriam | Oddish 11, Bellsprout 11
+Lass Iris | Clefairy 14
+Super Nerd Jovan | Magnemite 11, Voltorb 11
+Bug Catcher Kent | Weedle 11, Kakuna 11
+Bug Catcher Robby | Caterpie 10, Metapod 10, Caterpie 10
+Super Nerd Miguel | Grimer 12, Voltorb 12, Koffing 12
+Team Rocket Grunt | Rattata 13, Zubat 13
+Team Rocket Grunt | Sandshrew 11, Rattata 11, Zubat 11
+Team Rocket Grunt | Zubat 11, Ekans 11
+Team Rocket Grunt | Rattata 13, Sandshrew 13
+
+[Route 4]
+Lass Crissy | Paras 31, Paras 31, Parasect 31
+
+[Cerulean City]
+Team Rocket Grunt | Machop 17, Drowzee 17
+
+[Cerulean Gym]
+Picnicker Diana | Goldeen 19
+Swimmer Luis | Horsea 16, Shellder 16
+
+[Route 24]
+Team Rocket Grunt | Ekans 15, Zubat 15
+Youngster Timmy | Sandshrew 14, Ekans 14
+Bug Catcher Cale | Caterpie 10, Weedle 10, Metapod 10, Kakuna 10
+Lass Reli | Nidoran M 16, Nidoran F 16
+Lass Ali | Pidgey 12, Oddish 12, Bellsprout 12
+Camper Shane | Rattata 14, Ekans 14
+Camper Ethan | Mankey 18
+
+[Route 25]
+Youngster Joey | Rattata 15, Spearow 15
+Youngster Dan | Slowpoke 17
+Youngster Chad | Ekans 14, Sandshrew 14
+Picnicker Kelsey | Nidoran M 15, Nidoran F 15
+Lass Haley | Oddish 13, Pidgey 13, Oddish 13
+Hiker Franklin | Machop 15, Geodude 15
+Hiker Nob | Geodude 13, Geodude 13, Machop 13, Geodude 13
+Hiker Wayne | Onix 17
+Camper Flint | Rattata 14, Ekans 14
+
+[Route 6]
+Bug Catcher Keigo | Weedle 16, Caterpie 16, Weedle 16
+Bug Catcher Elijah | Butterfree 20
+Camper Ricky | Squirtle 20
+Camper Jeff | Spearow 16, Raticate 16
+Picnicker Nancy | Rattata 16, Pikachu 16
+Picnicker Isabelle | Pidgey 16, Pidgey 16, Pidgey 16
+
+[S.S. Anne]
+Lass Ann | Pidgey 18, Nidoran F 18
+Youngster Tyler | Nidoran M 21
+Gentleman Arthur | Nidoran M 19, Nidoran F 19
+Gentleman Thomas | Growlithe 18, Growlithe 18
+Fisherman Dale | Goldeen 17, Tentacool 17, Goldeen 17
+Gentleman Brooks | Pikachu 23
+Gentleman Lamar | Growlithe 17, Ponyta 17
+Lass Dawn | Rattata 18, Pikachu 18
+Fisherman Barny | Tentacool 17, Staryu 17, Shellder 17
+Sailor Phillip | Machop 20
+Sailor Huey | Tentacool 18, Staryu 18
+Sailor Dylan | Horsea 17, Horsea 17, Horsea 17
+Sailor Leonard | Shellder 21
+Sailor Duncan | Horsea 17, Shellder 17, Tentacool 17
+Sailor Edmond | Machop 18, Shellder 18
+Sailor Trevor | Machop 17, Tentacool 17
+
+[Vermilion Gym]
+Sailor Dwayne | Pikachu 21, Pikachu 21
+Engineer Baily | Voltorb 21, Magnemite 21
+Gentleman Tucker | Pikachu 23
+
+[Route 11]
+Youngster Eddie | Ekans 21
+Youngster Dillon | Sandshrew 19, Zubat 19
+Youngster Yasu | Rattata 17, Rattata 17, Raticate 17
+Youngster Dave | Nidoran M 18, Nidorino 18
+Engineer Braxton | Magnemite 21
+Engineer Bernie | Magnemite 18, Magnemite 18, Magneton 18
+Gamer Hugo | Poliwag 18, Horsea 18
+Gamer Jasper | Bellsprout 18, Oddish 18
+Gamer Dirk | Voltorb 18, Magnemite 18
+Gamer Darian | Growlithe 18, Vulpix 18
+
+[Route 9]
+Bug Catcher Brent | Beedrill 19, Beedrill 19
+Bug Catcher Conner | Caterpie 20, Weedle 20, Venonat 20
+Camper Chris | Growlithe 21, Charmander 21
+Camper Drew | Rattata 19, Sandshrew 19, Ekans 19, Sandshrew 19
+Picnicker Alicia | Oddish 18, Bellsprout 18, Oddish 18, Bellsprout 18
+Picnicker Caitlin | Meowth 23
+Hiker Alan | Geodude 21, Onix 21
+Hiker Brice | Geodude 20, Machop 20, Geodude 20
+Hiker Jeremy | Machop 20, Onix 20
+
+[Route 10]
+Picnicker Heidi | Pikachu 20, Clefairy 20
+Picnicker Carol | Pidgey 21, Pidgeotto 21
+Pokemaniac Mark | Rhyhorn 29, Lickitung 29
+Pokemaniac Herman | Cubone 20, Slowpoke 20
+Hiker Clark | Geodude 21, Onix 21
+Hiker Trent | Onix 19, Graveler 19
+
+[Rock Tunnel]
+Hiker Lenny | Geodude 19, Machop 19, Geodude 19, Geodude 19
+Hiker Oliver | Onix 20, Onix 20, Geodude 20
+Hiker Lucas | Geodude 21, Graveler 21
+Pokemaniac Ashton | Cubone 23, Slowpoke 23
+Picnicker Leah | Bellsprout 22, Clefairy 22
+Picnicker Ariana | Pidgey 19, Rattata 19, Rattata 19, Bellsprout 19
+Picnicker Dana | Meowth 20, Oddish 20, Pidgey 20
+Picnicker Sofia | Jigglypuff 21, Pidgey 21, Meowth 21
+Picnicker Martha | Oddish 22, Bulbasaur 22
+Hiker Dudley | Geodude 21, Geodude 21, Graveler 21
+Hiker Allen | Geodude 25
+Hiker Eric | Machop 20, Onix 20
+Pokemaniac Cooper | Slowpoke 20, Slowpoke 20, Slowpoke 20
+Pokemaniac Steve | Charmander 22, Cubone 22
+Pokemaniac Winston | Slowpoke 25
+
+[Route 8]
+Lass Paige | Nidoran F 23, Nidorina 23
+Lass Andrea | Meowth 24, Meowth 24, Meowth 24
+Lass Megan | Pidgey 19, Rattata 19, Nidoran M 19, Meowth 19, Pikachu 19
+Lass Julia | Clefairy 22, Clefairy 22
+Super Nerd Aidan | Voltorb 20, Koffing 20, Voltorb 20, Magnemite 20
+Super Nerd Glenn | Grimer 22, Muk 22, Grimer 22
+Super Nerd Leslie | Koffing 26
+Gamer Stan | Poliwag 22, Poliwag 22, Poliwhirl 22
+Gamer Rich | Growlithe 24, Vulpix 24
+Twins Eli & Anne (double) | Clefairy 22, Jigglypuff 22
+Biker Ricardo | Koffing 22, Koffing 22, Grimer 23
+Biker Jaren | Grimer 24, Grimer 24
+
+[Celadon City]
+Team Rocket Grunt | Raticate 20, Zubat 20
+
+[Celadon Gym]
+Lass Kay | Bellsprout 23, Weepinbell 23
+Lass Lisa | Oddish 23, Gloom 23
+Picnicker Tina | Bulbasaur 24, Ivysaur 24
+Beauty Bridget | Oddish 21, Bellsprout 21, Oddish 21, Bellsprout 21
+Beauty Tamia | Bellsprout 24, Bellsprout 24
+Beauty Lori | Exeggcute 24
+Cooltrainer Mary | Bellsprout 22, Oddish 22, Weepinbell 22, Gloom 22, Ivysaur 22
+
+[Rocket Hideout]
+Team Rocket Grunt | Drowzee 21, Machop 21
+Team Rocket Grunt | Raticate 21, Raticate 21
+Team Rocket Grunt | Grimer 20, Koffing 20, Koffing 20
+Team Rocket Grunt | Rattata 19, Raticate 19, Raticate 19, Rattata 19
+Team Rocket Grunt | Grimer 22, Koffing 22
+Team Rocket Grunt | Zubat 17, Koffing 17, Grimer 17, Zubat 17, Raticate 17
+Team Rocket Grunt | Rattata 20, Raticate 20, Drowzee 20
+Team Rocket Grunt | Machop 21, Machop 21
+Team Rocket Grunt | Koffing 21, Zubat 21
+Team Rocket Grunt | Sandshrew 23, Ekans 23, Sandslash 23
+Team Rocket Grunt | Ekans 23, Sandshrew 23, Arbok 23
+Boss Giovanni | Onix 25, Rhyhorn 24, Kangaskhan 29
+
+[Pokemon Tower]
+Channeler Patricia | Gastly 22
+Channeler Carly | Gastly 24
+Channeler Hope | Gastly 23
+Channeler Paula | Gastly 24
+Channeler Laurel | Gastly 23, Gastly 23
+Channeler Jody | Gastly 22
+Channeler Tammy | Haunter 23
+Channeler Ruth | Gastly 22
+Channeler Karina | Gastly 24
+Channeler Janae | Gastly 22
+Channeler Angelica | Gastly 22, Gastly 22, Gastly 22
+Channeler Emilia | Gastly 24
+Channeler Jennifer | Gastly 24
+Team Rocket Grunt | Zubat 25, Zubat 25, Golbat 25
+Team Rocket Grunt | Koffing 26, Drowzee 26
+Team Rocket Grunt | Zubat 23, Rattata 23, Raticate 23, Zubat 23
+
+[Route 12]
+Fisherman Ned | Goldeen 22, Poliwag 22, Goldeen 22
+Fisherman Chip | Tentacool 24, Goldeen 24
+Fisherman Hank | Goldeen 27
+Fisherman Elliot | Poliwag 21, Shellder 21, Goldeen 21, Horsea 21
+Fisherman Andrew | Magikarp 24, Magikarp 24
+Rocker Luca | Voltorb 29, Electrode 29
+Camper Justin | Nidoran M 29, Nidorino 29
+Young Couple Gia & Jes (double) | Nidoran M 24, Nidoran F 24
+
+[Route 13]
+Biker Jared | Koffing 28, Koffing 28, Koffing 28
+Beauty Lola | Rattata 27, Pikachu 27, Rattata 27
+Beauty Sheila | Clefairy 29, Meowth 29
+Bird Keeper Sebastian | Pidgey 29, Pidgeotto 29
+Bird Keeper Perry | Spearow 25, Pidgey 25, Pidgey 25, Spearow 25, Spearow 25
+Bird Keeper Robert | Pidgey 26, Pidgeotto 26, Spearow 26, Fearow 26
+Picnicker Alma | Goldeen 28, Poliwag 28, Horsea 28
+Picnicker Susie | Pidgey 24, Meowth 24, Rattata 24, Pikachu 24, Meowth 24
+Picnicker Valerie | Poliwag 30, Poliwag 30
+Picnicker Gwen | Pidgey 27, Meowth 27, Pidgey 27, Pidgeotto 27
+
+[Route 14]
+Biker Malik | Koffing 29, Grimer 29
+Biker Lukas | Koffing 26, Koffing 26, Grimer 26, Koffing 26
+Biker Isaac | Grimer 28, Grimer 28, Koffing 28
+Biker Gerald | Koffing 29, Muk 29
+Bird Keeper Donald | Farfetch'd 33
+Bird Keeper Benny | Spearow 29, Fearow 29
+Bird Keeper Carter | Pidgey 28, Doduo 28, Pidgeotto 28
+Bird Keeper Mitch | Pidgey 26, Spearow 26, Pidgey 26, Fearow 26
+Bird Keeper Beck | Pidgeotto 29, Fearow 29
+Bird Keeper Marlon | Spearow 28, Doduo 28, Fearow 28
+Twins Kiri & Jan (double) | Charmander 29, Squirtle 29
+
+[Route 15]
+Biker Ernest | Koffing 25, Koffing 25, Weezing 25, Koffing 25, Grimer 25
+Biker Alex | Koffing 28, Grimer 28, Weezing 28
+Beauty Grace | Pidgeotto 29, Wigglytuff 29
+Beauty Olivia | Bulbasaur 29, Ivysaur 29
+Bird Keeper Edwin | Pidgeotto 26, Farfetch'd 26, Doduo 26, Pidgey 26
+Bird Keeper Chester | Dodrio 28, Doduo 28, Doduo 28
+Picnicker Yazmin | Bellsprout 29, Oddish 29, Tangela 29
+Picnicker Kindra | Gloom 28, Oddish 28, Oddish 28
+Picnicker Becky | Pikachu 29, Raichu 29
+Picnicker Celia | Clefairy 33
+Crush Kin Ron & Mya (double) | Hitmonchan 29, Hitmonlee 29
+
+[Fuchsia Gym]
+Tamer Phil | Sandslash 34, Arbok 34
+Tamer Edgar | Arbok 33, Sandslash 33, Arbok 33
+Juggler Kirk | Drowzee 31, Drowzee 31, Kadabra 31, Drowzee 31
+Juggler Shawn | Drowzee 34, Hypno 34
+Juggler Kayden | Hypno 38
+Juggler Nate | Drowzee 34, Kadabra 34
+
+[Route 16]
+Biker Lao | Grimer 29, Koffing 29
+Biker Hideo | Weezing 33
+Biker Ruben | Weezing 28, Koffing 28, Weezing 28
+Cue Ball Koji | Machop 28, Mankey 28, Machop 28
+Cue Ball Luke | Mankey 29, Machop 29
+Cue Ball Camron | Mankey 29, Machop 29
+Young Couple Lea & Jed (double) | Rapidash 29, Ninetales 29
+
+[Route 17]
+Biker Billy | Muk 33
+Biker Nikolas | Voltorb 29, Voltorb 29
+Biker Jaxon | Weezing 29, Muk 29
+Biker William | Koffing 25, Weezing 25, Koffing 25, Koffing 25, Weezing 25
+Biker Virgil | Weezing 28, Koffing 28, Weezing 28
+Cue Ball Raul | Mankey 29, Primeape 29
+Cue Ball Isaiah | Machop 29, Machamp 29
+Cue Ball Zeek | Machoke 33
+Cue Ball Jamal | Mankey 26, Mankey 26, Machamp 26, Machop 26
+Cue Ball Corey | Primeape 29, Machoke 29
+
+[Route 18]
+Bird Keeper Wilton | Spearow 29, Fearow 29
+Bird Keeper Ramiro | Dodrio 34
+Bird Keeper Jacob | Spearow 26, Spearow 26, Fearow 26, Spearow 26
+
+[Fighting Dojo]
+Black Belt Hitoshi | Machop 31, Mankey 31, Primeape 31
+Black Belt Hideki | Machop 32, Machoke 32
+Black Belt Aaron | Primeape 36
+Black Belt Mike | Mankey 31, Mankey 31, Primeape 31
+Black Belt Koichi | Hitmonlee 37, Hitmonchan 37
+
+[Saffron Gym]
+Psychic Johan | Kadabra 31, Slowpoke 31, Mr. Mime 31, Kadabra 31
+Psychic Tyron | Mr. Mime 34, Kadabra 34
+Psychic Cameron | Slowpoke 33, Slowpoke 33, Slowbro 33
+Psychic Preston | Slowbro 38
+Channeler Amanda | Gastly 34, Haunter 34
+Channeler Stacy | Haunter 38
+Channeler Tasha | Gastly 33, Gastly 33, Haunter 33
+
+[Silph Co.]
+Scientist Connor | Grimer 26, Weezing 26, Koffing 26, Weezing 26
+Scientist Jerry | Magnemite 28, Voltorb 28, Magneton 28
+Team Rocket Grunt | Cubone 29, Zubat 29
+Team Rocket Grunt | Golbat 25, Zubat 25, Zubat 25, Raticate 25, Zubat 25
+Scientist Jose | Electrode 29, Weezing 29
+Team Rocket Grunt | Raticate 28, Hypno 28, Raticate 28
+Scientist Rodney | Electrode 33
+Team Rocket Grunt | Machop 29, Drowzee 29
+Team Rocket Grunt | Ekans 28, Zubat 28, Cubone 28
+Scientist Beau | Magneton 26, Koffing 26, Weezing 26, Magnemite 26
+Team Rocket Grunt | Arbok 33, Hypno 33
+Juggler Dalton | Kadabra 29, Mr. Mime 29
+Scientist Taylor | Voltorb 25, Koffing 25, Magneton 25, Magnemite 25, Koffing 25
+Team Rocket Grunt | Machop 29, Machoke 29
+Team Rocket Grunt | Zubat 28, Zubat 28, Golbat 28
+Scientist Joshua | Electrode 29, Muk 29
+Team Rocket Grunt | Cubone 29, Cubone 29
+Team Rocket Grunt | Sandshrew 29, Sandslash 29
+Team Rocket Grunt | Raticate 26, Zubat 26, Golbat 26, Rattata 26
+Scientist Parker | Grimer 29, Electrode 29
+Team Rocket Grunt | Raticate 26, Arbok 26, Koffing 26, Golbat 26
+Team Rocket Grunt | Weezing 28, Golbat 28, Koffing 28
+Scientist Ed | Voltorb 28, Koffing 28, Magneton 28
+Team Rocket Grunt | Drowzee 28, Grimer 28, Machop 28
+Team Rocket Grunt | Golbat 28, Drowzee 28, Hypno 28
+Scientist Travis | Magnemite 29, Koffing 29
+Team Rocket Grunt | Machoke 33
+Team Rocket Grunt | Rattata 25, Rattata 25, Zubat 25, Rattata 25, Ekans 25
+Team Rocket Grunt | Cubone 32, Drowzee 32, Marowak 32
+Boss Giovanni | Nidorino 37, Kangaskhan 35, Rhyhorn 37, Nidoqueen 41
+
+[Route 19]
+Swimmer Richard | Tentacool 30, Shellder 30
+Swimmer Reece | Goldeen 29, Horsea 29, Staryu 29
+Swimmer Matthew | Poliwag 30, Poliwhirl 30
+Swimmer Douglas | Horsea 27, Tentacool 27, Tentacool 27, Goldeen 27
+Swimmer David | Goldeen 29, Shellder 29, Seaking 29
+Swimmer Tony | Horsea 30, Horsea 30
+Swimmer Axle | Tentacool 27, Tentacool 27, Staryu 27, Horsea 27, Tentacruel 27
+Swimmer Anya | Poliwag 27, Goldeen 27, Seaking 27, Goldeen 27, Poliwag 27
+Swimmer Alice | Goldeen 30, Seaking 30
+Swimmer Connie | Staryu 29, Staryu 29, Staryu 29
+Sis and Bro Lia & Luc (double) | Goldeen 30, Seaking 30
+
+[Route 20]
+Swimmer Barry | Shellder 31, Cloyster 31
+Swimmer Dean | Staryu 35
+Swimmer Darrin | Horsea 28, Horsea 28, Seadra 28, Horsea 28
+Swimmer Tiffany | Seaking 35
+Swimmer Nora | Shellder 30, Shellder 30, Cloyster 30
+Swimmer Melissa | Poliwag 31, Seaking 31
+Swimmer Shirley | Seadra 30, Horsea 30, Seadra 30
+Bird Keeper Roger | Fearow 30, Fearow 30, Pidgeotto 30
+Picnicker Missy | Goldeen 31, Seaking 31
+Picnicker Irene | Tentacool 30, Horsea 30, Seel 30
+
+[Pokemon Mansion]
+Scientist Ted | Electrode 29, Weezing 29
+Youngster Johnson | Ekans 33, Ekans 33, Raticate 34
+Burglar Arnie | Charmander 34, Charmeleon 34
+Burglar Simon | Ninetales 38
+Scientist Braydon | Magnemite 33, Magneton 33, Voltorb 33
+Burglar Lewis | Growlithe 34, Ponyta 34
+Scientist Ivan | Magnemite 34, Electrode 34
+
+[Cinnabar Gym]
+Super Nerd Erik | Vulpix 36, Vulpix 36, Ninetales 36
+Super Nerd Avery | Ponyta 34, Charmander 34, Vulpix 34, Growlithe 34
+Super Nerd Derek | Rapidash 41
+Super Nerd Zac | Growlithe 37, Vulpix 37
+Burglar Quinn | Growlithe 36, Vulpix 36, Ninetales 36
+Burglar Ramon | Ponyta 41
+Burglar Dusty | Vulpix 37, Growlithe 37
+
+[Route 21]
+Fisherman Ronald | Seaking 28, Goldeen 28, Seaking 28, Seaking 28
+Fisherman Wade | Magikarp 27, Magikarp 27, Magikarp 27, Magikarp 27, Magikarp 27, Magikarp 27
+Swimmer Spencer | Seadra 33, Tentacruel 33
+Sis and Bro Lil & Ian (double) | Seadra 33, Starmie 33
+Fisherman Claude | Shellder 31, Cloyster 31
+Fisherman Nolan | Seaking 33, Goldeen 33
+Swimmer Jack | Starmie 37
+Swimmer Jerome | Staryu 33, Wartortle 33
+Swimmer Roland | Poliwhirl 32, Tentacool 32, Seadra 32
+
+[Viridian Gym]
+Tamer Jason | Rhyhorn 43
+Tamer Cole | Arbok 39, Tauros 39
+Black Belt Atsushi | Machop 40, Machoke 40
+Black Belt Kiyo | Machoke 43
+Black Belt Takashi | Machoke 38, Machop 38, Machoke 38
+Cooltrainer Samuel | Sandslash 37, Sandslash 37, Rhyhorn 38, Nidorino 39, Nidoking 39
+Cooltrainer Yuji | Sandslash 38, Graveler 38, Onix 38, Graveler 38, Marowak 38
+Cooltrainer Warren | Marowak 37, Marowak 37, Rhyhorn 38, Nidorina 39, Nidoqueen 39
+
+[Victory Road]
+Cooltrainer Naomi | Persian 42, Ponyta 42, Rapidash 42, Vulpix 42, Ninetales 42
+Cooltrainer Rolando | Raticate 42, Ivysaur 42, Wartortle 42, Charmeleon 42, Charizard 42
+Pokemaniac Dawson | Charmeleon 40, Lapras 40, Lickitung 40
+Black Belt Daisuke | Machoke 43, Machop 43, Machoke 43
+Juggler Nelson | Drowzee 41, Hypno 41, Kadabra 41, Kadabra 41
+Juggler Gregory | Mr. Mime 48
+Tamer Vincent | Persian 44, Golduck 44
+Cooltrainer George | Exeggutor 42, Sandslash 42, Cloyster 42, Electrode 42, Arcanine 42
+Cooltrainer Colby | Kingler 41, Poliwhirl 42, Tentacruel 42, Seadra 42, Blastoise 43
+Cooltrainer Caroline | Bellsprout 42, Weepinbell 42, Victreebel 42, Paras 42, Parasect 42
+Cooltrainer Alexa | Clefairy 42, Jigglypuff 42, Persian 42, Dewgong 42, Chansey 42
+Cool Couple Ray & Tyra (double) | Nidoqueen 45, Nidoking 45
+
+[Kindle Road]
+Swimmer Maria | Seadra 37, Seadra 37
+Swimmer Abigail | Psyduck 35, Psyduck 36, Golduck 37
+Swimmer Finn | Starmie 38
+Swimmer Garrett | Shellder 35, Cloyster 35, Wartortle 38
+Fisherman Tommy | Goldeen 33, Goldeen 33, Seaking 35, Seaking 35, Seaking 35
+Crush Girl Sharon | Mankey 37, Primeape 37
+Crush Girl Tanya | Hitmonlee 38, Hitmonchan 38
+Black Belt Shea | Machop 38, Machoke 38
+Black Belt Hugh | Machop 37, Machoke 37
+Camper Bryce | Nidorino 36, Raticate 36, Sandslash 36
+Picnicker Claire | Meowth 35, Meowth 35, Pikachu 35, Clefairy 35
+Crush Kin Mik & Kia (double) | Machoke 39, Primeape 39
+
+[Treasure Beach]
+Swimmer Amara | Seel 36, Seel 36, Dewgong 36 | $144
+
+[Mt. Ember]
+Team Rocket Grunt | Cubone 37, Marowak 37 | $1184
+Team Rocket Grunt | Rattata 35, Raticate 35, Sandshrew 35, Sandslash 35 | $1120
+Pokemon Ranger Logan | Exeggcute 37, Exeggutor 40 | $1440
+Pokemon Ranger Beth | Bellsprout 38, Gloom 38, Gloom 38 | $1368
+Crush Girl Jocelyn | Hitmonchan 38, Hitmonchan 38 | $912
+
+[Three Island]
+Biker Goon | Koffing 37, Grimer 37
+Cue Ball Paxton | Weezing 39, Muk 39
+
+[Bond Bridge]
+Aroma Lady Nikki | Bellsprout 37, Weepinbell 37 | $1036
+Aroma Lady Violet | Bulbasaur 36, Ivysaur 36, Ivysaur 36 | $1008
+Tuber Amira | Poliwag 34, Poliwhirl 35, Poliwag 34 | $136
+Tuber Alexis | Staryu 34, Staryu 34, Krabby 34, Krabby 34 | $136
+Swimmer Tisha | Kingler 38 | $152
+Twins Joy & Meg (double) | Clefairy 37, Clefairy 37 | $888
+
+[Icefall Cave]
+Team Rocket Grunt | Zubat 38, Zubat 38, Golbat 38 | $1216
+
+[Water Labyrinth]
+Pokemon Breeder Alize | Pikachu 48, Clefairy 48, Marill 48 | $1344
+
+[Five Isle Meadow]
+Team Rocket Grunt | Rattata 48, Grimer 48, Muk 48 | $1536
+Team Rocket Grunt | Ekans 48, Gloom 48, Gloom 48 | $1536
+Team Rocket Grunt | Koffing 49, Weezing 49 | $1568
+
+[Rocket Warehouse]
+Scientist Gideon | Voltorb 46, Electrode 46, Magnemite 46, Magneton 46, Porygon 46
+Team Rocket Grunt | Machop 48, Machop 48, Machoke 48
+Team Rocket Grunt | Hypno 49, Hypno 49
+Team Rocket Grunt | Houndour 49, Houndour 49
+Team Rocket Admin | Golbat 53, Weezing 54, Houndoom 55
+Team Rocket Admin | Muk 52, Arbok 53, Vileplume 54
+
+[Memorial Pillar]
+Bird Keeper Milo | Pidgey 47, Pidgeotto 49 | $1176
+Bird Keeper Chaz | Spearow 47, Fearow 49 | $1176
+Bird Keeper Harold | Hoothoot 47, Noctowl 49 | $1176
+
+[Resort Gorgeous]
+Painter Daisy | Smeargle 50
+Painter Celina | Smeargle 50
+Painter Rayna | Smeargle 50
+Lady Jacki | Hoppip 48, Skiploom 50
+Lady Gillian | Mareep 47, Mareep 48, Flaaffy 49
+Youngster Destin | Raticate 48, Pidgeotto 48
+Swimmer Toby | Poliwhirl 48, Tentacool 48, Tentacruel 48
+
+[Lost Cave]
+Ruin Maniac Lawson | Onix 47, Graveler 48, Marowak 49
+Lady Selphy | Persian 49, Persian 49
+Psychic Laura | Natu 48, Natu 48, Xatu 49
+
+[Water Path]
+Aroma Lady Rose | Sunkern 49, Sunflora 49
+Juggler Edward | Voltorb 46, Voltorb 46, Electrode 47, Mr. Mime 48
+Swimmer Samir | Gyarados 50
+Swimmer Denise | Chinchou 49, Lanturn 49
+Twins Miu & Mia (double) | Pikachu 50, Pikachu 50
+Hiker Earl | Onix 49, Machoke 49
+
+[Ruin Valley]
+Hiker Daryl | Sudowoodo 50 | $1800
+Pokemaniac Hector | Rhyhorn 49, Kangaskhan 49 | $2352
+Ruin Maniac Stanly | Graveler 48, Onix 48, Graveler 48 | $2304
+Ruin Maniac Foster | Golem 50 | $2400
+Ruin Maniac Larry | Machoke 49, Machoke 49 | $2352
+
+[Green Path]
+Psychic Jaclyn | Natu 48, Slowbro 48, Kadabra 49
+
+[Outcast Island]
+Team Rocket Grunt | Muk 48, Golbat 48, Raticate 48
+Fisherman Tylor | Qwilfish 49, Qwilfish 49
+Swimmer Mymo | Kingler 49, Wartortle 49
+Swimmer Nicole | Marill 50
+Sis and Bro Ava & Geb (double) | Poliwhirl 50, Starmie 50
+
+[Pattern Bush]
+Pokemon Breeder Bethany | Chansey 50
+Pokemon Breeder Allison | Clefairy 48, Clefairy 48, Clefable 48
+Bug Catcher Garret | Heracross 49
+Bug Catcher Jonah | Yanma 45, Beedrill 45
+Bug Catcher Vance | Venonat 48, Venomoth 48
+Youngster Nash | Weepinbell 47, Weepinbell 47, Victreebel 49
+Youngster Cordell | Farfetch'd 48, Farfetch'd 48
+Lass Dalia | Hoppip 46, Hoppip 47
+Lass Joana | Snubbull 49
+Camper Riley | Pinsir 49, Heracross 50
+Picnicker Marcy | Paras 48, Paras 48, Parasect 49
+Ruin Maniac Layton | Sandslash 48, Onix 48, Sandslash 48
+
+[Trainer Tower (Seven Island)]
+Psychic Dario | Girafarig 52
+Psychic Rodette | Natu 48, Drowzee 48, Hypno 50
+
+[Canyon Entrance]
+Aroma Lady Miah | Bellossom 50, Bellossom 50
+Young Couple Eve & Jon (double) | Golduck 50, Psyduck 50
+Juggler Mason | Voltorb 47, Pineco 47, Voltorb 47, Pineco 47
+Pokemon Ranger Nicolas | Weepinbell 51, Victreebel 51
+Pokemon Ranger Madeline | Gloom 51, Vileplume 51
+
+[Sevault Canyon]
+Cool Couple Lex & Nya (double) | Tauros 52, Miltank 52 | $2496
+Tamer Evan | Sandslash 48, Lickitung 48, Ursaring 49 | $1960
+Pokemon Ranger Jackson | Tangela 49, Exeggcute 49, Exeggutor 49 | $1764
+Pokemon Ranger Katelyn | Chansey 52 | $1872
+Crush Girl Cyndy | Primeape 48, Hitmontop 48, Machoke 48 | $1152
+Cooltrainer Leroy | Rhydon 47, Slowbro 48, Machoke 48, Kangaskhan 47, Ursaring 50 | $1800
+Cooltrainer Michelle | Persian 47, Dewgong 47, Ninetales 48, Rapidash 48, Girafarig 50 | $1800
+
+[Tanoby Ruins]
+Ruin Maniac Brandon | Onix 50 | $2400
+Ruin Maniac Benjamin | Geodude 48, Graveler 48, Graveler 48 | $2304
+Painter Edna | Smeargle 50 | $800
+Gentleman Clifford | Marowak 49, Golduck 49 | $3528

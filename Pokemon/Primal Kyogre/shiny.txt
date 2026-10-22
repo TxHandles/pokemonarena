@@ -1,0 +1,23 @@
+# Primal Kyogre - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 163A7E > 323130
+shiny = 1994C5 > 787E79
+shiny = 2E48A7 > 525354
+shiny = 2F267C > 373737
+shiny = 303DA5 > 4C4C4E
+shiny = 3099E4 > 828684
+shiny = 313131 > 2F0041
+shiny = 3152B2 > 5A5C5D
+shiny = 3365C4 > 5C5B5C
+shiny = 4036B0 > 4E4C50
+shiny = 4ABDEF > 9EA4A0
+shiny = 4B37BB > 535155
+shiny = 525252 > 530064
+shiny = 525A94 > 5D5E5B
+shiny = 5273BD > 676866
+shiny = 5353D7 > 5B575A
+shiny = 5F38CC > 5D595F
+shiny = 695ACE > 6F6E71
+shiny = 6B94E6 > 868786
+shiny = FEF8F9 > C94FD1
+shiny = FFFFFF > B336B3

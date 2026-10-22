@@ -1,0 +1,29 @@
+# Mega Absol - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 00000C > 220C27
+shiny = 000506 > 231024
+shiny = 08020A > 260D26
+shiny = 2B3D42 > 54435E
+shiny = 2E2D3E > 4E3356
+shiny = 313131 > 640000
+shiny = 3C545A > 695A76
+shiny = 525252 > 755972
+shiny = 5A637B > 836A93
+shiny = 6384AD > E9907E
+shiny = 646378 > 896B92
+shiny = 677586 > 927CA1
+shiny = 7D7A92 > A382AC
+shiny = 848484 > AA8CA7
+shiny = 8590A2 > B097BE
+shiny = ACB9C6 > DAC1E5
+shiny = BDBDBD > E6C5E2
+shiny = C2BFD2 > EBC8F1
+shiny = D1D4E5 > FDDDFF
+shiny = D5DCEC > FFE5FF
+shiny = D5E8F3 > FFF0FF
+shiny = E1E8F6 > FFF1FF
+shiny = E6523A > EC6D7A
+shiny = EDE3F7 > FFEDFF
+shiny = EEECFC > FFF4FF
+shiny = F2F5FE > FFF5FF
+shiny = FFFFFF > FFF5FF

@@ -1,0 +1,33 @@
+# Mega Gallade - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 095F41 > 0E51BE
+shiny = 17AEBA > B191C8
+shiny = 17BABC > 696C6D
+shiny = 1B942B > 5577CB
+shiny = 23B545 > 7494EB
+shiny = 256054 > 586655
+shiny = 313131 > 4E1F47
+shiny = 35B342 > 7493E9
+shiny = 42505B > 644073
+shiny = 427373 > 343333
+shiny = 427B52 > 4F64A2
+shiny = 525252 > 72416A
+shiny = 5A9C9C > 94A296
+shiny = 5AAD63 > 75A6E7
+shiny = 67B8BC > A6BEB6
+shiny = 6B736B > 787271
+shiny = 737373 > 8C7C73
+shiny = 7BC5C5 > 79797A
+shiny = 934F67 > 874C63
+shiny = 9C948C > B086BC
+shiny = A4DBDD > 919091
+shiny = A54242 > AD6C1F
+shiny = A7294B > B56200
+shiny = B5B5BD > D2B5D8
+shiny = BDBDAD > C5B0AF
+shiny = CFDCDF > F6CBFF
+shiny = D1C2D4 > E4B7F1
+shiny = DE425A > E18429
+shiny = E8DBEA > EDD0E2
+shiny = EAEEF4 > FCF5F8
+shiny = FFFFFF > C3BBBD

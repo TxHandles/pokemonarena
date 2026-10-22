@@ -15,7 +15,7 @@ enum class Screen {
     RosterPick, Select, Battle, Results,
     StoryResults, Evolve, LearnMove, Reward, Catch, Heal, Map, Shop, DoublesMenu,
     CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame, Legends, LegendCatch, Bag,
-    RegionChoose, World
+    RegionChoose, World, Creator
 };
 
 // Online ready kinds (what a player picked in the co-op hub): 1 story, 2 training, 3+N a rematch
@@ -118,6 +118,9 @@ struct Game {
     float screenT = 0;            // seconds since the screen last changed (menu animations)
     int bagTab = 0, bagSel = 0;             // the Bag: pocket and item
     bool raid = false;           // the Daily Raid battle (your whole party at once vs one boss)
+    bool owFight = false;        // a route trainer met on the map (not a story battle): owStage, and the flag a win sets
+    StageDef owStage;
+    std::string owFightFlag;
     std::vector<CombatantSpec> raidTeam1;   // solo raid: Team 1, picked first (the team screen then picks Team 2)
     std::vector<int> raidTaken;             // solo raid: roster entries already on Team 1
     std::string catchBall;     // the ball just thrown (its colours in the catch animation)
@@ -139,6 +142,9 @@ struct Game {
     std::vector<std::string> profiles;
     int profSel = 0;
     bool confirmDelete = false;
+    int diffSel = 1;                        // the new profile's difficulty (Easy / Normal / Hard)
+    bool quitAsk = false;                   // "Leave Story Mode?" (Yes / No) on the hub
+    int quitSel = 1;
     std::string nameBuf;
     Profile profile;            // the Story Mode profile in use
     int starterSel = 0;
@@ -286,6 +292,10 @@ struct Game {
     std::string coopName[2];               // their names while typing
     int coopNameWho = 0;                   // whose name is being typed (local co-op)
     int coopStarterSel[2] = {0, 0};        // co-op starter picks
+    int cr[7] = {0, 0, 0, 0, 0, 0, 0};    // the trainer creator: poses, head, hair colour, outfit, outfit colour, skin
+    std::string bagSellArm;                // the Bag: a valuable you pressed once (press again to sell it)
+    double bagSellT = 0;
+    int crSel = 0;                         // ... and the row picked (6 = Done)
     bool netNewTrainer = false;            // online menu: typing a new trainer's name
     Screen settingsBack = Screen::Title;   // where Settings returns to
     Screen practiceBack = Screen::StoryHub; // the hub the practice arena was opened from
@@ -322,6 +332,7 @@ void UpdateSettings(Game& g);        void DrawSettings(const Game& g);
 void UpdateControls(Game& g);        void DrawControls(const Game& g);
 void UpdateProfileSelect(Game& g);   void DrawProfileSelect(const Game& g);
 void UpdateNameEntry(Game& g);       void DrawNameEntry(const Game& g);
+void UpdateCreator(Game& g);         void DrawCreator(const Game& g);
 void UpdateStarter(Game& g);         void DrawStarter(const Game& g);
 void UpdateStoryHub(Game& g);        void DrawStoryHub(const Game& g);
 void UpdateMyCreatures(Game& g);     void DrawMyCreatures(const Game& g);
@@ -365,6 +376,7 @@ bool MapTabSwitch(Game& g, bool toLegends);   // the Map's Route / Legendary Pok
 void DrawMapTabs(const Game& g, bool legends);
 constexpr int HUB_GEAR = 100, HUB_GRAPH = 101;   // hub cursor on the Settings gear / Leaderboard graph icons
 void OpenBag(Game& g);
+void CoopOpenFor(Game& g, int who);   // co-op: that player's profile for the Bag / Party & Box (it goes back on EnterStoryHub)
 void UpdateBag(Game& g);             void DrawBag(const Game& g);
 struct ItemDef;
 void DrawItemIcon(const ItemDef& d, float cx, float cy, float scale = 1.0f);

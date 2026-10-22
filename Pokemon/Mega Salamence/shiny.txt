@@ -1,0 +1,29 @@
+# Mega Salamence - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 249BA3 > 53B844
+shiny = 2A8D9F > 48AC39
+shiny = 303D4E > 005E00
+shiny = 316B84 > 268C1A
+shiny = 39B8BC > 70D55E
+shiny = 425B6D > 147E04
+shiny = 428CB5 > 4EAF3F
+shiny = 5A2F31 > 60422C
+shiny = 5AADDE > 55E142
+shiny = 631A23 > 69360C
+shiny = 6DD6C1 > 8EF377
+shiny = 7DA5B6 > 6DCB56
+shiny = 848484 > 412B42
+shiny = 8E3A3A > 925527
+shiny = 943A42 > 97572E
+shiny = 9B4E4C > A16739
+shiny = 9E3A3F > 9F592D
+shiny = 9ED6CC > D8E2AC
+shiny = AB3A44 > AA5D32
+shiny = BC3B4E > B8623C
+shiny = BD4A52 > BC6C40
+shiny = BDBDBD > 90EA71
+shiny = C55F73 > C87D5B
+shiny = CF4F6B > CC7454
+shiny = DF5F7D > DD8365
+shiny = F76B6B > F1915E
+shiny = F7FFBD > 8B7489

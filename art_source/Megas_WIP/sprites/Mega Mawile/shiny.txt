@@ -1,0 +1,28 @@
+# Mega Mawile - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 113920 > 6E1D45
+shiny = 2D2324 > 5F1329
+shiny = 2F3831 > 833355
+shiny = 313131 > 70233A
+shiny = 473F41 > 832C57
+shiny = 484D49 > 8F3962
+shiny = 525252 > 98475C
+shiny = 57645E > A85078
+shiny = 636B73 > B46075
+shiny = 707976 > C1668F
+shiny = 718078 > C76C94
+shiny = 73848C > CC719B
+shiny = 743544 > 90325F
+shiny = 746D6E > B85D86
+shiny = 7D7D7A > C86C95
+shiny = 816E73 > BE618B
+shiny = 8F7E77 > D0788B
+shiny = AB6277 > 4A2F62
+shiny = ABA787 > F696BC
+shiny = B5426B > 543C6C
+shiny = C3DEA7 > FFC5E0
+shiny = C5B552 > DBA148
+shiny = CFA46F > FFAECB
+shiny = D66384 > 715789
+shiny = FBD893 > FFCCF0
+shiny = FFEF84 > FFDD72

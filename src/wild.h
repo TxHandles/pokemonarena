@@ -57,5 +57,7 @@ void SetWildContext(int area, int storyStage, int badges);
 bool WildActive();
 int WildContextArea();
 std::vector<CombatantSpec> MakeWildTeam(int n, int avgLevel);
+void SetWildMethod(const std::string& method);   // the overworld: "surf", "old-rod"... only that method's Pokemon ("" any)
+bool WildAreaHasMethod(const std::string& area, const std::string& method);
 int PickRareWild(const std::vector<std::string>& owned);    // -1 if the area has nothing
 bool WildAvailableNow(int species, int storyStage, int badges);   // catchable (not rare-only) somewhere already reached

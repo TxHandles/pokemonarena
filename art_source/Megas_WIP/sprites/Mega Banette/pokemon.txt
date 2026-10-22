@@ -1,0 +1,23 @@
+# Mega Banette: the Mega Evolution of Banette (official stats, types and ability). Not caught or met on its
+# own: a Banette holding the Banettite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Banette
+dex  = 354
+type = Ghost
+mega_of = Banette
+mega_stone = Banettite
+
+hp         = 64
+attack     = 165
+defense    = 75
+sp_attack  = 93
+sp_defense = 83
+speed      = 75
+
+height = 1.2      # Pokedex height in meters
+weight = 13      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Prankster
+category = 

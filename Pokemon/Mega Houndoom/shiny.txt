@@ -1,0 +1,31 @@
+# Mega Houndoom - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000305 > 001E8E
+shiny = 010903 > 001F94
+shiny = 010F03 > 002494
+shiny = 080106 > 001E8E
+shiny = 1F171A > 0F2FA3
+shiny = 313131 > 4149C3
+shiny = 363E42 > 4D6CE4
+shiny = 474E51 > 6767E7
+shiny = 482F41 > 4C4ECC
+shiny = 4C414E > 5E5EDD
+shiny = 4D5559 > 706FF0
+shiny = 506562 > 7F7DFF
+shiny = 525252 > 6F6CED
+shiny = 5B4150 > 6561E2
+shiny = 6B6B73 > 8D9EFF
+shiny = 72787A > 767E85
+shiny = 746163 > 8A80FF
+shiny = 9C9C9C > 9EA3A9
+shiny = A3A9B7 > ABAABB
+shiny = A48A8E > 9F939C
+shiny = A89EB1 > A7A6B8
+shiny = BD633A > B25040
+shiny = BDBDBD > C2BEC6
+shiny = D5B5B0 > D1B8BE
+shiny = E0EFF7 > E7F5FF
+shiny = EAE0F3 > E3E8F5
+shiny = EF8C52 > E3795E
+shiny = F6EDFB > EFF5FD
+shiny = FF4231 > FB4F48

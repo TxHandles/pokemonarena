@@ -1,0 +1,23 @@
+# Mega Scizor: the Mega Evolution of Scizor (official stats, types and ability). Not caught or met on its
+# own: a Scizor holding the Scizorite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Scizor
+dex  = 212
+type = Bug / Steel
+mega_of = Scizor
+mega_stone = Scizorite
+
+hp         = 70
+attack     = 150
+defense    = 140
+sp_attack  = 65
+sp_defense = 100
+speed      = 75
+
+height = 2      # Pokedex height in meters
+weight = 125      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Technician
+category = 

@@ -32,6 +32,10 @@ enum class ItemFx {
     ExpAll,         // a Bag item: co-op, your partner's party gets value x the XP of your solo wild battles
     Medicine,       // a Bag item used in battle from an item hotkey: heals `value` of max HP and cures `cure` (Potions, Full Heal, berries)
     MegaStone,      // held: lets its Pokemon Mega Evolve in battle (`move` = the Pokemon it works for); sold after a Champion
+    PartyUse,       // used on a Pokemon from Party & Box: Rare Candy, Revive (`value` = HP back), vitamins (`boost` = the stat)
+    Field,          // used from the Bag out in the world: Repels (`value` = steps), the Escape Rope
+    Valuable,       // only worth selling (from the Bag): half its price
+    Everstone,      // held: it doesn't evolve
 };
 
 struct ItemDef {
@@ -44,7 +48,10 @@ struct ItemDef {
     int badges = 0;   // gym badges needed before the shop sells it
     std::string move; // TM: the move it teaches
     int tmNo = 0;     // TM: its number (Scarlet/Violet numbering)
+    int hmNo = 0;     // an HM (1 Cut .. 7 Waterfall): a TM that is never used up, given in the story, needed on the map
     int cure = 0;     // Medicine: the conditions it cures (CURE_ bits)
+    int boost = -1;   // Medicine (battle items): BOOST_ below. PartyUse vitamins: the stat (0 HP, 1 ATK, 2 DEF, 3 speed)
+    static constexpr int BOOST_ATK = 0, BOOST_DEF = 1, BOOST_SPD = 2, BOOST_CRIT = 3, BOOST_GUARD = 4, BOOST_COOLDOWN = 5;
     static constexpr int CURE_POISON = 1, CURE_PARALYZE = 2, CURE_SLEEP = 4, CURE_BURN = 8, CURE_FREEZE = 16, CURE_CONFUSE = 32, CURE_ALL = 63;
     static constexpr int AFTER_CHAMPION = 50;   // badges value: sold once you've beaten a Champion (Mega Stones)
 };
@@ -56,5 +63,12 @@ bool IsStone(const ItemDef& d);
 bool IsHoldable(const ItemDef& d);   // not a ball, stone or TM
 bool IsTM(const ItemDef& d);
 bool IsMegaStone(const ItemDef& d);
+bool IsHM(const ItemDef& d);
+const char* HmMove(int hmNo);                // "Cut" .. "Waterfall"
+int HmBadges(int hmNo);                       // FireRed: the badge count that lets you use it on the map
+bool CanLearnHM(const std::string& species, const std::string& move);   // hm_compat.inc
 bool IsMedicine(const ItemDef& d);   // used in battle from an item hotkey
+bool IsPartyUse(const ItemDef& d);   // used on a Pokemon from Party & Box (Rare Candy, Revive, vitamins)
+int SellPrice(const ItemDef& d);     // what a shop pays (0 = it won't buy it)
+constexpr int VITAMIN_MAX = 10;      // vitamins per stat (each +1%)
 constexpr float ITEM_COOLDOWN = 30.0f;   // seconds before an item slot can be used again

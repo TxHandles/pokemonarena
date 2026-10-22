@@ -12,6 +12,7 @@
 #include "creatures.h"
 #include "embedded.h"
 #include "game.h"
+#include "look.h"
 #include "raylib.h"
 #include "rlgl.h"
 #include "settings.h"
@@ -40,6 +41,7 @@ void UpdateScreenOf(Game& g, float dt) {
         case Screen::Controls: UpdateControls(g); break;
         case Screen::ProfileSelect: UpdateProfileSelect(g); break;
         case Screen::NameEntry: UpdateNameEntry(g); break;
+        case Screen::Creator: UpdateCreator(g); break;
         case Screen::Starter: UpdateStarter(g); break;
         case Screen::RegionChoose: UpdateRegionChoose(g); break;
         case Screen::StoryHub: UpdateStoryHub(g); break;
@@ -85,6 +87,7 @@ void DrawScreenOf(const Game& g) {
         case Screen::Controls: DrawControls(g); break;
         case Screen::ProfileSelect: DrawProfileSelect(g); break;
         case Screen::NameEntry: DrawNameEntry(g); break;
+        case Screen::Creator: DrawCreator(g); break;
         case Screen::Starter: DrawStarter(g); break;
         case Screen::RegionChoose: DrawRegionChoose(g); break;
         case Screen::StoryHub: DrawStoryHub(g); break;
@@ -202,7 +205,7 @@ int main() {
         BeginMode2D(cam);
         DrawScreenOf(g);
         if (g.screen != Screen::Settings && g.screen != Screen::Controls && g.screen != Screen::ProfileSelect &&
-            g.screen != Screen::NameEntry && g.screen != Screen::Evolve && g.screen != Screen::Reward && g.screen != Screen::StoryHub &&
+            g.screen != Screen::NameEntry && g.screen != Screen::Creator && g.screen != Screen::Evolve && g.screen != Screen::Reward && g.screen != Screen::StoryHub &&
             g.screen != Screen::Heal && g.screen != Screen::Shop && g.screen != Screen::MyCreatures &&
             g.screen != Screen::CoopSelect && g.screen != Screen::CoopHub && g.screen != Screen::NetMenu)
             DrawToast(g);
@@ -272,6 +275,7 @@ int main() {
     UnloadAllSprites();
     UnloadSfx();
     CloseAudioDevice();
+    UnloadLooks();
     CloseWindow();
     return 0;
 }

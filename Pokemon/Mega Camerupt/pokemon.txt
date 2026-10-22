@@ -1,0 +1,23 @@
+# Mega Camerupt: the Mega Evolution of Camerupt (official stats, types and ability). Not caught or met on its
+# own: a Camerupt holding the Cameruptite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Camerupt
+dex  = 323
+type = Fire / Ground
+mega_of = Camerupt
+mega_stone = Cameruptite
+
+hp         = 70
+attack     = 120
+defense    = 100
+sp_attack  = 145
+sp_defense = 105
+speed      = 20
+
+height = 2.5      # Pokedex height in meters
+weight = 320.5      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+ability = Sheer Force
+category = 

@@ -1,0 +1,27 @@
+# Mega Glalie - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 173144 > 3B4857
+shiny = 2C3F52 > 4E5766
+shiny = 3A303D > 594750
+shiny = 3A6373 > 657C89
+shiny = 3D434F > 5C5B65
+shiny = 455868 > 66717F
+shiny = 4D616F > 6E7A86
+shiny = 4E7D95 > 658A8B
+shiny = 514F5D > 716774
+shiny = 525252 > 6B6C73
+shiny = 528494 > 68918A
+shiny = 6BB5C5 > 7EB7B8
+shiny = 73736B > 8E8E8D
+shiny = 7DB7D1 > B1D2E5
+shiny = 898599 > 8D9694
+shiny = 90A1AE > 84A79B
+shiny = 9CD6EF > A8DAE0
+shiny = A5A2B1 > 93AA9F
+shiny = B5B5BD > B9C6BC
+shiny = B6C1D4 > BFD1CE
+shiny = C9C8DD > CEDAD7
+shiny = CED1E5 > D4E2DF
+shiny = D3DBE9 > DAECE5
+shiny = EFE6F7 > E4EFEF
+shiny = FFFFFF > F0FFF3

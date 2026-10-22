@@ -64,7 +64,11 @@ void Battle::AbRefresh() {
         const Fighter& f = sides[k].Cur();
         if (Here(f) && f.ab == Ab::NeutralizingGas) gasOn = true;
     }
-    cloudNine = AbOnField(Ab::CloudNine) || AbOnField(Ab::AirLock);
+    cloudNine = AbOnField(Ab::CloudNine) || AbOnField(Ab::AirLock) || AbOnField(Ab::DeltaStream);
+    // the Primal weathers last while their Pokemon is out, and end when it leaves
+    if (AbOnField(Ab::PrimordialSea)) { weather = Weather::Rain; weatherT = std::max(weatherT, 1e5f); }
+    else if (AbOnField(Ab::DesolateLand)) { weather = Weather::Sun; weatherT = std::max(weatherT, 1e5f); }
+    else if (weatherT > 5e4f && weather != natural && (weather == Weather::Rain || weather == Weather::Sun)) weatherT = 0.01f;
 }
 
 void Battle::AbPopup(int s, const std::string& text) {
@@ -103,6 +107,16 @@ void Battle::AbOnEnter(int s) {
             weatherT = 10;
             weatherTick = 1.0f;
             AbPopup(s, "It started to rain!");
+            break;
+        case Ab::PrimordialSea: case Ab::DesolateLand:
+            weather = a == Ab::PrimordialSea ? Weather::Rain : Weather::Sun;
+            weatherT = 1e6f;
+            weatherTick = 1.0f;
+            AbPopup(s, a == Ab::PrimordialSea ? "A heavy rain began to fall!" : "The sunlight turned extremely harsh!");
+            break;
+        case Ab::DeltaStream:
+            weather = Weather::None;
+            AbPopup(s, "Mysterious strong winds are protecting Flying-type Pokemon!");
             break;
         case Ab::SnowWarning:
             weather = Weather::Snow;

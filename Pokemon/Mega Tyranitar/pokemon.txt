@@ -1,0 +1,23 @@
+# Mega Tyranitar: the Mega Evolution of Tyranitar (official stats, types and ability). Not caught or met on its
+# own: a Tyranitar holding the Tyranitarite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Tyranitar
+dex  = 248
+type = Rock / Dark
+mega_of = Tyranitar
+mega_stone = Tyranitarite
+
+hp         = 100
+attack     = 164
+defense    = 150
+sp_attack  = 95
+sp_defense = 120
+speed      = 71
+
+height = 2.5      # Pokedex height in meters
+weight = 255      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+ability = Sand Stream
+category = 

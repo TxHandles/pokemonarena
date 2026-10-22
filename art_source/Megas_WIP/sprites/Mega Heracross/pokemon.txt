@@ -1,0 +1,23 @@
+# Mega Heracross: the Mega Evolution of Heracross (official stats, types and ability). Not caught or met on its
+# own: a Heracross holding the Heracronite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Heracross
+dex  = 214
+type = Bug / Fighting
+mega_of = Heracross
+mega_stone = Heracronite
+
+hp         = 80
+attack     = 185
+defense    = 115
+sp_attack  = 40
+sp_defense = 105
+speed      = 75
+
+height = 1.7      # Pokedex height in meters
+weight = 62.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Skill Link
+category = 

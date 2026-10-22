@@ -54,7 +54,7 @@ int PartyAvg(const Game& g) {
     return n ? sum / n : 5;
 }
 int SpeciesOf(int id) { return SpeciesIndex(Legend(id).species); }
-int LegendLevel(int id, int avg) { return std::max(1, std::min(MAX_LEVEL, std::max(SlotLevel(Legend(id).region, Legend(id).minLevel), avg + Legend(id).bonus))); }
+int LegendLevel(int id, int avg) { (void)avg; return std::max(1, std::min(MAX_LEVEL, Legend(id).minLevel)); }   // the level it has in its game (legendaries never scale)
 int HubLegendItem(const Game&) { return 2; }   // the legendaries are a tab on the hub's Map
 } // namespace
 
@@ -278,7 +278,7 @@ void DrawLegends(const Game& g) {
     DrawWrapped(known ? L.lore : "Old stories tell of a Pokemon far older than any other...", x + 6, 233, w - 12, 10, UI_TEXT);
     if (!open && by < 0) DrawWrapped(why.c_str(), x + 6, 306, w - 12, 10, Color{255, 170, 120, 255});
     GDrawText(g.coop ? "Win 2v1, then 6 balls - taking turns, the MVP first. One of you keeps it."
-                    : "Weaken it, then you get 3 balls. If it breaks free, it flees - come back and try again.",
+                    : "It can't be knocked out: weaken it and throw Poke Balls from your item hotkeys.",
              10, 330, 10, UI_DIM);
     if (g.on.active && IsLegendKind(g.on.partnerReady) && g.on.partnerReady - KIND_LEGEND < LEGEND_COUNT)
         GDrawText(TextFormat("%s wants to go after %s - pick it too!", g.coopP[1 - g.on.me].name.c_str(), Legend(g.on.partnerReady - KIND_LEGEND).species), 10, 316, 10, kP2);
@@ -328,8 +328,7 @@ void DrawLegendIntro(const Game& g) {
     DrawRectangle(30, 276, VW - 60, 56, Fade(UI_INK, 0.85f));
     DrawTextCentered(TextFormat("About Lv%d   -   a boss: huge HP, CPU skill HARD%s", LegendLevel(id, avg), g.coop ? "   -   2 vs 1" : ""), VW / 2, 280, 10, UI_TEXT, false);
     DrawWrapped(ArenaTwist(L.arena), 44, 293, VW - 88, 10, Color{150, 200, 240, 255});
-    DrawTextCentered(g.coop ? "Weaken it, then 6 balls taking turns (the MVP first). It can't be knocked out."
-                            : "Weaken it (it can't be knocked out), then you get 3 balls to catch it.", VW / 2, 318, 10, UI_GOLD, false);
+    DrawTextCentered("It can't be knocked out: weaken it, then throw Poke Balls from your item hotkeys during the battle.", VW / 2, 318, 10, UI_GOLD, false);
     DrawRectangle(VW / 2 - 130, 336, 260, 16, Fade(UI_INK, 0.85f));
     DrawTextCentered("Enter: choose your team     Esc: back", VW / 2, 339, 10, UI_DIM, false);
 }

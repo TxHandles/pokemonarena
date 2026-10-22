@@ -1,0 +1,24 @@
+# Mega Manectric - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 45655E > 414B65
+shiny = 4A84A5 > 4B515F
+shiny = 4C97B6 > 5A7AAC
+shiny = 525252 > 4C3759
+shiny = 52ADC5 > 6B7381
+shiny = 6C4B2F > 513228
+shiny = 86926F > 9D9A5E
+shiny = 947B3A > A97309
+shiny = A8B583 > 9E989D
+shiny = C39125 > D18B00
+shiny = C5AD42 > BF9600
+shiny = C8CB63 > D1C53F
+shiny = E5BF52 > E0BD31
+shiny = E7F08A > F1D455
+shiny = F7E65A > F6CC30
+shiny = F8DB79 > FFE681
+shiny = F9F983 > FFDE54
+shiny = FAF2A7 > FFD86B
+shiny = FBF186 > FFEC65
+shiny = FBFC96 > FFE162
+shiny = FBFF83 > FFF866
+shiny = FCFCA8 > FFF67E

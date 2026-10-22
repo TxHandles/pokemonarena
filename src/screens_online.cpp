@@ -29,7 +29,7 @@ extern bool gAutoNetInput;
 
 namespace {
 
-constexpr uint32_t PROTOCOL = 24;   // 24: Mega Evolution and battle items (input bits, battle state), 23: Sinnoh and Unova (new arena state, wider ready kinds, 64 legendaries, two more rival lines), 22: watching your partner's own battle, 21: the overworld (walking, the partner's position, story battles found on foot), 20: free region order (regions played in any order), 19: Hoenn (May, post-game battles, new arenas and legendaries), 18: Johto (regions, Johto starters, six new arenas), 17: Gen 2 Pokemon 161-251 and their abilities, 16: rolling moves and gym centerpieces, 15: sweeping beams, tethers, grapples and throws (battle state), 14: the legendaries moved to a Map tab (hub items renumbered), 13: new battle effects (particle kinds), 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower, 10: legendary encounters, 11: Gen 2 starters, the rival's two starters, 12: shiny Pokemon
+constexpr uint32_t PROTOCOL = 25;   // 25: the walked Kanto (flags, cut trees, boulders, field moves, trainer looks, in-battle Poke Balls, X items and vitamins),  24: Mega Evolution and battle items (input bits, battle state), 23: Sinnoh and Unova (new arena state, wider ready kinds, 64 legendaries, two more rival lines), 22: watching your partner's own battle, 21: the overworld (walking, the partner's position, story battles found on foot), 20: free region order (regions played in any order), 19: Hoenn (May, post-game battles, new arenas and legendaries), 18: Johto (regions, Johto starters, six new arenas), 17: Gen 2 Pokemon 161-251 and their abilities, 16: rolling moves and gym centerpieces, 15: sweeping beams, tethers, grapples and throws (battle state), 14: the legendaries moved to a Map tab (hub items renumbered), 13: new battle effects (particle kinds), 5: dodge and jump, 6: swap back, 7: target switching, 8: gym rematches, reconnect, 9: the League and the Battle Tower, 10: legendary encounters, 11: Gen 2 starters, the rival's two starters, 12: shiny Pokemon
 constexpr float TICK = 1.0f / 60.0f;
 constexpr int INPUT_DELAY = 2;    // ticks: our own presses take effect this much later (33 ms)
 constexpr int MAX_AHEAD = 15;     // ticks we may run ahead of what the partner has confirmed
@@ -40,7 +40,8 @@ enum Msg : uint8_t {
     M_OWPOS, M_OWFIGHT,  // the overworld: where you walk, a story battle your partner should come to
     M_WATCH, M_WSTATE, M_WSTEP, M_WEND,  // watching your partner's own battle
     M_TEAM,                              // teaming up while walking around
-    M_XPSHARE                            // the Exp. All: XP for your party from your partner's wild battle
+    M_XPSHARE,                           // the Exp. All: XP for your party from your partner's wild battle
+    M_OWMAP                              // a map's cut trees, smashed rocks and boulders, after a change
 };
 
 // ---- message packing
@@ -340,6 +341,7 @@ void OnlineSendWatch(bool on) { W(M_WATCH).u8(on).Send(); }
 void OnlineSendWatchState(const Battle& b) { W(M_WSTATE).str(Compress(SaveBattle(b))).Send(); }
 void OnlineSendWatchStep(float dt, const PlayerInput* in) { W w(M_WSTEP); w.f32(dt); PackInput(w, in[0]); PackInput(w, in[1]); w.Send(); }
 void OnlineSendXpShare(int xp) { W(M_XPSHARE).i32(xp).Send(); }
+void OnlineSendWorldMap(int map, const std::string& state) { W(M_OWMAP).i32(map).str(state).Send(); }
 void OnlineSendTeam(int what) { W(M_TEAM).u8(what).Send(); }
 void OnlineSendWatchEnd() { W(M_WEND).Send(); }
 void OnlineSendCursor(int sel) { W(M_CURSOR).u8((uint8_t)sel).Send(); }
@@ -386,7 +388,8 @@ static void HostMaybeGo(Game& g) {
     }
     if (kind == 2) {
         int every = std::max(1, Story().rareEvery);
-        rare = (g.coopSave.trainingWins + 1) % every == 0;
+        (void)every;
+        rare = false;   // (no more "rare every Nth battle")
         SetTrainingWild(g);
         if (rare) {
             std::vector<std::string> owned;
@@ -878,6 +881,7 @@ void OnlinePoll(Game& g) {
             case M_WEND: WorldWatchEnd(g); break;
             case M_TEAM: WorldTeamMsg(g, r.u8()); break;
             case M_XPSHARE: { int xp = r.i32(); if (r.ok) WorldXpShare(g, xp); } break;
+            case M_OWMAP: { int map = r.i32(); std::string st = r.str(); if (r.ok) WorldMapState(g, map, st); } break;
             case M_OWFIGHT: {
                 int stage = r.i32(), map = r.i32(), x = r.i32(), y = r.i32();
                 std::string trainer = r.str();

@@ -12,6 +12,8 @@
 #    team    = Pokemon names, "random", or "random <Type>" (comma separated).
 #              The team is used as written (1-6 Pokemon).
 #    lv      = the level this battle is built for (like the games: Brock ~13, Giovanni ~48).
+#    orig    = the level it has in its own game: your first region plays at it; every region after it scales
+#              to your strongest Pokemon, never below it (Kanto: lv is FireRed's)
 #              Your team's level only nudges it a little (-2 .. +3). Without lv, 'level' below is used.
 #    level   = CPU levels relative to your team's average (e.g. -2, 0, +3), only used without lv
 #    cpu     = easy / normal / hard
@@ -116,9 +118,9 @@ name = Viridian Forest
 map = 261, 410
 trainer = Bug Catcher Rick
 say = Bugs are the best, and I'll prove it!
-team = Weedle, Caterpie, Weedle +1
+team = Weedle, Caterpie
 level = -2
-lv = 8
+lv = 6
 cpu = easy
 
 [stage]
@@ -128,7 +130,7 @@ trainer = Camper Liam
 say = I trained in Brock's shadow. Let me show you!
 team = Geodude -1, Sandshrew
 level = -1
-lv = 10
+lv = 11
 cpu = easy
 
 [stage]
@@ -147,11 +149,11 @@ badge = Boulder
 [stage]
 name = Mt. Moon
 map = 430, 309
-trainer = Hiker Dale
+trainer = Hiker Marcos
 say = Down here in the dark you have to be tough!
-team = Geodude, Zubat -1, Onix +1
+team = Geodude, Geodude, Onix
 level = -1
-lv = 12
+lv = 10
 cpu = easy
 
 [stage]
@@ -169,9 +171,9 @@ rival = yes
 [stage]
 name = Nugget Bridge
 map = 737, 195
-trainer = Lass Mia
+trainer = Team Rocket Grunt
 say = Nobody crosses this bridge without a battle!
-team = Pidgey, Nidoran F +1
+team = Ekans, Zubat
 level = 0
 lv = 15
 cpu = normal
@@ -179,11 +181,11 @@ cpu = normal
 [stage]
 name = Route 24
 map = 800, 160
-trainer = Swimmer Kai
+trainer = Camper Shane
 say = Ready to get soaked?
-team = Horsea, Shellder, Goldeen +1
+team = Rattata, Ekans
 level = 0
-lv = 16
+lv = 14
 cpu = normal
 
 [stage]
@@ -202,21 +204,21 @@ badge = Cascade
 [stage]
 name = Route 6
 map = 737, 480
-trainer = Engineer Volt
+trainer = Camper Ricky
 say = Careful, I'm fully charged!
-team = Magnemite, Voltorb +1
+team = Squirtle
 level = 0
-lv = 18
+lv = 20
 cpu = normal
 
 [stage]
 name = S.S. Anne
 map = 690, 600
-trainer = Sailor Bruno
+trainer = Sailor Phillip
 say = Sailors don't back down from a fight!
-team = Machop, Shellder, Tentacool
+team = Machop
 level = 0
-lv = 19
+lv = 20
 cpu = normal
 
 [stage]
@@ -257,11 +259,11 @@ badge = Thunder
 [stage]
 name = Rock Tunnel
 map = 928, 300
-trainer = Picnicker Jo
+trainer = Picnicker Dana
 say = It's so dark in here... let's battle to pass the time!
-team = Pidgey, Rattata, Oddish
+team = Meowth, Oddish, Pidgey
 level = 0
-lv = 23
+lv = 20
 cpu = normal
 
 [stage]
@@ -270,10 +272,10 @@ map = 830, 404
 trainer = Twins Eli & Anne
 say = Eli: We're twins, so we battle together! Anne: Two against two - grab a partner!
 # FireRed/LeafGreen's Route 8 twins (Clefairy and Jigglypuff): a double battle
-team = Clefairy, Jigglypuff, Clefairy +1, Jigglypuff +1
+team = Clefairy, Jigglypuff
 double = yes
 level = 0
-lv = 24
+lv = 22
 cpu = normal
 
 [stage]
@@ -317,11 +319,11 @@ snorlax = 1
 [stage]
 name = Cycling Road
 map = 405, 560
-trainer = Biker Rex
+trainer = Biker Virgil
 say = Outta my way, slowpoke!
-team = Koffing, Grimer, Weezing +2
+team = Weezing, Koffing, Weezing
 level = 1
-lv = 29
+lv = 28
 cpu = normal
 
 [stage]
@@ -339,9 +341,9 @@ name = Route 15
 map = 740, 690
 trainer = Bird Keeper Chester
 say = My birds ride the sea breeze. Can yours keep up?
-team = Pidgeotto, Spearow, Fearow +2
+team = Dodrio, Doduo, Doduo
 level = 1
-lv = 31
+lv = 28
 cpu = normal
 
 [stage]
@@ -360,11 +362,11 @@ badge = Soul
 [stage]
 name = Silph Co.
 map = 737, 355
-trainer = Scientist Mel
+trainer = Scientist Jerry
 say = My research says you won't win.
-team = Magnemite, Voltorb, Magneton +1, Electrode +2
+team = Magnemite, Voltorb, Magneton
 level = 1
-lv = 33
+lv = 28
 cpu = normal
 
 [stage]
@@ -382,11 +384,11 @@ rival = yes
 [stage]
 name = Pokemon Tower
 map = 928, 404
-trainer = Channeler Ivy
+trainer = Channeler Tammy
 say = The spirits are restless tonight...
-team = Gastly -1, Gastly -1, Haunter +1
+team = Haunter
 level = 1
-lv = 33
+lv = 23
 cpu = normal
 
 [stage]
@@ -407,17 +409,17 @@ name = Saffron Streets
 map = 670, 404
 trainer = Psychic Tyron
 say = I saw this battle in a vision. You lose.
-team = Slowpoke, Drowzee, Kadabra +1, Mr. Mime +2
+team = Mr. Mime, Kadabra
 level = 2
-lv = 37
+lv = 34
 cpu = hard
 
 [stage]
 name = Saffron Dojo
 map = 700, 385
-trainer = Karate Master Koichi
+trainer = Black Belt Koichi
 say = Hwaa! The Fighting Dojo's prize goes to whoever can beat me - if you can!
-team = Machoke -1, Primeape -1, Hitmonlee, Hitmonchan
+team = Hitmonlee, Hitmonchan
 level = 2
 lv = 37
 cpu = hard
@@ -463,11 +465,11 @@ cpu = normal
 [stage]
 name = Cinnabar Mansion
 map = 310, 800
-trainer = Burglar Vic
+trainer = Burglar Arnie
 say = Heh, you didn't see me here.
-team = Koffing, Grimer, Muk +1, Weezing +2
+team = Charmander, Charmeleon
 level = 2
-lv = 41
+lv = 34
 cpu = hard
 
 [stage]
@@ -496,21 +498,21 @@ badge = Volcano
 [stage]
 name = Rocket Hideout
 map = 300, 470
-trainer = Rocket Grunt Jessie
+trainer = Team Rocket Grunt
 say = Prepare for trouble! The boss doesn't want visitors.
-team = Ekans, Lickitung, Arbok +2
+team = Raticate, Raticate
 level = 2
-lv = 43
+lv = 21
 cpu = hard
 
 [stage]
 name = Rocket Hideout B2
 map = 167, 450
-trainer = Rocket Grunt James
+trainer = Team Rocket Grunt
 say = Make it double! You won't get any closer.
-team = Koffing, Victreebel, Weezing +2
+team = Zubat, Koffing, Grimer, Zubat, Raticate
 level = 2
-lv = 44
+lv = 17
 cpu = hard
 
 [stage]
@@ -643,6 +645,7 @@ town = Mt. Silver, 150, 80
 # ---------------------------------------------------------------- Chapter 1: New Bark Town to Violet City
 [stage]
 name = Cherrygrove City
+orig = 5
 map = 705, 636
 trainer = Rival Silver
 say = ... You got a Pokemon from Elm's lab too? What a waste. Don't get in my way - I'll show you what a real trainer does with one!
@@ -654,6 +657,7 @@ rival = yes
 
 [stage]
 name = Route 30
+orig = 8
 map = 705, 480
 trainer = Youngster Joey
 say = Hey, you! My Rattata is in the top percentage of Rattata. Want to see?
@@ -663,6 +667,7 @@ cpu = hard
 
 [stage]
 name = Sprout Tower
+orig = 10
 map = 625, 322
 trainer = Elder Li
 say = The tower sways like Bellsprout so it never falls. Show me that you and your Pokemon bend together without breaking.
@@ -673,6 +678,7 @@ venue = tower
 
 [stage]
 name = Violet Gym
+orig = 13
 map = 598, 348
 trainer = Leader Falkner
 say = I'm Falkner, the Violet Gym leader! People say you can clip Flying-type Pokemon's wings with a jolt of electricity... I won't allow such insults to bird Pokemon!
@@ -685,6 +691,7 @@ badge = Zephyr
 # ---------------------------------------------------------------- Chapter 2: Union Cave to Azalea Town
 [stage]
 name = Union Cave
+orig = 14
 map = 594, 773
 trainer = Hiker Daniel
 say = Whoa! Careful down here - this cave goes deep, and my Pokemon are as tough as the rock!
@@ -695,6 +702,7 @@ venue = cave
 
 [stage]
 name = Slowpoke Well
+orig = 16
 map = 462, 752
 trainer = Rocket Executive Proton
 say = Selling Slowpoke tails is good business. Team Rocket is back, kid - and you're not stopping us!
@@ -705,6 +713,7 @@ venue = cave
 
 [stage]
 name = Azalea Gym
+orig = 17
 map = 491, 777
 trainer = Leader Bugsy
 say = I'm Bugsy! I never lose when it comes to Bug Pokemon. My research is going to make me the authority on them - let me demonstrate!
@@ -716,6 +725,7 @@ badge = Hive
 
 [stage]
 name = Azalea Town
+orig = 18
 map = 515, 795
 trainer = Rival Silver
 say = ...So you beat the Rockets in the well. Whatever. Weaklings who gang up don't matter. I'm going to be the strongest!
@@ -728,6 +738,7 @@ rival = yes
 # ---------------------------------------------------------------- Chapter 3: Ilex Forest to Goldenrod City
 [stage]
 name = Ilex Forest
+orig = 18
 map = 384, 760
 trainer = Bug Catcher Wayne
 say = Shh! The forest has a shrine to its guardian. Battle quietly... if you can!
@@ -738,6 +749,7 @@ venue = forest
 
 [stage]
 name = Route 34
+orig = 18
 map = 384, 665
 trainer = Picnicker Gina
 say = The wind is perfect for my Hoppip today! Let's battle before they float away!
@@ -747,6 +759,7 @@ cpu = hard
 
 [stage]
 name = Goldenrod Gym
+orig = 19
 map = 384, 562
 trainer = Leader Whitney
 say = Hi! I'm Whitney! Everyone was into Pokemon, so I got into it too! Pokemon are super cute! You want to battle? I'm warning you - I'm good!
@@ -759,6 +772,7 @@ badge = Plain
 # ---------------------------------------------------------------- Chapter 4: Ecruteak City
 [stage]
 name = Route 36
+orig = 21
 map = 480, 348
 trainer = The Odd Tree
 say = A strange tree blocks the road. You splash it with the Squirtbottle... the tree jumps up and attacks!
@@ -771,6 +785,7 @@ join = yes
 
 [stage]
 name = Burned Tower
+orig = 23
 map = 466, 222
 trainer = Rival Silver
 say = ...The legendary Pokemon that sleep here - I'll catch them all. But first I'll beat you, right here!
@@ -783,6 +798,7 @@ venue = tower
 
 [stage]
 name = Ecruteak Gym
+orig = 25
 map = 491, 241
 trainer = Leader Morty
 say = I'm Morty. Here in Ecruteak, Pokemon are revered. It's said that a rainbow Pokemon will come down to the trainer it chooses. I believe that legend - and I've trained so I'll be the one!
@@ -795,6 +811,7 @@ badge = Fog
 # ---------------------------------------------------------------- Chapter 5: Olivine and Cianwood
 [stage]
 name = Olivine Lighthouse
+orig = 27
 map = 252, 326
 trainer = Sailor Huey
 say = Ahoy! The lighthouse Pokemon is sick, and the Gym Leader won't leave its side. Battle me while you wait!
@@ -805,6 +822,7 @@ venue = tower
 
 [stage]
 name = Route 41
+orig = 29
 map = 214, 486
 trainer = Swimmer Kirk
 say = The currents around the Whirl Islands are wild today. Let's see if you can keep up!
@@ -815,6 +833,7 @@ venue = beach
 
 [stage]
 name = Cianwood Gym
+orig = 31
 map = 169, 616
 trainer = Leader Chuck
 say = WAHAHAH! So you've come this far! Let me tell you, I'm tough! My Pokemon will crush stones and shatter bones! Watch this!
@@ -826,6 +845,7 @@ badge = Storm
 
 [stage]
 name = Olivine Gym
+orig = 35
 map = 276, 348
 trainer = Leader Jasmine
 say = Thank you for the medicine - Amphy is shining again. ...Um, I'm Jasmine, a Gym Leader. I use the Steel type. Let's... let's begin.
@@ -838,6 +858,7 @@ badge = Mineral
 # ---------------------------------------------------------------- Chapter 6: Lake of Rage and Mahogany Town
 [stage]
 name = Lake of Rage
+orig = 35
 map = 755, 131
 trainer = Red Gyarados
 say = The lake churns. A furious, glowing red Gyarados - forced to evolve by a strange signal - rises from the water!
@@ -851,6 +872,7 @@ venue = beach
 
 [stage]
 name = Rocket Hideout
+orig = 34
 map = 738, 226
 trainer = Rocket Executive Petrel
 say = That radio signal makes Pokemon evolve - and Team Rocket rich. A Dragon master helping a kid? You'll both regret it!
@@ -861,6 +883,7 @@ venue = hideout
 
 [stage]
 name = Rocket Hideout B3
+orig = 34
 map = 782, 258
 trainer = Rocket Executive Ariana & Rocket Grunt
 say = Ariana: You've come all the way to the generator room? How tiresome. Lance: I'll handle the grunt's Pokemon - you take her! Together!
@@ -874,6 +897,7 @@ venue = hideout
 
 [stage]
 name = Mahogany Gym
+orig = 34
 map = 759, 241
 trainer = Leader Pryce
 say = Pokemon have many experiences in their lives, just like we do. I, too, have seen and suffered much. I am Pryce - the winter trainer. Let me show you my power!
@@ -886,6 +910,7 @@ badge = Glacier
 # ---------------------------------------------------------------- Chapter 7: The Radio Tower takeover
 [stage]
 name = Goldenrod Underground
+orig = 35
 map = 408, 586
 trainer = Rival Silver
 say = ...I lost to Lance's dragons, and he told me I don't love my Pokemon. What would he know? I'll prove him wrong by beating you!
@@ -898,6 +923,7 @@ venue = city
 
 [stage]
 name = Radio Tower 3F
+orig = 36
 map = 360, 540
 trainer = Rocket Executive Proton
 say = Team Rocket has taken the Radio Tower! Soon Giovanni will hear our call and come home. Get lost!
@@ -908,6 +934,7 @@ venue = tower
 
 [stage]
 name = Radio Tower 4F
+orig = 37
 map = 350, 560
 trainer = Rocket Executive Petrel
 say = Heh heh... I'm the Director! ...Fooled you! I'm Petrel, master of disguise - and you're too late!
@@ -918,6 +945,7 @@ venue = tower
 
 [stage]
 name = Radio Tower 5F
+orig = 38
 map = 404, 540
 trainer = Rocket Executive Archer
 say = I am Archer, the leader of Team Rocket while Giovanni is away. Three years we waited for this. A child won't ruin it!
@@ -928,6 +956,7 @@ venue = tower
 
 [stage]
 name = Ecruteak Dance Theater
+orig = 39
 map = 516, 262
 trainer = The Kimono Girls
 say = We are the Kimono Girls. We dance to welcome the rainbow and the silver wings. Show us the bond between you and your Pokemon - five dances in a row!
@@ -940,6 +969,7 @@ venue = tower
 # ---------------------------------------------------------------- Chapter 8: Ice Path to Blackthorn City
 [stage]
 name = Ice Path
+orig = 40
 map = 840, 241
 trainer = Boarder Patton
 say = The floor in here is pure ice! One wrong step and - whoosh! Let's battle before we both slide away!
@@ -950,6 +980,7 @@ venue = ice cave
 
 [stage]
 name = Blackthorn Gym
+orig = 41
 map = 919, 241
 trainer = Leader Clair
 say = I am Clair - the world's best Dragon master. I can hold my own against even the Elite Four! Do you still want to take me on? ...Fine. Let's do it!
@@ -961,6 +992,7 @@ badge = Rising
 
 [stage]
 name = Dragon's Den
+orig = 41
 map = 944, 214
 trainer = Twins Clea & Gil
 say = Clea: The Elder of the Dragon clan is watching! Gil: Pass our test and Clair will have to give you the Rising Badge!
@@ -974,6 +1006,7 @@ venue = cave
 # ---------------------------------------------------------------- Chapter 9: The road to the League
 [stage]
 name = Route 27
+orig = 42
 map = 1050, 600
 trainer = Cooltrainer Megan
 say = I came all the way from Kanto past Tohjo Falls. My Venusaur and I have never lost together!
@@ -983,6 +1016,7 @@ cpu = hard
 
 [stage]
 name = Victory Road
+orig = 42
 map = 1090, 500
 trainer = Rival Silver
 say = ...I haven't forgotten what I lost. I've been training - with my Pokemon, not just using them. This time... I'll win, together with them!
@@ -996,6 +1030,7 @@ venue = cave
 # ---------------------------------------------------------------- The Pokemon League (Johto)
 [stage]
 name = Will's Chamber
+orig = 42
 map = 1070, 405
 trainer = Elite Four Will
 say = Welcome to the Pokemon League. I am Will. I have trained all around the world, making my Psychic Pokemon powerful. And now, I'm finally one of the Elite Four!
@@ -1007,6 +1042,7 @@ league = 1
 
 [stage]
 name = Koga's Chamber
+orig = 44
 map = 1084, 382
 trainer = Elite Four Koga
 say = Fwahahahaha! I am Koga of the Elite Four. I live in shadows, a ninja! My intricate style will confound and destroy you!
@@ -1018,6 +1054,7 @@ league = 2
 
 [stage]
 name = Bruno's Ring
+orig = 46
 map = 1100, 382
 trainer = Elite Four Bruno
 say = I am Bruno of the Elite Four. Through rigorous training, people and Pokemon can become stronger. We will grind you down with our superior power! Hoo hah!
@@ -1029,6 +1066,7 @@ league = 3
 
 [stage]
 name = Karen's Chamber
+orig = 47
 map = 1114, 405
 trainer = Elite Four Karen
 say = I am Karen of the Elite Four. Strong Pokemon. Weak Pokemon. That is only the selfish perception of people. Truly skilled trainers should try to win with their favorites.
@@ -1040,6 +1078,7 @@ league = 4
 
 [stage]
 name = Champion's Room
+orig = 50
 map = 1092, 418
 trainer = Champion Lance
 say = I've been waiting for you. I knew that you, with your skills, would eventually reach me here. As the most powerful trainer and as the Pokemon League Champion... I, Lance the Dragon master, accept your challenge!
@@ -1052,6 +1091,7 @@ league = 5
 # ---------------------------------------------------------------- Mt. Silver (after Lance)
 [stage]
 name = Mt. Silver
+orig = 88
 map = 150, 80
 trainer = Pokemon Trainer Red
 say = ...
@@ -1108,6 +1148,7 @@ town = Ever Grande City, 1084, 536
 # ---------------------------------------------------------------- Chapter 1: Littleroot Town to Rustboro City
 [stage]
 name = Route 103
+orig = 5
 map = 246, 452
 trainer = Rival May
 card = Moving to Littleroot | The moving truck rattles to a stop in Littleroot Town. Your dad, Norman, has just become the Gym Leader of Petalburg City, and your new neighbor is Professor Birch - who you've already rescued from a wild Zigzagoon with one of his own Poke Balls. His daughter May has a Pokemon too, and she's waiting for you on Route 103.
@@ -1123,6 +1164,7 @@ venue = route
 
 [stage]
 name = Petalburg Woods
+orig = 8
 map = 70, 432
 trainer = Team Aqua Grunt
 story = A man in a striped bandana has a Devon researcher backed against a tree, demanding the papers in his bag.
@@ -1135,6 +1177,7 @@ venue = forest
 
 [stage]
 name = Rustboro City
+orig = 12
 map = 96, 334
 trainer = Rival May
 story = Back in Petalburg, your dad lent a sickly boy named Wally a Zigzagoon, and he caught his very first Pokemon - a Ralts - before moving to Verdanturf for the clean air. May heard all about it.
@@ -1149,6 +1192,7 @@ venue = city
 
 [stage]
 name = Rustboro Gym
+orig = 15
 map = 74, 358
 trainer = Leader Roxanne
 say = Welcome to the Rustboro Gym. I became a Gym Leader to put what I learned at the Trainer's School into practice. Let's see what the textbooks say about you!
@@ -1162,6 +1206,7 @@ badge = Stone
 # ---------------------------------------------------------------- Chapter 2: Rusturf Tunnel, Dewford and Slateport
 [stage]
 name = Rusturf Tunnel
+orig = 17
 map = 162, 364
 trainer = Hiker Mike
 story = Mr. Stone, the president of Devon, asks you to take a letter to his son Steven in Dewford and the stolen Devon Goods to Captain Stern in Slateport. The thief has fled into Rusturf Tunnel - and a hiker blocks the way.
@@ -1174,6 +1219,7 @@ venue = cave
 
 [stage]
 name = Dewford Gym
+orig = 19
 map = 170, 758
 trainer = Leader Brawly
 story = The grunt handed back the Devon Goods and ran. Mr. Briney and his Wingull Peeko ferried you across the sea to the little island of Dewford.
@@ -1187,6 +1233,7 @@ badge = Knuckle
 
 [stage]
 name = Oceanic Museum
+orig = 20
 map = 392, 612
 trainer = Team Aqua Grunts
 story = You delivered the letter to Steven deep in Granite Cave - "We'll meet again," he said. Now two Aqua grunts block the museum's second floor, after Captain Stern's submarine parts.
@@ -1202,6 +1249,7 @@ venue = city
 # ---------------------------------------------------------------- Chapter 3: Route 110 and Mauville City
 [stage]
 name = Route 110
+orig = 21
 map = 356, 470
 trainer = Rival May
 say = I've been to Slateport's market and back! I even found out how Pokemon evolve faster near the sea. Ready for round three?
@@ -1215,6 +1263,7 @@ venue = route
 
 [stage]
 name = Cycling Road
+orig = 22
 map = 340, 528
 trainer = Triathlete Jacob
 say = I ride Cycling Road twice a day, rain or shine! Can your Pokemon keep pace with a triathlete's?
@@ -1226,6 +1275,7 @@ venue = bridge
 
 [stage]
 name = Mauville City
+orig = 23
 map = 396, 404
 trainer = Wally
 story = Wally is visiting his uncle in Mauville. He wants to travel with you - and his uncle says he can, if he wins a battle.
@@ -1238,6 +1288,7 @@ venue = city
 
 [stage]
 name = Mauville Gym
+orig = 24
 map = 368, 384
 trainer = Leader Wattson
 say = Wahahahah! So you're the trainer who made it this far! Mauville runs on my electricity - let's see if you can handle a full charge!
@@ -1251,6 +1302,7 @@ badge = Dynamo
 # ---------------------------------------------------------------- Chapter 4: Mt. Chimney and Lavaridge Town
 [stage]
 name = Mt. Chimney
+orig = 26
 map = 304, 244
 trainer = Magma Admin Tabitha
 story = Wattson asked you to shut off the runaway generator under New Mauville. On the way north, the cable car up Mt. Chimney is crawling with red hoods.
@@ -1264,6 +1316,7 @@ venue = mountain
 
 [stage]
 name = Mt. Chimney Summit
+orig = 27
 map = 326, 214
 trainer = Magma Leader Maxie
 story = Archie and his grunts are already on the summit - but Maxie has the Meteorite in the machine.
@@ -1276,6 +1329,7 @@ venue = volcano
 
 [stage]
 name = Lavaridge Gym
+orig = 29
 map = 274, 274
 trainer = Leader Flannery
 story = With Maxie beaten, the Meteorite is out of his machine. Below the summit, Lavaridge's hot springs steam.
@@ -1290,6 +1344,7 @@ badge = Heat
 # ---------------------------------------------------------------- Chapter 5: Petalburg City
 [stage]
 name = Petalburg Gym
+orig = 31
 map = 150, 502
 trainer = Leader Norman
 card = Father and Son | Your dad said he would only accept your challenge once you had four badges. You have them now. Norman is waiting in the last room of his gym, the one you've walked past every day since you moved to Hoenn.
@@ -1304,6 +1359,7 @@ badge = Balance
 # ---------------------------------------------------------------- Chapter 6: Route 119 to Fortree City
 [stage]
 name = Weather Institute
+orig = 32
 map = 432, 280
 trainer = Aqua Admin Shelly
 story = Team Aqua has stormed the Weather Institute on Route 119. They want its research on Castform - and on the weather itself.
@@ -1317,6 +1373,7 @@ gift = Castform
 
 [stage]
 name = Route 119
+orig = 32
 map = 456, 324
 trainer = Rival May
 say = I heard you saved the Weather Institute! My Pokemon and I came all this way through the rain to battle you - let's go!
@@ -1331,6 +1388,7 @@ outdoor = yes
 
 [stage]
 name = Route 120
+orig = 32
 map = 560, 300
 trainer = The Invisible Pokemon
 story = On Route 120, Steven hands you the Devon Scope. "Something you can't see is blocking that bridge. Try this."
@@ -1346,6 +1404,7 @@ venue = bridge
 
 [stage]
 name = Fortree Gym
+orig = 33
 map = 450, 188
 trainer = Leader Winona
 say = I am Winona. My bird Pokemon and I have soared through the skies above Fortree together. Witness the elegant choreography of the sky!
@@ -1359,6 +1418,7 @@ badge = Feather
 # ---------------------------------------------------------------- Chapter 7: Lilycove, Mt. Pyre and the two hideouts
 [stage]
 name = Lilycove City
+orig = 34
 map = 628, 296
 trainer = Rival May
 say = This is it - my last challenge before I go home to help Dad with his research. I'm going all out. Don't hold back either!
@@ -1372,6 +1432,7 @@ venue = city
 
 [stage]
 name = Mt. Pyre
+orig = 35
 map = 552, 352
 trainer = Breeder Gabrielle
 story = Mt. Pyre, where the spirits of Pokemon rest. Fog rolls in from the sea.
@@ -1385,6 +1446,7 @@ venue = mountain
 
 [stage]
 name = Magma Hideout
+orig = 36
 map = 262, 226
 trainer = Magma Admin Courtney
 story = Deep in Jagged Pass, a hidden door leads into the mountain. Team Magma has dug a hideout around something enormous, sleeping in the magma.
@@ -1397,6 +1459,7 @@ venue = hideout
 
 [stage]
 name = Magma Hideout Depths
+orig = 38
 map = 244, 246
 trainer = Magma Leader Maxie
 card_pokemon = Groudon
@@ -1410,6 +1473,7 @@ venue = volcano
 
 [stage]
 name = Aqua Hideout
+orig = 39
 map = 700, 250
 trainer = Aqua Admin Matt
 story = Lilycove's cave hides Team Aqua's base. You're too late: Archie has already sailed off in Captain Stern's stolen submarine to find Kyogre.
@@ -1422,6 +1486,7 @@ venue = hideout
 
 [stage]
 name = Aqua Hideout Storeroom
+orig = 40
 map = 724, 268
 trainer = The Suspicious Poke Ball
 say = You reach for a Poke Ball lying on the floor... it's an Electrode! It's glowing - and getting ready to explode!
@@ -1437,6 +1502,7 @@ venue = hideout
 # ---------------------------------------------------------------- Chapter 8: Mossdeep City
 [stage]
 name = Mossdeep Space Center
+orig = 41
 map = 958, 352
 trainer = Magma Leader Maxie & Magma Admin Tabitha
 card = The Space Center | Team Magma has stormed the Mossdeep Space Center to steal the rocket fuel and pour it into Mt. Chimney. Steven is there. "Let's do this together," he says, and his Metang floats out beside you.
@@ -1451,6 +1517,7 @@ venue = lab
 
 [stage]
 name = Mossdeep Gym
+orig = 42
 map = 934, 332
 trainer = Leader Tate & Liza
 say = Hehehe... were you surprised? That there are two Gym Leaders? We're twins! We don't need to talk - we just know what the other is thinking. Can you beat our combination?
@@ -1465,6 +1532,7 @@ double = yes
 # ---------------------------------------------------------------- Chapter 9: Seafloor Cavern and Sootopolis City
 [stage]
 name = Seafloor Cavern
+orig = 43
 map = 884, 486
 trainer = Aqua Admin Shelly
 story = Diving from the stolen submarine, you follow Team Aqua into the Seafloor Cavern, deep under Route 128.
@@ -1477,6 +1545,7 @@ venue = cave
 
 [stage]
 name = Seafloor Cavern Depths
+orig = 45
 map = 908, 506
 trainer = Aqua Leader Archie
 card_pokemon = Kyogre
@@ -1490,6 +1559,7 @@ venue = cave
 
 [stage]
 name = Sootopolis Gym
+orig = 46
 map = 810, 452
 trainer = Leader Juan
 card_pokemon = Rayquaza
@@ -1505,6 +1575,7 @@ badge = Rain
 # ---------------------------------------------------------------- Chapter 10: Victory Road
 [stage]
 name = Victory Road B2F
+orig = 47
 map = 1056, 568
 trainer = Cooltrainer Vito
 say = I trained deep down here so I'd be ready for the League. My team covers every type you can bring!
@@ -1516,6 +1587,7 @@ venue = cave
 
 [stage]
 name = Victory Road
+orig = 48
 map = 1072, 584
 trainer = Wally
 story = A familiar face waits at the end of Victory Road - healthy, confident, and with a full team.
@@ -1529,6 +1601,7 @@ venue = cave
 # ---------------------------------------------------------------- The Pokemon League (Ever Grande City)
 [stage]
 name = Sidney's Room
+orig = 49
 map = 1066, 512
 trainer = Elite Four Sidney
 say = I'm Sidney of the Elite Four. I like that look you're giving me. Let's have a battle that can only happen here in the League!
@@ -1541,6 +1614,7 @@ league = 1
 
 [stage]
 name = Phoebe's Room
+orig = 51
 map = 1080, 500
 trainer = Elite Four Phoebe
 say = I trained on Mt. Pyre, where the spirits gather. My Pokemon and I share a bond that reaches beyond this world. Can you feel it?
@@ -1553,6 +1627,7 @@ league = 2
 
 [stage]
 name = Glacia's Room
+orig = 53
 map = 1096, 500
 trainer = Elite Four Glacia
 say = I came all the way from far away to find a trainer worth battling. Show me your hot passion - before my ice freezes it solid!
@@ -1565,6 +1640,7 @@ league = 3
 
 [stage]
 name = Drake's Room
+orig = 55
 map = 1110, 512
 trainer = Elite Four Drake
 say = I am Drake, the last of the Elite Four. A trainer must know what their Pokemon truly need. Do you? Prove it against my dragons!
@@ -1577,6 +1653,7 @@ league = 4
 
 [stage]
 name = Champion's Room
+orig = 58
 map = 1088, 528
 trainer = Champion Wallace
 say = Welcome. I am Wallace, the Pokemon League Champion. I'll show you the true elegance of battle - a performance worthy of the strongest trainer in Hoenn!
@@ -1593,6 +1670,7 @@ league = 5
 # ---------------------------------------------------------------- Meteor Falls (after Wallace)
 [stage]
 name = Meteor Falls
+orig = 78
 map = 104, 236
 trainer = Steven
 say = I knew you'd come. I've traveled all over Hoenn searching for rare stones - and for a trainer like you. Let's see who's stronger, Champion!
@@ -1647,6 +1725,7 @@ town = Resort Area, 1440, 505
 # ---------------------------------------------------------------- Chapter 1: Twinleaf Town to Oreburgh City
 [stage]
 name = Route 201
+orig = 5
 map = 250, 1172
 trainer = Rival Barry
 card_pokemon = Mesprit
@@ -1663,6 +1742,7 @@ venue = route
 
 [stage]
 name = Route 203
+orig = 8
 map = 405, 1008
 trainer = Rival Barry
 story = Professor Rowan asked you to fill his Pokedex. Barry took that as a race - and he's waiting at the gate to Oreburgh.
@@ -1677,6 +1757,7 @@ venue = route
 
 [stage]
 name = Jubilife City
+orig = 11
 map = 262, 1060
 trainer = Team Galactic Grunts
 story = Two people in bowl-cut uniforms have Professor Rowan cornered outside the Trainers' School, demanding his research on evolution. Dawn, Rowan's assistant, runs to your side.
@@ -1692,6 +1773,7 @@ venue = city
 
 [stage]
 name = Oreburgh Gym
+orig = 14
 map = 500, 1010
 trainer = Leader Roark
 story = Roark climbs up out of Oreburgh Mine with coal dust on his helmet. He heard there's a challenger in town.
@@ -1706,6 +1788,7 @@ badge = Coal
 # ---------------------------------------------------------------- Chapter 2: Floaroma, Valley Windworks and Eterna City
 [stage]
 name = Route 204
+orig = 16
 map = 320, 925
 trainer = Twins Liv & Liz
 story = On the path to Floaroma, two girls in matching outfits step out together. Their Pachirisu are dressed to match, too.
@@ -1719,6 +1802,7 @@ venue = route
 
 [stage]
 name = Valley Windworks
+orig = 17
 map = 405, 838
 trainer = Team Galactic Grunt
 story = A girl in Floaroma is in tears: Team Galactic has locked her father inside the Valley Windworks. A grunt guards the door.
@@ -1731,6 +1815,7 @@ venue = route
 
 [stage]
 name = Windworks Control Room
+orig = 19
 map = 440, 838
 trainer = Commander Mars
 story = Inside, the turbines scream. A woman with bright red hair is draining the plant's power into Galactic machines.
@@ -1744,6 +1829,7 @@ venue = office
 
 [stage]
 name = Eterna Forest
+orig = 20
 map = 380, 615
 trainer = Wild Pokemon
 story = At the edge of Eterna Forest, a calm young woman named Cheryl asks if she can walk through with you. She doesn't want to meet Team Galactic alone. Her Chansey fights at your side.
@@ -1759,6 +1845,7 @@ venue = forest
 
 [stage]
 name = Eterna Gym
+orig = 22
 map = 560, 620
 trainer = Leader Gardenia
 story = In front of Eterna's ancient statue of Dialga and Palkia, a woman with blonde hair and a long black coat is studying the carvings. She smiles at you and says the Gym Leader here is a friend of hers.
@@ -1772,6 +1859,7 @@ badge = Forest
 
 [stage]
 name = Galactic Eterna Building
+orig = 23
 map = 600, 615
 trainer = Commander Jupiter
 story = Team Galactic has turned a building in Eterna into a base, and the bike shop owner is locked inside. Jupiter waits at the top floor.
@@ -1786,6 +1874,7 @@ venue = office
 
 [stage]
 name = Old Chateau
+orig = 24
 map = 470, 615
 trainer = The Haunted TV
 story = Deep in Eterna Forest stands a mansion no one lives in. Gardenia flatly refuses to set foot inside. In an upstairs room, a dusty old TV is glowing.
@@ -1802,6 +1891,7 @@ venue = mansion
 # ---------------------------------------------------------------- Chapter 3: Wayward Cave, Mt. Coronet and Hearthome City
 [stage]
 name = Wayward Cave
+orig = 25
 map = 545, 860
 trainer = Wild Pokemon
 story = Beneath the Cycling Road, a hidden cave hides a lost girl named Mira. She's been wandering in the dark for ages. Her Kadabra lights the way and fights beside you.
@@ -1817,6 +1907,7 @@ venue = cave
 
 [stage]
 name = Hearthome Gym
+orig = 26
 map = 850, 920
 trainer = Leader Fantina
 story = On the way through Mt. Coronet, the man in the grey suit spoke again: about a world with no strife, and no spirit either. In Hearthome, a lost Buneary leads you to the Contest Hall, where the Gym Leader is waiting in a ball gown.
@@ -1832,6 +1923,7 @@ badge = Relic
 
 [stage]
 name = Route 209
+orig = 28
 map = 960, 948
 trainer = Rival Barry
 story = Barry is pacing the Hearthome gate. He's already heard you got the Relic Badge.
@@ -1847,6 +1939,7 @@ venue = route
 # ---------------------------------------------------------------- Chapter 4: Solaceon Town to Veilstone City
 [stage]
 name = Route 215
+orig = 30
 map = 1100, 720
 trainer = Ace Trainer Dennis
 story = Rain never stops on Route 215. A trainer in a soaked jacket waits for you halfway to Veilstone.
@@ -1859,6 +1952,7 @@ venue = route
 
 [stage]
 name = Veilstone Gym
+orig = 32
 map = 1245, 760
 trainer = Leader Maylene
 say = I'm Maylene. I'm not sure I'm good enough to be a Gym Leader... but my Pokemon and I won't hold back. Fists up!
@@ -1871,6 +1965,7 @@ badge = Cobble
 
 [stage]
 name = Galactic Warehouse
+orig = 33
 map = 1280, 795
 trainer = Team Galactic Grunts
 story = Two grunts snatched Dawn's Pokedex in the middle of the street and ran into the Galactic Warehouse. Dawn is furious, and right behind you.
@@ -1889,6 +1984,7 @@ venue = hideout
 # ---------------------------------------------------------------- Chapter 5: Valor Lakefront and Pastoria City
 [stage]
 name = Seven Stars Restaurant
+orig = 34
 map = 1300, 1080
 trainer = Breeder Kaylee & Scientist Emilio
 story = The Seven Stars Restaurant at Valor Lakefront only serves trainers who battle in pairs. Two diners wave you over.
@@ -1902,6 +1998,7 @@ venue = city
 
 [stage]
 name = Pastoria City
+orig = 36
 map = 1040, 1170
 trainer = Rival Barry
 story = Barry is standing outside the Pastoria Gym, telling everyone that Crasher Wake is his master. Crasher Wake has never met him.
@@ -1916,6 +2013,7 @@ venue = city
 
 [stage]
 name = Pastoria Gym
+orig = 37
 map = 1085, 1135
 trainer = Leader Crasher Wake
 say = Crasher Wake, champion of the waves! In my gym the water rises and falls, and my Pokemon ride every surge. Dive in!
@@ -1928,6 +2026,7 @@ badge = Fen
 
 [stage]
 name = Valor Lakefront
+orig = 38
 map = 1270, 1100
 trainer = Team Galactic Grunt
 story = A blast shakes the Great Marsh gate - a Galactic grunt set off a small bomb "as a test" and ran. You chase him all the way back to Valor Lakefront.
@@ -1941,6 +2040,7 @@ venue = route
 # ---------------------------------------------------------------- Chapter 6: Route 210 and Celestic Town
 [stage]
 name = Celestic Ruins
+orig = 39
 map = 830, 615
 trainer = Galactic Boss Cyrus
 story = On Route 210, Cynthia cured the Psyduck blocking the road and asked you to carry an Old Charm to her grandmother in Celestic Town. When you arrive, a grunt is guarding the town's small shrine - and the man in the grey suit is inside.
@@ -1957,6 +2057,7 @@ venue = cave
 # ---------------------------------------------------------------- Chapter 7: Canalave City and Iron Island
 [stage]
 name = Canalave City
+orig = 39
 map = 150, 1005
 trainer = Rival Barry
 story = Barry is standing in the middle of Canalave's drawbridge, blocking it on purpose.
@@ -1971,6 +2072,7 @@ venue = bridge
 
 [stage]
 name = Iron Island B2F
+orig = 40
 map = 210, 555
 trainer = Team Galactic Grunts
 story = At the Canalave Library, Rowan, Barry and Dawn were reading the Sinnoh myths with you when an explosion rocked the city. Now Team Galactic has dug in on Iron Island, and a quiet man named Riley wants them gone as much as you do. His Lucario steps up beside you.
@@ -1988,6 +2090,7 @@ venue = cave
 
 [stage]
 name = Canalave Gym
+orig = 41
 map = 95, 960
 trainer = Leader Byron
 say = I am Byron, Roark's father! My Steel-types are forged in the mines as surely as his rocks are. Let's see you dent them!
@@ -2001,6 +2104,7 @@ badge = Mine
 # ---------------------------------------------------------------- Chapter 8: The three lakes and Snowpoint City
 [stage]
 name = Valor Cavern
+orig = 42
 map = 1235, 1030
 trainer = Commander Saturn
 card_pokemon = Azelf
@@ -2014,6 +2118,7 @@ venue = cave
 
 [stage]
 name = Verity Lakefront
+orig = 42
 map = 95, 1110
 trainer = Team Galactic Grunts
 story = You fly back to Lake Verity. Professor Rowan and Dawn are holding off grunts at the shore, but two more block the way to the cavern.
@@ -2027,6 +2132,7 @@ venue = route
 
 [stage]
 name = Lake Verity
+orig = 43
 map = 140, 1165
 trainer = Commander Mars
 story = In the cavern, Mars has a Poke Ball in her hand. Mesprit is already inside.
@@ -2039,6 +2145,7 @@ venue = cave
 
 [stage]
 name = Route 216
+orig = 43
 map = 640, 385
 trainer = Skier Bradley
 story = Rowan sends you north: Barry went to Lake Acuity alone. The road out of Mt. Coronet is buried in snow.
@@ -2051,6 +2158,7 @@ venue = route
 
 [stage]
 name = Snowpoint Gym
+orig = 44
 map = 655, 80
 trainer = Leader Candice
 say = I'm Candice! Snowpoint's coldest Gym Leader and its biggest fan of diamond dust. Let's get our focus on - full blast!
@@ -2064,6 +2172,7 @@ badge = Icicle
 # ---------------------------------------------------------------- Chapter 9: Team Galactic HQ
 [stage]
 name = Galactic HQ
+orig = 45
 map = 1205, 720
 trainer = Galactic Boss Cyrus
 card_pokemon = Uxie
@@ -2080,6 +2189,7 @@ venue = hideout
 
 [stage]
 name = Galactic HQ Lab
+orig = 46
 map = 1285, 720
 trainer = Commander Saturn
 story = Past a warp panel, Saturn stands in front of three glass tanks. Uxie, Mesprit and Azelf are inside, being drained.
@@ -2094,6 +2204,7 @@ venue = lab
 # ---------------------------------------------------------------- Chapter 10: Mt. Coronet, Spear Pillar and the Distortion World
 [stage]
 name = Mt. Coronet
+orig = 47
 map = 712, 700
 trainer = Team Galactic Grunt
 story = Grunts block every passage up Mt. Coronet. A man in a trench coat - Looker, of the International Police - says Cyrus and his commanders are too much for him, and lets you go up alone.
@@ -2106,6 +2217,7 @@ venue = cave
 
 [stage]
 name = Spear Pillar
+orig = 48
 map = 712, 480
 trainer = Commanders Mars & Jupiter
 card_pokemon = Dialga
@@ -2122,6 +2234,7 @@ venue = mountain
 
 [stage]
 name = Distortion World
+orig = 49
 map = 760, 470
 trainer = Galactic Boss Cyrus
 card_pokemon = Giratina
@@ -2139,6 +2252,7 @@ arena = distortion
 # ---------------------------------------------------------------- Chapter 11: Sunyshore City
 [stage]
 name = Sunyshore Gym
+orig = 50
 map = 1525, 1035
 trainer = Leader Volkner
 story = Outside the Sunyshore Gym, an Elite Four member with fiery hair stops you. "I'm Flint. Volkner's my best friend, and he's bored to death. Give him a battle that wakes him up, would you?"
@@ -2153,6 +2267,7 @@ badge = Beacon
 # ---------------------------------------------------------------- Chapter 12: Victory Road
 [stage]
 name = Victory Road
+orig = 51
 map = 1495, 740
 trainer = Veteran Edgar
 say = I've walked this road more times than I can count. My Pokemon know every stone. Do yours?
@@ -2164,6 +2279,7 @@ venue = cave
 
 [stage]
 name = Pokemon League
+orig = 52
 map = 1495, 708
 trainer = Rival Barry
 story = Just inside the League gates, Barry is waiting by the Elite Four's door, unusually quiet.
@@ -2179,6 +2295,7 @@ venue = stadium
 # ---------------------------------------------------------------- The Pokemon League
 [stage]
 name = Aaron's Room
+orig = 53
 map = 1473, 662
 trainer = Elite Four Aaron
 say = I'm Aaron. Bug Pokemon are small, but they're fierce and beautiful. I'll prove it to everyone who comes through here!
@@ -2191,6 +2308,7 @@ league = 1
 
 [stage]
 name = Bertha's Room
+orig = 55
 map = 1487, 650
 trainer = Elite Four Bertha
 say = Well now, aren't you a lively one. I'm Bertha. My Ground-types are slow and steady, dear - just like me. Shall we?
@@ -2203,6 +2321,7 @@ league = 2
 
 [stage]
 name = Flint's Room
+orig = 57
 map = 1503, 650
 trainer = Elite Four Flint
 say = You woke Volkner up! I owe you one. And the best way I know to say thanks is a battle that burns hot!
@@ -2215,6 +2334,7 @@ league = 3
 
 [stage]
 name = Lucian's Room
+orig = 59
 map = 1517, 662
 trainer = Elite Four Lucian
 say = Excuse me, I was just finishing a chapter. I am Lucian. My Psychic-types and I have read every move you might make.
@@ -2227,6 +2347,7 @@ league = 4
 
 [stage]
 name = Champion's Room
+orig = 62
 map = 1495, 676
 trainer = Champion Cynthia
 story = The last door opens. The woman from the Eterna statue, from Route 210, from the Distortion World, is waiting for you.
@@ -2243,6 +2364,7 @@ league = 5
 # ---------------------------------------------------------------- The Battle Zone (after Cynthia)
 [stage]
 name = Fight Area
+orig = 60
 map = 1130, 445
 trainer = Elite Four Flint & Leader Volkner
 story = At the Fight Area, Flint and Volkner are blocking the road to the Battle Frontier together, grinning. Barry is already there, bouncing beside you.
@@ -2260,6 +2382,7 @@ postgame = yes
 
 [stage]
 name = Stark Mountain Entrance
+orig = 63
 map = 1330, 200
 trainer = Commander Mars
 card = Stark Mountain | Looker finds you at the Survival Area. "Charon has taken what is left of Team Galactic. He wants the Magma Stone at the heart of Stark Mountain - and with it, the volcano's Pokemon." Mars and Jupiter have followed him there.
@@ -2273,6 +2396,7 @@ postgame = yes
 
 [stage]
 name = Stark Mountain
+orig = 65
 map = 1330, 145
 trainer = Commander Jupiter
 say = Without Cyrus, none of this means anything. ...But I'm still not losing to you.
@@ -2286,6 +2410,7 @@ postgame = yes
 
 [stage]
 name = Stark Mountain Interior
+orig = 70
 map = 1330, 100
 trainer = Wild Pokemon
 story = A loud young man named Buck tags along into the mountain's core - he wants to see what's down there. His Claydol spins along beside you.
@@ -2304,6 +2429,7 @@ postgame = yes
 
 [stage]
 name = Victory Road (back)
+orig = 66
 map = 1560, 640
 trainer = Wild Pokemon
 story = A shy girl named Marley asks to walk with you through the back of Victory Road. She barely says a word, but her Arcanine sticks close to you.
@@ -2320,6 +2446,7 @@ postgame = yes
 
 [stage]
 name = Survival Area
+orig = 64
 map = 1160, 280
 trainer = Rival Barry
 story = Every weekend, Barry trains at the Survival Area. Today he's been waiting for you since dawn.
@@ -2335,6 +2462,7 @@ postgame = yes
 
 [stage]
 name = Champion Rematch
+orig = 78
 map = 1530, 700
 trainer = Champion Cynthia
 card = A Champion's Rematch | Word reaches you in the Battle Zone: Cynthia is back at the Pokemon League, and she has asked for you by name. "I've been training since our battle," her message says. "Come and see."
@@ -2389,6 +2517,7 @@ town = Virbank City, 480, 990
 # ---------------------------------------------------------------- Chapter 1: Nuvema Town to Striaton City
 [stage]
 name = Nuvema Town
+orig = 5
 map = 1720, 1205
 trainer = Cheren & Bianca
 card_pokemon = Snivy
@@ -2406,6 +2535,7 @@ venue = city
 
 [stage]
 name = Accumula Town
+orig = 7
 map = 1695, 1055
 trainer = N
 card_pokemon = Purrloin
@@ -2420,6 +2550,7 @@ venue = city
 
 [stage]
 name = Route 2
+orig = 9
 map = 1695, 990
 trainer = Rival Bianca
 story = Bianca is waiting on Route 2, and she's already got a second Pokemon.
@@ -2433,6 +2564,7 @@ venue = route
 
 [stage]
 name = Dreamyard
+orig = 10
 map = 1630, 860
 trainer = Team Plasma Grunts
 story = In the ruins of the Dreamyard, two Team Plasma grunts are kicking a Munna to make it release Dream Mist.
@@ -2448,6 +2580,7 @@ venue = park
 
 [stage]
 name = Striaton Trainers' School
+orig = 12
 map = 1730, 900
 trainer = Rival Cheren
 story = Cheren has been studying at the Trainers' School in Striaton. He'd like a practice battle before the Gym.
@@ -2462,6 +2595,7 @@ venue = city
 
 [stage]
 name = Striaton Gym
+orig = 14
 map = 1695, 920
 trainer = Leaders Cilan, Chili & Cress
 story = The Striaton Gym is a restaurant run by three brothers. Today, all three want to serve you a battle - at once.
@@ -2477,6 +2611,7 @@ badge = Trio
 # ---------------------------------------------------------------- Chapter 2: Route 3, Wellspring Cave and Nacrene City
 [stage]
 name = Route 3
+orig = 16
 map = 1600, 935
 trainer = Rival Cheren
 story = At the fork by the Day Care, Cheren catches up. He's caught two new Pokemon.
@@ -2491,6 +2626,7 @@ venue = route
 
 [stage]
 name = Wellspring Cave
+orig = 17
 map = 1560, 870
 trainer = Team Plasma Grunts
 story = The Dreamyard grunts have stolen a little girl's Pokemon and fled into Wellspring Cave. Cheren goes in with you.
@@ -2506,6 +2642,7 @@ venue = cave
 
 [stage]
 name = Nacrene City
+orig = 18
 map = 1530, 940
 trainer = N
 story = Outside the Nacrene Museum, N is waiting. He says he wants to change the world by freeing every Pokemon.
@@ -2519,6 +2656,7 @@ venue = city
 
 [stage]
 name = Nacrene Gym
+orig = 20
 map = 1500, 920
 trainer = Leader Lenora
 story = Nacrene's Gym is inside the museum's library. Its Leader is the museum's director.
@@ -2533,6 +2671,7 @@ badge = Basic
 # ---------------------------------------------------------------- Chapter 3: Pinwheel Forest and Castelia City
 [stage]
 name = Pinwheel Forest
+orig = 21
 map = 1440, 990
 trainer = Team Plasma Grunt
 story = Team Plasma stole the Dragon Skull from Lenora's museum. In Pinwheel Forest, the grunt carrying it blocks your way.
@@ -2546,6 +2685,7 @@ venue = forest
 
 [stage]
 name = Castelia City
+orig = 22
 map = 1030, 1050
 trainer = Team Plasma Grunts
 story = Grunts have snatched Bianca's Munna in the streets of Castelia. Burgh, the city's Gym Leader, runs with you after them.
@@ -2561,6 +2701,7 @@ venue = city
 
 [stage]
 name = Castelia Gym
+orig = 23
 map = 990, 1025
 trainer = Leader Burgh
 story = The Castelia Gym is full of honey walls - push through them to reach the artist who leads it.
@@ -2574,6 +2715,7 @@ badge = Insect
 
 [stage]
 name = Castelia Gate
+orig = 24
 map = 1010, 960
 trainer = Rival Bianca
 story = At the gate north of Castelia, Bianca is waiting with her Munna back - and a lot more confidence.
@@ -2588,6 +2730,7 @@ venue = city
 # ---------------------------------------------------------------- Chapter 4: Route 4, the Desert Resort and Nimbasa City
 [stage]
 name = Route 4
+orig = 24
 map = 990, 860
 trainer = Rival Cheren
 story = A sandstorm blows over Route 4. Cheren is waiting, his scarf pulled up over his face.
@@ -2601,6 +2744,7 @@ venue = route
 
 [stage]
 name = Desert Resort
+orig = 25
 map = 865, 800
 trainer = The Sleeping Statue
 story = Stone Darmanitan statues line the steps of Relic Castle in the Desert Resort. One of them is warmer than the others...
@@ -2618,6 +2762,7 @@ venue = beach
 
 [stage]
 name = Nimbasa City
+orig = 26
 map = 960, 690
 trainer = Team Plasma Grunt
 story = In Nimbasa, Team Plasma grunts are harassing an old man. When you arrive they run off into the amusement park.
@@ -2630,6 +2775,7 @@ venue = city
 
 [stage]
 name = Nimbasa Ferris Wheel
+orig = 26
 map = 1030, 690
 trainer = N
 card_pokemon = Zoroark
@@ -2644,6 +2790,7 @@ venue = park
 
 [stage]
 name = Nimbasa Gym
+orig = 27
 map = 990, 670
 trainer = Leader Elesa
 story = The Nimbasa Gym is a roller coaster lit like a runway. Elesa is a model as well as a Gym Leader.
@@ -2658,6 +2805,7 @@ badge = Bolt
 # ---------------------------------------------------------------- Chapter 5: Route 5 and Driftveil City
 [stage]
 name = Route 5
+orig = 28
 map = 800, 670
 trainer = Rival Cheren
 story = On Route 5, Champion Alder is talking with Cheren. Alder asks why Cheren wants to be strong. Cheren doesn't have a good answer - so he asks you for a battle instead.
@@ -2671,6 +2819,7 @@ venue = route
 
 [stage]
 name = Cold Storage
+orig = 29
 map = 600, 700
 trainer = Team Plasma Grunts
 story = Clay, Driftveil's Gym Leader, says Team Plasma grunts are hiding in the Cold Storage warehouses. Cheren comes with you.
@@ -2686,6 +2835,7 @@ venue = hideout
 
 [stage]
 name = Cold Storage Sage
+orig = 30
 map = 625, 715
 trainer = Sage Zinzolin
 story = Deep in the warehouse, a robed man is complaining about the cold. He is one of the Seven Sages.
@@ -2700,6 +2850,7 @@ venue = hideout
 
 [stage]
 name = Driftveil Gym
+orig = 31
 map = 543, 670
 trainer = Leader Clay
 story = Clay's Gym is deep in a mine - a lift takes you down to where he waits.
@@ -2713,6 +2864,7 @@ badge = Quake
 
 [stage]
 name = Driftveil City
+orig = 32
 map = 515, 650
 trainer = Rival Bianca
 story = Bianca is waiting outside Driftveil on the way to Route 6. Her father came all the way here to take her home - and she said no.
@@ -2727,6 +2879,7 @@ venue = city
 # ---------------------------------------------------------------- Chapter 6: Chargestone Cave, Route 7 and Mistralton City
 [stage]
 name = Chargestone Cave
+orig = 33
 map = 480, 560
 trainer = Team Plasma Grunt
 story = Chargestone Cave crackles with floating electric rocks. A grunt is draining them.
@@ -2740,6 +2893,7 @@ venue = cave
 
 [stage]
 name = Chargestone Depths
+orig = 33
 map = 455, 520
 trainer = N
 card_pokemon = Zekrom
@@ -2754,6 +2908,7 @@ venue = cave
 
 [stage]
 name = Route 7
+orig = 34
 map = 330, 470
 trainer = Rival Cheren
 story = Cheren is waiting in the tall grass of Route 7. He's thought about Alder's question.
@@ -2767,6 +2922,7 @@ venue = route
 
 [stage]
 name = Mistralton Gym
+orig = 35
 map = 290, 540
 trainer = Leader Skyla
 story = Mistralton's Gym is a cargo hangar full of cannons that fire you across the room.
@@ -2781,6 +2937,7 @@ badge = Jet
 # ---------------------------------------------------------------- Chapter 7: Twist Mountain, Icirrus City and Dragonspiral Tower
 [stage]
 name = Twist Mountain
+orig = 37
 map = 350, 415
 trainer = Ace Trainer Caroll
 story = Snow is falling on Twist Mountain. An Ace Trainer blocks the narrow path through the mine.
@@ -2793,6 +2950,7 @@ venue = icecave
 
 [stage]
 name = Icirrus Gym
+orig = 39
 map = 543, 350
 trainer = Leader Brycen
 story = Icirrus Gym's floor is sheets of ice. Brycen, a former movie star, waits at the end.
@@ -2806,6 +2964,7 @@ badge = Freeze
 
 [stage]
 name = Dragonspiral Tower
+orig = 40
 map = 480, 285
 trainer = Team Plasma Grunts
 story = Team Plasma has broken through the wall of Dragonspiral Tower. Cheren runs in beside you.
@@ -2824,6 +2983,7 @@ venue = tower
 # ---------------------------------------------------------------- Chapter 8: Relic Castle and Route 8
 [stage]
 name = Relic Castle
+orig = 41
 map = 865, 780
 trainer = Team Plasma Grunt
 story = Ghetsis's men are digging deep in Relic Castle for the stone that holds the other dragon.
@@ -2838,6 +2998,7 @@ venue = beach
 
 [stage]
 name = Tubeline Bridge
+orig = 42
 map = 680, 330
 trainer = Rival Bianca
 story = The marshes of Route 8 are wet and grey. Bianca is waiting at the edge of Tubeline Bridge.
@@ -2852,6 +3013,7 @@ venue = route
 # ---------------------------------------------------------------- Chapter 9: Opelucid City, Route 10 and Victory Road
 [stage]
 name = Opelucid Gym
+orig = 43
 map = 990, 350
 trainer = Leader Drayden
 story = In Opelucid, Ghetsis tells a crowd that N has found the hero's dragon. The mayor - and Gym Leader - tells you the legend of the two dragons, and waits for you at the top of his Gym.
@@ -2866,6 +3028,7 @@ badge = Legend
 
 [stage]
 name = Route 10
+orig = 45
 map = 1100, 280
 trainer = Veteran Chester
 story = Route 10 leads to the Badge Check Gates and Victory Road. A veteran trainer wants to test you first.
@@ -2878,6 +3041,7 @@ venue = route
 
 [stage]
 name = Badge Check Gates
+orig = 48
 map = 1160, 240
 trainer = Rival Cheren
 story = At the Badge Check Gates, Cheren is waiting. He wants one more battle before the League - to know where he stands.
@@ -2892,6 +3056,7 @@ venue = city
 # ---------------------------------------------------------------- The Pokemon League
 [stage]
 name = Shauntal's Room
+orig = 50
 map = 1245, 160
 trainer = Elite Four Shauntal
 story = The Unova League. Four rooms, one run. Shauntal, a novelist, writes about every trainer she battles.
@@ -2905,6 +3070,7 @@ league = 1
 
 [stage]
 name = Grimsley's Room
+orig = 50
 map = 1225, 150
 trainer = Elite Four Grimsley
 say = I'm Grimsley. Life is a serious battle, and you have to use what tools you're given. Let's see who wins this bet.
@@ -2917,6 +3083,7 @@ league = 2
 
 [stage]
 name = Caitlin's Room
+orig = 50
 map = 1265, 150
 trainer = Elite Four Caitlin
 say = I'm Caitlin. Do try to wake me up with a good battle - I've been sleeping, waiting for someone worth it.
@@ -2929,6 +3096,7 @@ league = 3
 
 [stage]
 name = Marshal's Room
+orig = 50
 map = 1245, 140
 trainer = Elite Four Marshal
 say = I am Marshal, Alder's student. My Fighting types train every day. Show me your full strength!
@@ -2942,6 +3110,7 @@ league = 4
 # ---------------------------------------------------------------- N's Castle
 [stage]
 name = N's Castle
+orig = 50
 map = 1270, 130
 trainer = The Hero's Dragon
 card_pokemon = Reshiram
@@ -2959,6 +3128,7 @@ arena = throneroom
 
 [stage]
 name = King N
+orig = 50
 map = 1285, 140
 trainer = King N
 story = Two heroes, two dragons, and one battle for the future of Unova.
@@ -2973,6 +3143,7 @@ league = 5
 
 [stage]
 name = Ghetsis
+orig = 50
 map = 1300, 130
 trainer = Ghetsis
 story = N stands frozen - he lost. Ghetsis steps forward and drops the act: N was only ever a puppet, raised to make everyone else give up their Pokemon so that Team Plasma alone would have them.
@@ -2989,6 +3160,7 @@ finale = yes
 # ---------------------------------------------------------------- Post-game (from the Map)
 [stage]
 name = Champion's Room
+orig = 54
 map = 1245, 175
 trainer = Champion Alder
 card = The Champion's Room | The castle has sunk back into the earth. Alder is waiting in his room, ready for a real battle - Champion to Champion.
@@ -3005,6 +3177,7 @@ postgame = yes
 
 [stage]
 name = Undella Town
+orig = 77
 map = 1695, 540
 trainer = Cynthia
 story = Undella Town is a summer resort. The Sinnoh Champion is staying at her villa here.
@@ -3019,6 +3192,7 @@ postgame = yes
 
 [stage]
 name = Victory Road Summit
+orig = 66
 map = 1200, 190
 trainer = Cheren
 story = Cheren trains at the top of Victory Road every day now. He's found his answer: he wants to help people find their own strength.
@@ -3033,6 +3207,7 @@ postgame = yes
 
 [stage]
 name = Bianca's House
+orig = 66
 map = 1720, 1175
 trainer = Bianca
 story = Bianca is back in Nuvema Town, helping Professor Juniper with her research. Her father finally said he's proud of her.
@@ -3047,6 +3222,7 @@ postgame = yes
 
 [stage]
 name = Opelucid City
+orig = 68
 map = 1010, 330
 trainer = Iris
 story = Two years on, the girl from Drayden's Gym has grown into the strongest Dragon trainer in Unova - Iris, who would one day be Champion.
@@ -3061,6 +3237,7 @@ postgame = yes
 
 [stage]
 name = Virbank Gym
+orig = 66
 map = 480, 990
 trainer = Leader Roxie
 story = In Virbank City, a Gym Leader plays bass in a punk band between battles. Her Gym is also a concert hall.
@@ -3075,6 +3252,7 @@ postgame = yes
 
 [stage]
 name = Humilau Gym
+orig = 68
 map = 1760, 285
 trainer = Leader Marlon
 story = Humilau City floats on the sea. Its Gym Leader spends his days surfing - and his Water types ride the waves with him.

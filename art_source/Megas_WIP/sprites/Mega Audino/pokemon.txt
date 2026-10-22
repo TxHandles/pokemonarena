@@ -1,0 +1,23 @@
+# Mega Audino: the Mega Evolution of Audino (official stats, types and ability). Not caught or met on its
+# own: a Audino holding the Audinite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Audino
+dex  = 531
+type = Normal / Fairy
+mega_of = Audino
+mega_stone = Audinite
+
+hp         = 103
+attack     = 60
+defense    = 126
+sp_attack  = 80
+sp_defense = 126
+speed      = 50
+
+height = 1.5      # Pokedex height in meters
+weight = 32      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Healer
+category = 

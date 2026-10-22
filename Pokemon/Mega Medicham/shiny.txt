@@ -1,0 +1,30 @@
+# Mega Medicham - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 282E2D > 6A3200
+shiny = 2E4940 > 89490F
+shiny = 313131 > 733400
+shiny = 4C5D54 > A45E26
+shiny = 525252 > 9C561F
+shiny = 5A5C5A > 7B692A
+shiny = 617B75 > 5285D2
+shiny = 694E56 > A25923
+shiny = 71324A > 21549D
+shiny = 848473 > AA702F
+shiny = 8B5D6A > 4E78C5
+shiny = A3BABF > DCC682
+shiny = ADADAD > C5AC68
+shiny = B2E6D9 > CEE3BC
+shiny = BD4A6B > 627ECD
+shiny = BDAEB9 > DAC17E
+shiny = C4BFAD > E7CE88
+shiny = CE8431 > BD7718
+shiny = CEC7D9 > FAB575
+shiny = CECECE > E7CD87
+shiny = D2E1DD > FFEEA7
+shiny = D48286 > 89A6F7
+shiny = D4E6EE > E4E6CC
+shiny = E5DCF2 > FFEFAB
+shiny = E5EAF6 > FFFAB5
+shiny = E65A7B > 8096E8
+shiny = E7DDBD > F8DC92
+shiny = FFCEDE > FFE9A5

@@ -147,6 +147,7 @@ enum class Ab : uint8_t {
     AromaVeil, AuraBreak, Bulletproof, CheekPouch, DarkAura, FairyAura, FlowerVeil, FurCoat, GaleWings, Gooey, GrassPelt,
     Magician, MegaLauncher, Pixilate, Refrigerate, StanceChange, StrongJaw, SweetVeil, Symbiosis, ToughClaws,   // Gen 6
     Aerilate, ParentalBond, InnardsOut,   // Mega Evolutions (Mega Pinsir, Mega Kangaskhan, Mega Victreebel)
+    PrimordialSea, DesolateLand, DeltaStream,   // Primal Kyogre, Primal Groudon, Mega Rayquaza
     Count
 };
 

@@ -1,0 +1,30 @@
+# Mega Metagross - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 00020D > 1E0E03
+shiny = 000807 > 1E1300
+shiny = 04040B > 201001
+shiny = 11030A > 260F00
+shiny = 17444B > 484A41
+shiny = 2F3D4F > 474447
+shiny = 313131 > 433829
+shiny = 3F6279 > 6D6969
+shiny = 416C82 > 687276
+shiny = 465873 > 6C6063
+shiny = 4A7E9E > 82858A
+shiny = 513D52 > 654748
+shiny = 5A7B7B > 99919A
+shiny = 5B83A7 > 8E8B92
+shiny = 647497 > 8B7D84
+shiny = 6593BD > 9B9BA5
+shiny = 6BA5BD > A5ACAB
+shiny = 6D84AE > 988D98
+shiny = 848484 > C47F00
+shiny = 84C5E6 > DCDFE2
+shiny = 85ADD9 > B9B5C1
+shiny = 93C6E4 > CACDD0
+shiny = ACB1A0 > F6AA19
+shiny = B5B5B5 > E4BD00
+shiny = D3C9A7 > FAD100
+shiny = DADCB4 > FFE113
+shiny = DEDEDE > FFE628
+shiny = EF5A3A > 3F7192

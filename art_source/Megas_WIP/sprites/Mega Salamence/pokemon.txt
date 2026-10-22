@@ -1,0 +1,23 @@
+# Mega Salamence: the Mega Evolution of Salamence (official stats, types and ability). Not caught or met on its
+# own: a Salamence holding the Salamencite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Salamence
+dex  = 373
+type = Dragon / Flying
+mega_of = Salamence
+mega_stone = Salamencite
+
+hp         = 95
+attack     = 145
+defense    = 130
+sp_attack  = 120
+sp_defense = 90
+speed      = 120
+
+height = 1.8      # Pokedex height in meters
+weight = 112.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+ability = Aerilate
+category = 

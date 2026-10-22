@@ -1,0 +1,30 @@
+# Mega Sableye - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 230C28 > 2D1200
+shiny = 313131 > 00802D
+shiny = 3F3F6E > 5E411E
+shiny = 525252 > 00A750
+shiny = 6A539E > 7F5C3B
+shiny = 7674B6 > 9B7853
+shiny = 7B52A5 > 85613F
+shiny = 8B1B47 > 007200
+shiny = 92559A > 8D6744
+shiny = 9473CE > CB9749
+shiny = 9478D6 > CF9B4E
+shiny = 9489D5 > B58F6B
+shiny = 9C3142 > 00AC53
+shiny = B58CCE > E5B05D
+shiny = B60936 > 1FAF54
+shiny = C52046 > 00B74E
+shiny = C5294A > 00B950
+shiny = CF0B3D > 00B84E
+shiny = D6527B > 00D56C
+shiny = E53667 > 53D579
+shiny = E6295A > 51D274
+shiny = E6456F > 58DC7F
+shiny = EA285C > 0ACE63
+shiny = EE90B0 > 7FFFAC
+shiny = F7779D > 77FEA0
+shiny = F794AD > 85FFB1
+shiny = F9B1BC > B6FFCB
+shiny = FFFFFF > 80FFBA

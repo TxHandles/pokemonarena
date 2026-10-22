@@ -1,0 +1,24 @@
+# Mega Rayquaza - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 084F32 > 040605
+shiny = 227E53 > 191C19
+shiny = 23744D > 121512
+shiny = 256B4C > 090D09
+shiny = 45785E > 191B19
+shiny = 499772 > 2E312E
+shiny = 4A735A > 171816
+shiny = 525252 > 030000
+shiny = 529C6B > 212322
+shiny = 58B086 > 414541
+shiny = 636363 > 131011
+shiny = 67DA9A > 4D514F
+shiny = 73342A > 3B0000
+shiny = 7E5437 > 4F0000
+shiny = 84D694 > 61655F
+shiny = 85F3AE > 626663
+shiny = A4ECA5 > 767973
+shiny = C59C6B > 4D4642
+shiny = C5FFD6 > 777777
+shiny = E17E63 > 933833
+shiny = FFC53A > CC002B
+shiny = FFCE3A > CE212C

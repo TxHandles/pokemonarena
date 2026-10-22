@@ -1,0 +1,21 @@
+# Mega Scizor - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 050F04 > 033F05
+shiny = 0E1D15 > 004E13
+shiny = 313131 > 3B6733
+shiny = 510906 > 5B7600
+shiny = 525252 > 00764E
+shiny = 73736B > 009A66
+shiny = 761014 > 778D00
+shiny = 84ADD6 > A3CCC4
+shiny = 9F545A > A1C64B
+shiny = A54A42 > ABBF23
+shiny = ADCEFF > CCEEEC
+shiny = AF1B29 > A0B004
+shiny = BABEC8 > C9DEC9
+shiny = BDBDBD > CCDDBE
+shiny = C03138 > AEC438
+shiny = D34347 > BFD549
+shiny = D65A52 > CDDD45
+shiny = DB2C3C > D6F000
+shiny = DD3642 > C1D549

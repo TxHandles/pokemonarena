@@ -1,0 +1,23 @@
+# Mega Blaziken - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 6B1C1C > 6E3004
+shiny = 6E4534 > 6E522A
+shiny = 77694F > 85654A
+shiny = 903C32 > A74800
+shiny = 94423A > 8B5732
+shiny = A72024 > 954D20
+shiny = AE8F4D > D58E58
+shiny = B5A59C > C2A393
+shiny = C1B658 > CEC35E
+shiny = C5B58C > D2CA7A
+shiny = CFB75B > DCC461
+shiny = D13D39 > B86A3B
+shiny = D5CE7C > E8D97C
+shiny = E66342 > D38351
+shiny = EAECAF > FDFFA1
+shiny = EC6F36 > F5863B
+shiny = F5D99F > FFE798
+shiny = FEE9A7 > FFF6A2
+shiny = FEF7B9 > FFFFA5
+shiny = FFEFCE > FFFFB5
+shiny = FFFFFF > FFFFCA

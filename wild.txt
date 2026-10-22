@@ -36,11 +36,32 @@ pokemon = super-rod, Kingler, 4, 25-35
 pokemon = super-rod, Seadra, 4, 25-35
 pokemon = super-rod, Psyduck, 1, 25-35
 pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-10, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 13, 15-25, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Clamperl, 13, 15-25, cousin
+pokemon = super-rod, Corsola, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 [Route 1]
 unlock = Route 1
 pokemon = walk, Pidgey, 50, 2-5
 pokemon = walk, Rattata, 50, 2-4
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Starly, 8, 2-5, cousin
+pokemon = walk, Pidove, 8, 2-5, cousin
+pokemon = walk, Sentret, 4, 2-4, cousin
+pokemon = walk, Zigzagoon, 4, 2-4, cousin
+pokemon = walk, Bidoof, 4, 2-4, cousin
+pokemon = walk, Patrat, 4, 2-4, cousin
 
 [Viridian City]
 unlock = Route 22
@@ -55,6 +76,18 @@ pokemon = super-rod, Poliwhirl, 40, 20-30
 pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 5, 15-35
 pokemon = super-rod, Slowpoke, 5, 15-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Wooper, 16, 20-40, cousin
+pokemon = surf, Ducklett, 16, 20-40, cousin
+pokemon = surf, Lotad, 33, 20-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Tympole, 20, 5-15, cousin
+pokemon = good-rod, Barboach, 7, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Tympole, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 15-35, cousin
+pokemon = super-rod, Ducklett, 1, 15-35, cousin
+pokemon = super-rod, Lotad, 2, 15-35, cousin
 
 [Route 22]
 unlock = Route 22
@@ -72,6 +105,24 @@ pokemon = super-rod, Poliwhirl, 40, 20-30
 pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 5, 15-35
 pokemon = super-rod, Slowpoke, 5, 15-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Aipom, 15, 2-5, cousin
+pokemon = walk, Sentret, 3, 2-5, cousin
+pokemon = walk, Zigzagoon, 3, 2-5, cousin
+pokemon = walk, Bidoof, 3, 2-5, cousin
+pokemon = walk, Patrat, 3, 2-5, cousin
+pokemon = walk, Taillow, 3, 3-5, cousin
+pokemon = surf, Wooper, 16, 20-40, cousin
+pokemon = surf, Ducklett, 16, 20-40, cousin
+pokemon = surf, Lotad, 33, 20-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Tympole, 20, 5-15, cousin
+pokemon = good-rod, Barboach, 7, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Tympole, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 15-35, cousin
+pokemon = super-rod, Ducklett, 1, 15-35, cousin
+pokemon = super-rod, Lotad, 2, 15-35, cousin
 
 [Route 2]
 unlock = Viridian Forest
@@ -80,6 +131,17 @@ pokemon = walk, Rattata, 45, 2-5
 pokemon = walk, Caterpie, 5, 4-5
 pokemon = walk, Weedle, 5, 4-5
 pokemon = walk, Mr. Mime, 4, 8-12, rare
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Starly, 7, 2-5, cousin
+pokemon = walk, Pidove, 7, 2-5, cousin
+pokemon = walk, Sentret, 3, 2-5, cousin
+pokemon = walk, Zigzagoon, 3, 2-5, cousin
+pokemon = walk, Bidoof, 3, 2-5, cousin
+pokemon = walk, Patrat, 3, 2-5, cousin
+pokemon = walk, Wurmple, 1, 4-5, cousin
+pokemon = walk, Sewaddle, 1, 4-5, cousin
+pokemon = walk, Kricketot, 1, 4-5, cousin
+pokemon = walk, Venipede, 1, 4-5, cousin
 
 [Viridian Forest]
 unlock = Viridian Forest
@@ -88,6 +150,17 @@ pokemon = walk, Weedle, 40, 3-5
 pokemon = walk, Kakuna, 10, 4-6
 pokemon = walk, Metapod, 10, 4-6
 pokemon = walk, Pikachu, 5, 3-5
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Wurmple, 6, 3-5, cousin
+pokemon = walk, Sewaddle, 6, 3-5, cousin
+pokemon = walk, Kricketot, 6, 3-5, cousin
+pokemon = walk, Venipede, 6, 3-5, cousin
+pokemon = walk, Cascoon, 3, 4-6, cousin
+pokemon = walk, Silcoon, 3, 4-6, cousin
+pokemon = walk, Plusle, 1, 3-5, cousin
+pokemon = walk, Minun, 1, 3-5, cousin
+pokemon = walk, Pachirisu, 1, 3-5, cousin
+pokemon = walk, Emolga, 1, 3-5, cousin
 
 [Route 3]
 unlock = Pewter Outskirts
@@ -97,6 +170,12 @@ pokemon = walk, Nidoran F, 14, 6-7
 pokemon = walk, Nidoran M, 14, 6-7
 pokemon = walk, Jigglypuff, 10, 3-7
 pokemon = walk, Mankey, 10, 7-7
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Taillow, 12, 6-8, cousin
+pokemon = walk, Starly, 5, 6-7, cousin
+pokemon = walk, Pidove, 5, 6-7, cousin
+pokemon = walk, Skitty, 3, 3-7, cousin
+pokemon = walk, Aipom, 3, 7-7, cousin
 
 [Mt. Moon]
 unlock = Mt. Moon
@@ -104,6 +183,13 @@ pokemon = walk, Paras, 100, 5-12
 pokemon = walk, Zubat, 69, 7-11
 pokemon = walk, Geodude, 30, 7-10
 pokemon = walk, Clefairy, 6, 8-12
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Shroomish, 16, 5-12, cousin
+pokemon = walk, Foongus, 16, 5-12, cousin
+pokemon = walk, Woobat, 23, 7-11, cousin
+pokemon = walk, Roggenrola, 10, 7-10, cousin
+pokemon = walk, Lunatone, 1, 8-12, cousin
+pokemon = walk, Munna, 1, 8-12, cousin
 
 [Route 4]
 unlock = Cerulean City
@@ -122,6 +208,26 @@ pokemon = super-rod, Krabby, 84, 15-35
 pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 1, 25-35
 pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Sentret, 3, 8-12, cousin
+pokemon = walk, Zigzagoon, 3, 8-12, cousin
+pokemon = walk, Bidoof, 3, 8-12, cousin
+pokemon = walk, Patrat, 3, 8-12, cousin
+pokemon = walk, Taillow, 12, 8-12, cousin
+pokemon = walk, Seviper, 8, 6-12, cousin
+pokemon = walk, Drilbur, 8, 6-12, cousin
+pokemon = walk, Aipom, 2, 10-12, cousin
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 28, 15-35, cousin
+pokemon = super-rod, Corphish, 28, 15-35, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 [Cerulean City]
 unlock = Cerulean City
@@ -135,6 +241,18 @@ pokemon = super-rod, Krabby, 84, 15-35
 pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 1, 25-35
 pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 28, 15-35, cousin
+pokemon = super-rod, Corphish, 28, 15-35, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 [Route 24]
 unlock = Nugget Bridge
@@ -156,6 +274,31 @@ pokemon = super-rod, Krabby, 84, 15-35
 pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 1, 25-35
 pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Sunkern, 4, 12-14, cousin
+pokemon = walk, Cherubi, 4, 12-14, cousin
+pokemon = walk, Budew, 4, 12-14, cousin
+pokemon = walk, Petilil, 4, 12-14, cousin
+pokemon = walk, Wurmple, 3, 7-7, cousin
+pokemon = walk, Sewaddle, 3, 7-7, cousin
+pokemon = walk, Kricketot, 3, 7-7, cousin
+pokemon = walk, Venipede, 3, 7-7, cousin
+pokemon = walk, Ralts, 5, 8-12, cousin
+pokemon = walk, Starly, 2, 11-13, cousin
+pokemon = walk, Pidove, 2, 11-13, cousin
+pokemon = walk, Cascoon, 1, 8-8, cousin
+pokemon = walk, Silcoon, 1, 8-8, cousin
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 28, 15-35, cousin
+pokemon = super-rod, Corphish, 28, 15-35, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 [Route 25]
 unlock = Route 24
@@ -179,6 +322,31 @@ pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 5, 15-35
 pokemon = super-rod, Slowpoke, 5, 15-35
 pokemon = walk, Jynx, 3, 12-16, badges 2, rare
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Sunkern, 4, 12-14, cousin
+pokemon = walk, Cherubi, 4, 12-14, cousin
+pokemon = walk, Budew, 4, 12-14, cousin
+pokemon = walk, Petilil, 4, 12-14, cousin
+pokemon = walk, Wurmple, 3, 8-8, cousin
+pokemon = walk, Sewaddle, 3, 8-8, cousin
+pokemon = walk, Kricketot, 3, 8-8, cousin
+pokemon = walk, Venipede, 3, 8-8, cousin
+pokemon = walk, Ralts, 5, 9-13, cousin
+pokemon = walk, Starly, 2, 11-13, cousin
+pokemon = walk, Pidove, 2, 11-13, cousin
+pokemon = walk, Cascoon, 1, 9-9, cousin
+pokemon = walk, Silcoon, 1, 9-9, cousin
+pokemon = surf, Wooper, 16, 20-40, cousin
+pokemon = surf, Ducklett, 16, 20-40, cousin
+pokemon = surf, Lotad, 33, 20-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Tympole, 20, 5-15, cousin
+pokemon = good-rod, Barboach, 7, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Tympole, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 15-35, cousin
+pokemon = super-rod, Ducklett, 1, 15-35, cousin
+pokemon = super-rod, Lotad, 2, 15-35, cousin
 
 [Route 5]
 unlock = Route 6
@@ -187,6 +355,15 @@ pokemon = walk, Meowth, 35, 10-16
 pokemon = walk, Bellsprout, 25, 13-16
 pokemon = walk, Oddish, 25, 13-16
 pokemon = walk, Mr. Mime, 4, 13-17, rare
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Starly, 6, 13-16, cousin
+pokemon = walk, Pidove, 6, 13-16, cousin
+pokemon = walk, Glameow, 6, 10-16, cousin
+pokemon = walk, Purrloin, 6, 10-16, cousin
+pokemon = walk, Sunkern, 4, 13-16, cousin
+pokemon = walk, Cherubi, 4, 13-16, cousin
+pokemon = walk, Budew, 4, 13-16, cousin
+pokemon = walk, Petilil, 4, 13-16, cousin
 
 [Route 6]
 unlock = Route 6
@@ -206,6 +383,26 @@ pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 5, 15-35
 pokemon = super-rod, Slowpoke, 5, 15-35
 pokemon = walk, Farfetch'd, 4, 14-18, rare
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Starly, 6, 13-16, cousin
+pokemon = walk, Pidove, 6, 13-16, cousin
+pokemon = walk, Glameow, 6, 10-16, cousin
+pokemon = walk, Purrloin, 6, 10-16, cousin
+pokemon = walk, Sunkern, 4, 13-16, cousin
+pokemon = walk, Cherubi, 4, 13-16, cousin
+pokemon = walk, Budew, 4, 13-16, cousin
+pokemon = walk, Petilil, 4, 13-16, cousin
+pokemon = surf, Wooper, 16, 20-40, cousin
+pokemon = surf, Ducklett, 16, 20-40, cousin
+pokemon = surf, Lotad, 33, 20-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Tympole, 20, 5-15, cousin
+pokemon = good-rod, Barboach, 7, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Tympole, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 15-35, cousin
+pokemon = super-rod, Ducklett, 1, 15-35, cousin
+pokemon = super-rod, Lotad, 2, 15-35, cousin
 
 [Vermilion City]
 unlock = S.S. Anne
@@ -221,6 +418,20 @@ pokemon = super-rod, Staryu, 40, 15-25
 pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 1, 25-35
 pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 15, 15-35, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Clamperl, 13, 15-25, cousin
+pokemon = super-rod, Corsola, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 [S.S. Anne]
 unlock = S.S. Anne
@@ -236,6 +447,20 @@ pokemon = super-rod, Staryu, 40, 15-25
 pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 1, 25-35
 pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 15, 15-35, cousin
+pokemon = super-rod, Corphish, 15, 15-35, cousin
+pokemon = super-rod, Clamperl, 13, 15-25, cousin
+pokemon = super-rod, Corsola, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 [Route 11]
 unlock = Diglett's Cave
@@ -253,11 +478,29 @@ pokemon = super-rod, Krabby, 84, 15-35
 pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 1, 25-35
 pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Seviper, 13, 12-15, cousin
+pokemon = walk, Drilbur, 13, 12-15, cousin
+pokemon = walk, Taillow, 12, 13-17, cousin
+pokemon = walk, Spoink, 8, 11-15, cousin
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 28, 15-35, cousin
+pokemon = super-rod, Corphish, 28, 15-35, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 [Diglett's Cave]
 unlock = Diglett's Cave
 pokemon = walk, Diglett, 95, 15-22
 pokemon = walk, Dugtrio, 5, 29-31
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Trapinch, 32, 15-22, cousin
 
 [Route 9]
 unlock = Rock Tunnel
@@ -265,6 +508,14 @@ pokemon = walk, Rattata, 40, 14-17
 pokemon = walk, Spearow, 35, 13-17
 pokemon = walk, Ekans, 25, 11-17
 pokemon = walk, Sandshrew, 25, 11-17
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Sentret, 3, 14-17, cousin
+pokemon = walk, Zigzagoon, 3, 14-17, cousin
+pokemon = walk, Bidoof, 3, 14-17, cousin
+pokemon = walk, Patrat, 3, 14-17, cousin
+pokemon = walk, Taillow, 12, 13-17, cousin
+pokemon = walk, Seviper, 8, 11-17, cousin
+pokemon = walk, Drilbur, 8, 11-17, cousin
 
 [Route 10]
 unlock = Rock Tunnel
@@ -282,6 +533,22 @@ pokemon = super-rod, Krabby, 84, 15-35
 pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 1, 25-35
 pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Shinx, 13, 14-17, cousin
+pokemon = walk, Taillow, 12, 13-17, cousin
+pokemon = walk, Seviper, 8, 11-17, cousin
+pokemon = walk, Drilbur, 8, 11-17, cousin
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 28, 15-35, cousin
+pokemon = super-rod, Corphish, 28, 15-35, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 [Rock Tunnel]
 unlock = Rock Tunnel
@@ -292,6 +559,15 @@ pokemon = walk, Mankey, 15, 16-17
 pokemon = walk, Onix, 10, 13-17
 pokemon = rock-smash, Geodude, 95, 5-30
 pokemon = rock-smash, Graveler, 5, 25-40
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Roggenrola, 12, 15-17, cousin
+pokemon = walk, Woobat, 10, 15-16, cousin
+pokemon = walk, Makuhita, 2, 16-17, cousin
+pokemon = walk, Timburr, 2, 16-17, cousin
+pokemon = walk, Aipom, 5, 16-17, cousin
+pokemon = walk, Nosepass, 3, 13-17, cousin
+pokemon = rock-smash, Roggenrola, 32, 5-30, cousin
+pokemon = rock-smash, Boldore, 2, 25-40, cousin
 
 [Route 8]
 unlock = Route 8
@@ -301,6 +577,15 @@ pokemon = walk, Ekans, 20, 17-19
 pokemon = walk, Growlithe, 20, 15-18
 pokemon = walk, Sandshrew, 20, 17-19
 pokemon = walk, Vulpix, 20, 15-18
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Glameow, 5, 18-20, cousin
+pokemon = walk, Purrloin, 5, 18-20, cousin
+pokemon = walk, Starly, 5, 18-20, cousin
+pokemon = walk, Pidove, 5, 18-20, cousin
+pokemon = walk, Seviper, 7, 17-19, cousin
+pokemon = walk, Houndour, 7, 15-18, cousin
+pokemon = walk, Drilbur, 7, 17-19, cousin
+pokemon = walk, Darumaka, 7, 15-18, cousin
 
 [Route 7]
 unlock = Route 8
@@ -310,6 +595,17 @@ pokemon = walk, Bellsprout, 20, 19-22
 pokemon = walk, Oddish, 20, 19-22
 pokemon = walk, Growlithe, 10, 18-20
 pokemon = walk, Vulpix, 10, 18-20
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Glameow, 6, 17-20, cousin
+pokemon = walk, Purrloin, 6, 17-20, cousin
+pokemon = walk, Starly, 5, 19-22, cousin
+pokemon = walk, Pidove, 5, 19-22, cousin
+pokemon = walk, Sunkern, 3, 19-22, cousin
+pokemon = walk, Cherubi, 3, 19-22, cousin
+pokemon = walk, Budew, 3, 19-22, cousin
+pokemon = walk, Petilil, 3, 19-22, cousin
+pokemon = walk, Houndour, 3, 18-20, cousin
+pokemon = walk, Darumaka, 3, 18-20, cousin
 
 [Celadon City]
 unlock = Celadon Park
@@ -320,6 +616,16 @@ pokemon = old-rod, Magikarp, 100, 5-5
 pokemon = good-rod, Magikarp, 100, 5-15
 pokemon = super-rod, Magikarp, 99, 15-35
 pokemon = super-rod, Grimer, 1, 30-40
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Wooper, 16, 5-40, cousin
+pokemon = surf, Ducklett, 16, 5-40, cousin
+pokemon = surf, Lotad, 33, 5-40, cousin
+pokemon = surf, Stunky, 1, 30-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Basculin, 33, 5-15, cousin
+pokemon = super-rod, Basculin, 33, 15-35, cousin
+pokemon = super-rod, Trubbish, 1, 30-40, cousin
+pokemon = super-rod, Gulpin, 1, 30-40, cousin
 
 [Route 16]
 unlock = Cycling Road
@@ -327,6 +633,17 @@ pokemon = walk, Doduo, 35, 18-22
 pokemon = walk, Rattata, 30, 18-22
 pokemon = walk, Spearow, 30, 20-22
 pokemon = walk, Raticate, 5, 23-25
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Girafarig, 12, 18-22, cousin
+pokemon = walk, Sentret, 2, 18-22, cousin
+pokemon = walk, Zigzagoon, 2, 18-22, cousin
+pokemon = walk, Bidoof, 2, 18-22, cousin
+pokemon = walk, Patrat, 2, 18-22, cousin
+pokemon = walk, Taillow, 10, 20-22, cousin
+pokemon = walk, Furret, 1, 23-25, cousin
+pokemon = walk, Linoone, 1, 23-25, cousin
+pokemon = walk, Bibarel, 1, 23-25, cousin
+pokemon = walk, Watchog, 1, 23-25, cousin
 
 [Route 17]
 unlock = Cycling Road
@@ -335,6 +652,18 @@ pokemon = walk, Spearow, 30, 20-22
 pokemon = walk, Raticate, 25, 25-29
 pokemon = walk, Fearow, 5, 25-27
 pokemon = walk, Rattata, 5, 22-22
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Girafarig, 12, 24-28, cousin
+pokemon = walk, Taillow, 10, 20-22, cousin
+pokemon = walk, Furret, 2, 25-29, cousin
+pokemon = walk, Linoone, 2, 25-29, cousin
+pokemon = walk, Bibarel, 2, 25-29, cousin
+pokemon = walk, Watchog, 2, 25-29, cousin
+pokemon = walk, Swellow, 2, 25-27, cousin
+pokemon = walk, Sentret, 1, 22-22, cousin
+pokemon = walk, Zigzagoon, 1, 22-22, cousin
+pokemon = walk, Bidoof, 1, 22-22, cousin
+pokemon = walk, Patrat, 1, 22-22, cousin
 
 [Route 18]
 unlock = Cycling Road
@@ -344,6 +673,18 @@ pokemon = walk, Fearow, 15, 25-29
 pokemon = walk, Raticate, 15, 25-29
 pokemon = walk, Rattata, 5, 22-22
 pokemon = walk, Lickitung, 5, 24-30, rare
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Girafarig, 12, 24-28, cousin
+pokemon = walk, Taillow, 10, 20-22, cousin
+pokemon = walk, Swellow, 5, 25-29, cousin
+pokemon = walk, Furret, 1, 25-29, cousin
+pokemon = walk, Linoone, 1, 25-29, cousin
+pokemon = walk, Bibarel, 1, 25-29, cousin
+pokemon = walk, Watchog, 1, 25-29, cousin
+pokemon = walk, Sentret, 1, 22-22, cousin
+pokemon = walk, Zigzagoon, 1, 22-22, cousin
+pokemon = walk, Bidoof, 1, 22-22, cousin
+pokemon = walk, Patrat, 1, 22-22, cousin
 
 [Safari Zone]
 unlock = Safari Zone
@@ -376,6 +717,30 @@ pokemon = super-rod, Psyduck, 4, 15-35
 pokemon = super-rod, Slowpoke, 4, 15-35
 pokemon = super-rod, Dragonair, 1, 25-35
 pokemon = walk, Lickitung, 4, 22-28, rare
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Girafarig, 7, 26-26, cousin
+pokemon = walk, Seedot, 7, 23-27, cousin
+pokemon = walk, Phanpy, 7, 25-26, cousin
+pokemon = walk, Shroomish, 2, 22-23, cousin
+pokemon = walk, Foongus, 2, 22-23, cousin
+pokemon = walk, Yanma, 5, 22-23, cousin
+pokemon = walk, Audino, 1, 23-26, cousin
+pokemon = walk, Heracross, 2, 23-28, cousin
+pokemon = walk, Miltank, 1, 25-28, cousin
+pokemon = walk, Bouffalant, 1, 25-28, cousin
+pokemon = surf, Wooper, 16, 20-40, cousin
+pokemon = surf, Ducklett, 16, 20-40, cousin
+pokemon = surf, Lotad, 33, 20-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Barboach, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = good-rod, Tympole, 7, 5-15, cousin
+pokemon = super-rod, Barboach, 13, 15-25, cousin
+pokemon = super-rod, Bagon, 2, 15-25, cousin
+pokemon = super-rod, Axew, 2, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 15-35, cousin
+pokemon = super-rod, Ducklett, 1, 15-35, cousin
+pokemon = super-rod, Lotad, 1, 15-35, cousin
 
 [Fuchsia City]
 unlock = Safari Zone
@@ -390,6 +755,18 @@ pokemon = super-rod, Seaking, 40, 20-30
 pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 5, 15-35
 pokemon = super-rod, Slowpoke, 5, 15-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Wooper, 16, 20-40, cousin
+pokemon = surf, Ducklett, 16, 20-40, cousin
+pokemon = surf, Lotad, 33, 20-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Barboach, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = good-rod, Tympole, 7, 5-15, cousin
+pokemon = super-rod, Barboach, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 15-35, cousin
+pokemon = super-rod, Ducklett, 1, 15-35, cousin
+pokemon = super-rod, Lotad, 2, 15-35, cousin
 
 [Route 15]
 unlock = Route 15
@@ -401,6 +778,17 @@ pokemon = walk, Ditto, 5, 25-25
 pokemon = walk, Gloom, 5, 28-30
 pokemon = walk, Pidgeotto, 5, 29-29
 pokemon = walk, Weepinbell, 5, 28-30
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Sunkern, 6, 22-26, cousin
+pokemon = walk, Cherubi, 6, 22-26, cousin
+pokemon = walk, Budew, 6, 22-26, cousin
+pokemon = walk, Petilil, 6, 22-26, cousin
+pokemon = walk, Yanma, 10, 24-26, cousin
+pokemon = walk, Starly, 3, 25-27, cousin
+pokemon = walk, Pidove, 3, 25-27, cousin
+pokemon = walk, Kecleon, 2, 25-25, cousin
+pokemon = walk, Staravia, 1, 29-29, cousin
+pokemon = walk, Tranquill, 1, 29-29, cousin
 
 [Route 14]
 unlock = Route 15
@@ -412,6 +800,17 @@ pokemon = walk, Pidgey, 10, 27-27
 pokemon = walk, Gloom, 5, 30-30
 pokemon = walk, Pidgeotto, 5, 29-29
 pokemon = walk, Weepinbell, 5, 30-30
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Sunkern, 6, 22-26, cousin
+pokemon = walk, Cherubi, 6, 22-26, cousin
+pokemon = walk, Budew, 6, 22-26, cousin
+pokemon = walk, Petilil, 6, 22-26, cousin
+pokemon = walk, Yanma, 10, 24-26, cousin
+pokemon = walk, Kecleon, 5, 23-23, cousin
+pokemon = walk, Starly, 1, 27-27, cousin
+pokemon = walk, Pidove, 1, 27-27, cousin
+pokemon = walk, Staravia, 1, 29-29, cousin
+pokemon = walk, Tranquill, 1, 29-29, cousin
 
 [Route 13]
 unlock = Route 15
@@ -434,6 +833,28 @@ pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 1, 25-35
 pokemon = super-rod, Slowpoke, 1, 25-35
 pokemon = walk, Farfetch'd, 4, 25-29, rare
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Sunkern, 6, 22-26, cousin
+pokemon = walk, Cherubi, 6, 22-26, cousin
+pokemon = walk, Budew, 6, 22-26, cousin
+pokemon = walk, Petilil, 6, 22-26, cousin
+pokemon = walk, Yanma, 10, 24-26, cousin
+pokemon = walk, Starly, 3, 25-27, cousin
+pokemon = walk, Pidove, 3, 25-27, cousin
+pokemon = walk, Kecleon, 2, 25-25, cousin
+pokemon = walk, Staravia, 1, 29-29, cousin
+pokemon = walk, Tranquill, 1, 29-29, cousin
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 28, 15-35, cousin
+pokemon = super-rod, Corphish, 28, 15-35, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 [Route 12]
 unlock = Route 12
@@ -454,12 +875,37 @@ pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 1, 25-35
 pokemon = super-rod, Slowpoke, 1, 25-35
 pokemon = walk, Farfetch'd, 5, 24-28, rare
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Sunkern, 6, 22-26, cousin
+pokemon = walk, Cherubi, 6, 22-26, cousin
+pokemon = walk, Budew, 6, 22-26, cousin
+pokemon = walk, Petilil, 6, 22-26, cousin
+pokemon = walk, Starly, 5, 23-27, cousin
+pokemon = walk, Pidove, 5, 23-27, cousin
+pokemon = walk, Yanma, 10, 24-26, cousin
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 28, 15-35, cousin
+pokemon = super-rod, Corphish, 28, 15-35, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 [Pokemon Tower]
 unlock = Pokemon Tower
 pokemon = walk, Gastly, 90, 13-19
 pokemon = walk, Haunter, 15, 20-25
 pokemon = walk, Cubone, 10, 15-19
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Misdreavus, 10, 13-19, cousin
+pokemon = walk, Shuppet, 10, 13-19, cousin
+pokemon = walk, Litwick, 10, 13-19, cousin
+pokemon = walk, Duskull, 5, 20-25, cousin
+pokemon = walk, Yamask, 3, 15-19, cousin
 
 [Power Plant]
 unlock = Saffron Gym
@@ -468,6 +914,14 @@ pokemon = walk, Voltorb, 30, 22-25
 pokemon = walk, Pikachu, 25, 22-26
 pokemon = walk, Magneton, 15, 31-34
 pokemon = walk, Electabuzz, 5, 32-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Klink, 10, 22-25, cousin
+pokemon = walk, Shinx, 10, 22-25, cousin
+pokemon = walk, Plusle, 2, 22-26, cousin
+pokemon = walk, Minun, 2, 22-26, cousin
+pokemon = walk, Pachirisu, 2, 22-26, cousin
+pokemon = walk, Emolga, 2, 22-26, cousin
+pokemon = walk, Electrike, 2, 32-35, cousin
 
 [Sea Route 19]
 unlock = Seafoam Islands
@@ -484,6 +938,18 @@ pokemon = super-rod, Seadra, 4, 25-35
 pokemon = super-rod, Psyduck, 1, 25-35
 pokemon = super-rod, Slowpoke, 1, 25-35
 pokemon = surf, Lapras, 5, 30-40, badges 6, rare
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 27, 15-25, cousin
+pokemon = super-rod, Corphish, 27, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 [Sea Route 20]
 unlock = Seafoam Islands
@@ -500,6 +966,18 @@ pokemon = super-rod, Seadra, 4, 25-35
 pokemon = super-rod, Psyduck, 1, 25-35
 pokemon = super-rod, Slowpoke, 1, 25-35
 pokemon = surf, Lapras, 5, 30-40, badges 6, rare
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 27, 15-25, cousin
+pokemon = super-rod, Corphish, 27, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 [Seafoam Islands]
 unlock = Seafoam Islands
@@ -530,6 +1008,28 @@ pokemon = super-rod, Psyduck, 4, 15-25
 pokemon = super-rod, Slowpoke, 4, 15-25
 pokemon = surf, Lapras, 5, 30-40, badges 6, rare
 pokemon = walk, Jynx, 5, 30-36, rare
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Wooper, 9, 26-33, cousin
+pokemon = walk, Ducklett, 9, 26-33, cousin
+pokemon = walk, Lotad, 18, 26-33, cousin
+pokemon = walk, Spheal, 17, 28-34, cousin
+pokemon = walk, Woobat, 11, 22-26, cousin
+pokemon = walk, Swoobat, 5, 26-30, cousin
+pokemon = surf, Spheal, 20, 25-35, cousin
+pokemon = surf, Remoraid, 10, 25-30, cousin
+pokemon = surf, Corphish, 10, 25-30, cousin
+pokemon = surf, Wooper, 1, 30-40, cousin
+pokemon = surf, Ducklett, 1, 30-40, cousin
+pokemon = surf, Lotad, 1, 30-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 27, 15-30, cousin
+pokemon = super-rod, Corphish, 27, 15-30, cousin
+pokemon = super-rod, Wooper, 1, 15-25, cousin
+pokemon = super-rod, Ducklett, 1, 15-25, cousin
+pokemon = super-rod, Lotad, 1, 15-25, cousin
 
 [Cinnabar Island]
 unlock = Cinnabar Mansion
@@ -547,6 +1047,20 @@ pokemon = super-rod, Seadra, 4, 25-35
 pokemon = super-rod, Slowbro, 4, 25-35
 pokemon = super-rod, Psyduck, 1, 25-35
 pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 13, 15-25, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Clamperl, 13, 15-25, cousin
+pokemon = super-rod, Corsola, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 [Pokemon Mansion]
 unlock = Cinnabar Mansion
@@ -559,6 +1073,21 @@ pokemon = walk, Vulpix, 15, 30-32
 pokemon = walk, Ditto, 10, 30-30
 pokemon = walk, Muk, 5, 32-34
 pokemon = walk, Weezing, 5, 32-34
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Trubbish, 5, 28-30, cousin
+pokemon = walk, Gulpin, 5, 28-30, cousin
+pokemon = walk, Stunky, 10, 28-30, cousin
+pokemon = walk, Furret, 2, 32-38, cousin
+pokemon = walk, Linoone, 2, 32-38, cousin
+pokemon = walk, Bibarel, 2, 32-38, cousin
+pokemon = walk, Watchog, 2, 32-38, cousin
+pokemon = walk, Houndour, 5, 30-32, cousin
+pokemon = walk, Sentret, 1, 26-28, cousin
+pokemon = walk, Zigzagoon, 1, 26-28, cousin
+pokemon = walk, Bidoof, 1, 26-28, cousin
+pokemon = walk, Patrat, 1, 26-28, cousin
+pokemon = walk, Darumaka, 5, 30-32, cousin
+pokemon = walk, Kecleon, 3, 30-30, cousin
 
 [Cinnabar Volcano]
 unlock = Cinnabar Volcano
@@ -569,6 +1098,13 @@ pokemon = walk, Graveler, 10, 36-40
 pokemon = walk, Rapidash, 10, 40-44, badges 7
 pokemon = rock-smash, Geodude, 70, 30-36
 pokemon = rock-smash, Graveler, 30, 34-40
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Numel, 12, 34-40, cousin
+pokemon = walk, Houndour, 10, 34-38, cousin
+pokemon = walk, Slugma, 5, 36-40, cousin
+pokemon = walk, Boldore, 3, 36-40, cousin
+pokemon = rock-smash, Roggenrola, 23, 30-36, cousin
+pokemon = rock-smash, Boldore, 10, 34-40, cousin
 
 [Sea Route 21]
 unlock = Cinnabar Gym
@@ -586,6 +1122,18 @@ pokemon = super-rod, Seadra, 4, 25-35
 pokemon = super-rod, Psyduck, 1, 25-35
 pokemon = super-rod, Slowpoke, 1, 25-35
 pokemon = surf, Lapras, 5, 30-40, badges 6, rare
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 20, 5-15, cousin
+pokemon = good-rod, Corphish, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 27, 15-25, cousin
+pokemon = super-rod, Corphish, 27, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 [Route 23]
 unlock = Route 22 Gate
@@ -608,6 +1156,23 @@ pokemon = super-rod, Poliwhirl, 40, 20-30
 pokemon = super-rod, Gyarados, 15, 15-25
 pokemon = super-rod, Psyduck, 5, 15-35
 pokemon = super-rod, Slowpoke, 5, 15-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Aipom, 10, 32-34, cousin
+pokemon = walk, Swellow, 8, 40-44, cousin
+pokemon = walk, Seviper, 7, 32-34, cousin
+pokemon = walk, Drilbur, 7, 32-34, cousin
+pokemon = walk, Taillow, 5, 32-34, cousin
+pokemon = surf, Wooper, 16, 20-40, cousin
+pokemon = surf, Ducklett, 16, 20-40, cousin
+pokemon = surf, Lotad, 33, 20-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Tympole, 20, 5-15, cousin
+pokemon = good-rod, Barboach, 7, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Tympole, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 15-35, cousin
+pokemon = super-rod, Ducklett, 1, 15-35, cousin
+pokemon = super-rod, Lotad, 2, 15-35, cousin
 
 [Victory Road]
 unlock = Route 22 Gate
@@ -621,6 +1186,13 @@ pokemon = walk, Golbat, 5, 44-46
 pokemon = walk, Machoke, 5, 44-48
 pokemon = walk, Marowak, 5, 44-48
 pokemon = walk, Sandslash, 5, 44-46
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Nosepass, 10, 40-48, cousin
+pokemon = walk, Roggenrola, 7, 32-34, cousin
+pokemon = walk, Makuhita, 3, 32-34, cousin
+pokemon = walk, Timburr, 3, 32-34, cousin
+pokemon = walk, Woobat, 3, 32-34, cousin
+pokemon = walk, Swoobat, 2, 44-46, cousin
 
 [Cerulean Cave]
 unlock = @done
@@ -647,6 +1219,1049 @@ pokemon = super-rod, Psyduck, 5, 15-35
 pokemon = super-rod, Slowpoke, 5, 15-35
 pokemon = rock-smash, Geodude, 65, 30-60
 pokemon = rock-smash, Graveler, 35, 40-65
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Kecleon, 8, 52-67, cousin
+pokemon = walk, Swoobat, 8, 46-61, cousin
+pokemon = surf, Wooper, 11, 30-60, cousin
+pokemon = surf, Ducklett, 11, 30-60, cousin
+pokemon = surf, Lotad, 22, 30-60, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Tympole, 20, 5-15, cousin
+pokemon = good-rod, Barboach, 7, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Tympole, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 15-35, cousin
+pokemon = super-rod, Ducklett, 1, 15-35, cousin
+pokemon = super-rod, Lotad, 2, 15-35, cousin
+pokemon = rock-smash, Roggenrola, 22, 30-60, cousin
+pokemon = rock-smash, Boldore, 12, 40-65, cousin
+
+# ==========================================================================
+#  SEVII ISLANDS (FireRed/LeafGreen post-game: One to Seven Island). Open after the Kanto Champion.
+# ==========================================================================
+
+[Kindle Road]
+unlock = @done
+pokemon = walk, Ponyta, 30, 31-34
+pokemon = walk, Spearow, 25, 30-32
+pokemon = walk, Geodude, 10, 31-31
+pokemon = walk, Meowth, 10, 31-31
+pokemon = walk, Fearow, 10, 36-36
+pokemon = walk, Psyduck, 5, 34-34
+pokemon = walk, Slowpoke, 5, 34-34
+pokemon = walk, Rapidash, 5, 37-40
+pokemon = walk, Persian, 5, 37-40
+pokemon = surf, Tentacool, 95, 5-40
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 80, 15-25
+pokemon = super-rod, Krabby, 80, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+pokemon = rock-smash, Geodude, 95, 5-30
+pokemon = rock-smash, Graveler, 5, 25-40
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Numel, 10, 31-34, cousin
+pokemon = walk, Taillow, 8, 30-32, cousin
+pokemon = walk, Roggenrola, 3, 31-31, cousin
+pokemon = walk, Glameow, 1, 31-31, cousin
+pokemon = walk, Purrloin, 1, 31-31, cousin
+pokemon = walk, Swellow, 3, 36-36, cousin
+pokemon = walk, Wooper, 1, 34-34, cousin
+pokemon = walk, Ducklett, 1, 34-34, cousin
+pokemon = walk, Lotad, 2, 34-34, cousin
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 27, 15-25, cousin
+pokemon = super-rod, Corphish, 27, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
+pokemon = rock-smash, Roggenrola, 32, 5-30, cousin
+pokemon = rock-smash, Boldore, 2, 25-40, cousin
+
+[Treasure Beach]
+unlock = @done
+pokemon = walk, Spearow, 30, 31-32
+pokemon = walk, Tangela, 30, 33-35
+pokemon = walk, Fearow, 20, 36-40
+pokemon = walk, Meowth, 10, 31-31
+pokemon = walk, Psyduck, 5, 31-31
+pokemon = walk, Slowpoke, 5, 31-31
+pokemon = walk, Persian, 5, 37-40
+pokemon = surf, Tentacool, 95, 5-40
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 80, 15-25
+pokemon = super-rod, Krabby, 80, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Taillow, 10, 31-32, cousin
+pokemon = walk, Swellow, 7, 36-40, cousin
+pokemon = walk, Glameow, 1, 31-31, cousin
+pokemon = walk, Purrloin, 1, 31-31, cousin
+pokemon = walk, Wooper, 1, 31-31, cousin
+pokemon = walk, Ducklett, 1, 31-31, cousin
+pokemon = walk, Lotad, 2, 31-31, cousin
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 27, 15-25, cousin
+pokemon = super-rod, Corphish, 27, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
+
+[Mt. Ember (Exterior)]
+unlock = @done
+pokemon = walk, Ponyta, 35, 30-36
+pokemon = walk, Fearow, 25, 38-40
+pokemon = walk, Spearow, 15, 30-32
+pokemon = walk, Machop, 10, 35-35
+pokemon = walk, Geodude, 10, 33-33
+pokemon = walk, Rapidash, 5, 39-42
+pokemon = walk, Magmar, 5, 38-40
+pokemon = rock-smash, Geodude, 95, 5-30
+pokemon = rock-smash, Graveler, 5, 25-40
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Numel, 12, 30-36, cousin
+pokemon = walk, Swellow, 8, 38-40, cousin
+pokemon = walk, Taillow, 5, 30-32, cousin
+pokemon = walk, Makuhita, 1, 35-35, cousin
+pokemon = walk, Timburr, 1, 35-35, cousin
+pokemon = walk, Roggenrola, 3, 33-33, cousin
+pokemon = walk, Slugma, 2, 38-40, cousin
+pokemon = rock-smash, Roggenrola, 32, 5-30, cousin
+pokemon = rock-smash, Boldore, 2, 25-40, cousin
+
+[Mt. Ember (Summit Path 1F/3F)]
+unlock = @done
+pokemon = walk, Machop, 50, 31-39
+pokemon = walk, Geodude, 50, 29-37
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Makuhita, 8, 31-39, cousin
+pokemon = walk, Timburr, 8, 31-39, cousin
+pokemon = walk, Roggenrola, 17, 29-37, cousin
+
+[Mt. Ember (Summit Path 2F)]
+unlock = @done
+pokemon = walk, Machop, 40, 32-36
+pokemon = walk, Geodude, 40, 30-34
+pokemon = walk, Machoke, 20, 38-40
+pokemon = rock-smash, Geodude, 95, 5-30
+pokemon = rock-smash, Graveler, 5, 25-40
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Makuhita, 6, 32-36, cousin
+pokemon = walk, Timburr, 6, 32-36, cousin
+pokemon = walk, Roggenrola, 13, 30-34, cousin
+pokemon = rock-smash, Roggenrola, 32, 5-30, cousin
+pokemon = rock-smash, Boldore, 2, 25-40, cousin
+
+[Mt. Ember (Summit)]
+unlock = @done
+pokemon = rock-smash, Geodude, 95, 5-30
+pokemon = rock-smash, Graveler, 5, 25-40
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = rock-smash, Roggenrola, 32, 5-30, cousin
+pokemon = rock-smash, Boldore, 2, 25-40, cousin
+
+[Mt. Ember (Ruby Path 1F)]
+unlock = @done
+pokemon = walk, Geodude, 50, 32-40
+pokemon = walk, Machop, 40, 34-38
+pokemon = walk, Machoke, 10, 40-42
+pokemon = rock-smash, Geodude, 65, 25-40
+pokemon = rock-smash, Graveler, 35, 30-50
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Roggenrola, 17, 32-40, cousin
+pokemon = walk, Makuhita, 6, 34-38, cousin
+pokemon = walk, Timburr, 6, 34-38, cousin
+pokemon = rock-smash, Roggenrola, 22, 25-40, cousin
+pokemon = rock-smash, Boldore, 12, 30-50, cousin
+
+[Mt. Ember (Ruby Path B1F/B5F)]
+unlock = @done
+pokemon = walk, Geodude, 70, 34-42
+pokemon = walk, Slugma, 30, 24-30
+pokemon = rock-smash, Geodude, 65, 25-40
+pokemon = rock-smash, Graveler, 35, 30-50
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Roggenrola, 23, 34-42, cousin
+pokemon = rock-smash, Roggenrola, 22, 25-40, cousin
+pokemon = rock-smash, Boldore, 12, 30-50, cousin
+
+[Mt. Ember (Ruby Path B2F/B4F)]
+unlock = @done
+pokemon = walk, Slugma, 60, 22-32
+pokemon = walk, Geodude, 40, 40-44
+pokemon = rock-smash, Geodude, 65, 25-40
+pokemon = rock-smash, Graveler, 35, 30-50
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Roggenrola, 13, 40-44, cousin
+pokemon = rock-smash, Roggenrola, 22, 25-40, cousin
+pokemon = rock-smash, Boldore, 12, 30-50, cousin
+
+[Mt. Ember (Ruby Path B3F)]
+unlock = @done
+pokemon = walk, Slugma, 100, 18-36
+pokemon = rock-smash, Slugma, 90, 15-35
+pokemon = rock-smash, Magcargo, 10, 25-45
+
+[One Island]
+unlock = @done
+pokemon = surf, Tentacool, 95, 5-40
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 40, 15-25
+pokemon = super-rod, Shellder, 40, 15-25
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Staryu, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 13, 15-25, cousin
+pokemon = super-rod, Clamperl, 13, 15-25, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Corsola, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
+
+[Cape Brink]
+unlock = @done
+pokemon = walk, Oddish, 30, 30-32
+pokemon = walk, Bellsprout, 30, 30-32
+pokemon = walk, Spearow, 20, 31-31
+pokemon = walk, Gloom, 15, 36-38
+pokemon = walk, Weepinbell, 15, 36-38
+pokemon = walk, Meowth, 10, 31-31
+pokemon = walk, Fearow, 10, 36-36
+pokemon = walk, Psyduck, 5, 31-31
+pokemon = walk, Slowpoke, 5, 31-31
+pokemon = walk, Golduck, 5, 37-40
+pokemon = walk, Slowbro, 5, 37-40
+pokemon = walk, Persian, 5, 37-40
+pokemon = surf, Psyduck, 95, 5-40
+pokemon = surf, Golduck, 5, 35-40
+pokemon = surf, Slowpoke, 95, 5-40
+pokemon = surf, Slowbro, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Poliwag, 60, 5-15
+pokemon = good-rod, Goldeen, 20, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Poliwag, 40, 15-25
+pokemon = super-rod, Poliwhirl, 40, 20-30
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 5, 15-35
+pokemon = super-rod, Slowpoke, 5, 15-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Budew, 5, 30-32, cousin
+pokemon = walk, Petilil, 5, 30-32, cousin
+pokemon = walk, Sunkern, 5, 30-32, cousin
+pokemon = walk, Cherubi, 5, 30-32, cousin
+pokemon = walk, Taillow, 7, 31-31, cousin
+pokemon = walk, Glameow, 1, 31-31, cousin
+pokemon = walk, Purrloin, 1, 31-31, cousin
+pokemon = walk, Swellow, 3, 36-36, cousin
+pokemon = walk, Wooper, 1, 31-31, cousin
+pokemon = walk, Ducklett, 1, 31-31, cousin
+pokemon = walk, Lotad, 2, 31-31, cousin
+pokemon = surf, Wooper, 16, 5-40, cousin
+pokemon = surf, Ducklett, 16, 5-40, cousin
+pokemon = surf, Lotad, 32, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Tympole, 20, 5-15, cousin
+pokemon = good-rod, Barboach, 7, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Tympole, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 15-35, cousin
+pokemon = super-rod, Ducklett, 1, 15-35, cousin
+pokemon = super-rod, Lotad, 2, 15-35, cousin
+
+[Bond Bridge]
+unlock = @done
+pokemon = walk, Pidgey, 30, 29-32
+pokemon = walk, Oddish, 20, 31-31
+pokemon = walk, Bellsprout, 20, 31-31
+pokemon = walk, Pidgeotto, 15, 34-40
+pokemon = walk, Meowth, 10, 31-31
+pokemon = walk, Gloom, 10, 36-36
+pokemon = walk, Weepinbell, 10, 36-36
+pokemon = walk, Venonat, 5, 34-34
+pokemon = walk, Psyduck, 5, 31-31
+pokemon = walk, Slowpoke, 5, 31-31
+pokemon = walk, Persian, 5, 37-40
+pokemon = surf, Tentacool, 95, 5-40
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 80, 15-25
+pokemon = super-rod, Krabby, 80, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Starly, 5, 29-32, cousin
+pokemon = walk, Pidove, 5, 29-32, cousin
+pokemon = walk, Budew, 3, 31-31, cousin
+pokemon = walk, Petilil, 3, 31-31, cousin
+pokemon = walk, Sunkern, 3, 31-31, cousin
+pokemon = walk, Cherubi, 3, 31-31, cousin
+pokemon = walk, Staravia, 2, 34-40, cousin
+pokemon = walk, Tranquill, 2, 34-40, cousin
+pokemon = walk, Glameow, 1, 31-31, cousin
+pokemon = walk, Purrloin, 1, 31-31, cousin
+pokemon = walk, Yanma, 2, 34-34, cousin
+pokemon = walk, Wooper, 1, 31-31, cousin
+pokemon = walk, Ducklett, 1, 31-31, cousin
+pokemon = walk, Lotad, 2, 31-31, cousin
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 27, 15-25, cousin
+pokemon = super-rod, Corphish, 27, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
+
+[Three Isle Port]
+unlock = @done
+pokemon = walk, Dunsparce, 100, 5-35
+
+[Berry Forest]
+unlock = @done
+pokemon = walk, Gloom, 20, 35-35
+pokemon = walk, Weepinbell, 20, 35-35
+pokemon = walk, Pidgeotto, 20, 37-37
+pokemon = walk, Oddish, 10, 30-30
+pokemon = walk, Bellsprout, 10, 30-30
+pokemon = walk, Pidgey, 10, 32-32
+pokemon = walk, Venonat, 10, 34-34
+pokemon = walk, Drowzee, 10, 34-34
+pokemon = walk, Psyduck, 5, 31-31
+pokemon = walk, Slowpoke, 5, 31-31
+pokemon = walk, Exeggcute, 5, 35-35
+pokemon = walk, Venomoth, 5, 37-40
+pokemon = walk, Hypno, 5, 37-40
+pokemon = surf, Psyduck, 95, 5-40
+pokemon = surf, Golduck, 5, 35-40
+pokemon = surf, Slowpoke, 95, 5-40
+pokemon = surf, Slowbro, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Goldeen, 60, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = good-rod, Poliwag, 20, 5-15
+pokemon = super-rod, Goldeen, 40, 15-25
+pokemon = super-rod, Seaking, 40, 20-30
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 5, 15-35
+pokemon = super-rod, Slowpoke, 5, 15-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Staravia, 3, 37-37, cousin
+pokemon = walk, Tranquill, 3, 37-37, cousin
+pokemon = walk, Budew, 1, 30-30, cousin
+pokemon = walk, Petilil, 1, 30-30, cousin
+pokemon = walk, Sunkern, 1, 30-30, cousin
+pokemon = walk, Cherubi, 1, 30-30, cousin
+pokemon = walk, Starly, 1, 32-32, cousin
+pokemon = walk, Pidove, 1, 32-32, cousin
+pokemon = walk, Yanma, 3, 34-34, cousin
+pokemon = walk, Spoink, 3, 34-34, cousin
+pokemon = walk, Wooper, 1, 31-31, cousin
+pokemon = walk, Ducklett, 1, 31-31, cousin
+pokemon = walk, Lotad, 2, 31-31, cousin
+pokemon = walk, Seedot, 2, 35-35, cousin
+pokemon = surf, Wooper, 16, 5-40, cousin
+pokemon = surf, Ducklett, 16, 5-40, cousin
+pokemon = surf, Lotad, 32, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Barboach, 20, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = good-rod, Tympole, 7, 5-15, cousin
+pokemon = super-rod, Barboach, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 15-35, cousin
+pokemon = super-rod, Ducklett, 1, 15-35, cousin
+pokemon = super-rod, Lotad, 2, 15-35, cousin
+
+[Four Island]
+unlock = @done
+pokemon = surf, Wooper, 70, 5-25
+pokemon = surf, Marill, 70, 5-25
+pokemon = surf, Psyduck, 30, 5-35
+pokemon = surf, Slowpoke, 30, 5-35
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Poliwag, 60, 5-15
+pokemon = good-rod, Goldeen, 20, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Poliwag, 40, 15-25
+pokemon = super-rod, Poliwhirl, 40, 20-30
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 5, 15-35
+pokemon = super-rod, Slowpoke, 5, 15-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Wooper, 5, 5-35, cousin
+pokemon = surf, Ducklett, 5, 5-35, cousin
+pokemon = surf, Lotad, 10, 5-35, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Tympole, 20, 5-15, cousin
+pokemon = good-rod, Barboach, 7, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Tympole, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 15-35, cousin
+pokemon = super-rod, Ducklett, 1, 15-35, cousin
+pokemon = super-rod, Lotad, 2, 15-35, cousin
+
+[Icefall Cave (Entrance)]
+unlock = @done
+pokemon = walk, Seel, 40, 43-47
+pokemon = walk, Golbat, 25, 45-48
+pokemon = walk, Dewgong, 20, 49-53
+pokemon = walk, Zubat, 10, 40-40
+pokemon = walk, Psyduck, 5, 41-41
+pokemon = walk, Slowpoke, 5, 41-41
+pokemon = surf, Seel, 60, 5-35
+pokemon = surf, Psyduck, 30, 5-35
+pokemon = surf, Slowpoke, 30, 5-35
+pokemon = surf, Dewgong, 5, 35-40
+pokemon = surf, Wooper, 5, 5-15
+pokemon = surf, Marill, 5, 5-15
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Poliwag, 60, 5-15
+pokemon = good-rod, Goldeen, 20, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Poliwag, 40, 15-25
+pokemon = super-rod, Poliwhirl, 40, 20-30
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 5, 15-35
+pokemon = super-rod, Slowpoke, 5, 15-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Spheal, 13, 43-47, cousin
+pokemon = walk, Swoobat, 8, 45-48, cousin
+pokemon = walk, Woobat, 3, 40-40, cousin
+pokemon = walk, Wooper, 1, 41-41, cousin
+pokemon = walk, Ducklett, 1, 41-41, cousin
+pokemon = walk, Lotad, 2, 41-41, cousin
+pokemon = surf, Spheal, 20, 5-35, cousin
+pokemon = surf, Wooper, 5, 5-35, cousin
+pokemon = surf, Ducklett, 5, 5-35, cousin
+pokemon = surf, Lotad, 10, 5-35, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Tympole, 20, 5-15, cousin
+pokemon = good-rod, Barboach, 7, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Tympole, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 15-35, cousin
+pokemon = super-rod, Ducklett, 1, 15-35, cousin
+pokemon = super-rod, Lotad, 2, 15-35, cousin
+
+[Icefall Cave (Inner)]
+unlock = @done
+pokemon = walk, Swinub, 50, 23-31
+pokemon = walk, Golbat, 25, 45-48
+pokemon = walk, Zubat, 10, 40-40
+pokemon = walk, Seel, 10, 45-45
+pokemon = walk, Delibird, 5, 30-30
+pokemon = walk, Sneasel, 5, 30-30
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Swoobat, 8, 45-48, cousin
+pokemon = walk, Woobat, 3, 40-40, cousin
+pokemon = walk, Spheal, 3, 45-45, cousin
+
+[Icefall Cave (Back)]
+unlock = @done
+pokemon = walk, Seel, 40, 43-47
+pokemon = walk, Golbat, 25, 45-48
+pokemon = walk, Dewgong, 20, 49-53
+pokemon = walk, Zubat, 10, 40-40
+pokemon = walk, Psyduck, 5, 41-41
+pokemon = walk, Slowpoke, 5, 41-41
+pokemon = surf, Tentacool, 95, 5-45
+pokemon = surf, Tentacruel, 4, 35-45
+pokemon = surf, Lapras, 1, 30-45
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 40, 15-25
+pokemon = super-rod, Shellder, 40, 15-25
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Staryu, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Spheal, 13, 43-47, cousin
+pokemon = walk, Swoobat, 8, 45-48, cousin
+pokemon = walk, Woobat, 3, 40-40, cousin
+pokemon = walk, Wooper, 1, 41-41, cousin
+pokemon = walk, Ducklett, 1, 41-41, cousin
+pokemon = walk, Lotad, 2, 41-41, cousin
+pokemon = surf, Frillish, 16, 5-45, cousin
+pokemon = surf, Finneon, 16, 5-45, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 13, 15-25, cousin
+pokemon = super-rod, Clamperl, 13, 15-25, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Corsola, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
+
+[Five Island]
+unlock = @done
+pokemon = surf, Tentacool, 65, 5-40
+pokemon = surf, Hoppip, 30, 5-15
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 40, 15-25
+pokemon = super-rod, Qwilfish, 40, 15-25
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Remoraid, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 11, 5-40, cousin
+pokemon = surf, Finneon, 11, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 13, 15-25, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
+
+[Water Labyrinth]
+unlock = @done
+pokemon = surf, Tentacool, 65, 5-40
+pokemon = surf, Hoppip, 30, 5-15
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 40, 15-25
+pokemon = super-rod, Qwilfish, 40, 15-25
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Remoraid, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 11, 5-40, cousin
+pokemon = surf, Finneon, 11, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 13, 15-25, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
+
+[Five Isle Meadow]
+unlock = @done
+pokemon = walk, Sentret, 30, 10-15
+pokemon = walk, Pidgey, 20, 44-44
+pokemon = walk, Pidgeotto, 15, 48-50
+pokemon = walk, Hoppip, 15, 10-15
+pokemon = walk, Meowth, 10, 41-41
+pokemon = walk, Persian, 5, 47-50
+pokemon = walk, Psyduck, 5, 41-41
+pokemon = walk, Slowpoke, 5, 41-41
+pokemon = surf, Tentacool, 65, 5-40
+pokemon = surf, Hoppip, 30, 5-15
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 40, 15-25
+pokemon = super-rod, Qwilfish, 40, 15-25
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Remoraid, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Starly, 3, 44-44, cousin
+pokemon = walk, Pidove, 3, 44-44, cousin
+pokemon = walk, Staravia, 2, 48-50, cousin
+pokemon = walk, Tranquill, 2, 48-50, cousin
+pokemon = walk, Glameow, 1, 41-41, cousin
+pokemon = walk, Purrloin, 1, 41-41, cousin
+pokemon = walk, Wooper, 1, 41-41, cousin
+pokemon = walk, Ducklett, 1, 41-41, cousin
+pokemon = walk, Lotad, 2, 41-41, cousin
+pokemon = surf, Frillish, 11, 5-40, cousin
+pokemon = surf, Finneon, 11, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 13, 15-25, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
+
+[Memorial Pillar]
+unlock = @done
+pokemon = walk, Hoppip, 100, 6-16
+pokemon = surf, Tentacool, 65, 5-40
+pokemon = surf, Hoppip, 30, 5-15
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 40, 15-25
+pokemon = super-rod, Qwilfish, 40, 15-25
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Remoraid, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 11, 5-40, cousin
+pokemon = surf, Finneon, 11, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 13, 15-25, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
+
+[Resort Gorgeous]
+unlock = @done
+pokemon = surf, Tentacool, 65, 5-40
+pokemon = surf, Hoppip, 30, 5-15
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 40, 15-25
+pokemon = super-rod, Qwilfish, 40, 15-25
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Remoraid, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 11, 5-40, cousin
+pokemon = surf, Finneon, 11, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 13, 15-25, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
+
+[Lost Cave (Rooms 1-10)]
+unlock = @done
+pokemon = walk, Haunter, 30, 44-52
+pokemon = walk, Gastly, 25, 38-40
+pokemon = walk, Zubat, 20, 37-37
+pokemon = walk, Golbat, 20, 41-43
+pokemon = walk, Murkrow, 5, 22-22
+pokemon = walk, Misdreavus, 5, 22-22
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Duskull, 10, 44-52, cousin
+pokemon = walk, Misdreavus, 2, 38-40, cousin
+pokemon = walk, Shuppet, 2, 38-40, cousin
+pokemon = walk, Litwick, 2, 38-40, cousin
+pokemon = walk, Woobat, 7, 37-37, cousin
+pokemon = walk, Swoobat, 7, 41-43, cousin
+
+[Lost Cave (Rooms 11-14)]
+unlock = @done
+pokemon = walk, Haunter, 30, 44-52
+pokemon = walk, Zubat, 20, 37-37
+pokemon = walk, Gastly, 20, 40-40
+pokemon = walk, Murkrow, 20, 15-22
+pokemon = walk, Misdreavus, 20, 15-22
+pokemon = walk, Golbat, 10, 41-41
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Duskull, 10, 44-52, cousin
+pokemon = walk, Woobat, 7, 37-37, cousin
+pokemon = walk, Misdreavus, 2, 40-40, cousin
+pokemon = walk, Shuppet, 2, 40-40, cousin
+pokemon = walk, Litwick, 2, 40-40, cousin
+pokemon = walk, Swoobat, 3, 41-41, cousin
+
+[Water Path]
+unlock = @done
+pokemon = walk, Sentret, 30, 10-15
+pokemon = walk, Spearow, 20, 44-44
+pokemon = walk, Oddish, 15, 44-48
+pokemon = walk, Bellsprout, 15, 44-48
+pokemon = walk, Fearow, 15, 48-50
+pokemon = walk, Meowth, 10, 41-41
+pokemon = walk, Psyduck, 5, 41-41
+pokemon = walk, Slowpoke, 5, 41-41
+pokemon = walk, Persian, 5, 47-50
+pokemon = surf, Tentacool, 95, 5-40
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 40, 15-25
+pokemon = super-rod, Qwilfish, 40, 15-25
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Remoraid, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Taillow, 7, 44-44, cousin
+pokemon = walk, Budew, 2, 44-48, cousin
+pokemon = walk, Petilil, 2, 44-48, cousin
+pokemon = walk, Sunkern, 2, 44-48, cousin
+pokemon = walk, Cherubi, 2, 44-48, cousin
+pokemon = walk, Swellow, 5, 48-50, cousin
+pokemon = walk, Glameow, 1, 41-41, cousin
+pokemon = walk, Purrloin, 1, 41-41, cousin
+pokemon = walk, Wooper, 1, 41-41, cousin
+pokemon = walk, Ducklett, 1, 41-41, cousin
+pokemon = walk, Lotad, 2, 41-41, cousin
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 13, 15-25, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
+
+[Ruin Valley]
+unlock = @done
+pokemon = walk, Natu, 25, 15-20
+pokemon = walk, Spearow, 20, 44-44
+pokemon = walk, Fearow, 10, 49-49
+pokemon = walk, Meowth, 10, 43-43
+pokemon = walk, Wooper, 10, 15-15
+pokemon = walk, Marill, 10, 15-15
+pokemon = walk, Yanma, 10, 18-18
+pokemon = walk, Persian, 5, 49-52
+pokemon = walk, Psyduck, 5, 41-41
+pokemon = walk, Slowpoke, 5, 41-41
+pokemon = walk, Wobbuffet, 5, 25-25
+pokemon = surf, Wooper, 100, 5-25
+pokemon = surf, Marill, 100, 5-25
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Poliwag, 60, 5-15
+pokemon = good-rod, Goldeen, 20, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Poliwag, 40, 15-25
+pokemon = super-rod, Poliwhirl, 40, 20-30
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Psyduck, 5, 15-35
+pokemon = super-rod, Slowpoke, 5, 15-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Taillow, 7, 44-44, cousin
+pokemon = walk, Swellow, 3, 49-49, cousin
+pokemon = walk, Glameow, 1, 43-43, cousin
+pokemon = walk, Purrloin, 1, 43-43, cousin
+pokemon = walk, Wooper, 1, 41-41, cousin
+pokemon = walk, Ducklett, 1, 41-41, cousin
+pokemon = walk, Lotad, 2, 41-41, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Tympole, 20, 5-15, cousin
+pokemon = good-rod, Barboach, 7, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Tympole, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 15-35, cousin
+pokemon = super-rod, Ducklett, 1, 15-35, cousin
+pokemon = super-rod, Lotad, 2, 15-35, cousin
+
+[Green Path]
+unlock = @done
+pokemon = surf, Tentacool, 95, 5-40
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 40, 15-25
+pokemon = super-rod, Qwilfish, 40, 15-25
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Remoraid, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 13, 15-25, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
+
+[Outcast Island]
+unlock = @done
+pokemon = surf, Tentacool, 95, 5-40
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 40, 15-25
+pokemon = super-rod, Qwilfish, 40, 15-25
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Remoraid, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 13, 15-25, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
+
+[Altering Cave]
+unlock = @done
+pokemon = walk, Zubat, 100, 6-16
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Woobat, 33, 6-16, cousin
+
+[Pattern Bush]
+unlock = @done
+pokemon = walk, Spinarak, 30, 9-14
+pokemon = walk, Ledyba, 30, 9-14
+pokemon = walk, Kakuna, 20, 9-9
+pokemon = walk, Heracross, 20, 15-30
+pokemon = walk, Caterpie, 10, 6-6
+pokemon = walk, Weedle, 10, 6-6
+pokemon = walk, Metapod, 5, 9-9
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Cascoon, 7, 9-9, cousin
+pokemon = walk, Wurmple, 1, 6-6, cousin
+pokemon = walk, Sewaddle, 1, 6-6, cousin
+pokemon = walk, Kricketot, 1, 6-6, cousin
+pokemon = walk, Venipede, 1, 6-6, cousin
+pokemon = walk, Silcoon, 2, 9-9, cousin
+
+[Canyon Entrance]
+unlock = @done
+pokemon = walk, Sentret, 30, 10-15
+pokemon = walk, Spearow, 20, 44-44
+pokemon = walk, Phanpy, 15, 10-15
+pokemon = walk, Fearow, 15, 48-50
+pokemon = walk, Meowth, 10, 41-41
+pokemon = walk, Psyduck, 5, 41-41
+pokemon = walk, Slowpoke, 5, 41-41
+pokemon = walk, Persian, 5, 47-50
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Taillow, 7, 44-44, cousin
+pokemon = walk, Swellow, 5, 48-50, cousin
+pokemon = walk, Glameow, 1, 41-41, cousin
+pokemon = walk, Purrloin, 1, 41-41, cousin
+pokemon = walk, Wooper, 1, 41-41, cousin
+pokemon = walk, Ducklett, 1, 41-41, cousin
+pokemon = walk, Lotad, 2, 41-41, cousin
+
+[Sevault Canyon]
+unlock = @done
+pokemon = walk, Phanpy, 20, 15-15
+pokemon = walk, Geodude, 20, 46-46
+pokemon = walk, Fearow, 15, 50-50
+pokemon = walk, Meowth, 10, 43-43
+pokemon = walk, Cubone, 10, 46-46
+pokemon = walk, Marowak, 10, 52-52
+pokemon = walk, Skarmory, 5, 30-30
+pokemon = walk, Onix, 5, 54-54
+pokemon = walk, Larvitar, 5, 15-20
+pokemon = walk, Persian, 5, 49-52
+pokemon = rock-smash, Geodude, 65, 25-40
+pokemon = rock-smash, Graveler, 35, 30-50
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = walk, Roggenrola, 7, 46-46, cousin
+pokemon = walk, Swellow, 5, 50-50, cousin
+pokemon = walk, Glameow, 1, 43-43, cousin
+pokemon = walk, Purrloin, 1, 43-43, cousin
+pokemon = walk, Yamask, 3, 46-46, cousin
+pokemon = walk, Nosepass, 2, 54-54, cousin
+pokemon = rock-smash, Roggenrola, 22, 25-40, cousin
+pokemon = rock-smash, Boldore, 12, 30-50, cousin
+
+[Tanoby Ruins]
+unlock = @done
+pokemon = surf, Tentacool, 95, 5-40
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = surf, Mantine, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 40, 15-25
+pokemon = super-rod, Qwilfish, 40, 15-25
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Remoraid, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 13, 15-25, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
+
+[Tanoby Chambers (Monean Chamber)]
+unlock = @done
+pokemon = walk, Unown, 100, 25-25
+
+[Tanoby Chambers (Liptoo Chamber)]
+unlock = @done
+pokemon = walk, Unown, 100, 25-25
+
+[Tanoby Chambers (Weepth Chamber)]
+unlock = @done
+pokemon = walk, Unown, 100, 25-25
+
+[Tanoby Chambers (Dilford Chamber)]
+unlock = @done
+pokemon = walk, Unown, 100, 25-25
+
+[Tanoby Chambers (Scufib Chamber)]
+unlock = @done
+pokemon = walk, Unown, 100, 25-25
+
+[Tanoby Chambers (Rixy Chamber)]
+unlock = @done
+pokemon = walk, Unown, 100, 25-25
+
+[Tanoby Chambers (Viapois Chamber)]
+unlock = @done
+pokemon = walk, Unown, 100, 25-25
+
+[Trainer Tower (Seven Island)]
+unlock = @done
+pokemon = surf, Tentacool, 95, 5-40
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = surf, Mantine, 5, 35-40
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = good-rod, Horsea, 80, 5-15
+pokemon = good-rod, Krabby, 80, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = super-rod, Horsea, 40, 15-25
+pokemon = super-rod, Qwilfish, 40, 15-25
+pokemon = super-rod, Krabby, 40, 15-25
+pokemon = super-rod, Remoraid, 40, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 4, 25-35
+pokemon = super-rod, Kingler, 4, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+# cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
+pokemon = surf, Frillish, 16, 5-40, cousin
+pokemon = surf, Finneon, 16, 5-40, cousin
+pokemon = old-rod, Basculin, 33, 5-5, cousin
+pokemon = good-rod, Remoraid, 27, 5-15, cousin
+pokemon = good-rod, Corphish, 27, 5-15, cousin
+pokemon = good-rod, Basculin, 7, 5-15, cousin
+pokemon = super-rod, Remoraid, 13, 15-25, cousin
+pokemon = super-rod, Corphish, 13, 15-25, cousin
+pokemon = super-rod, Wooper, 1, 25-35, cousin
+pokemon = super-rod, Ducklett, 1, 25-35, cousin
+pokemon = super-rod, Lotad, 1, 25-35, cousin
 
 # ==========================================================================
 #  JOHTO (HeartGold/SoulSilver areas). The player arrives at level 60, so the levels here are
@@ -1463,3 +3078,94 @@ pokemon = walk, Swanna, 40, 98-100
 pokemon = surf, Mantine, 30, 98-100
 pokemon = surf, Frillish, 40, 98-100
 pokemon = surf, Jellicent, 30, 98-100
+
+# ---- generated by frlg_world.py: FireRed / LeafGreen areas (Sevii Islands)
+# The Sevii Islands open once you're the Champion. Rates: FireRed and LeafGreen averaged.
+
+[Lost Cave]
+unlock = Champion's Stadium
+pokemon = walk, Haunter, 30, 44-52
+pokemon = walk, Gastly, 24, 38-40
+pokemon = walk, Zubat, 20, 37-37
+pokemon = walk, Golbat, 17, 41-43
+pokemon = walk, Murkrow, 5, 15-22
+pokemon = walk, Misdreavus, 5, 15-22
+
+[Mt. Ember Exterior]
+unlock = Champion's Stadium
+pokemon = rock-smash, Geodude, 95, 5-30
+pokemon = rock-smash, Graveler, 5, 25-40
+pokemon = walk, Ponyta, 35, 30-36
+pokemon = walk, Fearow, 25, 38-40
+pokemon = walk, Spearow, 12, 30-32
+pokemon = walk, Machop, 10, 35-35
+pokemon = walk, Geodude, 10, 33-33
+pokemon = walk, Rapidash, 5, 39-42
+pokemon = walk, Magmar, 2, 38-40
+
+[Mt. Ember Ruby Path]
+unlock = Champion's Stadium
+pokemon = rock-smash, Geodude, 54, 25-40
+pokemon = rock-smash, Graveler, 29, 30-50
+pokemon = rock-smash, Slugma, 15, 15-35
+pokemon = rock-smash, Magcargo, 2, 25-45
+pokemon = walk, Slugma, 47, 18-36
+pokemon = walk, Geodude, 45, 32-44
+pokemon = walk, Machop, 7, 34-38
+pokemon = walk, Machoke, 2, 40-42
+
+[Mt. Ember Summit Path]
+unlock = Champion's Stadium
+pokemon = rock-smash, Geodude, 95, 5-30
+pokemon = rock-smash, Graveler, 5, 25-40
+pokemon = walk, Geodude, 47, 29-37
+pokemon = walk, Machop, 47, 31-39
+pokemon = walk, Machoke, 7, 38-40
+
+[Tanoby Ruins Dilford Chamber]
+unlock = Champion's Stadium
+pokemon = walk, Unown, 100, 25-25
+
+[Tanoby Ruins Liptoo Chamber]
+unlock = Champion's Stadium
+pokemon = walk, Unown, 100, 25-25
+
+[Tanoby Ruins Monean Chamber]
+unlock = Champion's Stadium
+pokemon = walk, Unown, 100, 25-25
+
+[Tanoby Ruins Rixy Chamber]
+unlock = Champion's Stadium
+pokemon = walk, Unown, 100, 25-25
+
+[Tanoby Ruins Scufib Chamber]
+unlock = Champion's Stadium
+pokemon = walk, Unown, 100, 25-25
+
+[Tanoby Ruins Viapois Chamber]
+unlock = Champion's Stadium
+pokemon = walk, Unown, 100, 25-25
+
+[Tanoby Ruins Weepth Chamber]
+unlock = Champion's Stadium
+pokemon = walk, Unown, 100, 25-25
+
+[Trainer Tower Grounds]
+unlock = Champion's Stadium
+pokemon = good-rod, Horsea, 40, 5-15
+pokemon = good-rod, Krabby, 40, 5-15
+pokemon = good-rod, Magikarp, 20, 5-15
+pokemon = old-rod, Magikarp, 100, 5-5
+pokemon = super-rod, Horsea, 20, 15-25
+pokemon = super-rod, Qwilfish, 20, 15-25
+pokemon = super-rod, Krabby, 20, 15-25
+pokemon = super-rod, Remoraid, 20, 15-25
+pokemon = super-rod, Gyarados, 15, 15-25
+pokemon = super-rod, Seadra, 2, 25-35
+pokemon = super-rod, Kingler, 2, 25-35
+pokemon = super-rod, Psyduck, 1, 25-35
+pokemon = super-rod, Slowpoke, 1, 25-35
+pokemon = surf, Tentacool, 92, 5-40
+pokemon = surf, Tentacruel, 5, 35-40
+pokemon = surf, Mantine, 2, 35-40
+# ---- end of generated areas

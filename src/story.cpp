@@ -521,6 +521,7 @@ void Parse(const char* text, StoryDef& st, std::string& log) {
             else if (k == "team") cur->team = SplitList(v);
             else if (k == "level") cur->levelOffset = std::atoi(v.c_str());
             else if (k == "lv") cur->baseLevel = std::max(0, std::atoi(v.c_str()));
+            else if (k == "orig") cur->orig = std::max(0, std::atoi(v.c_str()));
             else if (k == "cpu") cur->cpu = ParseLevel(v);
             else if (k == "reward") cur->reward = !IsNo(v);
             else if (k == "arena" || k == "stadium") {
@@ -639,6 +640,7 @@ int TemplateFor(int slot) {
 
 void ApplyRegionOrder(const std::vector<int>& order0) {
     if (gNatural.stages.empty()) return;
+    for (auto& s : gNatural.stages) if (s.orig <= 0 && s.baseLevel > 0 && s.region == 0) s.orig = s.baseLevel;   // Kanto's "lv" is FireRed's
     std::vector<int> order = CleanOrder(order0);
     std::vector<int> full = order;
     for (int r = 0; r < (int)gNatural.regions.size(); r++)
@@ -1070,6 +1072,21 @@ StageDef TowerStage(int floor, uint32_t seed) {
     return st;
 }
 
+namespace { int gPartyTop = 0, gDifficulty = 1; }
+void SetDifficulty(int d) { gDifficulty = std::max(0, std::min(2, d)); }
+int Difficulty() { return gDifficulty; }
+void SetPartyTop(int level) { gPartyTop = level; }
+int PartyTop() { return gPartyTop; }
+// How far above your strongest a scaled battle sits: the region keeps its shape (routes easier, the League hardest).
+int ScaleBonus(const StageDef& s) {
+    if (s.postgame) return 6;
+    if (s.IsChampion()) return 5;
+    if (s.IsLeague()) return 3;
+    if (s.IsGym()) return 2;
+    if (s.rival) return 1;
+    return -2;
+}
+
 std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamSize) {
     if (!stage && WildActive()) {   // training: the Pokemon that live in the chosen area
         auto t = MakeWildTeam(teamSize, avg);
@@ -1129,10 +1146,19 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
             if (at != std::string::npos) { evoAt = std::max(1, std::atoi(e.c_str() + at + 1)); e = Trim(e.substr(0, at)); }
         }
         int level = std::max(2, std::min(MAX_LEVEL, avg + offset + extra + GetRandomValue(0, 1)));
-        if (stage && stage->baseLevel > 0) {   // built for a level, like the games; your level only nudges it
+        if (stage && stage->orig > 0 && stage->towerFloor <= 0 && stage->legend <= 0) {
+            if (RegionSlot(stage->region) == 0 || gPartyTop <= 0) {   // your first region: its game's levels (yours nudge it a little)
+                int nudge = std::max(-2, std::min(3, (int)std::lround((avg - stage->orig) * 0.25f)));
+                level = stage->orig + nudge + extra + GetRandomValue(0, 1);
+            } else   // a region after your first: up to your strongest, never below its own game's level
+                level = std::max(stage->orig, gPartyTop + ScaleBonus(*stage)) + extra + GetRandomValue(0, 1);
+            level = std::max(2, std::min(MAX_LEVEL, level));
+        } else if (stage && stage->baseLevel > 0) {   // built for a level, like the games; your level only nudges it
             int nudge = std::max(-2, std::min(3, (int)std::lround((avg - stage->baseLevel) * 0.25f)));
             level = std::max(2, std::min(MAX_LEVEL, stage->baseLevel + nudge + extra + GetRandomValue(0, 1)));
         }
+        if (stage && stage->towerFloor <= 0 && stage->legend <= 0 && gDifficulty != 1)   // Story difficulty: Easy -10%, Hard +10%
+            level = std::max(2, std::min(MAX_LEVEL, (int)std::lround(level * (gDifficulty == 0 ? 0.9f : 1.1f))));
         int idx = -1;
         std::string l = e;
         for (char& c : l) c = (char)std::tolower((unsigned char)c);
@@ -1233,7 +1259,12 @@ std::vector<CombatantSpec> MakeCpuTeam(const StageDef* stage, int avg, int teamS
                 char last = m.name.empty() ? 0 : (char)std::tolower((unsigned char)m.name.back());
                 bool xy = m.name.size() > 2 && m.name[m.name.size() - 2] == ' ' && (last == 'x' || last == 'y');
                 if (megaWant > 1 && (!xy || last != megaWant)) continue;
-                c.item = m.megaStone;
+                if (m.megaStone.rfind("move:", 0) == 0) {   // Mega Rayquaza: it needs to know Dragon Ascent
+                    const MoveDef* mv = FindMove(m.megaStone.substr(5));
+                    bool knows = false;
+                    for (const auto& k : c.moves) knows |= k.name == m.megaStone.substr(5);
+                    if (mv && !knows) { if (c.moves.size() >= 4) c.moves.back() = *mv; else c.moves.push_back(*mv); }
+                } else c.item = m.megaStone;
                 break;
             }
         }
@@ -1264,14 +1295,29 @@ std::vector<int> RewardChoices(const std::vector<std::string>& owned, int n, int
 
 
 
+// FireRed's prize money: the trainer class's base pay times the level of their Pokemon.
+int ClassPay(const std::string& trainer) {
+    static const std::pair<const char*, int> kPay[] = {
+        {"Leader", 100}, {"Elite Four", 100}, {"Champion", 100}, {"Boss", 100}, {"Lady", 200}, {"Burglar", 90},
+        {"Gamer", 72}, {"Beauty", 70}, {"Gentleman", 70}, {"Pkmn Ranger", 60}, {"Rival", 50}, {"PokeMANIAC", 50},
+        {"Poke Maniac", 50}, {"Engineer", 50}, {"Scientist", 50}, {"Crush Kin", 48}, {"Pkmn Breeder", 48}, {"Tamer", 40},
+        {"Aroma Lady", 40}, {"Hiker", 36}, {"Fisherman", 35}, {"Juggler", 35}, {"Cooltrainer", 35}, {"Cool Couple", 35},
+        {"Sailor", 32}, {"Team Rocket", 30}, {"Rocket", 30}, {"Channeler", 30}, {"Young Couple", 30}, {"Super Nerd", 25},
+        {"Cue Ball", 25}, {"Rocker", 25}, {"Bird Keeper", 25}, {"Black Belt", 25}, {"Karate", 25}, {"Crush Girl", 24},
+        {"Ruin Maniac", 24}, {"Camper", 20}, {"Picnicker", 20}, {"Biker", 20}, {"Twins", 20}, {"Painter", 20},
+        {"Youngster", 16}, {"Lass", 16}, {"Bug Catcher", 10}, {"Psychic", 10}, {"Swimmer", 5}, {"Tuber", 4}};
+    for (const auto& [cls, pay] : kPay)
+        if (trainer.rfind(cls, 0) == 0) return pay;
+    return 30;
+}
 int WinCoins(const StageDef* stage, int lv) {
     if (stage && stage->coins >= 0) return stage->coins;
-    if (!stage) return 15 + 3 * lv;
-    if (stage->IsChampion()) return 600 + 25 * lv;
-    if (stage->IsLeague()) return 300 + 20 * lv;
-    if (stage->towerFloor > 0) return (40 + 7 * lv + std::min(stage->towerFloor, 200) * 4) * (stage->towerFloor % 10 == 0 ? 3 : 1);
-    if (stage->IsGym()) return 150 + 15 * lv;
-    return 30 + 6 * lv;
+    if (!stage) return 2 * lv;   // a wild Pokemon: a little (FireRed gives nothing)
+    if (stage->towerFloor > 0) return (40 + 7 * lv + std::min(stage->towerFloor, 200) * 4) * (stage->towerFloor % 10 == 0 ? 3 : 1) * 5;
+    if (stage->trainer.rfind("Wild ", 0) == 0) return 0;   // (Snorlax)
+    int base = ClassPay(stage->trainer);
+    if (stage->IsGym() || stage->IsLeague()) base = std::max(base, 100);
+    return base * std::max(1, lv);
 }
 
 int PickRareSpecies(const std::vector<std::string>& owned, int teamLevel) {

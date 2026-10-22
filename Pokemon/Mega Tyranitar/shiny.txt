@@ -1,0 +1,25 @@
+# Mega Tyranitar - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000B04 > 2E1306
+shiny = 001104 > 2F1806
+shiny = 1E3F2A > 57472E
+shiny = 234F2D > 625735
+shiny = 313131 > 5F3636
+shiny = 324231 > 634A35
+shiny = 325437 > 6C5C3E
+shiny = 4C6747 > 856F4F
+shiny = 5A7B52 > 96835D
+shiny = 679458 > A99C6A
+shiny = 6B843A > A38C53
+shiny = 705E49 > 986951
+shiny = 83A06A > BFA97A
+shiny = 84AF69 > C6B77E
+shiny = 8CB970 > D0C186
+shiny = 92C171 > D7C98A
+shiny = 96B077 > D2B989
+shiny = 9CC552 > D6CC62
+shiny = A2D26F > E7DA8F
+shiny = B2D482 > F2DC9D
+shiny = B54242 > 9D69BB
+shiny = BEE394 > F9EB96
+shiny = E64A29 > E86E34

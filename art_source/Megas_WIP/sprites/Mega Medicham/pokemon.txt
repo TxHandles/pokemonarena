@@ -1,0 +1,23 @@
+# Mega Medicham: the Mega Evolution of Medicham (official stats, types and ability). Not caught or met on its
+# own: a Medicham holding the Medichamite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Medicham
+dex  = 308
+type = Fighting / Psychic
+mega_of = Medicham
+mega_stone = Medichamite
+
+hp         = 60
+attack     = 100
+defense    = 85
+sp_attack  = 80
+sp_defense = 85
+speed      = 100
+
+height = 1.3      # Pokedex height in meters
+weight = 31.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Pure Power
+category = 

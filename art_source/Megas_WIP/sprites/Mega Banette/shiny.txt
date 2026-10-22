@@ -1,0 +1,30 @@
+# Mega Banette - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 00010E > 00202E
+shiny = 03080C > 00222E
+shiny = 071417 > 002A37
+shiny = 0B010B > 0E202C
+shiny = 162B3E > 00445B
+shiny = 2D1B39 > 003955
+shiny = 2F2C3C > 00475C
+shiny = 313131 > 004B56
+shiny = 343846 > 005367
+shiny = 45354F > 0C536E
+shiny = 4D3A51 > 1E5972
+shiny = 525252 > 266E7A
+shiny = 5A5358 > 30717F
+shiny = 5E5577 > 2E7595
+shiny = 613D62 > 366080
+shiny = 636363 > 3B808C
+shiny = 6B5D71 > 417D95
+shiny = 6C5172 > 427392
+shiny = 745975 > 4B7B97
+shiny = 756A72 > 4894B6
+shiny = 7B7B84 > 58A3C7
+shiny = 9C7D8B > 76A0B4
+shiny = 9E5A86 > 548FA3
+shiny = AC925E > 8DB3A0
+shiny = BBAD4C > B5A125
+shiny = BDA542 > D59341
+shiny = C5425A > 9B7D8C
+shiny = FFD631 > F1CB22

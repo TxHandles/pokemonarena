@@ -43,15 +43,15 @@ void WildBand(int region, int& lo, int& hi) {
     }
     if (hi <= 0) { lo = 2; hi = 60; }
 }
-// A wild level moved to the levels of the region's place in the order (Hoenn first: Route 101 at Kanto's Route 1 levels).
+// A wild level as its own game has it. Kanto's tables are FireRed's; the later regions' were written at
+// post-Kanto levels, so they're mapped back onto their games' own range (Route 29 at 2-4 again).
 int SlotWild(int region, int level) {
-    int tr = LevelTemplateRegion(region);
-    if (tr == region) return level;
-    int alo, ahi, blo, bhi;
-    WildBand(region, alo, ahi);
-    WildBand(tr, blo, bhi);
-    float f = (float)(level - alo) / std::max(1, ahi - alo);
-    return std::max(2, std::min(MAX_LEVEL, (int)std::lround(blo + f * (bhi - blo))));
+    static const int kOrigHi[] = {0, 50, 44, 55, 53};   // Johto, Hoenn, Sinnoh, Unova: their games' highest wild levels
+    if (region <= 0 || region > 4) return level;
+    int lo, hi;
+    WildBand(region, lo, hi);
+    float f = (float)(level - lo) / std::max(1, hi - lo);
+    return std::max(2, std::min(MAX_LEVEL, (int)std::lround(2 + f * (kOrigHi[region] - 2))));
 }
 
 bool MethodOpen(const std::string& m, int storyStage) {
@@ -70,8 +70,17 @@ float MethodShare(const std::string& m) {
 
 // Weighted entries usable right now in an area (rare-only ones excluded unless asked).
 struct Pick { const WildEntry* e; float w; };
+std::string gMethodOnly;   // the overworld: only this method's Pokemon (surfing, a rod, Rock Smash); "" any
+
 std::vector<Pick> Usable(int area, int stage, int badges, bool includeRare) {
     std::vector<Pick> v;
+    if (!gMethodOnly.empty() && area >= 0 && area < (int)gAreas.size()) {   // you're out there doing it: the method is open
+        int total = 0;
+        for (const auto& e : gAreas[area].mons) if (!e.rare && e.method == gMethodOnly) total += e.rate;
+        for (const auto& e : gAreas[area].mons)
+            if (e.species >= 0 && !e.rare && e.method == gMethodOnly && badges >= e.badges) v.push_back({&e, e.rate / (float)std::max(1, total)});
+        return v;
+    }
     if (area < 0 || area >= (int)gAreas.size()) return v;
     std::map<std::string, int> total;
     for (const auto& e : gAreas[area].mons)
@@ -126,7 +135,7 @@ void Parse(const char* text, std::string& log) {
             e.hi = dash == std::string::npos ? e.lo : std::max(e.lo, std::atoi(parts[3].c_str() + dash + 1));
             for (size_t i = 4; i < parts.size(); i++) {
                 std::string p = Low(parts[i]);
-                if (p == "rare") e.rare = true;
+                if (p == "rare") e.rare = false;   // (once a "rare every 5th battle" find: now just an uncommon one in its area)
                 else if (p.rfind("badges", 0) == 0) e.badges = std::atoi(p.c_str() + 6);
             }
             cur->mons.push_back(e);
@@ -294,11 +303,13 @@ std::vector<CombatantSpec> MakeWildTeam(int n, int avg) {
         used.push_back(pick->species);
         CombatantSpec c;
         c.species = pick->species;   // as found in the games: no evolving to the team's level
-        // Near the team's level, but an early route never turns into a late-game challenge.
-        int lvl = avg + GetRandomValue(-1, 1);
+        // Your first region: the levels its game has. Every region after it: up to your strongest Pokemon,
+        // never below the game's own.
+        (void)avg;
         int reg = AreaRegion(gCtxArea);
-        lvl = std::min(lvl, SlotWild(reg, pick->hi) + 8);
-        lvl = std::max(lvl, SlotWild(reg, pick->lo));
+        int lo = SlotWild(reg, pick->lo), hi = std::max(lo, SlotWild(reg, pick->hi));
+        int lvl = GetRandomValue(lo, hi);
+        if (RegionSlot(reg) != 0 && PartyTop() > 0) lvl = std::max(lvl, PartyTop() - 3 + GetRandomValue(0, 2));
         c.level = std::max(2, std::min(MAX_LEVEL, lvl));
         c.moves = MovesAtLevel(AllSpecies()[c.species], c.level);
         team.push_back(c);
@@ -365,4 +376,12 @@ std::vector<WildAreaMon> WildAreaMons(int area, int storyStage, int badges) {
         return a.share > b.share;
     });
     return v;
+}
+
+void SetWildMethod(const std::string& method) { gMethodOnly = method; }
+bool WildAreaHasMethod(const std::string& area, const std::string& method) {
+    int a = WildAreaIndex(area);
+    if (a < 0) return false;
+    for (const auto& e : gAreas[a].mons) if (e.method == method && e.species >= 0 && !e.rare) return true;
+    return false;
 }

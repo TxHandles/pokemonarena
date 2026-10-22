@@ -1,0 +1,29 @@
+# Mega Lucario - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 193848 > 02556F
+shiny = 313131 > 324E5B
+shiny = 323A55 > 32587D
+shiny = 333432 > 35515D
+shiny = 3A4750 > 3D6578
+shiny = 3A5F6A > 447D92
+shiny = 3A6B8C > 257AA5
+shiny = 3F4F50 > 2B5E75
+shiny = 482533 > 47485C
+shiny = 4D86B1 > 60A6CF
+shiny = 525252 > 406378
+shiny = 528CB5 > D2D760
+shiny = 595756 > 47687D
+shiny = 6B6B73 > 597D98
+shiny = 752536 > 705466
+shiny = 7A5E37 > 104266
+shiny = 7EB2E1 > ECDE94
+shiny = 88C8EC > FFFF8C
+shiny = 8C423A > 88424D
+shiny = AE8D4A > 486E93
+shiny = B5524A > AD8388
+shiny = BE1E3B > AB3751
+shiny = C59C52 > 5A7DA3
+shiny = C5C5BD > CCE9F4
+shiny = E1B564 > 7395BC
+shiny = E6C573 > 7EA2C9
+shiny = F76352 > E46F73

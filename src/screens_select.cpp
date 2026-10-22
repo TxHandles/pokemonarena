@@ -545,9 +545,22 @@ void StartBattleFromSelect(Game& g) {
 
     SideSetup& b = su.side[1];
     b.label = SideName(g, 1);
-    int avg = 0;
-    for (const auto& c : a.team) avg += c.level;
+    int avg = 0, top = 0;
+    for (const auto& c : a.team) { avg += c.level; top = std::max(top, c.level); }
     avg = a.team.empty() ? 5 : (int)std::lround((float)avg / a.team.size());
+    SetPartyTop(top);   // later regions scale to your strongest
+    {   // the foes' name plates mark the species you already own (your own Pokedex; local co-op: either of you)
+        std::vector<char> owned(AllSpecies().size(), 0);
+        for (int p = 0; p < (g.coop ? 2 : 1); p++) {
+            if (g.coop && g.on.active && p != g.on.me) continue;
+            const Profile& P = g.coop ? g.coopP[p] : g.profile;
+            for (size_t i = 0; i < owned.size(); i++) if (!owned[i] && DexHasCaught(P, AllSpecies()[i].name)) owned[i] = 1;
+        }
+        SetOwnedSpecies(std::move(owned));
+    }
+    bool storyish = g.mode == Mode::Story || g.mode == Mode::CoopStory;
+    SetDifficulty(storyish ? (g.coop ? g.coopP[0].difficulty : g.profile.difficulty) : 1);   // co-op: the host's
+    auto diffAI = [&](AILevel base) { return !storyish ? base : Difficulty() == 0 ? AILevel::Easy : Difficulty() == 2 ? AILevel::Hard : base; };
 
     switch (g.mode) {
         case Mode::TwoPlayer: {
@@ -575,7 +588,7 @@ void StartBattleFromSelect(Game& g) {
             g.cpuTeam = MakeCpuTeam(&st, avg, MAX_TEAM_SIZE);
             b.team = g.cpuTeam;
             b.cpu = true;
-            b.level = st.cpu;
+            b.level = diffAI(st.cpu);
             b.label = st.trainer;
             su.trainerBattle = true;
             su.arena = st.arena;
@@ -629,8 +642,8 @@ void StartBattleFromSelect(Game& g) {
             if (g.rareBattle && g.rareSpecies >= 0) {
                 // A lone rare creature, a little above your level, in a random arena you've unlocked.
                 CombatantSpec c;
-                c.level = std::min(MAX_LEVEL, avg + 3);
-                c.species = WildActive() ? g.rareSpecies : EvolvedFormAt(g.rareSpecies, c.level);
+                c.level = g.ow.staticLevel > 0 ? g.ow.staticLevel : std::min(MAX_LEVEL, avg + 3);   // met on the map: its own level
+                c.species = WildActive() || g.ow.staticLevel > 0 ? g.rareSpecies : EvolvedFormAt(g.rareSpecies, c.level);
                 c.moves = MovesAtLevel(AllSpecies()[c.species], c.level);
                 c.shiny = RollShiny();   // the rare one can be shiny too
                 g.cpuTeam = {c};
@@ -675,9 +688,10 @@ void StartBattleFromSelect(Game& g) {
                 if (gAutoPlayP1) { h.cpu = true; h.level = AILevel::Hard; }
 #endif
             }
-            int sum = 0, cnt = 0;
-            for (auto& h : v) for (auto& c : h.team) { sum += c.level; cnt++; }
+            int sum = 0, cnt = 0, top2 = 0;
+            for (auto& h : v) for (auto& c : h.team) { sum += c.level; cnt++; top2 = std::max(top2, c.level); }
             int avg2 = cnt ? (int)std::lround((float)sum / cnt) : 5;
+            SetPartyTop(top2);
             std::vector<CombatantSpec> cpu;
             AILevel lvA = Cfg().cpuLevel, lvB = Cfg().cpuLevel;
             std::string label = "Rival";
@@ -721,7 +735,7 @@ void StartBattleFromSelect(Game& g) {
                 for (int i = 0; i < want; i++) st.team.push_back(base[i % base.size()]);
                 }
                 cpu = MakeCpuTeam(&st, avg2, MAX_TEAM_SIZE);
-                lvA = lvB = st.cpu;
+                lvA = lvB = diffAI(st.cpu);
                 label = st.trainer;
                 su.trainerBattle = true;
                 su.arena = st.arena;
@@ -732,8 +746,8 @@ void StartBattleFromSelect(Game& g) {
                 if (g.rareBattle && g.rareSpecies >= 0) {
                     // A tougher rare creature for two players, with a wild partner.
                     CombatantSpec c;
-                    c.level = std::min(MAX_LEVEL, avg2 + 6);
-                    c.species = WildActive() ? g.rareSpecies : EvolvedFormAt(g.rareSpecies, c.level);
+                    c.level = g.ow.staticLevel > 0 ? g.ow.staticLevel : std::min(MAX_LEVEL, avg2 + 6);
+                    c.species = WildActive() || g.ow.staticLevel > 0 ? g.rareSpecies : EvolvedFormAt(g.rareSpecies, c.level);
                     c.moves = MovesAtLevel(AllSpecies()[c.species], c.level);
                     c.shiny = RollShiny();   // the rare one can be shiny too
                     cpu = {c};
@@ -835,7 +849,8 @@ void StartBattleFromSelect(Game& g) {
         RaidInfo r = RaidOfDay(RaidToday());
         CombatantSpec boss;
         boss.species = std::max(0, r.species);
-        boss.level = std::min(MAX_LEVEL, std::max(12, top + 8));
+        boss.level = AllSpecies()[boss.species].legendary ? 70 : 55;   // raid bosses never scale to you
+        (void)top;
         boss.moves = MovesAtLevel(AllSpecies()[boss.species], boss.level);
         boss.shiny = r.shiny;
         boss.boss = 1.0f + (coopRaid ? 4.0f : 4.5f) * std::max(1, onField);   // a long fight: every one of yours is hitting it
@@ -900,7 +915,7 @@ void StartBattleFromSelect(Game& g) {
     if (IsStoryMode(g.mode)) {   // Story: where it happens, day or night, and the season's weather
         int clock = StoryClock(g);
         StageDef stv;
-        bool hasStage = (g.mode == Mode::Story || g.mode == Mode::CoopStory) && (g.tower || g.legend >= 0 || (g.stageIdx >= 0 && g.stageIdx < (int)Story().stages.size()));
+        bool hasStage = (g.mode == Mode::Story || g.mode == Mode::CoopStory) && (g.tower || g.owFight || g.legend >= 0 || (g.stageIdx >= 0 && g.stageIdx < (int)Story().stages.size()));
         if (hasStage) stv = ActiveStage(g);
         const StageDef* st = hasStage ? &stv : nullptr;
         if (st && (st->IsGym() || st->IsLeague()) && st->towerFloor <= 0) {
@@ -922,9 +937,17 @@ void StartBattleFromSelect(Game& g) {
             if (!P) continue;
             for (int k = 0; k < 4; k++) {
                 const ItemDef* d = FindItem(P->hotItems[k]);
-                if (!d || !IsMedicine(*d)) continue;
+                if (!d || !(IsMedicine(*d) || IsBall(*d))) continue;
                 sd.hot[k] = d->name;
                 sd.hotN[k] = BagCount(*P, d->name);
+            }
+            if (su.catchable && !su.trainerBattle && !su.raid) {   // a wild battle with no ball on a hotkey: your best one goes on a free slot
+                bool any = false;
+                for (int k = 0; k < 4; k++) { const ItemDef* d = FindItem(sd.hot[k]); any |= d && IsBall(*d) && sd.hotN[k] > 0; }
+                for (const char* b : {"Ultra Ball", "Great Ball", "Poke Ball"}) {
+                    if (any || BagCount(*P, b) <= 0) continue;
+                    for (int k = 0; k < 4 && !any; k++) if (sd.hot[k].empty() || sd.hotN[k] <= 0) { sd.hot[k] = b; sd.hotN[k] = BagCount(*P, b); any = true; }
+                }
             }
         }
         su.season = SeasonOf(clock);
@@ -1007,7 +1030,7 @@ void DrawSelect(const Game& g) {
         if (g.mode == Mode::CoopStory) {
             const StageDef st = ActiveStage(g);
             int want = std::min(MAX_TEAM_SIZE, std::max(3, (int)st.team.size() + 2));
-            if (st.IsLegend()) vs = TextFormat("vs %s - 2 on 1, it has a huge HP pool. Weaken it to catch it!", st.trainer.c_str());
+            if (st.IsLegend()) vs = TextFormat("vs %s - 2 on 1, it has a huge HP pool. Weaken it and throw your balls!", st.trainer.c_str());
             else vs = TextFormat("vs %s - %d Pokemon%s", st.trainer.c_str(), want,
                             st.towerFloor > 0 ? TextFormat(" - Battle Tower floor %d", st.towerFloor)
                             : IsRematch(g) && st.IsBoss() ? " - REMATCH (scaled to your level)"
@@ -1112,7 +1135,7 @@ void DrawSelect(const Game& g) {
                 GDrawText(TextFormat("Arena: %s", st.arena == ArenaKind::Stadium ? VenueName(st.venue.empty() ? VenueForPlace(st.name) : VenueByName(st.venue)) : ArenaName(st.arena)), x + 6, y + 108, 10, st.arena == ArenaKind::Stadium ? UI_TEXT : UI_GOLD);
                 if (st.dbl) GDrawText(!st.partner.empty() ? TextFormat("DOUBLE BATTLE: %s fights with you!", st.partner.c_str())
                                                           : "DOUBLE BATTLE: picks 2, 4 and 6 fight beside you", x + 6, y + 136, 10, UI_GOLD);
-                GDrawText(st.IsLegend() ? "Weaken it, then you get 3 balls to catch it" : st.towerFloor > 0 ? "Battle Tower: everyone fights at full health" : st.IsChampion() ? "The Championship!" : st.IsLeague() ? "Elite Four: lose and the League starts over"
+                GDrawText(st.IsLegend() ? "It can't be knocked out: weaken it and throw balls in battle" : st.towerFloor > 0 ? "Battle Tower: everyone fights at full health" : st.IsChampion() ? "The Championship!" : st.IsLeague() ? "Elite Four: lose and the League starts over"
                          : st.IsGym() ? "Gym battle" : "Trainer battle: catch wild ones in training", x + 6, y + 122, 10, UI_DIM);
             } else {
                 if (g.raid) {
@@ -1133,17 +1156,16 @@ void DrawSelect(const Game& g) {
                     DrawSpeciesFit(g.rareSpecies, VIEW_FRONT, x + 240, y + 102, 72);
                     GDrawText(TextFormat("A wild %s appeared!", AllSpecies()[g.rareSpecies].name.c_str()), x + 6, y + 50, 10, UI_TEXT);
                     GDrawText("It's a few levels above your team.", x + 6, y + 64, 10, UI_DIM);
-                    GDrawText("Weaken it, then catch it with", x + 6, y + 82, 10, UI_GOLD);
-                    GDrawText("a ball - don't knock it out!", x + 6, y + 94, 10, UI_GOLD);
+                    GDrawText("Weaken it, then throw a ball from your", x + 6, y + 82, 10, UI_GOLD);
+                    GDrawText("item hotkeys - don't knock it out!", x + 6, y + 94, 10, UI_GOLD);
                     GDrawText(TextFormat("Poke Balls: %d", BagCount(g.profile, "Poke Ball")), x + 6, y + 112, 10, UI_TEXT);
                     GDrawText(TextFormat("In %s   (X / Tab: area)", TrainAreaName(g).c_str()), x + 6, y + 126, 10, Color{140, 230, 150, 255});
                 } else {
                     DrawTextShadow("Training battle", x + 6, y + 24, 20, UI_TEXT);
                     GDrawText(TextFormat("In %s", TrainAreaName(g).c_str()), x + 6, y + 50, 10, Color{140, 230, 150, 255});
                     GDrawText(TextFormat("Up to %d wild Pokemon - never more than you bring", std::max(2, Story().trainingMaxFoes)), x + 6, y + 66, 10, UI_TEXT);
-                    int every = std::max(1, Story().rareEvery);
-                    GDrawText(TextFormat("Training wins: %d  (every %dth battle: a rare Pokemon)", g.profile.trainingWins, every), x + 6, y + 80, 10, UI_TEXT);
-                    GDrawText("Weaken a foe to try catching it after the win!", x + 6, y + 96, 10, UI_GOLD);
+                    GDrawText(TextFormat("Training wins: %d", g.profile.trainingWins), x + 6, y + 80, 10, UI_TEXT);
+                    GDrawText("Throw Poke Balls from your item hotkeys in battle!", x + 6, y + 96, 10, UI_GOLD);
                     GDrawText("X / Tab: choose where to train", x + 6, y + 112, 10, UI_GOLD);
                 }
             }

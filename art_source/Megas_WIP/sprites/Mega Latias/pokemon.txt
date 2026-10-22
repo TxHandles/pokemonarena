@@ -1,0 +1,23 @@
+# Mega Latias: the Mega Evolution of Latias (official stats, types and ability). Not caught or met on its
+# own: a Latias holding the Latiasite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Latias
+dex  = 380
+type = Dragon / Psychic
+mega_of = Latias
+mega_stone = Latiasite
+
+hp         = 80
+attack     = 100
+defense    = 120
+sp_attack  = 140
+sp_defense = 150
+speed      = 110
+
+height = 1.8      # Pokedex height in meters
+weight = 52      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = yes
+ability = Levitate
+category = 

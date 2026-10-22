@@ -1,0 +1,24 @@
+# Mega Steelix: the Mega Evolution of Steelix (official stats, types and ability). Not caught or met on its
+# own: a Steelix holding the Steelixite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Steelix
+dex  = 208
+type = Steel / Ground
+mega_of = Steelix
+mega_stone = Steelixite
+
+hp         = 75
+attack     = 125
+defense    = 230
+sp_attack  = 55
+sp_defense = 95
+speed      = 30
+
+height = 10.5      # Pokedex height in meters
+weight = 740      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+ability = Sand Force
+category = 
+sprite_size = 1.87   # (tools/mega_sizes.py) so it looks bigger than Steelix

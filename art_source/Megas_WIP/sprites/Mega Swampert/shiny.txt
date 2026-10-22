@@ -1,0 +1,26 @@
+# Mega Swampert - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 020A06 > 2D004B
+shiny = 021104 > 2F004A
+shiny = 040111 > 290045
+shiny = 313131 > 5A0074
+shiny = 323543 > 660064
+shiny = 344D58 > 791795
+shiny = 35575D > 7E2A9B
+shiny = 374758 > 71188D
+shiny = 427B94 > AC44AA
+shiny = 4A94B5 > C65EC4
+shiny = 4C83A7 > B64EB5
+shiny = 4C9ECF > CE6FC7
+shiny = 525252 > 81289A
+shiny = 555C76 > 8D35A9
+shiny = 55B2E4 > E182DB
+shiny = 5A6B73 > 9942B4
+shiny = 613940 > 74108A
+shiny = 647FA0 > B74DB4
+shiny = 737B84 > AE55C8
+shiny = 7BC5DE > F594EB
+shiny = 82A5D7 > CC81D8
+shiny = 89BEEB > F88BF5
+shiny = 8C9494 > C96EE2
+shiny = DEEFEF > E6E7FF

@@ -1,0 +1,7 @@
+# Mega Abomasnow - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 345C4E > 003778
+shiny = 394E4B > 002D6E
+shiny = 427B63 > 484FA4
+shiny = 52A573 > 3A82B0
+shiny = 596866 > 23458B

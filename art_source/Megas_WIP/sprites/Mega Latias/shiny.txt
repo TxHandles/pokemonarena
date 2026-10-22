@@ -1,0 +1,22 @@
+# Mega Latias - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 180C20 > 072600
+shiny = 4E3E5D > 315D00
+shiny = 62598A > 4E7A24
+shiny = 635A94 > 4D7230
+shiny = 7B73B5 > 7AAA4D
+shiny = 7E7598 > 78A949
+shiny = 825EAC > 618935
+shiny = 8C79C9 > 77A14C
+shiny = 8C8C8C > 9A9795
+shiny = 9C8CD6 > 98C769
+shiny = A186D6 > 80B647
+shiny = A3A2BD > B2AEBC
+shiny = A777D7 > 7AAE40
+shiny = B286DF > 87BB4C
+shiny = B5B5B5 > CAC6C5
+shiny = C3C4D5 > D3D0D8
+shiny = DAD9E7 > F0EBF2
+shiny = DEDEDE > EDE9E8
+shiny = F2EEF8 > FFFDFF
+shiny = F7C53A > 00B6A1

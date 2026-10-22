@@ -197,6 +197,9 @@ const AbilityDef kAbilities[] = {
     {"Aerilate", "Normal moves become Flying moves and deal 20% more."},
     {"Parental Bond", "Its baby attacks too: damaging moves deal 25% more."},
     {"Innards Out", "When it's knocked out, its attacker loses as much HP as it had left before the hit (up to half of the attacker's max)."},
+    {"Primordial Sea", "Brings a heavy rain that lasts as long as it's in battle."},
+    {"Desolate Land", "Brings extremely harsh sunlight that lasts as long as it's in battle."},
+    {"Delta Stream", "Mysterious strong winds: clears the weather and keeps it clear while it's in battle."},
 };
 bool HasWord(const std::string& s, const char* w) { return s.find(w) != std::string::npos; }
 } // namespace

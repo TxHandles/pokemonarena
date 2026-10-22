@@ -55,6 +55,7 @@ struct CombatantSpec {
     int nature = -1;             // natures.h; -1 = random (CPU creatures)
     float boss = 0;              // > 0: a legendary boss (HP x this, can't be knocked out: it's weakened instead)
     bool shiny = false;          // shiny colours (and a sparkle when it's sent out)
+    int vit[4] = {0, 0, 0, 0};   // vitamins taken: +1% each to HP, attacks, defenses, speed
 };
 
 // One controller slot in a battle: a player or CPU with its own creatures, one on the field at a time.
@@ -176,8 +177,14 @@ struct Fighter {
     bool weakened = false;   // dropped low in a catchable battle: dazed, then retreats
     float dazeT = 0;
     bool retired = false;    // retreated (still has HP): can be caught afterwards
+    bool inBall = false;     // a Poke Ball thrown at it is shaking (it can't act or be hit meanwhile)
+    bool caught = false;     // caught in battle (by the side whose owner is caughtBy)
+    int caughtBy = -1;       // the catcher's owner (0 / 1: co-op player)
+    std::string caughtBall;
 
     float counterT = 0, endureT = 0;  // Counter-style shield / Endure active
+    int vit[4] = {0, 0, 0, 0};        // vitamins taken (CombatantSpec)
+    float critT = 0;                  // Dire Hit / X Accuracy: critical hits more likely while > 0
     int lastHitBy = -1;             // slot that last hurt it (credit for status damage)
     bool lent = false;              // handed to a teammate whose own creatures are all out
     int owner = 0;                  // player whose collection it's from (co-op)
@@ -412,8 +419,22 @@ struct Side {
     int PrevAlive(int from) const;
 };
 
+// Wild battles: which species you already own (a Poke Ball mark on the foe's name plate, like the games).
+void SetOwnedSpecies(std::vector<char> owned);
+bool OwnedSpecies(int species);
+
+struct BallThrow {   // a Poke Ball on its way: flies, swallows the target, shakes, then holds or breaks
+    int from = -1, to = -1;
+    std::string ball;
+    float t = 0;
+    int shakes = 0;          // how many times it wobbles (0-3)
+    bool ok = false, done = false;
+    Vector2 start{0, 0};
+};
+
 class Battle {
 public:
+    bool PressHotItem(int s, int slot) { return UseHotItem(s, slot); }   // (autotests: a hotkey pressed)
     void Start(const BattleSetup& setup);
     void Update(float dt, const PlayerInput in[2]);
     void Draw(bool banners = true) const;
@@ -447,6 +468,7 @@ private:
     std::vector<FloatText> texts;
     std::vector<Tether> tethers;
     std::vector<Grab> grabs;
+    std::vector<BallThrow> throws;
     float time = 0, introT = 0, shakeT = 0;
     float sinceDamage = 0, lastHpSum = -1, suddenTick = 0;  // stalemate breaker
     bool suddenDeath = false;
@@ -576,6 +598,9 @@ private:
     void FinishEvolution(int s);
     void StartMega(int s);
     bool UseHotItem(int s, int slot);
+    bool ThrowBall(int s, int slot);   // a wild battle: throw the ball in this hotkey at your target
+    void UpdateThrows(float dt);
+    void DrawThrows() const;
     int HotSide(int s) const;          // the slot whose item hotkeys this slot uses (a raid squad shares its leader's)
     bool SquadFighting(int squad) const;   // a raid squad still has a Pokemon up on the field
     void RaidControl(PlayerInput in[2]);   // the raid: Swap moves your control between your squad's Pokemon on the field   // false: nothing to use it on (or empty / cooling down)

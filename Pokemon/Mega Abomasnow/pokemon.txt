@@ -1,0 +1,23 @@
+# Mega Abomasnow: the Mega Evolution of Abomasnow (official stats, types and ability). Not caught or met on its
+# own: a Abomasnow holding the Abomasite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Abomasnow
+dex  = 460
+type = Grass / Ice
+mega_of = Abomasnow
+mega_stone = Abomasite
+
+hp         = 90
+attack     = 132
+defense    = 105
+sp_attack  = 132
+sp_defense = 105
+speed      = 30
+
+height = 2.7      # Pokedex height in meters
+weight = 185      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Snow Warning
+category = 

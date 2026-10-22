@@ -22,6 +22,7 @@ struct OwnedMon {
     int nature = -1;                   // natures.h (-1 = not rolled yet)
     std::vector<std::string> forgotten;   // moves it has forgotten (the Move Relearner can teach them again)
     bool shiny = false;                // a rare shiny (sprites in its shiny colours)
+    int vit[4] = {0, 0, 0, 0};         // vitamins taken (HP Up; Protein / Calcium; Iron / Zinc; Carbos): +1% each, up to 10
 };
 
 struct Profile {
@@ -40,6 +41,7 @@ struct Profile {
     std::string trainArea;             // where training battles happen (a wild.txt area; empty = the newest)
     std::string owMap;                 // the overworld: where you are (empty: not been there yet)
     int owX = 0, owY = 0, owFace = 0;
+    std::set<std::string> owFlags;    // the overworld: what has happened (items picked up, trainers beaten, gifts, events)
     std::string fossil;                // fossil chosen after Mt. Moon ("Helix Fossil" / "Dome Fossil"), empty = not yet
     bool fossilRevived = false;        // the Cinnabar Lab brought it back
     bool eeveeGift = false;            // got the Eevee for maxing a Pokemon's friendship
@@ -53,6 +55,9 @@ struct Profile {
     int towerFloor = 0;                // Battle Tower: floors cleared in the current run (next = +1)
     int towerBest = 0;                 // the highest floor ever cleared
     int raidDay = -1;                  // the Daily Raid: the day it was last fought (one try a day)
+    int repel = 0;                     // Repel: steps left with no wild Pokemon
+    std::string look;                  // your trainer's look from the creator (look.h), "" = Red / Leaf
+    int difficulty = 1;                // Story Mode: 0 Easy, 1 Normal, 2 Hard (co-op uses the host's / player 1's)
     int raidWins = 0;
     int towerRuns = 0;                 // runs finished (a lost floor ends a run)
     std::vector<std::string> hof;      // Hall of Fame entries, oldest first: "partner|Species:Lv,Species:Lv,..."
@@ -115,6 +120,7 @@ struct CoopSave {
     std::vector<int> regionOrder;      // the regions in the order this journey plays them (empty: not chosen yet)
     std::string owMap[2];              // the overworld: where each player is (empty: not been there yet)
     int owX[2] = {0, 0}, owY[2] = {0, 0}, owFace[2] = {0, 0};
+    std::set<std::string> owFlags;     // the overworld together: trainers beaten, events (items go to whoever picks them up)
 };
 std::string* CoopRival(CoopSave& c, int region);   // the rival's two picks for a region
 const std::string* CoopRival(const CoopSave& c, int region);

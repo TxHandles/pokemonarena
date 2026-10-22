@@ -1,0 +1,23 @@
+# Mega Manectric: the Mega Evolution of Manectric (official stats, types and ability). Not caught or met on its
+# own: a Manectric holding the Manectite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Manectric
+dex  = 310
+type = Electric
+mega_of = Manectric
+mega_stone = Manectite
+
+hp         = 70
+attack     = 75
+defense    = 80
+sp_attack  = 135
+sp_defense = 80
+speed      = 135
+
+height = 1.8      # Pokedex height in meters
+weight = 44      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Intimidate
+category = 

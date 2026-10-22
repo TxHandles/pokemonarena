@@ -11,7 +11,7 @@
 
 namespace {
 
-constexpr int SET_N = 14;
+constexpr int SET_N = 15;
 
 const char* kTabs[] = {"Keyboard - 1 player", "Keyboard - 2P Player 1", "Keyboard - 2P Player 2", "Gamepad 1", "Gamepad 2"};
 constexpr int TAB_N = 5;
@@ -267,6 +267,10 @@ void DrawTitle(const Game& g) {
 
 // ------------------------------------------------------------------ settings
 
+// Story Mode's difficulty belongs to the profile (co-op: the host's / player 1's), so it shows only in a story.
+static bool InStory(const Game& g) { return g.settingsBack == Screen::StoryHub || g.settingsBack == Screen::CoopHub || g.settingsBack == Screen::World; }
+static int& StoryDiff(Game& g) { return g.coop ? g.coopP[0].difficulty : g.profile.difficulty; }
+static const Game* gSetG = nullptr;
 static void SettingText(int i, char* label, char* value) {
     Settings& c = Cfg();
     auto onoff = [](bool b) { return b ? "On" : "Off"; };
@@ -283,7 +287,11 @@ static void SettingText(int i, char* label, char* value) {
         case 9: std::sprintf(label, "Team size"); std::sprintf(value, "%d", c.teamSize); break;
         case 10: std::sprintf(label, "CPU skill (Quick Battle / Training)"); std::sprintf(value, "%s", AILevelName(c.cpuLevel)); break;
         case 11: std::sprintf(label, "Arena (Quick Battle / 2 Players)"); std::sprintf(value, "%s", c.quickArena < 0 ? "Random" : c.quickArena < ARENA_COUNT ? ArenaName((ArenaKind)c.quickArena) : VenueName((Venue)(c.quickArena - ARENA_COUNT + 1))); break;
-        case 12: std::sprintf(label, "Controls..."); value[0] = 0; break;
+        case 12: std::sprintf(label, "Story difficulty");
+            if (gSetG && InStory(*gSetG)) { int d = gSetG->coop ? gSetG->coopP[0].difficulty : gSetG->profile.difficulty; std::sprintf(value, "%s", d == 0 ? "Easy" : d == 2 ? "Hard" : "Normal"); }
+            else std::sprintf(value, "(in Story Mode)");
+            break;
+        case 13: std::sprintf(label, "Controls..."); value[0] = 0; break;
         default: std::sprintf(label, "Back"); value[0] = 0; break;
     }
 }
@@ -312,6 +320,15 @@ void UpdateSettings(Game& g) {
         case 11: { const int n = ARENA_COUNT + VENUE_COUNT - 1 + 1; c.quickArena = ((c.quickArena + 1 + step + n) % n) - 1; } break;
         case 12:
             changed = false;
+            if (!InStory(g)) { Toast(g, "Change it from Settings in a Story Mode save."); break; }
+            if (g.coop && g.on.active && g.on.me != 0) { Toast(g, "The host sets the difficulty."); break; }
+            StoryDiff(g) = (StoryDiff(g) + step + 3) % 3;
+            if (g.coop) { SaveProfile(g.coopP[0]); if (g.on.active) OnlineSendProfile(g); }
+            else SaveProfile(g.profile);
+            PlaySfx(Sfx::MenuOk);
+            break;
+        case 13:
+            changed = false;
             if (in.confirm) { g.ctrlTab = 0; g.ctrlRow = 1; g.ctrlCol = 0; g.capturing = false; g.screen = Screen::Controls; }
             break;
         default:
@@ -327,14 +344,15 @@ void UpdateSettings(Game& g) {
 }
 
 void DrawSettings(const Game& g) {
+    gSetG = &g;
     DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     DrawTextCentered("SETTINGS", VW / 2, 14, 20, UI_GOLD);
     int x = 150, w = 340;
-    const char* groups[] = {"Display", "", "Sound", "", "Gameplay", "", "", "Visuals", "", "Battles", "", "", "Controls", ""};
+    const char* groups[] = {"Display", "", "Sound", "", "Gameplay", "", "", "Visuals", "", "Battles", "", "", "Story", "Controls", ""};
     for (int i = 0; i < SET_N; i++) {
         char label[64], value[32];
         SettingText(i, label, value);
-        int y = 38 + i * 21;
+        int y = 36 + i * 20;
         bool sel = g.settingsSel == i;
         if (groups[i][0]) GDrawText(groups[i], 40, y + 4, 10, UI_DIM);
         DrawPanel(x, y, w, 20, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});

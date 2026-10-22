@@ -1,0 +1,30 @@
+# Mega Sharpedo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1C4462 > 930092
+shiny = 1E5164 > 9A2A94
+shiny = 23688B > 455669
+shiny = 2C2B4F > 7D007D
+shiny = 313131 > 52004F
+shiny = 3880A5 > D44FD2
+shiny = 3C5F83 > B429B2
+shiny = 425A94 > A02D9F
+shiny = 4A7BCE > DD4ADE
+shiny = 4B648E > BD32BA
+shiny = 4E9AC1 > F16CEE
+shiny = 5088B9 > E25BDF
+shiny = 525252 > 782C73
+shiny = 5D6492 > C236BE
+shiny = 5F8BBC > E75FE4
+shiny = 7D9AB1 > F970F1
+shiny = 8389A5 > 817988
+shiny = 85AFB5 > FF83FF
+shiny = ADB5A5 > B1A3AB
+shiny = B4BAB0 > B0A8A0
+shiny = B5B5BD > AFA4A7
+shiny = C59C52 > C2B541
+shiny = D4A534 > BF9656
+shiny = DEE6E6 > DAD3D2
+shiny = E4BF5F > E3D755
+shiny = ECDE7A > F2F470
+shiny = EFCF64 > EFE75E
+shiny = F7E642 > FBFC50

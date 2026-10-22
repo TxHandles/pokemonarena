@@ -1,0 +1,35 @@
+# Mega Altaria - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 071122 > 000018
+shiny = 2B6D7C > 385B6C
+shiny = 313131 > 711D00
+shiny = 325857 > 32474E
+shiny = 3D4B5D > 364658
+shiny = 515F69 > 495967
+shiny = 525252 > 44444C
+shiny = 5A8CBD > AD912A
+shiny = 689FB8 > 6D8CA4
+shiny = 6B818B > 63707F
+shiny = 79B9D4 > 82A5BE
+shiny = 7BADE6 > 82A6D0
+shiny = 8C949C > 7F8491
+shiny = 94ADD6 > 8E9CBD
+shiny = A5CEFF > F6D46B
+shiny = BDCEE6 > B5C8DF
+shiny = C3E3E6 > BDD0DB
+shiny = C4C6D6 > B4B6C8
+shiny = C7D9E2 > BCC7D5
+shiny = D1E3EA > C6D1DE
+shiny = D7D9E6 > C7C8D9
+shiny = DAE1EA > CCD0DE
+shiny = DCE8EF > CFD6E4
+shiny = DEEFFF > D6E8FB
+shiny = E4F4F6 > D8E1EC
+shiny = E6CEEF > CFC0DD
+shiny = F2FAFA > E3E8F1
+shiny = F2FEFC > E8F7FF
+shiny = F5EDF6 > E2DDEC
+shiny = F5F5F8 > E4E4EF
+shiny = FCFFFD > ECEDF6
+shiny = FDFAFD > EBE9F4
+shiny = FFFFFF > F1F9FF

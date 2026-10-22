@@ -1,0 +1,24 @@
+# Mega Aggron - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 262333 > 004D43
+shiny = 282A39 > 005449
+shiny = 293344 > 49513B
+shiny = 313131 > 005E55
+shiny = 3E3343 > 2C6053
+shiny = 404555 > 60644B
+shiny = 4AADF7 > ED517D
+shiny = 514958 > 556036
+shiny = 525252 > 198379
+shiny = 5E606D > 7E8064
+shiny = 736575 > 737F53
+shiny = 7B7B7B > 54BBA6
+shiny = 8B8997 > 87886A
+shiny = 9C9C9C > 979A73
+shiny = B1ADBA > BAC696
+shiny = BDBDB5 > B7BB8E
+shiny = C0C2CC > CDDAA9
+shiny = D6CFDB > DDEAB8
+shiny = D9DDEA > E8F6C4
+shiny = DEE8F2 > DDE5C2
+shiny = EDE5F5 > F3F4CC
+shiny = F2F0FB > F8FFD2

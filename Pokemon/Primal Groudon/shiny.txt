@@ -1,0 +1,18 @@
+# Primal Groudon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 73293A > 1C302F
+shiny = 770914 > 182723
+shiny = 8C3152 > 2B3E3E
+shiny = AE0F23 > 3B3837
+shiny = B54656 > 4B4C4E
+shiny = B7222D > 423F3F
+shiny = BDBDBD > 888C2D
+shiny = C6102A > 484342
+shiny = C6686B > 606364
+shiny = D60F2D > 504A4A
+shiny = DDBEA5 > 90922F
+shiny = DE3A5A > 566361
+shiny = E92544 > 5D5757
+shiny = EA334F > 605B5C
+shiny = EF845A > 788B83
+shiny = F64F66 > 6D696B

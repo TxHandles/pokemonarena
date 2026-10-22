@@ -1,0 +1,26 @@
+# Mega Garchomp - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 00020B > 1E021E
+shiny = 020807 > 1F081C
+shiny = 0C0009 > 23001D
+shiny = 26393C > 47374F
+shiny = 271F36 > 3D1D43
+shiny = 2B385B > 4D3763
+shiny = 313131 > 592C42
+shiny = 404C6D > 624B77
+shiny = 425774 > 68557F
+shiny = 4263B5 > B469BD
+shiny = 4C668F > 766596
+shiny = 52364C > 733259
+shiny = 525252 > 7E4E65
+shiny = 597BA0 > 8679A9
+shiny = 5A84D6 > E083E0
+shiny = 5E6492 > 7F6499
+shiny = 6D6899 > 8B68A0
+shiny = 7D84AC > 9F84B6
+shiny = 882F19 > 89225A
+shiny = 8898AA > AD97BB
+shiny = 995B5E > A45F7B
+shiny = BA381F > AA2A72
+shiny = C55252 > D4349B
+shiny = FF6B4A > FF5DBB

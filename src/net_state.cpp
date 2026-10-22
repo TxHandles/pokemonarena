@@ -63,7 +63,7 @@ struct Ar {
         v(h.contact); v(h.special); v(h.falseSwipe); v(h.forceSwap); v(h.ohko); v(h.brine); v(h.fixedDmg);
         v(h.attLevel); v(h.patchPower); v(h.patchTime); v(h.patchRadius); v(h.look); v(h.ab); v(h.moveIdx); v(h.atkStage); v(h.effects);
     }
-    void v(CombatantSpec& c) { v(c.species); v(c.level); v(c.xp); v(c.moves); v(c.ownedId); v(c.hpFrac); v(c.item); v(c.owner); v(c.abilitySlot); v(c.nature); v(c.boss); v(c.shiny); }
+    void v(CombatantSpec& c) { v(c.species); v(c.level); v(c.xp); v(c.moves); v(c.ownedId); v(c.hpFrac); v(c.item); v(c.owner); v(c.abilitySlot); v(c.nature); v(c.boss); v(c.shiny); v(c.vit); }
     void v(SideSetup& s) { v(s.team); v(s.cpu); v(s.level); v(s.earnXp); v(s.label); v(s.team_); v(s.input); v(s.tag); v(s.hot); v(s.hotN); v(s.squad); }
     void v(BattleSetup& s) {
         v(s.side); v(s.twoPlayer); v(s.autoAim); v(s.trainerBattle); v(s.screenShake); v(s.damageNumbers); v(s.arena); v(s.catchable); v(s.night); v(s.daylight); v(s.weather); v(s.venue); v(s.season); v(s.practice); v(s.leader); v(s.raid);
@@ -85,7 +85,7 @@ struct Ar {
         v(f.st); v(f.shieldT); v(f.rechargeT); v(f.burrowed); v(f.leaping); v(f.burrowT); v(f.burrowMove); v(f.burrowTarget);
         v(f.volleyMove); v(f.volleyLeft); v(f.volleyT); v(f.evolveTo); v(f.envSpeed); v(f.envAtk); v(f.envTickT); v(f.portalCd); v(f.envDef);
         v(f.regenAcc); v(f.dashObsHit); v(f.weakened); v(f.dazeT); v(f.retired); v(f.counterT); v(f.endureT); v(f.lastHitBy);
-        v(f.lent); v(f.owner); v(f.boss); v(f.shiny);
+        v(f.lent); v(f.owner); v(f.boss); v(f.shiny); v(f.vit); v(f.critT);
         std::string item = f.item ? f.item->name : std::string();
         v(item);
         if (!writing) f.item = FindItem(item);
@@ -96,7 +96,9 @@ struct Ar {
         v(f.dodgeT); v(f.dodgeCd); v(f.dodgeVel); v(f.jumpT); v(f.jumpDur); v(f.jumpVel);
         v(f.sweepT); v(f.sweepDur); v(f.sweepA0); v(f.sweepA1); v(f.sweepMove); v(f.sweepMask); v(f.heldT); v(f.heldZ); v(f.pinT);
         v(f.rollT); v(f.rollBoost); v(f.rollDist); v(f.rollTrailT); v(f.rollMove); v(f.rollMask); v(f.rollBounces); v(f.rollVel);
+        v(f.inBall); v(f.caught); v(f.caughtBy); v(f.caughtBall);
     }
+    void v(BallThrow& t) { v(t.from); v(t.to); v(t.ball); v(t.t); v(t.shakes); v(t.ok); v(t.done); v(t.start); }
     void v(Side& s) {
         v(s.team); v(s.active); v(s.teamId); v(s.input); v(s.target); v(s.tag); v(s.damageDealt); v(s.cpu); v(s.earnXp);
         v(s.level); v(s.label); v(s.swapCd); v(s.megaUsed); v(s.hot); v(s.hotN); v(s.hotStart); v(s.hotCd); v(s.squad); v(s.swapTo); v(s.manualT); v(s.dummy); v(s.sendT); v(s.lastPos); v(s.ai);
@@ -155,6 +157,7 @@ struct BattleIO {
         a.v(magic);
         if (magic != 0xA7C1A5E1) { a.ok = false; return; }
         a.v(b.setup); a.v(b.sides); a.v(b.field); a.v(b.projs); a.v(b.hazards); a.v(b.waves); a.v(b.fxs); a.v(b.parts);
+        a.v(b.throws);
         a.v(b.texts); a.v(b.time); a.v(b.megaFreezeT); a.v(b.introT); a.v(b.shakeT); a.v(b.sinceDamage); a.v(b.lastHpSum); a.v(b.suddenTick);
         a.v(b.suddenDeath); a.v(b.shakeAmt); a.v(b.winner); a.v(b.overT); a.v(b.envLevel); a.v(b.weather); a.v(b.weatherT);
         a.v(b.weatherTick); a.v(b.lastMove); a.v(b.hasLastMove); a.v(b.payDayCoins); a.v(b.rng.s); a.v(b.gasOn); a.v(b.cloudNine); a.v(b.natural);

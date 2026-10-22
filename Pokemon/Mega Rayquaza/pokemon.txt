@@ -1,0 +1,24 @@
+# Mega Rayquaza: the Mega Evolution of Rayquaza (official stats, types and ability). Not caught or met on its
+# own: a Rayquaza that knows Dragon Ascent Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Rayquaza
+dex  = 384
+type = Dragon / Flying
+mega_of = Rayquaza
+mega_stone = move:Dragon Ascent
+
+hp         = 105
+attack     = 180
+defense    = 100
+sp_attack  = 180
+sp_defense = 100
+speed      = 115
+
+height = 10.8      # Pokedex height in meters
+weight = 392      # Pokedex weight in kg
+hovers = yes
+heavy  = yes
+winged = yes
+ability = Delta Stream
+category = 
+sprite_size = 1.87   # (tools/mega_sizes.py) so it looks bigger than Rayquaza

@@ -518,7 +518,11 @@ Swap next / back step forward or backward through your party (skipping fainted o
 **Mega Evolution** – a Pokemon holding its Mega Stone (sold in the Shop for 5000 once you've beaten a
 Champion) can Mega Evolve once per battle (each player once in co-op): press Mega while it's out. The
 battle pauses for a second while it glows; it stays Mega for the rest of the battle, even if you swap it
-out. 19 Megas: the Kanto 15 plus Legends Z-A's Clefable, Victreebel, Starmie and Dragonite. Some bosses
+out. 51 Megas: the Kanto 15, Legends Z-A's Clefable, Victreebel, Starmie and Dragonite, and the Johto,
+Hoenn and Sinnoh Megas (Ampharos to Audino, Mega Latias / Latios). Mega Rayquaza needs no stone: it Mega
+Evolves when it knows Dragon Ascent. Kyogre and Groudon holding the Blue / Red Orb undergo Primal Reversion
+(the same button; it doesn't use up your Mega Evolution) and bring heavy rain / extremely harsh sun while
+they're out; Mega Rayquaza's Delta Stream keeps the weather clear. Some bosses
 Mega Evolve too (team tokens `mega`, `mega x`, `mega y`, and `rmega` for rematches only, in story.txt).
 
 **Battle items** – Medicine (Potions, status heals, berries) from the Shop goes in the Bag's Medicine
@@ -563,3 +567,8 @@ reacts fast and aims perfectly: Easy wins ~9%, Normal ~31%, Hard ~57%.
 | `src/creatures.*`, `src/chart.*`, `src/sprites.*` | creature folders, chart conversion, sprites |
 | `src/creature_art.h` | built-in pixel art |
 | `src/arena.*`, `src/ui.*` | arena floors (stadium + each gym), drawing helpers |
+
+## Credits
+
+- Mega Evolution sprites (Ampharos to Audino, Steelix, Latias, Latios, Rayquaza, Primal Kyogre and Groudon):
+  "Mega Evolution Overworld Sprites" by **Kidkatt, Larryturbo and Princess-Phoenix**.

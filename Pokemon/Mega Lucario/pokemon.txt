@@ -1,0 +1,23 @@
+# Mega Lucario: the Mega Evolution of Lucario (official stats, types and ability). Not caught or met on its
+# own: a Lucario holding the Lucarionite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Lucario
+dex  = 448
+type = Fighting / Steel
+mega_of = Lucario
+mega_stone = Lucarionite
+
+hp         = 70
+attack     = 145
+defense    = 88
+sp_attack  = 140
+sp_defense = 70
+speed      = 112
+
+height = 1.3      # Pokedex height in meters
+weight = 57.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Adaptability
+category = 

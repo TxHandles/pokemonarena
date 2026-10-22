@@ -1,0 +1,23 @@
+# Mega Sceptile: the Mega Evolution of Sceptile (official stats, types and ability). Not caught or met on its
+# own: a Sceptile holding the Sceptilite Mega Evolves into it in battle (once per battle).
+# Sprite: "Mega Evolution Overworld Sprites" by Kidkatt, Larryturbo and Princess-Phoenix.
+name = Mega Sceptile
+dex  = 254
+type = Grass / Dragon
+mega_of = Sceptile
+mega_stone = Sceptilite
+
+hp         = 70
+attack     = 110
+defense    = 75
+sp_attack  = 145
+sp_defense = 85
+speed      = 145
+
+height = 1.9      # Pokedex height in meters
+weight = 55.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+ability = Lightning Rod
+category = 
