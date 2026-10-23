@@ -112,5 +112,6 @@ void WorldTeamMsg(Game& g, int what);
 std::string WorldUseField(Game& g, const std::string& item);   // the Bag's Repels and Escape Rope (why not, or "")
 std::string WorldToggleBike(Game& g);     // the Bag's Bicycle: on / off (a message why not, or "")
 std::string WorldVsSeeker(Game& g);       // the Bag's VS Seeker: Trainers nearby who want a rematch (a message why not, or "")
+std::string WorldMatchCall(Game& g);     // the Pokenav's Match Call: registered Trainers, and who wants a rematch
 void WorldMapState(Game& g, int map, const std::string& state);   // online: your partner changed this map (Cut, Strength...)
 void WorldXpShare(Game& g, int xp);       // online: your partner's Exp. All shared this much XP with your party   // online team-up: 1 asked, 2 yes, 3 no, 0 split up

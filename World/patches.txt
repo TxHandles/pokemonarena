@@ -408,3 +408,75 @@ npc = 4 4 gentleman down 0 daycare|I'm the Day Care man. I help raise Pokemon - 
 [patch Four Island Pokemon Day Care]
 drop npc 2 2
 npc = 2 2 old_woman down 0 daycare|I'm the Day Care lady. My husband and I will raise your Pokemon for you.
+
+# ------------------------------------------------------------------ the Sevii Islands' story (FireRed's post-game)
+# Three Island: Paxton's biker gang; Berry Forest: Lostelle and the Hypno; Icefall Cave: Lorelei and the Rockets;
+# the Dotted Hole: Gideon snatches the Sapphire; the Rocket Warehouse opens with both passwords
+# ("Goldeen need log" from the Mt. Ember Rockets, "Yes, nah, Chansey" from Gideon).
+[patch Three Island]
+drop npc 9 23
+drop npc 10 22
+drop npc 10 24
+drop npc 11 23
+npc = 9 23 youngster left 2 fight|Biker Goon|Koffing 37, Grimer 37|Heh, I like your guts. You'll be losing money to me, but...|Grr... You've got some nerve!
+unless = beat:Three Island:Cue Ball Paxton
+npc = 10 22 youngster left 2 fight|Biker Goon|Koffing 38|Hey, hey! This island's ours now!|You... You're tough!
+unless = beat:Three Island:Cue Ball Paxton
+npc = 10 24 youngster left 2 fight|Biker Goon|Grimer 38|We don't need kids like you poking around here!|Aw, man...
+unless = beat:Three Island:Cue Ball Paxton
+npc = 11 23 rocker left 2 fight|Cue Ball Paxton|Weezing 39, Muk 39|I've been watching you, and I'd say you've done enough./What are you, their friend or something?/Then you'd better be ready for some pain!|All right, enough! We'll leave like you wanted!/We'll be happy to see the last of this boring island!
+unless = beat:Three Island:Cue Ball Paxton
+drop npc 8 24
+drop npc 15 31
+npc = 15 31 youngster wander 0 talk|Hyahoo!|From this day on, this island belongs to us!
+unless = beat:Three Island:Cue Ball Paxton
+
+[patch Berry Forest]
+drop npc 4 8
+npc = 4 8 little_girl down 0 talk|Lostelle: Whimper... Sniff... Oh! Please, help!|A scary Pokemon appeared a little while ago. It kept scaring me.|I'm too scared to move... Here it comes again!
+unless = lostelle_hypno
+npc = 5 8 mon:Hypno left 0 encounter|Hypno|30|lostelle_hypno|Hypno: Hypnooo...!
+unless = lostelle_hypno
+npc = 4 8 little_girl down 0 give|Lostelle: Thank you! That scary Pokemon is gone!/I picked lots of berries. Here, have one!|Sitrus Berry|1|got:lostelle_berry|Lostelle: My daddy must be worried. I'll go home to Two Island now!
+if = lostelle_hypno&!got:lostelle_berry
+
+[patch Icefall Cave Back]
+drop npc 11 14
+drop npc 13 14
+drop npc 10 15
+drop npc 12 16
+npc = 12 16 lorelei up 0 talk|Lorelei: {PLAYER}! These poachers are taking the Lapras that live in this cave!|Help me kick them out!
+unless = beat:Icefall Cave Back:Team Rocket Grunt
+npc = 12 14 rocket_m down 3 fight|Team Rocket Grunt|Zubat 38, Zubat 38, Golbat 38|Shut it, lady! Leave us be!/A kid? You want to tangle with Team Rocket too?|Hey! Quit messing with us!/...Fine! We'll go. We were done here anyway!
+npc = 11 14 rocket_m down 0 talk|Team Rocket Grunt: We're taking these Lapras to the Warehouse! You can't stop us!
+unless = beat:Icefall Cave Back:Team Rocket Grunt
+npc = 13 14 rocket_m down 0 talk|Team Rocket Grunt: Our Boss is going to love this haul!
+unless = beat:Icefall Cave Back:Team Rocket Grunt
+npc = 12 16 lorelei up 0 talk|Lorelei: {PLAYER}, thank you. But this is awful...|I was born and raised here on these islands. I had no idea those criminals were loose here.|I'll go home and think about what I can do for the Lapras.
+if = beat:Icefall Cave Back:Team Rocket Grunt
+[patch Four Island Lorelei's House]
+at 7 4: if = beat:Icefall Cave Back:Team Rocket Grunt
+
+[patch Dotted Hole Sapphire Room]
+drop item 7 7
+drop npc 5 9
+npc = 7 7 item_ball down 0 event|sapphire_stolen|You found the Sapphire!/...!? Someone dropped down from above!/Gideon: Fufufu... I was right to follow you! I'll be taking that Sapphire!/Team Rocket will pay me plenty for it. The password to their Warehouse? "Yes, nah, Chansey"... oops!/Gideon ran off with the Sapphire! He's heading for Team Rocket's Warehouse on Five Island!
+unless = sapphire_stolen
+
+[patch Five Isle Meadow]
+drop sign 12 21
+sign = 12 21 Team Rocket Warehouse|The door has a keypad. It needs two passwords to open.
+block = 12 21 beat:Mt. Ember Exterior:Rocket Grunt&sapphire_stolen|The Warehouse door is locked tight. It needs two passwords./(One Rocket on Mt. Ember mentioned a password... and you'd need another.)
+
+[patch Rocket Warehouse]
+item = 26 4 Sapphire 1
+if = beat:Rocket Warehouse:Scientist Gideon
+
+[patch Mt. Ember Exterior]
+drop npc 42 40
+npc = 42 40 rocket_m left 1 fight|Rocket Grunt|Rattata 35, Raticate 35, Sandshrew 35, Sandslash 35|Hey! What are you doing up here? Team Rocket's busy digging on this mountain!/Get lost, kid!|Wait! But how?/...Ugh. Fine, I'll go back to the Warehouse. Let's see... the password was "Goldeen need log."/...Hey! Forget you heard that!
+
+# ------------------------------------------------------------------ to Hoenn: the S.S. Tidal (tools/emerald_world.py makes Hoenn), once its League is beaten
+[patch Vermilion City]
+npc = 23 33 sailor up 0 sailto|The S.S. Tidal sails for Hoenn from here. Where to?|done:Hoenn|Sorry, the S.S. Tidal only takes Trainers who've conquered Hoenn's League.|Slateport City (Hoenn);Slateport City Harbor;9;12;up|Lilycove City (Hoenn);Lilycove City Harbor;9;12;up|Battle Frontier (Hoenn);Battle Frontier West;20;67;up
+if = done:Hoenn

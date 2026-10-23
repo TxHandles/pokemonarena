@@ -2,6 +2,7 @@
 #include <array>
 #include <string>
 #include <vector>
+#include <set>
 #include "data.h"
 #include "field.h"
 #include "items.h"
@@ -79,6 +80,8 @@ struct SideSetup {
     int squad = -1;              // the raid: this player's squad (0 / 1); its slots share one controller and come in in waves
 };
 
+extern bool gBallWater;            // set before a battle: met on or under the water (Dive Ball x3.5)
+extern std::set<int> gBallOwned;   // set before a battle: species the trainer has caught (Repeat Ball x3.5)
 struct BattleSetup {
     std::vector<SideSetup> side = std::vector<SideSetup>(2);  // slots; 2 = 1v1, 4 = 2v2
     bool twoPlayer = false;
@@ -96,6 +99,7 @@ struct BattleSetup {
     bool practice = false;       // practice arena: nobody faints, no XP
     bool raid = false;           // the Daily Raid: your whole party fights at once (small name plates for the allies)
     std::string leader;          // a gym battle: the leader ("Leader Brock"), for their picture and cut-ins (Leaders/)
+    float judgeTime = 0;         // the Battle Arena: when the time's up the judges decide (most HP left wins); 0 = no limit
 };
 
 struct StatusState {

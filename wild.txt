@@ -3600,6 +3600,15 @@ pokemon = super-rod, Binacle, 2, 91-96, newcomer
 pokemon = super-rod, Mareanie, 2, 91-96, newcomer
 pokemon = super-rod, Dhelmise, 1, 92-96, badges 3, newcomer
 
+[Underwater (Hoenn)]
+unlock = Mossdeep Gym
+# the sea floor under Routes 124 and 126 (Dive): Emerald's table, met in the seaweed
+pokemon = walk, Clamperl, 65, 91-96
+pokemon = walk, Chinchou, 30, 91-96
+pokemon = walk, Relicanth, 5, 92-96
+pokemon = walk, Dhelmise, 4, 92-96, badges 3, newcomer
+pokemon = walk, Pyukumuku, 4, 91-96, badges 3, newcomer
+
 [Sky Pillar Tower]
 unlock = Sootopolis Gym
 pokemon = walk, Claydol, 25, 93-98

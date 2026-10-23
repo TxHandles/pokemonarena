@@ -1,10 +1,11 @@
 #include <cstdio>
 #include "items.h"
 #include "moves.h"
+#include "berries.h"
 
 namespace {
 
-const char* kHmMovesPub[8] = {"", "Cut", "Fly", "Surf", "Strength", "Flash", "Rock Smash", "Waterfall"};
+const char* kHmMovesPub[9] = {"", "Cut", "Fly", "Surf", "Strength", "Flash", "Rock Smash", "Waterfall", "Dive"};
 std::string TextFormatHm(int n) { char b[40]; std::snprintf(b, sizeof b, "HM%02d %s", n, kHmMovesPub[n]); return b; }
 
 struct TmInfo { int no; const char* move; int badges; int price; };
@@ -30,6 +31,11 @@ std::vector<ItemDef> Build() {
     add("Master Ball", ItemFx::Ball, 0.0f, 2500, 8, "Never fails.");
     add("Net Ball", ItemFx::Ball, 1.0f, 1000, 99, "Catch rate x3 on Water- and Bug-type Pokemon.");
     add("Nest Ball", ItemFx::Ball, 1.0f, 1000, 99, "Works better the lower the wild Pokemon's level (up to x3).");
+    add("Dive Ball", ItemFx::Ball, 1.0f, 1000, 99, "Catch rate x3.5 on Pokemon met on (or under) the water - surfing, diving or fishing.");
+    add("Repeat Ball", ItemFx::Ball, 1.0f, 1000, 99, "Catch rate x3.5 on a species you've already caught.");
+    add("Luxury Ball", ItemFx::Ball, 1.0f, 3000, 99, "A comfortable ball: a Pokemon caught in it grows friendly twice as fast.");
+    add("Premier Ball", ItemFx::Ball, 1.0f, 200, 99, "A rare ball made in commemoration of some event. Works like a Poke Ball.");
+    add("Timer Ball", ItemFx::Ball, 1.0f, 1000, 99, "Works better the longer the battle goes on (up to x4).");
 
     // Evolution stones (used from Party & Box)
     add("Fire Stone", ItemFx::Stone, 0, 2100, 1, "Evolves Vulpix, Growlithe and Eevee (into Flareon).", Type::Fire);
@@ -134,6 +140,25 @@ std::vector<ItemDef> Build() {
     bx("Elixir", I::BOOST_COOLDOWN, 3000, 99, "Fully restores its moves: every move is ready at once.", Type::Water);
     bx("Max Elixir", I::BOOST_COOLDOWN, 4500, 99, "Fully restores its moves: every move is ready at once.", Type::Water);
     bx("Leppa Berry", I::BOOST_COOLDOWN, 200, 99, "A berry that restores its moves: every move is ready at once.", Type::Grass);
+    med("Energy Powder", 0.35f, 0, 500, 99, "A bitter powder that restores 35% of a Pokemon's max HP. It's very bitter, so it's cheap.", Type::Grass);
+    med("Energy Root", 0.55f, 0, 800, 99, "A bitter root that restores 55% of a Pokemon's max HP.", Type::Grass);
+    med("Heal Powder", 0, I::CURE_ALL, 450, 99, "A bitter powder that cures every status condition and confusion.", Type::Grass);
+    med("Fresh Water", 0.20f, 0, 200, 99, "Water with high mineral content: restores 20% of a Pokemon's max HP.", Type::Water);
+    med("Soda Pop", 0.25f, 0, 300, 99, "A fizzy soda drink: restores 25% of a Pokemon's max HP.", Type::Water);
+    med("Lemonade", 0.30f, 0, 350, 99, "A very sweet drink: restores 30% of a Pokemon's max HP.", Type::Water);
+    med("Moomoo Milk", 0.40f, 0, 500, 99, "Highly nutritious milk: restores 40% of a Pokemon's max HP.", Type::Normal);
+    med("Mental Herb", 0, I::CURE_CONFUSE, 100, 99, "A herb that snaps a Pokemon out of confusion and infatuation.", Type::Grass);
+    bx("White Herb", I::BOOST_GUARD, 100, 99, "A herb that undoes lowered stats, and keeps them from being lowered for 30 s.", Type::Grass);
+    // Hoenn's berries (Emerald): the five that restore HP, and the rare ones that raise a stat in battle
+    for (const char* b : {"Figy Berry", "Wiki Berry", "Mago Berry", "Aguav Berry", "Iapapa Berry"})
+        med(b, 0.125f, 0, 200, 99, "A berry that restores 1/8 of a Pokemon's max HP. Plant it in soft soil to grow more.", Type::Grass);
+    bx("Liechi Berry", I::BOOST_ATK, 1000, 99, "A rare berry: raises attacks (ATK and Sp. Atk) by half for 30 s in battle.", Type::Grass);
+    bx("Petaya Berry", I::BOOST_ATK, 1000, 99, "A rare berry: raises attacks by half for 30 s in battle.", Type::Grass);
+    bx("Ganlon Berry", I::BOOST_DEF, 1000, 99, "A rare berry: raises DEF by half for 30 s in battle.", Type::Grass);
+    bx("Apicot Berry", I::BOOST_DEF, 1000, 99, "A rare berry: raises defenses by half for 30 s in battle.", Type::Grass);
+    bx("Salac Berry", I::BOOST_SPD, 1000, 99, "A rare berry: raises speed by half for 30 s in battle.", Type::Grass);
+    bx("Lansat Berry", I::BOOST_CRIT, 1000, 99, "A rare berry: critical hits are much more likely for 60 s in battle.", Type::Grass);
+    bx("Starf Berry", I::BOOST_ATK, 1000, 99, "A rare berry: sharply raises its attacks for 30 s in battle.", Type::Grass);
     med("Lava Cookie", 0, I::CURE_ALL, 200, 99, "Lavaridge Town's local specialty. Cures every status condition and confusion.", Type::Fire);
     // Used on a Pokemon from Party & Box
     auto pu = [&](const char* name, float value, int boost, int price, int badges, const char* desc) {
@@ -142,6 +167,7 @@ std::vector<ItemDef> Build() {
     };
     pu("Revive", 0.5f, -1, 1500, 3, "Revives a fainted Pokemon with half its HP. Use it from Party & Box.");
     pu("Max Revive", 1.0f, -1, 4000, 99, "Revives a fainted Pokemon with all its HP. Use it from Party & Box.");
+    pu("Revival Herb", 1.0f, -1, 2800, 99, "A very bitter herb that revives a fainted Pokemon with all its HP. Use it from Party & Box.");
     pu("Rare Candy", 0, -1, 4800, 99, "Raises a Pokemon's level by one. Use it from Party & Box.");
     // vitamins: +10 EVs in one stat (up to 252, as in Sword and Shield on)
     pu("HP Up", 0, 0, 9800, 4, "A nutritious drink: +10 HP EVs (up to 252). EVs raise a stat as it levels. Use it from Party & Box.");
@@ -157,6 +183,19 @@ std::vector<ItemDef> Build() {
     pu("Hondew Berry", 0, 13, 300, 4, "Lowers a Pokemon's Sp. Atk EVs by 10 and makes it friendlier. Use it from Party & Box.");
     pu("Grepa Berry", 0, 14, 300, 4, "Lowers a Pokemon's Sp. Def EVs by 10 and makes it friendlier. Use it from Party & Box.");
     pu("Tamato Berry", 0, 15, 300, 4, "Lowers a Pokemon's Speed EVs by 10 and makes it friendlier. Use it from Party & Box.");
+    // Pokeblocks from Lilycove's Berry Blender (one per berry): Contest condition, from Party & Box
+    auto flavorText = [](int i) {
+        static const char* kCond[5] = {"Cool", "Beauty", "Cute", "Smart", "Tough"};
+        std::string t;
+        for (int k = 0; k < 5; k++) if (BerryAt(i).flavor[k] > 0) t += (t.empty() ? "" : ", ") + std::string(kCond[k]);
+        return t.empty() ? std::string("sheen") : t;
+    };
+    for (int i = 0; i < BerryCount(); i++) {
+        std::string b = BerryAt(i).name;
+        std::string nm = "Pokeblock (" + b.substr(0, b.find(' ')) + ")";
+        add(nm.c_str(), ItemFx::PartyUse, 0, 0, 99, ("A Pokeblock blended from a " + b + ". Feed it to a Pokemon from Party & Box to raise its Contest condition (" + flavorText(i) + ").").c_str());
+        v.back().boost = 100 + i;
+    }
     // Used from the Bag out in the world
     add("Repel", ItemFx::Field, 100, 350, 1, "Keeps wild Pokemon away for 100 steps. Use it from the Bag.");
     add("Super Repel", ItemFx::Field, 200, 500, 3, "Keeps wild Pokemon away for 200 steps. Use it from the Bag.");
@@ -172,10 +211,17 @@ std::vector<ItemDef> Build() {
     val("Big Mushroom", 5000, "A big, rare mushroom. Sell it from the Bag for 2500 coins.");
     val("Tiny Mushroom", 500, "A small, rare mushroom. Sell it from the Bag for 250 coins.");
     val("Heart Scale", 200, "A pretty, heart-shaped scale. Sell it from the Bag for 100 coins.");
+    val("Red Shard", 400, "A small red shard from an ancient item. A man on Route 124 trades a Fire Stone for 4... or sell it for 200.");
+    val("Blue Shard", 400, "A small blue shard from an ancient item. A man on Route 124 trades a Water Stone for 4... or sell it for 200.");
+    val("Yellow Shard", 400, "A small yellow shard from an ancient item. A man on Route 124 trades a Thunder Stone for 4... or sell it for 200.");
+    val("Green Shard", 400, "A small green shard from an ancient item. A man on Route 124 trades a Leaf Stone for 4... or sell it for 200.");
+    val("Shoal Salt", 40, "Pure salt from deep inside Shoal Cave. Sell it for 20... or bring 4 with 4 Shoal Shells to the old man there.");
+    val("Shoal Shell", 40, "A pretty seashell from Shoal Cave. Sell it for 20... or bring 4 with 4 Shoal Salts to the old man there.");
     val("PP Up", 9800, "A drink that powers up a move. Its moves don't run out here, so sell it from the Bag for 4900 coins.");
     val("PP Max", 9800, "A drink that fully powers up a move. Its moves don't run out here, so sell it from the Bag for 4900 coins.");
-    for (const char* b : {"Razz Berry", "Bluk Berry", "Nanab Berry", "Wepear Berry", "Pinap Berry"})
-        val(b, 40, "A berry for making Pokeblocks - no use here. Sell it from the Bag for 20 coins.");
+    for (const char* b : {"Razz Berry", "Bluk Berry", "Nanab Berry", "Wepear Berry", "Pinap Berry", "Cornn Berry", "Magost Berry",
+                          "Rabuta Berry", "Nomel Berry", "Spelon Berry", "Pamtre Berry", "Watmel Berry", "Durin Berry", "Belue Berry", "Enigma Berry"})
+        val(b, 40, "A berry for making Pokeblocks in a Berry Blender (Hoenn). Plant it in soft soil to grow more, or sell it for 20 coins.");
     // FireRed's other held items
     add("Everstone", ItemFx::Everstone, 0, 2000, 1, "A strange stone: the Pokemon holding it doesn't evolve.");
     add("Soothe Bell", ItemFx::None, 2, 3000, 2, "A bell with a comforting chime: the Pokemon holding it grows fond of you twice as fast.");
@@ -331,6 +377,28 @@ std::vector<ItemDef> Build() {
     add("Ruby", ItemFx::KeyItem, 0, 0, 99, "A gem from Mt. Ember - Celio needs it for his network machine.");
     add("Sapphire", ItemFx::KeyItem, 0, 0, 99, "A gem from the Dotted Hole - Celio needs it too.");
     add("Meteorite", ItemFx::KeyItem, 0, 0, 99, "A meteorite that fell on One Island.");
+    // Hoenn's key items (Emerald)
+    add("Mach Bike", ItemFx::KeyItem, 0, 0, 99, "Rydel's folding bike that goes really fast - up the sandy slopes, across the cracked floors.");
+    add("Acro Bike", ItemFx::KeyItem, 0, 0, 99, "Rydel's bike for tricks: hop along the white rails of Route 119 and the Sky Pillar.");
+    add("Devon Goods", ItemFx::KeyItem, 0, 0, 99, "A package of Devon parts - Mr. Stone wants it back in Rustboro.");
+    add("Letter", ItemFx::KeyItem, 0, 0, 99, "Mr. Stone's letter for his son Steven, who's in Dewford's Granite Cave.");
+    add("Pokenav", ItemFx::KeyItem, 0, 0, 99, "Devon's Pokemon Navigator: its Match Call keeps in touch with Trainers you've battled. Use it from the Bag.");
+    add("Wailmer Pail", ItemFx::KeyItem, 0, 0, 99, "A watering can shaped like Wailmer - it wakes up the strange tree on Route 120.");
+    add("Devon Scope", ItemFx::KeyItem, 0, 0, 99, "A Devon device that shows Pokemon that can't be seen - like the Kecleon on Route 120.");
+    add("Go-Goggles", ItemFx::KeyItem, 0, 0, 99, "Goggles that keep out the sandstorm of the desert on Route 111.");
+    add("Soot Sack", ItemFx::KeyItem, 0, 0, 99, "A sack for gathering volcanic ash on Route 113. The Glass Workshop makes flutes from it.");
+    add("Magma Emblem", ItemFx::KeyItem, 0, 0, 99, "A medal-like item in the shape of Team Magma's emblem. It opens their hideout in Jagged Pass.");
+    add("Basement Key", ItemFx::KeyItem, 0, 0, 99, "The key to New Mauville, under Mauville City.");
+    add("Storage Key", ItemFx::KeyItem, 0, 0, 99, "The key to the storeroom of the Abandoned Ship.");
+    add("Room 1 Key", ItemFx::KeyItem, 0, 0, 99, "A key to a cabin of the Abandoned Ship.");
+    add("Room 2 Key", ItemFx::KeyItem, 0, 0, 99, "A key to a cabin of the Abandoned Ship.");
+    add("Room 4 Key", ItemFx::KeyItem, 0, 0, 99, "A key to a cabin of the Abandoned Ship.");
+    add("Room 6 Key", ItemFx::KeyItem, 0, 0, 99, "A key to a cabin of the Abandoned Ship.");
+    add("Scanner", ItemFx::KeyItem, 0, 0, 99, "A device found in the Abandoned Ship. Captain Stern is looking for it.");
+    add("Contest Pass", ItemFx::KeyItem, 0, 0, 99, "A pass for entering Pokemon Contests in Hoenn's Contest Hall.");
+    add("Pokeblock Case", ItemFx::KeyItem, 0, 0, 99, "A case for Pokeblocks made in a Berry Blender. Feed them to a Pokemon to make it shine in Contests.");
+    add("Eon Ticket", ItemFx::KeyItem, 0, 0, 99, "A ticket for a ferry to a distant southern island.");
+    add("S.S. Tidal Ticket", ItemFx::KeyItem, 0, 0, 99, "A ticket for the S.S. Tidal, sailing between Slateport and Lilycove (and on to the Battle Frontier).");
     add("Teachy TV", ItemFx::KeyItem, 0, 0, 99, "A TV that shows handy tips for new trainers.");
     add("Helix Fossil", ItemFx::KeyItem, 0, 0, 99, "A fossil of an ancient spiral-shelled Pokemon. The Cinnabar Lab can revive it.", Type::Rock);
     add("Dome Fossil", ItemFx::KeyItem, 0, 0, 99, "A fossil of an ancient Pokemon with a domed shell. The Cinnabar Lab can revive it.", Type::Rock);
@@ -339,7 +407,7 @@ std::vector<ItemDef> Build() {
     add("Smoke Ball", ItemFx::SpeedMul, 1.10f, 0, 99, "A Game Corner prize. Puffs of smoke help it slip around: moves 10% faster.");
     add("Yellow Flute", ItemFx::ConfuseGuard, 0.3f, 0, 99, "A Game Corner prize. Its tune snaps the holder out of confusion much sooner.");
     // HMs (FireRed): given in the story, never used up; on the map they clear the way once you have the badge
-    for (int n = 1; n <= 7; n++) {
+    for (int n = 1; n <= 8; n++) {
         ItemDef d;
         d.name = TextFormatHm(n);
         d.fx = ItemFx::TM;
@@ -399,14 +467,14 @@ bool IsTM(const ItemDef& d) { return d.fx == ItemFx::TM; }
 bool IsMegaStone(const ItemDef& d) { return d.fx == ItemFx::MegaStone; }
 bool IsHM(const ItemDef& d) { return d.fx == ItemFx::TM && d.hmNo > 0; }
 namespace {
-const char* kHmMoves[8] = {"", "Cut", "Fly", "Surf", "Strength", "Flash", "Rock Smash", "Waterfall"};
+const char* kHmMoves[9] = {"", "Cut", "Fly", "Surf", "Strength", "Flash", "Rock Smash", "Waterfall", "Dive"};
 // FireRed: Flash needs the Boulder Badge, Cut the Cascade, Fly the Thunder, Strength the Rainbow,
 // Surf the Soul, Rock Smash the Marsh and Waterfall the Volcano Badge (badges in Kanto order).
-const int kHmBadge[8] = {0, 2, 3, 5, 4, 1, 6, 7};
+const int kHmBadge[9] = {0, 2, 3, 5, 4, 1, 6, 7, 99};   // (Dive: Hoenn only - the Mind Badge)
 #include "hm_compat.inc"
 }
-const char* HmMove(int n) { return n >= 1 && n <= 7 ? kHmMoves[n] : ""; }
-int HmBadges(int n) { return n >= 1 && n <= 7 ? kHmBadge[n] : 99; }
+const char* HmMove(int n) { return n >= 1 && n <= 8 ? kHmMoves[n] : ""; }
+int HmBadges(int n) { return n >= 1 && n <= 8 ? kHmBadge[n] : 99; }
 bool CanLearnHM(const std::string& species, const std::string& move) {
     for (const auto& e : kHmCompat) {
         if (species != e.species) continue;

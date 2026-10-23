@@ -421,6 +421,8 @@ std::string Battle::TeamLabel(int team) const {
 
 // ---------------------------------------------------------------- Setup
 
+bool gBallWater = false;          // this battle was met on or under the water (the Dive Ball)
+std::set<int> gBallOwned;          // species the thrower has caught before (the Repeat Ball)
 void Battle::Start(const BattleSetup& su) {
     *this = Battle();
     setup = su;
@@ -706,6 +708,14 @@ void Battle::Update(float dt, const PlayerInput in[2]) {
         gShake = {0, 0};
     }
 
+    if (winner < 0 && setup.judgeTime > 0 && time >= setup.judgeTime && introT <= 0) {   // the Battle Arena: time! the judges decide
+        float left[2] = {0, 0};
+        for (int s = 0; s < N(); s++)
+            for (const auto& f : sides[s].team) left[sides[s].teamId] += f.state == FState::Fainted ? 0 : std::max(0.0f, f.hp) / std::max(1, f.maxHp);
+        winner = std::fabs(left[0] - left[1]) < 0.01f ? 2 : left[0] > left[1] ? 0 : 1;
+        for (int s = 0; s < N(); s++) AddText(sides[s].Cur().pos + Vector2{0, -40}, "TIME! The judges decide...", UI_GOLD, 90);
+        PlaySfx(Sfx::Win);
+    }
     if (winner < 0) {
         bool out[2] = {true, true};
         for (int s = 0; s < N(); s++)
@@ -2576,6 +2586,9 @@ bool Battle::ThrowBall(int s, int k) {
     float ballMul = d->value <= 0 ? 255.0f : d->value;   // the Master Ball never misses
     if (d->name == "Net Ball" && (f.sp->type1 == Type::Water || f.sp->type1 == Type::Bug || f.sp->type2 == Type::Water || f.sp->type2 == Type::Bug)) ballMul = 3;
     if (d->name == "Nest Ball") ballMul = std::max(1.0f, std::min(3.0f, (40 - f.level) / 10.0f));
+    if (d->name == "Dive Ball" && gBallWater) ballMul = 3.5f;   // met surfing, diving or fishing
+    if (d->name == "Repeat Ball" && gBallOwned.count(f.RealSpecies())) ballMul = 3.5f;
+    if (d->name == "Timer Ball") ballMul = std::min(4.0f, 1.0f + time / 30.0f);   // (Emerald: +0.3 a turn; here +1 every 30 s)
     float st = (f.st.major == Status::Sleep || f.st.major == Status::Freeze) ? 2.0f : f.st.major != Status::None ? 1.5f : 1.0f;
     float a = (3 * mhp - 2 * hp) * CatchRateOf(*f.sp) * ballMul / (3 * mhp) * st;
     BallThrow th;
@@ -4067,6 +4080,10 @@ void Battle::Draw(bool banners) const {
             ribbon("FIGHT!", Color{220, 60, 50, 255}, 1, 1.0f);
             (void)pop;
         }
+    }
+    if (winner < 0 && setup.judgeTime > 0) {   // the Battle Arena's clock
+        int left = std::max(0, (int)std::ceil(setup.judgeTime - time));
+        DrawTextCentered(TextFormat("JUDGE IN %d", left), VW / 2, 8, 14, left <= 10 ? Color{255, 120, 90, 255} : UI_GOLD);
     }
     if (winner >= 0) {
         std::string msg = winner == 2 ? "DRAW!" : TeamLabel(winner) + " WIN" + (TeamLabel(winner).find(" & ") != std::string::npos ? "!" : "S!");

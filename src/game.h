@@ -6,6 +6,7 @@
 #include "profile.h"
 #include "story.h"
 #include "overworld.h"
+#include "contest.h"
 #include <deque>
 #include <map>
 
@@ -15,7 +16,7 @@ enum class Screen {
     RosterPick, Select, Battle, Results,
     StoryResults, Evolve, LearnMove, Reward, Catch, Heal, Map, Shop, DoublesMenu,
     CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame, Legends, LegendCatch, Bag,
-    RegionChoose, World, Creator, Nickname, Hatch, Daycare
+    RegionChoose, World, Creator, Nickname, Hatch, Daycare, Contest
 };
 
 // Online ready kinds (what a player picked in the co-op hub): 1 story, 2 training, 3+N a rematch
@@ -186,6 +187,8 @@ struct Game {
     // Story
     int stageIdx = -1;                      // -1 = training battle (or a Battle Tower floor)
     bool tower = false;                     // this battle is a Battle Tower floor (towerFloor)
+    ContestState contest;                   // a Pokemon Contest (Lilycove's Contest Hall)
+    int frontier = 0;                       // ...in a Battle Frontier facility (1 Tower .. 7 Pyramid, FrontierInfo): towerFloor is the battle of the streak
     int towerFloor = 0;
     uint32_t towerSeed = 0;
     int legend = -1;                        // this battle is a legendary encounter (legend.h), -1 = not
@@ -446,6 +449,15 @@ std::string RegionIntroLine(int region, const std::string& who, int level);   //
 // After the region's starters are chosen: the rival takes theirs (yours on the left, theirs on the right).
 void DrawRivalReveal(const Game& g, const std::vector<std::string>& yours, const std::vector<std::string>& his);
 void BeginTowerFloor(Game& g, int floor, uint32_t seed);   // set up the next Tower battle (then the intro screen)
+// The Battle Frontier (Hoenn, after its League): seven facilities, each with its own streak (kept in the save's flags,
+// so co-op shares it) and its Frontier Brain at Emerald's streaks, who gives a Silver and then a Gold Symbol.
+struct FrontierInfo { const char* name; const char* brain; const char* symbol; int silver, gold, teamSize; const char* rule; const char* team[2]; };
+const FrontierInfo& Frontier(int fac);      // 1 Tower, 2 Dome, 3 Palace, 4 Arena, 5 Factory, 6 Pike, 7 Pyramid
+constexpr int FRONTIER_COUNT = 7;
+int FrontierStreak(const Game& g, int fac, int* best = nullptr, int* runs = nullptr);
+void SetFrontierStreak(Game& g, int fac, int streak, int best, int runs);
+int FrontierBrainAt(int fac, int n);        // the n-th battle of a streak is the Brain's: 1 Silver, 2 Gold, 0 no
+void BeginFrontierBattle(Game& g, int fac); // the next battle of that facility's streak
 uint32_t TowerSeedFor(const Game& g);         // this run's floors (the same on both online computers)
 void UpdateShop(Game& g);            void DrawShop(const Game& g);
 void UpdateCoopSelect(Game& g);      void DrawCoopSelect(const Game& g);   // two players choose profiles
@@ -508,6 +520,7 @@ void OpenHealingCenter(Game& g);
 void EndCatchTurn(Game& g);
 int HealthyCount(const Profile& p);         // healthy creatures in the party
 bool IsStoryMode(Mode m);                   // solo or co-op story / training
+bool WorldBattleOnWater(const Game& g);   // a wild battle met surfing, fishing or under the sea (the Dive Ball)
 Profile& Prof(Game& g, int who);            // co-op: that player's profile; solo: the profile
 const Profile& Prof(const Game& g, int who);
 void SaveWho(Game& g, int who);

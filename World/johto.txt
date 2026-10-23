@@ -10291,6 +10291,8 @@ door = 5 7 warp|Olivine City|23|53|down
 npc = 5 3 woman_3 right 0 talk|You've been to Kanto already?|I hear many rare Pokemon live over there.|Sounds exciting. I'd love to visit!
 npc = 6 3 youngster down 0 talk|The S.S. Aqua uses jets to travel. It skims over water!
 npc = 1 2 sailor down 0 travel|Welcome aboard the S.S. Aqua! We sail for Vermilion City in Kanto. All aboard?|Vermilion City|23|32|up|done:Kanto,done:Johto|Sorry, the S.S. Aqua only takes trainers who've beaten a Pokemon League.
+npc = 5 2 sailor down 0 sailto|The S.S. Tidal sails for Hoenn from here. Where to?|done:Hoenn|Sorry, the S.S. Tidal only takes Trainers who've conquered Hoenn's League.|Slateport City (Hoenn);Slateport City Harbor;9;12;up|Lilycove City (Hoenn);Lilycove City Harbor;9;12;up|Battle Frontier (Hoenn);Battle Frontier West;20;67;up
+if = done:Hoenn
 grid:
 ###########
 ###########

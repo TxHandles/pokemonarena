@@ -1,0 +1,312 @@
+# Changes to the made Hoenn maps (tools/emerald_world.py applies them; the same syntax as World/patches.txt,
+# see tools/patchlib.py): Emerald's opening, the story's Hoenn battles on the map, Mr. Briney's boat, and the
+# few story gates a line of hoenn.txt can't say.
+
+# ------------------------------------------------------------------ Littleroot Town and Route 101: the opening
+[patch Your Home 2F]
+npc = 7 1 em_mom down 0 talk|Mom: {PLAYER}, we're all moved in! Isn't Hoenn lovely?|Dad's at the Petalburg Gym, and Prof. Birch lives right next door.|Why don't you go say hello? I hear he's out studying Pokemon on Route 101 a lot.
+if = !rstarter:2
+
+[patch Birch's Lab]
+drop npc 6 4
+npc = 6 4 em_prof_birch down 0 talk|Prof. Birch: So you're {PLAYER}! Thanks again for saving me on Route 101.|That Pokemon is yours to keep. Go see the world with it - and fill up that Pokedex for me!
+if = rstarter:2
+npc = 6 4 em_prof_birch down 0 talk|(Prof. Birch isn't here. He's always out in the field...)|Aide: The Prof? He went off to Route 101, just north of town.
+if = !rstarter:2
+
+[patch Route 101]
+drop npc 9 13
+drop npc 10 13
+drop npc 5 11
+npc = 9 13 em_prof_birch down 0 talk|Prof. Birch: H-help me!|Hey! You there! Please help!|In my bag! There's a Poke Ball!
+if = !rstarter:2
+npc = 10 13 mon:Zigzagoon left 0 talk|Zigzagoon: Guoooh!
+if = !rstarter:2
+npc = 7 14 item_ball down 0 starterbag|2|Treecko,Torchic,Mudkip|Prof. Birch: In my bag! Grab a Poke Ball and use it to save me!
+if = !rstarter:2
+npc = 9 12 em_prof_birch down 0 talk|Prof. Birch: Whew... I was in the tall grass studying wild Pokemon when I was jumped.|You saved me. Thanks a lot!|Oh? Hi, you're the kid who just moved in next door!|That Pokemon is yours to keep - consider it a thank-you. Take good care of it!
+if = rstarter:2&!stage:Route 103
+block = 8 0 rstarter:2|Prof. Birch's voice is coming from the tall grass: "H-help me!"
+block = 9 0 rstarter:2|Prof. Birch's voice is coming from the tall grass: "H-help me!"
+block = 10 0 rstarter:2|Prof. Birch's voice is coming from the tall grass: "H-help me!"
+block = 11 0 rstarter:2|Prof. Birch's voice is coming from the tall grass: "H-help me!"
+
+# ------------------------------------------------------------------ the story's Hoenn battles on the map
+[patch Route 103]
+npc = 10 3 em_may down 4 trainer|Route 103|May: Hi, {PLAYER}! I'm out here checking on wild Pokemon for my dad./Since you've got a Pokemon too... let's see what you can do!|May: Wow! That's great! {PLAYER}, you're pretty good!
+if = rstarter:2
+
+[patch Petalburg Woods]
+drop npc 26 17
+npc = 26 17 em_aqua_member_m right 4 trainer|Petalburg Woods|Hey! You! Hand over those Devon Research papers! Er... I mean, Team Aqua demands them!/Fine. Then I'll take them by force!|Grrr... You've got some nerve. You haven't seen the last of Team Aqua!
+
+[patch Rustboro City]
+npc = 16 50 em_may down 4 trainer|Rustboro City|May: {PLAYER}! You're heading out too? Did you get a Pokenav from Devon?/Let's see how much your Pokemon have grown!|May: You're getting really strong, {PLAYER}! I'd better keep up!
+if = badge:Stone
+
+[patch Rustboro Gym]
+story Leader Roxanne = Rustboro Gym
+
+[patch Rusturf Tunnel]
+story Hiker Mike = Rusturf Tunnel
+
+[patch Dewford Gym]
+story Leader Brawly = Dewford Gym
+
+[patch Oceanic Museum 2F]
+drop npc 13 6
+drop npc 6 1
+npc = 13 6 em_scientist_1 down 0 talk|Captain Stern: Ah, you've brought the Devon parts! Thank you so much.|With these, our submarine can finally explore the sea floor.
+npc = 6 3 em_aqua_member_m down 3 trainer|Oceanic Museum|Team Aqua! We'll take those Devon parts, and the submarine too!/Two of us against one kid? Hah! Get ready!|Gwah! Beaten by a kid!? Let's get outta here!
+npc = 7 3 em_aqua_member_m down 0 talk|Team Aqua Grunt: Our Boss will hear about this...
+
+[patch Route 110]
+story Triathlete Jacob = Cycling Road
+npc = 34 54 em_may down 4 trainer|Route 110|May: {PLAYER}! Long time no see! Let me check how your Pokemon are coming along!|May: Wow, {PLAYER}... You're strong. I can't believe how strong!
+
+[patch Mauville City]
+story Pokemon Trainer Wally = Mauville City
+
+[patch Mauville Gym]
+story Leader Wattson = Mauville Gym
+
+[patch Mt. Chimney]
+story Magma Admin Tabitha = Mt. Chimney
+story Magma Leader Maxie = Mt. Chimney Summit
+
+[patch Lavaridge Gym 1F]
+story Leader Flannery = Lavaridge Gym
+
+[patch Petalburg Gym]
+drop npc 4 2
+npc = 4 2 em_norman down 1 trainer|Petalburg Gym|Dad: Hm... So you did get four Gym Badges./We'll battle as Gym Leader and Challenger - I won't hold back!|Dad: ...I... I can't believe it. I lost to you, {PLAYER}. Take the Balance Badge.
+if = badges:4
+npc = 4 2 em_norman down 0 talk|Dad: Well, if it isn't {PLAYER}! So you're all finished moving in?|I'm the Leader of this Gym. Come back once you have four Gym Badges - then we'll battle, parent and child.
+if = !badges:4
+
+[patch Weather Institute 2F]
+story Aqua Admin Shelly = Weather Institute
+
+[patch Route 119]
+npc = 25 32 em_may down 4 trainer|Route 119|May: {PLAYER}! Are you headed for Fortree too?/Then you'll have to get past me!|May: I lost again... You're a real Trainer now, {PLAYER}.
+
+[patch Route 120]
+drop npc 12 16
+npc = 12 16 mon:Kecleon down 0 trainer|Route 120|Something unseeable is in the way./Steven used the Devon Scope! An invisible Pokemon appeared!|The Kecleon fled!
+need = Devon Scope|Something unseeable is in the way.|You used the Devon Scope!
+
+[patch Fortree Gym]
+story Leader Winona = Fortree Gym
+
+[patch Lilycove City]
+npc = 27 7 em_may down 4 trainer|Lilycove City|May: {PLAYER}! I'm all done with my Pokedex... almost!/Let's have one more battle - I want to see how strong you've become!|May: You're the real thing, {PLAYER}. I'll go back and help my dad.
+
+[patch Mt. Pyre 3F]
+story Pokemon Breeder Gabrielle = Mt. Pyre
+
+[patch Magma Hideout 4F]
+drop npc 22 4
+drop npc 16 21
+npc = 22 4 em_magma_member_f down 4 trainer|Magma Hideout|Courtney: ...Target confirmed. Intruder. Eliminate.|Courtney: ...Unacceptable. Report to Maxie.
+npc = 16 21 em_maxie up 1 trainer|Magma Hideout Depths|Maxie: Groudon is about to awaken! I won't let you get in the way!|Maxie: Groudon... Nothing could awaken you from your sleep...
+
+[patch Aqua Hideout B2F]
+story Aqua Admin Matt = Aqua Hideout
+
+[patch Aqua Hideout B1F]
+npc = 16 9 item_ball down 0 trainer|Aqua Hideout Storeroom|There's a Poke Ball here!/...!? It moved! It's a Pokemon!|The Electrode exploded and fled!
+npc = 16 10 item_ball down 0 encounter|Electrode|30|em:aquaelectrode2|There's a Poke Ball here! ...It's an Electrode!
+
+[patch Mossdeep Space Center 2F]
+drop npc 1 9
+drop npc 0 8
+npc = 1 9 em_maxie up 2 trainer|Mossdeep Space Center|Maxie: Clear out of the way! Don't you dare interfere!/Tabitha! We'll deal with this child together!|Maxie: ...We failed to make use of the rocket fuel.
+npc = 0 8 em_magma_member_m right 0 talk|Tabitha: Hehehe! Our leader will crush you!
+if = !stage:Mossdeep Space Center
+
+[patch Mossdeep Gym]
+stage 23 7 Mossdeep Gym
+stage 24 7 Mossdeep Gym
+
+[patch Seafloor Cavern Entrance]
+drop npc 10 2
+npc = 10 2 em_aqua_member_f up 3 trainer|Seafloor Cavern|Shelly: Ahahaha! You followed us all the way under the sea?/The submarine was ours, and so is this cavern! Out of the way!|Shelly: ...Archie's going to be furious.
+
+[patch Seafloor Cavern Room 9]
+drop npc 9 42
+npc = 9 42 em_archie right 3 trainer|Seafloor Cavern Depths|Archie: Hold it right there. Fufufu... So it was you, after all./Kyogre will awaken! I won't let you stop me!|Archie: ...What? I lost?!
+
+[patch Sootopolis Gym 1F]
+story Leader Juan = Sootopolis Gym
+
+[patch Victory Road B2F]
+story Cooltrainer Vito = Victory Road B2F
+
+[patch Victory Road 1F (Hoenn)]
+story Pokemon Trainer Wally = Victory Road
+
+[patch Sidney's Room]
+story Elite Four Sidney = Sidney's Room
+
+[patch Phoebe's Room]
+story Elite Four Phoebe = Phoebe's Room
+
+[patch Glacia's Room]
+story Elite Four Glacia = Glacia's Room
+
+[patch Drake's Room]
+story Elite Four Drake = Drake's Room
+
+[patch Wallace's Room]
+drop npc 6 5
+npc = 6 5 em_wallace down 1 trainer|Champion's Room|Wallace: Welcome, {PLAYER}. I am the Champion of the Hoenn region, Wallace./Allow me to see the elegance of you and your Pokemon in battle!|Wallace: I, the Champion, fall in defeat... That was wonderful work.
+
+[patch Meteor Falls Steven's Cave]
+story Pokemon Trainer Steven = Meteor Falls
+
+# ------------------------------------------------------------------ Mr. Briney's boat (Route 104, Dewford Town, Route 109)
+[patch Route 104 Mr. Briney's House]
+drop npc 5 3
+npc = 5 3 em_expert_m down 0 sailto|Mr. Briney: Ahoy! For you, I'll go out to sea anytime! Where shall we sail?|badge:Stone|Mr. Briney: Peeko and I are taking it easy today. Come back once you've seen to things in Rustboro.|Dewford Town;Dewford Town;11;9;left|Route 109 (Slateport);Route 109;21;23;up
+
+[patch Dewford Town]
+drop npc 12 9
+npc = 12 9 em_expert_m left 0 sailto|Mr. Briney: Ahoy! Where shall we sail?||Ahoy!|Route 104 (Petalburg);Route 104;17;51;down|Route 109 (Slateport);Route 109;21;23;up
+
+[patch Route 109]
+drop npc 21 24
+npc = 21 24 em_expert_m up 0 sailto|Mr. Briney: Ahoy! Where shall we sail?||Ahoy!|Dewford Town;Dewford Town;11;9;left|Route 104 (Petalburg);Route 104;17;51;down
+
+# ------------------------------------------------------------------ Emerald's weather (its map scripts set it)
+[patch Route 111]
+# the desert's sandstorm (Route111_EventScript_CheckSetSandstorm: rows 34 to 107, past the west edge up to row 72)
+wxzone = 8 34 999 72 sand
+wxzone = 0 73 999 107 sand
+
+[patch Route 113]
+# Mt. Chimney's ash falls here all year
+set weather = ash
+
+[patch Route 119]
+set weather = rain
+
+[patch Route 120]
+set weather = rain
+
+# ------------------------------------------------------------------ the Day Care on Route 117 (it's the same Day Care as Route 5's)
+[patch Route 117]
+drop npc 47 4
+npc = 47 4 em_old_man down 0 daycare|I'm the Day Care man. My wife and I raise Pokemon - leave two that get along and you might find an Egg!
+
+[patch Route 117 Pokemon Day Care]
+drop npc 2 2
+npc = 2 2 em_old_woman down 0 daycare|I'm the Day Care lady. We can raise your Pokemon for you.
+
+# ------------------------------------------------------------------ the S.S. Tidal (Slateport, Lilycove, the Battle Frontier) and the ferries
+# to Kanto and Johto: they sail once you've beaten Hoenn's Pokemon League (Emerald: the S.S. Ticket after the Hall of Fame)
+[patch Slateport City Harbor]
+drop npc 8 10
+drop npc 7 10
+npc = 8 10 em_beauty down 0 sailto|Hello, are you here for the ferry? The S.S. Tidal sails to these ports. Where to?|done:Hoenn|Hello, are you here for the ferry? ...I'm sorry, the S.S. Tidal only takes Trainers who've conquered Hoenn's Pokemon League.|Lilycove City;Lilycove City Harbor;9;12;up|Battle Frontier;Battle Frontier West;20;67;up|Vermilion City (Kanto);Vermilion City;23;32;up|Olivine City (Johto);Olivine Port;4;6;up
+
+[patch Lilycove City Harbor]
+drop npc 8 10
+npc = 8 10 em_beauty down 0 sailto|Hello, are you here for the ferry? The S.S. Tidal sails to these ports. Where to?|done:Hoenn|I beg your pardon? You're looking for a ship? ...The S.S. Tidal only takes Trainers who've conquered Hoenn's Pokemon League.|Slateport City;Slateport City Harbor;9;12;up|Battle Frontier;Battle Frontier West;20;67;up|Vermilion City (Kanto);Vermilion City;23;32;up|Olivine City (Johto);Olivine Port;4;6;up
+
+[patch Battle Frontier West]
+drop npc 19 68
+npc = 19 68 em_beauty up 0 sailto|Hello, are you here for the ferry? Where would you like to go?|done:Hoenn|Hello!|Slateport City;Slateport City Harbor;9;12;up|Lilycove City;Lilycove City Harbor;9;12;up|Vermilion City (Kanto);Vermilion City;23;32;up|Olivine City (Johto);Olivine Port;4;6;up
+
+# ------------------------------------------------------------------ the Battle Frontier's receptionists (after Hoenn's League)
+[patch Battle Tower Lobby]
+drop npc 6 5
+drop npc 10 5
+npc = 6 5 em_teala down 0 frontier|1
+npc = 10 5 em_teala down 0 frontier|1
+[patch Battle Dome Lobby]
+drop npc 5 10
+drop npc 17 10
+npc = 5 10 em_teala down 0 frontier|2
+npc = 17 10 em_teala down 0 frontier|2
+[patch Battle Palace Lobby]
+drop npc 5 6
+drop npc 19 6
+npc = 5 6 em_expert_m down 0 frontier|3
+npc = 19 6 em_expert_m down 0 frontier|3
+[patch Battle Arena Lobby]
+drop npc 7 7
+npc = 7 7 em_black_belt down 0 frontier|4
+[patch Battle Factory Lobby]
+drop npc 4 7
+drop npc 14 7
+npc = 4 7 em_scientist_1 down 0 frontier|5
+npc = 14 7 em_scientist_1 down 0 frontier|5
+[patch Battle Pike Lobby]
+drop npc 5 5
+npc = 5 5 em_link_receptionist down 0 frontier|6
+[patch Battle Pyramid Lobby]
+drop npc 7 12
+npc = 7 12 em_hiker down 0 frontier|7
+
+# ------------------------------------------------------------------ Mr. Stone's Pokenav (Match Call: Trainers you've beaten call for rematches)
+[patch Rustboro City Devon Corp 3F]
+drop npc 17 5
+drop npc 15 5
+npc = 15 5 em_gentleman down 0 give|Mr. Stone: So you're the one who got our Devon Goods back from Team Aqua! Thank you!/Please, take this Pokenav - our newest invention./Its Match Call keeps you in touch with Trainers you've battled. They'll call when they want a rematch!|Pokenav|1|got:pokenav|Mr. Stone: Use the Pokenav well. The Trainers of Hoenn will be glad to hear from you!
+unless = got:pokenav
+npc = 15 5 em_gentleman down 0 give|Mr. Stone: How are you finding the Pokenav? Here, this should help a Trainer like you too.|Exp. All|1|got:FLAG_RECEIVED_EXP_SHARE|Mr. Stone: Is my son Steven doing well? He's always off looking for rare stones...
+if = got:pokenav
+
+# ------------------------------------------------------------------ the braille puzzles (Emerald): the Sealed Chamber opens the three tombs
+# Sealed Chamber: Dig below the "DIG HERE." braille; inside, Wailord first and Relicanth last in the party, then read the
+# back wall. The tombs: Desert Ruins (left, left, down, down, Rock Smash), Island Cave (a lap along the wall),
+# Ancient Tomb (Flash in the middle). Their doors on the routes stay sealed until the Sealed Chamber is solved.
+[patch Sealed Chamber Outer Room]
+block = 10 2 sealed_dug|braille:DIG HERE.
+stand = 9 3 Dig|sealed_dug|...!|The wall crumbled away! A passage leads deeper in.
+stand = 10 3 Dig|sealed_dug|...!|The wall crumbled away! A passage leads deeper in.
+stand = 11 3 Dig|sealed_dug|...!|The wall crumbled away! A passage leads deeper in.
+
+[patch Sealed Chamber Inner Room]
+drop sign 10 4
+spot = 10 4 regicheck|regi_doors|braille:FIRST COMES~WAILORD.~LAST COMES~RELICANTH.
+
+[patch Route 111]
+block = 29 87 regi_doors|The door is shut tight. There's braille on it, but nothing happens...
+[patch Route 105]
+block = 9 20 regi_doors|The door is shut tight. There's braille on it, but nothing happens...
+[patch Route 120]
+block = 7 55 regi_doors|The door is shut tight. There's braille on it, but nothing happens...
+
+[patch Desert Ruins]
+block = 8 20 regirock_open|braille:LEFT, LEFT,~DOWN, DOWN.~THEN, USE~ROCK SMASH.
+spot = 8 20 msg|braille:LEFT, LEFT,~DOWN, DOWN.~THEN, USE~ROCK SMASH.
+unless = regirock_open
+stand = 5 23 Rock Smash|regirock_open|...!|There's a rumbling... A big hole opened in the wall!
+stand = 6 23 Rock Smash|regirock_open|...!|There's a rumbling... A big hole opened in the wall!
+stand = 7 23 Rock Smash|regirock_open|...!|There's a rumbling... A big hole opened in the wall!
+
+[patch Ancient Tomb]
+block = 8 20 registeel_open|braille:THOSE WHO~INHERIT OUR~WILL, SHINE~IN THE MIDDLE.
+spot = 8 20 msg|braille:THOSE WHO~INHERIT OUR~WILL, SHINE~IN THE MIDDLE.
+unless = registeel_open
+stand = 8 25 Flash|registeel_open|...!|A brilliant light filled the tomb... A big hole opened in the wall!
+
+[patch Island Cave]
+block = 8 20 regice_open|braille:STAY CLOSE~TO THE WALL.~RUN AROUND~ONE LAP.
+spot = 8 20 lapstart|braille:STAY CLOSE~TO THE WALL.~RUN AROUND~ONE LAP.
+unless = regice_open
+lap = regice_open|8 21|4,21 5,21 6,21 7,21 8,21 9,21 10,21 11,21 12,21 12,22 12,23 13,23 13,24 13,25 13,26 13,27 12,27 12,28 4,29 5,29 6,29 7,29 8,29 9,29 10,29 11,29 12,29 4,28 4,27 3,27 3,26 3,25 3,24 3,23 4,23 4,22
+
+# ------------------------------------------------------------------ Lilycove's Contest Hall: Contests and the Berry Blenders
+[patch Lilycove City Contest Lobby]
+drop npc 14 2
+drop npc 15 2
+drop npc 23 8
+drop npc 22 9
+drop npc 24 9
+npc = 14 2 em_teala down 0 contest|Hello! This is the Pokemon Contest reception counter.|Cool, Beauty, Cute, Smart and Tough - five Contests, four Ranks. Win one to move up a Rank.|Would you like to enter?
+npc = 15 2 em_teala down 0 give|Pokeblock Case|1|got:pokeblockcase
+npc = 23 8 em_boy_1 down 0 blender|Let's get blending already! Which Berry will you put in?
+npc = 22 9 em_pokefan_f right 0 blender|Oh, dear! You look as if you're good at blending. Would you like to join us?
+npc = 24 9 em_girl_1 left 0 blender|I wonder what kind of Pokeblock I'll get? This is so exciting!

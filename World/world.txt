@@ -2122,7 +2122,6 @@ wild = Five Isle Meadow
 connect = west Five Island 0
 connect = east Memorial Pillar -20
 door = 12 21 warp|Rocket Warehouse|24|25|up
-sign = 12 21 The Warehouse's door is already open.
 npc = 18 18 rocket_f wander 1 fight|Team Rocket Grunt|Ekans 48, Gloom 48, Gloom 48|You'd be wasting time even if you were to get by me.|You won't be able to get in without the passwords anyway.
 unless = gone:FLAG_HIDE_FIVE_ISLAND_ROCKETS
 npc = 17 5 rocket_m down 5 fight|Team Rocket Grunt|Rattata 48, Grimer 48, Muk 48|This area's strictly off-limits! Out, out!|You don't have any business here! Go home!
@@ -2133,6 +2132,8 @@ item = 12 11 Max Potion 1
 unless = gone:FLAG_HIDE_FIVE_ISLAND_MEADOW_MAX_POTION
 item = 3 22 PP Up 1
 unless = gone:FLAG_HIDE_FIVE_ISLAND_MEADOW_PP_UP
+sign = 12 21 Team Rocket Warehouse|The door has a keypad. It needs two passwords to open.
+block = 12 21 beat:Mt. Ember Exterior:Rocket Grunt&sapphire_stolen|The Warehouse door is locked tight. It needs two passwords./(One Rocket on Mt. Ember mentioned a password... and you'd need another.)
 grid:
 wwww##wwwwwwwwwwwwwwwwww
 wwww##wwww##www##wwwwwww
@@ -2400,6 +2401,8 @@ item = 1 16 Pearl 1
 unless = gone:FLAG_HIDE_FIVE_ISLAND_ROCKET_WAREHOUSE_PEARL
 item = 4 5 Linking Cord 1
 unless = gone:FLAG_HIDE_FIVE_ISLAND_ROCKET_WAREHOUSE_UP_GRADE
+item = 26 4 Sapphire 1
+if = beat:Rocket Warehouse:Scientist Gideon
 grid:
 #############################
 #############################
@@ -2683,14 +2686,15 @@ objects = sprites
 indoor = yes
 wild = Icefall Cave (Back)
 door = 12 24 warp|Icefall Cave 1F|3|6|up
-npc = 11 14 rocket_m down 0 talk|...
-unless = gone:FLAG_HIDE_ICEFALL_CAVE_ROCKETS
-npc = 13 14 rocket_m down 0 talk|...
-unless = gone:FLAG_HIDE_ICEFALL_CAVE_ROCKETS
-npc = 12 16 lorelei up 0 talk|{PLAYER}, thank you. But this is awful...|I was born and raised here on these islands.|I had no idea that those horrible criminals were loose here...
-unless = gone:FLAG_HIDE_ICEFALL_CAVE_LORELEI
-npc = 10 15 rocket_m down 0 talk|...
-unless = gone:FLAG_HIDE_ICEFALL_CAVE_ROCKETS
+npc = 12 16 lorelei up 0 talk|Lorelei: {PLAYER}! These poachers are taking the Lapras that live in this cave!|Help me kick them out!
+unless = beat:Icefall Cave Back:Team Rocket Grunt
+npc = 12 14 rocket_m down 3 fight|Team Rocket Grunt|Zubat 38, Zubat 38, Golbat 38|Shut it, lady! Leave us be!/A kid? You want to tangle with Team Rocket too?|Hey! Quit messing with us!/...Fine! We'll go. We were done here anyway!
+npc = 11 14 rocket_m down 0 talk|Team Rocket Grunt: We're taking these Lapras to the Warehouse! You can't stop us!
+unless = beat:Icefall Cave Back:Team Rocket Grunt
+npc = 13 14 rocket_m down 0 talk|Team Rocket Grunt: Our Boss is going to love this haul!
+unless = beat:Icefall Cave Back:Team Rocket Grunt
+npc = 12 16 lorelei up 0 talk|Lorelei: {PLAYER}, thank you. But this is awful...|I was born and raised here on these islands. I had no idea those criminals were loose here.|I'll go home and think about what I can do for the Lapras.
+if = beat:Icefall Cave Back:Team Rocket Grunt
 grid:
 wwww##wwwwwwwwww##www##ww
 wwww##www##wwwww##www##ww
@@ -2776,6 +2780,7 @@ indoor = yes
 wild = 
 door = 4 8 warp|Four Island|33|23|down
 npc = 7 4 lorelei left 0 talk|I don't know what will happen in the future, but...|I will do what I can here and now. That's all I can do.
+if = beat:Icefall Cave Back:Team Rocket Grunt
 unless = gone:FLAG_HIDE_LORELEI_IN_HER_HOUSE
 npc = 0 2 mon:Wigglytuff down 0 talk|Stuffed Pokemon dolls galore!
 npc = 10 3 mon:Seel down 0 talk|Stuffed Pokemon dolls galore!
@@ -3472,8 +3477,6 @@ item = 8 30 Ultra Ball 1 hidden
 npc = 29 45 hiker up 0 talk|Can you imagine? If this volcano were to erupt?|The explosion would be the end of us. How terrifying is that?|While we're terrified, would you like me to teach Explosion?
 npc = 41 40 rocket_m right 1 fight|Team Rocket Grunt|Cubone 37, Marowak 37|Huh, what?|Why'd you have to win?
 unless = gone:FLAG_HIDE_MT_EMBER_EXTERIOR_ROCKETS
-npc = 42 40 rocket_m left 1 fight|Team Rocket Grunt|Rattata 35, Raticate 35, Sandshrew 35, Sandslash 35|Wait! But how?|Develop amnesia conveniently and forget everything you heard!
-unless = gone:FLAG_HIDE_MT_EMBER_EXTERIOR_ROCKETS
 npc = 22 35 crush_girl down 1 fight|Crush Girl Jocelyn|Hitmonchan 38, Hitmonchan 38|I've been in training so I can mend my broken heart.../It toughened me up physically at least! Hi-yah!|The way you battle, it reminds me of the guy who dumped me...
 npc = 15 28 camper down 5 fight|Pkmn Ranger Logan|Exeggcute 37, Exeggutor 40|An active volcano is one that's erupting, or about to.|They say there're over 1,500 active volcanoes in the world./Just thinking about them makes me feel all hot and gooey inside!
 npc = 14 42 picnicker down 3 fight|Pkmn Ranger Beth|Bellsprout 38, Gloom 38, Gloom 38|Do you know how caves form inside volcanoes?|When lava at the surface of magma hardens, and the magma inside flows out, caverns are left behind.
@@ -3483,6 +3486,7 @@ item = 38 10 Fire Stone 1
 unless = gone:FLAG_HIDE_MT_EMBER_EXTERIOR_FIRE_STONE
 item = 48 20 Dire Hit 1
 unless = gone:FLAG_HIDE_MT_EMBER_EXTERIOR_DIRE_HIT
+npc = 42 40 rocket_m left 1 fight|Rocket Grunt|Rattata 35, Raticate 35, Sandshrew 35, Sandslash 35|Hey! What are you doing up here? Team Rocket's busy digging on this mountain!/Get lost, kid!|Wait! But how?/...Ugh. Fine, I'll go back to the Warehouse. Let's see... the password was "Goldeen need log."/...Hey! Forget you heard that!
 grid:
 #############################..##########################
 ############################..###########################
@@ -11797,9 +11801,8 @@ indoor = yes
 wild = 
 door = 11 7 warp|Dotted Hole 1F|13|5|up
 door = 5 9 warp|Dotted Hole B4F|6|9|up
-item = 7 7 Sapphire 1
-npc = 5 9 scientist down 0 talk|...
-unless = gone:FLAG_HIDE_DOTTED_HOLE_SCIENTIST
+npc = 7 7 item_ball down 0 event|sapphire_stolen|You found the Sapphire!/...!? Someone dropped down from above!/Gideon: Fufufu... I was right to follow you! I'll be taking that Sapphire!/Team Rocket will pay me plenty for it. The password to their Warehouse? "Yes, nah, Chansey"... oops!/Gideon ran off with the Sapphire! He's heading for Team Rocket's Warehouse on Five Island!
+unless = sapphire_stolen
 grid:
 ################
 ################
@@ -12361,25 +12364,23 @@ npc = 7 24 man right 0 give|Thank you! Those goons were nothing but bad trouble.
 unless = gone:FLAG_HIDE_THREE_ISLAND_ANTIBIKERS
 npc = 8 23 man right 0 talk|It'd be fantastic if someone as strong as you lived here.|I hope you'll at least stay here a while.|...I beg your pardon? You're looking for Lostelle?|Lostelle went off towards Bond Bridge a while ago.
 unless = gone:FLAG_HIDE_THREE_ISLAND_ANTIBIKERS
-npc = 8 24 youngster left 0 talk|We don't need you people bringing your noise and trouble here!|We're asking you to go back to Kanto!
-unless = gone:FLAG_HIDE_THREE_ISLAND_LONE_BIKER
-npc = 9 23 youngster left 0 talk|We don't need you people bringing your noise and trouble here!|We're asking you to go back to Kanto!
-unless = gone:FLAG_HIDE_THREE_ISLAND_BIKERS
 npc = 9 24 youngster left 0 talk|We don't need you people bringing your noise and trouble here!|We're asking you to go back to Kanto!
-unless = gone:FLAG_HIDE_THREE_ISLAND_BIKERS
-npc = 10 22 youngster left 0 talk|We don't need you people bringing your noise and trouble here!|We're asking you to go back to Kanto!
-unless = gone:FLAG_HIDE_THREE_ISLAND_BIKERS
-npc = 10 24 youngster left 0 talk|We don't need you people bringing your noise and trouble here!|We're asking you to go back to Kanto!
-unless = gone:FLAG_HIDE_THREE_ISLAND_BIKERS
-npc = 11 23 youngster left 0 talk|We don't need you people bringing your noise and trouble here!|We're asking you to go back to Kanto!
 unless = gone:FLAG_HIDE_THREE_ISLAND_BIKERS
 item = 18 17 Zinc 1
 unless = gone:FLAG_HIDE_THREE_ISLAND_ZINC
 npc = 15 7 woman_1 wander 0 talk|Three Island is actually the most populous of the islands here.|Still, it could be less sleepy.|But I wouldn't want to see goons like those Bikers here again.
 npc = 14 14 little_boy right 0 talk|I'm going to train my Doduo in the Berry Forest.|When it evolves, I'm going to play a game on Two Island.
 npc = 15 14 mon:Doduo left 0 talk|Doduo: Gigiih!
+npc = 9 23 youngster left 2 fight|Biker Goon|Koffing 37, Grimer 37|Heh, I like your guts. You'll be losing money to me, but...|Grr... You've got some nerve!
+unless = beat:Three Island:Cue Ball Paxton
+npc = 10 22 youngster left 2 fight|Biker Goon|Koffing 38|Hey, hey! This island's ours now!|You... You're tough!
+unless = beat:Three Island:Cue Ball Paxton
+npc = 10 24 youngster left 2 fight|Biker Goon|Grimer 38|We don't need kids like you poking around here!|Aw, man...
+unless = beat:Three Island:Cue Ball Paxton
+npc = 11 23 rocker left 2 fight|Cue Ball Paxton|Weezing 39, Muk 39|I've been watching you, and I'd say you've done enough./What are you, their friend or something?/Then you'd better be ready for some pain!|All right, enough! We'll leave like you wanted!/We'll be happy to see the last of this boring island!
+unless = beat:Three Island:Cue Ball Paxton
 npc = 15 31 youngster wander 0 talk|Hyahoo!|From this day on, this island belongs to us!
-unless = gone:FLAG_HIDE_THREE_ISLAND_BIKERS
+unless = beat:Three Island:Cue Ball Paxton
 grid:
 ########################
 ########################
@@ -12446,14 +12447,18 @@ item = 25 6 Aspear Berry 1 hidden
 item = 46 32 Persim Berry 1 hidden
 item = 43 16 Pinap Berry 1 hidden
 item = 8 5 Lum Berry 1 hidden
-npc = 4 8 little_girl down 0 talk|Lostelle: Whimper... Sniff... Oh! Please, help!|A scary Pokemon appeared there a little while ago.|It kept scaring. It made Lostelle scared.|I'm too scared to move! But I want to go home...
-unless = gone:FLAG_HIDE_LOSTELLE_IN_BERRY_FOREST
 item = 12 5 Max Ether 1
 unless = gone:FLAG_HIDE_THREE_ISLAND_BERRY_FOREST_MAX_ETHER
 item = 27 11 Full Heal 1
 unless = gone:FLAG_HIDE_THREE_ISLAND_BERRY_FOREST_FULL_HEAL
 item = 12 43 Max Elixir 1
 unless = gone:FLAG_HIDE_THREE_ISLAND_BERRY_FOREST_MAX_ELIXIR
+npc = 4 8 little_girl down 0 talk|Lostelle: Whimper... Sniff... Oh! Please, help!|A scary Pokemon appeared a little while ago. It kept scaring me.|I'm too scared to move... Here it comes again!
+unless = lostelle_hypno
+npc = 5 8 mon:Hypno left 0 encounter|Hypno|30|lostelle_hypno|Hypno: Hypnooo...!
+unless = lostelle_hypno
+npc = 4 8 little_girl down 0 give|Lostelle: Thank you! That scary Pokemon is gone!/I picked lots of berries. Here, have one!|Sitrus Berry|1|got:lostelle_berry|Lostelle: My daddy must be worried. I'll go home to Two Island now!
+if = lostelle_hypno&!got:lostelle_berry
 grid:
 #########################################################
 #########################################################
@@ -13546,6 +13551,8 @@ block = 22 35 item:S.S. Ticket&!got:FLAG_GOT_HM01|Sailor: Welcome to the S.S. An
 block = 23 35 item:S.S. Ticket&!got:FLAG_GOT_HM01|Sailor: Welcome to the S.S. Anne! Excuse me, do you have a ticket?/(You need an S.S. Ticket to board. Once she sets sail, she won't be back until next year.)
 block = 24 35 item:S.S. Ticket&!got:FLAG_GOT_HM01|Sailor: Welcome to the S.S. Anne! Excuse me, do you have a ticket?/(You need an S.S. Ticket to board. Once she sets sail, she won't be back until next year.)
 npc = 22 33 sailor up 0 travel|The S.S. Aqua sails for Olivine City in Johto. All aboard?|Olivine Port|4|7|up|done:Kanto,done:Johto|Sorry, the S.S. Aqua only takes trainers who've beaten a Pokemon League.
+npc = 23 33 sailor up 0 sailto|The S.S. Tidal sails for Hoenn from here. Where to?|done:Hoenn|Sorry, the S.S. Tidal only takes Trainers who've conquered Hoenn's League.|Slateport City (Hoenn);Slateport City Harbor;9;12;up|Lilycove City (Hoenn);Lilycove City Harbor;9;12;up|Battle Frontier (Hoenn);Battle Frontier West;20;67;up
+if = done:Hoenn
 grid:
 wwwwwwwwwwwwwwwwwwwww#...#######################
 wwwwwwwwwwwwwwwwwwwww#...#######################

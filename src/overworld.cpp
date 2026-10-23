@@ -4,6 +4,8 @@
 // trainers, into tall grass or through a Pokemon Center's door uses the same battles and screens
 // as the menu.
 #include "overworld.h"
+#include "berries.h"
+#include "contest.h"
 #include "look.h"
 #include <algorithm>
 #include <cctype>
@@ -66,6 +68,7 @@ struct OwNpc {
     bool wander = false;              // facing "wander": strolls around near where they stand
     int mon = -1;                     // sprite "mon:Name": a Pokemon standing there (a legendary in its lair)
     std::string needItem, needText, usedText;   // "need = Item|text without it|text using it": Snorlax and the Poke Flute
+    std::vector<std::string> rematch; // "rematch = team / team": Emerald's stronger teams for Match Call's rematches (tier 1, 2, ...)
 };
 struct OwLink { int map = -1; int off = 0; std::string msg; };
 struct OwMap {
@@ -89,8 +92,20 @@ struct OwMap {
     std::vector<Block> blocks;        // "block = x y flag|text": you're turned back there until the flag (FireRed's guards, the old man)
     std::vector<Gate> gates;          // solid until the flag is set (a guard's gone, a switch is pressed)
     bool dark = false;                // a cave you can barely see in until you use Flash
-    std::string weather;              // rain, snow, fog, sand: falls on this map (outdoors)
+    std::string weather;              // rain, snow, fog, sand, ash, shade, bubbles: falls on this map (outdoors)
+    struct Stand { int x, y; std::string move, flag, text; };   // "stand = x y Move|flag|text": use a move standing here (the Regis' tombs)
+    std::vector<Stand> stands;
+    std::vector<std::pair<int, int>> lap;   // "lap = flag|gx gy|x,y x,y ...": a lap along these tiles, back to (gx, gy) (Island Cave)
+    std::string lapFlag;
+    int lapGX = -1, lapGY = -1;
+    struct BerryTree { int x, y, id; std::string berry; };   // "berry = x y tree Oran" (Soil: nothing planted at first)
+    std::vector<BerryTree> berries;   // Hoenn's berry trees
+    struct WxZone { int x0, y0, x1, y1; std::string wx; };
+    std::vector<WxZone> wxZones;      // "wxzone = x0 y0 x1 y1 sand": just there (Route 111's desert)
     bool bike = false;                // Cycling Road: Bicycles only
+    bool underwater = false;          // "underwater = yes": under the sea (Dive) - you swim on your Pokemon
+    std::string diveTo, emergeTo;     // "dive = Map": Dive here goes down to that map (the same spot, or "Map|x|y" a fixed one);
+    int diveX = -1, diveY = -1, emergeX = -1, emergeY = -1;   // "emerge = Map": back up to the surface
     std::string town;                 // a town you can Fly to (its name on the Town Map)
     int flyX = -1, flyY = -1;         // ...where you land (outside its Pokemon Center)
     int startX = -1, startY = -1;
@@ -129,12 +144,15 @@ std::vector<Ferry> gFerries;   // the Seagallop: where it sails (world.txt "ferr
 Texture2D gChars{};
 Texture2D gActions{};   // the player's bike / surf / fishing frames (32x32): rows red bike, green bike, red surf, green surf, red fish, green fish
 Texture2D gFieldObj{};
+Texture2D gBerryTex{};
+bool gLapOn[2] = {false, false};      // Island Cave's lap (Regice): running it now, and the path tiles stepped on
+uint64_t gLapMask[2] = {0, 0};   // World/berrytrees.png: a row per berry (soil, sprout x2, growing x2, flowering x2, berries x2), 16x32 cells
 Texture2D gWxRain{}, gWxSnow[2]{}, gWxFog{}, gWxSand{};   // FireRed's weather sprites (tools/frlg_weather.py)  // Cut tree, smashable rock, boulder, item ball
 bool gLoaded = false;
 
 const int DX[4] = {0, 0, -1, 1}, DY[4] = {1, -1, 0, 0};
 int Opp(int f) { return f == 0 ? 1 : f == 1 ? 0 : f == 2 ? 3 : 2; }
-std::string WorldWeatherAt(const Game& g, const OwMap& m);
+std::string WorldWeatherAt(const Game& g, const OwMap& m, int x = -1, int y = -1);
 constexpr int HALF_DAY_SEC = 20 * 60;   // the walked world: 20 minutes of day, then 20 of night
 
 std::vector<std::string> Split(const std::string& s, char c) {
@@ -200,6 +218,9 @@ const char* kKantoBadges[9] = {"", "Boulder", "Cascade", "Thunder", "Rainbow", "
 std::string FieldBadge(int n, int region) {
     static const char* kJohto[8] = {"", "Hive", "Storm", "Fog", "Plain", "Zephyr", "Zephyr", "Rising"};
     if (region == 1 && n >= 1 && n <= 7) return kJohto[n];
+    // Emerald: Cut - Stone, Fly - Feather, Surf - Balance, Strength - Heat, Flash - Knuckle, Rock Smash - Dynamo, Waterfall - Rain, Dive - Mind
+    static const char* kHoenn[9] = {"", "Stone", "Feather", "Balance", "Heat", "Knuckle", "Dynamo", "Rain", "Mind"};
+    if (n >= 1 && n <= 8 && region >= 0 && region < RegionCount() && RegionInfo(region).name == "Hoenn") return kHoenn[n];
     return kKantoBadges[std::min(8, HmBadges(n))];
 }
 int MapRegionOf(const Game& g, int i);
@@ -245,7 +266,7 @@ bool PartyKnows(const Profile& p, const std::string& mv, std::string* who = null
         if (!m.boxed && std::find(m.moves.begin(), m.moves.end(), mv) != m.moves.end()) { if (who) *who = m.species; return true; }
     return false;
 }
-int HmIndex(const std::string& mv) { for (int n = 1; n <= 7; n++) if (mv == HmMove(n)) return n; return 0; }
+int HmIndex(const std::string& mv) { for (int n = 1; n <= 8; n++) if (mv == HmMove(n)) return n; return 0; }
 bool CanField(const Game& g, int i, const std::string& mv, std::string* who = nullptr) {
     int n = HmIndex(mv);
     if (n <= 0 || !PartyKnows(WP(g, i), mv, who)) return false;
@@ -355,8 +376,8 @@ char Cell(const Game& g, int i, int map, int x, int y) {
     for (const auto& gt : m.gates) if (gt.x == x && gt.y == y && !HasFlag(g, i, gt.flag)) return '#';
     return c;
 }
-bool Walkable(char c) { return c == '.' || c == 'g' || c == 'c' || c == 'D' || c == 's' || c == '0' || (c >= '1' && c <= '4'); }   // (s: a slope or steps, 3D maps)
-bool IsWater(char c) { return c == 'w' || c == 'W'; }
+bool Walkable(char c) { return c == '.' || c == 'g' || c == 'c' || c == 'D' || c == 's' || c == 'u' || c == '0' || (c >= '1' && c <= '4'); }   // (s: a slope or steps, 3D maps; u: under the sea, where you can surface)
+bool IsWater(char c) { return c == 'w' || c == 'W' || c == 'd'; }   // (d: deep water - you can Dive there)
 int ItemAt(const Game& g, int i, int map, int x, int y, bool hidden) {   // an item not picked up yet (-1 none)
     const OwMap& m = gMaps[map];
     for (size_t k = 0; k < m.items.size(); k++) {
@@ -473,13 +494,14 @@ StageDef FightStage(const OwMap& m, const OwNpc& n, int tier = 0) {
     st.say = n.args.size() > 2 ? n.args[2] : "";
     std::vector<std::pair<std::string, int>> team;
     int top = 2;
-    for (const auto& e0 : Split(n.args.size() > 1 ? n.args[1] : "", ',')) {
+    bool own = tier > 0 && (int)n.rematch.size() >= tier;   // Emerald's Match Call: the trainer's own rematch team
+    for (const auto& e0 : Split(own ? n.rematch[tier - 1] : n.args.size() > 1 ? n.args[1] : "", ',')) {
         std::string e = Trim(e0);
         size_t sp = e.find_last_of(' ');
         if (e.empty() || sp == std::string::npos) continue;
-        int lv = std::atoi(e.c_str() + sp + 1) + 7 * tier;   // a rematch: stronger each time, and evolved to match
+        int lv = std::atoi(e.c_str() + sp + 1) + (own ? 0 : 7 * tier);   // a rematch: stronger each time, and evolved to match
         std::string name = Trim(e.substr(0, sp));
-        if (tier > 0) { int si = SpeciesIndex(name); if (si >= 0) name = AllSpecies()[EvolvedFormAt(si, lv)].name; }
+        if (tier > 0 && !own) { int si = SpeciesIndex(name); if (si >= 0) name = AllSpecies()[EvolvedFormAt(si, lv)].name; }
         team.push_back({name, std::max(2, lv)});
         top = std::max(top, lv);
     }
@@ -519,6 +541,7 @@ void StartRouteFight(Game& g, int i, int npc) {
     t.stageIdx = -1;
     t.legend = -1;
     t.tower = false;
+    t.frontier = 0;
     t.raid = false;
     t.mode = Mode::Story;
     t.rareBattle = false;
@@ -608,7 +631,8 @@ void Warp(Game& g, int i, const std::vector<std::string>& a) {
     int m = MapIndex(a[1]);
     if (m < 0) return;
     if (a.size() > 4 && !a[4].empty()) g.ow.w[i].face = FaceOf(a[4].c_str());   // which way you face as you come in
-    g.ow.w[i].surfing = false;
+    g.ow.w[i].surfing = gMaps[m].underwater;   // (a way in under the sea: you're still swimming)
+    if (gMaps[m].underwater) g.ow.w[i].biking = false;
     PlaceAt(g, i, m, std::atoi(a[2].c_str()), std::atoi(a[3].c_str()));
     g.ow.w[i].fadeT = 0.35f;
     PlaySfx(Sfx::Door);
@@ -676,6 +700,19 @@ void UseField(Game& g, int i, const std::string& mv) {
         w.surfing = true;
         w.biking = false;
         Say(w, who + " used Surf! You hopped on its back.", "surfstep");
+    } else if (mv == "Dive") {   // down to the sea floor (or back up): the same spot on the map below, or Emerald's fixed one
+        const OwMap& here = MapOf(w);
+        bool down = !here.underwater;
+        std::string to = down ? here.diveTo : here.emergeTo;
+        int tx = down ? here.diveX : here.emergeX, ty = down ? here.diveY : here.emergeY;
+        if (tx < 0) { tx = w.x; ty = w.y; }
+        if (MapIndex(to) < 0) return;
+        int face = w.face;
+        Warp(g, i, {"warp", to, std::to_string(tx), std::to_string(ty)});
+        w.face = face;
+        w.surfing = true;   // (under the sea you swim on your Pokemon too)
+        w.biking = false;
+        Say(w, down ? who + " used Dive! You dove deep under the sea." : who + " used Dive! You came back up to the surface.");
     } else if (mv == "Waterfall") {
         int y = w.y;
         while (Cell(g, i, w.map, w.x, y - 1) == 'W') y--;
@@ -722,6 +759,44 @@ void WorldChallenge(Game& g, int i, const std::vector<std::string>& a) {
         if (g.coop) StartCoopRaid(g); else StartRaid(g);
         return;
     }
+    if (k == "frontier" && a.size() > 1) {   // frontier|n: a Battle Frontier facility's receptionist
+        int fac = std::atoi(a[1].c_str());
+        const FrontierInfo& F = Frontier(fac);
+        if (!HasFlag(g, i, "done:Hoenn")) { Say(w, "The Battle Frontier is open to Trainers who've conquered Hoenn's Pokemon League."); return; }
+        if (online) { Say(w, std::string("Welcome to the ") + F.name + "!|Playing online, the challenge for two is the Battle Tower in your co-op menu."); return; }
+        int best = 0, runs = 0, n = FrontierStreak(g, fac, &best, &runs);
+        bool silver = HasFlag(g, i, std::string("symbol:") + F.symbol + ":silver"), gold = HasFlag(g, i, std::string("symbol:") + F.symbol + ":gold");
+        std::string rec = n > 0 ? TextFormat("You're on a %d-win streak (record %d). Carry on?", n, best) : best > 0 ? TextFormat("Your record here: %d wins in a row. Take the challenge?", best) : "Would you like to take the challenge?";
+        std::string sym = gold ? std::string("|You hold the ") + F.symbol + " Symbol in gold!" : silver ? std::string("|You hold the ") + F.symbol + " Symbol in silver." : "";
+        Ask(w, std::string("Welcome to the ") + F.name + "!|" + F.rule + sym + "|" + rec, {{"Take the challenge", "frontiergo|" + a[1]}, {"Not now", ""}});
+        return;
+    }
+    if ((k == "frontiergo" || k == "pikedoor") && a.size() > 1) {
+        int fac = std::atoi(a[1].c_str());
+        int best = 0, runs = 0, n = FrontierStreak(g, fac, &best, &runs);
+        if (tired()) return;
+        if (fac == 6 && k == "frontiergo" && !FrontierBrainAt(fac, n + 1)) {   // the Pike: three doors in every room
+            Ask(w, TextFormat("Room %d. Three doors stand before you... Which one?", n + 1),
+                {{"Left door", "pikedoor|6|0"}, {"Middle door", "pikedoor|6|1"}, {"Right door", "pikedoor|6|2"}, {"Leave for now", ""}});
+            return;
+        }
+        if (k == "pikedoor") {   // what's behind it (a battle most of the time)
+            uint32_t h = TowerSeedFor(g) ^ ((uint32_t)(n + 1) * 2654435761u) ^ ((uint32_t)std::atoi(a.size() > 2 ? a[2].c_str() : "0") * 40503u) ^ ((uint32_t)runs * 97u);
+            h ^= h >> 15; h *= 0x2c1b3c6du; h ^= h >> 12;
+            int r = (int)(h % 10);
+            if (r >= 7) {   // no battle: a rest, or an empty room - on to the next
+                SetFrontierStreak(g, fac, n + 1, std::max(best, n + 1), runs);
+                SaveAll(g);
+                if (r == 7) { for (int p = 0; p < (g.coop ? 2 : 1); p++) for (auto& m : (g.coop ? Prof(g, p) : g.profile).mons) m.hp = 1; PlaySfx(Sfx::CenterHeal); }
+                Say(w, (r == 7 ? std::string("A kind woman was waiting in the room. She restored your Pokemon to full health!") : std::string("The room is empty... Lucky!")) +
+                       TextFormat("|Room %d cleared.", n + 1), "frontiergo|6");
+                return;
+            }
+        }
+        SaveAll(g);
+        BeginFrontierBattle(g, fac);
+        return;
+    }
     if (k == "tower") {
         if (!KantoDone(g)) { Say(w, "The Battle Tower is open to Trainers who've beaten the Pokemon League."); return; }
         if (tired()) return;
@@ -743,6 +818,89 @@ void WorldChallenge(Game& g, int i, const std::vector<std::string>& a) {
     if (online) { g.legendSel = id; OpenLegends(g); return; }
     BeginLegend(g, id);
 }
+// ---- Hoenn's berry trees (Emerald): planted, they sprout, grow, flower and bear berries, a stage every few hours
+// (an Emerald hour is 100 s of the story clock). Watering with the Wailmer Pail in a stage means more berries.
+// A tree's state is a flag in the save ("bt:<id>|Berry|planted at|stages watered"), so co-op shares the trees.
+constexpr int BERRY_HOUR_SEC = 100;
+struct TreeState { std::string berry; long long planted = 0; int water = 0; bool set = false; };
+long long StorySeconds(const Game& g) { return (long long)StoryClock(g) * HALF_DAY_SEC + (g.coop ? g.coopSave.clockSec : g.profile.clockSec); }
+const OwMap::BerryTree* TreeById(int id) {
+    for (const auto& m : gMaps) for (const auto& t : m.berries) if (t.id == id) return &t;
+    return nullptr;
+}
+TreeState TreeOf(const Game& g, const OwMap::BerryTree& t) {
+    TreeState s;
+    std::string key = "bt:" + std::to_string(t.id) + "|";
+    for (const auto& f : Flags(g))
+        if (f.rfind(key, 0) == 0) {
+            auto p = Split(f.substr(key.size()), '|');
+            s.set = true;
+            s.berry = p[0];
+            if (p.size() > 1) s.planted = std::atoll(p[1].c_str());
+            if (p.size() > 2) s.water = std::atoi(p[2].c_str());
+            return s;
+        }
+    if (t.berry != "Soil") { s.berry = t.berry; s.planted = -1000000000LL; }   // untouched: Emerald's own berries, ripe
+    return s;
+}
+int TreeStage(const Game& g, const TreeState& s) {   // -1 bare soil, 0 planted, 1 sprout, 2 growing, 3 flowering, 4 berries
+    int bi = BerryIndexOf(s.berry);
+    if (s.berry.empty() || bi < 0) return -1;
+    long long dur = (long long)BerryAt(bi).hours * BERRY_HOUR_SEC;
+    return (int)std::min<long long>(4, std::max<long long>(0, (StorySeconds(g) - s.planted) / std::max(1LL, dur)));
+}
+int TreeYield(const TreeState& s) {
+    int bi = BerryIndexOf(s.berry);
+    if (bi < 0) return 0;
+    const BerryInfo& b = BerryAt(bi);
+    int w = 0;
+    for (int k = 0; k < 4; k++) w += (s.water >> k) & 1;
+    return b.minYield + ((b.maxYield - b.minYield) * w + 2) / 4;
+}
+void SetTree(Game& g, int id, const std::string& berry, long long planted, int water) {
+    std::string key = "bt:" + std::to_string(id) + "|";
+    auto& f = Flags(g);
+    for (auto it = f.begin(); it != f.end();) it = it->rfind(key, 0) == 0 ? f.erase(it) : std::next(it);
+    SetFlag(g, key + berry + "|" + std::to_string(planted) + "|" + std::to_string(water));
+}
+int TreeAt(int map, int x, int y) {
+    const auto& v = gMaps[map].berries;
+    for (size_t k = 0; k < v.size(); k++) if (v[k].x == x && v[k].y == y) return (int)k;
+    return -1;
+}
+bool BerryTreeHere(Game& g, int i, int fx, int fy) {   // A at a berry tree: pick, water, or plant
+    OwWalker& w = g.ow.w[i];
+    int k = TreeAt(w.map, fx, fy);
+    if (k < 0) return false;
+    const auto& t = gMaps[w.map].berries[k];
+    TreeState s = TreeOf(g, t);
+    int st = TreeStage(g, s);
+    std::string id = std::to_string(t.id);
+    bool pail = BagCount(WP(g, i), "Wailmer Pail") > 0;
+    if (st < 0) {
+        std::vector<std::pair<std::string, std::string>> ch;
+        for (int b = 0; b < BerryCount() && ch.size() < 8; b++)
+            if (BagCount(WP(g, i), BerryAt(b).name) > 0) ch.push_back({std::string(BerryAt(b).name) + " (" + std::to_string(BagCount(WP(g, i), BerryAt(b).name)) + ")", "berryplant|" + id + "|" + BerryAt(b).name});
+        if (ch.empty()) { Say(w, "It's soft, loamy soil.|(If you had a Berry, you could plant it here.)"); return true; }
+        ch.push_back({"Cancel", ""});
+        Ask(w, "It's soft, loamy soil. Want to plant a Berry?", ch);
+        return true;
+    }
+    std::string nm = s.berry + " Berry";
+    if (st >= 4) {
+        int n = TreeYield(s);
+        Ask(w, "It's a tree with " + std::to_string(n) + " " + s.berry + (n == 1 ? " Berry" : " Berries") + " on it! Want to pick " + (n == 1 ? "it" : "them") + "?",
+            {{"Pick", "berrypick|" + id}, {"No", ""}});
+        return true;
+    }
+    static const char* kStage[4] = {"One " , "A sprout from ", "A ", "This "};
+    std::string text = st == 0 ? "One " + nm + " was planted here." : st == 1 ? nm + " has sprouted." :
+                       st == 2 ? "This " + nm + " plant is growing taller." : "These " + nm + " flowers are blooming very beautifully.";
+    (void)kStage;
+    if (pail && !((s.water >> st) & 1)) Ask(w, text + " Want to water it with the Wailmer Pail?", {{"Water it", "berrywater|" + id}, {"No", ""}});
+    else Say(w, text + (pail ? "|The soil is already damp." : ""));
+    return true;
+}
 void RunAction(Game& g, int i, const std::string& act) {
     OwWalker& w = g.ow.w[i];
     auto a = Split(act, '|');
@@ -762,7 +920,100 @@ void RunAction(Game& g, int i, const std::string& act) {
         Game& t = g.coop ? StartSub(g, i) : g;
         OpenDaycare(t, 0, Screen::World);
     }
+    else if (k == "contest") {   // Lilycove's Contest Hall
+        if (Online(g)) { Say(w, "Welcome to the Pokemon Contest Hall!|(Contests are for playing on your own or in local co-op.)"); return; }
+        Ask(w, act.size() > 8 ? act.substr(8) : "Hello! This is the Pokemon Contest reception.|Would you like to enter a Contest?", {{"Enter a Contest", "contestopen"}, {"No thanks", ""}});
+    }
+    else if (k == "contestopen") {
+        SaveAll(g);
+        Game& t = g.coop ? StartSub(g, i) : g;
+        OpenContest(t, 0);
+    }
+    else if (k == "blender") {   // the Berry Blender: a berry in, a Pokeblock out
+        Profile& P = WP(g, i);
+        std::vector<std::pair<int, std::string>> have;
+        for (const auto& [name, n] : P.bag) if (n > 0 && BerryIndexOf(name) >= 0) have.push_back({n, name});
+        if (have.empty()) { Say(w, "You have no Berries. The Berry Blender can't be used."); return; }
+        std::sort(have.begin(), have.end(), [](const auto& x, const auto& y) { return x.first > y.first; });
+        std::vector<std::pair<std::string, std::string>> ch;
+        for (int k2 = 0; k2 < (int)have.size() && k2 < 8; k2++) ch.push_back({TextFormat("%s (%d)", have[k2].second.c_str(), have[k2].first), "blend|" + have[k2].second});
+        ch.push_back({"Not now", ""});
+        Ask(w, act.size() > 8 ? act.substr(8) : "Let's blend! Which Berry will you put in the Berry Blender?", ch);
+    }
+    else if (k == "blend" && a.size() > 1) {
+        Profile& P = WP(g, i);
+        int bi = BerryIndexOf(a[1]);
+        if (bi < 0 || !BagTake(P, a[1])) return;
+        std::string nm = BerryAt(bi).name;
+        std::string block = "Pokeblock (" + nm.substr(0, nm.find(' ')) + ")";
+        BagAdd(P, block, 1);
+        SaveAll(g);
+        if (g.coop) SaveProfile(P);
+        PlaySfx(Sfx::ItemGet);
+        Say(w, "Whirrr... The Berry Blender spun the " + a[1] + " into a " + block + "!|Feed it to a Pokemon from Party & Box to make it shine in Contests.", "blender");
+    }
     else if (k == "flag" && a.size() > 1) SetFlag(g, a[1]);
+    else if (k == "standuse" && a.size() > 1) {   // a tomb's puzzle, solved
+        for (const auto& st : MapOf(w).stands)
+            if (st.flag == a[1] && !HasFlag(g, i, st.flag)) {
+                SetFlag(g, st.flag);
+                PlaySfx(Sfx::Thud);
+                Say(w, st.text.empty() ? "There's a rumbling... Something opened!" : st.text);
+                SaveAll(g);
+                break;
+            }
+    }
+    else if (k == "lapstart" && a.size() > 1) {   // Island Cave's braille: the lap starts here
+        gLapOn[i & 1] = !HasFlag(g, i, MapOf(w).lapFlag);
+        gLapMask[i & 1] = 0;
+        Say(w, act.substr(9));
+    }
+    else if (k == "regicheck" && a.size() > 2) {   // regicheck|flag|braille: the Sealed Chamber - Wailord first, Relicanth last
+        const Profile& P = WP(g, i);
+        std::vector<std::string> party;
+        for (const auto& mm : P.mons) if (!mm.boxed && mm.eggSteps <= 0) party.push_back(mm.species);
+        std::string text = act.substr(k.size() + a[1].size() + 2);
+        if (!HasFlag(g, i, a[1]) && !party.empty() && party.front() == "Wailord" && party.back() == "Relicanth") {
+            SetFlag(g, a[1]);
+            SaveAll(g);
+            PlaySfx(Sfx::Thud);
+            Say(w, text + "|...!|The ground shook! It sounded like a door opened somewhere far away...");
+        } else Say(w, text);
+    }
+    else if ((k == "berrypick" || k == "berrywater" || k == "berryplant") && a.size() > 1) {
+        const OwMap::BerryTree* t = TreeById(std::atoi(a[1].c_str()));
+        if (!t) return;
+        TreeState s = TreeOf(g, *t);
+        int st = TreeStage(g, s);
+        Profile& P = WP(g, i);
+        if (k == "berrypick" && st >= 4) {
+            int n = TreeYield(s);
+            BagAdd(P, s.berry + " Berry", n);
+            SetTree(g, t->id, "", 0, 0);
+            if (g.coop) SaveProfile(P);
+            SaveAll(g);
+            PlaySfx(Sfx::ItemGet);
+            Say(w, "{PLAYER} picked " + std::to_string(n) + " " + s.berry + " Berr" + (n == 1 ? "y" : "ies") + ".|{PLAYER} put away the Berr" + (n == 1 ? "y" : "ies") + " in the Bag.|The soil returned to its soft and loamy state.");
+        } else if (k == "berrywater" && st >= 0 && st < 4) {
+            SetTree(g, t->id, s.berry, s.planted, s.water | (1 << st));
+            PlaySfx(Sfx::Buff);
+            Say(w, "{PLAYER} watered the " + s.berry + " Berry.|The plant seems to be delighted.");
+        } else if (k == "berryplant" && a.size() > 2 && st < 0 && BagTake(P, a[2])) {
+            std::string b = a[2].substr(0, a[2].size() > 6 ? a[2].size() - 6 : a[2].size());
+            SetTree(g, t->id, b, StorySeconds(g), 0);
+            if (g.coop) SaveProfile(P);
+            SaveAll(g);
+            PlaySfx(Sfx::MenuOk);
+            Say(w, "{PLAYER} planted one " + a[2] + " in the soft, loamy soil.");
+        }
+    }
+    else if (k == "event" && a.size() >= 3) {   // event|flag|text/text: a little scene, then the flag is set (Gideon snatching the Sapphire)
+        if (HasFlag(g, i, a[1])) return;
+        std::string t;
+        for (size_t q = 2; q < a.size(); q++) t += (q > 2 ? "|" : "") + a[q];
+        for (char& ch : t) if (ch == '/') ch = '|';
+        Say(w, t, "flag|" + a[1]);
+    }
     else if (k == "give" && a.size() >= 4) {   // give|item|n|flag
         if (HasFlag(g, i, a[3])) return;
         int n = std::max(1, std::atoi(a[2].c_str()));
@@ -777,7 +1028,7 @@ void RunAction(Game& g, int i, const std::string& act) {
     else if (k == "fish" && a.size() > 1) Fish(g, i, a[1]);
     else if (k == "fly") { g.ow.townMap = true; g.ow.townSel = 0; g.ow.menuWho = i; }
     else if (k == "trashcan" && a.size() > 1) TrashCan(g, i, a[1]);
-    else if (k == "raid" || k == "tower" || k == "legend") WorldChallenge(g, i, a);
+    else if (k == "raid" || k == "tower" || k == "legend" || k == "frontier" || k == "frontiergo" || k == "pikedoor") WorldChallenge(g, i, a);
     else if (k == "encounter" && a.size() >= 4) {   // encounter|Species|level|flag|text|item needed|text without it
         if (HasFlag(g, i, a[3])) return;
         if (a.size() > 6 && !a[5].empty() && BagCount(WP(g, i), a[5]) == 0) { Say(w, a[6]); return; }
@@ -855,6 +1106,31 @@ void RunAction(Game& g, int i, const std::string& act) {
         std::string rv = g.coop ? g.coopSave.rival[0] : g.profile.rival;
         Say(w, "Oak: This Pokemon is really quite energetic!|{PLAYER} received the " + a[1] + " from Prof. Oak!" +
                    (!rv.empty() && rv != a[1] ? "|Blue: I'll take this one, then!|Blue received the " + rv + " from Prof. Oak!" : std::string()));
+    }
+    else if (k == "sailto" && a.size() >= 5) {   // sailto|question|condition|refusal|Label;Map;x;y;face;condition|...: Mr. Briney's boat, the S.S. Tidal
+        if (!a[2].empty() && !HasFlag(g, i, a[2])) { Say(w, a[3].empty() ? "Sorry, we can't sail right now." : a[3]); return; }
+        std::vector<std::pair<std::string, std::string>> ch;
+        for (size_t q = 4; q < a.size(); q++) {
+            auto p = Split(a[q], ';');
+            if (p.size() > 5 && !p[5].empty() && !HasFlag(g, i, p[5])) continue;   // not yet (that region's League)
+            if (p.size() >= 4 && MapIndex(p[1]) >= 0 && p[1] != MapOf(w).name)
+                ch.push_back({p[0], "boat|" + p[1] + "|" + p[2] + "|" + p[3] + "|" + (p.size() > 4 ? p[4] : "down") + "|" + p[0]});
+        }
+        if (ch.empty()) { Say(w, a[3].empty() ? "Sorry, that service isn't running." : a[3]); return; }
+        ch.push_back({"Not now", ""});
+        Ask(w, a[1], ch);
+    }
+    else if (k == "boat" && a.size() >= 6) {   // boat|Map|x|y|face|Label: off you sail
+        Warp(g, i, {"warp", a[1], a[2], a[3], a[4]});
+        Say(w, "Off we go! Full speed ahead!|...|Land ho! Here we are at " + a[5] + "!");
+    }
+    else if (k == "starterbag" && a.size() >= 3) {   // starterbag|region|A,B,C|text: Prof. Birch's bag on Route 101 - pick one
+        std::vector<std::pair<std::string, std::string>> ch;
+        for (const auto& sp : Split(a[2], ',')) if (SpeciesIndex(Trim(sp)) >= 0 && !Flags(g).count("ball:" + Trim(sp))) ch.push_back({Trim(sp), "starter|" + Trim(sp) + "|" + a[1]});
+        int r = std::atoi(a[1].c_str());
+        if (!RegionStarter(WP(g, i), r).empty() || ch.empty()) { Say(w, "It's Prof. Birch's bag..."); return; }
+        ch.push_back({"Not yet", ""});
+        Ask(w, a.size() > 3 && !a[3].empty() ? a[3] : "There's a Poke Ball in the bag! Which one?", ch);
     }
     else if (k == "travel" && a.size() >= 5) {   // travel|question|Map|x|y|face|condition|refusal: the S.S. Aqua, the Magnet Train
         std::string cond = a.size() > 6 ? a[6] : "";
@@ -1132,12 +1408,55 @@ void RunSub(Game& g, int i, float dt) {
     }
 }
 
+// Match Call (Emerald's Pokenav): the Trainers you've beaten who have rematch teams are registered; every few
+// hundred steps one of them calls - they want a rematch, and wait where you met them. Each rematch needs more
+// of that region's badges (2, 4, 6, 8), like the VS Seeker.
+int gMatchCallSteps = 0;
+bool McRegistered(const Game& g, const OwNpc& n) { return n.kind == "fight" && !n.rematch.empty() && n.args.size() > 4 && Flags(g).count(n.args[4]); }
+int McNextTier(const Game& g, const OwNpc& n, int region) {   // the rematch they'd call about (0: none)
+    int next = RematchesWon(g, n) + 1;
+    if (next > (int)n.rematch.size() || next > 4 || RematchTier(g, n) > 0) return 0;
+    return RegionBadgeCount(g, region) >= 2 * next ? next : 0;
+}
+void MatchCallStep(Game& g, int i) {
+    if (BagCount(WP(g, i), "Pokenav") <= 0 || ++gMatchCallSteps < 300) return;
+    gMatchCallSteps = 0;
+    std::vector<std::pair<int, int>> can;
+    for (int mi = 0; mi < (int)gMaps.size(); mi++)
+        for (int k = 0; k < (int)gMaps[mi].npcs.size(); k++)
+            if (McRegistered(g, gMaps[mi].npcs[k]) && McNextTier(g, gMaps[mi].npcs[k], gMaps[mi].region) > 0) can.push_back({mi, k});
+    if (can.empty()) return;
+    auto [mi, k] = can[SimRand(0, (int)can.size() - 1)];
+    const OwNpc& n = gMaps[mi].npcs[k];
+    SetFlag(g, "rematch:" + n.args[4] + ":" + std::to_string(McNextTier(g, n, gMaps[mi].region)));
+    PlaySfx(Sfx::MenuOk);
+    Toast(g, "Match Call! " + n.args[0] + ": \"Let's battle again! I'll be waiting on " + gMaps[mi].name + ".\"");
+}
+
+// Island Cave's lap (Regice): read the braille, then run one lap close to the wall, back to it.
+void LapStep(Game& g, int i) {
+    OwWalker& w = g.ow.w[i];
+    const OwMap& m = MapOf(w);
+    if (!gLapOn[i & 1] || m.lap.empty()) { gLapOn[i & 1] = false; return; }
+    int k = -1;
+    for (int j = 0; j < (int)m.lap.size(); j++) if (m.lap[j].first == w.x && m.lap[j].second == w.y) k = j;
+    if (k < 0) { gLapOn[i & 1] = false; return; }   // off the path: start over at the braille
+    gLapMask[i & 1] |= 1ull << k;
+    if (gLapMask[i & 1] == (m.lap.size() >= 64 ? ~0ull : (1ull << m.lap.size()) - 1) && w.x == m.lapGX && w.y == m.lapGY) {
+        gLapOn[i & 1] = false;
+        SetFlag(g, m.lapFlag);
+        PlaySfx(Sfx::Thud);
+        Say(w, "...|There's a rumbling... The wall in front of you crumbled away!");
+    }
+}
 // A step finished: grass, trainers.
 void Arrived(Game& g, int i) {
     OwWalker& w = g.ow.w[i];
     const OwMap& m = MapOf(w);
     w.stepsSinceWild++;
     w.vsCharge = std::min(100, w.vsCharge + 1);
+    MatchCallStep(g, i);
+    LapStep(g, i);
     if (m.At(w.x, w.y) == 'g') gRustle.push_back({w.map, w.x, w.y, 0});
     if (i == 0) SendPos(g);
     if (!m.town.empty() && !Flags(g).count("visit:" + m.town)) SetFlag(g, "visit:" + m.town);   // somewhere to Fly to
@@ -1162,7 +1481,7 @@ void Arrived(Game& g, int i) {
     for (int k = 0; k < (int)P.mons.size() && lead < 0; k++) if (!P.mons[k].boxed) lead = k;
     int tag = lead >= 0 && P.mons[lead].item == "Cleanse Tag" ? 2 : 3;
     if ((c == 'g' && SimRand(0, 299) < 12 * tag) || (c == 'c' && SimRand(0, 299) < 8 * tag)) WildEncounter(g, i);   // tall grass; a cave floor
-    else if (w.surfing && c == 'w' && SimRand(0, 299) < 6 * tag && WildAreaHasMethod(m.wild, "surf")) WildEncounter(g, i, "surf");
+    else if (w.surfing && (c == 'w' || c == 'd') && SimRand(0, 299) < 6 * tag && WildAreaHasMethod(m.wild, "surf")) WildEncounter(g, i, "surf");
 }
 
 constexpr float kSteep = 14;   // (3D maps) more of a rise than this between two tiles: a wall, not a slope
@@ -1191,7 +1510,9 @@ void TryStep(Game& g, int i, int dir) {
             else if (dir == 0) { tx = nx + L.off; ty = 0; }
             else if (dir == 2) { tx = n.w - 1; ty = ny + L.off; }
             else { tx = 0; ty = ny + L.off; }
-        } else
+            if (tx < 0 || ty < 0 || tx >= n.w || ty >= n.h) L.map = -1;   // not that one: another map on this side?
+        }
+        if (L.map < 0)
             for (const auto& nb : m.near) {   // a placed map: whichever one is there
                 const OwMap& n = gMaps[nb.map];
                 int ax = nx - nb.dx, ay = ny - nb.dy;
@@ -1226,7 +1547,8 @@ void TryStep(Game& g, int i, int dir) {
             w.stepT = 0;
             w.fFace = dir;
             w.walkAnim ^= 1;
-            if (!IsWater(c)) w.surfing = false;
+            if (!IsWater(c) && !n.underwater) w.surfing = false;
+            if (n.underwater) { w.surfing = true; w.biking = false; }
             if (i == 0) SendPos(g);
             return;
         }
@@ -1271,7 +1593,7 @@ void TryStep(Game& g, int i, int dir) {
     w.stepT = 0;
     w.hop = hop;
     w.walkAnim ^= 1;
-    if (w.surfing && !IsWater(c)) w.surfing = false;   // back on land
+    if (w.surfing && !IsWater(c) && !m.underwater) w.surfing = false;   // back on land (under the sea you keep swimming)
     if (hop) PlaySfx(Sfx::Ledge);
     if (i == 0) SendPos(g);
 }
@@ -1331,6 +1653,20 @@ void Ask(OwWalker& w, const std::string& text, std::vector<std::pair<std::string
     w.choiceSel = 0;
     PlaySfx(Sfx::MenuMove);
 }
+// Dive: A on the dark deep water while surfing (down), or under the sea where light filters down (up).
+bool DiveHere(Game& g, int i) {
+    OwWalker& w = g.ow.w[i];
+    const OwMap& m = MapOf(w);
+    char c = m.At(w.x, w.y);
+    bool down = !m.underwater && w.surfing && c == 'd' && !m.diveTo.empty();
+    bool up = m.underwater && c == 'u' && !m.emergeTo.empty();
+    if (!down && !up) return false;
+    std::string who;
+    std::string what = down ? "The sea is deep here. A Pokemon may be able to go underwater." : "Light is filtering down from above. A Pokemon may be able to surface.";
+    if (CanField(g, i, "Dive", &who)) Ask(w, what + " Would you like to use Dive?", {{"Use Dive (" + who + ")", "field|Dive"}, {"No", ""}});
+    else Say(w, what + (PartyKnows(WP(g, i), "Dive") ? "|" + FieldNeed("Dive", MapRegionOf(g, i)) : ""));
+    return true;
+}
 bool FacingThing(Game& g, int i, int fx, int fy) {
     OwWalker& w = g.ow.w[i];
     const OwMap& m = MapOf(w);
@@ -1369,7 +1705,7 @@ bool FacingThing(Game& g, int i, int fx, int fy) {
     }
     if (IsWater(c)) {
         std::vector<std::pair<std::string, std::string>> ch;
-        if (!w.surfing && CanField(g, i, "Surf", &who) && c == 'w') ch.push_back({"Surf (" + who + ")", "field|Surf"});
+        if (!w.surfing && CanField(g, i, "Surf", &who) && (c == 'w' || c == 'd')) ch.push_back({"Surf (" + who + ")", "field|Surf"});
         for (const char* rod : {"Old Rod", "Good Rod", "Super Rod"})
             if (BagCount(WP(g, i), rod) > 0) ch.push_back({std::string("Fish: ") + rod, std::string("fish|") + rod});
         if (ch.empty()) { if (!w.surfing) Say(w, PartyKnows(WP(g, i), "Surf") ? "The water is dyed a deep blue...|" + FieldNeed("Surf", MapRegionOf(g, i)) : "The water is dyed a deep blue..."); return !w.surfing; }
@@ -1528,6 +1864,17 @@ void UpdateWalker(Game& g, int i, float dt, const WalkIn& in) {
         }
         for (const auto& s : m.spots)
             if (s.x == fx && s.y == fy && CondOk(g, i, s.ifF, s.unlessF)) { RunAction(g, i, s.act); return; }
+        if (DiveHere(g, i)) return;
+        for (const auto& st : m.stands)   // a puzzle's spot (the Regis' tombs): use the move standing here
+            if (st.x == w.x && st.y == w.y && !HasFlag(g, i, st.flag)) {
+                std::string who;
+                int hm = HmIndex(st.move);
+                bool can = hm > 0 ? CanField(g, i, st.move, &who) : PartyKnows(WP(g, i), st.move, &who);
+                if (!can) break;
+                Ask(w, "Would you like to use " + st.move + " here?", {{"Use " + st.move + " (" + who + ")", "standuse|" + st.flag}, {"No", ""}});
+                return;
+            }
+        if (BerryTreeHere(g, i, fx, fy)) return;
         if (FacingThing(g, i, fx, fy)) return;
         // across a counter: the Nurse or the clerk on the other side
         int idx2 = NpcAt(g, w.map, fx + DX[w.face], fy + DY[w.face]);
@@ -1762,6 +2109,13 @@ void UpdateTownMap(Game& g) {
 // ---------------------------------------------------------------- loading
 
 bool WorldAvailable() { return gLoaded && !gMaps.empty(); }
+bool WorldBattleOnWater(const Game& g) {   // a wild battle met surfing, fishing or under the sea (the Dive Ball)
+    if (!g.ow.wildBattle) return false;
+    const std::string& m = g.ow.wildMethod;
+    if (m == "surf" || m.find("rod") != std::string::npos) return true;
+    int mi = g.ow.w[0].map;
+    return mi >= 0 && mi < (int)gMaps.size() && gMaps[mi].underwater;
+}
 
 // A map's pictures, loaded the first time it's on screen; the ones not seen for a while are let go
 // (Kanto and the Sevii Islands are a few hundred maps).
@@ -1797,9 +2151,15 @@ void LoadWorld(std::string& log) {
     std::string dir = DataDir() + "World/";
     std::ifstream f0(dir + "world.txt");
     if (!f0) return;
+    if (std::ifstream cn(dir + "chars.txt"); cn) {   // the people on chars.png, row by row (FireRed's, HeartGold's, Emerald's)
+        std::string nm;
+        while (cn >> nm) gSpriteNames.push_back(nm);
+    }
+    bool namesFromSheet = !gSpriteNames.empty();
     std::stringstream f;   // Kanto and the Sevii Islands (tools/frlg_world.py), then Johto (tools/hgss_world.py)
     f << f0.rdbuf() << "\n";
     if (std::ifstream f1(dir + "johto.txt"); f1) f << f1.rdbuf() << "\n";
+    if (std::ifstream f2(dir + "hoenn.txt"); f2) f << f2.rdbuf() << "\n";   // Hoenn (tools/emerald_world.py)
     std::string line;
     OwMap* m = nullptr;
     bool grid = false, hgrid = false;
@@ -1820,7 +2180,7 @@ void LoadWorld(std::string& log) {
         }
         size_t eq = line.find(" = ");
         std::string k = Trim(line.substr(0, eq)), v = eq == std::string::npos ? "" : Trim(line.substr(eq + 3));
-        if (k == "sprites") { std::istringstream ss(v); std::string s; while (ss >> s) gSpriteNames.push_back(s); continue; }
+        if (k == "sprites") { if (!namesFromSheet) { std::istringstream ss(v); std::string s; while (ss >> s) gSpriteNames.push_back(s); } continue; }
         if (k == "walked") { for (const auto& r : Split(v, ',')) for (int i = 0; i < 8; i++) if (RegionInfo(i).name == Trim(r)) gWalkedRegions.insert(i); continue; }
         if (k == "story_skip") { gSkipStages.insert(Trim(v)); continue; }
         if (k == "ferry") {
@@ -1843,7 +2203,36 @@ void LoadWorld(std::string& log) {
         else if (k == "indoor") m->indoor = v == "yes";
         else if (k == "dark") m->dark = v == "yes";
         else if (k == "weather") m->weather = v;
+        else if (k == "stand") {
+            OwMap::Stand st; int n = 0;
+            if (std::sscanf(v.c_str(), "%d %d %n", &st.x, &st.y, &n) >= 2) {
+                auto p = Split(v.substr(n), '|');
+                st.move = Trim(p[0]); st.flag = p.size() > 1 ? Trim(p[1]) : ""; st.text = p.size() > 2 ? p[2] : "";
+                m->stands.push_back(st);
+            }
+        }
+        else if (k == "lap") {
+            auto p = Split(v, '|');
+            if (p.size() >= 3) {
+                m->lapFlag = Trim(p[0]);
+                std::sscanf(p[1].c_str(), "%d %d", &m->lapGX, &m->lapGY);
+                std::istringstream ss(p[2]); std::string xy;
+                while (ss >> xy) { int x = 0, y = 0; if (std::sscanf(xy.c_str(), "%d,%d", &x, &y) == 2) m->lap.push_back({x, y}); }
+            }
+        }
+        else if (k == "berry") { OwMap::BerryTree bt; char nm[32] = {}; if (std::sscanf(v.c_str(), "%d %d %d %31s", &bt.x, &bt.y, &bt.id, nm) == 4) { bt.berry = nm; m->berries.push_back(bt); } }
+        else if (k == "wxzone") { OwMap::WxZone z; char kind[16] = {}; if (std::sscanf(v.c_str(), "%d %d %d %d %15s", &z.x0, &z.y0, &z.x1, &z.y1, kind) == 5) { z.wx = kind; m->wxZones.push_back(z); } }
         else if (k == "bike") m->bike = v == "yes";
+        else if (k == "underwater") m->underwater = v == "yes";
+        else if (k == "dive" || k == "emerge") {   // Map, or Map|x|y
+            auto p = Split(v, '|');
+            (k == "dive" ? m->diveTo : m->emergeTo) = Trim(p[0]);
+            if (p.size() >= 3) {
+                (k == "dive" ? m->diveX : m->emergeX) = std::atoi(p[1].c_str());
+                (k == "dive" ? m->diveY : m->emergeY) = std::atoi(p[2].c_str());
+            }
+        }
+        else if (k == "rematch" && lastNpc) { for (const auto& t : Split(v, '/')) lastNpc->rematch.push_back(Trim(t)); }
         else if (k == "town") m->town = v;
         else if (k == "fly") std::sscanf(v.c_str(), "%d %d", &m->flyX, &m->flyY);
         else if (k == "if" && lastIf) *lastIf = v;
@@ -1928,8 +2317,15 @@ void LoadWorld(std::string& log) {
     }
     for (auto& [mi, a] : links) {
         int d = a[0] == "south" ? 0 : a[0] == "north" ? 1 : a[0] == "west" ? 2 : 3;
-        gMaps[mi].link[d].map = MapIndex(a[1]);
-        gMaps[mi].link[d].off = std::atoi(a[2].c_str());
+        int tm = MapIndex(a[1]), off = std::atoi(a[2].c_str());
+        OwLink& L = gMaps[mi].link[d];
+        if (L.map < 0) { L.map = tm; L.off = off; }
+        else if (tm >= 0) {   // a second map on the same side (Water Path: Green Path, Six Island and Ruin Valley to the west)
+            const OwMap& n = gMaps[tm];
+            const OwMap& A = gMaps[mi];
+            int dx = d == 2 ? -n.w : d == 3 ? A.w : -off, dy = d == 1 ? -n.h : d == 0 ? A.h : -off;
+            gMaps[mi].near.push_back({tm, dx, dy});
+        }
     }
     for (auto& mm : gMaps)   // two route trainers with one name on a map (Team Rocket's grunts): each their own win
         for (auto& p : mm.npcs) {
@@ -1958,6 +2354,7 @@ void LoadWorld(std::string& log) {
     gChars = LoadTex(dir + "chars.png");
     gActions = LoadTex(dir + "actions.png");
     gFieldObj = LoadTex(dir + "fieldobj.png");
+    gBerryTex = LoadTex(dir + "berrytrees.png");
     gWxRain = LoadTex(dir + "weather_rain.png");   // FireRed's weather
     gWxSnow[0] = LoadTex(dir + "weather_snow0.png");
     gWxSnow[1] = LoadTex(dir + "weather_snow1.png");
@@ -2183,6 +2580,11 @@ void WorldClock(Game& g, float dt) {
 }
 
 void UpdateWorld(Game& g, float dt) {
+    {   // the region's own sounds (Hoenn: Emerald's), while you walk there
+        int mi = g.ow.w[0].map;
+        int r = mi >= 0 && mi < (int)gMaps.size() ? gMaps[mi].region : 0;
+        SetSfxSet(r >= 0 && r < RegionCount() && RegionInfo(r).name == "Hoenn" ? "Hoenn" : "");
+    }
     if (!WorldAvailable() || g.ow.w[0].map < 0) { g.ow.active = false; EnterStoryHub(g); return; }
     OwState& o = g.ow;
     if (Online(g)) {
@@ -2345,6 +2747,18 @@ void UpdateRustle(float dt) {
     gRustle.erase(std::remove_if(gRustle.begin(), gRustle.end(), [](const Rustle& r) { return r.t > 0.35f; }), gRustle.end());
 }
 
+void DrawBerryTrees(const Game& g, int map, const View& c) {
+    if (!gBerryTex.id) return;
+    for (const auto& t : gMaps[map].berries) {
+        TreeState s = TreeOf(g, t);
+        int st = TreeStage(g, s), bi = BerryIndexOf(s.berry);
+        if (st < 0 || bi < 0) continue;
+        int anim = ((int)(g.t * 2) + t.id) & 1;
+        int col = st == 0 ? 0 : 1 + (st - 1) * 2 + anim;
+        Vector2 p = Scr(c, (float)t.x * T, (float)t.y * T - 16);
+        DrawTexturePro(gBerryTex, {(float)col * 16, (float)bi * 32, 16, 32}, {p.x, p.y, 16 * Z, 32 * Z}, {0, 0}, 0, WHITE);
+    }
+}
 void DrawMapChanges(const Game& g, int map, const View& c) {
     const OwMap& m = gMaps[map];
     const MapRt& rt = gRt[map];
@@ -2451,6 +2865,41 @@ void WrapText(const std::string& s, int w, std::vector<std::string>& out) {
     if (!line.empty()) out.push_back(line);
 }
 
+// Braille (the Regis' tombs): six dots a letter, raised or flat.
+int BrailleDots(char ch) {   // bit k = dot k+1
+    static const char* kDots[26] = {"1", "12", "14", "145", "15", "124", "1245", "125", "24", "245", "13", "123", "134", "1345", "135",
+                                    "1234", "12345", "1235", "234", "2345", "136", "1236", "2456", "1346", "13456", "1356"};
+    int b = 0;
+    if (ch >= 'a' && ch <= 'z') ch = (char)(ch - 32);
+    const char* d = ch >= 'A' && ch <= 'Z' ? kDots[ch - 'A'] : ch == '.' ? "256" : ch == ',' ? "2" : "";
+    for (const char* c = d; *c; c++) b |= 1 << (*c - '1');
+    return b;
+}
+void DrawBraille(int cx, int y, const std::string& text) {   // the cells, centred on cx
+    const int cw = 16, dot = 3;
+    int n = (int)text.size(), x0 = cx - n * cw / 2;
+    for (int k = 0; k < n; k++) {
+        int b = BrailleDots(text[k]);
+        for (int d = 0; d < 6; d++) {
+            float px = x0 + k * cw + 4 + (d / 3) * 7, py = y + 3 + (d % 3) * 7;
+            if (text[k] == ' ') continue;
+            if (b >> d & 1) DrawCircle((int)px, (int)py, dot, Color{60, 50, 40, 255});
+            else DrawCircle((int)px, (int)py, 1, Fade(Color{60, 50, 40, 255}, 0.35f));
+        }
+    }
+}
+void DrawBox(int bx, int by, int bw, int bh, const std::string& text, bool arrow);
+void DrawBrailleBox(int bx, int by, int bw, int bh, const std::string& page) {   // "braille:TEXT": the stone, then what it says
+    std::string t = page.substr(8);
+    std::vector<std::string> lines;
+    for (size_t a = 0, b; a < t.size(); a = b + 1) { b = t.find('~', a); if (b == std::string::npos) b = t.size(); lines.push_back(t.substr(a, b - a)); }
+    int ph = 14 + 24 * (int)lines.size();
+    DrawPanel(bx + bw / 2 - 150, by - ph - 8, 300, ph, Color{215, 200, 170, 245}, Color{120, 100, 70, 255});
+    for (int k = 0; k < (int)lines.size(); k++) DrawBraille(bx + bw / 2, by - ph - 8 + 8 + k * 24, lines[k]);
+    std::string read;
+    for (const auto& l : lines) read += (read.empty() ? "" : " ") + l;
+    DrawBox(bx, by, bw, bh, "It's written in braille. It reads: \"" + read + "\"", true);
+}
 void DrawBox(int bx, int by, int bw, int bh, const std::string& text, bool arrow) {
     DrawPanel(bx, by, bw, bh, Color{250, 250, 250, 245}, Color{60, 90, 140, 255});
     std::vector<std::string> lines;
@@ -2525,6 +2974,36 @@ void DrawMapWeather(const std::string& wx, int vx, int vw, float t) {   // (Draw
                 float x = x0 - 120, y = y0 + VH * 0.55f - 40;
                 DrawTexturePro(gWxRain, {0, (float)f * 32, 16, 32}, {vx + x, y, 16 * Z, 32 * Z}, {0, 0}, 0, Fade(WHITE, 0.8f));
             }
+        }
+        return;
+    }
+    if (wx == "ash") {   // Mt. Chimney's ash on Route 113: grey flakes drifting down slowly, the air hazy
+        DrawRectangle(vx, 0, vw, VH, Fade(Color{120, 115, 110, 255}, 0.16f));
+        for (int k = 0; k < 90; k++) {
+            float sx = (float)((k * 7919) % 1000) / 1000.0f, sy = (float)((k * 104729) % 1000) / 1000.0f;
+            float y = std::fmod(sy * VH + t * (22 + (k % 4) * 5), (float)VH + 8) - 8;
+            float x = std::fmod(sx * vw + std::sin(t * 0.8f + k) * 10 + t * 12 + vw * 4, (float)vw);
+            float r = (1.2f + (k % 3) * 0.6f) * Z * 0.5f;
+            DrawRectangle(vx + (int)x, (int)y, (int)std::max(2.0f, r * 2), (int)std::max(2.0f, r * 2), Fade(Color{90, 88, 86, 255}, 0.75f));
+        }
+        return;
+    }
+    if (wx == "shade") {   // Petalburg Woods, the Abandoned Ship: the light only gets in a little
+        DrawRectangle(vx, 0, vw, VH, Fade(Color{10, 20, 30, 255}, 0.22f));
+        return;
+    }
+    if (wx == "bubbles") {   // under the sea: blue water, bubbles rising, light rippling down
+        DrawRectangle(vx, 0, vw, VH, Fade(Color{20, 60, 140, 255}, 0.22f));
+        for (int k = 0; k < 4; k++) {
+            float x = std::fmod(t * (10 + k * 4) + k * 173.0f, (float)vw + 200) - 100;
+            DrawRectangleGradientH(vx + (int)x - 60, 0, 60, VH, Fade(WHITE, 0.0f), Fade(WHITE, 0.05f));
+            DrawRectangleGradientH(vx + (int)x, 0, 60, VH, Fade(WHITE, 0.05f), Fade(WHITE, 0.0f));
+        }
+        for (int k = 0; k < 40; k++) {
+            float sx = (float)((k * 7919) % 1000) / 1000.0f, sy = (float)((k * 104729) % 1000) / 1000.0f;
+            float y = VH - std::fmod(sy * VH + t * (30 + (k % 5) * 8), (float)VH + 10);
+            float x = sx * vw + std::sin(t * 2 + k) * 4;
+            DrawCircleLines(vx + (int)x, (int)y, 1.5f * Z + (k % 3), Fade(Color{200, 230, 255, 255}, 0.6f));
         }
         return;
     }
@@ -2719,6 +3198,7 @@ void DrawView(const Game& g, int me, int vx, int vw) {
     c.y = std::round(c.y * Z * CANVAS_ZOOM) / (Z * CANVAS_ZOOM);
     DrawMapAt(m, c, 0, 0);
     DrawMapChanges(g, w.map, c);
+    DrawBerryTrees(g, w.map, c);
     DrawMapLife(g, w.map, c);
     if (!m.indoor)   // the maps next door, so the road goes on
         for (int d = 0; d < 4; d++) {
@@ -2855,7 +3335,7 @@ void DrawView(const Game& g, int me, int vx, int vw) {
         if (sc.a) DrawRectangle(vx, 0, vw, VH, sc);
         Color tint = DayTint(WorldHour(g));
         if (tint.a) DrawRectangle(vx, 0, vw, VH, tint);
-        std::string wx = WorldWeatherAt(g, m);
+        std::string wx = WorldWeatherAt(g, m, w.x, w.y);
         if (wx == "sun") { if (!IsNight(StoryClock(g))) DrawRectangle(vx, 0, vw, VH, Color{255, 230, 150, 22}); }
         else if (!wx.empty()) DrawMapWeather(wx, vx, vw, g.t);
     }
@@ -2875,7 +3355,9 @@ void DrawView(const Game& g, int me, int vx, int vw) {
     }
     if (!w.msg.empty()) {
         bool asking = w.msgPage >= (int)w.msg.size() - 1 && !w.choices.empty();
-        DrawBox(vx + 12, VH - 76, vw - 24, 64, w.msg[std::min(w.msgPage, (int)w.msg.size() - 1)], !asking);
+        const std::string& page = w.msg[std::min(w.msgPage, (int)w.msg.size() - 1)];
+        if (page.rfind("braille:", 0) == 0) DrawBrailleBox(vx + 12, VH - 76, vw - 24, 64, page);
+        else DrawBox(vx + 12, VH - 76, vw - 24, 64, page, !asking);
         if (asking) {   // the question's answers, over the right of the box
             int bw = 40;
             for (const auto& ch : w.choices) bw = std::max(bw, TextW(ch.first.c_str(), 10) + 30);
@@ -3078,8 +3560,9 @@ Weather WorldBattleWeather(const Game& g, int clock) {
     return DayBattleWeather(clock);
 }
 namespace {
-std::string WorldWeatherAt(const Game& g, const OwMap& m) {   // what's falling on this map now ("" clear)
+std::string WorldWeatherAt(const Game& g, const OwMap& m, int x, int y) {   // what's falling on this map now ("" clear)
     if (m.indoor) return "";
+    for (const auto& z : m.wxZones) if (x >= z.x0 && x <= z.x1 && y >= z.y0 && y <= z.y1) return z.wx;
     if (!m.weather.empty()) return m.weather;
     return DayWeather(StoryClock(g));
 }
@@ -3087,11 +3570,30 @@ std::string WorldWeatherAt(const Game& g, const OwMap& m) {   // what's falling 
 namespace {
 void NoteBattleWeather(const Game& g, int i) {   // a battle starts here: its weather is the map's
     const OwMap& m = MapOf(g.ow.w[i]);
-    std::string wx = WorldWeatherAt(g, m);
+    std::string wx = WorldWeatherAt(g, m, g.ow.w[i].x, g.ow.w[i].y);
     gBattleWx = (int)(wx == "rain" ? Weather::Rain : wx == "snow" ? Weather::Snow : wx == "sand" ? Weather::Sand
                       : wx == "sun" && !IsNight(StoryClock(g)) ? Weather::Sun : Weather::None);
 }
 } // namespace
+
+std::string WorldMatchCall(Game& g) {   // the Pokenav from the Bag: who's registered, and who wants a rematch
+    if (!g.ow.active || !WorldAvailable()) return "Use it out in the world.";
+    int i = std::max(0, std::min(1, g.ow.menuWho));
+    OwWalker& w = g.ow.w[i];
+    if (w.map < 0) return "Use it out in the world.";
+    int reg = 0;
+    std::string ready;
+    for (const auto& m : gMaps)
+        for (const auto& n : m.npcs) {
+            if (!McRegistered(g, n)) continue;
+            reg++;
+            if (RematchTier(g, n) > 0) ready += "|" + n.args[0] + " - waiting on " + m.name;
+        }
+    if (reg == 0) { Say(w, "Pokenav - Match Call|No Trainers registered yet. Beat Hoenn's Trainers and they'll keep in touch!"); return ""; }
+    Say(w, std::string("Pokenav - Match Call|") + TextFormat("%d Trainer%s registered.", reg, reg == 1 ? "" : "s") +
+           (ready.empty() ? "|Nobody's asked for a rematch just now. They'll call you as you travel." : "|They want a rematch:" + ready));
+    return "";
+}
 
 std::string WorldVsSeeker(Game& g) {
     if (!g.ow.active || !WorldAvailable()) return "Use it out in the world, near Trainers you've beaten.";

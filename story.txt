@@ -628,7 +628,7 @@ league = 5
 [region]
 name = Johto
 map_image = johto.png
-start_level = 60
+start_level = 5
 town = New Bark Town, 973, 623
 town = Cherrygrove City, 705, 616
 town = Violet City, 598, 348
@@ -1106,7 +1106,8 @@ postgame = yes
 # ==========================================================================
 #  HOENN - opens once Johto's Champion Lance is beaten ("Travel to Hoenn!" on the Story menu).
 #  Red on Mt. Silver is a post-game challenge now (from the Map), so he doesn't block the way.
-#  Professor Birch gives a third starter at your team's average -3 (at least start_level); May,
+#  Professor Birch gives a third starter at level 5 (start_level: every region's starter is a level 5, so you
+#  can run a fresh team from the start of any region - its gyms still never go below their own levels); May,
 #  his daughter, takes one that beats yours (co-op: two of the seven left). "rival" below is hers.
 #  Hoenn follows your team: every stage is "level = +N" over your average, with a floor (the
 #  average never counts as lower than it) so a low-level tag-along can't make a gym easy.
@@ -1120,8 +1121,7 @@ postgame = yes
 [region]
 name = Hoenn
 map_image = hoenn.png
-start_level = 85
-start_avg = -3
+start_level = 5
 rival = May
 intro = Professor Birch is being chased by a wild Zigzagoon on Route 101! Grab a Poke Ball from his bag, {name} - it's level {level}.
 watch = Birch's daughter May is watching from the path... she'll pick the one that beats yours.
@@ -1684,7 +1684,7 @@ postgame = yes
 
 # ==========================================================================
 #  SINNOH - follows Pokemon Platinum, from Twinleaf Town to Champion Cynthia, then the Battle Zone.
-#  Professor Rowan gives a fourth starter at your team's average -3 (at least start_level). Barry,
+#  Professor Rowan gives a fourth starter at level 5 (start_level, as every region). Barry,
 #  your neighbor, takes one that beats yours (co-op: two of the ones left). "rival" below is his.
 #  Every stage is "level = +N" over your average, with a floor (88 rising to 96).
 #  rival_sinnoh1 / rival_sinnoh2: Barry's two partners (Platinum: the two of Buizel, Ponyta and
@@ -1694,8 +1694,7 @@ postgame = yes
 [region]
 name = Sinnoh
 map_image = sinnoh.png
-start_level = 90
-start_avg = -3
+start_level = 5
 rival = Barry
 dex = 387-493
 intro = Professor Rowan steps out of the tall grass by Lake Verity with his briefcase open. "Wandering in there with no Pokemon? Then choose one, {name} - it's level {level}."
@@ -2488,8 +2487,7 @@ postgame = yes
 [region]
 name = Unova
 map_image = unova.png
-start_level = 94
-start_avg = -3
+start_level = 5
 rival = Cheren
 dex = 494-649
 intro = Professor Juniper's gift box is waiting in your room, {name}: three Pokemon, one each for you, Cheren and Bianca. You get first pick - it's level {level}.

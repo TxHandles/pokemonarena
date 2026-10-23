@@ -130,6 +130,18 @@ std::string LookText(const TrainerLook& l) {
     "hg_kimono_girl", "hg_lass", "hg_captain", "hg_dark_girl", "hg_spiky_punk", "hg_eusine", "hg_elder", "hg_tank_man", "hg_pink_girl", \
     "hg_green_girl", "hg_navy_girl", "hg_cap_girl", "hg_hat_girl", "hg_grandpa", "hg_giovanni", "hg_bearded_man", "hg_sage", \
     "hg_petrel", "hg_proton", "hg_worker"
+// Emerald's people (tools/emerald_sprites.py)
+#define EM_PEOPLE "em_brendan", "em_may", "em_prof_birch", "em_roxanne", "em_brawly", "em_wattson", "em_flannery", "em_norman", \
+    "em_winona", "em_tate", "em_liza", "em_juan", "em_sidney", "em_phoebe", "em_glacia", "em_drake", "em_wallace", "em_steven", \
+    "em_wally", "em_maxie", "em_archie", "em_scott", "em_anabel", "em_tucker", "em_spenser", "em_greta", "em_noland", "em_lucy", \
+    "em_brandon", "em_mom", "em_aqua_member_f", "em_aqua_member_m", "em_magma_member_f", "em_magma_member_m", "em_artist", \
+    "em_beauty", "em_black_belt", "em_boy_1", "em_boy_2", "em_boy_3", "em_bug_catcher", "em_cameraman", "em_camper", "em_cook", \
+    "em_devon_employee", "em_expert_f", "em_expert_m", "em_fat_man", "em_fisherman", "em_gameboy_kid", "em_gentleman", "em_girl_1", \
+    "em_girl_2", "em_girl_3", "em_hex_maniac", "em_hiker", "em_lass", "em_little_boy", "em_little_girl", "em_maniac", "em_man_1", \
+    "em_man_2", "em_man_3", "em_man_4", "em_man_5", "em_ninja_boy", "em_old_man", "em_old_woman", "em_picnicker", "em_pokefan_f", \
+    "em_pokefan_m", "em_psychic_m", "em_reporter_f", "em_reporter_m", "em_rich_boy", "em_running_triathlete_f", \
+    "em_running_triathlete_m", "em_sailor", "em_school_kid_m", "em_scientist_1", "em_swimmer_f", "em_swimmer_m", "em_teala", \
+    "em_tuber_f", "em_tuber_m", "em_twin", "em_woman_1", "em_woman_2", "em_woman_3", "em_woman_4", "em_woman_5", "em_youngster"
 static const std::vector<std::string>& Filter(std::vector<std::string>& cache, std::initializer_list<const char*> want) {
     LoadSheets();
     if (cache.empty()) for (const char* n : want) if (RowOf(n) >= 0) cache.push_back(n);
@@ -142,7 +154,7 @@ const std::vector<std::string>& LookHeads() {
                       "cooltrainer_f", "black_belt", "crush_girl", "hiker", "sailor", "fisher", "rocker", "swimmer_m_land", "swimmer_f_land",
                       "rocket_m", "rocket_f", "boy", "little_girl", "woman_1", "woman_2", "woman_3", "man", "scientist", "poke_maniac",
                       "gym_guy", "worker_m", "worker_f", "chef", "policeman", "gentleman", "channeler", "misty", "brock", "erika", "lorelei",
-                      "sabrina", "lance", "bill", "daisy", "mom", "nurse", "old_man_1", "old_woman", HG_PEOPLE});
+                      "sabrina", "lance", "bill", "daisy", "mom", "nurse", "old_man_1", "old_woman", HG_PEOPLE, EM_PEOPLE});
 }
 const std::vector<std::string>& LookBodies() {
     static std::vector<std::string> v;
@@ -150,7 +162,7 @@ const std::vector<std::string>& LookBodies() {
                       "cooltrainer_f", "black_belt", "crush_girl", "hiker", "sailor", "fisher", "rocker", "swimmer_m_land", "swimmer_f_land",
                       "rocket_m", "rocket_f", "boy", "little_girl", "woman_1", "woman_2", "woman_3", "man", "scientist", "poke_maniac",
                       "gym_guy", "worker_m", "worker_f", "chef", "policeman", "gentleman", "channeler", "misty", "brock", "erika", "lorelei",
-                      "sabrina", "lance", "bill", "daisy", "mom", "nurse", HG_PEOPLE});
+                      "sabrina", "lance", "bill", "daisy", "mom", "nurse", HG_PEOPLE, EM_PEOPLE});
 }
 const std::vector<const char*>& LookColourNames() {
     static std::vector<const char*> v;

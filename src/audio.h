@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 // Sound effects: FireRed / LeafGreen's own (Sounds/<name>.ogg, made by tools/frlg_sounds.py), with small
 // synthesized ones for anything that has no file (and as a fallback if the Sounds folder is missing).
@@ -11,6 +12,7 @@ const char* SfxName(Sfx s);   // its file name in Sounds/ ("menu_move")
 // false if it has none (play the type's sound instead).
 bool PlayMoveSfx(const char* move);
 
+void SetSfxSet(const std::string& set);   // a region's own sounds (Sounds/<set>/, e.g. "Hoenn"); "" the usual ones
 void InitSfx();                                   // after InitAudioDevice
 void UnloadSfx();
 void SetSfxVolume(float master, float effects);   // 0..1 each

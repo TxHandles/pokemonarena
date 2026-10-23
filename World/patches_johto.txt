@@ -169,3 +169,8 @@ npc = 7 3 hg_grandpa down 0 daycare|I'm the Day-Care Man. Leave two Pokemon that
 # HeartGold's own weather: it always rains on Route 33 and at the Lake of Rage (the rest follows the day's weather)
 [patch Route 33]
 set weather = rain
+
+# ------------------------------------------------------------------ to Hoenn: the S.S. Tidal, once its League is beaten
+[patch Olivine Port]
+npc = 5 2 sailor down 0 sailto|The S.S. Tidal sails for Hoenn from here. Where to?|done:Hoenn|Sorry, the S.S. Tidal only takes Trainers who've conquered Hoenn's League.|Slateport City (Hoenn);Slateport City Harbor;9;12;up|Lilycove City (Hoenn);Lilycove City Harbor;9;12;up|Battle Frontier (Hoenn);Battle Frontier West;20;67;up
+if = done:Hoenn

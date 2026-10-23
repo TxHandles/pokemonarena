@@ -185,10 +185,34 @@ void BeginTeamSelect(Game& g) {
     if (TwoHumans(g) && g.shared) g.cursor[1] = std::min(GRID_COLS - 1, (int)g.roster[0].size() - 1);
     g.teamSize = IsStoryMode(g.mode) ? MAX_TEAM_SIZE : Cfg().teamSize;
     if (g.mode == Mode::Doubles) g.teamSize = std::min(3, g.teamSize);
+    if (g.tower && g.frontier == 5) {   // the Battle Factory: six rental Pokemon each to pick from (your own rest)
+        for (int p = 0; p < (IsCoop(g.mode) ? 2 : 1); p++) {
+            const Profile& P = IsCoop(g.mode) ? g.coopP[p] : g.profile;
+            int sum = 0, n = 0;
+            for (const auto& m : P.mons) if (!m.boxed) { sum += m.level; n++; }
+            int lv = std::max(10, n ? sum / n : 50);
+            Profile rent;
+            uint32_t h = g.towerSeed ^ ((uint32_t)g.towerFloor * 2654435761u) ^ ((uint32_t)p * 40503u);
+            const auto& all = AllSpecies();
+            for (int k = 0, tries = 0; k < 6 && tries < 400; tries++) {
+                h ^= h >> 13; h *= 0x5bd1e995u; h ^= h >> 15;
+                int si = (int)(h % (uint32_t)all.size());
+                if (all[si].legendary || IsMegaForm(si) || !all[si].megaOf.empty()) continue;
+                int ev = EvolvedFormAt(si, lv);
+                bool dup = false;
+                for (const auto& m : rent.mons) dup |= m.species == all[ev].name;
+                if (dup) continue;
+                rent.mons.push_back(NewMon(ev, lv));
+                k++;
+            }
+            g.roster[p] = ProfileRoster(rent, true);
+            for (auto& e : g.roster[p]) e.ownedId = -1;   // (not yours: the results leave your Pokemon alone)
+        }
+    }
     if (g.tower)   // the Battle Tower heals everyone: anyone in the party can fight
         for (int p = 0; p < 2; p++) for (auto& e : g.roster[p]) e.hpFrac = 1;
     if (IsCoop(g.mode)) g.teamSize = g.raid ? MAX_TEAM_SIZE : 3;  // each player brings up to 3 of their party (a raid: 6)
-    else if (g.tower) g.teamSize = TowerTeamSize(g.towerFloor);
+    else if (g.tower) g.teamSize = g.frontier ? Frontier(g.frontier).teamSize : TowerTeamSize(g.towerFloor);
     else if (IsStoryMode(g.mode)) g.teamSize = std::min(g.teamSize, HealthyCount(g.profile));
     if (!IsCoop(g.mode))  // co-op: each player locks in early if they have fewer
         for (int p = 0; p < HumanPickers(g); p++) g.teamSize = std::min(g.teamSize, (int)g.roster[p].size());
@@ -996,6 +1020,20 @@ void StartBattleFromSelect(Game& g) {
                        : su.arena == ArenaKind::Ember ? Weather::Sun : su.arena == ArenaKind::DesertRuins ? Weather::Sand : Weather::None;
         }
     }
+    if (g.tower && g.frontier) {   // the Battle Frontier's rules
+        for (int k = 0; k < (int)su.side.size(); k++) {
+            SideSetup& sd = su.side[k];
+            int team = sd.team_ >= 0 ? sd.team_ : k;
+            if (team != 0) continue;
+            if (g.frontier == 3) { sd.cpu = true; sd.level = AILevel::Hard; }   // the Palace: your Pokemon fight on their own
+            if (g.frontier == 7) for (int h = 0; h < 4; h++) sd.hotN[h] = 0;    // the Pyramid: no items
+        }
+        if (g.frontier == 4) su.judgeTime = 93;   // the Arena: 90 seconds (after the intro), then the judges
+    }
+    gBallOwned.clear();   // (the Repeat Ball: species you've caught; the Dive Ball: met on or under the water)
+    for (int k = 0; k < (g.coop ? 2 : 1); k++)
+        for (const auto& m : Prof(g, k).mons) if (MonSpecies(m) >= 0) gBallOwned.insert(MonSpecies(m));
+    gBallWater = WorldBattleOnWater(g);
     g.battle.Start(su);
     g.paused = false;
     g.pauseSel = 0;

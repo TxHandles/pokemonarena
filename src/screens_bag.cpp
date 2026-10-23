@@ -7,6 +7,7 @@
 #include "arena.h"
 #include "audio.h"
 #include "game.h"
+#include "berries.h"
 #include "items.h"
 #include "input.h"
 #include "legend.h"
@@ -136,6 +137,14 @@ void DrawItemIcon(const ItemDef& d, float cx, float cy, float s) {
         DrawCircleV({cx, cy}, 4.8f * s, ColorBrightness(c, -0.45f));
         DrawCircleV({cx, cy}, 3.8f * s, c);
         DrawCircleV({cx - 1.4f * s, cy - 1.4f * s}, 1.0f * s, Fade(WHITE, 0.8f));
+    } else if (d.fx == ItemFx::PartyUse && d.boost >= 100) {   // a Pokeblock: a little cube in its strongest flavour's colour
+        static const Color kFl[5] = {{240, 90, 70, 255}, {90, 150, 255, 255}, {255, 140, 200, 255}, {110, 210, 110, 255}, {250, 200, 60, 255}};
+        const BerryInfo& b = BerryAt(d.boost - 100);
+        int best = 0;
+        for (int k = 1; k < 5; k++) if (b.flavor[k] > b.flavor[best]) best = k;
+        DrawRectangleRounded({cx - 4.5f * s, cy - 4.5f * s, 9 * s, 9 * s}, 0.35f, 4, ColorBrightness(kFl[best], -0.45f));
+        DrawRectangleRounded({cx - 3.6f * s, cy - 3.6f * s, 7.2f * s, 7.2f * s}, 0.35f, 4, kFl[best]);
+        DrawCircleV({cx - 1.6f * s, cy - 1.6f * s}, 1.0f * s, Fade(WHITE, 0.7f));
     } else if (d.fx == ItemFx::PartyUse) {   // a candy / a drink bottle / a revive crystal
         Color c = d.name == "Rare Candy" ? Color{120, 160, 240, 255} : d.value > 0 ? Color{250, 220, 80, 255} : Color{230, 120, 70, 255};
         DrawPoly({cx, cy}, d.value > 0 ? 4 : 6, 5 * s, 45, ColorBrightness(c, -0.4f));
@@ -212,8 +221,8 @@ void UpdateBag(Game& g) {
     if (in.confirm && n > 0) {
         const auto rows = Rows(g, g.bagTab);
         const BagRow& r = rows[std::min(g.bagSel, n - 1)];
-        if (r.item && (r.item->name == "Bicycle" || r.item->name == "VS Seeker")) {   // get on (or off) and go; look for rematches
-            std::string why = r.item->name == "Bicycle" ? WorldToggleBike(g) : WorldVsSeeker(g);
+        if (r.item && (r.item->name == "Bicycle" || r.item->name == "VS Seeker" || r.item->name == "Pokenav")) {   // get on (or off) and go; look for rematches
+            std::string why = r.item->name == "Bicycle" ? WorldToggleBike(g) : r.item->name == "Pokenav" ? WorldMatchCall(g) : WorldVsSeeker(g);
             if (!why.empty()) { Toast(g, why); PlaySfx(Sfx::MenuBack); }
             else { PlaySfx(Sfx::MenuOk); EnterStoryHub(g); }
             return;

@@ -30,6 +30,8 @@ struct OwnedMon {
     int eggSteps = 0;                  // an Egg (Profile::eggs): steps left until it hatches
     std::string metAt;                 // where it was met / hatched ("Day Care" for an Egg)
     int dcLevel = 0;                   // at the Day Care: the level it was left at
+    int cond[6] = {0, 0, 0, 0, 0, 0};  // Contest condition from Pokeblocks: Cool, Beauty, Cute, Smart, Tough (0-255), sheen
+    std::vector<std::string> ribbons;  // Contest ribbons won ("Cool Ribbon Super")
 };
 
 struct Profile {

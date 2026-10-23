@@ -338,6 +338,42 @@ Department Store, Team Rocket's HQ, the Lighthouse, the Whirl Islands and the Jo
 - To Kanto and back, once you've beaten a Pokemon League: the S.S. Aqua (Olivine Port / Vermilion City), the
   Magnet Train (Goldenrod / Saffron) and the Pokemon League Reception Gate (Route 26 / Route 22).
 
+### Hoenn (Emerald)
+
+Hoenn is walked as well, Littleroot Town to the Battle Frontier: every town, route, cave, sea route and the
+underwater maps (World/hoenn.txt, 359 maps, made from **pret/pokeemerald** by `tools/emerald_world.py`, which draws
+the maps from Emerald's own tilesets with `tools/emerald_render.py` and merges World/patches_hoenn.txt). Day and
+night, the weather and every system from Kanto and Johto work the same here.
+
+- The opening: your room in Littleroot, Prof. Birch chased by a Zigzagoon on Route 101 and his bag of three Poke
+  Balls (Treecko, Torchic, Mudkip at level 5 - a new region always starts at 5 if you want it to; gyms never go
+  below their real levels). May takes the one strong against yours.
+- Route trainers have Emerald's teams; 90 of them register in the **Pokenav** (Mr. Stone gives it you in
+  Rustboro) and call for a **rematch** now and then with their stronger rematch teams.
+- **HM08 Dive** (the Mind Badge): dive on dark deep water while surfing, come up where light filters down. Hoenn's
+  field moves use Hoenn's badges. Mr. Briney sails you from Route 104 to Dewford and Slateport.
+- Weather by place: Route 119/120's rain, Route 113's falling ash, the sandstorm in Route 111's desert, the shade
+  and bubbles under the sea.
+- **Berry trees**: soft soil all over Hoenn. Pick ripe berries, plant them, water them with the Wailmer Pail - they
+  sprout, grow, flower and fruit over game hours (World/berrytrees.png, Emerald's 43 berries).
+- **Braille**: the Sealed Chamber and the three regi tombs read their braille (drawn as dots) and their puzzles
+  are Emerald's (Dig, standing still, walking the Island Cave's wall...).
+- **Contests** in Lilycove's Contest Hall: Cool, Beauty, Cute, Smart and Tough at Normal, Super, Hyper and Master
+  Rank, with Emerald's moves, effects and 95 contestants (`tools/emerald_contest.py`). Primary Judging scores
+  condition; then five appeals with combos, jamming, the crowd meter and the repeated-move penalty. Win a ribbon to
+  open the next rank. The Berry Blenders turn a berry into a Pokeblock - feed it from Party & Box (the nature's
+  favourite flavour gives a little more; sheen caps how many it eats).
+- The **Battle Frontier** (after the League, by the S.S. Tidal from Slateport or Lilycove): the Tower, Dome (two-
+  Pokemon tournaments), Palace (your Pokemon fight on their own), Arena (three-round judged bouts), Factory (rental
+  Pokemon), Pike (three doors per room) and Pyramid, each with its Frontier Brain and silver / gold Symbols at
+  Emerald's streaks.
+- Ferries between regions after a League: the S.S. Tidal joins Vermilion, Olivine and Hoenn.
+
+### The Sevii Islands
+
+FireRed's islands have their story: the bikers on Three Island and Paxton, the Hypno in Berry Forest, Team Rocket in
+Icefall Cave and Lorelei, Gideon in the Dotted Hole, the Rocket Warehouse and the Sapphire, Mt. Ember's password.
+
 ## Levels and evolution
 
 - Species use real Pokedex base stats (`sp_attack`/`sp_defense` optional, averaged in); battle
@@ -642,3 +678,9 @@ reacts fast and aims perfectly: Easy wins ~9%, Normal ~31%, Hard ~57%.
   and the doors, people, lines and trainers come from **pret/pokeheartgold** (`tools/hgss_world.py`).
 - HeartGold / SoulSilver trainer overworld sprites: "Trainers (Overworld)" ripped by **Dragoon** for The Spriters
   Resource (`tools/hgss_sprites.py`).
+- Hoenn's walked maps, people, lines, trainers, Contests and berries: **pret/pokeemerald** (and **pret/pokefirered**
+  for the Sevii story). Hoenn's sound effects: Pokemon Emerald's (`tools/emerald_sounds.py` picks 29 by their number
+  in pokeemerald's songs.h into `Sounds/Hoenn/`).
+- Emerald overworld sprites (The Spriters Resource and DeviantArt rips): the Gym Leaders and Elite Four by
+  **MufasaKong**, the NPC sheet by **Furs The Fox**, Steven by **Boo**, Wally by **castiboy**, and the Frontier Brains
+  by **soulcaliburfan** (`tools/emerald_sprites.py`; these are their rips, not ours).

@@ -214,6 +214,22 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "egg_steps") cur->eggSteps = std::max(0, iv);
             else if (k == "met") cur->metAt = v;
             else if (k == "dc_level") cur->dcLevel = std::max(0, iv);
+            else if (k == "contest") {
+                std::sscanf(v.c_str(), "%d %d %d %d %d %d", &cur->cond[0], &cur->cond[1], &cur->cond[2], &cur->cond[3], &cur->cond[4], &cur->cond[5]);
+                for (int& c : cur->cond) c = std::max(0, std::min(255, c));
+            } else if (k == "ribbons") {
+                cur->ribbons.clear();
+                size_t a = 0;
+                while (a <= v.size()) {
+                    size_t b = v.find('|', a);
+                    std::string r = v.substr(a, b == std::string::npos ? std::string::npos : b - a);
+                    while (!r.empty() && r.front() == ' ') r.erase(r.begin());
+                    while (!r.empty() && r.back() == ' ') r.pop_back();
+                    if (!r.empty()) cur->ribbons.push_back(r);
+                    if (b == std::string::npos) break;
+                    a = b + 1;
+                }
+            }
             else if (k == "forgotten") {
                 cur->forgotten.clear();
                 std::string part;
@@ -289,6 +305,9 @@ static void MonText(std::string& o, const OwnedMon& m, const char* section) {
     if (m.eggSteps > 0) o += TextFormat("egg_steps = %d\n", m.eggSteps);
     if (!m.metAt.empty()) o += "met = " + m.metAt + "\n";
     if (m.dcLevel > 0) o += TextFormat("dc_level = %d\n", m.dcLevel);
+    if (m.cond[0] || m.cond[1] || m.cond[2] || m.cond[3] || m.cond[4] || m.cond[5])
+        o += TextFormat("contest = %d %d %d %d %d %d\n", m.cond[0], m.cond[1], m.cond[2], m.cond[3], m.cond[4], m.cond[5]);
+    if (!m.ribbons.empty()) { std::string r; for (const auto& x : m.ribbons) r += (r.empty() ? "" : " | ") + x; o += "ribbons = " + r + "\n"; }
 }
 
 std::string ProfileToText(const Profile& p) {

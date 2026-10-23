@@ -149,11 +149,23 @@ const char* kSfxNames[(int)Sfx::Count] = {"shoot", "zap", "fire", "water", "thud
     "ball_throw", "ball_shake", "ball_open", "caught", "flee", "door", "bump", "ledge", "save", "shiny", "egg_hatch", "repel", "shop",
     "item_get", "center_heal"};
 const char* SfxName(Sfx s) { return kSfxNames[(int)s]; }
+std::string gSfxSet;                          // the region's own sounds: Sounds/<set>/ (Hoenn: Emerald's), "" the usual
+std::string gSfxPath[(int)Sfx::Count];        // the file each slot has now ("" synthesized)
+void SetSfxSet(const std::string& set) {   // "Hoenn": Sounds/Hoenn/ over the usual ones (back with "")
+    if (!gReady || set == gSfxSet) return;
+    gSfxSet = set;
+    LoadSfxFiles();
+}
 
 void LoadSfxFiles() {
     for (int i = 0; i < (int)Sfx::Count; i++) {
         std::string path = DataDir() + "Sounds/" + kSfxNames[i] + ".ogg";
-        if (!FileExists(path.c_str())) continue;
+        if (!gSfxSet.empty()) {   // this region's own, where it has one
+            std::string own = DataDir() + "Sounds/" + gSfxSet + "/" + kSfxNames[i] + ".ogg";
+            if (FileExists(own.c_str())) path = own;
+        }
+        if (!FileExists(path.c_str()) || path == gSfxPath[i]) continue;
+        gSfxPath[i] = path;
         Sound snd = LoadSound(path.c_str());
         if (!IsSoundValid(snd)) continue;
         Slot& s = gSlots[i];

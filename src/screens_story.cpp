@@ -359,10 +359,85 @@ void BeginTowerFloor(Game& g, int floor, uint32_t seed) {
     g.screen = Screen::StageIntro;
 }
 
+// ---- the Battle Frontier
+const FrontierInfo kFrontier[FRONTIER_COUNT + 1] = {
+    {"", "", "", 0, 0, 3, "", {"", ""}},
+    {"Battle Tower", "Salon Maiden Anabel", "Ability", 35, 70, 3, "Win battle after battle, three Pokemon each.",
+     {"Alakazam, Entei, Snorlax", "Raikou, Latios, Snorlax"}},
+    {"Battle Dome", "Dome Ace Tucker", "Tactics", 20, 40, 2, "Tournaments of four battles - two of your Pokemon each time. Win them to take the cup.",
+     {"Swampert, Salamence, Charizard", "Swampert, Metagross, Latias"}},
+    {"Battle Palace", "Palace Maven Spenser", "Spirits", 21, 42, 3, "Your Pokemon battle on their own, following their hearts. You only watch.",
+     {"Crobat, Slaking, Lapras", "Arcanine, Slaking, Suicune"}},
+    {"Battle Arena", "Arena Tycoon Greta", "Guts", 28, 56, 3, "A 90-second bout. When time's up, the judges give it to whoever has the most HP left.",
+     {"Heracross, Umbreon, Shedinja", "Umbreon, Gengar, Breloom"}},
+    {"Battle Factory", "Factory Head Noland", "Knowledge", 21, 42, 3, "Battle with rental Pokemon - pick three of six we lend you. Your own Pokemon rest.",
+     {"Metang, Skarmory, Aggron", "Metang, Skarmory, Aggron"}},
+    {"Battle Pike", "Pike Queen Lucy", "Luck", 28, 140, 3, "Choose one of three doors in every room: a battle, a rest... or a wild Pokemon.",
+     {"Seviper, Shuckle, Milotic", "Seviper, Steelix, Gyarados"}},
+    {"Battle Pyramid", "Pyramid King Brandon", "Brave", 21, 70, 3, "Climb the Pyramid floor by floor against the wild Pokemon living in it - no items.",
+     {"Regirock, Registeel, Regice", "Articuno, Zapdos, Moltres"}},
+};
+const FrontierInfo& Frontier(int fac) { return kFrontier[fac < 1 || fac > FRONTIER_COUNT ? 0 : fac]; }
+int FrontierBrainAt(int fac, int n) {
+    const FrontierInfo& f = Frontier(fac);
+    if (f.silver <= 0) return 0;
+    if (n == f.silver) return 1;
+    if (n == f.gold || (n > f.gold && (n - f.gold) % f.silver == 0)) return 2;   // (and again every so often)
+    return 0;
+}
+int FrontierStreak(const Game& g, int fac, int* best, int* runs) {
+    const auto& fl = g.coop ? g.coopSave.owFlags : g.profile.owFlags;
+    std::string key = "fr:" + std::to_string(fac) + "|";
+    int s = 0, b = 0, r = 0;
+    for (const auto& f : fl)
+        if (f.rfind(key, 0) == 0) { std::sscanf(f.c_str() + key.size(), "%d|%d|%d", &s, &b, &r); break; }
+    if (best) *best = b;
+    if (runs) *runs = r;
+    return s;
+}
+void SetFrontierStreak(Game& g, int fac, int streak, int best, int runs) {
+    auto& fl = g.coop ? g.coopSave.owFlags : g.profile.owFlags;
+    std::string key = "fr:" + std::to_string(fac) + "|";
+    for (auto it = fl.begin(); it != fl.end();) it = it->rfind(key, 0) == 0 ? fl.erase(it) : std::next(it);
+    fl.insert(key + std::to_string(streak) + "|" + std::to_string(best) + "|" + std::to_string(runs));
+}
+void BeginFrontierBattle(Game& g, int fac) {
+    int runs = 0;
+    int streak = FrontierStreak(g, fac, nullptr, &runs);
+    uint32_t seed = TowerSeedFor(g) ^ ((uint32_t)fac * 0x85EBCA6Bu) ^ ((uint32_t)runs * 0xC2B2AE35u);
+    BeginTowerFloor(g, streak + 1, seed);
+    g.frontier = fac;
+}
+StageDef FrontierStage(const Game& g) {
+    int fac = g.frontier, n = std::max(1, g.towerFloor);
+    const FrontierInfo& F = Frontier(fac);
+    StageDef st = TowerStage(n % 10 == 0 ? n - 1 : n, g.towerSeed);   // (the Tower's Gym Leader floors are its own)
+    st.towerFloor = n;
+    st.name = std::string(F.name) + TextFormat(" - Battle %d", n);
+    if (fac == 2) st.name = std::string(F.name) + TextFormat(" - Tournament %d, %s", (n - 1) / 4 + 1, (n - 1) % 4 == 3 ? "Final" : (n - 1) % 4 == 2 ? "Semifinal" : TextFormat("Round %d", (n - 1) % 4 + 1));
+    if (fac == 7) { st.trainer = "Wild Pokemon"; st.venue = "cave"; }
+    if (int brain = FrontierBrainAt(fac, n)) {   // the Frontier Brain, with their Emerald team
+        st.trainer = F.brain;
+        st.team.clear();
+        std::string list = F.team[brain - 1];
+        for (size_t a = 0, b; a < list.size(); a = b + 1) {
+            b = list.find(',', a);
+            if (b == std::string::npos) b = list.size();
+            std::string e = list.substr(a, b - a);
+            while (!e.empty() && e[0] == ' ') e.erase(0, 1);
+            if (!e.empty()) st.team.push_back(e + (brain == 2 ? " +3" : " +1"));
+        }
+        st.venue = "stadium";
+        st.cpu = AILevel::Hard;
+        st.name = std::string(F.name) + " - " + F.brain + (brain == 2 ? " (Gold)" : " (Silver)");
+    }
+    return st;
+}
+
 StageDef ActiveStage(const Game& g) {
     if (g.owFight) return g.owStage;
     if (g.legend >= 0) return LegendStage(g.legend);
-    if (g.tower) return TowerStage(g.towerFloor, g.towerSeed);
+    if (g.tower) return g.frontier ? FrontierStage(g) : TowerStage(g.towerFloor, g.towerSeed);
     const auto& stages = Story().stages;
     if (stages.empty()) return StageDef();
     StageDef st = stages[std::max(0, std::min((int)stages.size() - 1, g.stageIdx))];
@@ -404,6 +479,7 @@ void OpenHealingCenter(Game& g) {
 void EnterStoryHub(Game& g) {
     ApplySaveOrder(g);   // the story laid out in this save's region order
     g.tower = false;
+    g.frontier = 0;
     g.raid = false;
     g.owFight = false;
     g.legend = -1;
@@ -564,6 +640,7 @@ std::string PrettyPerson(const std::string& n) {
     if (n == "leaf") return "Leaf";
     if (n == "rival") return "Blue";
     if (n.rfind("hg_", 0) == 0) return PrettyPerson(n.substr(3)) + " (HGSS)";   // HeartGold / SoulSilver's people
+    if (n.rfind("em_", 0) == 0) return PrettyPerson(n.substr(3)) + " (Emerald)";   // Emerald's people
     std::string o;
     bool up = true;
     for (char ch : n) {
@@ -1812,6 +1889,7 @@ bool PartyItemHelps(const OwnedMon& m, const ItemDef& d) {
     if (!IsPartyUse(d)) return false;
     if (int k = VitaminSlot(d); k >= 0) return m.ev[k] < EV_STAT_MAX && EvTotal(m) < EV_TOTAL_MAX;
     if (int k = EvBerrySlot(d); k >= 0) return m.ev[k] > 0;
+    if (d.boost >= 100) return m.cond[5] < 255 && m.eggSteps <= 0;   // a Pokeblock
     if (d.value > 0) return m.hp <= 0;   // Revive
     return m.level < MAX_LEVEL;          // Rare Candy
 }
@@ -2056,6 +2134,12 @@ void UpdateMyCreatures(Game& g) {
                 int got = AddEvs(m, add);
                 Toast(g, TextFormat("%s's base %s rose! (%d EVs, +%d)", MonName(m).c_str(), kWhat[k], m.ev[k], got));
                 m.friendship = std::min(MAX_FRIENDSHIP, m.friendship + 3);
+                SaveOrWarn(g);
+                PlaySfx(Sfx::Buff);
+                return;
+            }
+            if (d->boost >= 100) {   // a Pokeblock: Contest condition
+                Toast(g, FeedPokeblock(m, d->boost - 100));
                 SaveOrWarn(g);
                 PlaySfx(Sfx::Buff);
                 return;
@@ -2461,6 +2545,16 @@ void DrawMyCreatures(const Game& g) {
             GDrawText(TextFormat("Next: learns %s at level %d", e.move.name.c_str(), e.level), 212, 306, 10, Color{140, 220, 255, 255});
             break;
         }
+    }
+    if (m.cond[0] || m.cond[1] || m.cond[2] || m.cond[3] || m.cond[4] || m.cond[5] || !m.ribbons.empty()) {   // Contest condition and ribbons
+        static const Color kCc[5] = {{240, 90, 70, 255}, {90, 150, 255, 255}, {255, 140, 200, 255}, {110, 210, 110, 255}, {250, 200, 60, 255}};
+        GDrawText("Contest", 212, 320, 10, UI_DIM);
+        for (int k = 0; k < 5; k++) {
+            int x = 260 + k * 40;
+            DrawRectangle(x, 323, 34, 5, Color{40, 34, 52, 255});
+            DrawRectangle(x, 323, 34 * m.cond[k] / 255, 5, kCc[k]);
+        }
+        GDrawText(TextFormat("Sheen %d   %d ribbon%s", m.cond[5], (int)m.ribbons.size(), m.ribbons.size() == 1 ? "" : "s"), 464, 320, 10, m.ribbons.empty() ? UI_DIM : UI_GOLD);
     }
     {   // IVs and EVs, stat by stat (the Judge's colours: gold for a perfect 31)
         static const char* kCol[6] = {"HP", "Atk", "Def", "SpA", "SpD", "Spe"};
@@ -3051,7 +3145,29 @@ void ProcessStoryBattleEnd(Game& g) {
             }
         }
     }
-    if (g.tower) {   // the Battle Tower: a win climbs a floor, a loss ends the run
+    if (g.tower && g.frontier) {   // the Battle Frontier: a win adds to the facility's streak, a loss ends it
+        int fac = g.frontier, best = 0, runs = 0;
+        int streak = FrontierStreak(g, fac, &best, &runs);
+        const FrontierInfo& F = Frontier(fac);
+        if (g.won) {
+            streak = std::max(streak, g.towerFloor);
+            if (int brain = FrontierBrainAt(fac, g.towerFloor)) {
+                std::string sym = std::string("symbol:") + F.symbol + (brain == 2 ? ":gold" : ":silver");
+                auto& fl = coop ? g.coopSave.owFlags : g.profile.owFlags;
+                if (!fl.count(sym)) g.resultLines.push_back(std::string("You beat ") + F.brain + "! You earned the " + F.symbol + " Symbol (" + (brain == 2 ? "Gold" : "Silver") + ")!");
+                else g.resultLines.push_back(std::string("You beat ") + F.brain + " again!");
+                fl.insert(sym);
+            }
+            if (fac == 2 && streak % 4 == 0) g.resultLines.push_back(TextFormat("You won the tournament! (%d in a row)", streak / 4));
+            if (streak > best) { best = streak; g.resultLines.push_back(std::string("New ") + F.name + TextFormat(" record: %d wins in a row!", best)); }
+            else g.resultLines.push_back(TextFormat("%d wins in a row! Talk to the receptionist to go on.", streak));
+        } else {
+            g.resultLines.push_back(std::string("The challenge ends at ") + TextFormat("%d wins. Record: %d.", streak, best));
+            streak = 0;
+            runs++;
+        }
+        SetFrontierStreak(g, fac, streak, best, runs);
+    } else if (g.tower) {   // the Battle Tower: a win climbs a floor, a loss ends the run
         int& floor = coop ? g.coopSave.towerFloor : g.profile.towerFloor;
         int& best = coop ? g.coopSave.towerBest : g.profile.towerBest;
         int& runs = coop ? g.coopSave.towerRuns : g.profile.towerRuns;
@@ -3718,7 +3834,7 @@ void DrawStoryResults(const Game& g) {
     }
     if ((g.mode == Mode::Story || g.mode == Mode::CoopStory) && (g.stageIdx >= 0 || g.tower || g.legend >= 0)) {
         StageDef st = ActiveStage(g);
-        DrawTextCentered(g.tower ? TextFormat("Battle Tower floor %d  -  vs %s", g.towerFloor, st.trainer.c_str()) : TextFormat("vs %s", st.trainer.c_str()), VW / 2, 56, 10, UI_TEXT, false);
+        DrawTextCentered(g.frontier ? TextFormat("%s  -  vs %s", st.name.c_str(), st.trainer.c_str()) : g.tower ? TextFormat("Battle Tower floor %d  -  vs %s", g.towerFloor, st.trainer.c_str()) : TextFormat("vs %s", st.trainer.c_str()), VW / 2, 56, 10, UI_TEXT, false);
     }
     int y = 70;
     bool compact = g.resultRows.size() > 3;
@@ -5592,6 +5708,7 @@ void StartCoopRaid(Game& g) {
     g.stageIdx = -1;
     g.legend = -1;
     g.tower = false;
+    g.frontier = 0;
     g.mode = Mode::CoopTraining;
     g.rareBattle = false;
     g.raid = true;
@@ -5607,6 +5724,7 @@ void StartRaid(Game& g) {
     g.stageIdx = -1;
     g.legend = -1;
     g.tower = false;
+    g.frontier = 0;
     g.mode = Mode::Training;
     g.rareBattle = false;
     g.raid = true;
