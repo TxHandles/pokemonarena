@@ -1,0 +1,16 @@
+# Palossand - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3F2D1C > 202021
+shiny = 533B25 > 2A2B2C
+shiny = 65482C > 323435
+shiny = 95B6BA > E2DCDC
+shiny = A53D3B > 7B7626
+shiny = B37B4A > 585B5D
+shiny = C68A53 > 626568
+shiny = D3955A > 696C6F
+shiny = E55451 > CEC143
+shiny = ECBBA9 > 92E6D8
+shiny = F75F5B > FEF764
+shiny = F7AE69 > 7E8286
+shiny = FB7593 > E2DCDC
+shiny = FDE2BE > BCFFF8

@@ -1,0 +1,19 @@
+# Furfrou - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 101010 > 1A192A
+shiny = 313232 > 3C3B4E
+shiny = 474645 > 525063
+shiny = 4A727A > 293B55
+shiny = 4D4E4E > 59586C
+shiny = 5B86F7 > 8193EE
+shiny = 5F5E5C > 6B697C
+shiny = 79856A > 8A8F94
+shiny = 9EA686 > 2A2A36
+shiny = B1AFA0 > 282635
+shiny = BC0400 > 930002
+shiny = CAD2BB > 41404F
+shiny = CB3232 > A41924
+shiny = DCE5CD > 51505F
+shiny = E6EEF8 > 5A596C
+shiny = EDF1E3 > 5D5B6C
+shiny = FAFAFA > 666476

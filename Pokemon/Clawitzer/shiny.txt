@@ -1,0 +1,19 @@
+# Clawitzer - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 222A38 > 0080B2
+shiny = 303F5A > 1899CE
+shiny = 404347 > 2B9DD0
+shiny = 407ECB > CF2F30
+shiny = 4291F6 > E84744
+shiny = 484540 > 870000
+shiny = 4A6797 > B3071A
+shiny = 4E71AD > C01E24
+shiny = 5C5E5E > 50CAEB
+shiny = 5DA2E4 > F6574C
+shiny = 72C4FF > F16D49
+shiny = 73C1F0 > FF7463
+shiny = BD9140 > AFB3C1
+shiny = C38B38 > AEB0BE
+shiny = F6D265 > F7FCFF
+shiny = F6D446 > F9FDFF
+shiny = FAFAFA > FFBBB0

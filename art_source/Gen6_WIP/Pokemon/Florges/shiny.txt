@@ -1,9 +1,0 @@
-# Florges - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
-# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
-shiny = 313935 > 644A92
-shiny = 318B6A > 735DA4
-shiny = 41BB92 > 9E87D2
-shiny = 525252 > 8963B4
-shiny = E6BBDD > F2B3E0
-shiny = EE605C > FF8381
-shiny = FEDB31 > F16464

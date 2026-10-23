@@ -1,0 +1,62 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Solgaleo
+dex  = 791
+type = Psychic / Steel
+
+hp         = 137
+attack     = 137
+defense    = 107
+sp_attack  = 113
+sp_defense = 89
+speed      = 97
+
+size   = 1.41
+height = 3.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 230.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Sunsteel Strike
+learn = 1, Noble Roar
+learn = 1, Teleport
+learn = 1, Metal Claw
+learn = 1, Cosmic Power
+learn = 7, Iron Head
+learn = 14, Metal Sound
+learn = 21, Zen Headbutt
+learn = 28, Flash Cannon
+learn = 35, Morning Sun
+learn = 42, Crunch
+learn = 49, Metal Burst
+learn = 56, Wild Charge
+learn = 63, Solar Beam
+learn = 70, Flare Blitz
+learn = 77, Wide Guard
+learn = 84, Giga Impact
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Scary Face, Protect, Fire Spin, Facade
+tm = Bulldoze, Snarl, Metal Claw, Swift, Rock Tomb, Flame Charge
+tm = Endure, Sunny Day, Psyshock, Zen Headbutt, Psychic Fangs, Body Slam
+tm = Sleep Talk, Reflect, Light Screen, Rest, Rock Slide, Flash Cannon
+tm = Iron Head, Substitute, Iron Defense, Crunch, Hyper Voice, Psychic
+tm = Heavy Slam, Flamethrower, Thunderbolt, Calm Mind, Helping Hand, Fire Blast
+tm = Wild Charge, Earthquake, Stone Edge, Giga Impact, Outrage, Focus Blast
+tm = Trick Room, Hyper Beam, Flare Blitz, Thunder, Close Combat, Solar Beam
+tm = Steel Beam, Tera Blast, Roar, Gyro Ball, Knock Off, Heat Crash
+tm = Psych Up, Double-Edge, Endeavor, Future Sight, Expanding Force, Meteor Beam
+tm = Metal Sound

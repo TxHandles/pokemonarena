@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: princess-phoenix (DeviantArt, "Gen 6 (Kalos) Pokemon Overworld Sprites") - credit wanted
+name = Amaura
+dex  = 698
+type = Rock / Ice
+
+hp         = 77
+attack     = 59
+defense    = 50
+sp_attack  = 67
+sp_defense = 63
+speed      = 46
+
+size   = 1.12
+height = 1.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 25.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Aurorus
+evolve_level = 39
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growl
+learn = 1, Powder Snow
+learn = 4, Encore
+learn = 8, Ancient Power
+learn = 12, Icy Wind
+learn = 16, Round
+learn = 20, Mist
+learn = 24, Aurora Beam
+learn = 28, Thunder Wave
+learn = 32, Nature Power
+learn = 36, Freeze-Dry
+learn = 40, Ice Beam
+learn = 44, Light Screen
+learn = 48, Hail
+learn = 52, Blizzard
+learn = 56, Hyper Beam
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Icy Wind, Mud Shot, Rock Tomb
+tm = Avalanche, Endure, Rain Dance, Sandstorm, Zen Headbutt, Body Slam
+tm = Sleep Talk, Reflect, Light Screen, Rock Blast, Thunder Wave, Rest
+tm = Rock Slide, Flash Cannon, Dark Pulse, Iron Head, Substitute, Iron Defense
+tm = Stealth Rock, Hyper Voice, Encore, Thunderbolt, Calm Mind, Earth Power
+tm = Ice Beam, Blizzard, Stone Edge, Outrage, Hyper Beam, Weather Ball

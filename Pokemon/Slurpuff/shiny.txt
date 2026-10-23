@@ -1,0 +1,17 @@
+# Slurpuff - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 473D3F > 3E2B0B
+shiny = 822838 > 7B0F27
+shiny = 863042 > 81192F
+shiny = BD405B > BA2144
+shiny = D38690 > 743313
+shiny = D4B8C1 > C9A483
+shiny = D6688A > CE576F
+shiny = DC4E48 > D4353F
+shiny = E17B9A > 764129
+shiny = E7BBC7 > D7A889
+shiny = ECBAD7 > A25C3A
+shiny = FAFAFA > FFE0B9
+shiny = FDCDDD > B36B48
+shiny = FF6D83 > F65779
+shiny = FFFFFF > FFE5BD

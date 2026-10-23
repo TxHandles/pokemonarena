@@ -1,0 +1,10 @@
+# Golisopod - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 20393A > 343434
+shiny = 2B4F50 > 484848
+shiny = 539193 > 959595
+shiny = 70B492 > BDBDBD
+shiny = 8A4283 > BF3445
+shiny = 91BDA6 > BDBDBD
+shiny = 9DCBB3 > DFDFDF
+shiny = B157A5 > E9495A

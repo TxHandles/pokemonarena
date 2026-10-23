@@ -48,7 +48,7 @@ std::string RestoreEmbeddedFiles() {
     int restored = 0, failed = 0;
     // Data updates: files this game version changed are refreshed once (the old copy is kept
     // next to it as .old). Everything else is only written when it's missing, so your edits stay.
-    const int DATA_VERSION = 31;
+    const int DATA_VERSION = 33;
     struct Upd { const char* path; int version; };
     static const Upd kUpdated[] = {
         {"Pokemon/Bulbasaur/pokemon.txt", 2}, {"Pokemon/Pikachu/pokemon.txt", 2},
@@ -85,12 +85,15 @@ std::string RestoreEmbeddedFiles() {
         {"story.txt", 24}, {"wild.txt", 24},   // Sinnoh: the fourth region
         {"story.txt", 25}, {"wild.txt", 25},   // Unova: the fifth region
         {"story.txt", 26},   // Mega Evolution: bosses that Mega Evolve
-        {"story.txt", 27}, {"Pokemon/Eevee/pokemon.txt", 27},   // Roxanne's team; Sylveon on hold with Gen 6
+        {"story.txt", 27}, {"Pokemon/Eevee/pokemon.txt", 27},   // Roxanne's team
         {"wild.txt", 28}, {"World/world.txt", 28},   // the walked Kanto: other regions' cousins in the wild, field moves on the map
         {"wild.txt", 29}, {"World/world.txt", 29}, {"World/chars.png", 29}, {"story.txt", 29},   // the FireRed maps, people and story order
         {"wild.txt", 30}, {"World/world.txt", 30},   // FireRed's items on the map, Fly spots
         {"World/world.txt", 31}, {"World/weather_rain.png", 31}, {"World/weather_snow0.png", 31}, {"World/weather_snow1.png", 31},
         {"World/weather_fog_horizontal.png", 31}, {"World/weather_fog_diagonal.png", 31}, {"World/weather_sandstorm.png", 31},   // Oak's lab: the starters on the table; Oak at the edge of the grass
+        {"World/world.txt", 32}, {"World/chars.png", 32}, {"World/chars.txt", 32}, {"World/johto.txt", 32},   // walked Johto (HeartGold's maps and people), 32x32 people cells
+        {"wild.txt", 33}, {"Pokemon/Eevee/pokemon.txt", 33},   // Kalos and Alola: the newcomers in the wild, Sylveon back
+        {"World/world.txt", 33}, {"World/johto.txt", 33},     // the Day Care people; Johto's paths opened up
     };
     std::string verPath = base + "data_version.txt";
     int have = 1;
@@ -128,8 +131,8 @@ std::string RestoreEmbeddedFiles() {
                 if (!same) { std::remove(path.c_str()); updated++; }
             }
         }
+        static const char* kGen6[] = {"Aegislash", "Amaura", "Aromatisse", "Aurorus", "Avalugg", "Barbaracle", "Bergmite", "Binacle", "Braixen", "Bunnelby", "Carbink", "Chesnaught", "Chespin", "Clauncher", "Clawitzer", "Dedenne", "Delphox", "Diancie", "Diggersby", "Doublade", "Dragalge", "Espurr", "Fennekin", "Flabebe", "Fletchinder", "Fletchling", "Floette", "Florges", "Froakie", "Frogadier", "Furfrou", "Gogoat", "Goodra", "Goomy", "Gourgeist", "Greninja", "Hawlucha", "Heliolisk", "Helioptile", "Honedge", "Hoopa", "Inkay", "Klefki", "Litleo", "Malamar", "Meowstic", "Noibat", "Noivern", "Pancham", "Pangoro", "Phantump", "Pumpkaboo", "Pyroar", "Quilladin", "Scatterbug", "Skiddo", "Skrelp", "Sliggoo", "Slurpuff", "Spewpa", "Spritzee", "Swirlix", "Sylveon", "Talonflame", "Trevenant", "Tyrantrum", "Tyrunt", "Vivillon", "Volcanion", "Xerneas", "Yveltal", "Zygarde"};
         if (have < 27) {   // Gen 6 (Kalos) is on hold until its sprites match: its folders move aside (nothing is deleted)
-            static const char* kGen6[] = {"Aegislash", "Amaura", "Aromatisse", "Aurorus", "Avalugg", "Barbaracle", "Bergmite", "Binacle", "Braixen", "Bunnelby", "Carbink", "Chesnaught", "Chespin", "Clauncher", "Clawitzer", "Dedenne", "Delphox", "Diancie", "Diggersby", "Doublade", "Dragalge", "Espurr", "Fennekin", "Flabebe", "Fletchinder", "Fletchling", "Floette", "Florges", "Froakie", "Frogadier", "Furfrou", "Gogoat", "Goodra", "Goomy", "Gourgeist", "Greninja", "Hawlucha", "Heliolisk", "Helioptile", "Honedge", "Hoopa", "Inkay", "Klefki", "Litleo", "Malamar", "Meowstic", "Noibat", "Noivern", "Pancham", "Pangoro", "Phantump", "Pumpkaboo", "Pyroar", "Quilladin", "Scatterbug", "Skiddo", "Skrelp", "Sliggoo", "Slurpuff", "Spewpa", "Spritzee", "Swirlix", "Sylveon", "Talonflame", "Trevenant", "Tyrantrum", "Tyrunt", "Vivillon", "Volcanion", "Xerneas", "Yveltal", "Zygarde"};
             for (const char* n : kGen6) {
                 std::string from = base + "Pokemon/" + n;
                 if (!DirectoryExists(from.c_str())) continue;
@@ -137,6 +140,23 @@ std::string RestoreEmbeddedFiles() {
                 std::string to = base + "Pokemon/_gen6_on_hold/" + n;
                 if (DirectoryExists(to.c_str())) continue;
                 if (std::rename(from.c_str(), to.c_str()) == 0) updated++;
+            }
+        }
+        if (have < 33) {   // Gen 6 is back with new sprites: a Kalos folder put back by hand gets the new files (old ones kept as .old)
+            for (const auto& f : kEmbeddedFiles) {
+                std::string rel = f.path;
+                bool kalos = false;
+                for (const char* n : kGen6)
+                    if (rel.rfind(std::string("Pokemon/") + n + "/", 0) == 0) kalos = true;
+                if (!kalos) continue;
+                std::string path = base + rel;
+                if (!FileExists(path.c_str())) continue;
+                int n = 0;
+                unsigned char* old = LoadFileData(path.c_str(), &n);
+                bool same = old && n == (int)f.size && std::memcmp(old, f.data, f.size) == 0;
+                if (old && !same) SaveFileData((path + ".old").c_str(), old, n);
+                if (old) UnloadFileData(old);
+                if (!same) { std::remove(path.c_str()); updated++; }
             }
         }
         SaveFileText(verPath.c_str(), (char*)TextFormat("%d", DATA_VERSION));

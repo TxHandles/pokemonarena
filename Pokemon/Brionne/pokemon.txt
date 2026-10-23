@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Brionne
+dex  = 729
+type = Water
+
+hp         = 60
+attack     = 69
+defense    = 69
+sp_attack  = 91
+sp_defense = 81
+speed      = 50
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 17.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Primarina
+evolve_level = 34
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Disarming Voice
+learn = 1, Pound
+learn = 1, Growl
+learn = 9, Aqua Jet
+learn = 12, Baby-Doll Eyes
+learn = 15, Icy Wind
+learn = 20, Sing
+learn = 25, Bubble Beam
+learn = 30, Encore
+learn = 35, Misty Terrain
+learn = 40, Hyper Voice
+learn = 45, Moonblast
+learn = 50, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Water Pulse, Acrobatics, Disarming Voice, Chilling Water
+tm = Facade, Swift, Icy Wind, Draining Kiss, Endure, Rain Dance
+tm = Body Slam, Sleep Talk, Waterfall, Rest, Substitute, Hyper Voice
+tm = Encore, Surf, Ice Spinner, Play Rough, Amnesia, Helping Hand
+tm = Ice Beam, Misty Terrain, Hydro Pump, Blizzard, Water Pledge, Tera Blast
+tm = Uproar, Flip Turn, Whirlpool, Triple Axel

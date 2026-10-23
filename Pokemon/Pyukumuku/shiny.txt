@@ -1,0 +1,11 @@
+# Pyukumuku - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 292727 > 49874B
+shiny = 471526 > 473515
+shiny = 494343 > 61AB63
+shiny = 595151 > 66B769
+shiny = 6A2039 > 6A5020
+shiny = 982D51 > 98722D
+shiny = B53EB2 > FAB854
+shiny = DF4578 > DFA945
+shiny = FA5493 > FAB854

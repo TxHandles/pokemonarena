@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Cutiefly
+dex  = 742
+type = Bug / Fairy
+
+hp         = 40
+attack     = 45
+defense    = 40
+sp_attack  = 55
+sp_defense = 40
+speed      = 84
+
+size   = 0.85
+height = 0.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 0.2      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Ribombee
+evolve_level = 25
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Fairy Wind
+learn = 1, Absorb
+learn = 6, Stun Spore
+learn = 12, Sweet Scent
+learn = 18, Draining Kiss
+learn = 24, Struggle Bug
+learn = 30, Covet
+learn = 36, Switcheroo
+learn = 42, Dazzling Gleam
+learn = 48, Bug Buzz
+learn = 54, Quiver Dance
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Protect, Acrobatics, Struggle Bug, Thief
+tm = Trailblaze, Pounce, Facade, Swift, Magical Leaf, Draining Kiss
+tm = Endure, Sunny Day, U-turn, Sleep Talk, Reflect, Light Screen
+tm = Dazzling Gleam, Grass Knot, Rest, Imprison, Leech Life, Skill Swap
+tm = Substitute, Trick, Tailwind, Energy Ball, Psychic, Play Rough
+tm = Calm Mind, Helping Hand, Pollen Puff, Baton Pass, Bug Buzz, Tera Blast
+tm = Bug Bite, Psych Up, Skitter Smack

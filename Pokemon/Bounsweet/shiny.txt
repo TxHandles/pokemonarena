@@ -1,0 +1,8 @@
+# Bounsweet - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 204020 > 3F3564
+shiny = 3D4745 > 515430
+shiny = 78B848 > 7C68C1
+shiny = 889995 > ACAF71
+shiny = C0E070 > B398C6
+shiny = E1E8E8 > EAF1D8

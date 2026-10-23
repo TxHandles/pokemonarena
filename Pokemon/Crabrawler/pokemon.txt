@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Crabrawler
+dex  = 739
+type = Fighting
+
+hp         = 47
+attack     = 82
+defense    = 57
+sp_attack  = 42
+sp_defense = 47
+speed      = 63
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 7.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_item = Crabominable, Ice Stone   # (or levelling up on Mt. Lanakila, in the games)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 5, Rock Smash
+learn = 9, Leer
+learn = 13, Bubble Beam
+learn = 17, Protect
+learn = 22, Brick Break
+learn = 25, Slam
+learn = 29, Payback
+learn = 33, Reversal
+learn = 37, Crabhammer
+learn = 42, Iron Defense
+learn = 45, Dynamic Punch
+learn = 49, Close Combat
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Thief, Chilling Water, Facade
+tm = Bulldoze, Swift, Mud Shot, Rock Tomb, Fling, Endure
+tm = Sunny Day, Rain Dance, Dig, Brick Break, Zen Headbutt, Bulk Up
+tm = Body Slam, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Stomping Tantrum
+tm = Rest, Rock Slide, Iron Head, Gunk Shot, Substitute, Iron Defense
+tm = Liquidation, Amnesia, Helping Hand, Reversal, Earthquake, Focus Blast
+tm = Close Combat, Tera Blast, Knock Off, Focus Punch, Endeavor, Coaching
+tm = Upper Hand

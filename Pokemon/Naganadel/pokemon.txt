@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Naganadel
+dex  = 804
+type = Poison / Dragon
+
+hp         = 73
+attack     = 73
+defense    = 73
+sp_attack  = 127
+sp_defense = 73
+speed      = 121
+
+size   = 1.43
+height = 3.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 150.0      # Pokedex weight in kg
+hovers = yes
+heavy  = yes
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Air Cutter
+learn = 1, Acid
+learn = 1, Peck
+learn = 1, Helping Hand
+learn = 1, Air Slash
+learn = 1, Dragon Pulse
+learn = 1, Growl
+learn = 7, Fury Attack
+learn = 14, Fell Stinger
+learn = 21, Charm
+learn = 28, Venoshock
+learn = 35, Venom Drench
+learn = 42, Nasty Plot
+learn = 49, Poison Jab
+learn = 56, Gastro Acid
+learn = 63, Toxic
+learn = 70, Dragon Rush
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Acrobatics, Thief, Facade, Hex
+tm = Snarl, Swift, Venoshock, Endure, Smart Strike, U-turn
+tm = Shadow Claw, Air Slash, Sleep Talk, Dragon Claw, Poison Jab, Rest
+tm = Spikes, Toxic Spikes, Dark Pulse, Leech Life, Fly, Dragon Dance
+tm = Gunk Shot, Substitute, X-Scissor, Dragon Pulse, Heat Wave, Flamethrower
+tm = Thunderbolt, Helping Hand, Nasty Plot, Fire Blast, Sludge Bomb, Giga Impact
+tm = Outrage, Hyper Beam, Uproar, Sludge Wave, Throat Chop, Breaking Swipe

@@ -123,6 +123,7 @@ std::vector<RosterEntry> FreePlayRoster() {
         e.species = i;
         e.level = FREE_PLAY_LEVEL;
         e.moves = FreePlayMoves(AllSpecies()[i]);
+        for (int k = 0; k < 6; k++) e.iv[k] = 31;   // free play: perfect IVs all round, so it's even
         r.push_back(e);
     }
     return r;
@@ -144,6 +145,8 @@ std::vector<RosterEntry> ProfileRoster(const Profile& p, bool partyOnly) {
         e.abilitySlot = c.abilitySlot;
         e.nature = c.nature;
         e.shiny = c.shiny;
+        for (int k = 0; k < 6; k++) { e.iv[k] = c.iv[k]; e.ev[k] = c.ev[k]; }
+        e.nick = c.nick;
         r.push_back(e);
     }
     return r;

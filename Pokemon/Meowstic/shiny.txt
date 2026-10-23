@@ -1,0 +1,9 @@
+# Meowstic - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2D3649 > A8983B
+shiny = 365A93 > D5C167
+shiny = 3F4144 > B6A545
+shiny = 425374 > CCB95D
+shiny = 506690 > E3CF72
+shiny = 5079C3 > FFF482
+shiny = 6E7685 > F6E180

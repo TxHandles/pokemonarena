@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Litten
+dex  = 725
+type = Fire
+
+hp         = 45
+attack     = 65
+defense    = 40
+sp_attack  = 60
+sp_defense = 40
+speed      = 70
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 4.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = yes
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Torracat
+evolve_level = 17
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Growl
+learn = 3, Ember
+learn = 6, Lick
+learn = 9, Roar
+learn = 12, Fury Swipes
+learn = 15, Bite
+learn = 18, Double Kick
+learn = 21, Fire Fang
+learn = 24, Scary Face
+learn = 27, Swagger
+learn = 30, Flamethrower
+learn = 33, Thrash
+learn = 36, Flare Blitz
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Fire Fang, Acrobatics, Trailblaze
+tm = Fire Spin, Facade, Flame Charge, Endure, Sunny Day, U-turn
+tm = Shadow Claw, Bulk Up, Body Slam, Sleep Talk, Rest, Taunt
+tm = Swords Dance, Leech Life, Substitute, Will-O-Wisp, Crunch, Heat Wave
+tm = Flamethrower, Helping Hand, Nasty Plot, Fire Blast, Fire Pledge, Outrage
+tm = Overheat, Flare Blitz, Tera Blast, Roar, Double-Edge, Endeavor
+tm = Temper Flare

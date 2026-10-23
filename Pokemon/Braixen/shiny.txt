@@ -1,0 +1,12 @@
+# Braixen - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 6F2D23 > 702128
+shiny = 9F6E4B > 6D4181
+shiny = A89E94 > 905EB4
+shiny = B63710 > B2272A
+shiny = DA4F34 > 755073
+shiny = DD9F3D > A270AF
+shiny = E1C95C > BE86D6
+shiny = E84D46 > DF4453
+shiny = F04627 > E54043
+shiny = F0C644 > C286D5

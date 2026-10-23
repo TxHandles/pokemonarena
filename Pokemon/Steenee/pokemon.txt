@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Steenee
+dex  = 762
+type = Grass
+
+hp         = 52
+attack     = 40
+defense    = 48
+sp_attack  = 40
+sp_defense = 48
+speed      = 62
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 8.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Tsareena
+evolve_level = 29   # (once it learns Stomp, in the games)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Rapid Spin
+learn = 1, Razor Leaf
+learn = 1, Play Nice
+learn = 1, Flail
+learn = 1, Splash
+learn = 16, Sweet Scent
+learn = 22, Magical Leaf
+learn = 28, Stomp
+learn = 34, Teeter Dance
+learn = 40, Aromatic Mist
+learn = 46, Leaf Storm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Trailblaze, Facade, Swift
+tm = Magical Leaf, Draining Kiss, Low Sweep, Fling, Endure, Sunny Day
+tm = Bullet Seed, Zen Headbutt, Sleep Talk, Seed Bomb, Reflect, Light Screen
+tm = Dazzling Gleam, Grass Knot, Rest, Substitute, Giga Drain, Energy Ball
+tm = Play Rough, Helping Hand, Grassy Terrain, Leaf Storm, Solar Beam, Tera Blast
+tm = Grassy Glide, Endeavor, Petal Blizzard, Triple Axel

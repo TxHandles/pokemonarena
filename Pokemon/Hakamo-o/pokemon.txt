@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Hakamo-o
+dex  = 783
+type = Dragon / Fighting
+
+hp         = 55
+attack     = 75
+defense    = 90
+sp_attack  = 65
+sp_defense = 70
+speed      = 65
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 47.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Kommo-o
+evolve_level = 45
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Protect
+learn = 1, Leer
+learn = 1, Dragon Tail
+learn = 1, Tackle
+learn = 12, Scary Face
+learn = 16, Headbutt
+learn = 20, Work Up
+learn = 24, Screech
+learn = 28, Iron Defense
+learn = 32, Dragon Claw
+learn = 38, Noble Roar
+learn = 44, Dragon Dance
+learn = 50, Outrage
+learn = 56, Close Combat
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Low Kick, Facade, Aerial Ace
+tm = Bulldoze, Metal Claw, Rock Tomb, Fling, Dragon Tail, Endure
+tm = Sunny Day, Sandstorm, False Swipe, Brick Break, Shadow Claw, Bulk Up
+tm = Body Slam, Sleep Talk, Drain Punch, Dragon Claw, Rest, Rock Slide
+tm = Taunt, Swords Dance, Iron Head, Dragon Dance, Substitute, Iron Defense
+tm = X-Scissor, Dragon Pulse, Reversal, Earthquake, Outrage, Focus Blast
+tm = Close Combat, Draco Meteor, Tera Blast, Roar, Vacuum Wave, Focus Punch
+tm = Scale Shot, Double-Edge, Coaching, Throat Chop, Breaking Swipe, Dragon Cheer
+tm = Upper Hand

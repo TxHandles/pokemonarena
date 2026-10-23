@@ -1,0 +1,15 @@
+# Inkay - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3B5C8B > 765F0C
+shiny = 41699C > 846B1C
+shiny = 464B48 > 6A5200
+shiny = 5489C6 > AE8F20
+shiny = 565656 > 7C5D14
+shiny = 5A8AC6 > B1901F
+shiny = 65A7ED > CFAC3E
+shiny = A53F44 > 89429E
+shiny = DEC6AA > F0B3FF
+shiny = E98387 > CD83E3
+shiny = EB8588 > CC89DE
+shiny = F9FEFF > FFFF86
+shiny = FAFAFA > FFFB81

@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: princess-phoenix (DeviantArt, "Gen 6 (Kalos) Pokemon Overworld Sprites") - credit wanted
+name = Klefki
+dex  = 707
+type = Steel / Fairy
+
+hp         = 57
+attack     = 80
+defense    = 91
+sp_attack  = 80
+sp_defense = 87
+speed      = 75
+
+size   = 0.85
+height = 0.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 3.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Astonish
+learn = 4, Tackle
+learn = 8, Fairy Wind
+learn = 12, Torment
+learn = 16, Fairy Lock
+learn = 20, Metal Sound
+learn = 24, Draining Kiss
+learn = 28, Recycle
+learn = 32, Imprison
+learn = 36, Flash Cannon
+learn = 40, Play Rough
+learn = 44, Magic Room
+learn = 48, Foul Play
+learn = 52, Last Resort
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Swift, Draining Kiss, Stored Power
+tm = Endure, Sunny Day, Rain Dance, Sandstorm, Psyshock, Foul Play
+tm = Sleep Talk, Reflect, Light Screen, Dazzling Gleam, Thunder Wave, Rest
+tm = Spikes, Imprison, Flash Cannon, Substitute, Iron Defense, Psychic
+tm = Play Rough, Calm Mind, Misty Terrain, Giga Impact, Trick Room, Hyper Beam
+tm = Steel Beam, Tera Blast, Psych Up, Skitter Smack, Metal Sound

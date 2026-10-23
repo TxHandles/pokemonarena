@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Type Null
+dex  = 772
+type = Normal
+
+hp         = 95
+attack     = 95
+defense    = 95
+sp_attack  = 95
+sp_defense = 95
+speed      = 59
+
+size   = 1.26
+height = 1.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 120.5      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_friendship = Silvally, 160
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Imprison
+learn = 5, Aerial Ace
+learn = 10, Scary Face
+learn = 15, Double Hit
+learn = 20, Metal Sound
+learn = 25, Crush Claw
+learn = 30, Air Slash
+learn = 35, Tri Attack
+learn = 40, X-Scissor
+learn = 45, Iron Head
+learn = 50, Take Down
+learn = 55, Double-Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Facade, Swift, Icy Wind, Endure
+tm = Sunny Day, Rain Dance, Sandstorm, U-turn, Shadow Claw, Air Slash
+tm = Sleep Talk, Dragon Claw, Thunder Wave, Rest, Rock Slide, Swords Dance
+tm = Imprison, Iron Head, Substitute, Iron Defense, X-Scissor, Giga Impact
+tm = Hyper Beam

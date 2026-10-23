@@ -1,0 +1,21 @@
+# Diggersby - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 423523 > 949B98
+shiny = 49443F > A3ABAA
+shiny = 585858 > 525B56
+shiny = 715C48 > DDE4E3
+shiny = 755A37 > 686045
+shiny = 858069 > 7D8370
+shiny = 997744 > 8A7D59
+shiny = A1A1A1 > 9AA59F
+shiny = A47743 > FDFFFB
+shiny = C4B398 > F9FFFF
+shiny = C7C1BC > BEC5BD
+shiny = C8A956 > 836753
+shiny = DDDDDD > D6E1DB
+shiny = E6EEF8 > F6FFFF
+shiny = EE99AA > D2A8AB
+shiny = FAFAFA > F3FEF8
+shiny = FECD40 > AA8A71
+shiny = FFB2C5 > FFAFAF
+shiny = FFDD77 > EFE2A0

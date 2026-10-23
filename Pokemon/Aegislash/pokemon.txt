@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: princess-phoenix (DeviantArt, "Gen 6 (Kalos) Pokemon Overworld Sprites") - credit wanted
+name = Aegislash
+dex  = 681
+type = Steel / Ghost
+
+hp         = 60
+attack     = 50
+defense    = 140
+sp_attack  = 50
+sp_defense = 140
+speed      = 60
+
+size   = 1.12
+height = 1.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 53.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, King's Shield
+learn = 1, Power Trick
+learn = 1, Slash
+learn = 1, Iron Defense
+learn = 1, Tackle
+learn = 1, Retaliate
+learn = 1, Aerial Ace
+learn = 1, Metal Sound
+learn = 1, Iron Head
+learn = 1, Swords Dance
+learn = 1, Night Slash
+learn = 1, Autotomize
+learn = 1, Shadow Sneak
+learn = 1, Sacred Sword
+learn = 1, Head Smash
+learn = 1, Fury Cutter
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Endure, Sunny Day, Rain Dance, False Swipe
+tm = Brick Break, Shadow Claw, Air Slash, Sleep Talk, Reflect, Rest
+tm = Rock Slide, Swords Dance, Flash Cannon, Iron Head, Substitute, Iron Defense
+tm = Shadow Ball, Reversal, Giga Impact, Hyper Beam, Close Combat, Gyro Ball
+tm = Solar Blade

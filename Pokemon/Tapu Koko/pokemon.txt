@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Tapu Koko
+dex  = 785
+type = Electric / Fairy
+
+hp         = 70
+attack     = 115
+defense    = 85
+sp_attack  = 95
+sp_defense = 75
+speed      = 130
+
+size   = 1.12
+height = 1.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 20.5      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Quick Attack
+learn = 1, Thunder Shock
+learn = 5, Withdraw
+learn = 10, Fairy Wind
+learn = 15, False Swipe
+learn = 20, Spark
+learn = 25, Shock Wave
+learn = 30, Charge
+learn = 35, Agility
+learn = 40, Screech
+learn = 45, Discharge
+learn = 50, Mean Look
+learn = 55, Nature's Madness
+learn = 60, Wild Charge
+learn = 65, Brave Bird
+learn = 70, Power Swap
+learn = 75, Electric Terrain
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Acrobatics, Thief, Facade, Swift
+tm = Stored Power, Endure, Volt Switch, Rain Dance, False Swipe, U-turn
+tm = Thunder Punch, Sleep Talk, Electro Ball, Reflect, Light Screen, Dazzling Gleam
+tm = Grass Knot, Thunder Wave, Rest, Taunt, Eerie Impulse, Fly
+tm = Iron Head, Substitute, Iron Defense, Hyper Voice, Thunderbolt, Calm Mind
+tm = Electric Terrain, Wild Charge, Giga Impact, Hyper Beam, Brave Bird, Thunder
+tm = Electroweb

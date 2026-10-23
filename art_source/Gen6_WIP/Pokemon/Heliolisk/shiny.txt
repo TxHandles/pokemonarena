@@ -1,6 +1,0 @@
-# Heliolisk - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
-# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
-shiny = AE754A > C1A435
-shiny = BCAF43 > C10024
-shiny = F6D669 > F5615C
-shiny = FC8B53 > C40026

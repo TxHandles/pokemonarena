@@ -1,0 +1,6 @@
+# Gumshoos - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 805F29 > 6B5C71
+shiny = A2773B > 9875A5
+shiny = AB995C > A27EB0
+shiny = EFD781 > D7A0E6

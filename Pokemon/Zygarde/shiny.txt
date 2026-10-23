@@ -1,0 +1,20 @@
+# Zygarde - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 959797
+shiny = 101010 > 888989
+shiny = 15340A > 003425
+shiny = 1C1E1B > 989999
+shiny = 282D27 > AAACAB
+shiny = 31332D > B3B4B3
+shiny = 3C4339 > C4C6C5
+shiny = 426724 > 006D59
+shiny = 464E4B > D2D4D4
+shiny = 626C5E > FDFFFE
+shiny = 696A5C > FEFFFE
+shiny = 6F993D > 00A184
+shiny = 89876B > FEFFFC
+shiny = 8CC023 > 2FC6A2
+shiny = 8E967E > FEFFFD
+shiny = 93BC3E > 2DC4A2
+shiny = ACF701 > 6CF9CF
+shiny = D1DAB6 > FEFFFC

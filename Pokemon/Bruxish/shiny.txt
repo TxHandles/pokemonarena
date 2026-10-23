@@ -1,0 +1,10 @@
+# Bruxish - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3B6965 > 676565
+shiny = 573078 > 367D3C
+shiny = 692C4C > A40019
+shiny = 8C529E > 589B69
+shiny = A4D6E8 > F5EFEF
+shiny = AAB9FF > FFAEAE
+shiny = B065C5 > 67BF7D
+shiny = E878B4 > FE4A57

@@ -1,0 +1,12 @@
+# Barbaracle - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3F3427 > 264324
+shiny = 504B42 > 345B3F
+shiny = 7D6045 > 577748
+shiny = 89663D > 656E58
+shiny = A4A66B > 479146
+shiny = BEA77A > 6A8258
+shiny = E27B4D > E8788A
+shiny = E5D7BB > 70CE6F
+shiny = E7784D > F17891
+shiny = EAF0AA > 80E17D

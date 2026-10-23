@@ -1,0 +1,5 @@
+# Kartana - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 706318 > 686868
+shiny = A79425 > 9B9B9B
+shiny = FFE156 > DEDEDE

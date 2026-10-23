@@ -1,0 +1,9 @@
+# Melmetal - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 4E1A11 > 11304E
+shiny = 5E4D1E > 5E3C1E
+shiny = 7B6628 > 7B5028
+shiny = A4883D > A46C3D
+shiny = E44A31 > 318FE4
+shiny = EBC064 > EB9C64
+shiny = FEEBB9 > FED9B9

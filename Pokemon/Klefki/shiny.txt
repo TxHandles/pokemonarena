@@ -1,0 +1,10 @@
+# Klefki - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 757E89 > 7A7D5C
+shiny = 909FAA > 969E7B
+shiny = 929EA6 > 979D77
+shiny = BEC3C8 > C0C3A0
+shiny = C6D1DC > CBD0AB
+shiny = E9E7E9 > E9E7C5
+shiny = EB7486 > 79C1E4
+shiny = FAFAFA > FAFACC

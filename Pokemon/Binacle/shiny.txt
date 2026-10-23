@@ -1,0 +1,10 @@
+# Binacle - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3F3427 > 234427
+shiny = 87633A > 5C7C4B
+shiny = 89663D > 697A49
+shiny = BEA77A > 52984E
+shiny = D7874D > F37D94
+shiny = E5D7BB > 70CE6F
+shiny = E7784D > F17891
+shiny = ECE68F > D1F8BD

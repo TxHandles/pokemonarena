@@ -1,0 +1,8 @@
+# Tapu Lele - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3F3F3A > 494943
+shiny = 402F35 > 262626
+shiny = 595C59 > 686B68
+shiny = 672E46 > 202020
+shiny = CB638E > 414141
+shiny = FF93BF > 565656

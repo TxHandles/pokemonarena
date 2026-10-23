@@ -1,0 +1,18 @@
+# Fletchinder - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3A3839 > 542C2D
+shiny = 423B3B > 5B2E2F
+shiny = 561812 > 4C0A00
+shiny = 6B6C6A > 896061
+shiny = 706760 > 8C5B57
+shiny = 714F19 > 695918
+shiny = 99A3C3 > BD9471
+shiny = A2B7B6 > CCA47A
+shiny = B15F38 > A35336
+shiny = C2CBE8 > E7BC93
+shiny = E03620 > EE3118
+shiny = E47C51 > EF673B
+shiny = E99D25 > CCA63C
+shiny = FAC73E > E3CB57
+shiny = FF684F > FF583B
+shiny = FFC552 > E6CA62

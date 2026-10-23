@@ -1,0 +1,10 @@
+# Mimikyu - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 362C22 > 312C27
+shiny = 5F4C3D > 564D46
+shiny = 655A41 > 5B564A
+shiny = 7A491F > 624A36
+shiny = 975B27 > 7A5D44
+shiny = 988862 > 8A8270
+shiny = B5A681 > A7A08E
+shiny = D8D0A8 > CBC7B4

@@ -15,7 +15,7 @@ enum class Screen {
     RosterPick, Select, Battle, Results,
     StoryResults, Evolve, LearnMove, Reward, Catch, Heal, Map, Shop, DoublesMenu,
     CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame, Legends, LegendCatch, Bag,
-    RegionChoose, World, Creator
+    RegionChoose, World, Creator, Nickname, Hatch, Daycare
 };
 
 // Online ready kinds (what a player picked in the co-op hub): 1 story, 2 training, 3+N a rematch
@@ -40,6 +40,9 @@ struct RosterEntry {
     int abilitySlot = 0;
     int nature = 0;
     bool shiny = false;
+    int iv[6] = {-1, -1, -1, -1, -1, -1};   // a Pokemon of yours: its IVs and EVs (-1: free play rolls them)
+    int ev[6] = {0, 0, 0, 0, 0, 0};
+    std::string nick;
 };
 
 struct ResultRow {
@@ -186,11 +189,15 @@ struct Game {
     int towerFloor = 0;
     uint32_t towerSeed = 0;
     int legend = -1;                        // this battle is a legendary encounter (legend.h), -1 = not
+    int roamer = -1;                        // this wild battle is a roaming legendary (legend id), -1 = not
+    bool coopSub = false;                   // a co-op player's own little game (the walked world): roamers come from the co-op save
+    std::map<int, Profile::Roam> subRoamKeep;   // (that player's own solo roamers, put back when it ends)
     int legendSel = 0;                      // the Legendary Pokemon screen's cursor
     bool legendCatchPending = false;        // a legendary was weakened: its catch comes next
     struct LegendCatch {
         int id = -1, species = -1, level = 1, abSlot = -1, nature = 0;
         bool shiny = false;
+        int iv[6] = {-1, -1, -1, -1, -1, -1};
         std::vector<std::string> moves;
         float hpFrac = 0.1f, chance = 0.3f;
         int order[2] = {0, 1};              // who throws first (the MVP) and second
@@ -264,6 +271,18 @@ struct Game {
     // Gifts (fossil revivals, Eevee): shown one at a time after a battle; the Pokemon is already added
     struct Gift { int who; int species; std::string text; std::string item; };   // item: an item gift (Old Amber) instead
     std::vector<Gift> giftQueue;
+    // nicknames, Eggs hatching and the Day Care (screens_daycare.cpp)
+    struct MonJob { int who = 0, mon = -1; };
+    std::vector<MonJob> nickQueue;          // "Give a nickname to the caught X?"
+    std::vector<MonJob> hatchQueue;         // Eggs that just hatched (the Pokemon each one became)
+    int nickWho = 0, nickMon = -1, nickPhase = 0, nickSel = 0, nickGrid = 0;   // phase 0 "give it a nickname?", 1 typing
+    std::string nickBuf;
+    int nickReturn = 0;                     // where the nickname screen goes back to: 0 the story queues, 1 Party & Box, 2 the world
+    float hatchT = 0;
+    bool hatchFromWorld = false;
+    int dcWho = 0, dcSel = 0, dcMode = 0, dcPickSel = 0;   // the Day Care screen: mode 0 the menu, 1 picking a Pokemon to leave
+    Screen dcBack = Screen::StoryHub;
+    bool judgeShow = false;                 // Party & Box: the Judge's look at a Pokemon's IVs and EVs
     // After-battle stats (damage dealt, damage taken, KOs) for everyone who fought
     struct StatRow { int team = 0, who = 0, species = -1, level = 1, dealt = 0, taken = 0, kos = 0; bool fainted = false; std::string tag; };
     std::vector<StatRow> statRows;
@@ -402,6 +421,23 @@ std::vector<int> RegionsLeft(const Game& g);   // the regions not played yet
 void BeginRegionChoose(Game& g, int forWhat);  // to the region screen
 void ApplySaveOrder(Game& g);            // lay the story out in the active save's region order
 void UpdateRegionChoose(Game& g);    void DrawRegionChoose(const Game& g);
+// ---- nicknames, the Day Care and Eggs (screens_daycare.cpp)
+void UpdateNickname(Game& g);        void DrawNickname(const Game& g);
+void UpdateHatch(Game& g, float dt); void DrawHatch(const Game& g);
+void UpdateDaycare(Game& g);         void DrawDaycare(const Game& g);
+void OpenDaycare(Game& g, int who, Screen back);
+void OpenNickname(Game& g, int who, int mon, int returnTo, bool ask);   // returnTo: 0 the story queues, 1 Party & Box, 2 the world
+bool NextNickOrHatch(Game& g);       // the story queues: a nickname to ask or an Egg hatching next? (true: on its way)
+void HubDaycareSteps(Game& g);       // after a battle away from the walked world: it counts as 256 steps
+bool WorldStepEggs(Game& g, int who);   // a step in the world: true if an Egg hatched (the Hatch screen is up)
+void DrawJudge(const OwnedMon& m);   // the Judge's panel: IVs and EVs
+// ---- roaming legendaries (screens_legend.cpp): Raikou and Entei, Latias and Latios, Mesprit and Cresselia, Tornadus and Thundurus
+bool IsRoamer(int legendId);
+void UpdateRoamers(Game& g, int who, bool move);      // start the ones whose time has come; move them all to new routes (move)
+int RoamerAt(const Game& g, int who, const std::string& area);   // the roaming legendary on that route now (-1: none)
+bool TryRoamerBattle(Game& g, const std::string& area, const std::string& method);   // a wild battle here: 1 in 4 it's the roamer
+std::string RoamerWhere(const Game& g, int legendId);   // "Route 38" (empty: not roaming yet / caught)
+void RoamerBattleOver(Game& g, const Battle& b);       // its HP stays down; caught: it's gone
 void BeginRegionStarter(Game& g);              // to the starter screen for that region's gift
 int RegionGiftLevel(const Game& g, int region, int who = 0);
 std::string RegionRivalName(int region);                          // "Silver", "May"

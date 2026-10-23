@@ -2,7 +2,11 @@
 #include <cmath>
 #include <cstdlib>
 #include <vector>
+#include <map>
+#include <string>
+#include <cctype>
 #include "raylib.h"
+#include "embedded.h"
 
 namespace {
 
@@ -16,6 +20,7 @@ struct Slot {
     float vol = 0.5f;
     double lastPlay = -1;
     bool ok = false;
+    bool shared = false;   // its base belongs to another slot (only its aliases are its own)
 };
 
 Slot gSlots[(int)Sfx::Count];
@@ -82,6 +87,7 @@ void Build(Sfx id, const std::vector<float>& samples, float vol) {
 
 } // namespace
 
+void LoadSfxFiles();
 void InitSfx() {
     gReady = IsAudioDeviceReady();
     if (!gReady) return;
@@ -120,13 +126,89 @@ void InitSfx() {
     reset(); Tone(v, SQUARE, 660, 990, 0.07f, 0.7f); Build(Sfx::MenuOk, v, 0.25f);
     reset(); Tone(v, SQUARE, 500, 330, 0.07f, 0.7f); Build(Sfx::MenuBack, v, 0.25f);
     reset(); { const float n[4] = {392, 523, 659, 784}; for (float f : n) Tone(v, SQUARE, f, f, 0.1f, 0.7f); Tone(v, SQUARE, 1046, 1046, 0.35f, 0.7f); } Build(Sfx::Win, v, 0.3f);
+    LoadSfxFiles();
+    // the newer ones' fallbacks: the nearest of the above
+    const std::pair<Sfx, Sfx> kLike[] = {{Sfx::BallThrow, Sfx::MenuOk}, {Sfx::BallShake, Sfx::MenuMove}, {Sfx::BallOpen, Sfx::Faint}, {Sfx::Caught, Sfx::LevelUp},
+        {Sfx::Flee, Sfx::Shield}, {Sfx::Door, Sfx::MenuOk}, {Sfx::Bump, Sfx::Thud}, {Sfx::Ledge, Sfx::MenuMove}, {Sfx::Save, Sfx::Heal}, {Sfx::Shiny, Sfx::Buff},
+        {Sfx::EggHatch, Sfx::LevelUp}, {Sfx::Repel, Sfx::Buff}, {Sfx::Shop, Sfx::Heal}, {Sfx::ItemGet, Sfx::LevelUp}, {Sfx::CenterHeal, Sfx::Heal}};
+    for (auto [a, b] : kLike) {
+        Slot& d = gSlots[(int)a];
+        const Slot& src = gSlots[(int)b];
+        if (!src.ok || d.ok) continue;
+        d.base = src.base;   // (shares the sound: aliases of it)
+        for (int i = 0; i < ALIASES; i++) d.alias[i] = LoadSoundAlias(src.base);
+        d.vol = src.vol;
+        d.ok = true;
+        d.shared = true;
+    }
+}
+
+// FireRed's sounds over the synthesized ones, where Sounds/<name>.ogg is there.
+const char* kSfxNames[(int)Sfx::Count] = {"shoot", "zap", "fire", "water", "thud", "hit", "hit_super", "hit_weak", "crit", "faint", "level_up",
+    "evolve", "status", "heal", "shield", "buff", "menu_move", "menu_ok", "menu_back", "win",
+    "ball_throw", "ball_shake", "ball_open", "caught", "flee", "door", "bump", "ledge", "save", "shiny", "egg_hatch", "repel", "shop",
+    "item_get", "center_heal"};
+const char* SfxName(Sfx s) { return kSfxNames[(int)s]; }
+
+void LoadSfxFiles() {
+    for (int i = 0; i < (int)Sfx::Count; i++) {
+        std::string path = DataDir() + "Sounds/" + kSfxNames[i] + ".ogg";
+        if (!FileExists(path.c_str())) continue;
+        Sound snd = LoadSound(path.c_str());
+        if (!IsSoundValid(snd)) continue;
+        Slot& s = gSlots[i];
+        if (s.ok) {
+            for (int k = 0; k < ALIASES; k++) UnloadSoundAlias(s.alias[k]);
+            if (!s.shared) UnloadSound(s.base);
+        }
+        s.shared = false;
+        s.base = snd;
+        for (int k = 0; k < ALIASES; k++) s.alias[k] = LoadSoundAlias(s.base);
+        s.vol = 0.55f;
+        s.ok = true;
+    }
+}
+
+namespace {
+struct MoveSnd { Sound s{}; bool ok = false; double last = -1; };
+std::map<std::string, MoveSnd> gMoveSnd;   // by the move's name, squashed ("thunderbolt", "uturn")
+std::string Squash(const char* n) {
+    std::string k;
+    for (const char* c = n; *c; c++) if (std::isalnum((unsigned char)*c)) k += (char)std::tolower((unsigned char)*c);
+    return k;
+}
+} // namespace
+
+bool PlayMoveSfx(const char* move) {
+    if (!gReady || gSfxMuted || !move || !*move) return false;
+    std::string k = Squash(move);
+    auto it = gMoveSnd.find(k);
+    if (it == gMoveSnd.end()) {
+        MoveSnd m;
+        std::string path = DataDir() + "Sounds/Moves/" + k + ".ogg";
+        if (FileExists(path.c_str())) {
+            m.s = LoadSound(path.c_str());
+            m.ok = IsSoundValid(m.s);
+        }
+        it = gMoveSnd.emplace(k, m).first;
+    }
+    MoveSnd& m = it->second;
+    if (!m.ok) return false;
+    double now = GetTime();
+    if (now - m.last < 0.08) return true;   // (the same move twice in an instant: once is enough)
+    m.last = now;
+    SetSoundVolume(m.s, 0.5f * gMaster * gEffects);
+    PlaySound(m.s);
+    return true;
 }
 
 void UnloadSfx() {
+    for (auto& kv : gMoveSnd) if (kv.second.ok) UnloadSound(kv.second.s);
+    gMoveSnd.clear();
     for (auto& s : gSlots) {
         if (!s.ok) continue;
         for (int i = 0; i < ALIASES; i++) UnloadSoundAlias(s.alias[i]);
-        UnloadSound(s.base);
+        if (!s.shared) UnloadSound(s.base);
         s.ok = false;
     }
 }

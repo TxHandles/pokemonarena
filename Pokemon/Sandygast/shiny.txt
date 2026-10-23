@@ -1,0 +1,7 @@
+# Sandygast - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 605B4E > 353535
+shiny = 842F2F > 8F6D24
+shiny = C87054 > D7CC45
+shiny = CCC7AB > 797979
+shiny = E9E4C3 > 969696

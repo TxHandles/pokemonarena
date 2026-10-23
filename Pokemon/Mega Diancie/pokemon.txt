@@ -1,0 +1,23 @@
+# Mega Diancie: the Mega Evolution of Diancie (official stats, types and ability). Not caught or met on its
+# own: a Diancie holding the Diancite Mega Evolves into it in battle (once per battle).
+# Sprite: princess-phoenix (DeviantArt, "Gen 6 (Kalos) Pokemon Overworld Sprites").
+name = Mega Diancie
+dex  = 719
+type = Rock / Fairy
+mega_of = Diancie
+mega_stone = Diancite
+
+hp         = 50
+attack     = 160
+defense    = 110
+sp_attack  = 160
+sp_defense = 110
+speed      = 110
+
+height = 1.1      # Pokedex height in meters
+weight = 27.8      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+ability = Magic Bounce
+category = 

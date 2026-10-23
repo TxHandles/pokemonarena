@@ -1,0 +1,41 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Wimpod
+dex  = 767
+type = Bug / Water
+
+hp         = 25
+attack     = 35
+defense    = 40
+sp_attack  = 20
+sp_defense = 30
+speed      = 80
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 12.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Golisopod
+evolve_level = 30
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Defense Curl
+learn = 1, Sand Attack
+learn = 1, Struggle Bug
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Swift, Mud Shot, Endure, Rain Dance
+tm = Sleep Talk, Waterfall, Rest, Taunt, Spikes, Leech Life
+tm = Substitute, Surf, Bug Buzz, Scald

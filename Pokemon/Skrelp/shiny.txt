@@ -1,0 +1,17 @@
+# Skrelp - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 443839 > 4D2C49
+shiny = 548796 > 917192
+shiny = 5C3326 > 532E49
+shiny = 6D4331 > 6B375F
+shiny = 79CAD5 > 80E9D5
+shiny = 7E4A41 > 76416B
+shiny = 83573E > 88417A
+shiny = 87C7E8 > 83EAD8
+shiny = 8C649E > 597B9B
+shiny = AC6142 > A0538D
+shiny = AD629C > 6683A3
+shiny = B388CC > 76A3CB
+shiny = DE94C8 > 8EB6DD
+shiny = FAFAFA > BCFFFD
+shiny = FD5F62 > C870AE

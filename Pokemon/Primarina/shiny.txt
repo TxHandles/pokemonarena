@@ -1,0 +1,9 @@
+# Primarina - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1C5B98 > 284490
+shiny = 1F84C1 > 1F5EC1
+shiny = 29433F > 4B411F
+shiny = 3D8279 > 978533
+shiny = 4DAB9E > C3BC55
+shiny = 4F5D75 > 73487A
+shiny = 8AA5D0 > C294C2

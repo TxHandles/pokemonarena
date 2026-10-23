@@ -143,12 +143,20 @@ std::vector<ItemDef> Build() {
     pu("Revive", 0.5f, -1, 1500, 3, "Revives a fainted Pokemon with half its HP. Use it from Party & Box.");
     pu("Max Revive", 1.0f, -1, 4000, 99, "Revives a fainted Pokemon with all its HP. Use it from Party & Box.");
     pu("Rare Candy", 0, -1, 4800, 99, "Raises a Pokemon's level by one. Use it from Party & Box.");
-    pu("HP Up", 0, 0, 9800, 4, "A nutritious drink: raises a Pokemon's max HP by 1% (up to 10 times). Use it from Party & Box.");
-    pu("Protein", 0, 1, 9800, 4, "A nutritious drink: raises a Pokemon's attacks by 1% (up to 10 times between Protein and Calcium).");
-    pu("Calcium", 0, 1, 9800, 4, "A nutritious drink: raises a Pokemon's attacks by 1% (up to 10 times between Protein and Calcium).");
-    pu("Iron", 0, 2, 9800, 4, "A nutritious drink: raises a Pokemon's defenses by 1% (up to 10 times between Iron and Zinc).");
-    pu("Zinc", 0, 2, 9800, 4, "A nutritious drink: raises a Pokemon's defenses by 1% (up to 10 times between Iron and Zinc).");
-    pu("Carbos", 0, 3, 9800, 4, "A nutritious drink: raises a Pokemon's speed by 1% (up to 10 times). Use it from Party & Box.");
+    // vitamins: +10 EVs in one stat (up to 252, as in Sword and Shield on)
+    pu("HP Up", 0, 0, 9800, 4, "A nutritious drink: +10 HP EVs (up to 252). EVs raise a stat as it levels. Use it from Party & Box.");
+    pu("Protein", 0, 1, 9800, 4, "A nutritious drink: +10 Attack EVs (up to 252). Use it from Party & Box.");
+    pu("Iron", 0, 2, 9800, 4, "A nutritious drink: +10 Defense EVs (up to 252). Use it from Party & Box.");
+    pu("Calcium", 0, 3, 9800, 4, "A nutritious drink: +10 Sp. Atk EVs (up to 252). Use it from Party & Box.");
+    pu("Zinc", 0, 4, 9800, 4, "A nutritious drink: +10 Sp. Def EVs (up to 252). Use it from Party & Box.");
+    pu("Carbos", 0, 5, 9800, 4, "A nutritious drink: +10 Speed EVs (up to 252). Use it from Party & Box.");
+    // berries that lower EVs (and make it friendlier)
+    pu("Pomeg Berry", 0, 10, 300, 4, "Lowers a Pokemon's HP EVs by 10 and makes it friendlier. Use it from Party & Box.");
+    pu("Kelpsy Berry", 0, 11, 300, 4, "Lowers a Pokemon's Attack EVs by 10 and makes it friendlier. Use it from Party & Box.");
+    pu("Qualot Berry", 0, 12, 300, 4, "Lowers a Pokemon's Defense EVs by 10 and makes it friendlier. Use it from Party & Box.");
+    pu("Hondew Berry", 0, 13, 300, 4, "Lowers a Pokemon's Sp. Atk EVs by 10 and makes it friendlier. Use it from Party & Box.");
+    pu("Grepa Berry", 0, 14, 300, 4, "Lowers a Pokemon's Sp. Def EVs by 10 and makes it friendlier. Use it from Party & Box.");
+    pu("Tamato Berry", 0, 15, 300, 4, "Lowers a Pokemon's Speed EVs by 10 and makes it friendlier. Use it from Party & Box.");
     // Used from the Bag out in the world
     add("Repel", ItemFx::Field, 100, 350, 1, "Keeps wild Pokemon away for 100 steps. Use it from the Bag.");
     add("Super Repel", ItemFx::Field, 200, 500, 3, "Keeps wild Pokemon away for 200 steps. Use it from the Bag.");
@@ -175,7 +183,19 @@ std::vector<ItemDef> Build() {
     add("Lax Incense", ItemFx::DefMul, 1.08f, 2000, 3, "A light incense that wafts around it: DEF +8%.");
     add("Sea Incense", ItemFx::TypeBoost, 1.1f, 2000, 3, "A watery incense: Water-type moves deal 10% more damage.", Type::Water);
     add("Lucky Punch", ItemFx::ScopeLens, 1.0f, 2500, 3, "A glove that brings luck: held by Chansey, its critical hits are much more likely.");
-    add("Macho Brace", ItemFx::LuckyEgg, 1.25f, 3000, 2, "Heavy training gear: 25% more XP (Story Mode), but it moves 10% slower.");
+    add("Macho Brace", ItemFx::LuckyEgg, 1.25f, 3000, 2, "Heavy training gear: 25% more XP and double EVs from the Pokemon it beats, but it moves 10% slower.");
+    // the Power items: +8 EVs in one stat for every Pokemon it beats (and, at the Day Care, that IV is passed down)
+    auto pw = [&](const char* name, int stat, const char* what) {
+        add(name, ItemFx::PowerItem, 0, 3000, 4, (std::string("Heavy gear: +8 ") + what + " EVs for every Pokemon it beats, but it moves 10% slower. At the Day Care, its " + what + " IV is passed down.").c_str());
+        v.back().boost = stat;
+    };
+    pw("Power Weight", 0, "HP");
+    pw("Power Bracer", 1, "Attack");
+    pw("Power Belt", 2, "Defense");
+    pw("Power Lens", 3, "Sp. Atk");
+    pw("Power Band", 4, "Sp. Def");
+    pw("Power Anklet", 5, "Speed");
+    add("Destiny Knot", ItemFx::Breeding, 0, 5000, 4, "A long, thin, bright-red string. Held at the Day Care, it passes five of the parents' IVs down to an Egg instead of three.");
     // Mega Stones: held by their Pokemon, they let it Mega Evolve once per battle (sold after your first Champion)
     add("Venusaurite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Venusaur: in battle, press Mega to Mega Evolve it into Mega Venusaur (once per battle).", Type::Grass);
     v.back().move = "Venusaur";
@@ -273,6 +293,8 @@ std::vector<ItemDef> Build() {
     v.back().move = "Gallade";
     add("Audinite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Audino: in battle, press Mega to Mega Evolve it into Mega Audino (once per battle).", Type::Normal);
     v.back().move = "Audino";
+    add("Diancite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Diancie: in battle, press Mega to Mega Evolve it into Mega Diancie (once per battle).", Type::Rock);
+    v.back().move = "Diancie";
     add("Steelixite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Steelix: in battle, press Mega to Mega Evolve it into Mega Steelix (once per battle).", Type::Steel);
     v.back().move = "Steelix";
     add("Latiasite", ItemFx::MegaStone, 0, 5000, ItemDef::AFTER_CHAMPION, "Held by Latias: in battle, press Mega to Mega Evolve it into Mega Latias (once per battle).", Type::Dragon);

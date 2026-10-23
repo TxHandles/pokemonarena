@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Araquanid
+dex  = 752
+type = Water / Bug
+
+hp         = 68
+attack     = 70
+defense    = 92
+sp_attack  = 50
+sp_defense = 132
+speed      = 42
+
+size   = 1.12
+height = 1.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 82.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Bite
+learn = 1, Bug Bite
+learn = 1, Wide Guard
+learn = 1, Infestation
+learn = 12, Bubble Beam
+learn = 16, Aqua Ring
+learn = 20, Headbutt
+learn = 26, Crunch
+learn = 32, Soak
+learn = 38, Entrainment
+learn = 44, Lunge
+learn = 50, Liquidation
+learn = 56, Leech Life
+learn = 62, Mirror Coat
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Water Pulse, Trailblaze, Pounce, Chilling Water
+tm = Facade, Icy Wind, Endure, Rain Dance, Body Slam, Sleep Talk
+tm = Reflect, Waterfall, Poison Jab, Rest, Leech Life, Substitute
+tm = Iron Defense, X-Scissor, Crunch, Liquidation, Giga Drain, Surf
+tm = Ice Beam, Hydro Pump, Blizzard, Giga Impact, Bug Buzz, Hyper Beam
+tm = Tera Blast, Bug Bite, Lunge, Endeavor, Skitter Smack

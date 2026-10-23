@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Pikipek
+dex  = 731
+type = Normal / Flying
+
+hp         = 35
+attack     = 75
+defense    = 30
+sp_attack  = 30
+sp_defense = 30
+speed      = 65
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 1.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Trumbeak
+evolve_level = 14
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Peck
+learn = 3, Growl
+learn = 7, Echoed Voice
+learn = 9, Rock Smash
+learn = 13, Supersonic
+learn = 15, Pluck
+learn = 19, Roost
+learn = 21, Fury Attack
+learn = 25, Screech
+learn = 27, Drill Peck
+learn = 31, Bullet Seed
+learn = 33, Feather Dance
+learn = 37, Hyper Voice
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Acrobatics, Thief, Facade, Aerial Ace
+tm = Flame Charge, Air Cutter, Endure, Sunny Day, Bullet Seed, Brick Break
+tm = U-turn, Air Slash, Sleep Talk, Rest, Swords Dance, Fly
+tm = Gunk Shot, Substitute, Tailwind, Hyper Voice, Heat Wave, Helping Hand
+tm = Brave Bird, Tera Blast, Smack Down, Knock Off, Uproar, Dual Wingbeat
+tm = Endeavor, Feather Dance

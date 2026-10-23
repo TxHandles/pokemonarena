@@ -1,0 +1,11 @@
+# Shiinotic - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 72416F > 8C5133
+shiny = ABA097 > B3B770
+shiny = AF74AB > E29B4A
+shiny = B2B674 > B3B770
+shiny = B66F84 > 8A5847
+shiny = BA7FB6 > F2B055
+shiny = C786C3 > FFC46B
+shiny = EE8DAA > B7755C
+shiny = F4B4C8 > B7755C

@@ -1,0 +1,17 @@
+# Sliggoo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 209529 > 564AA9
+shiny = 266229 > 656F25
+shiny = 2F9935 > 5B4EAE
+shiny = 39EB44 > DDEE82
+shiny = 44434D > 565D05
+shiny = 553656 > 555718
+shiny = 8B578D > AE715D
+shiny = 8DCB6C > 8984C1
+shiny = 905CA4 > B67866
+shiny = A798E8 > BEBF70
+shiny = BC85DD > E6A391
+shiny = BF97CB > C0BE7B
+shiny = D5C6F5 > EAEA95
+shiny = DAC2F8 > E8E6A2
+shiny = FAFAFA > FFFFA9

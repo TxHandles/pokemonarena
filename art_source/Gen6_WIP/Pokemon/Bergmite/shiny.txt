@@ -1,5 +1,0 @@
-# Bergmite - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
-# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
-shiny = D3A279 > AFCB5F
-shiny = F68F12 > A5C822
-shiny = FAFAFA > F4F463

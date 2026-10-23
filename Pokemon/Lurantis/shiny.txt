@@ -1,0 +1,9 @@
+# Lurantis - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 450E1C > 2E3A18
+shiny = 74475A > 756045
+shiny = 952743 > 68822D
+shiny = E4576F > A0CB5D
+shiny = E493B3 > EDCD94
+shiny = F3C3D5 > F4E0C1
+shiny = FDCFD0 > FEFCCD

@@ -1,0 +1,62 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: princess-phoenix (DeviantArt, "Gen 6 (Kalos) Pokemon Overworld Sprites") - credit wanted
+name = Hoopa
+dex  = 720
+type = Psychic / Ghost
+
+hp         = 80
+attack     = 110
+defense    = 60
+sp_attack  = 150
+sp_defense = 130
+speed      = 70
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 9.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Ally Switch
+learn = 1, Confusion
+learn = 1, Destiny Bond
+learn = 6, Astonish
+learn = 10, Trick
+learn = 15, Light Screen
+learn = 19, Psybeam
+learn = 25, Skill Swap
+learn = 29, Power Split
+learn = 29, Guard Split
+learn = 35, Phantom Force
+learn = 46, Zen Headbutt
+learn = 50, Trick Room
+learn = 50, Wonder Room
+learn = 55, Shadow Ball
+learn = 68, Nasty Plot
+learn = 75, Psychic
+learn = 85, Hyperspace Hole
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Psybeam, Thief, Facade
+tm = Swift, Rock Tomb, Fling, Endure, Sunny Day, Rain Dance
+tm = Sandstorm, Psyshock, Brick Break, Zen Headbutt, Foul Play, Fire Punch
+tm = Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Reflect, Light Screen
+tm = Grass Knot, Thunder Wave, Rest, Taunt, Dark Pulse, Skill Swap
+tm = Gunk Shot, Substitute, Trick, Shadow Ball, Energy Ball, Psychic
+tm = Thunderbolt, Calm Mind, Psychic Terrain, Nasty Plot, Phantom Force, Giga Impact
+tm = Focus Blast, Trick Room, Hyper Beam, Tera Blast, Gravity, Knock Off
+tm = Focus Punch, Lash Out, Psych Up, Future Sight, Expanding Force, Skitter Smack
+tm = Throat Chop, Psychic Noise

@@ -1,0 +1,8 @@
+# Pancham - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1C8640 > AE6456
+shiny = 41423F > 772C2B
+shiny = 464850 > 703E3C
+shiny = 53565F > 90413F
+shiny = 747471 > 996B5A
+shiny = 7A829A > A8796B

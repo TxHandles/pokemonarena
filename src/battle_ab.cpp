@@ -86,7 +86,7 @@ void Battle::AbOnEnter(int s) {
     switch (a) {
         case Ab::Illusion: f.illusion = true; break;
         case Ab::Intimidate: {
-            AbPopup(s, f.sp->name + " intimidates its foes!");
+            AbPopup(s, f.Name() + " intimidates its foes!");
             for (int ts : foes) {
                 Fighter& t = sides[ts].Cur();
                 if (!Here(t) || AbBlocksLower(ts, StatId::Atk, s, "Intimidate")) continue;
@@ -124,7 +124,7 @@ void Battle::AbOnEnter(int s) {
             weatherTick = 1.0f;
             AbPopup(s, "It started to snow!");
             break;
-        case Ab::SlowStart: AbPopup(s, f.sp->name + " can't get it going!"); break;
+        case Ab::SlowStart: AbPopup(s, f.Name() + " can't get it going!"); break;
         case Ab::SandStream:
             weather = Weather::Sand;
             weatherT = 10;
@@ -142,7 +142,7 @@ void Battle::AbOnEnter(int s) {
                 Ab ta = t.ab;
                 if (!Here(t) || ta == Ab::None || ta == Ab::Trace || ta == Ab::Imposter || ta == Ab::NeutralizingGas) continue;
                 f.ab = ta;
-                AddText(f.pos, f.sp->name + " traced " + t.sp->name + "'s " + AbilityName(ta) + "!", kAbCol, 50);
+                AddText(f.pos, f.Name() + " traced " + t.Name() + "'s " + AbilityName(ta) + "!", kAbCol, 50);
                 AbOnEnter(s);
                 break;
             }
@@ -154,7 +154,7 @@ void Battle::AbOnEnter(int s) {
         case Ab::Frisk:
             for (int ts : foes) {
                 const Fighter& t = sides[ts].Cur();
-                if (Here(t) && t.item) AbPopup(s, t.sp->name + " is holding " + t.item->name + ".");
+                if (Here(t) && t.item) AbPopup(s, t.Name() + " is holding " + t.item->name + ".");
             }
             break;
         case Ab::Forewarn: {
@@ -175,13 +175,13 @@ void Battle::AbOnEnter(int s) {
                 for (int i = 0; i < t.nMoves; i++)
                     danger |= t.moves[i].power > 0 && TypeEffectiveness(t.moves[i].type, f.sp->type1, f.sp->type2) >= 2;
             }
-            if (danger) AbPopup(s, f.sp->name + " shuddered!");
+            if (danger) AbPopup(s, f.Name() + " shuddered!");
         } break;
-        case Ab::Pressure: AbPopup(s, f.sp->name + " is exerting its Pressure!"); break;
+        case Ab::Pressure: AbPopup(s, f.Name() + " is exerting its Pressure!"); break;
         case Ab::Unnerve: AbPopup(s, "Its foes are too nervous to snack!"); break;
         case Ab::NeutralizingGas: AbPopup(s, "Neutralizing gas filled the area!"); break;
         case Ab::CloudNine: case Ab::AirLock: AbPopup(s, "The effects of weather disappeared."); break;
-        case Ab::MoldBreaker: AbPopup(s, f.sp->name + " breaks the mold!"); break;
+        case Ab::MoldBreaker: AbPopup(s, f.Name() + " breaks the mold!"); break;
         case Ab::Illuminate: AbPopup(s, "The arena lit up!"); break;
         default: break;
     }
@@ -218,7 +218,7 @@ void Battle::AbTick(int s, float dt) {
             break;
         case Ab::ZenMode:
             if (f.hp * 2 < f.maxHp && f.hp > 0) {
-                if (!f.zen) { f.zen = true; AbPopup(s, f.sp->name + " entered Zen Mode!"); }
+                if (!f.zen) { f.zen = true; AbPopup(s, f.Name() + " entered Zen Mode!"); }
                 f.abDef = 1.6f;
                 f.abSpd = 0.65f;
             }
@@ -230,7 +230,7 @@ void Battle::AbTick(int s, float dt) {
         case Ab::HugePower: case Ab::PurePower: f.abAtk = 2.0f; break;
         case Ab::Forecast: {   // its type follows the weather
             Type ft = w == Weather::Sun ? Type::Fire : (w == Weather::Rain ? Type::Water : (w == Weather::Snow ? Type::Ice : Type::None));
-            if (ft != f.shiftT) { f.shiftT = ft; AbPopup(s, f.sp->name + (ft == Type::None ? " returned to normal!" : " transformed!")); }
+            if (ft != f.shiftT) { f.shiftT = ft; AbPopup(s, f.Name() + (ft == Type::None ? " returned to normal!" : " transformed!")); }
         } break;
         case Ab::LightMetal: f.abSpd = 1.1f; break;
         case Ab::HeavyMetal: f.abSpd = 0.9f; break;
@@ -263,7 +263,7 @@ void Battle::AbTick(int s, float dt) {
     // Snacks (Gluttony, Harvest) once HP drops below half.
     if ((a == Ab::Gluttony || a == Ab::Harvest) && !f.snackUsed && f.hp < f.maxHp * 0.5f && !AbOnField(Ab::Unnerve, -1, s)) {
         f.snackUsed = true;
-        AbPopup(s, f.sp->name + " ate a berry!");
+        AbPopup(s, f.Name() + " ate a berry!");
         heal(a == Ab::Gluttony ? 0.2f : 0.15f);
     }
     // Pinch abilities announce themselves once
@@ -288,7 +288,7 @@ void Battle::AbTick(int s, float dt) {
             if (w == Weather::Rain && status) { f.st.major = Status::None; AbPopup(s, "The rain washed its status away!"); }
             break;
         case Ab::ShedSkin:
-            if (status && Chance(0.25f)) { f.st.major = Status::None; AbPopup(s, f.sp->name + " shed its skin!"); }
+            if (status && Chance(0.25f)) { f.st.major = Status::None; AbPopup(s, f.Name() + " shed its skin!"); }
             break;
         case Ab::Healer:
             for (int k = 0; k < N(); k++) {
@@ -296,7 +296,7 @@ void Battle::AbTick(int s, float dt) {
                 Fighter& ally = sides[k].Cur();
                 if (Here(ally) && ally.st.major != Status::None && Chance(0.3f)) {
                     ally.st.major = Status::None;
-                    AbPopup(s, "It healed " + ally.sp->name + "!");
+                    AbPopup(s, "It healed " + ally.Name() + "!");
                 }
             }
             break;
@@ -457,19 +457,19 @@ void Battle::AbAfterHit(const HitSpec& h, int ts, float dmg, bool crit, float hp
     Ab ta = AbOf(t);
     if (ta == Ab::Sturdy && h.ab != Ab::MoldBreaker && hpBefore >= t.maxHp && t.hp <= 0 && dmg > 0) {
         t.hp = 1;
-        AbPopup(ts, t.sp->name + " endured the hit!");
+        AbPopup(ts, t.Name() + " endured the hit!");
     }
     if (dmg <= 0 || h.light) return;
     if (ta == Ab::Illusion && t.illusion) { t.illusion = false; AbPopup(ts, "The illusion wore off!"); }
     if (ta == Ab::ColorChange && t.hp > 0 && (t.T1() != h.type || t.T2() != Type::None)) {   // it takes on the hit's type
         t.shiftT = h.type;
-        AbPopup(ts, t.sp->name + " became " + TypeName(h.type) + " type!");
+        AbPopup(ts, t.Name() + " became " + TypeName(h.type) + " type!");
     }
     Fighter* a = nullptr;
     if (h.side >= 0 && h.side < N() && sides[h.side].active == h.fighter && sides[h.side].Cur().state == FState::Active)
         a = &sides[h.side].Cur();
     if (ta == Ab::InnardsOut && a && t.hp <= 0 && hpBefore > 0) {
-        AbPopup(ts, t.sp->name + "'s Innards Out!");
+        AbPopup(ts, t.Name() + "'s Innards Out!");
         DirectDamage(h.side, std::min(hpBefore, a->maxHp * 0.5f), Color{170, 220, 90, 255}, ts);
     }
     if (h.contact && a) {
@@ -477,7 +477,7 @@ void Battle::AbAfterHit(const HitSpec& h, int ts, float dmg, bool crit, float hp
             case Ab::RoughSkin: DirectDamage(h.side, a->maxHp / 16.0f, Color{200, 170, 140, 255}, ts); break;
             case Ab::IronBarbs: DirectDamage(h.side, a->maxHp / 8.0f, Color{200, 200, 210, 255}, ts); break;
             case Ab::Mummy:
-                if (a->ab != Ab::Mummy && a->ab != Ab::Multitype) { a->ab = Ab::Mummy; AbPopup(ts, a->sp->name + "'s ability became Mummy!"); }
+                if (a->ab != Ab::Mummy && a->ab != Ab::Multitype) { a->ab = Ab::Mummy; AbPopup(ts, a->Name() + "'s ability became Mummy!"); }
                 break;
             case Ab::Static: if (a->st.major == Status::None && Chance(0.3f)) { AbPopup(ts, "Zap!"); TryStatus(h.side, Status::Paralyze, ts); } break;
             case Ab::PoisonPoint: if (a->st.major == Status::None && Chance(0.3f)) { AbPopup(ts, "Ouch!"); TryStatus(h.side, Status::Poison, ts); } break;
@@ -491,7 +491,7 @@ void Battle::AbAfterHit(const HitSpec& h, int ts, float dmg, bool crit, float hp
                 break;
             case Ab::CuteCharm: if (a->st.confuseT <= 0 && Chance(0.3f)) { AbPopup(ts, "So cute..."); TryStatus(h.side, Status::Confuse, ts); } break;
             case Ab::Gooey:
-                if (a->dropT[2] <= 0) AbPopup(ts, a->sp->name + " got stuck in the goo!");
+                if (a->dropT[2] <= 0) AbPopup(ts, a->Name() + " got stuck in the goo!");
                 a->dropMul[2] = std::min(a->dropMul[2], 0.67f);
                 a->dropT[2] = std::max(a->dropT[2], 6.0f);
                 break;
@@ -509,7 +509,7 @@ void Battle::AbAfterHit(const HitSpec& h, int ts, float dmg, bool crit, float hp
                 if (t.hp > 0 && !t.item && a->item && !IsBall(*a->item)) {
                     t.item = a->item;
                     a->item = nullptr;
-                    AbPopup(ts, "It stole " + a->sp->name + "'s " + t.item->name + "!");
+                    AbPopup(ts, "It stole " + a->Name() + "'s " + t.item->name + "!");
                 }
                 break;
             case Ab::CursedBody:
@@ -709,7 +709,7 @@ void Battle::DoTransform(int s, int ts, bool announce) {
     f.hp = std::max(1.0f, f.maxHp * frac);
     f.flash = 0.3f;
     Burst(f.pos, Color{200, 150, 255, 255}, 24, 90, 8);
-    AddText(f.pos, (announce ? "[Imposter] " : "") + from + " transformed into " + t.sp->name + "!", Color{200, 150, 255, 255}, 50);
+    AddText(f.pos, (announce ? "[Imposter] " : "") + (f.nick.empty() ? from : f.nick) + " transformed into " + t.sp->name + "!", Color{200, 150, 255, 255}, 50);
     PlaySfx(Sfx::Status);
 }
 
@@ -722,25 +722,25 @@ void Battle::AbilityMove(int s, int ts, int kind) {
         case 1:   // Skill Swap
             if (fixed(f.ab) || fixed(t.ab)) { AddText(f.pos, "But it failed!", UI_DIM, 30); return; }
             std::swap(f.ab, t.ab);
-            AddText(f.pos, f.sp->name + " swapped abilities! Now: " + AbilityName(f.ab), c, 50);
+            AddText(f.pos, f.Name() + " swapped abilities! Now: " + AbilityName(f.ab), c, 50);
             AbOnEnter(s);
             AbOnEnter(ts);
             break;
         case 2:   // Entrainment
             if (fixed(t.ab) || f.ab == Ab::None) { AddText(f.pos, "But it failed!", UI_DIM, 30); return; }
             t.ab = f.ab;
-            AddText(t.pos, t.sp->name + " acquired " + AbilityName(t.ab) + "!", c, 50);
+            AddText(t.pos, t.Name() + " acquired " + AbilityName(t.ab) + "!", c, 50);
             AbOnEnter(ts);
             break;
         case 3:   // Simple Beam: here, the target's ability is switched off
             if (fixed(t.ab)) { AddText(f.pos, "But it failed!", UI_DIM, 30); return; }
             t.ab = Ab::None;
-            AddText(t.pos, t.sp->name + "'s ability was suppressed!", c, 50);
+            AddText(t.pos, t.Name() + "'s ability was suppressed!", c, 50);
             break;
         case 4:   // Doodle
             if (fixed(t.ab) || t.ab == Ab::None) { AddText(f.pos, "But it failed!", UI_DIM, 30); return; }
             f.ab = t.ab;
-            AddText(f.pos, f.sp->name + " copied " + AbilityName(f.ab) + "!", c, 50);
+            AddText(f.pos, f.Name() + " copied " + AbilityName(f.ab) + "!", c, 50);
             AbOnEnter(s);
             break;
         case 5:   // Psycho Shift

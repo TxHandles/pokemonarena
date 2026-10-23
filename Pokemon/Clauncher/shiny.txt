@@ -1,0 +1,15 @@
+# Clauncher - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 403F3F > C1BEBA
+shiny = 46779A > 983E25
+shiny = 504D4C > D4CFCA
+shiny = 5084C8 > AC4D36
+shiny = 5CAED2 > D55D38
+shiny = 5E6063 > E5E5E5
+shiny = 67BEFD > EA6E4B
+shiny = 909B5C > C44E1F
+shiny = 946314 > 006693
+shiny = DFC11B > 37B8F1
+shiny = F19A04 > 25A2DC
+shiny = FAFAFA > 8C8C8C
+shiny = FFD320 > 5ACDFF

@@ -1,9 +1,0 @@
-# Gogoat - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
-# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
-shiny = 2E3A30 > B7AD00
-shiny = 388850 > 98988E
-shiny = 555555 > E9CD37
-shiny = 7C7673 > FFF45F
-shiny = A25D2D > 7D634F
-shiny = BE3811 > B43B30
-shiny = C3AF93 > DAD1C9

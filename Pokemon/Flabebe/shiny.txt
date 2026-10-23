@@ -1,0 +1,11 @@
+# Flabebe - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 234523 > 52972C
+shiny = 343733 > C0C2C4
+shiny = 58594D > EAECEC
+shiny = 595959 > EBEDEF
+shiny = 6B2421 > CD4040
+shiny = DDB500 > 3C3000
+shiny = DE74BD > FFA8A6
+shiny = E7C60B > 483C00
+shiny = FEED49 > 65591B

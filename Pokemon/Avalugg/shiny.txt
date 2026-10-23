@@ -1,0 +1,6 @@
+# Avalugg - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 233899 > 0C502A
+shiny = 8150B1 > 3D764C
+shiny = DBA90F > 80B606
+shiny = FDEC3A > E4FF76

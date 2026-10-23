@@ -1,0 +1,13 @@
+# Lunala - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 313131 > 3E0010
+shiny = 4E3B9F > B51A4F
+shiny = 5E5E5E > 914E76
+shiny = 6A5AC5 > D13858
+shiny = 6B41A5 > 8B2843
+shiny = 73E6CD > FF5F8F
+shiny = A36FEA > FF5F8F
+shiny = A3A0C0 > B6364A
+shiny = C4C2D9 > 833965
+shiny = FF527B > FF5F8F
+shiny = FFFFFF > 5F2251

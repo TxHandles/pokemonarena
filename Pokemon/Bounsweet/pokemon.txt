@@ -1,0 +1,49 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Bounsweet
+dex  = 761
+type = Grass
+
+hp         = 42
+attack     = 30
+defense    = 38
+sp_attack  = 30
+sp_defense = 38
+speed      = 32
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 3.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Steenee
+evolve_level = 18
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Splash
+learn = 4, Play Nice
+learn = 8, Rapid Spin
+learn = 12, Razor Leaf
+learn = 16, Sweet Scent
+learn = 20, Magical Leaf
+learn = 24, Flail
+learn = 28, Teeter Dance
+learn = 32, Aromatic Mist
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Trailblaze, Facade, Swift
+tm = Magical Leaf, Draining Kiss, Endure, Sunny Day, Bullet Seed, Zen Headbutt
+tm = Sleep Talk, Seed Bomb, Reflect, Light Screen, Dazzling Gleam, Grass Knot
+tm = Rest, Substitute, Giga Drain, Energy Ball, Play Rough, Helping Hand
+tm = Grassy Terrain, Leaf Storm, Solar Beam, Tera Blast, Grassy Glide, Endeavor

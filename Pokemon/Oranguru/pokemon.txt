@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Oranguru
+dex  = 765
+type = Normal / Psychic
+
+hp         = 90
+attack     = 60
+defense    = 80
+sp_attack  = 90
+sp_defense = 110
+speed      = 60
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 76.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Confusion
+learn = 1, Taunt
+learn = 5, After You
+learn = 10, Calm Mind
+learn = 15, Stored Power
+learn = 20, Psych Up
+learn = 25, Quash
+learn = 30, Nasty Plot
+learn = 35, Zen Headbutt
+learn = 40, Trick Room
+learn = 45, Psychic
+learn = 50, Instruct
+learn = 55, Foul Play
+learn = 60, Future Sight
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Psybeam, Trailblaze, Chilling Water
+tm = Charge Beam, Facade, Bulldoze, Swift, Stored Power, Fling
+tm = Endure, Sunny Day, Rain Dance, Psyshock, Brick Break, Zen Headbutt
+tm = Foul Play, Body Slam, Sleep Talk, Reflect, Light Screen, Rest
+tm = Rock Slide, Taunt, Imprison, Skill Swap, Substitute, Trick
+tm = Shadow Ball, Hyper Voice, Energy Ball, Psychic, Encore, Thunderbolt
+tm = Calm Mind, Psychic Terrain, Nasty Plot, Earthquake, Giga Impact, Focus Blast
+tm = Trick Room, Hyper Beam, Thunder, Tera Blast, Gravity, Knock Off
+tm = Pain Split, Psych Up, Endeavor, Future Sight, Expanding Force, Psychic Noise

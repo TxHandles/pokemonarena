@@ -1,0 +1,8 @@
+# Kommo-o - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 5B5B5B > 956E31
+shiny = 5C522A > 7C4058
+shiny = 8C8888 > DEAF40
+shiny = B1ABAB > F0D852
+shiny = CF973F > D460B4
+shiny = F0D35E > EC90C8

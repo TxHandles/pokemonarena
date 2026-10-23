@@ -392,3 +392,19 @@ drop door 10 2
 
 [patch Route 2]
 npc = 6 10 raidboss down 0 raid
+
+# ------------------------------------------------------------------ to Johto and back (tools/hgss_world.py makes Johto)
+[patch Vermilion City]
+npc = 22 33 sailor up 0 travel|The S.S. Aqua sails for Olivine City in Johto. All aboard?|Olivine Port|4|7|up|done:Kanto,done:Johto|Sorry, the S.S. Aqua only takes trainers who've beaten a Pokemon League.
+[patch Saffron City]
+npc = 26 40 policeman down 0 travel|The Magnet Train to Goldenrod City in Johto is about to leave. Would you like to board?|Goldenrod City Magnet Train Station 1F|4|7|up|done:Kanto,done:Johto|Sorry, the Magnet Train only takes trainers who've beaten a Pokemon League.
+[patch Route 22 North Entrance]
+npc = 10 7 policeman left 0 travel|The new road east leads to Route 26 and Johto's Pokemon League. Go on through?|Pokemon League Reception Gate|4|7|up|done:Kanto,done:Johto|The road to Johto is only open to trainers who've beaten a Pokemon League.
+
+# ------------------------------------------------------------------ the Day Care (Route 5 and Four Island share one)
+[patch Route 5 Pokemon Day Care]
+drop npc 4 4
+npc = 4 4 gentleman down 0 daycare|I'm the Day Care man. I help raise Pokemon - leave two that get along and you might find an Egg!
+[patch Four Island Pokemon Day Care]
+drop npc 2 2
+npc = 2 2 old_woman down 0 daycare|I'm the Day Care lady. My husband and I will raise your Pokemon for you.

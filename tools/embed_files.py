@@ -13,7 +13,7 @@ files = []
 for rel in ["story.txt", "wild.txt", "map.png", "johto.png", "hoenn.png", "sinnoh.png", "unova.png"]:
     if os.path.exists(os.path.join(ROOT, rel)):
         files.append(rel)
-for top in ["Pokemon", "Badges", "Leaders", "World"]:
+for top in ["Pokemon", "Badges", "Leaders", "World", "Sounds"]:
     for dirpath, dirnames, filenames in os.walk(os.path.join(ROOT, top)):
         dirnames[:] = sorted(d for d in dirnames if d not in SKIP_DIRS)
         for f in sorted(filenames):

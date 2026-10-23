@@ -1,0 +1,11 @@
+# Zeraora - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1A5E7C > 6C6A11
+shiny = 2F97C6 > A39F31
+shiny = 383D43 > 3C5C59
+shiny = 5BD0F2 > FBEA55
+shiny = 686C6E > 5696A0
+shiny = 835725 > 595959
+shiny = DAA936 > B5B5B5
+shiny = EF8A4E > AB3F4A
+shiny = F9E455 > E5E5E5

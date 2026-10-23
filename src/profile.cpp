@@ -1,4 +1,5 @@
 #include "profile.h"
+#include "breeding.h"
 #include "story.h"
 #include "embedded.h"
 #include <algorithm>
@@ -104,9 +105,10 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
     while (std::getline(ss, line)) {
         line = Trim(line);
         if (line.empty() || line[0] == '#') continue;
-        if (line == "[creature]") {
-            out.mons.push_back(OwnedMon());
-            cur = &out.mons.back();
+        if (line == "[creature]" || line == "[daycare]" || line == "[egg]") {
+            auto& vec = line == "[creature]" ? out.mons : line == "[daycare]" ? out.daycare : out.eggs;
+            vec.push_back(OwnedMon());
+            cur = &vec.back();
             continue;
         }
         size_t eq = line.find('=');
@@ -141,6 +143,9 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "difficulty") out.difficulty = std::max(0, std::min(2, iv));
             else if (k == "hof") { if (!v.empty()) out.hof.push_back(v); }
             else if (k == "legends") out.legends = std::strtoull(v.c_str(), nullptr, 10);
+            else if (k == "daycare_egg") out.daycareEgg = iv != 0;
+            else if (k == "daycare_steps") out.daycareSteps = std::max(0, iv);
+            else if (k == "roam") { int id; Profile::Roam r; if (ParseRoamLine(v, id, r)) out.roam[id] = r; }
             else if (k == "rival") out.rival = v;
             else if (k == "starter2") out.starter2 = v;
             else if (k.size() == 8 && k.rfind("hotitem", 0) == 0 && k[7] >= '1' && k[7] <= '4') out.hotItems[k[7] - '1'] = v;
@@ -202,6 +207,13 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "nature") cur->nature = NatureByName(v);
             else if (k == "shiny") cur->shiny = iv != 0;
             else if (k == "vit") std::sscanf(v.c_str(), "%d %d %d %d", &cur->vit[0], &cur->vit[1], &cur->vit[2], &cur->vit[3]);
+            else if (k == "iv") std::sscanf(v.c_str(), "%d %d %d %d %d %d", &cur->iv[0], &cur->iv[1], &cur->iv[2], &cur->iv[3], &cur->iv[4], &cur->iv[5]);
+            else if (k == "ev") std::sscanf(v.c_str(), "%d %d %d %d %d %d", &cur->ev[0], &cur->ev[1], &cur->ev[2], &cur->ev[3], &cur->ev[4], &cur->ev[5]);
+            else if (k == "gender") cur->gender = std::max(0, std::min(2, iv));
+            else if (k == "nick") cur->nick = v.substr(0, NICK_MAX);
+            else if (k == "egg_steps") cur->eggSteps = std::max(0, iv);
+            else if (k == "met") cur->metAt = v;
+            else if (k == "dc_level") cur->dcLevel = std::max(0, iv);
             else if (k == "forgotten") {
                 cur->forgotten.clear();
                 std::string part;
@@ -229,8 +241,12 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
         m.xp = std::max(m.xp, XpForLevel(m.level));
         if (m.abilitySlot < 0) m.abilitySlot = RollAbilitySlot(MonSpecies(m), false);   // saves from before abilities
         if (m.nature < 0) m.nature = GetRandomValue(0, NATURE_COUNT - 1);                 // saves from before natures
+        FixMonStats(m);                                                                   // saves from before IVs, EVs and gender
         if (problems && MonSpecies(m) < 0) *problems += "  " + m.species + " is missing from the Pokemon folder\n";
     }
+    for (auto& m : out.daycare) FixMonStats(m);
+    for (auto& m : out.eggs) FixMonStats(m);
+    if (out.daycare.size() > 2) out.daycare.resize(2);
     FixParty(out);
     DexRegisterOwned(out);
     if (out.storyRev <= 0) out.storyRev = out.mons.empty() ? Story().rev : 1;
@@ -245,6 +261,34 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
 bool SaveProfile(const Profile& p) {
     std::string o = ProfileToText(p);
     return SaveFileText(FileNameFor(p.name).c_str(), (char*)o.c_str());
+}
+
+static void MonText(std::string& o, const OwnedMon& m, const char* section) {
+    o += "\n[" + std::string(section) + "]\nspecies = " + m.species + "\n";
+    o += TextFormat("level = %d\nxp = %d\nbattles = %d\nwins = %d\nkos = %d\nhp = %.3f\ncaught = %d\n", m.level, m.xp, m.battles, m.wins, m.kos, m.hp, m.caught ? 1 : 0);
+    std::string mv;
+    for (size_t i = 0; i < m.moves.size(); i++) mv += (i ? " | " : "") + m.moves[i];
+    if (!m.forgotten.empty()) {
+        std::string fg;
+        for (size_t i = 0; i < m.forgotten.size(); i++) fg += (i ? " | " : "") + m.forgotten[i];
+        o += "forgotten = " + fg + "\n";
+    }
+    o += "moves = " + mv + "\n";
+    if (!m.item.empty()) o += "item = " + m.item + "\n";
+    if (m.boxed) o += "boxed = 1\n";
+    o += TextFormat("friendship = %d\n", m.friendship);
+    if (m.abilitySlot >= 0) o += TextFormat("ability_slot = %d\n", m.abilitySlot);
+    if (!m.ot.empty()) o += "ot = " + m.ot + "\n";
+    if (m.nature >= 0) o += std::string("nature = ") + NatureName(m.nature) + "\n";
+    if (m.shiny) o += "shiny = 1\n";
+    if (m.vit[0] || m.vit[1] || m.vit[2] || m.vit[3]) o += TextFormat("vit = %d %d %d %d\n", m.vit[0], m.vit[1], m.vit[2], m.vit[3]);
+    o += TextFormat("iv = %d %d %d %d %d %d\n", m.iv[0], m.iv[1], m.iv[2], m.iv[3], m.iv[4], m.iv[5]);
+    if (EvTotal(m)) o += TextFormat("ev = %d %d %d %d %d %d\n", m.ev[0], m.ev[1], m.ev[2], m.ev[3], m.ev[4], m.ev[5]);
+    if (m.gender >= 0) o += TextFormat("gender = %d\n", m.gender);
+    if (!m.nick.empty()) o += "nick = " + m.nick + "\n";
+    if (m.eggSteps > 0) o += TextFormat("egg_steps = %d\n", m.eggSteps);
+    if (!m.metAt.empty()) o += "met = " + m.metAt + "\n";
+    if (m.dcLevel > 0) o += TextFormat("dc_level = %d\n", m.dcLevel);
 }
 
 std::string ProfileToText(const Profile& p) {
@@ -270,6 +314,9 @@ std::string ProfileToText(const Profile& p) {
     o += TextFormat("difficulty = %d\n", p.difficulty);
     for (const auto& h : p.hof) o += "hof = " + h + "\n";
     if (p.legends) o += "legends = " + std::to_string(p.legends) + "\n";
+    if (p.daycareEgg) o += "daycare_egg = 1\n";
+    if (p.daycareSteps) o += TextFormat("daycare_steps = %d\n", p.daycareSteps);
+    for (const auto& kv : p.roam) o += "roam = " + RoamLine(kv.first, kv.second) + "\n";
     if (!p.rival.empty()) o += "rival = " + p.rival + "\n";
     if (!p.starter.empty()) o += "starter = " + p.starter + "\n";
     if (!p.starter2.empty()) o += "starter2 = " + p.starter2 + "\n";
@@ -301,26 +348,9 @@ std::string ProfileToText(const Profile& p) {
         o += "dex_seen = " + a + "\n";
         o += "dex_caught = " + b + "\n";
     }
-    for (const auto& m : p.mons) {
-        o += "\n[creature]\nspecies = " + m.species + "\n";
-        o += TextFormat("level = %d\nxp = %d\nbattles = %d\nwins = %d\nkos = %d\nhp = %.3f\ncaught = %d\n", m.level, m.xp, m.battles, m.wins, m.kos, m.hp, m.caught ? 1 : 0);
-        std::string mv;
-        for (size_t i = 0; i < m.moves.size(); i++) mv += (i ? " | " : "") + m.moves[i];
-        if (!m.forgotten.empty()) {
-            std::string fg;
-            for (size_t i = 0; i < m.forgotten.size(); i++) fg += (i ? " | " : "") + m.forgotten[i];
-            o += "forgotten = " + fg + "\n";
-        }
-        o += "moves = " + mv + "\n";
-        if (!m.item.empty()) o += "item = " + m.item + "\n";
-        if (m.boxed) o += "boxed = 1\n";
-        o += TextFormat("friendship = %d\n", m.friendship);
-        if (m.abilitySlot >= 0) o += TextFormat("ability_slot = %d\n", m.abilitySlot);
-        if (!m.ot.empty()) o += "ot = " + m.ot + "\n";
-        if (m.nature >= 0) o += std::string("nature = ") + NatureName(m.nature) + "\n";
-        if (m.shiny) o += "shiny = 1\n";
-        if (m.vit[0] || m.vit[1] || m.vit[2] || m.vit[3]) o += TextFormat("vit = %d %d %d %d\n", m.vit[0], m.vit[1], m.vit[2], m.vit[3]);
-    }
+    for (const auto& m : p.mons) MonText(o, m, "creature");
+    for (const auto& m : p.daycare) MonText(o, m, "daycare");
+    for (const auto& m : p.eggs) MonText(o, m, "egg");
     return o;
 }
 
@@ -336,6 +366,8 @@ OwnedMon NewMon(int idx, int level) {
     m.abilitySlot = RollAbilitySlot(idx);
     m.nature = GetRandomValue(0, NATURE_COUNT - 1);
     m.shiny = RollShiny();
+    RollIVs(m.iv);
+    m.gender = RollGender(m.species);
     return m;
 }
 
@@ -399,6 +431,8 @@ CombatantSpec MonCombatant(const Profile& p, int i) {
     c.nature = m.nature < 0 ? 0 : m.nature;
     c.shiny = m.shiny;
     for (int k = 0; k < 4; k++) c.vit[k] = m.vit[k];
+    for (int k = 0; k < 6; k++) { c.iv[k] = std::max(0, m.iv[k]); c.ev[k] = m.ev[k]; }
+    c.nick = m.nick;
     return c;
 }
 
@@ -508,6 +542,26 @@ std::string CoopFile(std::string a, std::string b) {
 }
 } // namespace
 
+std::string RoamLine(int id, const Profile::Roam& r) {
+    return TextFormat("%d | %s | %.3f | %d | %d | %d %d %d %d %d %d", id, r.area.c_str(), r.hp, r.seen ? 1 : 0, r.shiny ? 1 : 0,
+                      r.iv[0], r.iv[1], r.iv[2], r.iv[3], r.iv[4], r.iv[5]);
+}
+bool ParseRoamLine(const std::string& v, int& id, Profile::Roam& r) {
+    std::vector<std::string> f;
+    std::string part;
+    std::istringstream rs(v);
+    while (std::getline(rs, part, '|')) f.push_back(Trim(part));
+    if (f.size() < 3) return false;
+    id = std::atoi(f[0].c_str());
+    r = Profile::Roam();
+    r.area = f[1];
+    r.hp = std::max(0.01f, std::min(1.0f, (float)std::atof(f[2].c_str())));
+    r.seen = f.size() > 3 && f[3] == "1";
+    r.shiny = f.size() > 4 && f[4] == "1";
+    if (f.size() > 5) std::sscanf(f[5].c_str(), "%d %d %d %d %d %d", &r.iv[0], &r.iv[1], &r.iv[2], &r.iv[3], &r.iv[4], &r.iv[5]);
+    return id >= 0 && id < 64;
+}
+
 bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out) {
     out = CoopSave();
     out.p[0] = a;
@@ -553,6 +607,7 @@ bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out) {
         else if (k == "post_v") postV = iv;
         else if (k == "region_order") { out.regionOrder = ReadOrder(v); hasOrder = true; }
         else if (k == "post_done") ReadSet(v, out.postDone);
+        else if (k == "roam") { int id; Profile::Roam r; if (ParseRoamLine(v, id, r)) out.roam[id] = r; }
         else if (k == "run1" || k == "run2") {
             CoopSave::RunStats& r = out.run[k == "run2" ? 1 : 0];
             std::istringstream rs(v);
@@ -598,6 +653,7 @@ bool SaveCoop(const CoopSave& c) {
     o += "post_v = 1\n";
     o += "region_order = " + JoinOrder(c.regionOrder) + "\n";
     if (!c.postDone.empty()) o += "post_done = " + JoinSet(c.postDone) + "\n";
+    for (const auto& kv : c.roam) o += "roam = " + RoamLine(kv.first, kv.second) + "\n";
     o += "# leaderboard: KOs, damage, caught, MVP battles, fainted, battles\n";
     for (int p = 0; p < 2; p++)
         o += TextFormat("run%d = %d %d %d %d %d %d\n", p + 1, c.run[p].kos, c.run[p].damage, c.run[p].caught, c.run[p].mvp, c.run[p].faints, c.run[p].battles);

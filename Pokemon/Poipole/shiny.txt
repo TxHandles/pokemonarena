@@ -1,0 +1,9 @@
+# Poipole - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2C1B3D > 434343
+shiny = 3E2756 > 545454
+shiny = 652349 > 67630D
+shiny = 7D4BBF > D3D3D3
+shiny = 8E5DD0 > CECECE
+shiny = BC4085 > B7B01C
+shiny = DF559D > D4D22A

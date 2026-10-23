@@ -1,0 +1,8 @@
+# Passimian - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 545E13 > 7D5F27
+shiny = 91A360 > BC8B43
+shiny = C1701E > BC8B43
+shiny = DBE68A > EAB354
+shiny = E29548 > FFFFA6
+shiny = F8D000 > FFFFA6

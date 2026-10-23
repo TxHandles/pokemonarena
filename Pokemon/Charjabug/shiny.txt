@@ -1,0 +1,7 @@
+# Charjabug - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 354230 > 803031
+shiny = 4E6446 > C33D49
+shiny = 627F57 > DC5B58
+shiny = 7D9C70 > EB7D80
+shiny = 91AF85 > F19193

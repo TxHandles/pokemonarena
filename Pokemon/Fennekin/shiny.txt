@@ -1,0 +1,11 @@
+# Fennekin - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 6F2D23 > 702128
+shiny = 947B38 > 7B7D81
+shiny = B8443C > B63444
+shiny = C53910 > C5142B
+shiny = DD9F3D > A5A2A2
+shiny = E84D46 > E63450
+shiny = F0C644 > CAC9C9
+shiny = F0D761 > D4D7D7
+shiny = FE4928 > F73343

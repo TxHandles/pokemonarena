@@ -1,0 +1,9 @@
+# Mareanie - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2B4C65 > 74305D
+shiny = 4572AB > A441CB
+shiny = 4D3A55 > 5F392B
+shiny = 78C5CE > C97BA2
+shiny = 9345AF > AD5845
+shiny = A96BD7 > D59F65
+shiny = FFE97F > AAFFCA

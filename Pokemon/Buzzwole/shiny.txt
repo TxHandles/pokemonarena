@@ -1,0 +1,5 @@
+# Buzzwole - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 812727 > 5A3838
+shiny = B83A3A > 378E2C
+shiny = EA4D4D > 50BA44

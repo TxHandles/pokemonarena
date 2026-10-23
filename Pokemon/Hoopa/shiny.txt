@@ -1,0 +1,16 @@
+# Hoopa - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 16A02B > 9B3822
+shiny = 323233 > 433F1A
+shiny = 354E12 > 5A540F
+shiny = 4B1F33 > 452000
+shiny = 59544C > 6B6231
+shiny = 68584E > 736937
+shiny = 7B82A5 > 9F9145
+shiny = 8C76A6 > 9C8C42
+shiny = BABCFE > E4D177
+shiny = D1C4E6 > EDD97B
+shiny = D9DDE1 > FFED8B
+shiny = DB52A4 > AC7442
+shiny = FE2C77 > BD7630
+shiny = FF83CF > D79B67

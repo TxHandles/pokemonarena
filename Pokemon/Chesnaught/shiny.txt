@@ -1,0 +1,20 @@
+# Chesnaught - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 29241F > 001000
+shiny = 2F3F34 > 001800
+shiny = 303131 > 0B1D19
+shiny = 4A9065 > 255422
+shiny = 54BB4F > 84504D
+shiny = 5B5549 > 052900
+shiny = 736049 > 1D3518
+shiny = 74B156 > 7D2F33
+shiny = 8D6242 > 273C1D
+shiny = A99E85 > 476E3B
+shiny = AEB6AE > B88D63
+shiny = C2B969 > 3C6F2A
+shiny = D34856 > D05614
+shiny = D95F61 > 3A5525
+shiny = DDD4B9 > 78A06B
+shiny = EFE8D5 > 8AB47D
+shiny = F0EFBC > 8DB77E
+shiny = FAFAFA > FFD1A4

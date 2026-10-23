@@ -1,0 +1,5 @@
+# Pheromosa - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 525252 > 363636
+shiny = AC9C62 > 777777
+shiny = E6D58B > BBBBBB

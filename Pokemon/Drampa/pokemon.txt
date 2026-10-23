@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Drampa
+dex  = 780
+type = Normal / Dragon
+
+hp         = 78
+attack     = 60
+defense    = 85
+sp_attack  = 135
+sp_defense = 91
+speed      = 36
+
+size   = 1.38
+height = 3.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 185.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Echoed Voice
+learn = 1, Play Nice
+learn = 5, Twister
+learn = 10, Protect
+learn = 15, Glare
+learn = 20, Safeguard
+learn = 25, Dragon Breath
+learn = 30, Extrasensory
+learn = 35, Dragon Pulse
+learn = 40, Light Screen
+learn = 45, Fly
+learn = 50, Hyper Voice
+learn = 55, Outrage
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Snarl, Swift, Icy Wind
+tm = Fling, Endure, Sunny Day, Rain Dance, Shadow Claw, Sleep Talk
+tm = Light Screen, Dragon Claw, Grass Knot, Thunder Wave, Stomping Tantrum, Rest
+tm = Rock Slide, Fly, Dragon Dance, Substitute, Shadow Ball, Dragon Pulse
+tm = Hyper Voice, Heat Wave, Energy Ball, Surf, Flamethrower, Thunderbolt
+tm = Play Rough, Amnesia, Calm Mind, Helping Hand, Ice Beam, Fire Blast
+tm = Hydro Pump, Blizzard, Earthquake, Giga Impact, Outrage, Focus Blast
+tm = Hurricane, Hyper Beam, Thunder, Solar Beam, Uproar, Breaking Swipe

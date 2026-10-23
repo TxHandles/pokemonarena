@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Comfey
+dex  = 764
+type = Fairy
+
+hp         = 51
+attack     = 52
+defense    = 90
+sp_attack  = 82
+sp_defense = 110
+speed      = 100
+
+size   = 0.85
+height = 0.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 0.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growth
+learn = 1, Wrap
+learn = 3, Vine Whip
+learn = 6, Helping Hand
+learn = 9, Draining Kiss
+learn = 12, Charm
+learn = 15, Magical Leaf
+learn = 18, Synthesis
+learn = 21, Leech Seed
+learn = 24, Grass Knot
+learn = 27, Sweet Kiss
+learn = 30, Floral Healing
+learn = 33, Petal Blizzard
+learn = 36, Bind
+learn = 39, Play Rough
+learn = 42, Sweet Scent
+learn = 45, Petal Dance
+learn = 48, Grassy Terrain
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Acrobatics, Thief, Disarming Voice, Trailblaze
+tm = Facade, Swift, Magical Leaf, Draining Kiss, Stored Power, Fling
+tm = Endure, Sunny Day, Bullet Seed, U-turn, Sleep Talk, Seed Bomb
+tm = Light Screen, Dazzling Gleam, Grass Knot, Rest, Taunt, Substitute
+tm = Trick, Giga Drain, Tailwind, Energy Ball, Encore, Play Rough
+tm = Amnesia, Calm Mind, Helping Hand, Pollen Puff, Grassy Terrain, Trick Room
+tm = Hyper Beam, Solar Beam, Tera Blast, Knock Off, Grassy Glide, Pain Split
+tm = Psych Up, Petal Blizzard, Alluring Voice

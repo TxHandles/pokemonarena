@@ -1,0 +1,8 @@
+# Necrozma - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1C1C1C > 0D1E3C
+shiny = 262626 > 253A60
+shiny = 3C3B3B > 284371
+shiny = 4E4E4E > 3C619D
+shiny = 7A7A7A > 7292CB
+shiny = BABABA > B8CEEF

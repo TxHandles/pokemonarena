@@ -1,0 +1,5 @@
+# Komala - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 452F1E > 5F6064
+shiny = 764A33 > E4E7ED
+shiny = AC864E > AB6E93

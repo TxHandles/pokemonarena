@@ -1,0 +1,5 @@
+# Wishiwashi - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 85A6B6 > ADAC87
+shiny = 8DCFE4 > A5A00A
+shiny = F1F1F2 > F3F3DF

@@ -1,0 +1,64 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Salazzle
+dex  = 758
+type = Poison / Fire
+
+hp         = 68
+attack     = 64
+defense    = 60
+sp_attack  = 111
+sp_defense = 60
+speed      = 117
+
+size   = 1.12
+height = 1.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 22.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Fire Lash
+learn = 1, Ember
+learn = 1, Encore
+learn = 1, Pound
+learn = 1, Torment
+learn = 1, Scratch
+learn = 1, Disable
+learn = 1, Swagger
+learn = 1, Poison Gas
+learn = 1, Smog
+learn = 1, Knock Off
+learn = 1, Endeavor
+learn = 15, Poison Fang
+learn = 20, Sweet Scent
+learn = 25, Nasty Plot
+learn = 30, Incinerate
+learn = 37, Venoshock
+learn = 44, Dragon Pulse
+learn = 51, Flamethrower
+learn = 58, Toxic
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Fake Tears, Agility, Mud-Slap, Scary Face, Protect
+tm = Fire Fang, Acid Spray, Acrobatics, Thief, Trailblaze, Facade
+tm = Poison Tail, Swift, Fling, Venoshock, Endure, Sunny Day
+tm = Shadow Claw, Foul Play, Body Slam, Sleep Talk, Dragon Claw, Thunder Wave
+tm = Poison Jab, Rest, Taunt, Toxic Spikes, Leech Life, Dragon Dance
+tm = Gunk Shot, Substitute, Will-O-Wisp, Dragon Pulse, Hyper Voice, Heat Wave
+tm = Encore, Flamethrower, Helping Hand, Nasty Plot, Fire Blast, Sludge Bomb
+tm = Giga Impact, Overheat, Hyper Beam, Flare Blitz, Tera Blast, Toxic
+tm = Knock Off, Burning Jealousy, Scale Shot, Endeavor, Temper Flare, Sludge Wave
+tm = Skitter Smack, Breaking Swipe, Dragon Cheer

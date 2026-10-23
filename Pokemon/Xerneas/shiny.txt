@@ -1,0 +1,21 @@
+# Xerneas - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 202226 > 939393
+shiny = 254994 > 0078A3
+shiny = 30B5DE > 4B618B
+shiny = 373941 > B0B0B1
+shiny = 3740CD > 147AA2
+shiny = 40403E > B8B8B8
+shiny = 4472CF > 00A4D3
+shiny = 5C7BD8 > 00AFDE
+shiny = 636B66 > FEFFFF
+shiny = 7B69B4 > 00A3CF
+shiny = 8B8A6F > FFFFFC
+shiny = A458C6 > 21A6D5
+shiny = C9B139 > 4E5B8E
+shiny = CACCD2 > FFFFFF
+shiny = D4C17E > 5A6AA2
+shiny = FAFAFA > FFFFFF
+shiny = FC722D > 75CAE8
+shiny = FCE47B > 7C89C0
+shiny = FFD043 > 5C73C0

@@ -1,0 +1,6 @@
+# Popplio - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 31579F > 3B456B
+shiny = 4179E3 > 435EAD
+shiny = 48879D > 8B9393
+shiny = 73EAEF > DFE5E5

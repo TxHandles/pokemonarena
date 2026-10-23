@@ -36,6 +36,8 @@ enum class ItemFx {
     Field,          // used from the Bag out in the world: Repels (`value` = steps), the Escape Rope
     Valuable,       // only worth selling (from the Bag): half its price
     Everstone,      // held: it doesn't evolve
+    PowerItem,      // held: +8 EVs in its stat (`boost`) for every Pokemon it helps knock out; it moves 10% slower
+    Breeding,       // held at the Day Care: the Destiny Knot (5 IVs passed down)
 };
 
 struct ItemDef {
@@ -50,7 +52,7 @@ struct ItemDef {
     int tmNo = 0;     // TM: its number (Scarlet/Violet numbering)
     int hmNo = 0;     // an HM (1 Cut .. 7 Waterfall): a TM that is never used up, given in the story, needed on the map
     int cure = 0;     // Medicine: the conditions it cures (CURE_ bits)
-    int boost = -1;   // Medicine (battle items): BOOST_ below. PartyUse vitamins: the stat (0 HP, 1 ATK, 2 DEF, 3 speed)
+    int boost = -1;   // Medicine (battle items): BOOST_ below. PartyUse vitamins: the stat (0 HP .. 5 Spe, +10 EVs); 10..15: an EV-lowering berry. Power items: the stat
     static constexpr int BOOST_ATK = 0, BOOST_DEF = 1, BOOST_SPD = 2, BOOST_CRIT = 3, BOOST_GUARD = 4, BOOST_COOLDOWN = 5;
     static constexpr int CURE_POISON = 1, CURE_PARALYZE = 2, CURE_SLEEP = 4, CURE_BURN = 8, CURE_FREEZE = 16, CURE_CONFUSE = 32, CURE_ALL = 63;
     static constexpr int AFTER_CHAMPION = 50;   // badges value: sold once you've beaten a Champion (Mega Stones)

@@ -13,7 +13,7 @@
 # if = flag / unless = flag   (on the line after an npc, door, spot or item: only while...)
 #   flags: anything set by "flag|name" or a gift, "badge:Cascade", "stage:Cerulean Gym", "item:Bicycle", "!" = not
 # map keys: indoor  dark (Flash)  bike (Cycling Road)  town  fly = x y  weather  over (drawn over people)  objects = sprites
-sprites = player leaf rival oak oldman agatha balding_man beauty bill black_belt blaine blue boy brock bruno bug_catcher cable_club_receptionist camper captain celio channeler chef clerk clipboard cooltrainer_f cooltrainer_m crush_girl cut_tree daisy erika fat_man fisher fossil gba_kid gentleman giovanni gym_guy hiker item_ball koga lance lass little_boy little_girl lorelei lt_surge man mg_deliveryman misty mom mr_fuji nurse old_amber old_man_1 old_man_2 old_woman picnicker pokedex poke_maniac policeman prof_oak pushable_boulder rocker rocket_f rocket_m rock_smash_rock ruby sabrina sailor sapphire scientist swimmer_f_land swimmer_f_water swimmer_m_land swimmer_m_water trainer_tower_dude tuber_f tuber_m_water union_room_receptionist woman_1 woman_2 woman_3 worker_f worker_m youngster
+sprites = player leaf rival oak oldman agatha balding_man beauty bill black_belt blaine blue boy brock bruno bug_catcher cable_club_receptionist camper captain celio channeler chef clerk clipboard cooltrainer_f cooltrainer_m crush_girl cut_tree daisy erika fat_man fisher fossil gba_kid gentleman giovanni gym_guy hiker item_ball koga lance lass little_boy little_girl lorelei lt_surge man mg_deliveryman misty mom mr_fuji nurse old_amber old_man_1 old_man_2 old_woman picnicker pokedex poke_maniac policeman prof_oak pushable_boulder rocker rocket_f rocket_m rock_smash_rock ruby sabrina sailor sapphire scientist swimmer_f_land swimmer_f_water swimmer_m_land swimmer_m_water trainer_tower_dude tuber_f tuber_m_water union_room_receptionist woman_1 woman_2 woman_3 worker_f worker_m youngster hg_elm hg_silver hg_steven hg_kurt hg_goggles_man hg_little_boy hg_maizie hg_cap_boy hg_straw_hat hg_mom hg_pigtails hg_young_man hg_boy hg_blond_boy hg_spiky_man hg_girl hg_jasmine hg_bun_woman hg_bald_man hg_woman hg_pryce hg_granny hg_aunt hg_falkner hg_mr_pokemon hg_swimmer_m hg_swimmer_f hg_glasses_man hg_blue_hair hg_bugsy hg_whitney hg_morty hg_bruno hg_erika hg_old_white hg_clair hg_will hg_koga hg_chuck hg_karen hg_lance hg_twintails hg_surge hg_sabrina hg_misty hg_headband_girl hg_janine hg_brock hg_blaine hg_blue hg_red hg_officer hg_monk hg_rocket_f hg_rocket_m hg_ariana hg_archer hg_cook hg_flame_man hg_cyclist hg_kimono_girl hg_lass hg_captain hg_dark_girl hg_spiky_punk hg_eusine hg_elder hg_tank_man hg_pink_girl hg_green_girl hg_navy_girl hg_cap_girl hg_hat_girl hg_grandpa hg_giovanni hg_bearded_man hg_sage hg_petrel hg_proton hg_worker
 walked = Kanto
 story_skip = Route 1
 story_skip = Diglett's Cave
@@ -2864,7 +2864,7 @@ objects = sprites
 indoor = yes
 wild = 
 door = 4 8 warp|Four Island|12|13|down
-npc = 2 2 old_woman down 0 talk|My husband was looking for you.
+npc = 2 2 old_woman down 0 daycare|I'm the Day Care lady. My husband and I will raise your Pokemon for you.
 grid:
 ############
 ############
@@ -7664,6 +7664,7 @@ door = 6 10 warp|Route 22|8|5|down
 door = 7 11 warp|Route 22|8|5|down
 door = 8 10 warp|Route 22|8|5|down
 npc = 8 2 policeman down 0 talk|Oh! That is the ! Go right ahead.
+npc = 10 7 policeman left 0 travel|The new road east leads to Route 26 and Johto's Pokemon League. Go on through?|Pokemon League Reception Gate|4|7|up|done:Kanto,done:Johto|The road to Johto is only open to trainers who've beaten a Pokemon League.
 grid:
 ###############
 #######D#######
@@ -8330,7 +8331,7 @@ wild =
 door = 3 7 warp|Route 5|23|25|down
 door = 4 8 warp|Route 5|23|25|down
 door = 5 7 warp|Route 5|23|25|down
-npc = 4 4 gentleman down 0 talk|Your  has grown a lot. Yes, quite a lot, I'd say.|Let me see... By level, it's grown by .|Aren't I great?
+npc = 4 4 gentleman down 0 daycare|I'm the Day Care man. I help raise Pokemon - leave two that get along and you might find an Egg!
 grid:
 ############
 ############
@@ -9742,6 +9743,7 @@ npc = 32 39 lass wander 0 talk|People fled from here in droves when those Rocket
 unless = gone:FLAG_HIDE_SAFFRON_CIVILIANS
 npc = 47 24 crush_girl wander 0 talk|This Fan Club... No one here has a clue!|How could they not recognize the brilliance that is Lance?|He stands for justice! He's cool, and yet passionate! He's the greatest, Lance!
 unless = gone:FLAG_HIDE_POSTGAME_GOSSIPERS
+npc = 26 40 policeman down 0 travel|The Magnet Train to Goldenrod City in Johto is about to leave. Would you like to board?|Goldenrod City Magnet Train Station 1F|4|7|up|done:Kanto,done:Johto|Sorry, the Magnet Train only takes trainers who've beaten a Pokemon League.
 grid:
 #########################.......######.....#######################
 ##################################################################
@@ -13543,6 +13545,7 @@ npc = 24 33 sailor up 0 ferry|Ahoy! Would you like to board a Seagallop ferry?
 block = 22 35 item:S.S. Ticket&!got:FLAG_GOT_HM01|Sailor: Welcome to the S.S. Anne! Excuse me, do you have a ticket?/(You need an S.S. Ticket to board. Once she sets sail, she won't be back until next year.)
 block = 23 35 item:S.S. Ticket&!got:FLAG_GOT_HM01|Sailor: Welcome to the S.S. Anne! Excuse me, do you have a ticket?/(You need an S.S. Ticket to board. Once she sets sail, she won't be back until next year.)
 block = 24 35 item:S.S. Ticket&!got:FLAG_GOT_HM01|Sailor: Welcome to the S.S. Anne! Excuse me, do you have a ticket?/(You need an S.S. Ticket to board. Once she sets sail, she won't be back until next year.)
+npc = 22 33 sailor up 0 travel|The S.S. Aqua sails for Olivine City in Johto. All aboard?|Olivine Port|4|7|up|done:Kanto,done:Johto|Sorry, the S.S. Aqua only takes trainers who've beaten a Pokemon League.
 grid:
 wwwwwwwwwwwwwwwwwwwww#...#######################
 wwwwwwwwwwwwwwwwwwwww#...#######################

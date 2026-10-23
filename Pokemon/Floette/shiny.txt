@@ -1,0 +1,17 @@
+# Floette - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0CB495 > 1E2122
+shiny = 196958 > 594B9F
+shiny = 227D4B > 7566BC
+shiny = 425F1D > 050000
+shiny = 555554 > EADEDB
+shiny = 637173 > FCFFFF
+shiny = 6B2421 > CD4040
+shiny = 7EB53B > 272520
+shiny = 968920 > F76761
+shiny = BC760A > A81226
+shiny = C1B7BE > EBF0FE
+shiny = C5C7C7 > F3FFFF
+shiny = DB71BA > FFA5A3
+shiny = F3DB2C > C73A3B
+shiny = FDEC3A > D74A47

@@ -47,6 +47,39 @@ Watch CPU vs CPU), Settings and Quit. Back / Esc / B leaves a submenu.
   picture (by colour and by where it sits on the body) and writes `Pokemon/<Name>/shiny.txt`, which
   the game uses to recolour the sprites when it loads them. For a new Pokemon:
   `python tools/shinygen.py <sprites>/sprites/pokemon <Name> --sheet check.png`.
+- **IVs and EVs** – every Pokemon has IVs (0–31 in each of HP, Attack, Defense, Sp. Atk, Sp. Def and Speed, rolled
+  when it's caught, hatched or given; wild legendaries have three perfect ones) and EVs (up to 252 in a stat, 510
+  in all), worked into its stats with the games' formula (a stat's base counts as Base + IV/2 + EV/8). Knocking a
+  Pokemon out earns its EV yield (PokeAPI's numbers, `src/breeding.inc`); the Macho Brace doubles it and the Power
+  items (Power Weight, Bracer, Belt, Lens, Band, Anklet) add 8 to their stat. Vitamins give +10 EVs (to 252, as in
+  Sword/Shield) and the Pomeg, Kelpsy, Qualot, Hondew, Grepa and Tamato Berries take 10 away; old saves' vitamins
+  turn into EVs. Party & Box shows each Pokemon's IVs and EVs beside its stats, and "Judge its potential" shows each IV in the Judge's words (Best, Fantastic, Very good...)
+  and the EVs. Wild and trainer Pokemon have random IVs; free play uses perfect IVs on both sides.
+- **Gender and nicknames** – Pokemon are male, female or genderless by their species' ratio (the blue and pink
+  signs show in the party, the Box and the summary). After catching or hatching one you're asked to give it a
+  nickname (type it, or use the letter grid with a gamepad); "Give it a nickname" in Party & Box renames one later
+  (not a traded one - only its original trainer can). Nicknames show in battle, the party and trades.
+- **The Day Care and Eggs** – the hub's Day Care, and on the walked maps the Day Care on Route 5, Four Island and
+  Route 34 (they share one Day Care). Leave two Pokemon: they gain 1 XP a step (a battle away from the walked world
+  counts as 256 steps) and learn moves (not evolve); taking one back costs 100 coins plus 100 per level it grew.
+  Every 256 steps two compatible Pokemon (a male and a female with an egg group in common, or anything with Ditto;
+  never Undiscovered ones) may leave an Egg - 20%, 50% or 70% depending on species and trainers, as in the games,
+  and the Day Care man says how they get along. The Egg is the mother's (or Ditto's partner's) first stage
+  (incense babies like Munchlax hatch as Snorlax), with its level-1 moves plus moves both parents know and egg
+  moves either parent knows; an Everstone passes on its holder's nature, three IVs come from the parents (five
+  with a Destiny Knot, and a Power item's stat for sure), the mother can pass her hidden ability, and parents
+  from two different trainers make a shiny more likely (the Masuda method). Carry up to 6 Eggs: they hatch after
+  their species' egg cycles (256 steps each; Flame Body or Magma Armor in the party halves it) - "Oh?" - at
+  level 1, fond of you already.
+- **Roaming legendaries** – Raikou and Entei (Johto, after the Fog Badge), Latias and Latios (Hoenn, after Wallace),
+  Mesprit (Sinnoh, after the Distortion World) and Cresselia (after Cynthia), Tornadus and Thundurus (Unova, after
+  the Legend Badge) roam their region's routes like in the games: they move to another route whenever you move on
+  (each training battle, or a new map when walking), the Map's Legendary tab shows where each was last seen, and on
+  its route one wild battle in four is the roamer. It flees after a few seconds unless something holds it (asleep,
+  frozen, Mean Look, Shadow Tag, Arena Trap), keeps the damage you did, and knocked out it recovers and roams on -
+  so be ready with Ultra Balls (or the Master Ball). Suicune waits on Route 42 as before. In co-op (local and
+  online) the roamers are shared: they live in the co-op save, show up in your 2v2 training battles and in either
+  player's grass, and online the host rolls for them and moves them.
 - **Gen 2 (first wave)** – Chikorita, Bayleef, Meganium, Cyndaquil, Quilava, Typhlosion, Totodile,
   Croconaw and Feraligatr, built like the original 151: Pokedex stats, entries, abilities, Scarlet/Violet
   level-up moves and TMs, evolutions (16/32, 14/36, 18/30). They aren't found in the wild.
@@ -290,6 +323,21 @@ goes back to the menu (your place is saved).
   2v2 wild battle for both of you.
 - Exp. All (Mart, 5000 coins): in co-op, your partner's party gets half the XP of your solo wild battles.
 
+### Johto (HeartGold / SoulSilver)
+
+Johto is walked too: New Bark Town to Mt. Silver, every route, town, cave and gym (World/johto.txt, made by
+`tools/hgss_world.py`). The towns, routes and caves are HeartGold/SoulSilver's 3D maps drawn top-down - the ground
+has height, so you climb slopes and stairs and can't walk up a cliff. Houses, Pokemon Centers, Marts and gates are
+FireRed's rooms with HeartGold's people and lines in them; the gyms, Elm's lab, Sprout Tower, the Radio Tower, the
+Department Store, Team Rocket's HQ, the Lighthouse, the Whirl Islands and the Johto League are Pokemon Crystal's.
+
+- Johto starts in your room in New Bark Town (your first region, or "Next region" after Kanto): Elm's three
+  Poke Balls are on his table, and you can't leave town until you have one.
+- Route trainers have their HeartGold teams; the story battles (Silver, the gyms, Team Rocket's executives, the
+  Elite Four, Lance, Red) stand where the story puts them. Field moves use Johto's badges there (Cut: Hive Badge).
+- To Kanto and back, once you've beaten a Pokemon League: the S.S. Aqua (Olivine Port / Vermilion City), the
+  Magnet Train (Goldenrod / Saffron) and the Pokemon League Reception Gate (Route 26 / Route 22).
+
 ## Levels and evolution
 
 - Species use real Pokedex base stats (`sp_attack`/`sp_defense` optional, averaged in); battle
@@ -491,6 +539,12 @@ Pokedex order (`dex =`) after the built-in test creatures. See `Pokemon/HOW-TO-A
 Grid-chart sprite sheets are converted automatically (`src/chart.cpp`). Old saves holding the
 removed Thistlet/Thornbloom starter get Bulbasaur instead.
 
+Kalos (#650-721) and Alola (#722-809) are in, from their overworld sprite sheets. There is no Kalos or Alola
+region, so `tools/add_kalos_alola.py` puts each newcomer in the wild areas of the existing regions where a local
+Pokemon fills the same niche (Bunnelby and Yungoos with Rattata, Wishiwashi with Magikarp, Carbink with Nosepass,
+Honedge with Duskull...), at about a fifth of that Pokemon's weight; the strong single-stage ones (Hawlucha,
+Mimikyu, Drampa...) wait for the third badge. Their starters, legendaries and Ultra Beasts aren't in the wild.
+
 ## Settings and controls
 
 Settings menu: fullscreen, FPS counter, master/effects volume, auto-aim, screen shake, damage numbers,
@@ -570,5 +624,21 @@ reacts fast and aims perfectly: Easy wins ~9%, Normal ~31%, Hard ~57%.
 
 ## Credits
 
+- Sound effects: FireRed / LeafGreen's own, from The Sounds Resource's "Pokemon FireRed / LeafGreen - Miscellaneous -
+  Sound Effects" rip (`tools/frlg_sounds.py` picks 30 of them by their number in pret/pokefirered's songs.h and makes the
+  short OGGs in `Sounds/`; the game falls back to small synthesized sounds without them). No music.
+- Move sounds and the Pokemon Center / item jingles: HeartGold / SoulSilver's, from The Sounds Resource's "Pokemon
+  HeartGold / SoulSilver - Attack Move Sound Effects" (the Gen 4 rip) and "Miscellaneous Sound Effects"
+  (`tools/hgss_sounds.py` makes `Sounds/Moves/<move>.ogg`, 488 moves; a move without one uses its type's sound).
+
 - Mega Evolution sprites (Ampharos to Audino, Steelix, Latias, Latios, Rayquaza, Primal Kyogre and Groudon):
   "Mega Evolution Overworld Sprites" by **Kidkatt, Larryturbo and Princess-Phoenix**.
+- Kalos (Gen 6) Pokemon and Mega Diancie: "Gen 6 (Kalos) Pokemon Overworld Sprites" by **princess-phoenix**
+  (DeviantArt); the sheet's Vivillon patterns are by **LunarDusk6**.
+- Alola (Gen 7) Pokemon: "Gen 7 (Alola) Overworld Sprites" by **Princess-Phoenix, Larryturbo, Kidkatt, Zender1752
+  and SageDeoxys** (DeviantArt, posted by Larryturbo).
+- Johto's walked maps: the "Pokemon HeartGold / SoulSilver - Locations" models from **The Models Resource** (rendered
+  top-down by `tools/hgss_render.py`); the gyms, towers and other special rooms are drawn from **pret/pokecrystal**,
+  and the doors, people, lines and trainers come from **pret/pokeheartgold** (`tools/hgss_world.py`).
+- HeartGold / SoulSilver trainer overworld sprites: "Trainers (Overworld)" ripped by **Dragoon** for The Spriters
+  Resource (`tools/hgss_sprites.py`).

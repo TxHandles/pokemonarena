@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Morelull
+dex  = 755
+type = Grass / Fairy
+
+hp         = 40
+attack     = 35
+defense    = 55
+sp_attack  = 65
+sp_defense = 75
+speed      = 15
+
+size   = 0.85
+height = 0.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 1.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Shiinotic
+evolve_level = 24
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Astonish
+learn = 1, Absorb
+learn = 4, Confuse Ray
+learn = 8, Ingrain
+learn = 12, Mega Drain
+learn = 16, Sleep Powder
+learn = 20, Moonlight
+learn = 25, Strength Sap
+learn = 28, Giga Drain
+learn = 32, Dazzling Gleam
+learn = 36, Spore
+learn = 40, Moonblast
+learn = 44, Dream Eater
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Draining Kiss, Endure, Sunny Day, Sleep Talk
+tm = Seed Bomb, Light Screen, Dazzling Gleam, Grass Knot, Thunder Wave, Rest
+tm = Substitute, Giga Drain, Energy Ball, Amnesia, Pollen Puff, Sludge Bomb
+tm = Solar Beam

@@ -1,9 +1,0 @@
-# Scatterbug - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
-# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
-shiny = 303131 > 787979
-shiny = 505050 > A9A9A9
-shiny = 676767 > C3C3C3
-shiny = AA9C7D > FAF0DC
-shiny = B2B2B2 > FFFFFF
-shiny = E6E6E6 > 666666
-shiny = FAFAFA > 5A5A5A

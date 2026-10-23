@@ -1,0 +1,10 @@
+# Turtonator - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 5B5C49 > 485C4A
+shiny = 702328 > 583419
+shiny = 717262 > 617263
+shiny = B04244 > 8C5D32
+shiny = BEBE9D > 9CBE9E
+shiny = BF4852 > 6D473C
+shiny = DBE0BD > BCE0C3
+shiny = FF535F > C7793F

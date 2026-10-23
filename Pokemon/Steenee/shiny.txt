@@ -1,0 +1,13 @@
+# Steenee - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2D3F20 > 392E40
+shiny = 4B6F2E > 5C486D
+shiny = 584A5E > 545431
+shiny = 5E9038 > 765A8C
+shiny = 85BD58 > A383BA
+shiny = 95C56E > B398C6
+shiny = 9B97B2 > AAA969
+shiny = A6E888 > D6B7E3
+shiny = E6E6F5 > E9E8A9
+shiny = E8E660 > 6063A4
+shiny = FFFFFF > FBFBDC

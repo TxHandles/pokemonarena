@@ -1,0 +1,18 @@
+# Espurr - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 230F15
+shiny = 101010 > 2D181E
+shiny = 363647 > 644256
+shiny = 4A298D > 7A3B85
+shiny = 5F5868 > 8F6076
+shiny = 61628F > 977196
+shiny = 7A778F > AF809A
+shiny = 878BA7 > C094B1
+shiny = 918BA1 > C695AE
+shiny = A5A3B4 > DDADC3
+shiny = AE9CC0 > E0ADCE
+shiny = BE7CE7 > E78EDC
+shiny = C4C9C7 > FFD2DD
+shiny = DFB1DE > FFBFE7
+shiny = F4F5F6 > FFF5FF
+shiny = FAFAFA > FFF3FF

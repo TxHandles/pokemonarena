@@ -1,0 +1,15 @@
+# Swirlix - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 484144 > 452D10
+shiny = 513B47 > 482912
+shiny = A53B40 > 803815
+shiny = AA2B3D > 842D12
+shiny = B7A1B6 > AF8D74
+shiny = BF7E9D > A8705E
+shiny = C35161 > 9C4E32
+shiny = C6959C > B78262
+shiny = D9B8C3 > CCA484
+shiny = E6EEF8 > EFD4B3
+shiny = E9CFE9 > E6B8A2
+shiny = ED8DBD > 864023
+shiny = FAFAFA > FFE0B9

@@ -1,0 +1,6 @@
+# Toucannon - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = DA4E40 > DF4AFE
+shiny = E28446 > 6950D4
+shiny = E5D763 > 638DE5
+shiny = EBBC4D > 5D74E1

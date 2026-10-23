@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Stakataka
+dex  = 805
+type = Rock / Steel
+
+hp         = 61
+attack     = 131
+defense    = 211
+sp_attack  = 53
+sp_defense = 101
+speed      = 13
+
+size   = 1.50
+height = 5.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 820.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Harden
+learn = 1, Tackle
+learn = 5, Rock Throw
+learn = 10, Protect
+learn = 15, Stomp
+learn = 20, Block
+learn = 25, Rock Slide
+learn = 30, Wide Guard
+learn = 35, Autotomize
+learn = 40, Rock Blast
+learn = 45, Magnet Rise
+learn = 50, Iron Defense
+learn = 55, Iron Head
+learn = 60, Take Down
+learn = 65, Stealth Rock
+learn = 70, Double-Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Rock Tomb, Endure, Sandstorm
+tm = Zen Headbutt, Body Slam, Sleep Talk, Reflect, Light Screen, Rock Blast
+tm = Stomping Tantrum, Rest, Rock Slide, Body Press, Flash Cannon, Skill Swap
+tm = Iron Head, Substitute, Iron Defense, Stealth Rock, Heavy Slam, Earthquake
+tm = Stone Edge, Giga Impact, Trick Room, Gyro Ball, High Horsepower, Heat Crash

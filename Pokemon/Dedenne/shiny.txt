@@ -1,0 +1,17 @@
+# Dedenne - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 6E3B0A > 2F0000
+shiny = 7D6230 > 461B02
+shiny = 846230 > 4D1300
+shiny = AEAD5C > AB9515
+shiny = C1B754 > 956245
+shiny = C37E1D > 703C22
+shiny = D06510 > 6D290B
+shiny = D07518 > 753213
+shiny = D9D899 > D7BB20
+shiny = DDA41F > 97522D
+shiny = E64C31 > 6D260D
+shiny = E9AF3F > A35C38
+shiny = EBC349 > B16A44
+shiny = FAFAFA > E3997B
+shiny = FEFD73 > DF966C

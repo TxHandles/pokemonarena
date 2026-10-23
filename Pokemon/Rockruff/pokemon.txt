@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Rockruff
+dex  = 744
+type = Rock
+
+hp         = 45
+attack     = 65
+defense    = 40
+sp_attack  = 30
+sp_defense = 40
+speed      = 60
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 9.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Lycanroc
+evolve_level = 25
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Leer
+learn = 1, Tackle
+learn = 4, Sand Attack
+learn = 8, Double Team
+learn = 12, Rock Throw
+learn = 16, Howl
+learn = 20, Bite
+learn = 24, Rock Tomb
+learn = 28, Roar
+learn = 32, Rock Slide
+learn = 36, Crunch
+learn = 40, Scary Face
+learn = 44, Stealth Rock
+learn = 48, Stone Edge
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Mud-Slap, Scary Face, Protect, Fire Fang
+tm = Thunder Fang, Trailblaze, Facade, Bulldoze, Snarl, Rock Tomb
+tm = Endure, Sandstorm, Dig, Zen Headbutt, Psychic Fangs, Body Slam
+tm = Sleep Talk, Stomping Tantrum, Rest, Rock Slide, Taunt, Swords Dance
+tm = Iron Head, Substitute, Iron Defense, Crunch, Stealth Rock, Hyper Voice
+tm = Play Rough, Helping Hand, Earth Power, Stone Edge, Tera Blast, Roar
+tm = Double-Edge, Endeavor

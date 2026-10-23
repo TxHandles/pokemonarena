@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Salandit
+dex  = 757
+type = Poison / Fire
+
+hp         = 48
+attack     = 44
+defense    = 40
+sp_attack  = 71
+sp_defense = 40
+speed      = 77
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 4.8      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Salazzle
+evolve_level = 33
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Poison Gas
+learn = 5, Smog
+learn = 10, Ember
+learn = 15, Poison Fang
+learn = 20, Sweet Scent
+learn = 25, Nasty Plot
+learn = 30, Incinerate
+learn = 35, Venoshock
+learn = 40, Dragon Pulse
+learn = 45, Flamethrower
+learn = 50, Toxic
+learn = 55, Endeavor
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Mud-Slap, Scary Face, Protect, Fire Fang
+tm = Acid Spray, Thief, Trailblaze, Facade, Poison Tail, Swift
+tm = Fling, Venoshock, Endure, Sunny Day, Shadow Claw, Foul Play
+tm = Sleep Talk, Dragon Claw, Thunder Wave, Poison Jab, Rest, Taunt
+tm = Toxic Spikes, Leech Life, Gunk Shot, Substitute, Will-O-Wisp, Dragon Pulse
+tm = Heat Wave, Flamethrower, Helping Hand, Nasty Plot, Fire Blast, Sludge Bomb
+tm = Overheat, Flare Blitz, Tera Blast, Toxic, Knock Off, Burning Jealousy
+tm = Scale Shot, Endeavor, Temper Flare, Sludge Wave, Skitter Smack

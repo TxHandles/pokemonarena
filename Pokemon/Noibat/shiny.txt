@@ -1,0 +1,14 @@
+# Noibat - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 392A3E > 302B29
+shiny = 3F3C40 > 383A2F
+shiny = 614488 > 373239
+shiny = 73594A > 645941
+shiny = 765284 > 3C373C
+shiny = 7C6B8B > 4B484B
+shiny = 8354B3 > 464049
+shiny = 9A69B5 > 585158
+shiny = 9B89B4 > 51A795
+shiny = CE995A > 72AC92
+shiny = CFA5EB > 7EBEB1
+shiny = FAFAFA > B7FFF8

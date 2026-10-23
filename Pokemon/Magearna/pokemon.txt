@@ -1,0 +1,62 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Magearna
+dex  = 801
+type = Steel / Fairy
+
+hp         = 80
+attack     = 95
+defense    = 115
+sp_attack  = 130
+sp_defense = 115
+speed      = 65
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 80.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Gyro Ball
+learn = 1, Helping Hand
+learn = 6, Defense Curl
+learn = 12, Rollout
+learn = 18, Iron Defense
+learn = 24, Magnetic Flux
+learn = 30, Psybeam
+learn = 36, Aurora Beam
+learn = 42, Lock-On
+learn = 48, Shift Gear
+learn = 54, Trick
+learn = 60, Iron Head
+learn = 66, Aura Sphere
+learn = 72, Flash Cannon
+learn = 78, Pain Split
+learn = 84, Zap Cannon
+learn = 90, Fleur Cannon
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Agility, Protect, Psybeam, Confuse Ray, Disarming Voice
+tm = Charge Beam, Facade, Swift, Draining Kiss, Stored Power, Endure
+tm = Volt Switch, Sunny Day, Snowscape, Psyshock, False Swipe, Brick Break
+tm = Zen Headbutt, Body Slam, Sleep Talk, Electro Ball, Reflect, Light Screen
+tm = Dazzling Gleam, Grass Knot, Thunder Wave, Rest, Spikes, Imprison
+tm = Flash Cannon, Eerie Impulse, Skill Swap, Iron Head, Substitute, Iron Defense
+tm = Trick, Aura Sphere, Shadow Ball, Energy Ball, Psychic, Heavy Slam
+tm = Encore, Ice Spinner, Thunderbolt, Play Rough, Calm Mind, Helping Hand
+tm = Baton Pass, Ice Beam, Misty Terrain, Giga Impact, Focus Blast, Trick Room
+tm = Hyper Beam, Solar Beam, Steel Beam, Tera Blast, Gravity, Gyro Ball
+tm = Misty Explosion, Pain Split, Electroweb, Metal Sound

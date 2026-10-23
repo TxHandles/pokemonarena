@@ -1,0 +1,62 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Kommo-o
+dex  = 784
+type = Dragon / Fighting
+
+hp         = 75
+attack     = 110
+defense    = 125
+sp_attack  = 100
+sp_defense = 105
+speed      = 85
+
+size   = 1.12
+height = 1.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 78.2      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Clanging Scales
+learn = 1, Protect
+learn = 1, Leer
+learn = 1, Dragon Tail
+learn = 1, Tackle
+learn = 12, Scary Face
+learn = 16, Headbutt
+learn = 20, Work Up
+learn = 24, Screech
+learn = 28, Iron Defense
+learn = 32, Dragon Claw
+learn = 38, Noble Roar
+learn = 44, Dragon Dance
+learn = 52, Outrage
+learn = 60, Close Combat
+learn = 68, Clangorous Soul
+learn = 76, Boomburst
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Low Kick, Facade, Aerial Ace
+tm = Bulldoze, Metal Claw, Rock Tomb, Fling, Dragon Tail, Endure
+tm = Sunny Day, Rain Dance, Sandstorm, False Swipe, Brick Break, Shadow Claw
+tm = Bulk Up, Body Slam, Fire Punch, Thunder Punch, Ice Punch, Sleep Talk
+tm = Drain Punch, Dragon Claw, Poison Jab, Stomping Tantrum, Rest, Rock Slide
+tm = Taunt, Swords Dance, Body Press, Flash Cannon, Iron Head, Dragon Dance
+tm = Substitute, Iron Defense, X-Scissor, Aura Sphere, Dragon Pulse, Stealth Rock
+tm = Hyper Voice, Flamethrower, Helping Hand, Reversal, Earthquake, Giga Impact
+tm = Outrage, Focus Blast, Hyper Beam, Close Combat, Draco Meteor, Tera Blast
+tm = Roar, Vacuum Wave, Focus Punch, Scale Shot, Double-Edge, Endeavor
+tm = Coaching, Throat Chop, Breaking Swipe, Metal Sound, Dragon Cheer, Upper Hand

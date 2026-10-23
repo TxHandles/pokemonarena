@@ -1,0 +1,6 @@
+# Trumbeak - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 7A4B32 > 4A386E
+shiny = 929292 > BCB452
+shiny = D23F3C > D23C7B
+shiny = DB8D39 > 9A6FD3

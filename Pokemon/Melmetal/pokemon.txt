@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Melmetal
+dex  = 809
+type = Steel
+
+hp         = 135
+attack     = 143
+defense    = 143
+sp_attack  = 80
+sp_defense = 65
+speed      = 34
+
+size   = 1.33
+height = 2.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 800.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Thunder Punch
+learn = 1, Tail Whip
+learn = 1, Headbutt
+learn = 1, Harden
+learn = 1, Thunder Shock
+learn = 24, Thunder Wave
+learn = 32, Acid Armor
+learn = 40, Flash Cannon
+learn = 48, Mega Punch
+learn = 56, Protect
+learn = 64, Discharge
+learn = 72, Dynamic Punch
+learn = 80, Superpower
+learn = 88, Double Iron Bash
+learn = 96, Hyper Beam
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Rock Tomb, Endure, Brick Break, Body Slam
+tm = Thunder Punch, Ice Punch, Sleep Talk, Thunder Wave, Rest, Rock Slide
+tm = Body Press, Flash Cannon, Iron Head, Substitute, Iron Defense, Heavy Slam
+tm = Thunderbolt, Ice Beam, Electric Terrain, Earthquake, Giga Impact, Hyper Beam
+tm = Thunder, Solar Beam, Gyro Ball, High Horsepower

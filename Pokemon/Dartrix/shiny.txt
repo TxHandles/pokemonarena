@@ -1,0 +1,10 @@
+# Dartrix - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 472F2B > 223A3C
+shiny = 4A8656 > 4A867D
+shiny = 79B252 > 57C7B2
+shiny = 7A5146 > 335459
+shiny = 9C784E > 386E78
+shiny = B5965F > F0845E
+shiny = DA5640 > DA4052
+shiny = F0845E > F0685E

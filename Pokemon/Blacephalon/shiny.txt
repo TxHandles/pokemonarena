@@ -1,0 +1,5 @@
+# Blacephalon - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 5E5E5E > 231974
+shiny = D7D7D7 > 4A3FB2
+shiny = EFEFEF > 775AFF

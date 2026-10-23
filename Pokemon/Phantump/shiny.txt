@@ -1,0 +1,17 @@
+# Phantump - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 193B1F > 6C1916
+shiny = 321D12 > 606162
+shiny = 3A823A > BFCDC9
+shiny = 417339 > AA5143
+shiny = 43291B > 484945
+shiny = 725B43 > B1B4B5
+shiny = 7A553C > A5A4A3
+shiny = 7FA55C > ECF7F3
+shiny = 937352 > CED1D1
+shiny = 9B7B55 > CBCBC9
+shiny = B49472 > F2F5F5
+shiny = C6A46E > FDFFFE
+shiny = E57D9D > FBF6FD
+shiny = FAFAFA > CFFFFF
+shiny = FF8DA4 > FFFDFF

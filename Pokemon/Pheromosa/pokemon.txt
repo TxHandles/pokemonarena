@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Pheromosa
+dex  = 795
+type = Bug / Fighting
+
+hp         = 71
+attack     = 137
+defense    = 37
+sp_attack  = 137
+sp_defense = 37
+speed      = 151
+
+size   = 1.12
+height = 1.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 25.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Rapid Spin
+learn = 1, Feint
+learn = 5, Leer
+learn = 10, Quick Guard
+learn = 15, Bug Bite
+learn = 20, Low Kick
+learn = 25, Double Kick
+learn = 30, Triple Kick
+learn = 35, Stomp
+learn = 40, Agility
+learn = 45, Lunge
+learn = 50, Bounce
+learn = 55, Speed Swap
+learn = 60, Bug Buzz
+learn = 65, Quiver Dance
+learn = 70, High Jump Kick
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Protect, Low Kick, Facade, Swift, Icy Wind
+tm = Low Sweep, Fling, Endure, False Swipe, Brick Break, U-turn
+tm = Foul Play, Sleep Talk, Poison Jab, Rest, Taunt, Substitute
+tm = Drill Run, Ice Beam, Blizzard, Giga Impact, Outrage, Focus Blast
+tm = Bug Buzz, Hyper Beam, Close Combat, Electroweb, Throat Chop

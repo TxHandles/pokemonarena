@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Lurantis
+dex  = 754
+type = Grass
+
+hp         = 70
+attack     = 105
+defense    = 90
+sp_attack  = 80
+sp_defense = 90
+speed      = 45
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 18.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Petal Blizzard
+learn = 1, Fury Cutter
+learn = 1, Growth
+learn = 1, Night Slash
+learn = 1, Solar Beam
+learn = 1, Ingrain
+learn = 1, Leafage
+learn = 15, Razor Leaf
+learn = 20, Sweet Scent
+learn = 25, Slash
+learn = 30, X-Scissor
+learn = 37, Synthesis
+learn = 44, Leaf Blade
+learn = 51, Sunny Day
+learn = 63, Solar Blade
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Trailblaze, Facade, Magical Leaf
+tm = Low Sweep, Fling, Endure, Sunny Day, Rain Dance, Bullet Seed
+tm = False Swipe, Brick Break, Sleep Talk, Seed Bomb, Grass Knot, Poison Jab
+tm = Rest, Swords Dance, Leech Life, Substitute, X-Scissor, Giga Drain
+tm = Energy Ball, Pollen Puff, Grassy Terrain, Giga Impact, Leaf Storm, Hyper Beam
+tm = Solar Beam, Tera Blast, Knock Off, Bug Bite, Solar Blade, Weather Ball
+tm = Grassy Glide, Petal Blizzard, Skitter Smack

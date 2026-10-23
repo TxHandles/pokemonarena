@@ -1,0 +1,11 @@
+# Dhelmise - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 143141 > 602222
+shiny = 2A717C > C63939
+shiny = 3492A1 > EF5A5A
+shiny = 5B6020 > 767676
+shiny = 653D47 > 5F424F
+shiny = 768D2E > A29E9E
+shiny = A46580 > 9B6D89
+shiny = E3D249 > D8D8D8
+shiny = FF5300 > D82838

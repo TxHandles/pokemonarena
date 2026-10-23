@@ -1,0 +1,15 @@
+# Nihilego - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 314159 > 594931
+shiny = 383D44 > 443F38
+shiny = 467289 > 837643
+shiny = 737BC5 > C5BD73
+shiny = 7394C5 > B2A768
+shiny = 7C7CAF > AFAF7C
+shiny = 83D5FF > F4D762
+shiny = 8BBDE6 > CFB67D
+shiny = 9494BD > BDBD94
+shiny = ACACDE > C2C28E
+shiny = B4DEFF > E6D1A2
+shiny = C7C7E9 > E9E9C7
+shiny = DEF6FF > F3EBD4

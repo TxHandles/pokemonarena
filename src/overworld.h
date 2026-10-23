@@ -88,7 +88,8 @@ bool StageSkipped(int stage);              // a story stage the walked map has n
 bool WorldRequired(const Game& g);
 extern bool gWorldHome;                    // the walked region has no Story menu (autotests turn it on themselves)
 bool InWorldMode(const Game& g);           // the story lives in the world right now (walked Kanto, its post-game, a visit): no Story menu
-bool WalkedOpening(int region);            // that region's story starts in your room (no starter screen: Oak's lab)
+bool WalkedOpening(int region);
+bool WorldStartOf(int region, std::string& map, int& x, int& y);   // a walked region's start: your room there            // that region's story starts in your room (no starter screen: Oak's lab)
 bool CanVisitWorld(const Game& g);         // the Story menu can travel back to the walked region (its League is done)
 void VisitWorld(Game& g);                  // ...and does
 Weather WorldBattleWeather(const Game& g, int clock);   // a battle out in the world: the map's weather, or the day's        // this part of the story is walked (world.txt "walked = Kanto"): the hub sends you out into the world

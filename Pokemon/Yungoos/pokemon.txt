@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Yungoos
+dex  = 734
+type = Normal
+
+hp         = 48
+attack     = 70
+defense    = 30
+sp_attack  = 30
+sp_defense = 30
+speed      = 45
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 6.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Gumshoos
+evolve_level = 20
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 3, Leer
+learn = 7, Payback
+learn = 10, Sand Attack
+learn = 13, Work Up
+learn = 19, Bite
+learn = 22, Mud-Slap
+learn = 25, Super Fang
+learn = 28, Take Down
+learn = 31, Scary Face
+learn = 34, Crunch
+learn = 37, Yawn
+learn = 40, Thrash
+learn = 43, Rest
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Fire Fang, Thunder Fang
+tm = Ice Fang, Thief, Trailblaze, Chilling Water, Facade, Bulldoze
+tm = Mud Shot, Rock Tomb, Endure, Sunny Day, Rain Dance, Sandstorm
+tm = Dig, Zen Headbutt, U-turn, Psychic Fangs, Sleep Talk, Seed Bomb
+tm = Stomping Tantrum, Rest, Taunt, Substitute, Crunch, Helping Hand
+tm = Reversal, Wild Charge, Tera Blast, Super Fang, Double-Edge, Endeavor

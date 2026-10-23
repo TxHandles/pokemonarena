@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: princess-phoenix (DeviantArt, "Gen 6 (Kalos) Pokemon Overworld Sprites") - credit wanted
+name = Spritzee
+dex  = 682
+type = Fairy
+
+hp         = 78
+attack     = 52
+defense    = 60
+sp_attack  = 63
+sp_defense = 65
+speed      = 23
+
+size   = 0.85
+height = 0.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 0.5      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_trade = Aromatisse      # evolves when traded holding a Sachet (or with a Linking Cord)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Sweet Scent
+learn = 1, Fairy Wind
+learn = 3, Sweet Kiss
+learn = 6, Echoed Voice
+learn = 9, Draining Kiss
+learn = 12, Aromatherapy
+learn = 18, Attract
+learn = 21, Flail
+learn = 24, Misty Terrain
+learn = 27, Psychic
+learn = 30, Charm
+learn = 33, Calm Mind
+learn = 36, Moonblast
+learn = 39, Skill Swap
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Fake Tears, Protect, Facade, Draining Kiss, Endure
+tm = Sunny Day, Rain Dance, Sleep Talk, Reflect, Light Screen, Dazzling Gleam
+tm = Rest, Flash Cannon, Skill Swap, Substitute, Energy Ball, Psychic
+tm = Encore, Thunderbolt, Calm Mind, Helping Hand, Misty Terrain, Nasty Plot
+tm = Trick Room, Gyro Ball

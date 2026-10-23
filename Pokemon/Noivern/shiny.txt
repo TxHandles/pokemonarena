@@ -1,0 +1,23 @@
+# Noivern - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000100 > 007737
+shiny = 101010 > 108242
+shiny = 2C2828 > 025823
+shiny = 352846 > 4F8761
+shiny = 484442 > 62C57E
+shiny = 605664 > 7BDE97
+shiny = 60897B > A2FFC0
+shiny = 615555 > 468D53
+shiny = 629E74 > A9FFC6
+shiny = 75DDAC > C93A61
+shiny = 7EA793 > B7FFCE
+shiny = 8351B3 > 513D3C
+shiny = 8D8D8D > 7DC889
+shiny = 971F19 > 543E92
+shiny = A17CBC > 715D58
+shiny = A9AFAC > CFFFDE
+shiny = AF343A > 6850A8
+shiny = DADCDC > C4FFCE
+shiny = E7DEE5 > C3B0A4
+shiny = EF5E4F > 8A76DB
+shiny = FAFAFA > B0FFC9

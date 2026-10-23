@@ -1,0 +1,40 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: princess-phoenix (DeviantArt, "Gen 6 (Kalos) Pokemon Overworld Sprites") - credit wanted
+name = Scatterbug
+dex  = 664
+type = Bug
+
+hp         = 38
+attack     = 35
+defense    = 40
+sp_attack  = 27
+sp_defense = 25
+speed      = 35
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 2.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Spewpa
+evolve_level = 9
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, String Shot
+learn = 1, Tackle
+learn = 6, Stun Spore
+learn = 15, Bug Bite
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Struggle Bug, Pounce, Tera Blast, Bug Bite

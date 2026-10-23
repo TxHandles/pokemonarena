@@ -1,0 +1,8 @@
+# Drampa - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 345359 > 5B5935
+shiny = 487B7D > 7D7348
+shiny = 569691 > 968356
+shiny = 66BCB0 > BC9D66
+shiny = B56910 > 0A1144
+shiny = B9C99C > EAF1D7

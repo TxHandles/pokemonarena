@@ -1,0 +1,10 @@
+# Stufful - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 522A31 > 61421A
+shiny = 785B66 > 6F5B54
+shiny = A25265 > A47130
+shiny = BD9BA7 > BDA59B
+shiny = DE3A63 > DE4D3A
+shiny = ED9EBE > FFBD76
+shiny = EE7A98 > FFA94D
+shiny = F095AC > FEB15F

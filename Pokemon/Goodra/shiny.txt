@@ -1,0 +1,18 @@
+# Goodra - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 226A2E > 6B762B
+shiny = 2EBC4E > 796BCE
+shiny = 474A46 > 555D36
+shiny = 492A58 > 784430
+shiny = 66A367 > A7AF6C
+shiny = 685373 > 707232
+shiny = 6B6E8A > 868A4A
+shiny = 8A7FB4 > D39780
+shiny = A257C7 > 948F58
+shiny = B9A5D0 > C7C783
+shiny = B9E989 > A9A2E1
+shiny = BE93D6 > BFBC7B
+shiny = DACFE4 > EEEEA6
+shiny = EDDEFE > FFFFBA
+shiny = F9FEFF > F2E9FF
+shiny = FAFAFA > FFFFBA

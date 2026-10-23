@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: princess-phoenix (DeviantArt, "Gen 6 (Kalos) Pokemon Overworld Sprites") - credit wanted
+name = Tyrantrum
+dex  = 697
+type = Rock / Dragon
+
+hp         = 82
+attack     = 121
+defense    = 119
+sp_attack  = 69
+sp_defense = 59
+speed      = 71
+
+size   = 1.33
+height = 2.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 270.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tail Whip
+learn = 1, Roar
+learn = 1, Ancient Power
+learn = 1, Tackle
+learn = 12, Charm
+learn = 16, Bite
+learn = 20, Dragon Tail
+learn = 24, Stomp
+learn = 28, Rock Slide
+learn = 32, Crunch
+learn = 36, Dragon Claw
+learn = 42, Thrash
+learn = 48, Earthquake
+learn = 54, Horn Drill
+learn = 60, Giga Impact
+learn = 66, Head Smash
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Scary Face, Protect, Fire Fang, Thunder Fang, Ice Fang
+tm = Facade, Bulldoze, Rock Tomb, Endure, Sunny Day, Sandstorm
+tm = Dig, Brick Break, Zen Headbutt, Psychic Fangs, Body Slam, Sleep Talk
+tm = Rock Blast, Dragon Claw, Stomping Tantrum, Rest, Rock Slide, Dark Pulse
+tm = Iron Head, Dragon Dance, Substitute, Iron Defense, Crunch, Dragon Pulse
+tm = Stealth Rock, Hyper Voice, Play Rough, Earth Power, Earthquake, Stone Edge
+tm = Giga Impact, Outrage, Hyper Beam, Close Combat, High Horsepower, Breaking Swipe

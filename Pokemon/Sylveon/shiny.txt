@@ -1,0 +1,20 @@
+# Sylveon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0C6FD8 > B53D76
+shiny = 4195FF > D75A9F
+shiny = 4AB4F4 > 74B0DF
+shiny = 52B6FF > 69B2F2
+shiny = 6B1D38 > 00586E
+shiny = 6DA1EB > E366A6
+shiny = 6DBCEB > EA5ABD
+shiny = 701822 > 005573
+shiny = 73D6FF > FF72D3
+shiny = 7B91DE > D8599B
+shiny = A9A9A9 > A2A8B2
+shiny = BFE8FE > C6E5FC
+shiny = C1436F > 2791AA
+shiny = C5B4C8 > B1B5D6
+shiny = EDF1E3 > E7EFF1
+shiny = EE749F > 5DBED8
+shiny = F68CA4 > 74D9EF
+shiny = FAFAFA > F3F9FF

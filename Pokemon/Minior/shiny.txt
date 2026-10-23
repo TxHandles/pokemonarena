@@ -1,0 +1,10 @@
+# Minior - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 332727 > 292121
+shiny = 462A2B > 372526
+shiny = 573F3D > 453635
+shiny = 754B4B > 5D4242
+shiny = 865757 > 6A4C4C
+shiny = A15757 > 7E4F4F
+shiny = D07979 > A46D6D
+shiny = EDA5A5 > BE9090

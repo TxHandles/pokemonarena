@@ -1,0 +1,18 @@
+# Skiddo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 19A34B > A0D236
+shiny = 1E783F > 97BD8C
+shiny = 234B31 > 4F6522
+shiny = 303131 > 515553
+shiny = 36871E > AAC878
+shiny = 3E342E > 615850
+shiny = 665F5A > B5A391
+shiny = 6B584B > B7A18E
+shiny = 766154 > C2AB98
+shiny = 76716E > C7B7A7
+shiny = 987B68 > E5C3A8
+shiny = 9E8676 > EDCFB6
+shiny = A69E98 > FBECDD
+shiny = BD3610 > B0003D
+shiny = E6EEF8 > FFFDF4
+shiny = FF6C0B > EF3668

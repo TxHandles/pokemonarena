@@ -1,0 +1,6 @@
+# Oranguru - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = B6B6C0 > D5A2C1
+shiny = E4E4ED > EDD0E4
+shiny = EA9D1E > 419BEC
+shiny = F3BA60 > 93B2DD

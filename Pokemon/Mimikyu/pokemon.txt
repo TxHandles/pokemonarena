@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Mimikyu
+dex  = 778
+type = Ghost / Fairy
+
+hp         = 55
+attack     = 90
+defense    = 80
+sp_attack  = 50
+sp_defense = 105
+speed      = 96
+
+size   = 0.85
+height = 0.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 0.7      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Astonish
+learn = 1, Copycat
+learn = 1, Wood Hammer
+learn = 1, Splash
+learn = 6, Shadow Sneak
+learn = 12, Double Team
+learn = 18, Baby-Doll Eyes
+learn = 24, Mimic
+learn = 30, Hone Claws
+learn = 36, Slash
+learn = 42, Shadow Claw
+learn = 48, Charm
+learn = 54, Play Rough
+learn = 60, Pain Split
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Confuse Ray, Thief, Trailblaze
+tm = Pounce, Facade, Hex, Draining Kiss, Night Shade, Fling
+tm = Endure, Sunny Day, Rain Dance, Shadow Claw, Bulk Up, Sleep Talk
+tm = Drain Punch, Light Screen, Dazzling Gleam, Thunder Wave, Rest, Taunt
+tm = Swords Dance, Dark Pulse, Leech Life, Substitute, X-Scissor, Will-O-Wisp
+tm = Trick, Giga Drain, Shadow Ball, Psychic, Thunderbolt, Play Rough
+tm = Misty Terrain, Phantom Force, Giga Impact, Trick Room, Hyper Beam, Thunder
+tm = Tera Blast, Spite, Burning Jealousy, Pain Split, Psych Up, Curse

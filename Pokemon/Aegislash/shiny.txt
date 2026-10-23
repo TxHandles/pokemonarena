@@ -1,0 +1,19 @@
+# Aegislash - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 494745 > 483E3D
+shiny = 4E4C4D > 4D4345
+shiny = 655F38 > 292424
+shiny = 695B85 > CCB420
+shiny = 736AAA > E0C63A
+shiny = 847B6B > 9B8854
+shiny = 9C86E3 > FFEA63
+shiny = 9F8F41 > 584E4F
+shiny = A08C74 > B49A60
+shiny = A09553 > 534B4A
+shiny = A9A9A9 > 90001C
+shiny = AD8CDC > E8CF4E
+shiny = B9A989 > CFB677
+shiny = D6C45B > EAD162
+shiny = E6D568 > 8E8080
+shiny = E6E4D4 > EA675B
+shiny = FFFEF5 > EE505E

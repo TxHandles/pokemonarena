@@ -1,0 +1,15 @@
+# Spritzee - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 39272B > 180A4C
+shiny = 4D363B > 30185E
+shiny = 834777 > 98405B
+shiny = 995286 > AC4C69
+shiny = AA4D68 > 694195
+shiny = C1ABAC > A987D9
+shiny = C55F74 > 7E55A5
+shiny = D09FB3 > A783D6
+shiny = DE668B > 8E63B5
+shiny = E84C5A > 8957AB
+shiny = EC8DA1 > A87ED1
+shiny = EF839B > A577D0
+shiny = FF4452 > F9DB4F

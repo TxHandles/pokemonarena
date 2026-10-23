@@ -173,6 +173,8 @@ void SendCoop(const CoopSave& c) {
     for (const auto& e : c.postDone) w.str(e);
     w.i32((int)c.regionOrder.size());   // the regions in the order this journey plays them (the host chooses)
     for (int r : c.regionOrder) w.i32(r);
+    w.i32((int)c.roam.size());   // the roaming legendaries (the host's)
+    for (const auto& kv : c.roam) w.i32(kv.first).str(RoamLine(kv.first, kv.second));
     w.Send();
 }
 
@@ -386,11 +388,20 @@ static void HostMaybeGo(Game& g) {
         stageIdx = g.coopSave.towerFloor + 1;
         rareSpecies = (int)TowerSeedFor(g);
     }
+    int roamByte = 0;
     if (kind == 2) {
         int every = std::max(1, Story().rareEvery);
         (void)every;
         rare = false;   // (no more "rare every Nth battle")
         SetTrainingWild(g);
+        {   // a roaming legendary on this route: the host rolls for it (and tells the guest)
+            int ai = TrainingAreaIndex(g);
+            if (ai >= 0 && ai < (int)WildAreas().size() && TryRoamerBattle(g, WildAreas()[ai].name, "")) {
+                rare = true;
+                rareSpecies = g.rareSpecies;
+                roamByte = 2 + g.roamer;
+            }
+        }
         if (rare) {
             std::vector<std::string> owned;
             int sum = 0, n = 0;
@@ -402,7 +413,7 @@ static void HostMaybeGo(Game& g) {
             rareSpecies = PickRareSpecies(owned, n ? sum / n : 5);
         }
     }
-    W(M_GO).i32(kind).i32(stageIdx).u8(rare).i32(rareSpecies).Send();
+    W(M_GO).i32(kind).i32(stageIdx).u8(roamByte ? roamByte : rare ? 1 : 0).i32(rareSpecies).Send();
     g.stageIdx = stageIdx;
     g.mode = kind != 2 ? Mode::CoopStory : Mode::CoopTraining;
     g.rareBattle = rare;
@@ -699,6 +710,18 @@ void OnlinePoll(Game& g) {
                     }
                     c.regionOrder = g.coopSave.regionOrder;
                 }
+                {   // the roaming legendaries: the host keeps them (a caught one stays gone)
+                    int nr = r.i32();
+                    std::map<int, Profile::Roam> roam;
+                    for (int i = 0; i < nr && i < 64 && r.ok; i++) {
+                        r.i32();
+                        int id;
+                        Profile::Roam rr;
+                        if (ParseRoamLine(r.str(), id, rr) && !(g.coopSave.legends >> id & 1)) roam[id] = rr;
+                    }
+                    if (r.ok && g.on.me == 1) { g.coopSave.roam = roam; statsChanged = true; }
+                    c.roam = g.coopSave.roam;
+                }
                 if (statsChanged) SaveCoop(g.coopSave);
                 if (MoreProgress(c, g.coopSave)) { g.coopSave = c; SaveCoop(g.coopSave); }
                 else if (c.clock > g.coopSave.clock) {   // partner waited: follow their clock
@@ -740,8 +763,11 @@ void OnlinePoll(Game& g) {
             case M_GO: {
                 int kind = r.i32();
                 g.stageIdx = r.i32();
-                g.rareBattle = r.u8() != 0;
+                int rb = r.u8();
+                g.rareBattle = rb != 0;
+                g.roamer = rb >= 2 ? rb - 2 : -1;   // the host met a roaming legendary
                 g.rareSpecies = r.i32();
+                if (g.roamer >= 0) g.ow.staticLevel = std::max(1, Legend(g.roamer).minLevel);
                 g.mode = kind != 2 ? Mode::CoopStory : Mode::CoopTraining;
                 o.myReady = o.partnerReady = 0;
                 o.picksSent = o.partnerPicksIn = false;

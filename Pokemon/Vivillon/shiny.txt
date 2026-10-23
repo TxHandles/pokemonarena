@@ -1,0 +1,20 @@
+# Vivillon - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 313131 > DC66A4
+shiny = 3E3E3C > ED76B4
+shiny = 4AB4B7 > FF97D5
+shiny = 525252 > FF8ECC
+shiny = 61605F > FF9EDC
+shiny = 743C45 > FF85C5
+shiny = 7B7B7B > 987487
+shiny = 7DC5FC > F5F5FB
+shiny = 8C8B88 > 686C6E
+shiny = 9C9CAD > A2B1B4
+shiny = AB4252 > E471AD
+shiny = B7B3AB > E771B1
+shiny = BDBDC5 > F27BBD
+shiny = C4B39B > EA73B1
+shiny = CA6979 > F5A0CA
+shiny = D8D6D2 > FF94D4
+shiny = F38FBE > FE8DC7
+shiny = F47A9A > F97BAC

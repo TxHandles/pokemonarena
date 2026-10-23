@@ -10,6 +10,7 @@
 #include "ui.h"
 #include "vec.h"
 #include "rlgl.h"
+#include "breeding.h"
 void DrawItemIcon(const ItemDef& d, float cx, float cy, float scale);   // (screens_bag.cpp)
 
 namespace {
@@ -181,9 +182,16 @@ const char* AILevelName(AILevel l) {
 
 // ---------------------------------------------------------------- Fighter / Side
 
+// A stat's base with its IV and EVs worked in, as the games' formula has them: (2 x Base + IV + EV / 4) x Level / 100,
+// so an IV point is worth half a base point and four EVs a quarter.
+float Fighter::BaseStat(int k) const {
+    int b = k == 0 ? sp->hp : k == 1 ? sp->atk : k == 2 ? sp->def : k == 3 ? sp->SpAtk() : k == 4 ? sp->SpDef() : sp->spd;
+    return b + iv[k] * 0.5f + ev[k] * 0.125f;
+}
+
 float Fighter::Stat(StatId s, bool special) const {
-    int b = s == StatId::Atk ? (special ? sp->SpAtk() : sp->atk) : (s == StatId::Def ? (special ? sp->SpDef() : sp->def) : sp->spd);
-    float base = Scaled(b);
+    int k = s == StatId::Atk ? (special ? 3 : 1) : (s == StatId::Def ? (special ? 4 : 2) : 5);
+    float base = BaseStat(k) * STAT_SCALE;
     float v = (base + 5) * StatMul(level) * buffMul[(int)s] * dropMul[(int)s];
     v *= 1 + 0.01f * vit[s == StatId::Atk ? 1 : s == StatId::Def ? 2 : 3];   // vitamins
     v *= NatureMul(nature, s == StatId::Atk ? (special ? NS_SPA : NS_ATK) : (s == StatId::Def ? (special ? NS_SPD : NS_DEF) : NS_SPE));
@@ -200,16 +208,16 @@ float Fighter::Stat(StatId s, bool special) const {
 }
 
 float Fighter::MoveSpeed() const {
-    float v = 45.0f + (Scaled(sp->spd) * NatureMul(nature, NS_SPE) + 5) * buffMul[2] * dropMul[2] * 0.75f;
+    float v = 45.0f + (BaseStat(5) * STAT_SCALE * NatureMul(nature, NS_SPE) + 5) * buffMul[2] * dropMul[2] * 0.75f;
     if (st.major == Status::Paralyze) v *= 0.55f;
     if (item && (item->fx == ItemFx::SpeedMul || item->fx == ItemFx::ChoiceScarf)) v *= item->value;
-    if (item && item->name == "Macho Brace") v *= 0.9f;
+    if (item && (item->name == "Macho Brace" || item->fx == ItemFx::PowerItem)) v *= 0.9f;
     v *= 1 + 0.01f * vit[3];   // Carbos
     return v * envSpeed * abSpd;
 }
 
 float Fighter::CooldownMul() const {
-    float m = 1.1f - (Scaled(sp->spd) * NatureMul(nature, NS_SPE) - 45) / 650.0f;
+    float m = 1.1f - (BaseStat(5) * STAT_SCALE * NatureMul(nature, NS_SPE) - 45) / 650.0f;
     if (item) {
         if (item->fx == ItemFx::CooldownMul) m *= item->value;
         if (item->fx == ItemFx::ChoiceScarf || item->fx == ItemFx::ChoiceBand) m *= 1.15f;
@@ -229,7 +237,7 @@ bool Fighter::CanAct() const {
 }
 
 void Fighter::RecalcHp(bool keepDamage) {
-    int newMax = std::max(1, (int)((Scaled(sp->hp) + 60) * HP_SCALE * StatMul(level) * (boss > 0 ? boss : 1.0f) * (1 + 0.01f * vit[0])));
+    int newMax = std::max(1, (int)((BaseStat(0) * STAT_SCALE + 60) * HP_SCALE * StatMul(level) * (boss > 0 ? boss : 1.0f) * (1 + 0.01f * vit[0])));
     if (keepDamage) hp += newMax - maxHp;
     else hp = (float)newMax;
     maxHp = newMax;
@@ -388,7 +396,7 @@ void Battle::Borrow(int s) {
     Side& sd = sides[s];
     sd.lastPos = sd.Cur().pos;
     sd.team.push_back(copy);
-    AddText(sd.lastPos, (sd.tag.empty() ? sd.label : sd.tag) + " takes over " + copy.sp->name + "!", TeamColor(sd.teamId), 40);
+    AddText(sd.lastPos, (sd.tag.empty() ? sd.label : sd.tag) + " takes over " + copy.Name() + "!", TeamColor(sd.teamId), 40);
     SendOut(s, (int)sd.team.size() - 1);
 }
 
@@ -448,6 +456,17 @@ void Battle::Start(const BattleSetup& su) {
             f.boss = c.boss;
             f.shiny = c.shiny;
             for (int k = 0; k < 4; k++) f.vit[k] = std::max(0, std::min(VITAMIN_MAX, c.vit[k]));
+            for (int k = 0; k < 6; k++) {   // a wild or trainer Pokemon's IVs are random, like in the games
+                f.iv[k] = c.iv[k] >= 0 ? std::min(31, c.iv[k]) : SimRand(0, 31);
+                f.ev[k] = std::max(0, std::min(252, c.ev[k]));
+            }
+            if (c.iv[0] < 0 && f.sp->legendary)   // a wild legendary: three perfect IVs (X and Y on)
+                for (int done = 0, guard = 0; done < 3 && guard < 50; guard++) {
+                    int k = SimRand(0, 5);
+                    if (f.iv[k] != 31) { f.iv[k] = 31; done++; }
+                }
+            f.nick = c.nick;
+            f.fleeT = c.flee;
             InitAbility(f, c.abilitySlot);
             f.nature = c.nature >= 0 && c.nature < NATURE_COUNT ? c.nature : SimRand(0, NATURE_COUNT - 1);
             f.item = FindItem(c.item);
@@ -522,11 +541,11 @@ void Battle::SendOut(int s, int idx) {
     f.st.confuseT = f.st.flinchT = f.st.seedT = 0;
     f.aim = {sides[s].teamId == 0 ? 1.0f : -1.0f, 0};
     f.dir = DirFromVec(f.aim);
-    AddText(f.pos, "Go! " + f.sp->name + "!", TeamColor(sides[s].teamId), 30);
+    AddText(f.pos, "Go! " + f.Name() + "!", TeamColor(sides[s].teamId), 30);
     Burst(f.pos, WHITE, 14, 60, 8);
     if (f.shiny) {   // a shiny's sparkle
         Burst(f.pos, Color{255, 240, 150, 255}, 18, 80, 14);
-        PlaySfx(Sfx::Buff);
+        PlaySfx(Sfx::Shiny);
     }
     f.flashFire = false;
     f.shiftT = Type::None;
@@ -803,6 +822,19 @@ void Battle::UpdateSide(int s, float dt, const PlayerInput& in, bool canAct) {
         f.dazeT -= dt;
         if (f.dazeT <= 0) { f.dazeT = 0; Retire(s); }
         return;
+    }
+    if (f.fleeT > 0 && !f.inBall && !f.caught) {   // a roaming legendary: it runs at the first chance it gets
+        bool stuck = f.pinT > 0 || f.st.major == Status::Sleep || f.st.major == Status::Freeze;   // Mean Look; asleep or frozen
+        for (int o = 0; o < N() && !stuck; o++) {
+            if (!Foes(s, o) || sides[o].team.empty()) continue;
+            const Fighter& t = sides[o].Cur();
+            Ab ta = AbOf(t);
+            if (t.state == FState::Active && (ta == Ab::ShadowTag || (ta == Ab::ArenaTrap && !HasType(f.sp, Type::Flying)))) stuck = true;
+        }
+        if (!stuck) {
+            f.fleeT -= dt;
+            if (f.fleeT <= 0) { Flee(s); return; }
+        }
     }
 
     if (Held(s)) { f.pendingMove = -1; f.volleyLeft = 0; return; }   // grabbed: yanked in or thrown, can't act
@@ -1140,7 +1172,7 @@ void Battle::TrySwap(int s, bool back, int to) {
     Fighter& f = sd.Cur();
     if (sd.swapCd > 0 || f.state != FState::Active) return;
     if (f.pinT > 0 && !HasType(f.sp, Type::Ghost)) {   // Mean Look, Anchor Shot, Spirit Shackle (Ghosts slip away)
-        AddText(f.pos, f.sp->name + " can't escape!", UI_DIM, 30);
+        AddText(f.pos, f.Name() + " can't escape!", UI_DIM, 30);
         sd.swapCd = 0.6f;
         return;
     }
@@ -1157,7 +1189,7 @@ void Battle::TrySwap(int s, bool back, int to) {
         bool grounded = !HasType(f.sp, Type::Flying) && fa != Ab::Levitate && !f.sp->floats;
         if ((grounded && AbOnField(Ab::ArenaTrap, -1, s)) || (HasType(f.sp, Type::Steel) && AbOnField(Ab::MagnetPull, -1, s)) ||
             (fa != Ab::ShadowTag && AbOnField(Ab::ShadowTag, -1, s))) {
-            AddText(f.pos, f.sp->name + " can't escape!", UI_DIM, 30);
+            AddText(f.pos, f.Name() + " can't escape!", UI_DIM, 30);
             sd.swapCd = 0.8f;
             return;
         }
@@ -1166,7 +1198,7 @@ void Battle::TrySwap(int s, bool back, int to) {
     f.stateT = 0;
     sd.swapTo = n;
     sd.swapCd = fa == Ab::RunAway ? 1.25f : 2.5f;
-    AddText(f.pos, f.sp->name + ", come back!", TeamColor(sides[s].teamId), 30);
+    AddText(f.pos, f.Name() + ", come back!", TeamColor(sides[s].teamId), 30);
 }
 
 void Battle::TryBeginMove(int s, int mi, Vector2 aim, bool exactAim) {
@@ -1392,7 +1424,8 @@ void Battle::Execute(int s, int mi, bool first, const MoveDef* override) {
             f.dropMul[(int)m.selfStat] = 0.67f;
             f.dropT[(int)m.selfStat] = 6;
         }
-        PlaySfx(m.kind == MoveKind::Buff ? Sfx::Buff : (m.kind == MoveKind::Heal ? Sfx::Heal : (m.kind == MoveKind::Shield ? Sfx::Shield : SoundFor(m))));
+        if (!PlayMoveSfx(m.name.c_str()))   // the move's own sound (HeartGold's), else its kind's
+            PlaySfx(m.kind == MoveKind::Buff ? Sfx::Buff : (m.kind == MoveKind::Heal ? Sfx::Heal : (m.kind == MoveKind::Shield ? Sfx::Shield : SoundFor(m))));
     }
     CastVfx(s, m, h, a);
 
@@ -1969,12 +2002,12 @@ float Battle::ApplyHit(const HitSpec& h, int ts, Vector2 dir) {
 
     if (t.hp <= 0 && dmg > 0 && t.endureT > 0) {
         t.hp = 1;
-        AddText(t.pos, t.sp->name + " endured the hit!", UI_GOLD, 52);
+        AddText(t.pos, t.Name() + " endured the hit!", UI_GOLD, 52);
     }
     if (t.hp <= 0 && dmg > 0 && t.Holds(ItemFx::FocusBand) && !t.focusUsed) {
         t.hp = 1;
         t.focusUsed = true;
-        AddText(t.pos, t.sp->name + " hung on with its Focus Band!", UI_GOLD, 52);
+        AddText(t.pos, t.Name() + " hung on with its Focus Band!", UI_GOLD, 52);
     }
     AbAfterHit(h, ts, dmg, critHit, hpBefore);
     bool shieldDust = AbOf(t) == Ab::ShieldDust && h.ab != Ab::MoldBreaker && h.power > 0;
@@ -2009,7 +2042,7 @@ float Battle::ApplyHit(const HitSpec& h, int ts, Vector2 dir) {
             t.pendingMove = -1;
             t.dashing = false;
             tsd.swapTo = n;
-            AddText(t.pos, t.sp->name + " was blown away!", TeamColor(sides[ts].teamId), 40);
+            AddText(t.pos, t.Name() + " was blown away!", TeamColor(sides[ts].teamId), 40);
         }
     }
 
@@ -2182,7 +2215,7 @@ void Battle::PracticeNextDummy(int s, bool announce) {
     t.st = StatusState();
     t.RecalcHp(false);
     t.displayHp = t.hp;
-    if (announce) AddText(t.pos, "Next dummy: " + t.sp->name, UI_GOLD, 44);
+    if (announce) AddText(t.pos, "Next dummy: " + t.Name(), UI_GOLD, 44);
 }
 
 void Battle::PracticeCycleDummies() {
@@ -2196,7 +2229,7 @@ void Battle::Faint(int s, int credit) {
         if (sides[s].dummy) {
             FaintVfx(t.pos, t.sp->type1);
             PlaySfx(Sfx::Faint);
-            AddText(t.pos, t.sp->name + " is down!", UI_GOLD, 44);
+            AddText(t.pos, t.Name() + " is down!", UI_GOLD, 44);
             PracticeNextDummy(s, true);
         } else {
             t.st = StatusState();
@@ -2218,7 +2251,7 @@ void Battle::Faint(int s, int credit) {
             t.volleyLeft = 0;
             t.burrowed = false;
             t.leaping = false;
-            AddText(t.pos, t.sp->name + " is worn out - throw a Poke Ball!", UI_GOLD, 60);
+            AddText(t.pos, t.Name() + " is worn out - throw a Poke Ball!", UI_GOLD, 60);
             PlaySfx(Sfx::Status);
         }
         return;
@@ -2234,7 +2267,7 @@ void Battle::Faint(int s, int credit) {
     t.leaping = false;
     t.volleyLeft = 0;
     t.st = StatusState();
-    AddText(t.pos, t.sp->name + " fainted!", TeamColor(sides[s].teamId), 44);
+    AddText(t.pos, t.Name() + " fainted!", TeamColor(sides[s].teamId), 44);
     FaintVfx(t.pos, t.sp->type1);
     Shake(3, 0.25f);
     PlaySfx(Sfx::Faint);
@@ -2258,6 +2291,12 @@ void Battle::CreditKo(int s, int credit) {
         if (r.hp <= 0 || (r.state != FState::Active && r.state != FState::Entering)) continue;
         int got = r.Holds(ItemFx::LuckyEgg) ? (int)(xp * r.item->value) : xp;
         GiveXp(c, got);
+        // EVs: the knocked-out Pokemon's yield (a Macho Brace doubles it; a Power item adds 8 to its stat)
+        int y[6];
+        EvYield(t.sp->name, y);
+        bool brace = r.item && r.item->name == "Macho Brace";
+        for (int k = 0; k < 6; k++) r.evGain[k] += y[k] * (brace ? 2 : 1);
+        if (r.item && r.item->fx == ItemFx::PowerItem && r.item->boost >= 0 && r.item->boost < 6) r.evGain[r.item->boost] += POWER_ITEM_EVS;
     }
 }
 
@@ -2272,7 +2311,7 @@ void Battle::CheckWeakened(int s) {
     f.volleyLeft = 0;
     f.burrowed = false;
     f.leaping = false;
-    AddText(f.pos, f.sp->name + " is weakened!", UI_GOLD, 44);
+    AddText(f.pos, f.Name() + " is weakened!", UI_GOLD, 44);
     PlaySfx(Sfx::Status);
 }
 
@@ -2284,7 +2323,7 @@ void Battle::Retire(int s) {
     f.stateT = 0;
     f.st = StatusState();
     sd.lastPos = f.pos;
-    AddText(f.pos, f.sp->name + " retreated!", TeamColor(sides[s].teamId), 44);
+    AddText(f.pos, f.Name() + " retreated!", TeamColor(sides[s].teamId), 44);
     Fx puff;
     puff.kind = FxKind::Puff;
     puff.pos = f.pos;
@@ -2294,6 +2333,27 @@ void Battle::Retire(int s) {
     Burst(f.pos, WHITE, 14, 60, 8);
     PlaySfx(Sfx::Shield);
     CreditKo(s, sides[s].Cur().lastHitBy >= 0 ? sides[s].Cur().lastHitBy : AnyFoe(s));
+    if (sd.NextAlive(sd.active) >= 0) sd.sendT = 0.6f;
+}
+
+void Battle::Flee(int s) {
+    Side& sd = sides[s];
+    Fighter& f = sd.Cur();
+    f.fled = true;
+    f.fleeT = 0;
+    f.retired = true;
+    f.state = FState::Fainted;
+    f.stateT = 0;
+    sd.lastPos = f.pos;
+    AddText(f.pos, f.Name() + " fled!", UI_GOLD, 60);
+    Fx puff;
+    puff.kind = FxKind::Puff;
+    puff.pos = f.pos;
+    puff.maxLife = 0.45f;
+    puff.col = WHITE;
+    fxs.push_back(puff);
+    Burst(f.pos, WHITE, 18, 80, 10);
+    PlaySfx(Sfx::Flee);
     if (sd.NextAlive(sd.active) >= 0) sd.sendT = 0.6f;
 }
 
@@ -2335,7 +2395,7 @@ void Battle::LevelUp(int s) {
         f.leaping = false;
         f.volleyLeft = 0;
         f.knock = {0, 0};
-        AddText(f.pos, "What? " + f.sp->name + " is evolving!", WHITE, 58);
+        AddText(f.pos, "What? " + f.Name() + " is evolving!", WHITE, 58);
         PlaySfx(Sfx::Evolve);
     }
 }
@@ -2421,7 +2481,7 @@ void Battle::RaidControl(PlayerInput in[2]) {
             sides[s].cpu = false;
             sides[s].input = p;
             sides[s].ai = AIBrain();
-            AddText(sides[s].Cur().pos + Vector2{0, -30}, "You're on " + sides[s].Cur().sp->name + "!", TeamColor(0), 24);
+            AddText(sides[s].Cur().pos + Vector2{0, -30}, "You're on " + sides[s].Cur().Name() + "!", TeamColor(0), 24);
             break;
         }
     }
@@ -2532,7 +2592,7 @@ bool Battle::ThrowBall(int s, int k) {
     sd.hotN[k]--;
     sd.hotCd[k] = BALL_COOLDOWN;
     AddText(me.pos + Vector2{0, -26}, (sides[s].cpu ? sides[s].label + " threw a " : "Threw a ") + d->name + "!", UI_GOLD, 40);
-    PlaySfx(Sfx::MenuOk);
+    PlaySfx(Sfx::BallThrow);
     return true;
 }
 void Battle::UpdateThrows(float dt) {
@@ -2546,13 +2606,13 @@ void Battle::UpdateThrows(float dt) {
             f.inBall = true;
             f.pendingMove = -1; f.dashing = false; f.volleyLeft = 0; f.burrowed = false; f.leaping = false;
             Burst(f.pos, Color{255, 120, 120, 255}, 10, 50, 6);
-            PlaySfx(Sfx::Shield);
+            PlaySfx(Sfx::BallOpen);
         }
         float end = BALL_FLY + 0.3f + th.shakes * BALL_SHAKE + 0.25f;
         if (th.t >= BALL_FLY && th.t < end) {
             int shakeNo = (int)((th.t - BALL_FLY - 0.3f) / BALL_SHAKE);
             int prevNo = (int)((before - BALL_FLY - 0.3f) / BALL_SHAKE);
-            if (th.t > BALL_FLY + 0.3f && shakeNo != prevNo && shakeNo < th.shakes) PlaySfx(Sfx::MenuMove);
+            if (th.t > BALL_FLY + 0.3f && shakeNo != prevNo && shakeNo < th.shakes) PlaySfx(Sfx::BallShake);
         }
         if (th.t >= end) {
             th.done = true;
@@ -2563,9 +2623,9 @@ void Battle::UpdateThrows(float dt) {
                 f.caughtBy = sides[ownerSide].Cur().owner & 1;
                 if (!sides[ownerSide].team.empty()) f.caughtBy = sides[ownerSide].team[0].owner & 1;
                 f.caughtBall = th.ball;
-                AddText(f.pos + Vector2{0, -20}, "Gotcha! " + f.sp->name + " was caught!", UI_GOLD, 60);
+                AddText(f.pos + Vector2{0, -20}, "Gotcha! " + f.Name() + " was caught!", UI_GOLD, 60);
                 for (int i = 0; i < 16; i++) Emit(PK::Spark, f.pos + Vector2{Frand(-8, 8), Frand(-4, 4)}, Frand(4, 16), {Frand(-30, 30), Frand(-20, 10)}, Frand(20, 50), 0.8f, 2.0f, UI_GOLD, false);
-                PlaySfx(Sfx::LevelUp);
+                PlaySfx(Sfx::Caught);
                 CreditKo(th.to, th.from);   // the experience, as for a knockout
                 Side& ts = sides[th.to];
                 f.retired = true;
@@ -2577,7 +2637,7 @@ void Battle::UpdateThrows(float dt) {
                 AddText(f.pos + Vector2{0, -20}, th.shakes == 0 ? "Oh, no! It broke free!" : th.shakes == 1 ? "Aww! It appeared to be caught!" : th.shakes == 2 ? "Aargh! Almost had it!" : "Shoot! It was so close, too!", UI_DIM, 50);
                 Burst(f.pos, WHITE, 12, 60, 8);
                 f.flash = 0.3f;
-                PlaySfx(Sfx::Faint);
+                PlaySfx(Sfx::BallOpen);
             }
         }
     }
@@ -2636,8 +2696,8 @@ void Battle::StartMega(int s) {
     f.dodgeT = f.jumpT = 0;
     f.knock = {0, 0};
     megaFreezeT = 1.0f;
-    AddText(f.pos + Vector2{0, -28}, f.item && IsMegaStone(*f.item) ? f.sp->name + "'s " + f.item->name + " is reacting!"
-                                                                    : f.sp->name + "'s fervent wish has reached its Trainer!", Color{255, 200, 255, 255}, 50);
+    AddText(f.pos + Vector2{0, -28}, f.item && IsMegaStone(*f.item) ? f.Name() + "'s " + f.item->name + " is reacting!"
+                                                                    : f.Name() + "'s fervent wish has reached its Trainer!", Color{255, 200, 255, 255}, 50);
     PlaySfx(Sfx::Evolve);
 }
 
@@ -2655,7 +2715,7 @@ void Battle::FinishMega(int s) {
     f.stateT = 0;
     f.flash = 0.35f;
     AbOnEnter(s);
-    AddText(f.pos + Vector2{0, -28}, IsPrimal(f.species) ? from + "'s Primal Reversion! It reverted to its primal form!" : from + " Mega Evolved into " + f.sp->name + "!", UI_GOLD, 50);
+    AddText(f.pos + Vector2{0, -28}, IsPrimal(f.species) ? from + "'s Primal Reversion! It reverted to its primal form!" : from + " Mega Evolved into " + f.Name() + "!", UI_GOLD, 50);
     for (int k = 0; k < 6; k++) Burst(f.pos, ColorFromHSV(k * 60.0f, 0.65f, 1.0f), 10, 90 + k * 12, 8);
     AddFx(FxKind::Ring, f.pos, 0.5f, Color{255, 220, 255, 255}, 44);
     Shake(3, 0.35f);
@@ -4034,7 +4094,7 @@ void Battle::DrawPlates() const {
             DrawRectangle(x, y, pw, 13, Fade(Color{24, 22, 40, 255}, 0.75f));
             DrawRectangle(x, y, 2, 13, sd.squad == 1 ? Color{120, 230, 255, 255} : UI_GOLD);
             bool out = f.hp <= 0;
-            GDrawText(TextFormat("%s Lv%d", f.sp->name.c_str(), f.level), x + 5, y + 1, 10, out ? UI_DIM : UI_TEXT);
+            GDrawText(TextFormat("%s Lv%d", f.Name().c_str(), f.level), x + 5, y + 1, 10, out ? UI_DIM : UI_TEXT);
             DrawHpBar(x + 104, y + 5, 60, 3, std::max(0.0f, f.displayHp / f.maxHp));
             continue;
         }
@@ -4065,8 +4125,8 @@ void Battle::DrawPlates() const {
         }
         DrawTextShadow(who, x + 7, y + (compact ? 1 : 3), 10, tc);
         int nx = x + 9 + TextW(who, 10) + 4;
-        DrawTextShadow(f.sp->name.c_str(), nx, y + (compact ? 1 : 3), 10, UI_TEXT);
-        int bx = nx + TextW(f.sp->name.c_str(), 10) + 4;
+        DrawTextShadow(f.Name().c_str(), nx, y + (compact ? 1 : 3), 10, UI_TEXT);
+        int bx = nx + TextW(f.Name().c_str(), 10) + 4;
         if (f.shiny) { DrawShinyStar((float)bx + 3, (float)y + (compact ? 6 : 8)); bx += 9; }
         if (sd.teamId == 1 && setup.catchable && !setup.trainerBattle && OwnedSpecies(f.RealSpecies())) {   // you have one already
             DrawPokeBall({(float)bx + 4, (float)y + (compact ? 6.5f : 8.5f)}, 3.6f, 0);

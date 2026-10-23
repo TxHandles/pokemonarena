@@ -1,0 +1,8 @@
+# Bewear - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 522A31 > 594523
+shiny = 785B66 > 7D6756
+shiny = A78893 > AC9582
+shiny = C86077 > E49E00
+shiny = EBDDE2 > EDE3DA
+shiny = ED9EBE > FFC559

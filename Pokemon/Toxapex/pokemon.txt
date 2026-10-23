@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Toxapex
+dex  = 748
+type = Poison / Water
+
+hp         = 50
+attack     = 63
+defense    = 152
+sp_attack  = 53
+sp_defense = 142
+speed      = 35
+
+size   = 1.00
+height = 0.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 14.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Baneful Bunker
+learn = 1, Bite
+learn = 1, Peck
+learn = 1, Poison Sting
+learn = 1, Wide Guard
+learn = 15, Venoshock
+learn = 20, Recover
+learn = 25, Pin Missile
+learn = 30, Toxic Spikes
+learn = 35, Liquidation
+learn = 42, Acid Spray
+learn = 49, Poison Jab
+learn = 56, Toxic
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Water Pulse, Acid Spray, Pounce, Chilling Water
+tm = Facade, Hex, Icy Wind, Mud Shot, Venoshock, Endure
+tm = Rain Dance, Body Slam, Sleep Talk, Poison Jab, Rest, Toxic Spikes
+tm = Gunk Shot, Substitute, Iron Defense, Liquidation, Surf, Ice Spinner
+tm = Ice Beam, Hydro Pump, Blizzard, Sludge Bomb, Giga Impact, Hyper Beam
+tm = Tera Blast, Haze, Toxic, Smack Down, Lunge, Pain Split
+tm = Muddy Water, Sludge Wave

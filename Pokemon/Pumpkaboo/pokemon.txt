@@ -1,0 +1,53 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: princess-phoenix (DeviantArt, "Gen 6 (Kalos) Pokemon Overworld Sprites") - credit wanted
+name = Pumpkaboo
+dex  = 710
+type = Ghost / Grass
+
+hp         = 49
+attack     = 66
+defense    = 70
+sp_attack  = 44
+sp_defense = 55
+speed      = 51
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolve_trade = Gourgeist      # evolves when traded (or with a Linking Cord)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Astonish
+learn = 1, Trick-or-Treat
+learn = 4, Shadow Sneak
+learn = 8, Confuse Ray
+learn = 12, Razor Leaf
+learn = 16, Leech Seed
+learn = 20, Bullet Seed
+learn = 24, Scary Face
+learn = 28, Worry Seed
+learn = 32, Seed Bomb
+learn = 36, Shadow Ball
+learn = 40, Trick
+learn = 44, Pain Split
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Thief, Facade, Hex, Endure
+tm = Sunny Day, Bullet Seed, Foul Play, Sleep Talk, Seed Bomb, Light Screen
+tm = Grass Knot, Rest, Rock Slide, Imprison, Dark Pulse, Skill Swap
+tm = Substitute, Will-O-Wisp, Trick, Giga Drain, Shadow Ball, Energy Ball
+tm = Psychic, Flamethrower, Fire Blast, Sludge Bomb, Trick Room, Solar Beam
+tm = Gyro Ball

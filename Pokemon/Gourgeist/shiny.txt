@@ -1,0 +1,18 @@
+# Gourgeist - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 453F3F > 2E3038
+shiny = 483626 > 1C1B1F
+shiny = 601215 > 2E0035
+shiny = 65553D > 363738
+shiny = 6B5747 > 494950
+shiny = 8D6C5A > 907B58
+shiny = 972F33 > 4B1868
+shiny = B08440 > B09352
+shiny = BE9240 > BEA157
+shiny = CB6D69 > 804CA0
+shiny = E05B4E > 82489B
+shiny = F5D242 > BBEE5C
+shiny = F5EC9B > D4D5D8
+shiny = F89370 > A86FC4
+shiny = FD8169 > A166BB
+shiny = FFD325 > BFF05C

@@ -1,0 +1,5 @@
+# Cosmog - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 201D1D > 242121
+shiny = 2E2A2A > 242121
+shiny = 654E2C > 565012

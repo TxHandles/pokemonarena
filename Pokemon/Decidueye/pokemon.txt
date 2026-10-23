@@ -1,0 +1,65 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Decidueye
+dex  = 724
+type = Grass / Ghost
+
+hp         = 78
+attack     = 107
+defense    = 75
+sp_attack  = 100
+sp_defense = 100
+speed      = 70
+
+size   = 1.12
+height = 1.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 36.6      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Spirit Shackle
+learn = 1, Spite
+learn = 1, Growl
+learn = 1, Leaf Storm
+learn = 1, Astonish
+learn = 1, Phantom Force
+learn = 1, Tackle
+learn = 1, U-turn
+learn = 1, Leafage
+learn = 9, Peck
+learn = 12, Shadow Sneak
+learn = 15, Razor Leaf
+learn = 20, Synthesis
+learn = 25, Pluck
+learn = 30, Nasty Plot
+learn = 37, Sucker Punch
+learn = 44, Leaf Blade
+learn = 51, Feather Dance
+learn = 58, Brave Bird
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Low Kick, Acrobatics, Confuse Ray
+tm = Trailblaze, Facade, Aerial Ace, Hex, Swift, Magical Leaf
+tm = Rock Tomb, Low Sweep, Air Cutter, Night Shade, Endure, Sunny Day
+tm = Rain Dance, Bullet Seed, False Swipe, Brick Break, U-turn, Shadow Claw
+tm = Bulk Up, Air Slash, Sleep Talk, Seed Bomb, Light Screen, Grass Knot
+tm = Rest, Taunt, Swords Dance, Imprison, Substitute, Giga Drain
+tm = Aura Sphere, Tailwind, Shadow Ball, Energy Ball, Helping Hand, Baton Pass
+tm = Reversal, Grassy Terrain, Nasty Plot, Grass Pledge, Phantom Force, Giga Impact
+tm = Frenzy Plant, Focus Blast, Leaf Storm, Hurricane, Hyper Beam, Brave Bird
+tm = Close Combat, Solar Beam, Tera Blast, Haze, Spite, Smack Down
+tm = Knock Off, Solar Blade, Focus Punch, Grassy Glide, Dual Wingbeat, Poltergeist
+tm = Coaching, Feather Dance, Skitter Smack, Curse, Upper Hand

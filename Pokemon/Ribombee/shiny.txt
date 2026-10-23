@@ -1,0 +1,10 @@
+# Ribombee - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 46342C > 4A2830
+shiny = 6D4E37 > 934751
+shiny = 926422 > B34FAB
+shiny = B67D40 > E25158
+shiny = E9C097 > DBA2DD
+shiny = EBAA41 > DB79C9
+shiny = FFBA62 > FF7CF8
+shiny = FFE76F > FFA8D7

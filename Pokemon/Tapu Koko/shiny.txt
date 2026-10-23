@@ -1,0 +1,6 @@
+# Tapu Koko - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 705018 > 2B2B2B
+shiny = BDA315 > 444444
+shiny = D9BD26 > 525252
+shiny = F7DA40 > 646464

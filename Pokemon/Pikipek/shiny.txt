@@ -1,0 +1,6 @@
+# Pikipek - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2B76BF > 239F47
+shiny = 31B2F7 > 28CD42
+shiny = 8C2A30 > 8C2A66
+shiny = F25659 > F256AF

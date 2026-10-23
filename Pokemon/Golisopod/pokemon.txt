@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Golisopod
+dex  = 768
+type = Bug / Water
+
+hp         = 75
+attack     = 125
+defense    = 140
+sp_attack  = 60
+sp_defense = 90
+speed      = 40
+
+size   = 1.27
+height = 2.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 108.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, First Impression
+learn = 1, Sand Attack
+learn = 1, Struggle Bug
+learn = 1, Defense Curl
+learn = 1, Spite
+learn = 4, Rock Smash
+learn = 8, Fury Cutter
+learn = 12, Mud Shot
+learn = 16, Bug Bite
+learn = 20, Iron Defense
+learn = 24, Sucker Punch
+learn = 28, Slash
+learn = 32, Razor Shell
+learn = 36, Pin Missile
+learn = 40, Swords Dance
+learn = 44, Liquidation
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Snarl, Swift, Icy Wind, Mud Shot
+tm = Rock Tomb, Fling, Venoshock, Endure, Rain Dance, False Swipe
+tm = Brick Break, Shadow Claw, Bulk Up, Sleep Talk, Waterfall, Poison Jab
+tm = Rest, Rock Slide, Taunt, Swords Dance, Spikes, Dark Pulse
+tm = Leech Life, Iron Head, Substitute, Iron Defense, X-Scissor, Drill Run
+tm = Liquidation, Surf, Ice Beam, Blizzard, Sludge Bomb, Giga Impact
+tm = Focus Blast, Bug Buzz, Hyper Beam, Close Combat, Scald, Muddy Water
+tm = Sludge Wave, Throat Chop

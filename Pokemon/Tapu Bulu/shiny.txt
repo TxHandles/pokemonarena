@@ -1,0 +1,8 @@
+# Tapu Bulu - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 433636 > 363636
+shiny = 615151 > 515151
+shiny = 791D1C > 1C1C1C
+shiny = 856363 > 6E6E6E
+shiny = B5303D > 363636
+shiny = FF3F37 > 4E4E4E

@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: princess-phoenix (DeviantArt, "Gen 6 (Kalos) Pokemon Overworld Sprites") - credit wanted
+name = Pancham
+dex  = 674
+type = Fighting
+
+hp         = 67
+attack     = 82
+defense    = 62
+sp_attack  = 46
+sp_defense = 48
+speed      = 43
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 8.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Pangoro
+evolve_level = 32
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 1, Leer
+learn = 4, Arm Thrust
+learn = 8, Taunt
+learn = 12, Circle Throw
+learn = 16, Low Sweep
+learn = 20, Work Up
+learn = 24, Slash
+learn = 28, Vital Throw
+learn = 33, Crunch
+learn = 36, Body Slam
+learn = 40, Parting Shot
+learn = 44, Entrainment
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Low Kick, Facade, Bulldoze, Rock Tomb, Low Sweep
+tm = Fling, Endure, Sunny Day, Rain Dance, Dig, False Swipe
+tm = Brick Break, Zen Headbutt, Shadow Claw, Foul Play, Bulk Up, Body Slam
+tm = Fire Punch, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch, Grass Knot
+tm = Rest, Rock Slide, Taunt, Swords Dance, Dark Pulse, Iron Head
+tm = Gunk Shot, Substitute, Crunch, Hyper Voice, Surf, Helping Hand
+tm = Sludge Bomb, Stone Edge, Uproar

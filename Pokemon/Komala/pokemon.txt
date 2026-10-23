@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Komala
+dex  = 775
+type = Normal
+
+hp         = 65
+attack     = 115
+defense    = 65
+sp_attack  = 75
+sp_defense = 95
+speed      = 65
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 19.9      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Defense Curl
+learn = 1, Rollout
+learn = 6, Spit Up
+learn = 6, Swallow
+learn = 6, Stockpile
+learn = 11, Rapid Spin
+learn = 16, Yawn
+learn = 21, Slam
+learn = 26, Flail
+learn = 31, Sucker Punch
+learn = 36, Psych Up
+learn = 41, Wood Hammer
+learn = 46, Thrash
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Low Kick, Acrobatics, Thief
+tm = Trailblaze, Facade, Bulldoze, Metal Claw, Rock Tomb, Low Sweep
+tm = Fling, Endure, Sunny Day, Rain Dance, Brick Break, Zen Headbutt
+tm = U-turn, Shadow Claw, Bulk Up, Body Slam, Sleep Talk, Seed Bomb
+tm = Stomping Tantrum, Rock Slide, Swords Dance, Iron Head, Gunk Shot, Substitute
+tm = Ice Spinner, Play Rough, Calm Mind, Reversal, Earthquake, Giga Impact
+tm = Hyper Beam, Tera Blast, Knock Off, Super Fang, Psych Up, Double-Edge
+tm = Endeavor, Curse

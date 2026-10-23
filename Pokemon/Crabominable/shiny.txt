@@ -1,0 +1,6 @@
+# Crabominable - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 4A7B86 > 8B3F3F
+shiny = 91D3E1 > E66C6C
+shiny = CABC78 > CAA878
+shiny = E5DD83 > EBC984

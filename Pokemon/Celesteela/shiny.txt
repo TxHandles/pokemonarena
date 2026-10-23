@@ -1,0 +1,3 @@
+# Celesteela - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = ACC5BD > E3F0ED

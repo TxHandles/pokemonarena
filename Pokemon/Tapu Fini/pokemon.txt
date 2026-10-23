@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Tapu Fini
+dex  = 788
+type = Water / Fairy
+
+hp         = 70
+attack     = 75
+defense    = 115
+sp_attack  = 95
+sp_defense = 130
+speed      = 85
+
+size   = 1.12
+height = 1.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 21.2      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Disarming Voice
+learn = 5, Withdraw
+learn = 10, Haze
+learn = 10, Mist
+learn = 15, Aqua Ring
+learn = 20, Water Pulse
+learn = 25, Brine
+learn = 30, Defog
+learn = 35, Heal Pulse
+learn = 40, Surf
+learn = 45, Muddy Water
+learn = 50, Mean Look
+learn = 55, Nature's Madness
+learn = 60, Moonblast
+learn = 65, Hydro Pump
+learn = 70, Soak
+learn = 75, Misty Terrain
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Icy Wind, Draining Kiss, Stored Power, Fling
+tm = Endure, Rain Dance, Smart Strike, Ice Punch, Sleep Talk, Reflect
+tm = Light Screen, Waterfall, Dazzling Gleam, Grass Knot, Rest, Taunt
+tm = Substitute, Iron Defense, Trick, Shadow Ball, Surf, Play Rough
+tm = Calm Mind, Ice Beam, Misty Terrain, Hydro Pump, Blizzard, Giga Impact
+tm = Hyper Beam, Scald, Whirlpool, Muddy Water

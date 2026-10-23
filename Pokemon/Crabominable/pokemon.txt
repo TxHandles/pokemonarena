@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Crabominable
+dex  = 740
+type = Fighting / Ice
+
+hp         = 97
+attack     = 132
+defense    = 77
+sp_attack  = 62
+sp_defense = 67
+speed      = 43
+
+size   = 1.23
+height = 1.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 180.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Ice Punch
+learn = 1, Rock Smash
+learn = 1, Protect
+learn = 1, Leer
+learn = 17, Bubble Beam
+learn = 22, Brick Break
+learn = 25, Slam
+learn = 29, Avalanche
+learn = 33, Reversal
+learn = 37, Ice Hammer
+learn = 42, Iron Defense
+learn = 45, Dynamic Punch
+learn = 49, Close Combat
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Thief, Chilling Water
+tm = Facade, Bulldoze, Swift, Icy Wind, Mud Shot, Rock Tomb
+tm = Fling, Avalanche, Endure, Sunny Day, Rain Dance, Snowscape
+tm = Dig, Brick Break, Zen Headbutt, Bulk Up, Body Slam, Thunder Punch
+tm = Ice Punch, Sleep Talk, Drain Punch, Stomping Tantrum, Rest, Rock Slide
+tm = Body Press, Iron Head, Gunk Shot, Substitute, Iron Defense, Liquidation
+tm = Ice Spinner, Amnesia, Helping Hand, Reversal, Ice Beam, Blizzard
+tm = Earthquake, Giga Impact, Focus Blast, Hyper Beam, Close Combat, Tera Blast
+tm = Knock Off, Focus Punch, Endeavor, Coaching, Hard Press, Upper Hand

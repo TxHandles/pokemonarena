@@ -1,0 +1,7 @@
+# Xurkitree - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1D2226 > 062C48
+shiny = 2B353B > 005587
+shiny = 2B3639 > 0A6785
+shiny = 4A5A64 > 068CCF
+shiny = 66757D > 37ADDD

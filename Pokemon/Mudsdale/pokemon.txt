@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Mudsdale
+dex  = 750
+type = Ground
+
+hp         = 100
+attack     = 125
+defense    = 100
+sp_attack  = 55
+sp_defense = 85
+speed      = 35
+
+size   = 1.33
+height = 2.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 920.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Rock Smash
+learn = 1, Double Kick
+learn = 1, Mud-Slap
+learn = 1, Iron Defense
+learn = 12, Bulldoze
+learn = 16, Stomp
+learn = 20, Strength
+learn = 24, Counter
+learn = 28, High Horsepower
+learn = 34, Heavy Slam
+learn = 40, Earthquake
+learn = 46, Mega Kick
+learn = 52, Superpower
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Scary Face, Protect, Low Kick, Facade
+tm = Bulldoze, Mud Shot, Rock Tomb, Low Sweep, Endure, Sunny Day
+tm = Sandstorm, Body Slam, Sleep Talk, Stomping Tantrum, Rest, Rock Slide
+tm = Body Press, Iron Head, Substitute, Iron Defense, Stealth Rock, Heavy Slam
+tm = Earth Power, Earthquake, Stone Edge, Giga Impact, Focus Blast, Hyper Beam
+tm = Close Combat, Tera Blast, Roar, Sand Tomb, Smack Down, High Horsepower
+tm = Lash Out, Double-Edge, Endeavor, Curse

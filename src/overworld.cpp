@@ -94,6 +94,19 @@ struct OwMap {
     std::string town;                 // a town you can Fly to (its name on the Town Map)
     int flyX = -1, flyY = -1;         // ...where you land (outside its Pokemon Center)
     int startX = -1, startY = -1;
+    // HeartGold / SoulSilver maps (tools/hgss_world.py): rendered from the 3D models, so the ground has heights
+    int region = 0;                   // "region = Johto": whose story / levels it belongs to (route trainers scale with it)
+    int imgOffY = 0;                  // "imgy = n": the picture starts this far above the map's top row
+    std::string hts;                  // "heights:" one char per tile, 48 + lift / 4 (how far up the screen people stand)
+    bool hasPos = false;              // "pos = x y": where it sits in the region (maps that touch join up, any number per side)
+    int gx = 0, gy = 0;
+    struct Near { int map, dx, dy; };
+    std::vector<Near> near;           // (worked out from pos) the maps touching this one, and where they are from here
+    float Lift(int x, int y) const {
+        if (hts.empty() || w <= 0 || h <= 0) return 0;
+        x = x < 0 ? 0 : x >= w ? w - 1 : x; y = y < 0 ? 0 : y >= h ? h - 1 : y;
+        return ((unsigned char)hts[y * w + x] - 48) * 4.0f;
+    }
     char At(int x, int y) const { return (x < 0 || y < 0 || x >= w || y >= h) ? '#' : cells[y * w + x]; }
 };
 struct NpcRt { int x, y, face; float wt = 0, st = 1; int fromX = 0, fromY = 0; };   // wanderers: next stroll, mid-step     // where a person is right now (they turn and walk over)
@@ -183,6 +196,13 @@ void SaveOrWarnP(Game& g) { if (!SaveProfile(g.profile)) Toast(g, "Could not sav
 std::set<std::string>& Flags(Game& g) { return g.coop ? g.coopSave.owFlags : g.profile.owFlags; }
 const std::set<std::string>& Flags(const Game& g) { return g.coop ? g.coopSave.owFlags : g.profile.owFlags; }
 const char* kKantoBadges[9] = {"", "Boulder", "Cascade", "Thunder", "Rainbow", "Soul", "Marsh", "Volcano", "Earth"};
+// The badge that lets you use HM n on that region's maps (Johto: HeartGold's - Cut needs the Hive Badge there)
+std::string FieldBadge(int n, int region) {
+    static const char* kJohto[8] = {"", "Hive", "Storm", "Fog", "Plain", "Zephyr", "Zephyr", "Rising"};
+    if (region == 1 && n >= 1 && n <= 7) return kJohto[n];
+    return kKantoBadges[std::min(8, HmBadges(n))];
+}
+int MapRegionOf(const Game& g, int i);
 bool StageBeaten(const Game& g, int s);
 bool HasBadge(const Game& g, const std::string& b) {
     const auto& v = g.coop ? g.coopSave.badges : g.profile.badges;
@@ -190,15 +210,23 @@ bool HasBadge(const Game& g, const std::string& b) {
 }
 // A condition: a flag that's been set, or "badge:Cascade", "stage:Cerulean Gym" (the story is past it),
 // "item:Bicycle" (this walker carries it); "!" in front turns it around.
+int MapRegionOf(const Game& g, int i) { int m = g.ow.w[i].map; return m >= 0 && m < (int)gMaps.size() ? gMaps[m].region : 0; }
 bool HasFlag(const Game& g, int i, const std::string& f0) {
     if (f0.empty()) return true;
     if (size_t amp = f0.find('&'); amp != std::string::npos) return HasFlag(g, i, f0.substr(0, amp)) && HasFlag(g, i, f0.substr(amp + 1));   // all of them
+    if (size_t comma = f0.find(','); comma != std::string::npos) return HasFlag(g, i, f0.substr(0, comma)) || HasFlag(g, i, f0.substr(comma + 1));   // any of them
     if (f0[0] == '!') return !HasFlag(g, i, f0.substr(1));
+    if (f0.rfind("done:", 0) == 0) { for (int r = 0; r < RegionCount(); r++) if (RegionInfo(r).name == f0.substr(5)) return RegionDone(g, r); return false; }
     if (f0.rfind("badge:", 0) == 0) return HasBadge(g, f0.substr(6));
     if (f0.rfind("badges:", 0) == 0) return (int)(g.coop ? g.coopSave.badges : g.profile.badges).size() >= std::atoi(f0.c_str() + 7);
     if (f0.rfind("stage:", 0) == 0) { int s = StageIndexByName(f0.substr(6)); return s >= 0 && StageBeaten(g, s); }
     if (f0.rfind("item:", 0) == 0) return BagCount(WP(g, i), f0.substr(5)) > 0;
     if (f0 == "pokemon") return !WP(g, i).mons.empty();   // this walker has a Pokemon (Oak's starter)
+    if (f0.rfind("rstarter:", 0) == 0) {   // the region's professor has given you theirs (rstarter:1 = Elm's)
+        int r = std::atoi(f0.c_str() + 9);
+        if (r == 0) return HasFlag(g, i, "pokemon");
+        return g.coop ? !RegionStarter(g.coopP[0], r).empty() && !RegionStarter(g.coopP[1], r).empty() : !RegionStarter(g.profile, r).empty();
+    }
     if (f0 == "allpokemon") return g.coop ? !g.coopP[0].mons.empty() && !g.coopP[1].mons.empty() : !g.profile.mons.empty();   // everyone has
     return Flags(g).count(f0) > 0;
 }
@@ -221,11 +249,11 @@ int HmIndex(const std::string& mv) { for (int n = 1; n <= 7; n++) if (mv == HmMo
 bool CanField(const Game& g, int i, const std::string& mv, std::string* who = nullptr) {
     int n = HmIndex(mv);
     if (n <= 0 || !PartyKnows(WP(g, i), mv, who)) return false;
-    return HasBadge(g, kKantoBadges[std::min(8, HmBadges(n))]);
+    return HasBadge(g, FieldBadge(n, gMaps.empty() || g.ow.w[i].map < 0 ? 0 : gMaps[g.ow.w[i].map].region));
 }
-std::string FieldNeed(const std::string& mv) {   // "You need the Cascade Badge and a Pokemon that knows Cut."
+std::string FieldNeed(const std::string& mv, int region = 0) {   // "You need the Cascade Badge and a Pokemon that knows Cut."
     int n = HmIndex(mv);
-    return std::string("You need the ") + kKantoBadges[std::min(8, HmBadges(n))] + " Badge and a Pokemon that knows " + mv + ".";
+    return std::string("You need the ") + FieldBadge(n, region) + " Badge and a Pokemon that knows " + mv + ".";
 }
 
 // ---- the story's trainers
@@ -327,7 +355,7 @@ char Cell(const Game& g, int i, int map, int x, int y) {
     for (const auto& gt : m.gates) if (gt.x == x && gt.y == y && !HasFlag(g, i, gt.flag)) return '#';
     return c;
 }
-bool Walkable(char c) { return c == '.' || c == 'g' || c == 'c' || c == 'D' || c == '0' || (c >= '1' && c <= '4'); }
+bool Walkable(char c) { return c == '.' || c == 'g' || c == 'c' || c == 'D' || c == 's' || c == '0' || (c >= '1' && c <= '4'); }   // (s: a slope or steps, 3D maps)
 bool IsWater(char c) { return c == 'w' || c == 'W'; }
 int ItemAt(const Game& g, int i, int map, int x, int y, bool hidden) {   // an item not picked up yet (-1 none)
     const OwMap& m = gMaps[map];
@@ -462,6 +490,7 @@ StageDef FightStage(const OwMap& m, const OwNpc& n, int tier = 0) {
     st.catchMode = 0;
     st.reward = false;
     st.outdoor = !m.indoor;
+    st.region = m.region;
     return st;
 }
 // Straight into a battle with your party as it stands (the flash-and-wipe first), like a wild one.
@@ -582,7 +611,7 @@ void Warp(Game& g, int i, const std::vector<std::string>& a) {
     g.ow.w[i].surfing = false;
     PlaceAt(g, i, m, std::atoi(a[2].c_str()), std::atoi(a[3].c_str()));
     g.ow.w[i].fadeT = 0.35f;
-    PlaySfx(Sfx::MenuOk);
+    PlaySfx(Sfx::Door);
     SavePos(g);
 }
 
@@ -596,6 +625,11 @@ Game& StartSub(Game& g, int i) {
     s->profile = Prof(g, who);
     s->profile.owFlags.clear();   // (it collects what happens in this battle for the co-op save)
     s->coop = false;
+    if (g.coop) {   // the roaming legendaries are the co-op save's: they come along (and go back after)
+        s->coopSub = true;
+        s->subRoamKeep = s->profile.roam;
+        s->profile.roam = g.coopSave.roam;
+    }
     s->mode = Mode::Story;
     s->ow.active = true;   // its "back to the hub" is the end of it
     s->ow.w[0].map = 0;
@@ -624,7 +658,7 @@ void UseField(Game& g, int i, const std::string& mv) {
     const OwMap& m = MapOf(w);
     int fx = w.x + DX[w.face], fy = w.y + DY[w.face];
     std::string who;
-    if (!CanField(g, i, mv, &who)) { Say(w, FieldNeed(mv)); return; }
+    if (!CanField(g, i, mv, &who)) { Say(w, FieldNeed(mv, MapRegionOf(g, i))); return; }
     PlaySfx(Sfx::Buff);
     if (mv == "Cut" || mv == "Rock Smash") {
         gRt[w.map].cleared.insert(fy * m.w + fx);
@@ -722,6 +756,12 @@ void RunAction(Game& g, int i, const std::string& act) {
         else { t.shopSel = 0; t.screen = Screen::Shop; }
     }
     else if (k == "shopmsg" || k == "healmsg") Say(w, act.substr(k.size() + 1), k == "shopmsg" ? "shop" : "heal");
+    else if (k == "daycare") Say(w, a.size() > 1 && !a[1].empty() ? a[1] : "I'm the Day Care man. Shall we raise a Pokemon for you?", "daycareopen");
+    else if (k == "daycareopen") {
+        SaveAll(g);
+        Game& t = g.coop ? StartSub(g, i) : g;
+        OpenDaycare(t, 0, Screen::World);
+    }
     else if (k == "flag" && a.size() > 1) SetFlag(g, a[1]);
     else if (k == "give" && a.size() >= 4) {   // give|item|n|flag
         if (HasFlag(g, i, a[3])) return;
@@ -730,7 +770,7 @@ void RunAction(Game& g, int i, const std::string& act) {
         SetFlag(g, a[3]);
         SaveAll(g);
         if (g.coop) SaveProfile(WP(g, i));
-        PlaySfx(Sfx::LevelUp);
+        PlaySfx(Sfx::ItemGet);
         Say(w, (n > 1 ? TextFormat("You got %d x %s!", n, a[1].c_str()) : "You got the " + a[1] + "!") + std::string("|") + PocketHint(a[1]));
     }
     else if (k == "field" && a.size() > 1) UseField(g, i, a[1]);
@@ -754,11 +794,41 @@ void RunAction(Game& g, int i, const std::string& act) {
             int n = std::max(1, std::atoi(a[5].c_str()));
             BagAdd(WP(g, i), a[4], n);
             t += "|" + (n > 1 ? TextFormat("You got %d x %s!", n, a[4].c_str()) : "You got the " + a[4] + "!") + std::string("|") + PocketHint(a[4]);
-            PlaySfx(Sfx::LevelUp);
+            PlaySfx(Sfx::ItemGet);
         }
         SaveAll(g);
         if (g.coop) SaveProfile(WP(g, i));
         Say(w, t);
+    }
+    else if (k == "starter" && a.size() > 2 && std::atoi(a[2].c_str()) > 0) {   // starter|Species|region: Elm's table (Johto), ...
+        int r = std::atoi(a[2].c_str());
+        std::string prof = r == 1 ? "Elm" : r == 2 ? "Birch" : r == 3 ? "Rowan" : "Juniper";
+        if (!RegionStarter(WP(g, i), r).empty()) { Say(w, "That's Prof. " + prof + "'s Pokemon..."); return; }
+        if (Flags(g).count("ball:" + a[1])) return;
+        int sp = SpeciesIndex(a[1]);
+        if (sp < 0) return;
+        std::string type = TypeName(AllSpecies()[sp].type1);
+        Ask(w, prof + ": You'll take " + a[1] + ", the " + type + "-type Pokemon?",
+            {{"Yes", "starteryes|" + a[1] + "|" + a[2]}, {"No", ""}});
+    }
+    else if (k == "starteryes" && a.size() > 2 && std::atoi(a[2].c_str()) > 0) {
+        int r = std::atoi(a[2].c_str());
+        std::string prof = r == 1 ? "Elm" : r == 2 ? "Birch" : r == 3 ? "Rowan" : "Juniper";
+        Profile& P = WP(g, i);
+        int sp = SpeciesIndex(a[1]);
+        if (sp < 0 || !RegionStarter(P, r).empty() || Flags(g).count("ball:" + a[1])) return;
+        int who = g.coop ? WhoOf(g, i) : 0;
+        bool boxed = AddMon(P, NewMon(sp, P.mons.empty() ? Story().startLevel : RegionGiftLevel(g, r, who)));
+        RegionStarter(P, r) = a[1];
+        if (!g.coop) RegionRival(P, r).clear();
+        DexRegisterOwned(P);
+        SetFlag(g, "ball:" + a[1]);
+        if (g.coop) { SaveProfile(P); OnlineSendProfile(g); }
+        EnsureRival(g, r);   // the rival takes the one that beats yours (co-op: once you both have yours)
+        SaveAll(g);
+        PlaySfx(Sfx::ItemGet);
+        Say(w, prof + ": I think that's a great Pokemon too!|{PLAYER} received the " + a[1] + " from Prof. " + prof + "!" +
+                   (boxed ? "|(Your party is full: it was sent to your Box.)" : ""));
     }
     else if (k == "starter" && a.size() > 1) {   // starter|Species: a Poke Ball on Oak's table
         if (!WP(g, i).mons.empty()) { Say(w, "That's Prof. Oak's last Pokemon..."); return; }
@@ -781,10 +851,16 @@ void RunAction(Game& g, int i, const std::string& act) {
         if (g.coop) { SaveProfile(P); OnlineSendProfile(g); }
         if (!g.coop || (!g.coopP[0].mons.empty() && !g.coopP[1].mons.empty())) EnsureRival(g, 0);   // Blue takes the one that beats yours (co-op: once you both have yours)
         SaveAll(g);
-        PlaySfx(Sfx::LevelUp);
+        PlaySfx(Sfx::ItemGet);
         std::string rv = g.coop ? g.coopSave.rival[0] : g.profile.rival;
         Say(w, "Oak: This Pokemon is really quite energetic!|{PLAYER} received the " + a[1] + " from Prof. Oak!" +
                    (!rv.empty() && rv != a[1] ? "|Blue: I'll take this one, then!|Blue received the " + rv + " from Prof. Oak!" : std::string()));
+    }
+    else if (k == "travel" && a.size() >= 5) {   // travel|question|Map|x|y|face|condition|refusal: the S.S. Aqua, the Magnet Train
+        std::string cond = a.size() > 6 ? a[6] : "";
+        if (!cond.empty() && !HasFlag(g, i, cond)) { Say(w, a.size() > 7 && !a[7].empty() ? a[7] : "Sorry, you can't go there yet."); return; }
+        if (MapIndex(a[2]) < 0) { Say(w, "Sorry, that service isn't running."); return; }
+        Ask(w, a[1], {{"Yes", "warp|" + a[2] + "|" + a[3] + "|" + a[4] + "|" + (a.size() > 5 ? a[5] : "down")}, {"No", ""}});
     }
     else if (k == "ferry") {   // ferry|text: the Seagallop to the places your passes allow
         std::vector<std::pair<std::string, std::string>> ch;
@@ -821,7 +897,7 @@ void RunAction(Game& g, int i, const std::string& act) {
         BagAdd(WP(g, i), a[2]);
         SaveAll(g);
         if (g.coop) SaveProfile(WP(g, i));
-        PlaySfx(Sfx::LevelUp);
+        PlaySfx(Sfx::ItemGet);
         Say(w, "Oh, that's a " + a[1] + "!|OK! Here you go!|You exchanged the " + a[1] + " for a " + a[2] + "!|" + PocketHint(a[2]));
     }
 }
@@ -1004,6 +1080,20 @@ void RunSub(Game& g, int i, float dt) {
         int who = WhoOf(g, i);
         ExpAllShare(g, i, *s);
         for (const auto& f : s->profile.owFlags) g.coopSave.owFlags.insert(f);   // a route trainer beaten in their own battle
+        if (s->coopSub) {   // the roaming legendaries: where they went, and any one caught
+            bool roamChanged = g.coopSave.roam.size() != s->profile.roam.size();
+            g.coopSave.roam = s->profile.roam;
+            s->profile.roam = s->subRoamKeep;
+            for (auto it = g.coopSave.owFlags.begin(); it != g.coopSave.owFlags.end();) {
+                if (it->rfind("roamcaught:", 0) == 0) {
+                    int id = std::atoi(it->c_str() + 11);
+                    if (id >= 0 && id < 64) { g.coopSave.legends |= 1ull << id; g.coopSave.legendWho[id] = who; g.coopSave.roam.erase(id); }
+                    roamChanged = true;
+                    it = g.coopSave.owFlags.erase(it);
+                } else ++it;
+            }
+            if (roamChanged) { if (Online(g)) OnlineSendCoop(g); else SaveCoop(g.coopSave); }
+        }
         bool newFlags = !s->profile.owFlags.empty();
         s->profile.owFlags = g.coopP[who].owFlags;   // (their own solo story's flags, untouched)
         if (newFlags) { if (Online(g)) OnlineSendCoop(g); else SaveCoop(g.coopSave); }
@@ -1056,6 +1146,14 @@ void Arrived(Game& g, int i) {
     if (c >= '1' && c <= '4') w.spin = c == '1' ? 1 : c == '2' ? 0 : c == '3' ? 2 : 3;   // a spin tile: off you go
     else if (c == '0') w.spin = -1;
     if (w.spin >= 0) return;
+    {   // a new map: the roaming legendaries move on too (as in the games, whenever you change routes)
+        static int lastMap[2] = {-1, -1};
+        if (lastMap[i & 1] != w.map) {
+            if (lastMap[i & 1] >= 0) UpdateRoamers(g, 0, true);
+            lastMap[i & 1] = w.map;
+        }
+    }
+    if (WorldStepEggs(g, WhoOf(g, i))) return;   // the Day Care Pokemon grow; an Egg may hatch
     if (CheckSight(g, i)) return;
     Profile& P = WP(g, i);
     if (P.repel > 0 && --P.repel == 0) { Say(w, "Repel's effect wore off..."); return; }
@@ -1067,30 +1165,44 @@ void Arrived(Game& g, int i) {
     else if (w.surfing && c == 'w' && SimRand(0, 299) < 6 * tag && WildAreaHasMethod(m.wild, "surf")) WildEncounter(g, i, "surf");
 }
 
+constexpr float kSteep = 14;   // (3D maps) more of a rise than this between two tiles: a wall, not a slope
+bool TooSteep(float rise, char to, char from) {   // ...unless it's a slope or steps (up to three tiles' worth), or a door's mat
+    if (to == 'D' || from == 'D') return false;
+    return std::abs(rise) > ((to == 's' || from == 's') ? 48 : kSteep);
+}
 // One step (or a ledge hop, a boulder push, Surf on and off).
 void TryStep(Game& g, int i, int dir) {
     OwWalker& w = g.ow.w[i];
     const OwMap& m = MapOf(w);
     w.face = dir;
     int nx = w.x + DX[dir], ny = w.y + DY[dir];
-    auto bump = [&]() { if (w.bumpT <= 0) { PlaySfx(Sfx::Thud); w.bumpT = 0.35f; } w.spin = -1; };
+    auto bump = [&]() { if (w.bumpT <= 0) { PlaySfx(Sfx::Bump); w.bumpT = 0.35f; } w.spin = -1; };
     for (const auto& b : m.blocks)   // turned back until you've done what it takes
         if (b.x == nx && b.y == ny && !HasFlag(g, i, b.flag)) { w.spin = -1; Say(w, b.text.empty() ? "You can't go this way yet." : b.text, b.act); return; }
     for (const auto& d : m.doors)   // a door, stairs, or a mat you step off (it can be just past the edge)
         if (d.x == nx && d.y == ny && CondOk(g, i, d.ifF, d.unlessF)) { w.spin = -1; RunAction(g, i, d.act); return; }
     // off the edge: the next map
     if (nx < 0 || ny < 0 || nx >= m.w || ny >= m.h) {
-        const OwLink& L = m.link[dir];
+        OwLink L = m.link[dir];
+        int tx = 0, ty = 0;
         if (L.map >= 0) {
             const OwMap& n = gMaps[L.map];
-            int tx, ty;
             if (dir == 1) { tx = nx + L.off; ty = n.h - 1; }
             else if (dir == 0) { tx = nx + L.off; ty = 0; }
             else if (dir == 2) { tx = n.w - 1; ty = ny + L.off; }
             else { tx = 0; ty = ny + L.off; }
+        } else
+            for (const auto& nb : m.near) {   // a placed map: whichever one is there
+                const OwMap& n = gMaps[nb.map];
+                int ax = nx - nb.dx, ay = ny - nb.dy;
+                if (ax >= 0 && ay >= 0 && ax < n.w && ay < n.h) { L.map = nb.map; tx = ax; ty = ay; break; }
+            }
+        if (L.map >= 0) {
+            const OwMap& n = gMaps[L.map];
             char c = Cell(g, i, L.map, tx, ty);
             bool ok = w.surfing ? (IsWater(c) || Walkable(c)) : Walkable(c);
             if (!ok || WalkerAt(g, i, L.map, tx, ty)) { bump(); return; }
+            if (!w.surfing && !m.hts.empty() && !n.hts.empty() && TooSteep(n.Lift(tx, ty) - m.Lift(w.x, w.y), c, m.At(w.x, w.y))) { bump(); return; }
             if (n.bike && !w.biking) {   // Cycling Road
                 if (w.bumpT <= 0) {
                     Say(w, BagCount(WP(g, i), "Bicycle") > 0 ? "No pedestrians allowed on Cycling Road!|Get on your Bicycle (from the Bag) to ride it."
@@ -1147,6 +1259,9 @@ void TryStep(Game& g, int i, int dir) {
     } else if (!Walkable(c) || blocked) {
         bump();
         return;
+    } else if (!w.surfing && !IsWater(c) && TooSteep(m.Lift(nx, ny) - m.Lift(w.x, w.y), c, m.At(w.x, w.y))) {   // up a cliff (3D maps)
+        bump();
+        return;
     }
     w.fFromX = w.fx; w.fFromY = w.fy;
     w.fx = w.x; w.fy = w.y;
@@ -1157,7 +1272,7 @@ void TryStep(Game& g, int i, int dir) {
     w.hop = hop;
     w.walkAnim ^= 1;
     if (w.surfing && !IsWater(c)) w.surfing = false;   // back on land
-    if (hop) PlaySfx(Sfx::MenuMove);
+    if (hop) PlaySfx(Sfx::Ledge);
     if (i == 0) SendPos(g);
 }
 
@@ -1227,7 +1342,7 @@ bool FacingThing(Game& g, int i, int fx, int fy) {
         BagAdd(WP(g, i), it.item, it.n);
         if (g.coop) SaveProfile(WP(g, i));
         SaveAll(g);
-        PlaySfx(Sfx::LevelUp);
+        PlaySfx(Sfx::ItemGet);
         Say(w, (hidden ? std::string("You found something hidden! ") : std::string("")) + (it.n > 1 ? TextFormat("You found %d x %s!", it.n, it.item.c_str()) : "You found " + it.item + "!") +
                "|" + PocketHint(it.item));
         return true;
@@ -1257,7 +1372,7 @@ bool FacingThing(Game& g, int i, int fx, int fy) {
         if (!w.surfing && CanField(g, i, "Surf", &who) && c == 'w') ch.push_back({"Surf (" + who + ")", "field|Surf"});
         for (const char* rod : {"Old Rod", "Good Rod", "Super Rod"})
             if (BagCount(WP(g, i), rod) > 0) ch.push_back({std::string("Fish: ") + rod, std::string("fish|") + rod});
-        if (ch.empty()) { if (!w.surfing) Say(w, PartyKnows(WP(g, i), "Surf") ? "The water is dyed a deep blue...|" + FieldNeed("Surf") : "The water is dyed a deep blue..."); return !w.surfing; }
+        if (ch.empty()) { if (!w.surfing) Say(w, PartyKnows(WP(g, i), "Surf") ? "The water is dyed a deep blue...|" + FieldNeed("Surf", MapRegionOf(g, i)) : "The water is dyed a deep blue..."); return !w.surfing; }
         ch.push_back({"Cancel", ""});
         Ask(w, "The water is dyed a deep blue...", ch);
         return true;
@@ -1599,15 +1714,15 @@ void UpdatePauseMenu(Game& g) {
             LeaveWorld(g);
             BeginRegionChoose(g, g.coop ? 3 : 1);
             break;
-        case MR_SAVE: Toast(g, g.coop ? "Your journey together was saved." : WP(g, o.menuWho).name + " saved the game."); break;
+        case MR_SAVE: Toast(g, g.coop ? "Your journey together was saved." : WP(g, o.menuWho).name + " saved the game."); PlaySfx(Sfx::Save); break;
         case MR_SETTINGS: g.settingsSel = 0; g.settingsBack = Screen::World; g.screen = Screen::Settings; break;
         default: Ask(w, "Save and quit to the title screen?", {{"Yes", "quitgame"}, {"No", ""}}); break;
     }
 }
 
-std::vector<int> Towns() {
+std::vector<int> Towns(int region = -1) {   // (region: only that region's - the Town Map shows where you are)
     std::vector<int> v;
-    for (size_t k = 0; k < gMaps.size(); k++) if (!gMaps[k].town.empty()) v.push_back((int)k);
+    for (size_t k = 0; k < gMaps.size(); k++) if (!gMaps[k].town.empty() && (region < 0 || gMaps[k].region == region)) v.push_back((int)k);
     return v;
 }
 
@@ -1618,7 +1733,7 @@ void UpdateTownMap(Game& g) {
     if (gAutoMenu) { in.up = gAutoMenu & 1; in.down = gAutoMenu & 2; in.confirm = gAutoMenu & 16; in.back = gAutoMenu & 32; gAutoMenu = 0; }
 #endif
     if (IsKeyPressed(KEY_ESCAPE) && !LocalCoop(g)) in.back = true;
-    auto t = Towns();
+    auto t = Towns(MapRegionOf(g, o.menuWho));
     int n = (int)t.size();
     if (in.back || n == 0) { o.townMap = false; PlaySfx(Sfx::MenuBack); return; }
     if (in.up || in.left) { o.townSel = (o.townSel + n - 1) % n; PlaySfx(Sfx::MenuMove); }
@@ -1629,7 +1744,7 @@ void UpdateTownMap(Game& g) {
     const OwMap& to = gMaps[t[std::min(o.townSel, n - 1)]];
     std::string who;
     if (!Flags(g).count("visit:" + to.town)) { Toast(g, "You haven't been to " + to.town + " yet."); PlaySfx(Sfx::MenuBack); return; }
-    if (!CanField(g, i, "Fly", &who)) { Toast(g, FieldNeed("Fly")); PlaySfx(Sfx::MenuBack); return; }
+    if (!CanField(g, i, "Fly", &who)) { Toast(g, FieldNeed("Fly", MapRegionOf(g, i))); PlaySfx(Sfx::MenuBack); return; }
     if (MapOf(w).indoor) { Toast(g, "You can't Fly from indoors!"); PlaySfx(Sfx::MenuBack); return; }
     if (to.flyX < 0) { Toast(g, "There's nowhere to land there."); return; }
     o.townMap = false;
@@ -1680,20 +1795,24 @@ void LoadWorld(std::string& log) {
     gFerries.clear();
     gLoaded = false;
     std::string dir = DataDir() + "World/";
-    std::ifstream f(dir + "world.txt");
-    if (!f) return;
+    std::ifstream f0(dir + "world.txt");
+    if (!f0) return;
+    std::stringstream f;   // Kanto and the Sevii Islands (tools/frlg_world.py), then Johto (tools/hgss_world.py)
+    f << f0.rdbuf() << "\n";
+    if (std::ifstream f1(dir + "johto.txt"); f1) f << f1.rdbuf() << "\n";
     std::string line;
     OwMap* m = nullptr;
-    bool grid = false;
+    bool grid = false, hgrid = false;
     std::vector<std::pair<int, std::vector<std::string>>> links;   // resolved after every map is read
     std::string* lastIf = nullptr;     // "if = flag" / "unless = flag" apply to the last npc / door / spot / item
     OwNpc* lastNpc = nullptr;
     std::string* lastUnless = nullptr;
     while (std::getline(f, line)) {
         if (!line.empty() && line.back() == '\r') line.pop_back();
-        if (line.empty()) { grid = false; continue; }
-        if (line[0] == '#' && !grid) continue;
-        if (line == "[map]") { gMaps.emplace_back(); m = &gMaps.back(); grid = false; lastIf = lastUnless = nullptr; lastNpc = nullptr; continue; }
+        if (line.empty()) { grid = hgrid = false; continue; }
+        if (line[0] == '#' && !grid && !hgrid) continue;
+        if (line == "[map]") { gMaps.emplace_back(); m = &gMaps.back(); grid = hgrid = false; lastIf = lastUnless = nullptr; lastNpc = nullptr; continue; }
+        if (hgrid && m) { m->hts += line; continue; }
         if (grid && m) {
             if (m->w == 0) m->w = (int)line.size();
             if ((int)line.size() == m->w) { m->cells += line; m->h++; }
@@ -1712,7 +1831,11 @@ void LoadWorld(std::string& log) {
         if (k == "story_town") { auto p = Split(v, '|'); if (p.size() == 2) gStoryTown[Trim(p[0])] = Trim(p[1]); continue; }
         if (!m) continue;
         if (line == "grid:") { grid = true; continue; }
+        if (line == "heights:") { hgrid = true; continue; }
         if (k == "name") m->name = v;
+        else if (k == "region") { for (int r = 0; r < RegionCount(); r++) if (RegionInfo(r).name == v) m->region = r; }
+        else if (k == "imgy") m->imgOffY = std::atoi(v.c_str());
+        else if (k == "pos") { m->hasPos = std::sscanf(v.c_str(), "%d %d", &m->gx, &m->gy) == 2; }
         else if (k == "image") m->image = v;
         else if (k == "over") m->overImage = v;
         else if (k == "objects") m->objSprites = v == "sprites";
@@ -1808,6 +1931,25 @@ void LoadWorld(std::string& log) {
         gMaps[mi].link[d].map = MapIndex(a[1]);
         gMaps[mi].link[d].off = std::atoi(a[2].c_str());
     }
+    for (auto& mm : gMaps)   // two route trainers with one name on a map (Team Rocket's grunts): each their own win
+        for (auto& p : mm.npcs) {
+            if (p.kind != "fight" || p.args.size() < 5) continue;
+            int same = 0;
+            for (const auto& q : mm.npcs) same += q.kind == "fight" && !q.args.empty() && q.args[0] == p.args[0];
+            if (same > 1) p.args[4] += "@" + std::to_string(p.x) + "," + std::to_string(p.y);
+        }
+    for (size_t a = 0; a < gMaps.size(); a++) {   // placed maps: whoever touches whom
+        OwMap& A = gMaps[a];
+        if ((int)A.hts.size() != A.w * A.h) A.hts.clear();
+        if (!A.hasPos) continue;
+        for (size_t b = 0; b < gMaps.size(); b++) {
+            const OwMap& B = gMaps[b];
+            if (a == b || !B.hasPos) continue;
+            bool xs = B.gx < A.gx + A.w && A.gx < B.gx + B.w, ys = B.gy < A.gy + A.h && A.gy < B.gy + B.h;
+            bool tx = B.gx == A.gx + A.w || A.gx == B.gx + B.w, ty = B.gy == A.gy + A.h || A.gy == B.gy + B.h;
+            if ((xs && ty) || (ys && tx)) A.near.push_back({(int)b, B.gx - A.gx, B.gy - A.gy});
+        }
+    }
     gNpc.assign(gMaps.size(), {});
     gRt.assign(gMaps.size(), {});
     for (size_t i = 0; i < gMaps.size(); i++) ResetNpcs((int)i);
@@ -1829,14 +1971,29 @@ std::string WorldPlaceName(const Game& g) {
     if (!WorldAvailable()) return "";
     std::string saved = g.coop ? g.coopSave.owMap[g.on.active ? g.on.me : 0] : g.profile.owMap;
     int m = MapIndex(saved);
-    if (m < 0) for (size_t i = 0; i < gMaps.size(); i++) if (gMaps[i].startX >= 0) m = (int)i;
+    if (m < 0) {   // not out in the world yet: your room in the region your story's in
+        std::string map; int x, y;
+        int s = StoryStageNow(g);
+        int r = s >= 0 && s < (int)Story().stages.size() ? StageRegion(s) : 0;
+        if (WorldStartOf(r, map, x, y) || WorldStartOf(0, map, x, y)) return map;
+    }
     return m >= 0 ? gMaps[m].name : "";
 }
 
 void EnterWorld(Game& g) {
     if (!WorldAvailable()) { Toast(g, "The overworld files are missing."); return; }
-    int start = 0;
-    for (size_t i = 0; i < gMaps.size(); i++) if (gMaps[i].startX >= 0) start = (int)i;
+    // your room in the region your story is in (Kanto: Pallet Town; Johto: New Bark Town)
+    int region = 0;
+    {
+        int s = StoryStageNow(g);
+        const auto& order = g.coop ? g.coopSave.regionOrder : g.profile.regionOrder;
+        if (s >= 0 && s < (int)Story().stages.size()) region = StageRegion(s);
+        else if (!order.empty()) region = order.back();
+        if (!gWalkedRegions.count(region) && s > 0 && s <= (int)Story().stages.size()) region = StageRegion(s - 1);   // (just past a region's end)
+    }
+    int start = -1;
+    for (size_t i = 0; i < gMaps.size(); i++) if (gMaps[i].startX >= 0 && (start < 0 || gMaps[i].region == region)) start = (int)i;
+    if (start < 0) start = 0;
     for (int i = 0; i < Driven(g); i++) g.ow.w[i] = OwWalker();   // (online: your partner's figure stays where their game said)
     g.ow.waitFight = false;
     g.ow.incoming = false;
@@ -2084,21 +2241,22 @@ struct View { float x, y; int vx, vw; };   // camera (map pixels at the view's t
 Vector2 Scr(const View& c, float mx, float my) { return {c.vx + (mx - c.x) * Z, (my - c.y) * Z}; }
 
 void DrawMapAt(const OwMap& m, const View& c, float ox, float oy) {
-    Vector2 p = Scr(c, ox, oy);
-    if (!m.tex.id) { DrawRectangle((int)p.x, (int)p.y, (int)(m.w * T * Z), (int)(m.h * T * Z), Color{40, 80, 50, 255}); return; }
+    Vector2 p = Scr(c, ox, oy + m.imgOffY);
+    if (!m.tex.id) { p = Scr(c, ox, oy); DrawRectangle((int)p.x, (int)p.y, (int)(m.w * T * Z), (int)(m.h * T * Z), Color{40, 80, 50, 255}); return; }
     DrawTexturePro(m.tex, {0, 0, (float)m.tex.width, (float)m.tex.height}, {p.x, p.y, m.tex.width * Z, m.tex.height * Z}, {0, 0}, 0, WHITE);
 }
 
-// A person: 16x24, feet at the bottom of the tile. frame 0 standing, 1/2 walking.
+// A person: feet at the bottom of the tile. frame 0 standing, 1/2 walking.
 void DrawChar(const View& c, int sprite, int face, int frame, float mx, float my, float lift = 0, const Texture2D* sheet = nullptr) {
     const Texture2D& tex = sheet ? *sheet : gChars;
     if (!tex.id) return;
     static const int kCol[3] = {1, 0, 2};   // the sheet's columns: step, stand, step (frame 0 = standing still)
     int col = (face == 0 ? 0 : face == 1 ? 3 : 6) + kCol[frame < 0 || frame > 2 ? 0 : frame];
-    Rectangle src{(float)col * 16, (float)sprite * 32, face == 3 ? -16.0f : 16.0f, 32};
-    Vector2 p = Scr(c, mx, my + T - 32 - lift);
-    DrawEllipse((int)(p.x + 8 * Z), (int)(Scr(c, mx, my + T - 1).y), 6 * Z, 2 * Z, Fade(BLACK, 0.25f));
-    DrawTexturePro(tex, src, {p.x, p.y, 16 * Z, 32 * Z}, {0, 0}, 0, WHITE);
+    // (32x32 cells: FireRed's 16-wide people in the middle, HeartGold's people as wide as they are)
+    Rectangle src{(float)col * 32, (float)sprite * 32, face == 3 ? -32.0f : 32.0f, 32};
+    Vector2 p = Scr(c, mx - 8, my + T - 32 - lift);
+    DrawEllipse((int)(p.x + 16 * Z), (int)(Scr(c, mx, my + T - 1).y), 6 * Z, 2 * Z, Fade(BLACK, 0.25f));
+    DrawTexturePro(tex, src, {p.x, p.y, 32 * Z, 32 * Z}, {0, 0}, 0, WHITE);
 }
 // The player on the Bicycle, surfing or fishing: a 32x32 cell of the actions sheet, feet on the tile.
 void DrawAction(const View& c, int row, int cell, bool flip, float mx, float my, float lift = 0, const Texture2D* sheet = nullptr) {
@@ -2111,8 +2269,9 @@ void DrawAction(const View& c, int row, int cell, bool flip, float mx, float my,
 // Tall grass in front of whoever stands in it (the bottom of the tile, over their feet).
 void DrawGrassOver(const OwMap& m, const View& c, int tx, int ty) {
     if (m.At(tx, ty) != 'g' || !m.tex.id) return;
-    Rectangle src{(float)tx * T, (float)ty * T + 9, (float)T, 7};
-    Vector2 p = Scr(c, (float)tx * T, (float)ty * T + 9);
+    float lift = m.Lift(tx, ty);
+    Rectangle src{(float)tx * T, (float)ty * T + 9 - m.imgOffY - lift, (float)T, 7};
+    Vector2 p = Scr(c, (float)tx * T, (float)ty * T + 9 - lift);
     DrawTexturePro(m.tex, src, {p.x, p.y, T * Z, 7 * Z}, {0, 0}, 0, WHITE);
 }
 
@@ -2125,6 +2284,7 @@ void DrawFollower(const Game& g, int i, const View& c, const OwMap& m) {
     if (idx < 0) return;
     float u = w.stepT;
     float fxp = (w.fFromX + (w.fx - w.fFromX) * u) * T, fyp = (w.fFromY + (w.fy - w.fFromY) * u) * T;
+    fyp -= m.Lift(w.fFromX, w.fFromY) * (1 - u) + m.Lift(w.fx, w.fy) * u;
     int sp = ShinyIdx(idx, lead->shiny);
     int view = w.fFace;
     float h = CreatureHeight(sp, view);
@@ -2456,6 +2616,12 @@ bool QuestStepRaw(int from, int to, int px, int py, int& ex, int& ey) {
             int y = d == 1 ? -1 : d == 0 ? m.h : std::max(0, std::min(m.h - 1, py));
             push(L.map, x, y);
         }
+        for (const auto& nb : m.near) {   // placed maps: out the side toward it
+            const OwMap& n = gMaps[nb.map];
+            int x = nb.dx >= m.w ? m.w : nb.dx + n.w <= 0 ? -1 : std::max(0, std::min(m.w - 1, std::max(nb.dx, std::min(nb.dx + n.w - 1, px))));
+            int y = nb.dy >= m.h ? m.h : nb.dy + n.h <= 0 ? -1 : std::max(0, std::min(m.h - 1, std::max(nb.dy, std::min(nb.dy + n.h - 1, py))));
+            push(nb.map, x, y);
+        }
         if (prev[to] != -2) { ex = exitOf[to][0]; ey = exitOf[to][1]; return true; }
     }
     return false;
@@ -2476,7 +2642,7 @@ void DrawQuestMarker(const Game& g, int me, const View& c, float px, float py) {
     if (!QuestTarget(g, me, tm, tx, ty)) return;
     float bob = std::sin(g.t * 5) * 2;
     if (tm == w.map) {
-        Vector2 t = Scr(c, tx * T + T / 2.0f, ty * T - 12 + bob);
+        Vector2 t = Scr(c, tx * T + T / 2.0f, ty * T - 12 + bob - gMaps[tm].Lift(tx, ty));
         bool onScreen = t.x > c.vx && t.x < c.vx + c.vw && t.y > 0 && t.y < VH;
         if (onScreen && (std::abs(tx - w.x) > 0 || std::abs(ty - w.y) > 1)) {   // a "!" over them
             Color ink{40, 30, 30, 255}, gold{255, 210, 60, 255};
@@ -2488,7 +2654,7 @@ void DrawQuestMarker(const Game& g, int me, const View& c, float px, float py) {
         }
         if (onScreen) return;   // right beside them
     } else if (!QuestStep(w.map, tm, w.x, w.y, tx, ty)) return;
-    float dx = tx * T + T / 2.0f - (px + T / 2.0f), dy = ty * T + T / 2.0f - (py + T / 2.0f);
+    float dx = tx * T + T / 2.0f - (px + T / 2.0f), dy = ty * T - MapOf(w).Lift(tx, ty) + T / 2.0f - (py + T / 2.0f);
     float len = std::sqrt(dx * dx + dy * dy);
     if (len < 1) return;
     dx /= len; dy /= len;
@@ -2511,6 +2677,7 @@ void DrawView(const Game& g, int me, int vx, int vw) {
     if (w.map < 0) return;
     TouchMap(w.map);
     for (int d = 0; d < 4; d++) TouchMap(gMaps[w.map].link[d].map);
+    for (const auto& nb : gMaps[w.map].near) TouchMap(nb.map);
     const OwMap& m = MapOf(w);
     BeginScissorMode(vx * CANVAS_ZOOM, 0, vw * CANVAS_ZOOM, VH * CANVAS_ZOOM);
     DrawRectangle(vx, 0, vw, VH, BLACK);
@@ -2527,8 +2694,10 @@ void DrawView(const Game& g, int me, int vx, int vw) {
     }
     float u = w.stepT;
     float px = (w.fromX + (w.x - w.fromX) * u) * T, py = (w.fromY + (w.y - w.fromY) * u) * T;
+    auto liftOf = [&](int fx, int fy, int x, int y, float t) { return m.Lift(fx, fy) * (1 - t) + m.Lift(x, y) * t; };
+    float myLift = liftOf(w.fromX, w.fromY, w.x, w.y, u);
     float viewW = vw / Z, viewH = VH / Z;
-    View c{px + T / 2.0f - viewW / 2, py + T / 2.0f - viewH / 2, vx, vw};
+    View c{px + T / 2.0f - viewW / 2, py - myLift + T / 2.0f - viewH / 2, vx, vw};
     // keep the view on the map where nothing joins it (no black past the trees); small rooms
     // sit in the middle
     auto clampAxis = [](float& v, float size, float view, bool lowOpen, bool highOpen) {
@@ -2537,8 +2706,13 @@ void DrawView(const Game& g, int me, int vx, int vw) {
         if (!highOpen) v = std::min(v, size - view);
     };
     bool open = !m.indoor;
-    clampAxis(c.x, (float)m.w * T, viewW, open && m.link[2].map >= 0, open && m.link[3].map >= 0);
-    clampAxis(c.y, (float)m.h * T, viewH, open && m.link[1].map >= 0, open && m.link[0].map >= 0);
+    bool side[4] = {m.link[0].map >= 0, m.link[1].map >= 0, m.link[2].map >= 0, m.link[3].map >= 0};
+    for (const auto& nb : m.near) {
+        const OwMap& n = gMaps[nb.map];
+        side[0] |= nb.dy + n.h > m.h; side[1] |= nb.dy < 0; side[2] |= nb.dx < 0; side[3] |= nb.dx + n.w > m.w;
+    }
+    clampAxis(c.x, (float)m.w * T, viewW, open && side[2], open && side[3]);
+    clampAxis(c.y, (float)m.h * T, viewH, open && side[1], open && side[0]);
     // the camera moves in whole screen pixels (the canvas is CANVAS_ZOOM x the layout): smooth, without
     // the map and the walkers drifting a pixel apart
     c.x = std::round(c.x * Z * CANVAS_ZOOM) / (Z * CANVAS_ZOOM);
@@ -2558,6 +2732,8 @@ void DrawView(const Game& g, int me, int vx, int vw) {
             else { ox = m.w * T; oy = -L.off * T; }
             DrawMapAt(n, c, ox, oy);
         }
+    if (!m.indoor)
+        for (const auto& nb : m.near) DrawMapAt(gMaps[nb.map], c, nb.dx * T, nb.dy * T);
 
     // everyone on this map, back to front
     struct Who { float y; int kind; int i; };   // kind 0 a person, 1 a walker's Pokemon, 2 a walker
@@ -2583,7 +2759,8 @@ void DrawView(const Game& g, int me, int vx, int vw) {
                 nx = (r.fromX + (r.x - r.fromX) * r.st) * T;
                 ny = (r.fromY + (r.y - r.fromY) * r.st) * T;
                 frame = r.st > 0.2f && r.st < 0.8f ? 1 + ((r.fromX + r.fromY) & 1) : 0;
-            }
+                ny -= liftOf(r.fromX, r.fromY, r.x, r.y, r.st);
+            } else ny -= m.Lift(r.x, r.y);
             const OwWalker* who = nullptr;
             for (int k = 0; k < Driven(g); k++) if (o.w[k].map == w.map && o.w[k].approach == d.i) who = &o.w[k];
             if (who && who->approachT >= 0) {   // mid-step toward them
@@ -2607,6 +2784,7 @@ void DrawView(const Game& g, int me, int vx, int vw) {
             const OwWalker& v = o.w[d.i];
             float vu = v.stepT;
             float vx2 = (v.fromX + (v.x - v.fromX) * vu) * T, vy2 = (v.fromY + (v.y - v.fromY) * vu) * T;
+            vy2 -= liftOf(v.fromX, v.fromY, v.x, v.y, vu);
             float lift = v.hop ? std::sin(vu * PI) * 10 : 0;
             int frame = (vu < 1 && vu > 0.15f && vu < 0.85f) ? 1 + v.walkAnim : 0;
             if (v.hop) { Vector2 sh = Scr(c, vx2 + 8, vy2 + T - 1); DrawEllipse((int)sh.x, (int)sh.y, 6 * Z, 2 * Z, Fade(BLACK, 0.3f)); }
@@ -2654,7 +2832,7 @@ void DrawView(const Game& g, int me, int vx, int vw) {
     {   // what stands in front of people: tree tops, roofs, the tops of signs (this map and the ones next door)
         auto over = [&](const OwMap& n, float ox, float oy) {
             if (!n.over.id) return;
-            Vector2 p = Scr(c, ox, oy);
+            Vector2 p = Scr(c, ox, oy + n.imgOffY);
             DrawTexturePro(n.over, {0, 0, (float)n.over.width, (float)n.over.height}, {p.x, p.y, n.over.width * Z, n.over.height * Z}, {0, 0}, 0, WHITE);
         };
         over(m, 0, 0);
@@ -2668,6 +2846,8 @@ void DrawView(const Game& g, int me, int vx, int vw) {
                 else if (d == 2) over(n, -n.w * T, -L.off * T);
                 else over(n, m.w * T, -L.off * T);
             }
+        if (!m.indoor)
+            for (const auto& nb : m.near) over(gMaps[nb.map], nb.dx * T, nb.dy * T);
     }
     if (!m.indoor && !m.dark) {   // outdoors: the season, the time of day (the story clock) and the day's weather
         static const Color kSeason[4] = {{0, 0, 0, 0}, {255, 236, 190, 16}, {230, 140, 60, 26}, {205, 225, 255, 40}};
@@ -2679,9 +2859,9 @@ void DrawView(const Game& g, int me, int vx, int vw) {
         if (wx == "sun") { if (!IsNight(StoryClock(g))) DrawRectangle(vx, 0, vw, VH, Color{255, 230, 150, 22}); }
         else if (!wx.empty()) DrawMapWeather(wx, vx, vw, g.t);
     }
-    if (me == 0 || Driven(g) == 2) DrawQuestMarker(g, me, c, px, py);
+    if (me == 0 || Driven(g) == 2) DrawQuestMarker(g, me, c, px, py - myLift);
     if (m.dark && w.flashMap != w.map) {   // a dark cave: only a little circle of light around you
-        Vector2 ctr = Scr(c, px + T / 2.0f, py + T / 2.0f);
+        Vector2 ctr = Scr(c, px + T / 2.0f, py - myLift + T / 2.0f);
         float r = 26 * Z, R = (float)VW + VH;
         DrawRing(ctr, r, R, 0, 360, 72, BLACK);
         DrawRing(ctr, r - 6 * Z, r, 0, 360, 72, Fade(BLACK, 0.55f));
@@ -2771,7 +2951,7 @@ void DrawTownMap(const Game& g) {
     const OwState& o = g.ow;
     DrawRectangle(0, 0, VW, VH, Fade(Color{16, 24, 40, 255}, 0.94f));
     GDrawText("TOWN MAP", 14, 10, 20, UI_GOLD);
-    auto t = Towns();
+    auto t = Towns(MapRegionOf(g, o.menuWho));
     int sel = std::min(o.townSel, std::max(0, (int)t.size() - 1));
     const int mx = 14, my = 36, mw = 400, mh = 300;
     Profile pv = g.coop ? g.coopP[g.on.active ? g.on.me : 0] : g.profile;
@@ -2780,7 +2960,7 @@ void DrawTownMap(const Game& g) {
     int x = 424;
     std::string who;
     bool canFly = CanField(g, o.menuWho, "Fly", &who);
-    GDrawText(canFly ? TextFormat("Fly with %s: pick a town", who.c_str()) : "Fly: needs the Thunder Badge", x, 40, 10, canFly ? Color{140, 230, 150, 255} : UI_DIM);
+    GDrawText(canFly ? TextFormat("Fly with %s: pick a town", who.c_str()) : TextFormat("Fly: needs the %s Badge", FieldBadge(2, MapRegionOf(g, o.menuWho)).c_str()), x, 40, 10, canFly ? Color{140, 230, 150, 255} : UI_DIM);
     for (int k = 0; k < (int)t.size(); k++) {
         const OwMap& tm = gMaps[t[k]];
         bool seen = Flags(g).count("visit:" + tm.town) > 0;
@@ -2872,6 +3052,11 @@ bool InWorldMode(const Game& g) {
     if (WorldRequired(g) || Flags(g).count("ow:visit")) return true;
     int s = StoryStageNow(g);
     return s > 0 && s <= (int)Story().stages.size() && CanChooseRegion(g) && gWalkedRegions.count(StageRegion(s - 1)) > 0;
+}
+bool WorldStartOf(int region, std::string& map, int& x, int& y) {   // your room in that region (New Bark Town for Johto)
+    for (const auto& m : gMaps)
+        if (m.startX >= 0 && m.region == region) { map = m.name; x = m.startX; y = m.startY; return true; }
+    return false;
 }
 bool WalkedOpening(int region) { return gWorldHome && WorldAvailable() && gWalkedRegions.count(region) > 0; }
 bool CanVisitWorld(const Game& g) {
@@ -2966,6 +3151,7 @@ std::string WorldUseField(Game& g, const std::string& item) {
         BagTake(P, item);
         SaveOrWarnP(g);
         Toast(g, TextFormat("Used a %s! Wild Pokemon will stay away for %d steps.", item.c_str(), P.repel));
+        PlaySfx(Sfx::Repel);
         return "";
     }
     const OwMap& m = MapOf(w);

@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Bewear
+dex  = 760
+type = Normal / Fighting
+
+hp         = 120
+attack     = 125
+defense    = 80
+sp_attack  = 55
+sp_defense = 60
+speed      = 60
+
+size   = 1.29
+height = 2.1      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 135.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Bind
+learn = 1, Payback
+learn = 1, Leer
+learn = 1, Baby-Doll Eyes
+learn = 1, Tackle
+learn = 12, Brutal Swing
+learn = 16, Endure
+learn = 20, Strength
+learn = 24, Take Down
+learn = 30, Flail
+learn = 36, Hammer Arm
+learn = 42, Thrash
+learn = 48, Pain Split
+learn = 54, Double-Edge
+learn = 60, Superpower
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Low Kick, Facade, Bulldoze, Rock Tomb
+tm = Low Sweep, Fling, Endure, Brick Break, Zen Headbutt, Shadow Claw
+tm = Bulk Up, Body Slam, Thunder Punch, Ice Punch, Sleep Talk, Drain Punch
+tm = Dragon Claw, Stomping Tantrum, Rest, Rock Slide, Taunt, Swords Dance
+tm = Body Press, Iron Head, Substitute, Reversal, Earthquake, Giga Impact
+tm = Focus Blast, Hyper Beam, Close Combat, High Horsepower

@@ -1,0 +1,9 @@
+# Vikavolt - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 174465 > 585454
+shiny = 205572 > 808080
+shiny = 327498 > A8AAAA
+shiny = 3798C3 > CED2D2
+shiny = 86691C > 46622A
+shiny = C37017 > D6392E
+shiny = E2BF46 > A0CF2B

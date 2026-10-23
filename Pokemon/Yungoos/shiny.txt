@@ -1,0 +1,7 @@
+# Yungoos - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 805D26 > 6B5C71
+shiny = B87322 > 9875A5
+shiny = B87E22 > 9875A5
+shiny = D89536 > A27EB0
+shiny = F2C14C > D7A0E6

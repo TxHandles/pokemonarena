@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Wishiwashi
+dex  = 746
+type = Water
+
+hp         = 45
+attack     = 20
+defense    = 20
+sp_attack  = 25
+sp_defense = 25
+speed      = 40
+
+size   = 0.85
+height = 0.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 0.3      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Growl
+learn = 4, Helping Hand
+learn = 8, Beat Up
+learn = 12, Brine
+learn = 16, Tearful Look
+learn = 20, Dive
+learn = 24, Soak
+learn = 28, Uproar
+learn = 32, Aqua Tail
+learn = 36, Aqua Ring
+learn = 40, Endeavor
+learn = 44, Hydro Pump
+learn = 48, Double-Edge
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Bulldoze, Mud Shot, Endure, Rain Dance
+tm = U-turn, Sleep Talk, Waterfall, Rest, Substitute, Liquidation
+tm = Surf, Helping Hand, Ice Beam, Hydro Pump, Earthquake, Scald
+tm = Uproar, Whirlpool, Muddy Water

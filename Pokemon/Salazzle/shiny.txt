@@ -1,0 +1,7 @@
+# Salazzle - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2A2A2D > 45454A
+shiny = 2C2827 > 807572
+shiny = 3E3E43 > 90909A
+shiny = 505058 > B5B5C2
+shiny = 64646C > D3D3DB

@@ -1,0 +1,7 @@
+# Toxapex - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 353E55 > 6A2861
+shiny = 5D82A5 > AC4EC6
+shiny = 76486F > 916C2B
+shiny = 82BBCC > DF6BA7
+shiny = BE5DC1 > D5A039

@@ -6,6 +6,7 @@
 #include "arena.h"
 #include "audio.h"
 #include "game.h"
+#include "breeding.h"
 #include "wild.h"
 #include "settings.h"
 #include "sprites.h"
@@ -278,6 +279,7 @@ int NeedsRegionStarter(const Game& g) {
     if (cur >= (int)Story().stages.size() || BetweenRegions(cur)) return -1;
     int r = ActiveRegion(cur);
     if (!RegionChosen(r)) return -1;
+    if (WalkedOpening(r)) return -1;   // a walked region: its professor's table has them (Elm's lab)
     auto missing = [&](const Profile& p) {
         if (!RegionStarter(p, r).empty()) return false;
         if (r == 0 && ProfileStarter(p) >= 0 && RegionSlot(0) == 0) return false;   // an old Kanto save: its first Pokemon
@@ -561,6 +563,7 @@ std::string PrettyPerson(const std::string& n) {
     if (n == "player") return "Red";
     if (n == "leaf") return "Leaf";
     if (n == "rival") return "Blue";
+    if (n.rfind("hg_", 0) == 0) return PrettyPerson(n.substr(3)) + " (HGSS)";   // HeartGold / SoulSilver's people
     std::string o;
     bool up = true;
     for (char ch : n) {
@@ -652,9 +655,9 @@ void DrawCreator(const Game& g) {
         int face = faces[((int)(g.t / 1.4f)) % 4];
         static const int kCol[4] = {1, 0, 2, 0};
         int col = (face == 0 ? 0 : face == 1 ? 3 : 6) + kCol[((int)(g.t * 5)) % 4];
-        Rectangle src{(float)col * 16, 0, face == 3 ? -16.0f : 16.0f, 32};
+        Rectangle src{(float)col * 32, 0, face == 3 ? -32.0f : 32.0f, 32};
         DrawEllipse(134, 222, 26, 7, Fade(BLACK, 0.3f));
-        DrawTexturePro(walk, src, {102, 94, 64, 128}, {0, 0}, 0, WHITE);
+        DrawTexturePro(walk, src, {70, 94, 128, 128}, {0, 0}, 0, WHITE);
     }
     if (acts.id) {
         int f = ((int)(g.t * 5)) % 3;
@@ -1005,7 +1008,7 @@ void UpdateStoryHub(Game& g) {
     if (UpdateStoryCard(g)) return;
     PlayerInput in = MenuInput();
     if (UpdateQuitAsk(g, in, [&]() { SaveOrWarn(g); GoTitle(g); })) return;
-    const int N = 13;
+    const int N = 14;
     if (HubNav(g, in, N, false)) return;
     if (g.hubSel == 1 && (in.left || in.right)) { CycleTrainArea(g, in.left ? -1 : 1); SaveOrWarn(g); return; }
     if (g.hubSel == 0 && (in.left || in.right) && KantoDone(g) && !StoryDone(g)) { g.hubTower = !g.hubTower; PlaySfx(Sfx::MenuMove); return; }
@@ -1076,6 +1079,9 @@ void UpdateStoryHub(Game& g) {
             if (g.profile.raidDay == RaidToday()) { Toast(g, "You've fought today's raid. A new boss appears tomorrow!"); break; }
             if (HealthyCount(g.profile) == 0) { Toast(g, "Your whole team has fainted! Visit the Healing Center first."); OpenHealingCenter(g); break; }
             StartRaid(g);
+            break;
+        case 12:
+            OpenDaycare(g, 0, Screen::StoryHub);
             break;
         case HUB_GEAR:
             g.settingsSel = 0;
@@ -1243,7 +1249,7 @@ void DrawStoryHub(const Game& g) {
     RaidInfo raid = RaidOfDay(RaidToday());
     bool raidDone = p.raidDay == RaidToday();
     std::string raidLabel = raid.species < 0 ? std::string("Daily Raid") : (raidDone ? "Daily Raid: done - back tomorrow" : "Daily Raid: " + AllSpecies()[raid.species].name + (raid.shiny ? " (shiny!)" : ""));
-    std::string items[13] = {
+    std::string items[14] = {
         HubFirstLabel(g, tower, p.storyStage, p.towerFloor, p.towerBest),
         (rare ? "RARE in " : "Training: ") + TrainAreaName(g) + (left < 0 ? "" : ""),
         MapHubLabel(g),
@@ -1256,21 +1262,23 @@ void DrawStoryHub(const Game& g) {
         "Practice arena",
         CanVisitWorld(g) ? "Travel to Kanto" : "Kanto (beat its League first)",
         raidLabel,
+        p.daycareEgg ? "Day Care (an Egg is waiting!)" : !p.eggs.empty() ? TextFormat("Day Care  (%d Egg%s)", (int)p.eggs.size(), p.eggs.size() == 1 ? "" : "s") : "Day Care",
         "Save and quit",
     };
-    for (int i = 0; i < 13; i++) {
+    for (int i = 0; i < 14; i++) {
         int y = 26 + i * 14;
         bool sel = g.hubSel == i;
         Color c = sel ? UI_GOLD : UI_TEXT;
         if (i == 1 && rare) c = Color{255, 150, 230, 255};
         if (i == 2 && items[2].size() > 3) c = sel ? UI_GOLD : Color{255, 200, 120, 255};   // legendaries waiting
         if (i == 11) c = raidDone ? (sel ? UI_GOLD : UI_DIM) : sel ? UI_GOLD : Color{255, 120, 200, 255};
-        DrawHubTile(i == 12 ? 11 : i == 11 ? 10 : i == 10 ? 2 : i, items[i].c_str(), rx, y, rw, sel, c, UiEnterT(i, 0.03f), (float)GetTime());
+        if (i == 12 && p.daycareEgg) c = sel ? UI_GOLD : Color{140, 230, 150, 255};
+        DrawHubTile(i == 13 ? 11 : i == 12 ? 5 : i == 11 ? 10 : i == 10 ? 2 : i, items[i].c_str(), rx, y, rw, sel, c, UiEnterT(i, 0.03f), (float)GetTime());
     }
     DrawTimePanel(p.clock, 402, 30);
 
     // Team
-    int ty = 26 + 13 * 14 + 6;
+    int ty = 26 + 14 * 14 + 4;
     std::vector<const OwnedMon*> party;
     for (const auto& m : p.mons) if (!m.boxed) party.push_back(&m);
     GDrawText(TextFormat("Party (%d/%d)", (int)party.size(), PARTY_SIZE), rx, ty, 10, UI_DIM);
@@ -1278,7 +1286,7 @@ void DrawStoryHub(const Game& g) {
         const OwnedMon& m = *party[i];
         int idx = MonSpecies(m);
         float e = UiEnterT(12 + i, 0.03f);
-        int y = ty + 12 + i * 18;
+        int y = ty + 12 + i * 17;
         int x = rx + (int)std::lround((1 - e) * 60);
         Color tc = idx >= 0 ? TypeColor(AllSpecies()[idx].type1) : UI_PANEL;
         DrawRectangleRounded({(float)x, (float)y, (float)rw, 17}, 0.35f, 6, Fade(UI_PANEL, 0.92f * e));
@@ -1294,13 +1302,16 @@ void DrawStoryHub(const Game& g) {
             DrawSpeciesFit(ShinyIdx(idx, m.shiny), VIEW_FRONT, x + 11, y + 16 - (int)hop, 15, m.hp > 0 ? WHITE : Color{90, 90, 100, 255});
         }
         if (m.shiny) DrawShinyStar((float)x + 4, (float)y + 4, 3);
-        GDrawText(m.species.c_str(), x + 24, y + 4, 10, Fade(m.hp > 0 ? UI_TEXT : UI_DIM, e));
-        if (i == 0) GDrawText("LEAD", x + 24 + TextW(m.species.c_str(), 10) + 4, y + 4, 10, Fade(UI_GOLD, 0.8f * e));
+        std::string nm = MonName(m);
+        GDrawText(nm.c_str(), x + 24, y + 4, 10, Fade(m.hp > 0 ? UI_TEXT : UI_DIM, e));
+        DrawGender(m.gender, x + 26 + TextW(nm.c_str(), 10), y + 5, 7);
+        if (i == 0) GDrawText("LEAD", x + 36 + TextW(nm.c_str(), 10) + 4, y + 4, 10, Fade(UI_GOLD, 0.8f * e));
         GDrawText(TextFormat("Lv%d", m.level), x + 112 + 14, y + 4, 10, Fade(UI_GOLD, e));
         DrawHpBar(x + 156, y + 7, 40, 3, m.hp);
         if (!m.item.empty()) DrawRectangle(x + rw - 12, y + 6, 5, 5, Color{140, 220, 255, 255});
     }
     if (p.mons.size() > party.size()) GDrawText(TextFormat("+%d in the Box", (int)(p.mons.size() - party.size())), rx + 120, ty, 10, UI_DIM);
+    for (int k = 0; k < (int)p.eggs.size(); k++) DrawEgg((float)rx + 92 + k * 5, (float)ty + 10, 9);   // the Eggs you carry
     GDrawText("Enter choose   Esc save and leave", rx, 346, 10, UI_DIM);
     DrawToast(g);
     DrawStoryCard(g);
@@ -1795,10 +1806,12 @@ std::vector<std::string> HeldItemsInBag(const Profile& p) {
 
 // Items in the bag that would do something for this creature: stones that would evolve it, then Rare Candy,
 // Revives and vitamins.
-int VitaminSlot(const ItemDef& d) { return d.fx == ItemFx::PartyUse && d.boost >= 0 && d.boost < 4 ? d.boost : -1; }
+int VitaminSlot(const ItemDef& d) { return d.fx == ItemFx::PartyUse && d.boost >= 0 && d.boost < 6 ? d.boost : -1; }
+int EvBerrySlot(const ItemDef& d) { return d.fx == ItemFx::PartyUse && d.boost >= 10 && d.boost < 16 ? d.boost - 10 : -1; }
 bool PartyItemHelps(const OwnedMon& m, const ItemDef& d) {
     if (!IsPartyUse(d)) return false;
-    if (int k = VitaminSlot(d); k >= 0) return m.vit[k] < VITAMIN_MAX;
+    if (int k = VitaminSlot(d); k >= 0) return m.ev[k] < EV_STAT_MAX && EvTotal(m) < EV_TOTAL_MAX;
+    if (int k = EvBerrySlot(d); k >= 0) return m.ev[k] > 0;
     if (d.value > 0) return m.hp <= 0;   // Revive
     return m.level < MAX_LEVEL;          // Rare Candy
 }
@@ -1940,7 +1953,7 @@ std::vector<int> TabList(const Profile& p, int tab) {
     return v;
 }
 
-enum Act { ACT_ITEM, ACT_UP, ACT_DEPOSIT, ACT_WITHDRAW, ACT_SWAP, ACT_STONE, ACT_TM, ACT_MOVES, ACT_RELEASE, ACT_CANCEL };
+enum Act { ACT_ITEM, ACT_UP, ACT_DEPOSIT, ACT_WITHDRAW, ACT_SWAP, ACT_STONE, ACT_TM, ACT_MOVES, ACT_RELEASE, ACT_CANCEL, ACT_NICK, ACT_JUDGE };
 
 std::vector<std::pair<int, std::string>> ActOptions(const Game& g) {
     std::vector<std::pair<int, std::string>> o;
@@ -1960,6 +1973,8 @@ std::vector<std::pair<int, std::string>> ActOptions(const Game& g) {
     if (m.moves.size() > 1) o.push_back({ACT_MOVES, "Rearrange moves (buttons)"});
     if (!UsableStones(p, m).empty()) o.push_back({ACT_STONE, "Use an item"});
     { int n = (int)UsableTMs(p, m).size(); if (n > 0) o.push_back({ACT_TM, TextFormat("Use a TM (%d it can learn)", n)}); }
+    o.push_back({ACT_NICK, m.nick.empty() ? "Give it a nickname" : "Change its nickname"});
+    o.push_back({ACT_JUDGE, "Judge its potential (IVs / EVs)"});
     if (g.boxTab == 1) o.push_back({ACT_RELEASE, "Release into the wild"});
     o.push_back({ACT_CANCEL, "Cancel"});
     return o;
@@ -1974,6 +1989,10 @@ void UpdateMyCreatures(Game& g) {
     int n = (int)list.size();
     g.myCreSel = std::max(0, std::min(g.myCreSel, n - 1));
 
+    if (g.judgeShow) {   // the Judge's panel: any key closes it
+        if (in.confirm || in.back) { g.judgeShow = false; PlaySfx(Sfx::MenuBack); }
+        return;
+    }
     if (g.releaseAsk >= 0) {   // "Release X? It's goodbye for good."
         if (in.up || in.down || in.left || in.right) { g.releaseSel = 1 - g.releaseSel; PlaySfx(Sfx::MenuMove); }
         if (in.back || (in.confirm && g.releaseSel == 0)) { g.releaseAsk = -1; PlaySfx(Sfx::MenuBack); return; }
@@ -2030,11 +2049,23 @@ void UpdateMyCreatures(Game& g) {
         g.moveOrder = false;
         if (const ItemDef* d = FindItem(stones[g.itemSel]); d && IsPartyUse(*d)) {   // Rare Candy, Revive, a vitamin
             BagTake(p, d->name);
-            if (int k = VitaminSlot(*d); k >= 0) {
-                m.vit[k]++;
-                static const char* kWhat[4] = {"max HP", "attacks", "defenses", "speed"};
-                Toast(g, TextFormat("%s's %s rose! (%d/%d)", m.species.c_str(), kWhat[k], m.vit[k], VITAMIN_MAX));
+            static const char* kWhat[6] = {"HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed"};
+            if (int k = VitaminSlot(*d); k >= 0) {   // +10 EVs
+                int add[6] = {0, 0, 0, 0, 0, 0};
+                add[k] = VITAMIN_EVS;
+                int got = AddEvs(m, add);
+                Toast(g, TextFormat("%s's base %s rose! (%d EVs, +%d)", MonName(m).c_str(), kWhat[k], m.ev[k], got));
                 m.friendship = std::min(MAX_FRIENDSHIP, m.friendship + 3);
+                SaveOrWarn(g);
+                PlaySfx(Sfx::Buff);
+                return;
+            }
+            if (int k = EvBerrySlot(*d); k >= 0) {   // -10 EVs, friendlier
+                int add[6] = {0, 0, 0, 0, 0, 0};
+                add[k] = -VITAMIN_EVS;
+                AddEvs(m, add);
+                m.friendship = std::min(MAX_FRIENDSHIP, m.friendship + 10);
+                Toast(g, TextFormat("%s turned friendly! Its base %s fell. (%d EVs)", MonName(m).c_str(), kWhat[k], m.ev[k]));
                 SaveOrWarn(g);
                 PlaySfx(Sfx::Buff);
                 return;
@@ -2154,6 +2185,14 @@ void UpdateMyCreatures(Game& g) {
             case ACT_RELEASE:
                 g.releaseAsk = idx;
                 g.releaseSel = 0;
+                return;
+            case ACT_NICK:
+                if (!p.mons[idx].ot.empty()) { Toast(g, MonName(p.mons[idx]) + " came from " + p.mons[idx].ot + " - only its original trainer can rename it."); PlaySfx(Sfx::MenuBack); return; }
+                OpenNickname(g, g.coop ? std::max(0, g.coopActive) : 0, idx, 1, false);
+                return;
+            case ACT_JUDGE:
+                g.judgeShow = true;
+                PlaySfx(Sfx::MenuOk);
                 return;
             case ACT_SWAP:
                 g.swapFrom = idx;
@@ -2287,7 +2326,8 @@ void DrawMyCreatures(const Game& g) {
             DrawSpeciesFit(ShinyIdx(idx, mons[i].shiny), VIEW_FRONT, sx, y + 21 - (on ? (int)hop / 2 : 0), 18, mons[i].hp > 0 ? WHITE : Color{90, 90, 100, 255});
         }
         if (mons[i].shiny) DrawShinyStar(rc.x + 4, (float)y + 5, 3);
-        GDrawText(mons[i].species.c_str(), (int)rc.x + 30, y + 6, 10, Fade(on ? UI_GOLD : UI_TEXT, e));
+        GDrawText(MonName(mons[i]).c_str(), (int)rc.x + 30, y + 6, 10, Fade(on ? UI_GOLD : UI_TEXT, e));
+        DrawGender(mons[i].gender, (float)rc.x + 32 + TextW(MonName(mons[i]).c_str(), 10), (float)y + 7, 7);
         GDrawText(TextFormat("Lv%d", mons[i].level), (int)rc.x + 140, y + 3, 10, Fade(UI_GOLD, e));
         DrawHpBar((int)rc.x + 140, y + 15, 34, 2, mons[i].hp);
         if (!mons[i].item.empty()) DrawRectangle((int)rc.x + 130, y + 4, 5, 5, Color{140, 220, 255, 255});
@@ -2338,7 +2378,13 @@ void DrawMyCreatures(const Game& g) {
         DrawRectangleRoundedLinesEx(pr, 0.12f, 6, 1.0f, Fade(c1, 0.9f));
     }
     if (m.shiny) { DrawShinyStar(220, 50, 5); GDrawText("Shiny!", 228, 46, 10, Color{255, 214, 80, 255}); }
-    DrawTextShadow(sp.name.c_str(), 302, 44, 20, UI_TEXT);
+    {
+        std::string nm = MonName(m);
+        DrawTextShadow(nm.c_str(), 302, 44, 20, UI_TEXT);
+        int nx = 302 + TextW(nm.c_str(), 20) + 6;
+        DrawGender(m.gender, (float)nx, 48, 10);
+        if (!m.nick.empty()) GDrawText(sp.name.c_str(), nx + 14, 50, 10, UI_DIM);
+    }
     int bx = 302;
     bx += DrawTypeBadge(sp.type1, bx, 68) + 2;
     if (sp.type2 != Type::None) DrawTypeBadge(sp.type2, bx, 68);
@@ -2380,9 +2426,11 @@ void DrawMyCreatures(const Game& g) {
         } else GDrawText("(no change)", 212 + TextW(nt.c_str(), 10) + 6, 132, 10, UI_DIM);
     }
     auto mark = [&](int st) { return NatureUp(m.nature) == st ? 1 : NatureDown(m.nature) == st ? -1 : 0; };
-    auto sv = [&](int b, int st) { return (int)std::lround(Scaled(b) * mul * NatureMul(m.nature, st)); };
-    int stHp = (int)std::lround(Scaled(sp.hp) * mul), stAtk = sv(sp.atk, NS_ATK), stDef = sv(sp.def, NS_DEF);
-    int stSpe = (int)std::lround(Scaled(sp.spd) * NatureMul(m.nature, NS_SPE)), stSpa = sv(sp.SpAtk(), NS_SPA), stSpd = sv(sp.SpDef(), NS_SPD);
+    // its base stats with its IVs and EVs worked in, as in battle (Fighter::BaseStat)
+    auto eff = [&](int b, int k) { return (b + std::max(0, m.iv[k]) * 0.5f + m.ev[k] * 0.125f) * STAT_SCALE; };
+    auto sv = [&](int b, int k, int st) { return (int)std::lround(eff(b, k) * mul * NatureMul(m.nature, st)); };
+    int stHp = (int)std::lround(eff(sp.hp, ST_HP) * mul), stAtk = sv(sp.atk, ST_ATK, NS_ATK), stDef = sv(sp.def, ST_DEF, NS_DEF);
+    int stSpe = (int)std::lround(eff(sp.spd, ST_SPE) * NatureMul(m.nature, NS_SPE)), stSpa = sv(sp.SpAtk(), ST_SPA, NS_SPA), stSpd = sv(sp.SpDef(), ST_SPD, NS_SPD);
     DrawStatBar("HP", stHp, 212, 146, 0);
     DrawStatBar("ATK", stAtk, 212, 158, 0, mark(NS_ATK));
     DrawStatBar("DEF", stDef, 212, 170, 0, mark(NS_DEF));
@@ -2414,21 +2462,36 @@ void DrawMyCreatures(const Game& g) {
             break;
         }
     }
-    GDrawText("Held item", 420, 132, 10, UI_DIM);
+    {   // IVs and EVs, stat by stat (the Judge's colours: gold for a perfect 31)
+        static const char* kCol[6] = {"HP", "Atk", "Def", "SpA", "SpD", "Spe"};
+        GDrawText("IV", 420, 146, 10, UI_DIM);
+        GDrawText("EV", 420, 158, 10, UI_DIM);
+        for (int k = 0; k < 6; k++) {
+            int x = 442 + k * 30;
+            int iv = std::max(0, m.iv[k]);
+            GDrawText(kCol[k], x + 12 - TextW(kCol[k], 10) / 2, 133, 10, UI_DIM);
+            Color ic = iv >= 31 ? UI_GOLD : iv >= 26 ? Color{140, 230, 150, 255} : iv >= 16 ? UI_TEXT : UI_DIM;
+            const char* is = TextFormat("%d", iv);
+            GDrawText(is, x + 12 - TextW(is, 10) / 2, 146, 10, ic);
+            const char* es = TextFormat("%d", m.ev[k]);
+            GDrawText(es, x + 12 - TextW(es, 10) / 2, 158, 10, m.ev[k] >= EV_STAT_MAX ? UI_GOLD : m.ev[k] > 0 ? Color{120, 200, 255, 255} : UI_DIM);
+        }
+    }
     const ItemDef* held = FindItem(m.item);
-    GDrawText(held ? held->name.c_str() : "(none)", 420, 146, 10, held ? Color{140, 220, 255, 255} : UI_DIM);
+    GDrawText("Held:", 420, 172, 10, UI_DIM);
+    GDrawText(held ? held->name.c_str() : "(none)", 452, 172, 10, held ? Color{140, 220, 255, 255} : UI_DIM);
     if (held) {
         std::string desc = held->desc, line, word;
-        int ly = 160;
+        int ly = 184;
         for (size_t i = 0; i <= desc.size(); i++) {
             if (i == desc.size() || desc[i] == ' ') {
                 std::string t2 = line.empty() ? word : line + " " + word;
-                if (TextW(t2.c_str(), 10) > 196) { GDrawText(line.c_str(), 420, ly, 10, UI_DIM); ly += 11; line = word; }
+                if (TextW(t2.c_str(), 10) > 196) { if (ly <= 195) GDrawText(line.c_str(), 420, ly, 10, UI_DIM); ly += 11; line = word; }
                 else line = t2;
                 word.clear();
             } else word += desc[i];
         }
-        if (!line.empty()) GDrawText(line.c_str(), 420, ly, 10, UI_DIM);
+        if (!line.empty() && ly <= 195) GDrawText(line.c_str(), 420, ly, 10, UI_DIM);
     }
     if (g.swapFrom >= 0 && g.swapFrom < (int)mons.size()) {
         DrawRectangle(0, 336, VW, 24, Fade(UI_INK, 0.9f));
@@ -2470,6 +2533,7 @@ void DrawMyCreatures(const Game& g) {
             DrawTextCentered(opt[k], bx + 55, by + 5, 10, on ? (k ? Color{255, 140, 120, 255} : UI_GOLD) : UI_TEXT, false);
         }
     }
+    if (g.judgeShow) DrawJudge(m);
     if (g.moveOrder) {
         int N = (int)m.moves.size();
         int h = 60 + N * 22;
@@ -2592,6 +2656,7 @@ void ProcessStoryBattleEnd(Game& g) {
     g.catchPending = false;
     g.catchOrder.clear();
     g.giftQueue.clear();
+    g.nickQueue.clear();
 
     // Shared progress lives in the co-op save, or in the profile when playing alone.
     int& stage = coop ? g.coopSave.storyStage : g.profile.storyStage;
@@ -2644,10 +2709,16 @@ void ProcessStoryBattleEnd(Game& g) {
         m.abilitySlot = f.abSlot;
         m.nature = f.nature;
         m.shiny = f.shiny;
+        for (int k = 0; k < 6; k++) m.iv[k] = f.iv[k];   // the IVs it had in the wild
         m.hp = std::max(0.01f, std::min(1.0f, f.hp / (float)std::max(1, f.maxHp)));
         m.caught = true;
+        m.metAt = g.ow.wildBattle ? g.ow.wildArea : TrainAreaName(g);
         bool boxed = false;
-        if (OnlineMine(g, who)) { boxed = AddMon(P, m); DexSee(P, AllSpecies()[f.RealSpecies()].name); }
+        if (OnlineMine(g, who)) {
+            boxed = AddMon(P, m);
+            DexSee(P, AllSpecies()[f.RealSpecies()].name);
+            g.nickQueue.push_back({who, (int)P.mons.size() - 1});   // "Give a nickname to the caught X?"
+        }
         if (coop) g.coopSave.run[who & 1].caught++;
         g.resultLines.push_back((coop ? P.name + " caught " : std::string("You caught ")) + AllSpecies()[f.RealSpecies()].name + "!" + (boxed ? " (sent to the Box)" : ""));
         if (g.legend >= 0) {   // a legendary: it's gone from its lair now
@@ -2719,6 +2790,7 @@ void ProcessStoryBattleEnd(Game& g) {
                 myN++;
             }
             m.kos += f.kos;
+            if (!g.tower) AddEvs(m, f.evGain);   // EVs from the Pokemon it knocked out (the Battle Tower doesn't change them)
             if (coop) {   // the co-op leaderboard
                 g.coopSave.run[who].kos += f.kos;
                 if (f.sentOut && f.hp <= 0) g.coopSave.run[who].faints++;
@@ -2998,6 +3070,9 @@ void ProcessStoryBattleEnd(Game& g) {
             runs++;
         }
     }
+    if (g.roamer >= 0) RoamerBattleOver(g, b);   // a roaming legendary: its HP stays down, and it runs to another route
+    else if ((g.mode == Mode::Training || g.mode == Mode::CoopTraining) && !g.raid && !(g.ow.active || g.ow.wildBattle || g.owFight)) UpdateRoamers(g, 0, true);   // you moved on: so do they
+    HubDaycareSteps(g);   // a battle counts as 256 steps for the Day Care and your Eggs (out in the world, steps count instead)
     if (coop) {
         SaveWho(g, 0);
         SaveWho(g, 1);
@@ -3520,6 +3595,7 @@ void AdvanceStoryQueues(Game& g) {
         g.screen = Screen::Catch;
         return;
     }
+    if (NextNickOrHatch(g)) return;   // "Give a nickname to the caught X?", an Egg hatching
     QueueAmber(g);
     if (!g.giftQueue.empty()) { g.screen = Screen::Gift; PlaySfx(Sfx::LevelUp); return; }
     for (int kind = 0; kind < 2; kind++)
@@ -4125,6 +4201,7 @@ void UpdateCatch(Game& g, float dt) {
             m.hp = c.hpFrac;
             m.caught = true;
             g.catchBoxed = AddMon(P, m);
+            if (OnlineMine(g, g.catchWho)) g.nickQueue.push_back({g.catchWho, (int)P.mons.size() - 1});
             SaveWho(g, g.catchWho);
             if (g.coop) {
                 g.coopSave.run[g.catchWho & 1].caught++;
@@ -4433,7 +4510,7 @@ void UpdateHeal(Game& g) {
         return;
     }
     if (!in.confirm || gHealAnim > 0.4f) return;
-    auto healed = [&](int only) { gHealAnim = 1.6f; gHealOnly = only; PlaySfx(Sfx::Heal); SaveOrWarn(g); };
+    auto healed = [&](int only) { gHealAnim = 1.6f; gHealOnly = only; PlaySfx(Sfx::CenterHeal); SaveOrWarn(g); };
     if (g.healSel == 0) {   // like the games: free, fainted Pokemon too
         bool any = false;
         for (int i : party) any |= p.mons[i].hp < 0.999f;
@@ -4645,12 +4722,12 @@ void UpdateShop(Game& g) {
     BagAdd(p, d.name);
     if (d.fx == ItemFx::ExpAll) {
         SaveOrWarn(g);
-        PlaySfx(Sfx::Heal);
+        PlaySfx(Sfx::Shop);
         Toast(g, "Bought the Exp. All! In co-op, your partner shares the XP of your solo wild battles.");
         return;
     }
     SaveOrWarn(g);
-    PlaySfx(Sfx::Heal);
+    PlaySfx(Sfx::Shop);
     Toast(g, IsBall(d) ? "Bought a " + d.name + "!"
              : IsStone(d) ? "Bought a " + d.name + "! Use it on a Pokemon in Party & Box."
              : IsTM(d) ? "Bought " + d.name + "! Teach it in Party & Box (Use a TM)."
@@ -5449,6 +5526,11 @@ void StartTrainingBattle(Game& g) {
     g.mode = Mode::Training;
     g.rareBattle = NextTrainingIsRare(g.profile);
     SetTrainingWild(g);
+    {   // a roaming legendary on this route: 1 battle in 4 it's the one you meet
+        int ai = TrainingAreaIndex(g);
+        std::string area = g.ow.wildBattle ? g.ow.wildArea : (ai >= 0 && ai < (int)WildAreas().size() ? WildAreas()[ai].name : "");
+        TryRoamerBattle(g, area, g.ow.wildBattle ? g.ow.wildMethod : "");
+    }
     if (g.rareBattle && g.rareSpecies < 0) {
         std::vector<std::string> owned;
         int sum = 0, n = 0;
@@ -5584,6 +5666,10 @@ void StartCoopTrainingBattle(Game& g) {
     g.mode = Mode::CoopTraining;
     g.rareBattle = NextTrainingIsRare(g.coopSave.trainingWins);
     SetTrainingWild(g);
+    {   // a roaming legendary on this route (1 battle in 4)
+        int ai = TrainingAreaIndex(g);
+        if (ai >= 0 && ai < (int)WildAreas().size()) TryRoamerBattle(g, WildAreas()[ai].name, "");
+    }
     if (g.rareBattle && g.rareSpecies < 0) {
         std::vector<std::string> owned;
         int sum = 0, n = 0;

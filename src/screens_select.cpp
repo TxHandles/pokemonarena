@@ -27,6 +27,8 @@ CombatantSpec FromEntry(const RosterEntry& e) {
     c.abilitySlot = e.ownedId >= 0 ? e.abilitySlot : -1;
     c.nature = e.ownedId >= 0 ? e.nature : -1;
     c.shiny = e.shiny;
+    for (int k = 0; k < 6; k++) { c.iv[k] = e.iv[k]; c.ev[k] = e.ev[k]; }
+    c.nick = e.nick;
     return c;
 }
 
@@ -646,10 +648,19 @@ void StartBattleFromSelect(Game& g) {
                 c.species = WildActive() || g.ow.staticLevel > 0 ? g.rareSpecies : EvolvedFormAt(g.rareSpecies, c.level);
                 c.moves = MovesAtLevel(AllSpecies()[c.species], c.level);
                 c.shiny = RollShiny();   // the rare one can be shiny too
+                if (g.roamer >= 0) {   // a roaming legendary: the HP it has left, its own IVs - and it flees at once
+                    auto it = g.profile.roam.find(g.roamer);
+                    if (it != g.profile.roam.end()) {
+                        c.hpFrac = it->second.hp;
+                        c.shiny = it->second.shiny;
+                        for (int k = 0; k < 6; k++) c.iv[k] = it->second.iv[k];
+                    }
+                    c.flee = 4.5f;
+                }
                 g.cpuTeam = {c};
                 // A regular one tags along - unless you brought just one Pokemon (never more wild
                 // Pokemon than you have).
-                if (g.picks[0].size() >= 2 && !g.ow.wildBattle) {
+                if (g.picks[0].size() >= 2 && !g.ow.wildBattle && g.roamer < 0) {
                     auto pal = MakeCpuTeam(nullptr, std::max(2, avg - 1), 1);
                     if (!pal.empty()) g.cpuTeam.push_back(pal[0]);
                 }
@@ -750,8 +761,17 @@ void StartBattleFromSelect(Game& g) {
                     c.species = WildActive() || g.ow.staticLevel > 0 ? g.rareSpecies : EvolvedFormAt(g.rareSpecies, c.level);
                     c.moves = MovesAtLevel(AllSpecies()[c.species], c.level);
                     c.shiny = RollShiny();   // the rare one can be shiny too
+                    if (g.roamer >= 0) {   // a roaming legendary: the HP it has left, its own IVs - and it flees at once
+                        auto it = g.coopSave.roam.find(g.roamer);
+                        if (it != g.coopSave.roam.end()) {
+                            c.hpFrac = it->second.hp;
+                            c.shiny = it->second.shiny;
+                            for (int k = 0; k < 6; k++) c.iv[k] = it->second.iv[k];
+                        }
+                        c.flee = 4.5f;
+                    }
                     cpu = {c};
-                    if (v[0].team.size() + v[1].team.size() >= 2) {
+                    if (v[0].team.size() + v[1].team.size() >= 2 && g.roamer < 0) {
                         auto pal = MakeCpuTeam(nullptr, std::min(MAX_LEVEL, avg2 + 1), 1);
                         if (!pal.empty()) cpu.push_back(pal[0]);
                     }
@@ -901,13 +921,13 @@ void StartBattleFromSelect(Game& g) {
         for (auto& sd : su.side) {
             if (sd.team_ == 0 || &sd == &su.side[0]) continue;
             for (auto& c : sd.team)
-                if (c.level > top + 1 && c.boss <= 0) {
+                if (c.level > top + 1 && c.boss <= 0 && c.flee <= 0) {   // (a roaming legendary keeps its level)
                     c.level = std::max(2, top + 1);
                     c.moves = MovesAtLevel(AllSpecies()[c.species], c.level);
                 }
         }
         for (auto& c : g.cpuTeam)
-            if (c.level > top + 1 && c.boss <= 0) { c.level = std::max(2, top + 1); c.moves = MovesAtLevel(AllSpecies()[c.species], c.level); }
+            if (c.level > top + 1 && c.boss <= 0 && c.flee <= 0) { c.level = std::max(2, top + 1); c.moves = MovesAtLevel(AllSpecies()[c.species], c.level); }
     }
     if (g.tower)   // the Battle Tower: everyone fights at full health (and the profile's HP isn't touched)
         for (auto& sd : su.side)

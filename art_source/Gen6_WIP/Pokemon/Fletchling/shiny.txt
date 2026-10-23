@@ -1,6 +1,0 @@
-# Fletchling - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
-# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
-shiny = 403F40 > 624041
-shiny = A5BCCC > DBAA73
-shiny = C5563D > C06A45
-shiny = E58258 > E8935E

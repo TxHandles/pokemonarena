@@ -1,0 +1,17 @@
+# Litleo - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2F2F2F > 735642
+shiny = 433935 > 80634B
+shiny = 493633 > 885F49
+shiny = 4A3D3D > 876853
+shiny = 5F4D48 > A27860
+shiny = 665555 > A5836C
+shiny = 716059 > B78C72
+shiny = 957B60 > 8C8377
+shiny = 9D4636 > 895950
+shiny = A46F4C > 957B69
+shiny = A7A4A2 > F2D5BB
+shiny = BF986C > B7AA9A
+shiny = E5B173 > DAC4AA
+shiny = E6EEF8 > FFFBE8
+shiny = F1F1F1 > FFFEE1

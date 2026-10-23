@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Incineroar
+dex  = 727
+type = Fire / Dark
+
+hp         = 95
+attack     = 115
+defense    = 90
+sp_attack  = 80
+sp_defense = 90
+speed      = 60
+
+size   = 1.12
+height = 1.8      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 83.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Darkest Lariat
+learn = 1, Ember
+learn = 1, Cross Chop
+learn = 1, Lick
+learn = 1, Bulk Up
+learn = 9, Roar
+learn = 12, Fury Swipes
+learn = 15, Bite
+learn = 20, Double Kick
+learn = 25, Fire Fang
+learn = 30, Scary Face
+learn = 32, Swagger
+learn = 44, Flamethrower
+learn = 51, Thrash
+learn = 58, Flare Blitz
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Fire Fang, Low Kick, Acrobatics
+tm = Thief, Trailblaze, Fire Spin, Facade, Aerial Ace, Bulldoze
+tm = Snarl, Flame Charge, Low Sweep, Fling, Endure, Sunny Day
+tm = Brick Break, U-turn, Shadow Claw, Bulk Up, Body Slam, Fire Punch
+tm = Thunder Punch, Sleep Talk, Drain Punch, Stomping Tantrum, Rest, Taunt
+tm = Swords Dance, Dark Pulse, Leech Life, Iron Head, Substitute, Will-O-Wisp
+tm = Crunch, Heat Wave, Flamethrower, Helping Hand, Baton Pass, Reversal
+tm = Nasty Plot, Fire Blast, Fire Pledge, Earthquake, Giga Impact, Blast Burn
+tm = Outrage, Overheat, Focus Blast, Hyper Beam, Flare Blitz, Close Combat
+tm = Tera Blast, Roar, Knock Off, Heat Crash, Focus Punch, Burning Jealousy
+tm = Lash Out, Double-Edge, Endeavor, Temper Flare, Scorching Sands, Throat Chop

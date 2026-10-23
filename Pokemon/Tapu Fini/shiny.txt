@@ -1,0 +1,6 @@
+# Tapu Fini - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2B1E43 > 2B2B2B
+shiny = 555555 > 616161
+shiny = 573D83 > 525252
+shiny = 7E57C6 > 646464

@@ -1,9 +1,0 @@
-# Dragalge - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
-# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
-shiny = 403E3C > 5A1C56
-shiny = 70965A > C6BE5E
-shiny = 7B4335 > 742F68
-shiny = 957CB6 > 607EAF
-shiny = 9D593F > 82517D
-shiny = A67659 > A65F98
-shiny = C34258 > 3E933E

@@ -1,0 +1,10 @@
+# Frogadier - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 253953 > 192247
+shiny = 2D4280 > 152067
+shiny = 416C9E > 374588
+shiny = 4EACCB > 94C6D1
+shiny = 88C0F0 > C3E3F5
+shiny = BCC0C0 > D9DFD6
+shiny = BDBDAD > D8DCC9
+shiny = F8D858 > F4D977

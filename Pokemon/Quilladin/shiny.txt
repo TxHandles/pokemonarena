@@ -1,0 +1,17 @@
+# Quilladin - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 214123 > 340000
+shiny = 303131 > 211924
+shiny = 3E2A24 > 2D1118
+shiny = 4C9852 > 7F302F
+shiny = 568E37 > 772826
+shiny = 68C460 > A8564F
+shiny = 704D3C > 5A3234
+shiny = 87BE47 > 9B2628
+shiny = 8A6146 > 724642
+shiny = 8F6445 > 764943
+shiny = B88462 > AD896E
+shiny = CB5E49 > C4AC48
+shiny = D8A878 > C1B28C
+shiny = E19858 > C5A576
+shiny = E66432 > EDCF2C

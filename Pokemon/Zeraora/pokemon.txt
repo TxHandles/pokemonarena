@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Zeraora
+dex  = 807
+type = Electric
+
+hp         = 88
+attack     = 112
+defense    = 75
+sp_attack  = 102
+sp_defense = 80
+speed      = 143
+
+size   = 1.12
+height = 1.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 44.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Power-Up Punch
+learn = 1, Quick Attack
+learn = 1, Spark
+learn = 1, Fake Out
+learn = 1, Snarl
+learn = 8, Fury Swipes
+learn = 16, Quick Guard
+learn = 24, Slash
+learn = 32, Volt Switch
+learn = 40, Charge
+learn = 48, Thunder Punch
+learn = 56, Hone Claws
+learn = 64, Discharge
+learn = 72, Wild Charge
+learn = 80, Agility
+learn = 88, Plasma Fists
+learn = 96, Close Combat
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Scary Face, Protect, Low Kick, Acrobatics, Facade
+tm = Snarl, Swift, Low Sweep, Fling, Endure, Volt Switch
+tm = False Swipe, Brick Break, Bulk Up, Fire Punch, Thunder Punch, Sleep Talk
+tm = Electro Ball, Drain Punch, Grass Knot, Thunder Wave, Rest, Taunt
+tm = Substitute, Aura Sphere, Thunderbolt, Play Rough, Calm Mind, Helping Hand
+tm = Reversal, Electric Terrain, Wild Charge, Giga Impact, Outrage, Focus Blast
+tm = Hyper Beam, Thunder, Close Combat, Electroweb, Throat Chop

@@ -1,0 +1,11 @@
+# Tsareena - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 2C401B > 2E2437
+shiny = 3F5D26 > 443450
+shiny = 5D8C37 > 654C78
+shiny = 72AC43 > 7B5D93
+shiny = 7DB94D > 86679F
+shiny = 898989 > 9A9456
+shiny = 9FD374 > A68BBC
+shiny = C5C5C5 > E1DC90
+shiny = F1F1F1 > FFF5AC

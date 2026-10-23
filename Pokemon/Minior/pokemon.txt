@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Minior
+dex  = 774
+type = Rock / Flying
+
+hp         = 60
+attack     = 60
+defense    = 100
+sp_attack  = 60
+sp_defense = 100
+speed      = 60
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 40.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Tackle
+learn = 3, Defense Curl
+learn = 8, Rollout
+learn = 10, Confuse Ray
+learn = 15, Swift
+learn = 17, Ancient Power
+learn = 22, Self-Destruct
+learn = 24, Stealth Rock
+learn = 29, Take Down
+learn = 31, Rock Polish
+learn = 36, Cosmic Power
+learn = 38, Power Gem
+learn = 43, Double-Edge
+learn = 45, Shell Smash
+learn = 50, Explosion
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Protect, Acrobatics, Confuse Ray, Charge Beam, Facade
+tm = Bulldoze, Swift, Rock Tomb, Endure, Sandstorm, Zen Headbutt
+tm = U-turn, Sleep Talk, Reflect, Light Screen, Rock Blast, Dazzling Gleam
+tm = Rest, Rock Slide, Iron Head, Power Gem, Substitute, Stealth Rock
+tm = Psychic, Calm Mind, Earth Power, Earthquake, Stone Edge, Giga Impact
+tm = Hyper Beam, Solar Beam, Tera Blast, Gravity, Gyro Ball, Double-Edge
+tm = Endeavor, Scorching Sands, Meteor Beam

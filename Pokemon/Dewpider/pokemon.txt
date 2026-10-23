@@ -1,0 +1,54 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Dewpider
+dex  = 751
+type = Water / Bug
+
+hp         = 38
+attack     = 40
+defense    = 52
+sp_attack  = 40
+sp_defense = 72
+speed      = 27
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 4.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Araquanid
+evolve_level = 22
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Infestation
+learn = 4, Bug Bite
+learn = 8, Bite
+learn = 12, Bubble Beam
+learn = 16, Aqua Ring
+learn = 20, Headbutt
+learn = 24, Crunch
+learn = 28, Soak
+learn = 32, Entrainment
+learn = 36, Lunge
+learn = 40, Liquidation
+learn = 44, Leech Life
+learn = 48, Mirror Coat
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Water Pulse, Trailblaze, Pounce, Chilling Water, Facade
+tm = Icy Wind, Endure, Rain Dance, Sleep Talk, Waterfall, Poison Jab
+tm = Rest, Leech Life, Substitute, Iron Defense, X-Scissor, Crunch
+tm = Liquidation, Giga Drain, Surf, Ice Beam, Hydro Pump, Blizzard
+tm = Bug Buzz, Tera Blast, Bug Bite, Lunge, Endeavor, Skitter Smack

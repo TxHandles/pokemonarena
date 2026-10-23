@@ -1,0 +1,17 @@
+# Carbink - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 0F50AD > 27355C
+shiny = 14489C > 222D50
+shiny = 1A365E > 121B26
+shiny = 404047 > 2C2C27
+shiny = 556095 > 404455
+shiny = 5B88C9 > 007AAD
+shiny = 779FBC > 7883B2
+shiny = 7A7B92 > 5C5D5D
+shiny = 7C8098 > 5F6162
+shiny = 99A3AF > 7C827B
+shiny = 9FE4F9 > 62C9DD
+shiny = A1C8FF > 9AA3F1
+shiny = A3A4B2 > 767870
+shiny = E6EEF8 > C5CAC1
+shiny = FAFAFA > C8CAB8

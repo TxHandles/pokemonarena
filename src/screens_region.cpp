@@ -80,6 +80,7 @@ void UpdateRegionChoose(Game& g) {
             g.profile.storyStage = RegionInfo(r).first;
             if (!SaveProfile(g.profile)) Toast(g, "Could not save the profile!");
             Toast(g, "Off to " + RegionInfo(r).name + "!");
+            if (WalkedOpening(r) && WorldStartOf(r, g.profile.owMap, g.profile.owX, g.profile.owY)) { g.profile.owFace = 0; SaveProfile(g.profile); }   // your new room
             if (NeedsRegionStarter(g) >= 0) BeginRegionStarter(g);
             else EnterStoryHub(g);
         } break;
@@ -101,6 +102,9 @@ void UpdateRegionChoose(Game& g) {
             g.coopSave.regionOrder.push_back(r);
             ApplySaveOrder(g);
             g.coopSave.storyStage = RegionInfo(r).first;
+            if (WalkedOpening(r))   // your new room (player 2 beside player 1)
+                for (int k = 0; k < 2; k++)
+                    if (WorldStartOf(r, g.coopSave.owMap[k], g.coopSave.owX[k], g.coopSave.owY[k])) { g.coopSave.owX[k] += k; g.coopSave.owFace[k] = 0; }
             if (online) OnlineSendCoop(g);
             else SaveCoop(g.coopSave);
             Toast(g, "Off to " + RegionInfo(r).name + " together!");

@@ -1,0 +1,55 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Popplio
+dex  = 728
+type = Water
+
+hp         = 50
+attack     = 54
+defense    = 54
+sp_attack  = 66
+sp_defense = 56
+speed      = 40
+
+size   = 0.85
+height = 0.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 7.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = yes
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Brionne
+evolve_level = 17
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Pound
+learn = 1, Growl
+learn = 3, Water Gun
+learn = 6, Disarming Voice
+learn = 9, Aqua Jet
+learn = 12, Baby-Doll Eyes
+learn = 15, Icy Wind
+learn = 18, Sing
+learn = 21, Bubble Beam
+learn = 24, Encore
+learn = 27, Misty Terrain
+learn = 30, Hyper Voice
+learn = 33, Moonblast
+learn = 36, Hydro Pump
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Water Pulse, Acrobatics, Disarming Voice, Chilling Water
+tm = Facade, Swift, Icy Wind, Draining Kiss, Endure, Rain Dance
+tm = Sleep Talk, Waterfall, Rest, Substitute, Hyper Voice, Encore
+tm = Surf, Ice Spinner, Play Rough, Amnesia, Helping Hand, Ice Beam
+tm = Misty Terrain, Hydro Pump, Blizzard, Water Pledge, Tera Blast, Uproar
+tm = Flip Turn, Whirlpool, Triple Axel

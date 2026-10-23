@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Turtonator
+dex  = 776
+type = Fire / Dragon
+
+hp         = 60
+attack     = 78
+defense    = 135
+sp_attack  = 91
+sp_defense = 85
+speed      = 36
+
+size   = 1.27
+height = 2.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 212.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Smog
+learn = 1, Tackle
+learn = 4, Ember
+learn = 8, Protect
+learn = 12, Endure
+learn = 16, Flail
+learn = 20, Incinerate
+learn = 24, Iron Defense
+learn = 28, Dragon Pulse
+learn = 32, Body Slam
+learn = 36, Flamethrower
+learn = 40, Shell Trap
+learn = 44, Shell Smash
+learn = 48, Overheat
+learn = 52, Explosion
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Fire Spin, Facade, Bulldoze, Rock Tomb, Fling
+tm = Venoshock, Endure, Sunny Day, Bulk Up, Body Slam, Sleep Talk
+tm = Dragon Claw, Stomping Tantrum, Rest, Taunt, Body Press, Flash Cannon
+tm = Iron Head, Substitute, Iron Defense, Will-O-Wisp, Dragon Pulse, Hyper Voice
+tm = Heat Wave, Heavy Slam, Flamethrower, Fire Blast, Earthquake, Stone Edge
+tm = Giga Impact, Outrage, Overheat, Focus Blast, Hyper Beam, Solar Beam
+tm = Heat Crash, Uproar

@@ -1,0 +1,44 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Meltan
+dex  = 808
+type = Steel
+
+hp         = 46
+attack     = 65
+defense    = 65
+sp_attack  = 55
+sp_defense = 35
+speed      = 34
+
+size   = 0.85
+height = 0.2      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 8.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Melmetal
+evolve_level = 50   # (with 400 Meltan Candies, in Pokemon GO)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Harden
+learn = 1, Thunder Shock
+learn = 8, Tail Whip
+learn = 16, Headbutt
+learn = 24, Thunder Wave
+learn = 32, Acid Armor
+learn = 40, Flash Cannon
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Facade, Endure, Sleep Talk, Thunder Wave, Rest
+tm = Flash Cannon, Substitute, Iron Defense, Thunderbolt, Gyro Ball

@@ -1,0 +1,56 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: princess-phoenix (DeviantArt, "Gen 6 (Kalos) Pokemon Overworld Sprites") - credit wanted
+name = Carbink
+dex  = 703
+type = Rock / Fairy
+
+hp         = 50
+attack     = 50
+defense    = 150
+sp_attack  = 50
+sp_defense = 150
+speed      = 50
+
+size   = 0.85
+height = 0.3      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.7      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Harden
+learn = 1, Tackle
+learn = 5, Guard Split
+learn = 10, Smack Down
+learn = 15, Flail
+learn = 20, Ancient Power
+learn = 25, Rock Polish
+learn = 30, Light Screen
+learn = 35, Rock Slide
+learn = 40, Skill Swap
+learn = 45, Power Gem
+learn = 50, Stealth Rock
+learn = 55, Moonblast
+learn = 60, Stone Edge
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Protect, Facade, Rock Tomb, Endure
+tm = Sunny Day, Rain Dance, Sandstorm, Body Slam, Sleep Talk, Reflect
+tm = Light Screen, Rock Blast, Dazzling Gleam, Stomping Tantrum, Rest, Rock Slide
+tm = Body Press, Spikes, Flash Cannon, Skill Swap, Iron Head, Power Gem
+tm = Substitute, Iron Defense, Stealth Rock, Psychic, Heavy Slam, Calm Mind
+tm = Earth Power, Misty Terrain, Stone Edge, Giga Impact, Trick Room, Hyper Beam
+tm = Tera Blast, Sand Tomb, Gravity, Smack Down, Gyro Ball, Misty Explosion
+tm = Psych Up, Double-Edge, Endeavor, Meteor Beam

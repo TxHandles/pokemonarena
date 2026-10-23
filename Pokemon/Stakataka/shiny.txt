@@ -1,0 +1,6 @@
+# Stakataka - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 232323 > 423710
+shiny = 4C4C4C > A78C29
+shiny = 5D5D5D > 7D671A
+shiny = 757575 > CBBB37

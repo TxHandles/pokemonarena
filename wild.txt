@@ -50,6 +50,21 @@ pokemon = super-rod, Corsola, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 20, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-10, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 8, 15-25, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Binacle, 4, 15-25, newcomer
+pokemon = super-rod, Mareanie, 4, 15-25, newcomer
+pokemon = super-rod, Pyukumuku, 8, 15-25, badges 3, newcomer
 
 [Route 1]
 unlock = Route 1
@@ -62,6 +77,10 @@ pokemon = walk, Sentret, 4, 2-4, cousin
 pokemon = walk, Zigzagoon, 4, 2-4, cousin
 pokemon = walk, Bidoof, 4, 2-4, cousin
 pokemon = walk, Patrat, 4, 2-4, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fletchling, 10, 2-5, newcomer
+pokemon = walk, Bunnelby, 5, 2-4, newcomer
+pokemon = walk, Yungoos, 5, 2-4, newcomer
 
 [Viridian City]
 unlock = Route 22
@@ -88,6 +107,11 @@ pokemon = super-rod, Tympole, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 15-35, cousin
 pokemon = super-rod, Ducklett, 1, 15-35, cousin
 pokemon = super-rod, Lotad, 2, 15-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Dewpider, 12, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 8, 5-15, newcomer
+pokemon = super-rod, Dewpider, 8, 15-25, newcomer
 
 [Route 22]
 unlock = Route 22
@@ -123,6 +147,16 @@ pokemon = super-rod, Tympole, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 15-35, cousin
 pokemon = super-rod, Ducklett, 1, 15-35, cousin
 pokemon = super-rod, Lotad, 2, 15-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pancham, 4, 2-5, newcomer
+pokemon = walk, Passimian, 4, 2-5, badges 3, newcomer
+pokemon = walk, Bunnelby, 4, 2-5, newcomer
+pokemon = walk, Yungoos, 4, 2-5, newcomer
+pokemon = walk, Pikipek, 2, 3-5, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Dewpider, 12, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 8, 5-15, newcomer
+pokemon = super-rod, Dewpider, 8, 15-25, newcomer
 
 [Route 2]
 unlock = Viridian Forest
@@ -142,6 +176,12 @@ pokemon = walk, Wurmple, 1, 4-5, cousin
 pokemon = walk, Sewaddle, 1, 4-5, cousin
 pokemon = walk, Kricketot, 1, 4-5, cousin
 pokemon = walk, Venipede, 1, 4-5, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fletchling, 9, 2-5, newcomer
+pokemon = walk, Bunnelby, 4, 2-5, newcomer
+pokemon = walk, Yungoos, 4, 2-5, newcomer
+pokemon = walk, Scatterbug, 1, 4-5, newcomer
+pokemon = walk, Grubbin, 1, 4-5, newcomer
 
 [Viridian Forest]
 unlock = Viridian Forest
@@ -161,6 +201,12 @@ pokemon = walk, Plusle, 1, 3-5, cousin
 pokemon = walk, Minun, 1, 3-5, cousin
 pokemon = walk, Pachirisu, 1, 3-5, cousin
 pokemon = walk, Emolga, 1, 3-5, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Scatterbug, 4, 3-5, newcomer
+pokemon = walk, Grubbin, 4, 3-5, newcomer
+pokemon = walk, Spewpa, 4, 4-6, newcomer
+pokemon = walk, Dedenne, 1, 3-5, badges 3, newcomer
+pokemon = walk, Togedemaru, 1, 3-5, badges 3, newcomer
 
 [Route 3]
 unlock = Pewter Outskirts
@@ -176,6 +222,12 @@ pokemon = walk, Starly, 5, 6-7, cousin
 pokemon = walk, Pidove, 5, 6-7, cousin
 pokemon = walk, Skitty, 3, 3-7, cousin
 pokemon = walk, Aipom, 3, 7-7, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pikipek, 7, 6-8, newcomer
+pokemon = walk, Fletchling, 6, 6-7, newcomer
+pokemon = walk, Spritzee, 2, 3-7, newcomer
+pokemon = walk, Pancham, 1, 7-7, newcomer
+pokemon = walk, Passimian, 1, 7-7, badges 3, newcomer
 
 [Mt. Moon]
 unlock = Mt. Moon
@@ -190,6 +242,10 @@ pokemon = walk, Woobat, 23, 7-11, cousin
 pokemon = walk, Roggenrola, 10, 7-10, cousin
 pokemon = walk, Lunatone, 1, 8-12, cousin
 pokemon = walk, Munna, 1, 8-12, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Morelull, 20, 5-12, newcomer
+pokemon = walk, Noibat, 14, 7-11, newcomer
+pokemon = walk, Minior, 1, 8-12, badges 3, newcomer
 
 [Route 4]
 unlock = Cerulean City
@@ -228,6 +284,23 @@ pokemon = super-rod, Corphish, 28, 15-35, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Bunnelby, 3, 8-12, newcomer
+pokemon = walk, Yungoos, 3, 8-12, newcomer
+pokemon = walk, Pikipek, 7, 8-12, newcomer
+pokemon = walk, Pancham, 1, 10-12, newcomer
+pokemon = walk, Passimian, 1, 10-12, badges 3, newcomer
+pokemon = surf, Inkay, 20, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 17, 15-35, newcomer
+pokemon = super-rod, Clauncher, 5, 15-35, newcomer
+pokemon = super-rod, Crabrawler, 5, 15-35, newcomer
+pokemon = super-rod, Wimpod, 5, 15-35, newcomer
 
 [Cerulean City]
 unlock = Cerulean City
@@ -253,6 +326,18 @@ pokemon = super-rod, Corphish, 28, 15-35, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 20, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 17, 15-35, newcomer
+pokemon = super-rod, Clauncher, 5, 15-35, newcomer
+pokemon = super-rod, Crabrawler, 5, 15-35, newcomer
+pokemon = super-rod, Wimpod, 5, 15-35, newcomer
 
 [Route 24]
 unlock = Nugget Bridge
@@ -299,6 +384,25 @@ pokemon = super-rod, Corphish, 28, 15-35, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fomantis, 5, 12-14, newcomer
+pokemon = walk, Flabebe, 2, 12-14, newcomer
+pokemon = walk, Bounsweet, 2, 12-14, newcomer
+pokemon = walk, Scatterbug, 2, 7-7, newcomer
+pokemon = walk, Grubbin, 2, 7-7, newcomer
+pokemon = walk, Fletchling, 3, 11-13, newcomer
+pokemon = walk, Spewpa, 2, 8-8, newcomer
+pokemon = surf, Inkay, 20, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 17, 15-35, newcomer
+pokemon = super-rod, Clauncher, 5, 15-35, newcomer
+pokemon = super-rod, Crabrawler, 5, 15-35, newcomer
+pokemon = super-rod, Wimpod, 5, 15-35, newcomer
 
 [Route 25]
 unlock = Route 24
@@ -347,6 +451,18 @@ pokemon = super-rod, Tympole, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 15-35, cousin
 pokemon = super-rod, Ducklett, 1, 15-35, cousin
 pokemon = super-rod, Lotad, 2, 15-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fomantis, 5, 12-14, newcomer
+pokemon = walk, Flabebe, 2, 12-14, newcomer
+pokemon = walk, Bounsweet, 2, 12-14, newcomer
+pokemon = walk, Scatterbug, 2, 8-8, newcomer
+pokemon = walk, Grubbin, 2, 8-8, newcomer
+pokemon = walk, Fletchling, 3, 11-13, newcomer
+pokemon = walk, Spewpa, 2, 9-9, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Dewpider, 12, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 8, 5-15, newcomer
+pokemon = super-rod, Dewpider, 8, 15-25, newcomer
 
 [Route 5]
 unlock = Route 6
@@ -364,6 +480,12 @@ pokemon = walk, Sunkern, 4, 13-16, cousin
 pokemon = walk, Cherubi, 4, 13-16, cousin
 pokemon = walk, Budew, 4, 13-16, cousin
 pokemon = walk, Petilil, 4, 13-16, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fletchling, 8, 13-16, newcomer
+pokemon = walk, Espurr, 7, 10-16, newcomer
+pokemon = walk, Fomantis, 5, 13-16, newcomer
+pokemon = walk, Flabebe, 2, 13-16, newcomer
+pokemon = walk, Bounsweet, 2, 13-16, newcomer
 
 [Route 6]
 unlock = Route 6
@@ -403,6 +525,16 @@ pokemon = super-rod, Tympole, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 15-35, cousin
 pokemon = super-rod, Ducklett, 1, 15-35, cousin
 pokemon = super-rod, Lotad, 2, 15-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fletchling, 8, 13-16, newcomer
+pokemon = walk, Espurr, 7, 10-16, newcomer
+pokemon = walk, Fomantis, 5, 13-16, newcomer
+pokemon = walk, Flabebe, 2, 13-16, newcomer
+pokemon = walk, Bounsweet, 2, 13-16, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Dewpider, 12, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 8, 5-15, newcomer
+pokemon = super-rod, Dewpider, 8, 15-25, newcomer
 
 [Vermilion City]
 unlock = S.S. Anne
@@ -432,6 +564,21 @@ pokemon = super-rod, Corsola, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 20, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 9, 15-35, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Binacle, 4, 15-25, newcomer
+pokemon = super-rod, Mareanie, 4, 15-25, newcomer
+pokemon = super-rod, Pyukumuku, 8, 15-25, badges 3, newcomer
 
 [S.S. Anne]
 unlock = S.S. Anne
@@ -461,6 +608,21 @@ pokemon = super-rod, Corsola, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 20, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 9, 15-35, newcomer
+pokemon = super-rod, Clauncher, 3, 15-35, newcomer
+pokemon = super-rod, Crabrawler, 3, 15-35, newcomer
+pokemon = super-rod, Wimpod, 3, 15-35, newcomer
+pokemon = super-rod, Binacle, 4, 15-25, newcomer
+pokemon = super-rod, Mareanie, 4, 15-25, newcomer
+pokemon = super-rod, Pyukumuku, 8, 15-25, badges 3, newcomer
 
 [Route 11]
 unlock = Diglett's Cave
@@ -494,6 +656,19 @@ pokemon = super-rod, Corphish, 28, 15-35, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pikipek, 7, 13-17, newcomer
+pokemon = surf, Inkay, 20, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 17, 15-35, newcomer
+pokemon = super-rod, Clauncher, 5, 15-35, newcomer
+pokemon = super-rod, Crabrawler, 5, 15-35, newcomer
+pokemon = super-rod, Wimpod, 5, 15-35, newcomer
 
 [Diglett's Cave]
 unlock = Diglett's Cave
@@ -516,6 +691,10 @@ pokemon = walk, Patrat, 3, 14-17, cousin
 pokemon = walk, Taillow, 12, 13-17, cousin
 pokemon = walk, Seviper, 8, 11-17, cousin
 pokemon = walk, Drilbur, 8, 11-17, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Bunnelby, 4, 14-17, newcomer
+pokemon = walk, Yungoos, 4, 14-17, newcomer
+pokemon = walk, Pikipek, 7, 13-17, newcomer
 
 [Route 10]
 unlock = Rock Tunnel
@@ -549,6 +728,19 @@ pokemon = super-rod, Corphish, 28, 15-35, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pikipek, 7, 13-17, newcomer
+pokemon = surf, Inkay, 20, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 17, 15-35, newcomer
+pokemon = super-rod, Clauncher, 5, 15-35, newcomer
+pokemon = super-rod, Crabrawler, 5, 15-35, newcomer
+pokemon = super-rod, Wimpod, 5, 15-35, newcomer
 
 [Rock Tunnel]
 unlock = Rock Tunnel
@@ -568,6 +760,12 @@ pokemon = walk, Aipom, 5, 16-17, cousin
 pokemon = walk, Nosepass, 3, 13-17, cousin
 pokemon = rock-smash, Roggenrola, 32, 5-30, cousin
 pokemon = rock-smash, Boldore, 2, 25-40, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Noibat, 6, 15-16, newcomer
+pokemon = walk, Pancham, 4, 16-17, newcomer
+pokemon = walk, Passimian, 1, 16-17, badges 3, newcomer
+pokemon = walk, Tyrunt, 2, 13-17, newcomer
+pokemon = rock-smash, Carbink, 1, 25-40, badges 3, newcomer
 
 [Route 8]
 unlock = Route 8
@@ -586,6 +784,11 @@ pokemon = walk, Seviper, 7, 17-19, cousin
 pokemon = walk, Houndour, 7, 15-18, cousin
 pokemon = walk, Drilbur, 7, 17-19, cousin
 pokemon = walk, Darumaka, 7, 15-18, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Espurr, 6, 18-20, newcomer
+pokemon = walk, Fletchling, 6, 18-20, newcomer
+pokemon = walk, Litleo, 2, 15-18, newcomer
+pokemon = walk, Furfrou, 2, 15-18, newcomer
 
 [Route 7]
 unlock = Route 8
@@ -606,6 +809,14 @@ pokemon = walk, Budew, 3, 19-22, cousin
 pokemon = walk, Petilil, 3, 19-22, cousin
 pokemon = walk, Houndour, 3, 18-20, cousin
 pokemon = walk, Darumaka, 3, 18-20, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Espurr, 8, 17-20, newcomer
+pokemon = walk, Fletchling, 6, 19-22, newcomer
+pokemon = walk, Fomantis, 4, 19-22, newcomer
+pokemon = walk, Flabebe, 2, 19-22, newcomer
+pokemon = walk, Bounsweet, 2, 19-22, newcomer
+pokemon = walk, Litleo, 1, 18-20, newcomer
+pokemon = walk, Furfrou, 1, 18-20, newcomer
 
 [Celadon City]
 unlock = Celadon Park
@@ -626,6 +837,10 @@ pokemon = good-rod, Basculin, 33, 5-15, cousin
 pokemon = super-rod, Basculin, 33, 15-35, cousin
 pokemon = super-rod, Trubbish, 1, 30-40, cousin
 pokemon = super-rod, Gulpin, 1, 30-40, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Wishiwashi, 20, 5-15, newcomer
+pokemon = super-rod, Wishiwashi, 20, 15-35, newcomer
 
 [Route 16]
 unlock = Cycling Road
@@ -644,6 +859,12 @@ pokemon = walk, Furret, 1, 23-25, cousin
 pokemon = walk, Linoone, 1, 23-25, cousin
 pokemon = walk, Bibarel, 1, 23-25, cousin
 pokemon = walk, Watchog, 1, 23-25, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Bunnelby, 3, 18-22, newcomer
+pokemon = walk, Yungoos, 3, 18-22, newcomer
+pokemon = walk, Pikipek, 6, 20-22, newcomer
+pokemon = walk, Diggersby, 1, 23-25, newcomer
+pokemon = walk, Gumshoos, 1, 23-25, newcomer
 
 [Route 17]
 unlock = Cycling Road
@@ -664,6 +885,13 @@ pokemon = walk, Sentret, 1, 22-22, cousin
 pokemon = walk, Zigzagoon, 1, 22-22, cousin
 pokemon = walk, Bidoof, 1, 22-22, cousin
 pokemon = walk, Patrat, 1, 22-22, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pikipek, 6, 20-22, newcomer
+pokemon = walk, Diggersby, 2, 25-29, newcomer
+pokemon = walk, Gumshoos, 2, 25-29, newcomer
+pokemon = walk, Trumbeak, 1, 25-27, newcomer
+pokemon = walk, Bunnelby, 1, 22-22, newcomer
+pokemon = walk, Yungoos, 1, 22-22, newcomer
 
 [Route 18]
 unlock = Cycling Road
@@ -685,6 +913,13 @@ pokemon = walk, Sentret, 1, 22-22, cousin
 pokemon = walk, Zigzagoon, 1, 22-22, cousin
 pokemon = walk, Bidoof, 1, 22-22, cousin
 pokemon = walk, Patrat, 1, 22-22, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pikipek, 6, 20-22, newcomer
+pokemon = walk, Trumbeak, 3, 25-29, newcomer
+pokemon = walk, Diggersby, 1, 25-29, newcomer
+pokemon = walk, Gumshoos, 1, 25-29, newcomer
+pokemon = walk, Bunnelby, 1, 22-22, newcomer
+pokemon = walk, Yungoos, 1, 22-22, newcomer
 
 [Safari Zone]
 unlock = Safari Zone
@@ -741,6 +976,16 @@ pokemon = super-rod, Axew, 2, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 15-35, cousin
 pokemon = super-rod, Ducklett, 1, 15-35, cousin
 pokemon = super-rod, Lotad, 1, 15-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Bounsweet, 4, 23-27, newcomer
+pokemon = walk, Mudbray, 4, 25-26, newcomer
+pokemon = walk, Morelull, 3, 22-23, newcomer
+pokemon = walk, Skiddo, 1, 25-28, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Wishiwashi, 16, 5-15, newcomer
+pokemon = good-rod, Dewpider, 4, 5-15, newcomer
+pokemon = super-rod, Wishiwashi, 8, 15-25, newcomer
+pokemon = super-rod, Goomy, 3, 15-25, newcomer
 
 [Fuchsia City]
 unlock = Safari Zone
@@ -767,6 +1012,11 @@ pokemon = super-rod, Barboach, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 15-35, cousin
 pokemon = super-rod, Ducklett, 1, 15-35, cousin
 pokemon = super-rod, Lotad, 2, 15-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Wishiwashi, 16, 5-15, newcomer
+pokemon = good-rod, Dewpider, 4, 5-15, newcomer
+pokemon = super-rod, Wishiwashi, 8, 15-25, newcomer
 
 [Route 15]
 unlock = Route 15
@@ -789,6 +1039,12 @@ pokemon = walk, Pidove, 3, 25-27, cousin
 pokemon = walk, Kecleon, 2, 25-25, cousin
 pokemon = walk, Staravia, 1, 29-29, cousin
 pokemon = walk, Tranquill, 1, 29-29, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fomantis, 7, 22-26, newcomer
+pokemon = walk, Flabebe, 3, 22-26, newcomer
+pokemon = walk, Bounsweet, 3, 22-26, newcomer
+pokemon = walk, Fletchling, 4, 25-27, newcomer
+pokemon = walk, Fletchinder, 1, 29-29, newcomer
 
 [Route 14]
 unlock = Route 15
@@ -811,6 +1067,12 @@ pokemon = walk, Starly, 1, 27-27, cousin
 pokemon = walk, Pidove, 1, 27-27, cousin
 pokemon = walk, Staravia, 1, 29-29, cousin
 pokemon = walk, Tranquill, 1, 29-29, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fomantis, 7, 22-26, newcomer
+pokemon = walk, Flabebe, 3, 22-26, newcomer
+pokemon = walk, Bounsweet, 3, 22-26, newcomer
+pokemon = walk, Fletchling, 2, 27-27, newcomer
+pokemon = walk, Fletchinder, 1, 29-29, newcomer
 
 [Route 13]
 unlock = Route 15
@@ -855,6 +1117,23 @@ pokemon = super-rod, Corphish, 28, 15-35, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fomantis, 7, 22-26, newcomer
+pokemon = walk, Flabebe, 3, 22-26, newcomer
+pokemon = walk, Bounsweet, 3, 22-26, newcomer
+pokemon = walk, Fletchling, 4, 25-27, newcomer
+pokemon = walk, Fletchinder, 1, 29-29, newcomer
+pokemon = surf, Inkay, 20, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 17, 15-35, newcomer
+pokemon = super-rod, Clauncher, 5, 15-35, newcomer
+pokemon = super-rod, Crabrawler, 5, 15-35, newcomer
+pokemon = super-rod, Wimpod, 5, 15-35, newcomer
 
 [Route 12]
 unlock = Route 12
@@ -894,6 +1173,22 @@ pokemon = super-rod, Corphish, 28, 15-35, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fomantis, 7, 22-26, newcomer
+pokemon = walk, Flabebe, 3, 22-26, newcomer
+pokemon = walk, Bounsweet, 3, 22-26, newcomer
+pokemon = walk, Fletchling, 6, 23-27, newcomer
+pokemon = surf, Inkay, 20, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 17, 15-35, newcomer
+pokemon = super-rod, Clauncher, 5, 15-35, newcomer
+pokemon = super-rod, Crabrawler, 5, 15-35, newcomer
+pokemon = super-rod, Wimpod, 5, 15-35, newcomer
 
 [Pokemon Tower]
 unlock = Pokemon Tower
@@ -906,6 +1201,10 @@ pokemon = walk, Shuppet, 10, 13-19, cousin
 pokemon = walk, Litwick, 10, 13-19, cousin
 pokemon = walk, Duskull, 5, 20-25, cousin
 pokemon = walk, Yamask, 3, 15-19, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pumpkaboo, 9, 13-19, newcomer
+pokemon = walk, Honedge, 9, 13-19, newcomer
+pokemon = walk, Mimikyu, 3, 20-25, badges 3, newcomer
 
 [Power Plant]
 unlock = Saffron Gym
@@ -922,6 +1221,10 @@ pokemon = walk, Minun, 2, 22-26, cousin
 pokemon = walk, Pachirisu, 2, 22-26, cousin
 pokemon = walk, Emolga, 2, 22-26, cousin
 pokemon = walk, Electrike, 2, 32-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Klefki, 6, 22-25, badges 3, newcomer
+pokemon = walk, Dedenne, 2, 22-26, badges 3, newcomer
+pokemon = walk, Togedemaru, 2, 22-26, badges 3, newcomer
 
 [Sea Route 19]
 unlock = Seafoam Islands
@@ -950,6 +1253,18 @@ pokemon = super-rod, Corphish, 27, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 20, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 16, 15-25, newcomer
+pokemon = super-rod, Clauncher, 5, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 5, 15-25, newcomer
+pokemon = super-rod, Wimpod, 5, 15-25, newcomer
 
 [Sea Route 20]
 unlock = Seafoam Islands
@@ -978,6 +1293,18 @@ pokemon = super-rod, Corphish, 27, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 20, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 16, 15-25, newcomer
+pokemon = super-rod, Clauncher, 5, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 5, 15-25, newcomer
+pokemon = super-rod, Wimpod, 5, 15-25, newcomer
 
 [Seafoam Islands]
 unlock = Seafoam Islands
@@ -1030,6 +1357,22 @@ pokemon = super-rod, Corphish, 27, 15-30, cousin
 pokemon = super-rod, Wooper, 1, 15-25, cousin
 pokemon = super-rod, Ducklett, 1, 15-25, cousin
 pokemon = super-rod, Lotad, 1, 15-25, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Noibat, 7, 22-26, newcomer
+pokemon = surf, Skrelp, 6, 25-30, newcomer
+pokemon = surf, Clauncher, 2, 25-30, newcomer
+pokemon = surf, Crabrawler, 2, 25-30, newcomer
+pokemon = surf, Wimpod, 2, 25-30, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 16, 15-30, newcomer
+pokemon = super-rod, Clauncher, 5, 15-30, newcomer
+pokemon = super-rod, Crabrawler, 5, 15-30, newcomer
+pokemon = super-rod, Wimpod, 5, 15-30, newcomer
 
 [Cinnabar Island]
 unlock = Cinnabar Mansion
@@ -1061,6 +1404,21 @@ pokemon = super-rod, Corsola, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 20, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 8, 15-25, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Binacle, 4, 15-25, newcomer
+pokemon = super-rod, Mareanie, 4, 15-25, newcomer
+pokemon = super-rod, Pyukumuku, 8, 15-25, badges 3, newcomer
 
 [Pokemon Mansion]
 unlock = Cinnabar Mansion
@@ -1088,6 +1446,13 @@ pokemon = walk, Bidoof, 1, 26-28, cousin
 pokemon = walk, Patrat, 1, 26-28, cousin
 pokemon = walk, Darumaka, 5, 30-32, cousin
 pokemon = walk, Kecleon, 3, 30-30, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Diggersby, 3, 32-38, newcomer
+pokemon = walk, Gumshoos, 3, 32-38, newcomer
+pokemon = walk, Litleo, 1, 30-32, newcomer
+pokemon = walk, Furfrou, 1, 30-32, newcomer
+pokemon = walk, Bunnelby, 1, 26-28, newcomer
+pokemon = walk, Yungoos, 1, 26-28, newcomer
 
 [Cinnabar Volcano]
 unlock = Cinnabar Volcano
@@ -1105,6 +1470,11 @@ pokemon = walk, Slugma, 5, 36-40, cousin
 pokemon = walk, Boldore, 3, 36-40, cousin
 pokemon = rock-smash, Roggenrola, 23, 30-36, cousin
 pokemon = rock-smash, Boldore, 10, 34-40, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Litleo, 3, 34-38, newcomer
+pokemon = walk, Furfrou, 3, 34-38, newcomer
+pokemon = walk, Carbink, 2, 36-40, badges 3, newcomer
+pokemon = rock-smash, Carbink, 6, 34-40, badges 3, newcomer
 
 [Sea Route 21]
 unlock = Cinnabar Gym
@@ -1134,6 +1504,18 @@ pokemon = super-rod, Corphish, 27, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 20, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 12, 5-15, newcomer
+pokemon = good-rod, Clauncher, 4, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 4, 5-15, newcomer
+pokemon = good-rod, Wimpod, 4, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 16, 15-25, newcomer
+pokemon = super-rod, Clauncher, 5, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 5, 15-25, newcomer
+pokemon = super-rod, Wimpod, 5, 15-25, newcomer
 
 [Route 23]
 unlock = Route 22 Gate
@@ -1173,6 +1555,16 @@ pokemon = super-rod, Tympole, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 15-35, cousin
 pokemon = super-rod, Ducklett, 1, 15-35, cousin
 pokemon = super-rod, Lotad, 2, 15-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pancham, 3, 32-34, newcomer
+pokemon = walk, Passimian, 3, 32-34, badges 3, newcomer
+pokemon = walk, Trumbeak, 5, 40-44, newcomer
+pokemon = walk, Pikipek, 3, 32-34, newcomer
+pokemon = walk, Hawlucha, 1, 42-42, badges 3, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Dewpider, 12, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 8, 5-15, newcomer
+pokemon = super-rod, Dewpider, 8, 15-25, newcomer
 
 [Victory Road]
 unlock = Route 22 Gate
@@ -1193,6 +1585,12 @@ pokemon = walk, Makuhita, 3, 32-34, cousin
 pokemon = walk, Timburr, 3, 32-34, cousin
 pokemon = walk, Woobat, 3, 32-34, cousin
 pokemon = walk, Swoobat, 2, 44-46, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Tyrunt, 6, 40-48, newcomer
+pokemon = walk, Pancham, 4, 32-34, newcomer
+pokemon = walk, Hawlucha, 2, 42-42, badges 3, newcomer
+pokemon = walk, Noibat, 2, 32-34, newcomer
+pokemon = walk, Hawlucha, 1, 44-48, badges 3, newcomer
 
 [Cerulean Cave]
 unlock = @done
@@ -1235,6 +1633,14 @@ pokemon = super-rod, Ducklett, 1, 15-35, cousin
 pokemon = super-rod, Lotad, 2, 15-35, cousin
 pokemon = rock-smash, Roggenrola, 22, 30-60, cousin
 pokemon = rock-smash, Boldore, 12, 40-65, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Hawlucha, 4, 46-52, badges 3, newcomer
+pokemon = walk, Hawlucha, 2, 52-61, badges 3, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Dewpider, 12, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 8, 5-15, newcomer
+pokemon = super-rod, Dewpider, 8, 15-25, newcomer
+pokemon = rock-smash, Carbink, 7, 40-65, badges 3, newcomer
 
 # ==========================================================================
 #  SEVII ISLANDS (FireRed/LeafGreen post-game: One to Seven Island). Open after the Kanto Champion.
@@ -1289,6 +1695,22 @@ pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
 pokemon = rock-smash, Roggenrola, 32, 5-30, cousin
 pokemon = rock-smash, Boldore, 2, 25-40, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pikipek, 5, 30-32, newcomer
+pokemon = walk, Espurr, 2, 31-31, newcomer
+pokemon = walk, Trumbeak, 2, 36-36, newcomer
+pokemon = surf, Inkay, 19, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 16, 15-25, newcomer
+pokemon = super-rod, Clauncher, 5, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 5, 15-25, newcomer
+pokemon = super-rod, Wimpod, 5, 15-25, newcomer
+pokemon = rock-smash, Carbink, 1, 25-40, badges 3, newcomer
 
 [Treasure Beach]
 unlock = @done
@@ -1331,6 +1753,21 @@ pokemon = super-rod, Corphish, 27, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pikipek, 6, 31-32, newcomer
+pokemon = walk, Trumbeak, 4, 36-40, newcomer
+pokemon = walk, Espurr, 2, 31-31, newcomer
+pokemon = surf, Inkay, 19, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 16, 15-25, newcomer
+pokemon = super-rod, Clauncher, 5, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 5, 15-25, newcomer
+pokemon = super-rod, Wimpod, 5, 15-25, newcomer
 
 [Mt. Ember (Exterior)]
 unlock = @done
@@ -1353,6 +1790,11 @@ pokemon = walk, Roggenrola, 3, 33-33, cousin
 pokemon = walk, Slugma, 2, 38-40, cousin
 pokemon = rock-smash, Roggenrola, 32, 5-30, cousin
 pokemon = rock-smash, Boldore, 2, 25-40, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Trumbeak, 5, 38-40, newcomer
+pokemon = walk, Pikipek, 3, 30-32, newcomer
+pokemon = walk, Pancham, 2, 35-35, newcomer
+pokemon = rock-smash, Carbink, 1, 25-40, badges 3, newcomer
 
 [Mt. Ember (Summit Path 1F/3F)]
 unlock = @done
@@ -1362,6 +1804,8 @@ pokemon = walk, Geodude, 50, 29-37
 pokemon = walk, Makuhita, 8, 31-39, cousin
 pokemon = walk, Timburr, 8, 31-39, cousin
 pokemon = walk, Roggenrola, 17, 29-37, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pancham, 10, 31-39, newcomer
 
 [Mt. Ember (Summit Path 2F)]
 unlock = @done
@@ -1376,6 +1820,10 @@ pokemon = walk, Timburr, 6, 32-36, cousin
 pokemon = walk, Roggenrola, 13, 30-34, cousin
 pokemon = rock-smash, Roggenrola, 32, 5-30, cousin
 pokemon = rock-smash, Boldore, 2, 25-40, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pancham, 8, 32-36, newcomer
+pokemon = walk, Hawlucha, 4, 38-40, badges 3, newcomer
+pokemon = rock-smash, Carbink, 1, 25-40, badges 3, newcomer
 
 [Mt. Ember (Summit)]
 unlock = @done
@@ -1384,6 +1832,8 @@ pokemon = rock-smash, Graveler, 5, 25-40
 # cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
 pokemon = rock-smash, Roggenrola, 32, 5-30, cousin
 pokemon = rock-smash, Boldore, 2, 25-40, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = rock-smash, Carbink, 1, 25-40, badges 3, newcomer
 
 [Mt. Ember (Ruby Path 1F)]
 unlock = @done
@@ -1398,6 +1848,10 @@ pokemon = walk, Makuhita, 6, 34-38, cousin
 pokemon = walk, Timburr, 6, 34-38, cousin
 pokemon = rock-smash, Roggenrola, 22, 25-40, cousin
 pokemon = rock-smash, Boldore, 12, 30-50, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pancham, 8, 34-38, newcomer
+pokemon = walk, Hawlucha, 2, 40-42, badges 3, newcomer
+pokemon = rock-smash, Carbink, 7, 30-50, badges 3, newcomer
 
 [Mt. Ember (Ruby Path B1F/B5F)]
 unlock = @done
@@ -1409,6 +1863,9 @@ pokemon = rock-smash, Graveler, 35, 30-50
 pokemon = walk, Roggenrola, 23, 34-42, cousin
 pokemon = rock-smash, Roggenrola, 22, 25-40, cousin
 pokemon = rock-smash, Boldore, 12, 30-50, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Salandit, 6, 24-30, newcomer
+pokemon = rock-smash, Carbink, 7, 30-50, badges 3, newcomer
 
 [Mt. Ember (Ruby Path B2F/B4F)]
 unlock = @done
@@ -1420,12 +1877,19 @@ pokemon = rock-smash, Graveler, 35, 30-50
 pokemon = walk, Roggenrola, 13, 40-44, cousin
 pokemon = rock-smash, Roggenrola, 22, 25-40, cousin
 pokemon = rock-smash, Boldore, 12, 30-50, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Salandit, 12, 22-32, newcomer
+pokemon = rock-smash, Carbink, 7, 30-50, badges 3, newcomer
 
 [Mt. Ember (Ruby Path B3F)]
 unlock = @done
 pokemon = walk, Slugma, 100, 18-36
 pokemon = rock-smash, Slugma, 90, 15-35
 pokemon = rock-smash, Magcargo, 10, 25-45
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Salandit, 20, 18-36, newcomer
+pokemon = rock-smash, Salandit, 18, 15-35, newcomer
+pokemon = rock-smash, Turtonator, 2, 25-45, badges 3, newcomer
 
 [One Island]
 unlock = @done
@@ -1458,6 +1922,21 @@ pokemon = super-rod, Corsola, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 19, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 8, 15-25, newcomer
+pokemon = super-rod, Binacle, 4, 15-25, newcomer
+pokemon = super-rod, Mareanie, 4, 15-25, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Pyukumuku, 8, 15-25, badges 3, newcomer
 
 [Cape Brink]
 unlock = @done
@@ -1509,6 +1988,17 @@ pokemon = super-rod, Tympole, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 15-35, cousin
 pokemon = super-rod, Ducklett, 1, 15-35, cousin
 pokemon = super-rod, Lotad, 2, 15-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Flabebe, 3, 30-32, newcomer
+pokemon = walk, Bounsweet, 3, 30-32, newcomer
+pokemon = walk, Fomantis, 6, 30-32, newcomer
+pokemon = walk, Pikipek, 4, 31-31, newcomer
+pokemon = walk, Espurr, 2, 31-31, newcomer
+pokemon = walk, Trumbeak, 2, 36-36, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Dewpider, 12, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 8, 5-15, newcomer
+pokemon = super-rod, Dewpider, 8, 15-25, newcomer
 
 [Bond Bridge]
 unlock = @done
@@ -1562,6 +2052,24 @@ pokemon = super-rod, Corphish, 27, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fletchling, 6, 29-32, newcomer
+pokemon = walk, Flabebe, 2, 31-31, newcomer
+pokemon = walk, Bounsweet, 2, 31-31, newcomer
+pokemon = walk, Fomantis, 4, 31-31, newcomer
+pokemon = walk, Fletchinder, 3, 34-40, newcomer
+pokemon = walk, Espurr, 2, 31-31, newcomer
+pokemon = surf, Inkay, 19, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 16, 15-25, newcomer
+pokemon = super-rod, Clauncher, 5, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 5, 15-25, newcomer
+pokemon = super-rod, Wimpod, 5, 15-25, newcomer
 
 [Three Isle Port]
 unlock = @done
@@ -1621,6 +2129,17 @@ pokemon = super-rod, Barboach, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 15-35, cousin
 pokemon = super-rod, Ducklett, 1, 15-35, cousin
 pokemon = super-rod, Lotad, 2, 15-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fletchinder, 4, 37-37, newcomer
+pokemon = walk, Flabebe, 1, 30-30, newcomer
+pokemon = walk, Bounsweet, 1, 30-30, newcomer
+pokemon = walk, Fomantis, 2, 30-30, newcomer
+pokemon = walk, Fletchling, 2, 32-32, newcomer
+pokemon = walk, Bounsweet, 1, 35-35, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Wishiwashi, 16, 5-15, newcomer
+pokemon = good-rod, Dewpider, 4, 5-15, newcomer
+pokemon = super-rod, Wishiwashi, 8, 15-25, newcomer
 
 [Four Island]
 unlock = @done
@@ -1649,6 +2168,11 @@ pokemon = super-rod, Tympole, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 15-35, cousin
 pokemon = super-rod, Ducklett, 1, 15-35, cousin
 pokemon = super-rod, Lotad, 2, 15-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Dewpider, 12, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 8, 5-15, newcomer
+pokemon = super-rod, Dewpider, 8, 15-25, newcomer
 
 [Icefall Cave (Entrance)]
 unlock = @done
@@ -1692,6 +2216,12 @@ pokemon = super-rod, Tympole, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 15-35, cousin
 pokemon = super-rod, Ducklett, 1, 15-35, cousin
 pokemon = super-rod, Lotad, 2, 15-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Noibat, 2, 40-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Dewpider, 12, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 8, 5-15, newcomer
+pokemon = super-rod, Dewpider, 8, 15-25, newcomer
 
 [Icefall Cave (Inner)]
 unlock = @done
@@ -1705,6 +2235,10 @@ pokemon = walk, Sneasel, 5, 30-30
 pokemon = walk, Swoobat, 8, 45-48, cousin
 pokemon = walk, Woobat, 3, 40-40, cousin
 pokemon = walk, Spheal, 3, 45-45, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Amaura, 5, 23-31, newcomer
+pokemon = walk, Bergmite, 5, 23-31, newcomer
+pokemon = walk, Noibat, 2, 40-40, newcomer
 
 [Icefall Cave (Back)]
 unlock = @done
@@ -1750,6 +2284,22 @@ pokemon = super-rod, Corsola, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Noibat, 2, 40-40, newcomer
+pokemon = surf, Inkay, 19, 5-45, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 8, 15-25, newcomer
+pokemon = super-rod, Binacle, 4, 15-25, newcomer
+pokemon = super-rod, Mareanie, 4, 15-25, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Pyukumuku, 8, 15-25, badges 3, newcomer
 
 [Five Island]
 unlock = @done
@@ -1781,6 +2331,20 @@ pokemon = super-rod, Corphish, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 13, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 8, 15-25, newcomer
+pokemon = super-rod, Bruxish, 12, 15-25, badges 3, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Inkay, 4, 15-25, newcomer
 
 [Water Labyrinth]
 unlock = @done
@@ -1812,6 +2376,20 @@ pokemon = super-rod, Corphish, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 13, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 8, 15-25, newcomer
+pokemon = super-rod, Bruxish, 12, 15-25, badges 3, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Inkay, 4, 15-25, newcomer
 
 [Five Isle Meadow]
 unlock = @done
@@ -1860,6 +2438,25 @@ pokemon = super-rod, Corphish, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Bunnelby, 3, 10-15, newcomer
+pokemon = walk, Yungoos, 3, 10-15, newcomer
+pokemon = walk, Fletchling, 4, 44-44, newcomer
+pokemon = walk, Fletchinder, 3, 48-50, newcomer
+pokemon = walk, Espurr, 2, 41-41, newcomer
+pokemon = surf, Inkay, 13, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 8, 15-25, newcomer
+pokemon = super-rod, Bruxish, 12, 15-25, badges 3, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Inkay, 4, 15-25, newcomer
 
 [Memorial Pillar]
 unlock = @done
@@ -1892,6 +2489,20 @@ pokemon = super-rod, Corphish, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 13, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 8, 15-25, newcomer
+pokemon = super-rod, Bruxish, 12, 15-25, badges 3, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Inkay, 4, 15-25, newcomer
 
 [Resort Gorgeous]
 unlock = @done
@@ -1923,6 +2534,20 @@ pokemon = super-rod, Corphish, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 13, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 8, 15-25, newcomer
+pokemon = super-rod, Bruxish, 12, 15-25, badges 3, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Inkay, 4, 15-25, newcomer
 
 [Lost Cave (Rooms 1-10)]
 unlock = @done
@@ -1939,6 +2564,13 @@ pokemon = walk, Shuppet, 2, 38-40, cousin
 pokemon = walk, Litwick, 2, 38-40, cousin
 pokemon = walk, Woobat, 7, 37-37, cousin
 pokemon = walk, Swoobat, 7, 41-43, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Mimikyu, 6, 44-52, badges 3, newcomer
+pokemon = walk, Pumpkaboo, 2, 38-40, newcomer
+pokemon = walk, Honedge, 2, 38-40, newcomer
+pokemon = walk, Noibat, 4, 37-37, newcomer
+pokemon = walk, Phantump, 1, 22-22, newcomer
+pokemon = walk, Mimikyu, 1, 22-22, badges 3, newcomer
 
 [Lost Cave (Rooms 11-14)]
 unlock = @done
@@ -1955,6 +2587,13 @@ pokemon = walk, Misdreavus, 2, 40-40, cousin
 pokemon = walk, Shuppet, 2, 40-40, cousin
 pokemon = walk, Litwick, 2, 40-40, cousin
 pokemon = walk, Swoobat, 3, 41-41, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Mimikyu, 6, 44-52, badges 3, newcomer
+pokemon = walk, Noibat, 4, 37-37, newcomer
+pokemon = walk, Pumpkaboo, 2, 40-40, newcomer
+pokemon = walk, Honedge, 2, 40-40, newcomer
+pokemon = walk, Phantump, 2, 15-22, newcomer
+pokemon = walk, Mimikyu, 2, 15-22, badges 3, newcomer
 
 [Water Path]
 unlock = @done
@@ -2005,6 +2644,28 @@ pokemon = super-rod, Corphish, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Bunnelby, 3, 10-15, newcomer
+pokemon = walk, Yungoos, 3, 10-15, newcomer
+pokemon = walk, Pikipek, 4, 44-44, newcomer
+pokemon = walk, Flabebe, 1, 44-48, newcomer
+pokemon = walk, Bounsweet, 1, 44-48, newcomer
+pokemon = walk, Fomantis, 3, 44-48, newcomer
+pokemon = walk, Trumbeak, 3, 48-50, newcomer
+pokemon = walk, Espurr, 2, 41-41, newcomer
+pokemon = surf, Inkay, 19, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 8, 15-25, newcomer
+pokemon = super-rod, Bruxish, 12, 15-25, badges 3, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Inkay, 4, 15-25, newcomer
 
 [Ruin Valley]
 unlock = @done
@@ -2046,6 +2707,14 @@ pokemon = super-rod, Tympole, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 15-35, cousin
 pokemon = super-rod, Ducklett, 1, 15-35, cousin
 pokemon = super-rod, Lotad, 2, 15-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pikipek, 4, 44-44, newcomer
+pokemon = walk, Trumbeak, 2, 49-49, newcomer
+pokemon = walk, Espurr, 2, 43-43, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Dewpider, 12, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 8, 5-15, newcomer
+pokemon = super-rod, Dewpider, 8, 15-25, newcomer
 
 [Green Path]
 unlock = @done
@@ -2076,6 +2745,20 @@ pokemon = super-rod, Corphish, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 19, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 8, 15-25, newcomer
+pokemon = super-rod, Bruxish, 12, 15-25, badges 3, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Inkay, 4, 15-25, newcomer
 
 [Outcast Island]
 unlock = @done
@@ -2106,12 +2789,28 @@ pokemon = super-rod, Corphish, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 19, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 8, 15-25, newcomer
+pokemon = super-rod, Bruxish, 12, 15-25, badges 3, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Inkay, 4, 15-25, newcomer
 
 [Altering Cave]
 unlock = @done
 pokemon = walk, Zubat, 100, 6-16
 # cousins of the Kanto Pokemon here (other regions' Pokemon in the same niche)
 pokemon = walk, Woobat, 33, 6-16, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Noibat, 20, 6-16, newcomer
 
 [Pattern Bush]
 unlock = @done
@@ -2129,6 +2828,11 @@ pokemon = walk, Sewaddle, 1, 6-6, cousin
 pokemon = walk, Kricketot, 1, 6-6, cousin
 pokemon = walk, Venipede, 1, 6-6, cousin
 pokemon = walk, Silcoon, 2, 9-9, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Cutiefly, 6, 9-14, newcomer
+pokemon = walk, Spewpa, 5, 9-9, newcomer
+pokemon = walk, Scatterbug, 1, 6-6, newcomer
+pokemon = walk, Grubbin, 1, 6-6, newcomer
 
 [Canyon Entrance]
 unlock = @done
@@ -2148,6 +2852,13 @@ pokemon = walk, Purrloin, 1, 41-41, cousin
 pokemon = walk, Wooper, 1, 41-41, cousin
 pokemon = walk, Ducklett, 1, 41-41, cousin
 pokemon = walk, Lotad, 2, 41-41, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Bunnelby, 3, 10-15, newcomer
+pokemon = walk, Yungoos, 3, 10-15, newcomer
+pokemon = walk, Pikipek, 4, 44-44, newcomer
+pokemon = walk, Mudbray, 3, 10-15, newcomer
+pokemon = walk, Trumbeak, 3, 48-50, newcomer
+pokemon = walk, Espurr, 2, 41-41, newcomer
 
 [Sevault Canyon]
 unlock = @done
@@ -2172,6 +2883,12 @@ pokemon = walk, Yamask, 3, 46-46, cousin
 pokemon = walk, Nosepass, 2, 54-54, cousin
 pokemon = rock-smash, Roggenrola, 22, 25-40, cousin
 pokemon = rock-smash, Boldore, 12, 30-50, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Mudbray, 4, 15-15, newcomer
+pokemon = walk, Trumbeak, 3, 50-50, newcomer
+pokemon = walk, Espurr, 2, 43-43, newcomer
+pokemon = walk, Tyrunt, 1, 54-54, newcomer
+pokemon = rock-smash, Carbink, 7, 30-50, badges 3, newcomer
 
 [Tanoby Ruins]
 unlock = @done
@@ -2203,6 +2920,20 @@ pokemon = super-rod, Corphish, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 19, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 8, 15-25, newcomer
+pokemon = super-rod, Bruxish, 12, 15-25, badges 3, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Inkay, 4, 15-25, newcomer
 
 [Tanoby Chambers (Monean Chamber)]
 unlock = @done
@@ -2262,6 +2993,20 @@ pokemon = super-rod, Corphish, 13, 15-25, cousin
 pokemon = super-rod, Wooper, 1, 25-35, cousin
 pokemon = super-rod, Ducklett, 1, 25-35, cousin
 pokemon = super-rod, Lotad, 1, 25-35, cousin
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 19, 5-40, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = good-rod, Skrelp, 16, 5-15, newcomer
+pokemon = good-rod, Clauncher, 5, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 5, 5-15, newcomer
+pokemon = good-rod, Wimpod, 5, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = super-rod, Skrelp, 8, 15-25, newcomer
+pokemon = super-rod, Bruxish, 12, 15-25, badges 3, newcomer
+pokemon = super-rod, Clauncher, 2, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 2, 15-25, newcomer
+pokemon = super-rod, Wimpod, 2, 15-25, newcomer
+pokemon = super-rod, Inkay, 4, 15-25, newcomer
 
 # ==========================================================================
 #  JOHTO (HeartGold/SoulSilver areas). The player arrives at level 60, so the levels here are
@@ -2273,6 +3018,11 @@ pokemon = walk, Sentret, 30, 55-60
 pokemon = walk, Hoothoot, 30, 55-60
 pokemon = walk, Pidgey, 20, 55-60
 pokemon = walk, Rattata, 20, 55-60
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Bunnelby, 5, 55-60, newcomer
+pokemon = walk, Yungoos, 5, 55-60, newcomer
+pokemon = walk, Pikipek, 6, 55-60, newcomer
+pokemon = walk, Fletchling, 4, 55-60, newcomer
 
 [Route 30]
 unlock = Route 30
@@ -2285,11 +3035,25 @@ pokemon = walk, Pidgey, 15, 56-61
 pokemon = old-rod, Magikarp, 100, 55-58
 pokemon = good-rod, Poliwag, 70, 56-60
 pokemon = good-rod, Magikarp, 30, 56-60
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Scatterbug, 1, 55-60, newcomer
+pokemon = walk, Grubbin, 1, 55-60, newcomer
+pokemon = walk, Cutiefly, 4, 56-61, newcomer
+pokemon = walk, Pikipek, 3, 56-61, newcomer
+pokemon = walk, Fletchling, 3, 56-61, newcomer
+pokemon = old-rod, Wishiwashi, 20, 55-58, newcomer
+pokemon = good-rod, Dewpider, 14, 56-60, newcomer
+pokemon = good-rod, Wishiwashi, 6, 56-60, newcomer
 
 [Sprout Tower]
 unlock = Sprout Tower
 pokemon = walk, Rattata, 60, 57-62
 pokemon = walk, Gastly, 40, 57-62
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Bunnelby, 6, 57-62, newcomer
+pokemon = walk, Yungoos, 6, 57-62, newcomer
+pokemon = walk, Pumpkaboo, 4, 57-62, newcomer
+pokemon = walk, Honedge, 4, 57-62, newcomer
 
 [Route 32]
 unlock = Violet Gym
@@ -2302,6 +3066,11 @@ pokemon = surf, Tentacool, 70, 58-64
 pokemon = surf, Quagsire, 30, 60-64
 pokemon = good-rod, Qwilfish, 30, 58-64
 pokemon = good-rod, Tentacool, 70, 58-64
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fomantis, 4, 58-63, newcomer
+pokemon = surf, Inkay, 14, 58-64, newcomer
+pokemon = good-rod, Bruxish, 6, 58-64, badges 3, newcomer
+pokemon = good-rod, Inkay, 14, 58-64, newcomer
 
 [Ruins of Alph]
 unlock = Violet Gym
@@ -2322,12 +3091,21 @@ pokemon = surf, Quagsire, 40, 60-65
 pokemon = good-rod, Krabby, 50, 60-65
 pokemon = good-rod, Goldeen, 50, 60-65
 pokemon = walk, Lapras, 3, 62-66, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Noibat, 6, 59-64, newcomer
+pokemon = walk, Tyrunt, 3, 59-64, newcomer
+pokemon = good-rod, Clauncher, 3, 60-65, newcomer
+pokemon = good-rod, Crabrawler, 3, 60-65, newcomer
+pokemon = good-rod, Wimpod, 3, 60-65, newcomer
+pokemon = good-rod, Wishiwashi, 10, 60-65, newcomer
 
 [Slowpoke Well]
 unlock = Slowpoke Well
 pokemon = walk, Slowpoke, 60, 60-65
 pokemon = walk, Zubat, 40, 60-65
 pokemon = surf, Slowpoke, 100, 60-65
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Noibat, 8, 60-65, newcomer
 
 [Ilex Forest]
 unlock = Ilex Forest
@@ -2338,6 +3116,12 @@ pokemon = walk, Caterpie, 15, 61-66
 pokemon = walk, Weedle, 15, 61-66
 pokemon = walk, Heracross, 4, 63-67, rare
 pokemon = walk, Shuckle, 4, 63-67, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Morelull, 5, 61-66, newcomer
+pokemon = walk, Flabebe, 2, 61-66, newcomer
+pokemon = walk, Bounsweet, 2, 61-66, newcomer
+pokemon = walk, Scatterbug, 1, 61-66, newcomer
+pokemon = walk, Grubbin, 1, 61-66, newcomer
 
 [Route 34]
 unlock = Route 34
@@ -2349,6 +3133,16 @@ pokemon = walk, Jigglypuff, 25, 62-67
 pokemon = good-rod, Shellder, 50, 62-67
 pokemon = good-rod, Krabby, 50, 62-67
 pokemon = walk, Miltank, 4, 64-68, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Furfrou, 2, 62-67, newcomer
+pokemon = walk, Swirlix, 2, 62-67, newcomer
+pokemon = walk, Spritzee, 5, 62-67, newcomer
+pokemon = good-rod, Binacle, 5, 62-67, newcomer
+pokemon = good-rod, Mareanie, 5, 62-67, newcomer
+pokemon = good-rod, Clauncher, 3, 62-67, newcomer
+pokemon = good-rod, Crabrawler, 3, 62-67, newcomer
+pokemon = good-rod, Wimpod, 3, 62-67, newcomer
+pokemon = walk, Skiddo, 1, 64-68, newcomer
 
 [National Park]
 unlock = Goldenrod Gym
@@ -2358,6 +3152,8 @@ pokemon = walk, Nidoran M, 20, 63-68
 pokemon = walk, Yanma, 15, 63-68
 pokemon = walk, Scyther, 10, 64-68
 pokemon = walk, Pinsir, 10, 64-68
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fomantis, 5, 63-68, newcomer
 
 [Route 36]
 unlock = Route 36
@@ -2367,6 +3163,11 @@ pokemon = walk, Vulpix, 20, 64-69
 pokemon = walk, Girafarig, 15, 64-69
 pokemon = walk, Hoothoot, 20, 64-69
 pokemon = walk, Sudowoodo, 3, 66-70, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Litleo, 2, 64-69, newcomer
+pokemon = walk, Furfrou, 2, 64-69, newcomer
+pokemon = walk, Oranguru, 3, 64-69, badges 3, newcomer
+pokemon = walk, Pikipek, 4, 64-69, newcomer
 
 [Burned Tower]
 unlock = Burned Tower
@@ -2375,12 +3176,24 @@ pokemon = walk, Magmar, 15, 66-70
 pokemon = walk, Rattata, 25, 65-70
 pokemon = walk, Misdreavus, 15, 66-71
 pokemon = walk, Houndour, 15, 66-71
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Bunnelby, 2, 65-70, newcomer
+pokemon = walk, Yungoos, 2, 65-70, newcomer
+pokemon = walk, Phantump, 1, 66-71, newcomer
+pokemon = walk, Mimikyu, 1, 66-71, badges 3, newcomer
+pokemon = walk, Litleo, 3, 66-71, newcomer
 
 [Olivine Lighthouse]
 unlock = Olivine Lighthouse
 pokemon = walk, Gastly, 40, 67-72
 pokemon = walk, Krabby, 30, 67-72
 pokemon = walk, Psyduck, 30, 67-72
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pumpkaboo, 4, 67-72, newcomer
+pokemon = walk, Honedge, 4, 67-72, newcomer
+pokemon = walk, Clauncher, 2, 67-72, newcomer
+pokemon = walk, Crabrawler, 2, 67-72, newcomer
+pokemon = walk, Wimpod, 2, 67-72, newcomer
 
 [Route 41]
 unlock = Route 41
@@ -2393,6 +3206,12 @@ pokemon = good-rod, Shellder, 30, 68-73
 pokemon = super-rod, Lanturn, 40, 70-74
 pokemon = super-rod, Corsola, 30, 70-74
 pokemon = super-rod, Octillery, 30, 70-74
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 8, 68-73, newcomer
+pokemon = good-rod, Binacle, 3, 68-73, newcomer
+pokemon = good-rod, Mareanie, 3, 68-73, newcomer
+pokemon = super-rod, Binacle, 3, 70-74, newcomer
+pokemon = super-rod, Mareanie, 3, 70-74, newcomer
 
 [Whirl Islands]
 unlock = Route 41
@@ -2402,6 +3221,13 @@ pokemon = walk, Krabby, 25, 68-73
 pokemon = walk, Horsea, 20, 68-73
 pokemon = surf, Seel, 50, 69-74
 pokemon = surf, Horsea, 50, 69-74
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Noibat, 6, 68-73, newcomer
+pokemon = walk, Clauncher, 1, 68-73, newcomer
+pokemon = walk, Crabrawler, 1, 68-73, newcomer
+pokemon = walk, Wimpod, 1, 68-73, newcomer
+pokemon = walk, Skrelp, 4, 68-73, newcomer
+pokemon = surf, Skrelp, 10, 69-74, newcomer
 
 [Mt. Mortar]
 unlock = Cianwood Gym
@@ -2412,6 +3238,10 @@ pokemon = walk, Zubat, 20, 69-74
 pokemon = walk, Tyrogue, 10, 69-74
 pokemon = surf, Goldeen, 50, 69-74
 pokemon = surf, Seaking, 50, 70-74
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pancham, 6, 69-74, newcomer
+pokemon = walk, Noibat, 4, 69-74, newcomer
+pokemon = surf, Wishiwashi, 10, 69-74, newcomer
 
 [Lake of Rage]
 unlock = Lake of Rage
@@ -2423,6 +3253,10 @@ pokemon = walk, Stantler, 20, 70-75
 pokemon = surf, Magikarp, 80, 70-75
 pokemon = surf, Gyarados, 20, 70-75
 pokemon = good-rod, Magikarp, 100, 70-75
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Oranguru, 3, 70-75, badges 3, newcomer
+pokemon = surf, Wishiwashi, 16, 70-75, newcomer
+pokemon = good-rod, Wishiwashi, 20, 70-75, newcomer
 
 [Route 43]
 unlock = Lake of Rage
@@ -2431,6 +3265,10 @@ pokemon = walk, Venonat, 25, 70-75
 pokemon = walk, Noctowl, 25, 70-75
 pokemon = walk, Girafarig, 15, 70-75
 pokemon = walk, Flaaffy, 10, 70-75
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fletchinder, 5, 70-75, newcomer
+pokemon = walk, Trumbeak, 5, 70-75, newcomer
+pokemon = walk, Oranguru, 3, 70-75, badges 3, newcomer
 
 [Route 44]
 unlock = Mahogany Gym
@@ -2441,6 +3279,11 @@ pokemon = walk, Weepinbell, 20, 72-77
 pokemon = walk, Poliwhirl, 20, 72-77
 pokemon = surf, Poliwag, 50, 72-77
 pokemon = surf, Remoraid, 50, 72-77
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fomantis, 4, 72-77, newcomer
+pokemon = surf, Dewpider, 10, 72-77, newcomer
+pokemon = surf, Inkay, 5, 72-77, newcomer
+pokemon = surf, Bruxish, 5, 72-77, badges 3, newcomer
 
 [Ice Path]
 unlock = Ice Path
@@ -2450,6 +3293,10 @@ pokemon = walk, Sneasel, 20, 73-78
 pokemon = walk, Jynx, 15, 73-78
 pokemon = walk, Zubat, 20, 73-78
 pokemon = walk, Smoochum, 5, 73-78, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Amaura, 3, 73-78, newcomer
+pokemon = walk, Bergmite, 3, 73-78, newcomer
+pokemon = walk, Noibat, 4, 73-78, newcomer
 
 [Dragon's Den]
 unlock = Dragon's Den
@@ -2459,6 +3306,11 @@ pokemon = super-rod, Dragonair, 30, 76-80
 pokemon = super-rod, Dratini, 50, 74-79
 pokemon = super-rod, Horsea, 20, 74-79
 pokemon = super-rod, Kingdra, 2, 78-82, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Goomy, 12, 74-79, newcomer
+pokemon = surf, Wishiwashi, 8, 74-79, newcomer
+pokemon = super-rod, Goomy, 10, 74-79, newcomer
+pokemon = super-rod, Skrelp, 4, 74-79, newcomer
 
 [Route 27]
 unlock = Route 27
@@ -2469,6 +3321,9 @@ pokemon = walk, Quagsire, 20, 75-80
 pokemon = walk, Ponyta, 20, 75-80
 pokemon = surf, Tentacruel, 60, 76-80
 pokemon = surf, Lapras, 5, 78-82, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Diggersby, 2, 75-80, newcomer
+pokemon = walk, Gumshoos, 2, 75-80, newcomer
 
 [Mt. Silver]
 unlock = Champion's Room
@@ -2480,6 +3335,12 @@ pokemon = walk, Phanpy, 10, 80-88
 pokemon = walk, Larvitar, 5, 80-88, rare
 pokemon = walk, Misdreavus, 10, 80-88
 pokemon = walk, Sneasel, 5, 80-88, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Stufful, 4, 80-88, newcomer
+pokemon = walk, Carbink, 4, 80-88, badges 3, newcomer
+pokemon = walk, Mudbray, 2, 80-88, newcomer
+pokemon = walk, Phantump, 1, 80-88, newcomer
+pokemon = walk, Mimikyu, 1, 80-88, badges 3, newcomer
 
 # ==========================================================================
 #  HOENN (Pokemon Emerald encounter tables). Levels follow the story's level range there.
@@ -2497,6 +3358,15 @@ pokemon = surf, Wingull, 35, 84-89
 pokemon = surf, Tentacool, 65, 84-89
 pokemon = super-rod, Wailmer, 60, 84-89
 pokemon = super-rod, Sharpedo, 40, 86-90
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Bunnelby, 3, 84-89, newcomer
+pokemon = walk, Yungoos, 3, 84-89, newcomer
+pokemon = walk, Scatterbug, 2, 84-89, newcomer
+pokemon = walk, Grubbin, 2, 84-89, newcomer
+pokemon = walk, Rockruff, 5, 84-89, newcomer
+pokemon = surf, Sandygast, 7, 84-89, newcomer
+pokemon = surf, Inkay, 13, 84-89, newcomer
+pokemon = super-rod, Dhelmise, 12, 84-89, badges 3, newcomer
 
 [Petalburg Woods]
 unlock = Petalburg Woods
@@ -2506,6 +3376,14 @@ pokemon = walk, Taillow, 20, 84-89
 pokemon = walk, Wurmple, 25, 84-89
 pokemon = walk, Silcoon, 10, 84-89
 pokemon = walk, Cascoon, 10, 84-89
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Morelull, 4, 84-89, newcomer
+pokemon = walk, Komala, 3, 84-89, badges 3, newcomer
+pokemon = walk, Fletchling, 2, 84-89, newcomer
+pokemon = walk, Pikipek, 2, 84-89, newcomer
+pokemon = walk, Scatterbug, 2, 84-89, newcomer
+pokemon = walk, Grubbin, 2, 84-89, newcomer
+pokemon = walk, Spewpa, 4, 84-89, newcomer
 
 [Route 116 and Rusturf Tunnel]
 unlock = Rusturf Tunnel
@@ -2514,6 +3392,11 @@ pokemon = walk, Nincada, 20, 85-90
 pokemon = walk, Skitty, 15, 85-90
 pokemon = walk, Taillow, 20, 85-90
 pokemon = walk, Abra, 10, 85-90
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Espurr, 1, 85-90, newcomer
+pokemon = walk, Swirlix, 1, 85-90, newcomer
+pokemon = walk, Fletchling, 2, 85-90, newcomer
+pokemon = walk, Pikipek, 2, 85-90, newcomer
 
 [Granite Cave]
 unlock = Dewford Gym
@@ -2523,6 +3406,10 @@ pokemon = walk, Zubat, 20, 85-90
 pokemon = walk, Aron, 20, 85-90
 pokemon = walk, Abra, 7, 85-90
 pokemon = walk, Sableye, 3, 86-90, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pancham, 6, 85-90, newcomer
+pokemon = walk, Noibat, 4, 85-90, newcomer
+pokemon = walk, Carbink, 1, 86-90, badges 3, newcomer
 
 [Routes 105 to 109]
 unlock = Oceanic Museum
@@ -2532,6 +3419,12 @@ pokemon = surf, Pelipper, 5, 86-90
 pokemon = old-rod, Magikarp, 70, 85-90
 pokemon = old-rod, Tentacool, 30, 85-90
 pokemon = super-rod, Wailmer, 100, 85-90
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 12, 85-90, newcomer
+pokemon = surf, Sandygast, 7, 85-90, newcomer
+pokemon = old-rod, Wishiwashi, 14, 85-90, newcomer
+pokemon = old-rod, Inkay, 6, 85-90, newcomer
+pokemon = super-rod, Dhelmise, 20, 85-90, badges 3, newcomer
 
 [Route 110 and New Mauville]
 unlock = Route 110
@@ -2542,6 +3435,12 @@ pokemon = walk, Gulpin, 15, 86-91
 pokemon = walk, Oddish, 15, 86-91
 pokemon = walk, Magnemite, 10, 86-91
 pokemon = walk, Voltorb, 10, 86-91
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Helioptile, 6, 86-91, newcomer
+pokemon = walk, Togedemaru, 4, 86-91, badges 3, newcomer
+pokemon = walk, Flabebe, 1, 86-91, newcomer
+pokemon = walk, Bounsweet, 1, 86-91, newcomer
+pokemon = walk, Klefki, 2, 86-91, badges 3, newcomer
 
 [Route 117 and Verdanturf]
 unlock = Mauville Gym
@@ -2552,6 +3451,11 @@ pokemon = walk, Marill, 15, 86-91
 pokemon = walk, Oddish, 25, 86-91
 pokemon = walk, Seedot, 15, 86-91
 pokemon = surf, Marill, 100, 86-91
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Oricorio, 6, 86-91, badges 3, newcomer
+pokemon = walk, Comfey, 3, 86-91, badges 3, newcomer
+pokemon = walk, Flabebe, 2, 86-91, newcomer
+pokemon = walk, Bounsweet, 2, 86-91, newcomer
 
 [Route 111 Desert]
 unlock = Mauville Gym
@@ -2559,6 +3463,8 @@ pokemon = walk, Sandshrew, 35, 87-92
 pokemon = walk, Trapinch, 25, 87-92
 pokemon = walk, Cacnea, 20, 87-92
 pokemon = walk, Baltoy, 20, 87-92
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Helioptile, 9, 87-92, newcomer
 
 [Fiery Path and Route 112]
 unlock = Mt. Chimney
@@ -2568,6 +3474,10 @@ pokemon = walk, Torkoal, 15, 87-92
 pokemon = walk, Koffing, 15, 87-92
 pokemon = walk, Grimer, 10, 87-92
 pokemon = walk, Machop, 15, 87-92
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Salandit, 10, 87-92, newcomer
+pokemon = walk, Turtonator, 1, 87-92, badges 3, newcomer
+pokemon = walk, Pancham, 3, 87-92, newcomer
 
 [Routes 113 and 114]
 unlock = Mt. Chimney Summit
@@ -2577,6 +3487,8 @@ pokemon = walk, Swablu, 25, 87-92
 pokemon = walk, Seviper, 15, 87-92
 pokemon = walk, Lotad, 10, 87-92
 pokemon = walk, Nuzleaf, 15, 87-92
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Stufful, 5, 87-92, newcomer
 
 [Meteor Falls Caves]
 unlock = Lavaridge Gym
@@ -2588,6 +3500,12 @@ pokemon = surf, Zubat, 40, 88-93
 pokemon = surf, Solrock, 60, 88-93
 pokemon = super-rod, Barboach, 70, 88-93
 pokemon = super-rod, Whiscash, 30, 89-93
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Noibat, 6, 88-93, newcomer
+pokemon = walk, Minior, 9, 88-93, badges 3, newcomer
+pokemon = walk, Jangmo-o, 1, 88-93, newcomer
+pokemon = surf, Noibat, 8, 88-93, newcomer
+pokemon = surf, Minior, 12, 88-93, badges 3, newcomer
 
 [Routes 118 and 119]
 unlock = Route 119
@@ -2599,6 +3517,12 @@ pokemon = walk, Electrike, 20, 89-94
 pokemon = walk, Manectric, 10, 89-94
 pokemon = super-rod, Carvanha, 90, 89-94
 pokemon = super-rod, Feebas, 10, 89-94, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Gumshoos, 5, 89-94, newcomer
+pokemon = walk, Drampa, 2, 89-94, badges 3, newcomer
+pokemon = walk, Flabebe, 2, 89-94, newcomer
+pokemon = walk, Bounsweet, 2, 89-94, newcomer
+pokemon = walk, Helioptile, 4, 89-94, newcomer
 
 [Routes 120 and 121]
 unlock = Fortree Gym
@@ -2608,6 +3532,13 @@ pokemon = walk, Duskull, 20, 89-94
 pokemon = walk, Kecleon, 10, 89-94
 pokemon = walk, Oddish, 20, 89-94
 pokemon = walk, Linoone, 20, 89-94
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Phantump, 4, 89-94, newcomer
+pokemon = walk, Honedge, 2, 89-94, newcomer
+pokemon = walk, Pumpkaboo, 2, 89-94, newcomer
+pokemon = walk, Flabebe, 2, 89-94, newcomer
+pokemon = walk, Bounsweet, 2, 89-94, newcomer
+pokemon = walk, Gumshoos, 4, 89-94, newcomer
 
 [Safari Zone]
 unlock = Lilycove City
@@ -2620,6 +3551,11 @@ pokemon = walk, Pinsir, 8, 90-95
 pokemon = walk, Heracross, 7, 90-95
 pokemon = walk, Rhyhorn, 10, 90-95
 pokemon = walk, Wobbuffet, 5, 90-95
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Dedenne, 1, 90-95, badges 3, newcomer
+pokemon = walk, Togedemaru, 1, 90-95, badges 3, newcomer
+pokemon = walk, Oranguru, 3, 90-95, badges 3, newcomer
+pokemon = walk, Mudbray, 5, 90-95, newcomer
 
 [Mt. Pyre Slopes]
 unlock = Mt. Pyre
@@ -2628,6 +3564,11 @@ pokemon = walk, Duskull, 30, 90-95
 pokemon = walk, Vulpix, 15, 90-95
 pokemon = walk, Meditite, 15, 90-95
 pokemon = walk, Chimecho, 5, 90-95, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Phantump, 7, 90-95, newcomer
+pokemon = walk, Honedge, 3, 90-95, newcomer
+pokemon = walk, Pumpkaboo, 3, 90-95, newcomer
+pokemon = walk, Pancham, 3, 90-95, newcomer
 
 [Shoal Cave]
 unlock = Mossdeep Gym
@@ -2635,6 +3576,10 @@ pokemon = walk, Spheal, 40, 91-96
 pokemon = walk, Snorunt, 20, 91-96
 pokemon = walk, Zubat, 20, 91-96
 pokemon = walk, Golbat, 20, 91-96
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Amaura, 2, 91-96, newcomer
+pokemon = walk, Bergmite, 2, 91-96, newcomer
+pokemon = walk, Noibat, 4, 91-96, newcomer
 
 [Routes 124 to 128]
 unlock = Mossdeep Gym
@@ -2647,6 +3592,13 @@ pokemon = super-rod, Corsola, 20, 91-96
 pokemon = super-rod, Luvdisc, 30, 91-96
 pokemon = super-rod, Sharpedo, 20, 91-96
 pokemon = super-rod, Relicanth, 5, 92-96, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 8, 91-96, newcomer
+pokemon = surf, Sandygast, 6, 91-96, newcomer
+pokemon = surf, Binacle, 4, 91-96, newcomer
+pokemon = super-rod, Binacle, 2, 91-96, newcomer
+pokemon = super-rod, Mareanie, 2, 91-96, newcomer
+pokemon = super-rod, Dhelmise, 1, 92-96, badges 3, newcomer
 
 [Sky Pillar Tower]
 unlock = Sootopolis Gym
@@ -2655,6 +3607,9 @@ pokemon = walk, Altaria, 20, 93-98
 pokemon = walk, Banette, 20, 93-98
 pokemon = walk, Golbat, 20, 93-98
 pokemon = walk, Sableye, 15, 93-98
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Drampa, 4, 93-98, badges 3, newcomer
+pokemon = walk, Carbink, 3, 93-98, badges 3, newcomer
 
 [Victory Road (Hoenn)]
 unlock = Victory Road B2F
@@ -2665,6 +3620,9 @@ pokemon = walk, Medicham, 15, 94-99
 pokemon = walk, Golbat, 15, 94-99
 pokemon = walk, Mawile, 15, 94-99
 pokemon = walk, Sableye, 10, 94-99
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Klefki, 3, 94-99, badges 3, newcomer
+pokemon = walk, Carbink, 2, 94-99, badges 3, newcomer
 
 [Desert Underpass and Mirage Island]
 unlock = Meteor Falls
@@ -2687,6 +3645,10 @@ pokemon = surf, Psyduck, 60, 89-93
 pokemon = surf, Golduck, 10, 89-93
 pokemon = super-rod, Magikarp, 60, 89-93
 pokemon = super-rod, Gyarados, 40, 89-93
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Bunnelby, 6, 89-93, newcomer
+pokemon = walk, Fletchling, 6, 89-93, newcomer
+pokemon = super-rod, Wishiwashi, 12, 89-93, newcomer
 
 [Route 203 and Oreburgh Gate]
 unlock = Route 203
@@ -2697,6 +3659,10 @@ pokemon = walk, Abra, 15, 89-93
 pokemon = walk, Zubat, 20, 89-93
 pokemon = rock-smash, Geodude, 100, 89-93
 pokemon = surf, Psyduck, 100, 89-93
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fletchling, 5, 89-93, newcomer
+pokemon = walk, Bunnelby, 4, 89-93, newcomer
+pokemon = walk, Noibat, 4, 89-93, newcomer
 
 [Route 204 and Ravaged Path]
 unlock = Oreburgh Gym
@@ -2709,6 +3675,11 @@ pokemon = surf, Golbat, 30, 89-93
 pokemon = surf, Psyduck, 70, 89-93
 pokemon = walk, Cranidos, 3, 90-93, rare
 pokemon = walk, Shieldon, 3, 90-93, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Flabebe, 5, 89-93, newcomer
+pokemon = walk, Scatterbug, 2, 89-93, newcomer
+pokemon = walk, Grubbin, 2, 89-93, newcomer
+pokemon = walk, Noibat, 4, 89-93, newcomer
 
 [Valley Windworks and Route 205]
 unlock = Valley Windworks
@@ -2720,6 +3691,13 @@ pokemon = surf, Shellos, 60, 90-94
 pokemon = surf, Gastrodon, 40, 90-94
 pokemon = walk, Drifloon, 5, 91-94, rare
 pokemon = walk, Munchlax, 3, 91-94, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Dedenne, 2, 90-94, badges 3, newcomer
+pokemon = walk, Togedemaru, 2, 90-94, badges 3, newcomer
+pokemon = walk, Pyukumuku, 2, 90-94, badges 3, newcomer
+pokemon = walk, Sandygast, 2, 90-94, newcomer
+pokemon = surf, Pyukumuku, 6, 90-94, badges 3, newcomer
+pokemon = surf, Sandygast, 6, 90-94, newcomer
 
 [Eterna Forest]
 unlock = Eterna Forest
@@ -2733,11 +3711,25 @@ pokemon = walk, Beautifly, 7, 90-94
 pokemon = walk, Cascoon, 8, 90-94
 pokemon = walk, Dustox, 7, 90-94
 pokemon = walk, Combee, 5, 91-94, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pumpkaboo, 1, 90-94, newcomer
+pokemon = walk, Honedge, 1, 90-94, newcomer
+pokemon = walk, Pikipek, 3, 90-94, newcomer
+pokemon = walk, Flabebe, 3, 90-94, newcomer
+pokemon = walk, Scatterbug, 1, 90-94, newcomer
+pokemon = walk, Grubbin, 1, 90-94, newcomer
+pokemon = walk, Spewpa, 4, 90-94, newcomer
+pokemon = walk, Vivillon, 1, 90-94, newcomer
+pokemon = walk, Cutiefly, 1, 91-94, newcomer
 
 [Old Chateau]
 unlock = Eterna Gym
 pokemon = walk, Gastly, 80, 90-94
 pokemon = walk, Haunter, 20, 90-94
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pumpkaboo, 8, 90-94, newcomer
+pokemon = walk, Honedge, 8, 90-94, newcomer
+pokemon = walk, Mimikyu, 4, 90-94, badges 3, newcomer
 
 [Route 206 and Wayward Cave]
 unlock = Wayward Cave
@@ -2749,6 +3741,11 @@ pokemon = walk, Kricketune, 15, 91-95
 pokemon = walk, Onix, 10, 91-95
 pokemon = walk, Bronzor, 15, 91-95
 pokemon = walk, Gible, 3, 92-95, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pancham, 3, 91-95, newcomer
+pokemon = walk, Tyrunt, 2, 91-95, newcomer
+pokemon = walk, Klefki, 3, 91-95, badges 3, newcomer
+pokemon = walk, Jangmo-o, 1, 92-95, newcomer
 
 [Mt. Coronet (south) and Route 208]
 unlock = Wayward Cave
@@ -2762,6 +3759,14 @@ pokemon = walk, Ralts, 10, 91-95
 pokemon = walk, Roselia, 15, 91-95
 pokemon = walk, Bibarel, 15, 91-95
 pokemon = surf, Bibarel, 100, 91-95
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pancham, 4, 91-95, newcomer
+pokemon = walk, Carbink, 2, 91-95, badges 3, newcomer
+pokemon = walk, Klefki, 2, 91-95, badges 3, newcomer
+pokemon = walk, Minior, 2, 91-95, badges 3, newcomer
+pokemon = walk, Comfey, 3, 91-95, badges 3, newcomer
+pokemon = walk, Diggersby, 3, 91-95, newcomer
+pokemon = surf, Diggersby, 20, 91-95, newcomer
 
 [Route 209, Lost Tower and Solaceon Ruins]
 unlock = Route 209
@@ -2774,6 +3779,11 @@ pokemon = walk, Bonsly, 10, 91-95
 pokemon = walk, Staravia, 10, 91-95
 pokemon = walk, Unown, 5, 92-95, rare
 pokemon = walk, Spiritomb, 3, 92-95, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pumpkaboo, 4, 91-95, newcomer
+pokemon = walk, Honedge, 4, 91-95, newcomer
+pokemon = walk, Noibat, 4, 91-95, newcomer
+pokemon = walk, Fletchinder, 2, 91-95, newcomer
 
 [Routes 210 (south) and 215]
 unlock = Route 215
@@ -2785,6 +3795,8 @@ pokemon = walk, Marill, 15, 92-96
 pokemon = walk, Staravia, 15, 92-96
 pokemon = walk, Ponyta, 15, 92-96
 pokemon = walk, Geodude, 10, 92-96
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fletchinder, 3, 92-96, newcomer
 
 [Route 214 and Maniac Tunnel]
 unlock = Veilstone Gym
@@ -2795,6 +3807,11 @@ pokemon = walk, Houndour, 15, 92-96
 pokemon = walk, Hippopotas, 20, 92-96
 pokemon = walk, Zubat, 10, 92-96
 pokemon = walk, Sudowoodo, 10, 92-96
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Carbink, 3, 92-96, badges 3, newcomer
+pokemon = walk, Mudbray, 7, 92-96, newcomer
+pokemon = walk, Litleo, 3, 92-96, newcomer
+pokemon = walk, Noibat, 2, 92-96, newcomer
 
 [Valor Lakefront and Route 213]
 unlock = Seven Stars Restaurant
@@ -2809,6 +3826,14 @@ pokemon = walk, Shellos, 10, 92-96
 pokemon = walk, Chatot, 10, 92-96
 pokemon = surf, Tentacool, 50, 92-96
 pokemon = surf, Pelipper, 50, 92-96
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Oranguru, 3, 92-96, badges 3, newcomer
+pokemon = walk, Litleo, 2, 92-96, newcomer
+pokemon = walk, Fletchinder, 2, 92-96, newcomer
+pokemon = walk, Diggersby, 2, 92-96, newcomer
+pokemon = walk, Sandygast, 3, 92-96, newcomer
+pokemon = walk, Pyukumuku, 1, 92-96, badges 3, newcomer
+pokemon = surf, Inkay, 10, 92-96, newcomer
 
 [Route 212 and the Great Marsh]
 unlock = Pastoria Gym
@@ -2821,6 +3846,9 @@ pokemon = walk, Carnivine, 15, 93-97
 pokemon = walk, Skorupi, 10, 93-97
 pokemon = walk, Yanma, 10, 93-97
 pokemon = surf, Quagsire, 100, 93-97
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Pyukumuku, 1, 93-97, badges 3, newcomer
+pokemon = walk, Sandygast, 1, 93-97, newcomer
 
 [Route 210 (north), Celestic Town and Route 211]
 unlock = Celestic Ruins
@@ -2833,6 +3861,12 @@ pokemon = walk, Bronzor, 10, 93-97
 pokemon = walk, Chingling, 10, 93-97
 pokemon = walk, Graveler, 15, 93-97
 pokemon = walk, Tyrogue, 3, 94-97, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Hawlucha, 3, 93-97, badges 3, newcomer
+pokemon = walk, Trumbeak, 3, 93-97, newcomer
+pokemon = walk, Pancham, 2, 93-97, newcomer
+pokemon = walk, Klefki, 2, 93-97, badges 3, newcomer
+pokemon = walk, Carbink, 3, 93-97, badges 3, newcomer
 
 [Routes 218 to 221 (sea)]
 unlock = Canalave City
@@ -2846,6 +3880,9 @@ pokemon = surf, Tentacruel, 20, 93-97
 pokemon = surf, Wingull, 20, 93-97
 pokemon = surf, Finneon, 20, 93-97
 pokemon = surf, Lumineon, 10, 93-97
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 6, 93-97, newcomer
+pokemon = surf, Sandygast, 4, 93-97, newcomer
 
 [Iron Island]
 unlock = Iron Island B2F
@@ -2855,6 +3892,11 @@ pokemon = walk, Onix, 25, 94-98
 pokemon = walk, Steelix, 25, 94-98
 pokemon = walk, Sableye, 4, 95-98, rare
 pokemon = walk, Mawile, 4, 95-98, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Carbink, 5, 94-98, badges 3, newcomer
+pokemon = walk, Tyrunt, 5, 94-98, newcomer
+pokemon = walk, Carbink, 1, 95-98, badges 3, newcomer
+pokemon = walk, Klefki, 1, 95-98, badges 3, newcomer
 
 [Routes 216 and 217, Acuity Lakefront]
 unlock = Route 216
@@ -2863,6 +3905,10 @@ pokemon = walk, Swinub, 20, 94-98
 pokemon = walk, Snorunt, 20, 94-98
 pokemon = walk, Snover, 25, 94-98
 pokemon = walk, Machoke, 15, 94-98
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Amaura, 4, 94-98, newcomer
+pokemon = walk, Bergmite, 4, 94-98, newcomer
+pokemon = walk, Hawlucha, 3, 94-98, badges 3, newcomer
 
 [Mt. Coronet (north) and the summit]
 unlock = Mt. Coronet
@@ -2873,6 +3919,10 @@ pokemon = walk, Nosepass, 15, 95-99
 pokemon = walk, Medicham, 10, 95-99
 pokemon = walk, Clefairy, 15, 95-99
 pokemon = walk, Chimecho, 15, 95-99
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Hawlucha, 3, 95-99, badges 3, newcomer
+pokemon = walk, Carbink, 6, 95-99, badges 3, newcomer
+pokemon = walk, Minior, 3, 95-99, badges 3, newcomer
 
 [Routes 222 and 223 (Sunyshore)]
 unlock = Distortion World
@@ -2886,6 +3936,10 @@ pokemon = walk, Pelipper, 15, 95-99
 pokemon = surf, Tentacruel, 40, 95-99
 pokemon = surf, Mantyke, 30, 95-99
 pokemon = surf, Remoraid, 30, 95-99
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Klefki, 3, 95-99, badges 3, newcomer
+pokemon = surf, Inkay, 3, 95-99, newcomer
+pokemon = surf, Bruxish, 3, 95-99, badges 3, newcomer
 
 [Victory Road (Sinnoh)]
 unlock = Pokemon League
@@ -2894,6 +3948,10 @@ pokemon = walk, Graveler, 20, 96-100
 pokemon = walk, Onix, 20, 96-100
 pokemon = walk, Machoke, 20, 96-100
 pokemon = walk, Steelix, 20, 96-100
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Carbink, 4, 96-100, badges 3, newcomer
+pokemon = walk, Tyrunt, 4, 96-100, newcomer
+pokemon = walk, Hawlucha, 4, 96-100, badges 3, newcomer
 
 [Battle Zone and Stark Mountain]
 unlock = Fight Area
@@ -2908,6 +3966,13 @@ pokemon = walk, Numel, 10, 96-100
 pokemon = walk, Camerupt, 10, 96-100
 pokemon = walk, Banette, 5, 96-100
 pokemon = walk, Raticate, 5, 96-100
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Trumbeak, 2, 96-100, newcomer
+pokemon = walk, Carbink, 2, 96-100, badges 3, newcomer
+pokemon = walk, Mudbray, 2, 96-100, newcomer
+pokemon = walk, Salandit, 2, 96-100, newcomer
+pokemon = walk, Diggersby, 1, 96-100, newcomer
+pokemon = walk, Gumshoos, 1, 96-100, newcomer
 
 # ==========================================================================
 #  UNOVA (Pokemon Black encounter tables). Levels follow the story's level range there.
@@ -2919,6 +3984,12 @@ pokemon = walk, Patrat, 35, 94-97
 pokemon = walk, Lillipup, 35, 94-97
 pokemon = walk, Purrloin, 30, 94-97
 pokemon = surf, Basculin, 100, 94-97
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Yungoos, 7, 94-97, newcomer
+pokemon = walk, Rockruff, 3, 94-97, newcomer
+pokemon = walk, Furfrou, 3, 94-97, newcomer
+pokemon = walk, Espurr, 6, 94-97, newcomer
+pokemon = surf, Wishiwashi, 20, 94-97, newcomer
 
 [Dreamyard]
 unlock = Dreamyard
@@ -2926,6 +3997,9 @@ pokemon = walk, Munna, 30, 94-97
 pokemon = walk, Patrat, 35, 94-97
 pokemon = walk, Purrloin, 35, 94-97
 pokemon = walk, Musharna, 3, 95-97, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Yungoos, 7, 94-97, newcomer
+pokemon = walk, Espurr, 7, 94-97, newcomer
 
 [Route 3 and Wellspring Cave]
 unlock = Route 3
@@ -2936,6 +4010,11 @@ pokemon = walk, Purrloin, 15, 94-97
 pokemon = walk, Woobat, 10, 94-97
 pokemon = walk, Roggenrola, 10, 94-97
 pokemon = walk, Drilbur, 10, 94-97
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fletchling, 4, 94-97, newcomer
+pokemon = walk, Yungoos, 3, 94-97, newcomer
+pokemon = walk, Espurr, 3, 94-97, newcomer
+pokemon = walk, Noibat, 2, 94-97, newcomer
 
 [Pinwheel Forest]
 unlock = Pinwheel Forest
@@ -2948,6 +4027,13 @@ pokemon = walk, Petilil, 10, 95-98
 pokemon = walk, Throh, 10, 95-98
 pokemon = walk, Sawk, 10, 95-98
 pokemon = walk, Pidove, 10, 95-98
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Scatterbug, 1, 95-98, newcomer
+pokemon = walk, Grubbin, 1, 95-98, newcomer
+pokemon = walk, Pancham, 2, 95-98, newcomer
+pokemon = walk, Cutiefly, 1, 95-98, newcomer
+pokemon = walk, Flabebe, 3, 95-98, newcomer
+pokemon = walk, Fletchling, 2, 95-98, newcomer
 
 [Route 4 and the Desert Resort]
 unlock = Route 4
@@ -2958,6 +4044,8 @@ pokemon = walk, Sigilyph, 10, 95-98
 pokemon = walk, Dwebble, 15, 95-98
 pokemon = walk, Maractus, 10, 95-98
 pokemon = walk, Yamask, 15, 95-98
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Helioptile, 4, 95-98, newcomer
 
 [Relic Castle]
 unlock = Desert Resort
@@ -2965,6 +4053,8 @@ pokemon = walk, Sandile, 50, 95-98
 pokemon = walk, Yamask, 50, 95-98
 pokemon = walk, Tirtouga, 4, 96-98, rare
 pokemon = walk, Archen, 4, 96-98, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Helioptile, 10, 95-98, newcomer
 
 [Routes 5 and 16, Lostlorn Forest]
 unlock = Route 5
@@ -2976,6 +4066,8 @@ pokemon = walk, Trubbish, 15, 96-99
 pokemon = walk, Venipede, 10, 96-99
 pokemon = walk, Swadloon, 15, 96-99
 pokemon = walk, Zorua, 3, 97-99, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Spewpa, 3, 96-99, newcomer
 
 [Route 6 and Driftveil Drawbridge]
 unlock = Driftveil Gym
@@ -2986,6 +4078,10 @@ pokemon = walk, Foongus, 15, 96-99
 pokemon = walk, Swadloon, 15, 96-99
 pokemon = walk, Ducklett, 20, 96-99
 pokemon = surf, Ducklett, 100, 96-99
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Skiddo, 4, 96-99, newcomer
+pokemon = walk, Morelull, 3, 96-99, newcomer
+pokemon = walk, Spewpa, 3, 96-99, newcomer
 
 [Chargestone Cave]
 unlock = Chargestone Cave
@@ -2995,6 +4091,9 @@ pokemon = walk, Klink, 15, 96-99
 pokemon = walk, Tynamo, 15, 96-99
 pokemon = walk, Boldore, 15, 96-99
 pokemon = walk, Drilbur, 15, 96-99
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Klefki, 3, 96-99, badges 3, newcomer
+pokemon = walk, Carbink, 3, 96-99, badges 3, newcomer
 
 [Route 7 and Celestial Tower]
 unlock = Route 7
@@ -3005,6 +4104,13 @@ pokemon = walk, Foongus, 15, 96-99
 pokemon = walk, Watchog, 15, 96-99
 pokemon = walk, Elgyem, 10, 96-99
 pokemon = walk, Litwick, 15, 96-99
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fletchinder, 3, 96-99, newcomer
+pokemon = walk, Skiddo, 3, 96-99, newcomer
+pokemon = walk, Morelull, 3, 96-99, newcomer
+pokemon = walk, Gumshoos, 3, 96-99, newcomer
+pokemon = walk, Honedge, 1, 96-99, newcomer
+pokemon = walk, Pumpkaboo, 1, 96-99, newcomer
 
 [Mistralton Cave]
 unlock = Mistralton Gym
@@ -3012,6 +4118,11 @@ pokemon = walk, Boldore, 35, 97-100
 pokemon = walk, Woobat, 35, 97-100
 pokemon = walk, Drilbur, 30, 97-100
 pokemon = walk, Axew, 4, 98-100, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Carbink, 7, 97-100, badges 3, newcomer
+pokemon = walk, Noibat, 7, 97-100, newcomer
+pokemon = walk, Goomy, 1, 98-100, newcomer
+pokemon = walk, Jangmo-o, 1, 98-100, newcomer
 
 [Twist Mountain]
 unlock = Twist Mountain
@@ -3020,6 +4131,11 @@ pokemon = walk, Gurdurr, 25, 97-100
 pokemon = walk, Woobat, 25, 97-100
 pokemon = walk, Cubchoo, 25, 97-100
 pokemon = walk, Cryogonal, 4, 98-100, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Carbink, 5, 97-100, badges 3, newcomer
+pokemon = walk, Noibat, 5, 97-100, newcomer
+pokemon = walk, Bergmite, 2, 97-100, newcomer
+pokemon = walk, Stufful, 2, 97-100, newcomer
 
 [Moor of Icirrus and Route 8]
 unlock = Icirrus Gym
@@ -3031,6 +4147,8 @@ pokemon = walk, Croagunk, 10, 97-100
 pokemon = walk, Seismitoad, 10, 97-100
 pokemon = surf, Frillish, 50, 97-100
 pokemon = surf, Alomomola, 50, 97-100
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = surf, Inkay, 10, 97-100, newcomer
 
 [Dragonspiral Tower (Unova)]
 unlock = Dragonspiral Tower
@@ -3038,6 +4156,8 @@ pokemon = walk, Golett, 30, 97-100
 pokemon = walk, Mienfoo, 30, 97-100
 pokemon = walk, Druddigon, 20, 97-100
 pokemon = walk, Tranquill, 20, 97-100
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Fletchinder, 4, 97-100, newcomer
 
 [Route 9 and Tubeline Bridge]
 unlock = Tubeline Bridge
@@ -3059,6 +4179,8 @@ pokemon = walk, Durant, 10, 98-100
 pokemon = walk, Heatmor, 15, 98-100
 pokemon = walk, Deino, 4, 99-100, rare
 pokemon = walk, Larvesta, 3, 99-100, rare
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Skiddo, 3, 98-100, newcomer
 
 [Giant Chasm and Route 13]
 unlock = Ghetsis
@@ -3069,6 +4191,8 @@ pokemon = walk, Ditto, 15, 98-100
 pokemon = walk, Piloswine, 20, 98-100
 pokemon = walk, Delibird, 10, 98-100
 pokemon = walk, Sneasel, 20, 98-100
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = walk, Minior, 7, 98-100, badges 3, newcomer
 
 [Undella Bay and Route 14]
 unlock = Undella Town
@@ -3078,6 +4202,20 @@ pokemon = walk, Swanna, 40, 98-100
 pokemon = surf, Mantine, 30, 98-100
 pokemon = surf, Frillish, 40, 98-100
 pokemon = surf, Jellicent, 30, 98-100
+# Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
+pokemon = good-rod, Skrelp, 8, 5-15, newcomer
+pokemon = good-rod, Clauncher, 2, 5-15, newcomer
+pokemon = good-rod, Crabrawler, 2, 5-15, newcomer
+pokemon = good-rod, Wimpod, 2, 5-15, newcomer
+pokemon = good-rod, Wishiwashi, 4, 5-15, newcomer
+pokemon = old-rod, Wishiwashi, 20, 5-5, newcomer
+pokemon = super-rod, Skrelp, 4, 15-25, newcomer
+pokemon = super-rod, Bruxish, 6, 15-25, badges 3, newcomer
+pokemon = super-rod, Clauncher, 1, 15-25, newcomer
+pokemon = super-rod, Crabrawler, 1, 15-25, newcomer
+pokemon = super-rod, Wimpod, 1, 15-25, newcomer
+pokemon = super-rod, Inkay, 2, 15-25, newcomer
+pokemon = surf, Inkay, 18, 5-40, newcomer
 
 # ---- generated by frlg_world.py: FireRed / LeafGreen areas (Sevii Islands)
 # The Sevii Islands open once you're the Champion. Rates: FireRed and LeafGreen averaged.

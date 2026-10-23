@@ -1,0 +1,14 @@
+# Aromatisse - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 472F47 > 29135A
+shiny = 8B558B > A54E70
+shiny = 924891 > AC3B6C
+shiny = B36EB2 > D1628C
+shiny = C55C6B > 7D53A2
+shiny = C569BC > D8679B
+shiny = D9657D > 8B60B0
+shiny = E84C5A > EA4B57
+shiny = EACB55 > FFBA71
+shiny = EE849E > A578D1
+shiny = F198AA > B086DA
+shiny = FDCA30 > FFBB62

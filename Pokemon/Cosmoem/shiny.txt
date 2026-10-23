@@ -1,0 +1,5 @@
+# Cosmoem - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 1C234D > 4A2635
+shiny = 3956B5 > B35584
+shiny = 4D72ED > EC72AF

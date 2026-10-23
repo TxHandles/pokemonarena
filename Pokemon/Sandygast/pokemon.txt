@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Sandygast
+dex  = 769
+type = Ghost / Ground
+
+hp         = 55
+attack     = 55
+defense    = 80
+sp_attack  = 70
+sp_defense = 45
+speed      = 15
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 70.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Palossand
+evolve_level = 42
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Harden
+learn = 1, Absorb
+learn = 5, Astonish
+learn = 10, Sand Tomb
+learn = 15, Mega Drain
+learn = 20, Sand Attack
+learn = 25, Bulldoze
+learn = 30, Hypnosis
+learn = 35, Giga Drain
+learn = 40, Iron Defense
+learn = 45, Shadow Ball
+learn = 50, Earth Power
+learn = 55, Shore Up
+learn = 60, Sandstorm
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Mud-Slap, Scary Face, Protect, Confuse Ray, Chilling Water, Facade
+tm = Bulldoze, Hex, Mud Shot, Rock Tomb, Night Shade, Fling
+tm = Endure, Sunny Day, Rain Dance, Sandstorm, Sleep Talk, Rest
+tm = Rock Slide, Imprison, Flash Cannon, Skill Swap, Substitute, Iron Defense
+tm = Trick, Giga Drain, Shadow Ball, Stealth Rock, Energy Ball, Psychic
+tm = Amnesia, Earth Power, Sludge Bomb, Earthquake, Stone Edge, Tera Blast
+tm = Sand Tomb, Spite, Gravity, Poltergeist, Pain Split, Scorching Sands
+tm = Curse

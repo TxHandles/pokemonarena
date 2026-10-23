@@ -1,0 +1,10 @@
+# Meltan - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 4F1B14 > 1A2E48
+shiny = 4F4322 > 4F3822
+shiny = 796634 > 795634
+shiny = B39851 > B38151
+shiny = DE4937 > 4A83CB
+shiny = E7BB5D > E79B5D
+shiny = E88073 > 80A7DA
+shiny = EBC57B > EBAB7B

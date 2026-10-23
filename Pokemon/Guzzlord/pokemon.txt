@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Guzzlord
+dex  = 799
+type = Dark / Dragon
+
+hp         = 223
+attack     = 101
+defense    = 53
+sp_attack  = 97
+sp_defense = 53
+speed      = 43
+
+size   = 1.50
+height = 5.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 888.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Bite
+learn = 1, Dragon Tail
+learn = 5, Stockpile
+learn = 5, Swallow
+learn = 10, Knock Off
+learn = 15, Stomp
+learn = 20, Stomping Tantrum
+learn = 25, Wide Guard
+learn = 30, Crunch
+learn = 35, Body Slam
+learn = 40, Gastro Acid
+learn = 45, Hammer Arm
+learn = 50, Heavy Slam
+learn = 55, Dragon Rush
+learn = 60, Belch
+learn = 65, Thrash
+learn = 70, Giga Impact
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Protect, Thief, Facade, Bulldoze, Snarl, Rock Tomb
+tm = Fling, Endure, Brick Break, Shadow Claw, Body Slam, Sleep Talk
+tm = Drain Punch, Dragon Claw, Poison Jab, Stomping Tantrum, Rest, Rock Slide
+tm = Body Press, Dark Pulse, Iron Head, Substitute, Iron Defense, Crunch
+tm = Dragon Pulse, Heat Wave, Heavy Slam, Flamethrower, Amnesia, Fire Blast
+tm = Sludge Bomb, Earthquake, Stone Edge, Giga Impact, Outrage, Hyper Beam
+tm = Gyro Ball, High Horsepower, Heat Crash, Sludge Wave

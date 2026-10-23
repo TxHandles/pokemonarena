@@ -1,0 +1,57 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: princess-phoenix (DeviantArt, "Gen 6 (Kalos) Pokemon Overworld Sprites") - credit wanted
+name = Skiddo
+dex  = 672
+type = Grass
+
+hp         = 66
+attack     = 65
+defense    = 48
+sp_attack  = 62
+sp_defense = 57
+speed      = 52
+
+size   = 1.07
+height = 0.9      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 31.0      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Gogoat
+evolve_level = 32
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Growth
+learn = 1, Tackle
+learn = 7, Vine Whip
+learn = 9, Tail Whip
+learn = 12, Leech Seed
+learn = 13, Razor Leaf
+learn = 16, Worry Seed
+learn = 20, Synthesis
+learn = 22, Take Down
+learn = 26, Bulldoze
+learn = 30, Seed Bomb
+learn = 34, Bulk Up
+learn = 38, Double-Edge
+learn = 42, Horn Leech
+learn = 45, Leaf Blade
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Mud-Slap, Protect, Trailblaze, Facade, Bulldoze
+tm = Magical Leaf, Mud Shot, Endure, Sunny Day, Rain Dance, Dig
+tm = Bullet Seed, Brick Break, Zen Headbutt, Bulk Up, Body Slam, Sleep Talk
+tm = Seed Bomb, Grass Knot, Stomping Tantrum, Rest, Rock Slide, Substitute
+tm = Giga Drain, Energy Ball, Surf, Play Rough, Helping Hand, Grassy Terrain
+tm = Wild Charge, Leaf Storm, Solar Beam, Tera Blast, Roar, Grassy Glide
+tm = Double-Edge, Endeavor

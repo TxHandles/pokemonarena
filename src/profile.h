@@ -22,7 +22,14 @@ struct OwnedMon {
     int nature = -1;                   // natures.h (-1 = not rolled yet)
     std::vector<std::string> forgotten;   // moves it has forgotten (the Move Relearner can teach them again)
     bool shiny = false;                // a rare shiny (sprites in its shiny colours)
-    int vit[4] = {0, 0, 0, 0};         // vitamins taken (HP Up; Protein / Calcium; Iron / Zinc; Carbos): +1% each, up to 10
+    int vit[4] = {0, 0, 0, 0};         // (old saves) vitamins taken: turned into EVs when the save loads
+    int iv[6] = {-1, -1, -1, -1, -1, -1};   // IVs: HP, Atk, Def, SpA, SpD, Spe (0-31; -1 = not rolled yet)
+    int ev[6] = {0, 0, 0, 0, 0, 0};         // EVs: up to 252 each, 510 in all
+    int gender = -1;                   // 0 male, 1 female, 2 genderless (-1 = not rolled yet)
+    std::string nick;                  // its nickname ("" = goes by its species name)
+    int eggSteps = 0;                  // an Egg (Profile::eggs): steps left until it hatches
+    std::string metAt;                 // where it was met / hatched ("Day Care" for an Egg)
+    int dcLevel = 0;                   // at the Day Care: the level it was left at
 };
 
 struct Profile {
@@ -73,6 +80,12 @@ struct Profile {
     std::string starter5, rival5;      // Unova: Juniper's gift and Cheren's pick
     std::set<std::string> postDone;    // optional post-game battles beaten (their stage names: "Mt. Silver")
     std::vector<int> regionOrder;      // the regions in the order this story plays them (empty: a new story, not chosen yet)
+    std::vector<OwnedMon> daycare;     // the Day Care: up to two Pokemon left there
+    bool daycareEgg = false;           // the Day Care man has found an Egg for you
+    int daycareSteps = 0;              // steps toward the next 256 (an Egg check, an egg cycle)
+    std::vector<OwnedMon> eggs;        // Eggs you carry (the species they'll hatch into; eggSteps to go)
+    struct Roam { std::string area; float hp = 1; bool seen = false; bool shiny = false; int iv[6] = {31, 31, 31, 0, 0, 0}; };
+    std::map<int, Roam> roam;          // roaming legendaries (legend id): where each one is now, its HP left
 };
 // A region's starter gift and its rival's pick (region 1 Johto, 2 Hoenn, 3 Sinnoh, 4 Unova; 0 = the first starter / Blue).
 std::string& RegionStarter(Profile& p, int region);
@@ -123,6 +136,7 @@ struct CoopSave {
     std::string owMap[2];              // the overworld: where each player is (empty: not been there yet)
     int owX[2] = {0, 0}, owY[2] = {0, 0}, owFace[2] = {0, 0};
     std::set<std::string> owFlags;     // the overworld together: trainers beaten, events (items go to whoever picks them up)
+    std::map<int, Profile::Roam> roam; // roaming legendaries, shared (online: the host's word goes)
 };
 std::string* CoopRival(CoopSave& c, int region);   // the rival's two picks for a region
 const std::string* CoopRival(const CoopSave& c, int region);
@@ -130,6 +144,8 @@ std::string JoinOrder(const std::vector<int>& v);   // "2, 0"
 std::vector<int> ReadOrder(const std::string& v);
 bool LoadCoop(const std::string& a, const std::string& b, CoopSave& out);   // false = none yet (out is fresh)
 bool SaveCoop(const CoopSave& c);
+std::string RoamLine(int id, const Profile::Roam& r);           // "id | area | hp | seen | shiny | ivs"
+bool ParseRoamLine(const std::string& v, int& id, Profile::Roam& r);
 int HealCost(const OwnedMon& m);       // coins to fully heal (revive costs more)
 bool HasBadge(const Profile& p, const std::string& badge);
 int BagCount(const Profile& p, const std::string& item);

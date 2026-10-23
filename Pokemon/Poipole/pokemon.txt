@@ -1,0 +1,52 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Poipole
+dex  = 803
+type = Poison
+
+hp         = 67
+attack     = 73
+defense    = 67
+sp_attack  = 73
+sp_defense = 67
+speed      = 73
+
+size   = 0.96
+height = 0.6      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 1.8      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Naganadel
+evolve_level = 40   # (once it learns Dragon Pulse, in the games)
+
+# ---- LEVEL-UP MOVES (Sword/Shield) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Acid
+learn = 1, Peck
+learn = 1, Helping Hand
+learn = 1, Dragon Pulse
+learn = 1, Growl
+learn = 7, Fury Attack
+learn = 14, Fell Stinger
+learn = 21, Charm
+learn = 28, Venoshock
+learn = 35, Venom Drench
+learn = 42, Nasty Plot
+learn = 49, Poison Jab
+learn = 56, Gastro Acid
+learn = 63, Toxic
+
+# ---- TM MOVES (Sword/Shield) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Charm, Protect, Facade, Venoshock, Endure, Sleep Talk
+tm = Poison Jab, Rest, Toxic Spikes, Gunk Shot, Substitute, Dragon Pulse
+tm = Helping Hand, Nasty Plot, Sludge Bomb, Uproar, Sludge Wave

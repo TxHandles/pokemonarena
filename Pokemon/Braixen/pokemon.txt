@@ -1,0 +1,58 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: princess-phoenix (DeviantArt, "Gen 6 (Kalos) Pokemon Overworld Sprites") - credit wanted
+name = Braixen
+dex  = 654
+type = Fire
+
+hp         = 59
+attack     = 59
+defense    = 58
+sp_attack  = 90
+sp_defense = 70
+speed      = 73
+
+size   = 1.09
+height = 1.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 14.5      # Pokedex weight in kg
+hovers = no
+heavy  = no
+winged = no
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+evolves_to   = Delphox
+evolve_level = 36
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Scratch
+learn = 1, Tail Whip
+learn = 1, Ember
+learn = 11, Howl
+learn = 14, Flame Charge
+learn = 18, Psybeam
+learn = 22, Fire Spin
+learn = 28, Light Screen
+learn = 36, Psyshock
+learn = 41, Flamethrower
+learn = 45, Will-O-Wisp
+learn = 49, Psychic
+learn = 52, Sunny Day
+learn = 56, Magic Room
+learn = 59, Fire Blast
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Charm, Agility, Mud-Slap, Protect, Low Kick
+tm = Psybeam, Thief, Fire Spin, Facade, Swift, Mud Shot
+tm = Flame Charge, Stored Power, Endure, Sunny Day, Rain Dance, Psyshock
+tm = Zen Headbutt, Foul Play, Fire Punch, Thunder Punch, Sleep Talk, Light Screen
+tm = Grass Knot, Rest, Imprison, Skill Swap, Substitute, Will-O-Wisp
+tm = Trick, Heat Wave, Psychic, Encore, Flamethrower, Calm Mind
+tm = Helping Hand, Psychic Terrain, Fire Blast, Fire Pledge, Overheat, Trick Room
+tm = Flare Blitz, Solar Beam, Tera Blast, Burning Jealousy

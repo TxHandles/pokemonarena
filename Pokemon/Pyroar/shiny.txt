@@ -1,0 +1,22 @@
+# Pyroar - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 303030 > 8E7E43
+shiny = 3C8E9E > 780323
+shiny = 3C92A0 > 7A0E24
+shiny = 403834 > 9F8747
+shiny = 582021 > 947839
+shiny = 5A5353 > C0A565
+shiny = 716059 > D3B673
+shiny = 7F4C27 > A50331
+shiny = 82453C > B24C56
+shiny = AE7F4F > 746550
+shiny = B32F32 > A03349
+shiny = B48956 > A7976A
+shiny = C2C3C2 > C1CEBE
+shiny = E33731 > D13B4E
+shiny = E5B173 > E0C277
+shiny = E6EEF8 > E8F9F0
+shiny = ECBA32 > FF898B
+shiny = EFB92F > FF888B
+shiny = FAFAFA > 942B39
+shiny = FD3B3F > E7445C

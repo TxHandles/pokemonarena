@@ -55,7 +55,11 @@ struct CombatantSpec {
     int nature = -1;             // natures.h; -1 = random (CPU creatures)
     float boss = 0;              // > 0: a legendary boss (HP x this, can't be knocked out: it's weakened instead)
     bool shiny = false;          // shiny colours (and a sparkle when it's sent out)
-    int vit[4] = {0, 0, 0, 0};   // vitamins taken: +1% each to HP, attacks, defenses, speed
+    int vit[4] = {0, 0, 0, 0};   // vitamins taken: +1% each to HP, attacks, defenses, speed (old saves: now EVs)
+    int iv[6] = {-1, -1, -1, -1, -1, -1};   // IVs (HP, Atk, Def, SpA, SpD, Spe: 0-31); -1 = rolled at random (wild / CPU)
+    int ev[6] = {0, 0, 0, 0, 0, 0};         // EVs (up to 252 each, 510 in all)
+    std::string nick;            // its nickname ("" = its species name)
+    float flee = 0;              // > 0: a roaming legendary - it flees after this many seconds unless it can't
 };
 
 // One controller slot in a battle: a player or CPU with its own creatures, one on the field at a time.
@@ -184,6 +188,14 @@ struct Fighter {
 
     float counterT = 0, endureT = 0;  // Counter-style shield / Endure active
     int vit[4] = {0, 0, 0, 0};        // vitamins taken (CombatantSpec)
+    int iv[6] = {0, 0, 0, 0, 0, 0};   // IVs and EVs (CombatantSpec): they raise its stats as in the games
+    int ev[6] = {0, 0, 0, 0, 0, 0};
+    int evGain[6] = {0, 0, 0, 0, 0, 0};   // EVs earned this battle from the Pokemon it knocked out
+    std::string nick;
+    float fleeT = 0;                  // a roaming legendary: seconds until it flees (0 = it doesn't)
+    bool fled = false;                // it ran away (a roamer)
+    std::string Name() const { return nick.empty() ? sp->name : nick; }
+    float BaseStat(int k) const;      // its base stat k (0 HP .. 5 Spe) with its IV and EVs worked in
     float critT = 0;                  // Dire Hit / X Accuracy: critical hits more likely while > 0
     int lastHitBy = -1;             // slot that last hurt it (credit for status damage)
     bool lent = false;              // handed to a teammate whose own creatures are all out
@@ -542,6 +554,7 @@ private:
     void CreditKo(int s, int creditSide);
     void CheckWeakened(int s);
     void Retire(int s);
+    void Flee(int s);   // a roaming legendary runs off (no XP, it keeps its HP)
     void UpdateField(float dt);
     void UpdateWisps(float dt);       // Agatha's hall
     void UpdateStatues(float dt);     // Lance's den

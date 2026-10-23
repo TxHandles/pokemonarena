@@ -1,0 +1,12 @@
+# Oricorio - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 3C322E > 852E2F
+shiny = 601523 > 2E2627
+shiny = 862022 > 413737
+shiny = B2282D > 554747
+shiny = B42D4A > 5A4C4F
+shiny = CA3355 > 655559
+shiny = D05777 > B88794
+shiny = EE373C > 746162
+shiny = F6BEC2 > EDD7D7
+shiny = FFB4B4 > EDD7D7

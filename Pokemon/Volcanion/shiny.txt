@@ -1,0 +1,16 @@
+# Volcanion - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 42161B > 796E00
+shiny = 68242F > 97880C
+shiny = 934350 > C1AE3A
+shiny = AA4C4A > D1BC46
+shiny = AD752D > EAD659
+shiny = B93240 > DDC42F
+shiny = C1BCBB > FFFF8B
+shiny = D0AE54 > FFFF80
+shiny = D18820 > BA4F99
+shiny = E64C5C > FFE553
+shiny = E75451 > FFE955
+shiny = FAFAFA > FFFF71
+shiny = FF81A0 > FFFF71
+shiny = FFCB02 > F789CF

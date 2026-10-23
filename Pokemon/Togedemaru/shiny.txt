@@ -1,0 +1,6 @@
+# Togedemaru - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 404050 > 5A5735
+shiny = 6E6B70 > 787444
+shiny = 9B9B9B > F1EC74
+shiny = CACACA > FAF897

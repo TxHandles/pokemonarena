@@ -1,0 +1,22 @@
+# Yveltal - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 000000 > 7B7A7A
+shiny = 101010 > 878686
+shiny = 1E1919 > 949292
+shiny = 2C2222 > A1A09F
+shiny = 39393B > BABABA
+shiny = 4C3C3D > C4C2C1
+shiny = 52C6EE > 3681CA
+shiny = 5EC0C0 > 7A91B1
+shiny = 5F615B > E9E9E8
+shiny = 604E50 > DBD8D8
+shiny = 787874 > FFFFFE
+shiny = 968486 > 7D6E76
+shiny = 9B252A > 990128
+shiny = A04850 > A63145
+shiny = B3C4C7 > AA98BC
+shiny = BFADAF > AA83A7
+shiny = D43A41 > CD2A42
+shiny = E62C55 > DA2350
+shiny = FAFAFA > EACCF1
+shiny = FE3C36 > F2456F

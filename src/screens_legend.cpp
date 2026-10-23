@@ -14,6 +14,9 @@
 #include "storymap.h"
 #include "ui.h"
 #include "vec.h"
+#include "wild.h"
+#include "story.h"
+#include "profile.h"
 
 namespace {
 const Color kP1{240, 200, 80, 255};
@@ -154,6 +157,7 @@ void BeginLegend(Game& g, int id) {
 
 void OpenLegends(Game& g) {
     g.legendSel = std::max(0, std::min(LEGEND_COUNT - 1, g.legendSel));
+    UpdateRoamers(g, 0, false);   // the roaming ones: where they are now
     g.screen = Screen::Legends;
 }
 
@@ -181,6 +185,14 @@ void UpdateLegends(Game& g) {
     int id = g.legendSel;
     std::string why;
     if (!LegendOpen(g, id, &why)) { PlaySfx(Sfx::MenuBack); Toast(g, why); return; }
+    if (IsRoamer(id)) {   // it roams: you meet it in the grass of its route, not here
+        UpdateRoamers(g, 0, false);
+        std::string at = RoamerWhere(g, id);
+        PlaySfx(Sfx::MenuMove);
+        Toast(g, std::string(Legend(id).species) + " is roaming " + RegionInfo(Legend(id).region).name + (at.empty() ? "." : " - it was last seen at " + at + ".") +
+                     " Train there (or walk its grass) to run into it, and be quick with your Poke Balls: it flees!");
+        return;
+    }
     PlaySfx(Sfx::MenuOk);
     if (g.coop && g.on.active) {   // online: both pick the same encounter
         if (OnlineWaiting(g)) return;
@@ -246,6 +258,8 @@ void DrawLegends(const Game& g) {
         int ty = ph < 40 ? 2 : 4, step = ph < 40 ? 11 : 12;
         bool tight = ph < 30;   // Hoenn has ten: the name and where it lives share a line
         std::string where = known ? L.place : "Somewhere in " + RegionInfo(L.region).name;
+        bool roaming = open && IsRoamer(i);
+        if (roaming) { std::string at = RoamerWhere(g, i); where = at.empty() ? "Roaming " + RegionInfo(L.region).name : "Roaming: now at " + at; }
         if (tight) {
             GDrawText(known ? L.species : "???", x + 44, y + 1, 10, sel ? UI_GOLD : UI_TEXT);
             int wx = x + 44 + TextW(known ? L.species : "???", 10) + 6;
@@ -260,6 +274,7 @@ void DrawLegends(const Game& g) {
         std::string status;
         Color sc = UI_DIM;
         if (by >= 0) { status = g.coop ? "Caught by " + Prof(g, by).name : std::string("Caught!"); sc = Color{120, 230, 130, 255}; }
+        else if (open && roaming) { status = TextFormat("Roaming - Lv%d, it flees!", LegendLevel(i, avg)); sc = GymColor(L.arena); }
         else if (open) { status = TextFormat("Waiting - about Lv%d", LegendLevel(i, avg)); sc = GymColor(L.arena); }
         else status = L.unlock == LegendUnlock::Badges8 ? "Needs all 8 badges" : L.unlock == LegendUnlock::Champion ? "Champion only"
                     : L.unlock == LegendUnlock::AfterStage || L.unlock == LegendUnlock::AfterCatch ? L.hint : "Needs the Old Sea Map";
@@ -349,6 +364,7 @@ void LegendBattleOver(Game& g, const Battle& b, const float damage[2]) {
     c.abSlot = f.abSlot;
     c.nature = f.nature;
     c.shiny = f.shiny;
+    for (int k = 0; k < 6; k++) c.iv[k] = f.iv[k];
     c.hpFrac = std::max(0.01f, std::min(1.0f, f.hp / (float)std::max(1, f.maxHp)));
     float base = 0.08f + 0.30f * (1.0f - std::min(1.0f, c.hpFrac / 0.25f));
     c.chance = std::max(0.03f, base * Legend(c.id).catchMul);
@@ -377,12 +393,14 @@ void Caught(Game& g) {
     m.abilitySlot = c.abSlot;
     m.nature = c.nature;
     m.shiny = c.shiny;
+    if (c.iv[0] >= 0) for (int k = 0; k < 6; k++) m.iv[k] = c.iv[k];
     m.hp = c.hpFrac;
     m.caught = true;
     bool mine = OnlineMine(g, who);   // online: the partner adds it on their computer
     if (mine) {
         c.boxed = AddMon(P, m);
         DexSee(P, AllSpecies()[c.species].name);
+        g.nickQueue.push_back({who, (int)P.mons.size() - 1});
     }
     c.caughtBy = who;
     if (g.coop) {
@@ -604,4 +622,140 @@ void DrawLegendCatch(const Game& g) {
         GDrawText(nm.substr(0, nm.find(' ')).c_str(), bx + 10, by + 1, 10, sel ? UI_GOLD : UI_DIM);
     }
     DrawTextCentered("Left/Right or Up/Down: ball     Enter: throw", VW / 2, 340, 10, UI_DIM, false);
+}
+
+// ------------------------------------------------------------------ roaming legendaries
+// As in the games they come from: once their time comes they run from route to route - to a new one whenever you
+// move on (each training battle away from the walked world, or a new map in it). On their route, 1 wild battle in 4
+// is them; they flee as soon as they can (sleep, a trap, Mean Look or Shadow Tag hold them), and keep the damage you did.
+
+namespace {
+constexpr int kRoamers[] = {5, 6, 14, 15, 22, 29, 39, 40};   // Raikou, Entei, Latias, Latios, Mesprit, Cresselia, Tornadus, Thundurus
+constexpr float kRoamerFlee = 4.5f;                            // seconds out on the field before it runs
+
+int AreaRegion(const WildArea& a) {
+    for (const auto& st : Story().stages) if (st.name == a.unlock) return st.region;
+    return -1;
+}
+std::vector<std::string> RoamRoutes(int region) {   // the region's routes with grass
+    static std::vector<std::string> cache[5];
+    if (region < 0 || region > 4) return {};
+    if (cache[region].empty())
+        for (const auto& a : WildAreas()) {
+            if (a.name.find("Route") == std::string::npos || AreaRegion(a) != region) continue;
+            bool grass = false;
+            for (const auto& e : a.mons) grass = grass || e.method == "walk";
+            if (grass) cache[region].push_back(a.name);
+        }
+    return cache[region];
+}
+std::string NewRoute(int region, const std::string& not_) {
+    auto v = RoamRoutes(region);
+    if (v.empty()) return "";
+    for (int tries = 0; tries < 8; tries++) {
+        const std::string& r = v[GetRandomValue(0, (int)v.size() - 1)];
+        if (r != not_ || v.size() == 1) return r;
+    }
+    return v[0];
+}
+} // namespace
+
+bool IsRoamer(int id) {
+    for (int r : kRoamers) if (r == id) return true;
+    return false;
+}
+
+namespace {
+// Where the roamers' state lives: the co-op save when playing together, else the profile.
+std::map<int, Profile::Roam>& RoamMap(Game& g) { return g.coop ? g.coopSave.roam : g.profile.roam; }
+const std::map<int, Profile::Roam>& RoamMap(const Game& g) { return g.coop ? g.coopSave.roam : g.profile.roam; }
+bool RoamCaught(const Game& g, int id) {
+    if (LegendCaughtBy(g, id) >= 0) return true;
+    return g.coopSub && g.profile.owFlags.count("roamcaught:" + std::to_string(id));
+}
+bool RoamGuest(const Game& g) { return g.on.active && g.on.me != 0; }   // online: the host moves them (the guest hears where)
+} // namespace
+
+void UpdateRoamers(Game& g, int who, bool move) {
+    (void)who;
+    if (RoamGuest(g)) return;
+    auto& rm = RoamMap(g);
+    bool changed = false;
+    for (int id : kRoamers) {
+        auto it = rm.find(id);
+        if (RoamCaught(g, id)) { if (it != rm.end()) { rm.erase(it); changed = true; } continue; }
+        if (it == rm.end()) {
+            if (g.coopSub || !LegendOpen(g, id, nullptr)) continue;   // not its time yet (a co-op player's own game only moves them)
+            Profile::Roam r;
+            r.area = NewRoute(Legend(id).region, "");
+            if (r.area.empty()) continue;
+            r.shiny = RollShiny();
+            int perfect = 0;   // three perfect IVs, the rest random
+            for (int k = 0; k < 6; k++) r.iv[k] = GetRandomValue(0, 31);
+            while (perfect < 3) { int k = GetRandomValue(0, 5); if (r.iv[k] != 31) { r.iv[k] = 31; perfect++; } }
+            rm[id] = r;
+            changed = true;
+            continue;
+        }
+        if (move) { it->second.area = NewRoute(Legend(id).region, it->second.area); changed = true; }
+    }
+    if (changed && g.coop && g.on.active) OnlineSendCoop(g);
+}
+
+int RoamerAt(const Game& g, int who, const std::string& area) {
+    (void)who;
+    for (const auto& kv : RoamMap(g))
+        if (kv.second.area == area && !RoamCaught(g, kv.first)) return kv.first;
+    return -1;
+}
+
+std::string RoamerWhere(const Game& g, int id) {
+    const auto& rm = RoamMap(g);
+    auto it = rm.find(id);
+    return it == rm.end() ? "" : it->second.area;
+}
+
+bool TryRoamerBattle(Game& g, const std::string& area, const std::string& method) {
+    g.roamer = -1;
+    if (method != "walk" && !method.empty()) return false;
+    if (RoamGuest(g)) return false;   // online: the host rolls for it
+    UpdateRoamers(g, 0, false);
+    int id = RoamerAt(g, 0, area);
+    if (id < 0 || GetRandomValue(1, 4) != 1) return false;
+    int sp = SpeciesOf(id);
+    if (sp < 0) return false;
+    g.roamer = id;
+    g.rareBattle = true;
+    g.rareSpecies = sp;
+    g.ow.staticLevel = LegendLevel(id, 0);
+    RoamMap(g)[id].seen = true;
+    for (int p = 0; p < (g.coop ? 2 : 1); p++) DexSee(Prof(g, p), Legend(id).species);
+    return true;
+}
+
+// The battle with it is over: caught (it's gone for good), fled (its HP stays down) or knocked out (it recovers).
+void RoamerBattleOver(Game& g, const Battle& b) {
+    int id = g.roamer;
+    g.roamer = -1;
+    if (id < 0) return;
+    auto& rm = RoamMap(g);
+    auto it = rm.find(id);
+    for (const Fighter* f : b.TeamFighters(1)) {
+        if (f->RealSpecies() != SpeciesOf(id)) continue;
+        if (f->caught) {   // caught! it roams no more
+            if (g.coop) { g.coopSave.legends |= 1ull << id; g.coopSave.legendWho[id] = f->caughtBy & 1; }
+            else if (g.coopSub) g.profile.owFlags.insert("roamcaught:" + std::to_string(id));   // (the co-op save hears of it when this game ends)
+            else g.profile.legends |= 1ull << id;
+            if (it != rm.end()) rm.erase(it);
+            if (g.coop && g.on.active && !RoamGuest(g)) OnlineSendCoop(g);
+            return;
+        }
+        if (f->hp <= 0) g.resultLines.push_back(std::string(Legend(id).species) + " fainted... It'll be roaming " + RegionInfo(Legend(id).region).name + " again once it recovers.");
+        else if (f->fled) g.resultLines.push_back(std::string(Legend(id).species) + " fled! It's still roaming " + RegionInfo(Legend(id).region).name + ".");
+        if (it == rm.end() || RoamGuest(g)) return;
+        it->second.hp = f->hp <= 0 ? 1.0f : std::max(0.01f, std::min(1.0f, f->hp / (float)std::max(1, f->maxHp)));   // knocked out: it rests, then runs again
+        it->second.area = NewRoute(Legend(id).region, it->second.area);   // off it goes
+        if (g.coop && g.on.active) OnlineSendCoop(g);
+        return;
+    }
 }

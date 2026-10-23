@@ -1,0 +1,13 @@
+# Naganadel - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 231143 > 2F2E16
+shiny = 331A68 > 69572C
+shiny = 411368 > 2C2C2C
+shiny = 572CA4 > 424242
+shiny = 602653 > 5A5A5A
+shiny = 615094 > D8A50C
+shiny = 7C29C4 > 555555
+shiny = 836EB1 > F4CE2B
+shiny = 9C348D > 555555
+shiny = DDD7DF > FEFEFE
+shiny = DE4A9B > BEBEBE

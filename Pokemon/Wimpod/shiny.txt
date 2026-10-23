@@ -1,0 +1,9 @@
+# Wimpod - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 482747 > 5B1824
+shiny = 5C7877 > 828282
+shiny = 653764 > 99283D
+shiny = 713E70 > AF2F48
+shiny = 8A9F9E > B4B4B4
+shiny = A65E97 > EB505C
+shiny = BED3CF > D7D7D7

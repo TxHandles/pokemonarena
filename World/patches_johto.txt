@@ -1,0 +1,171 @@
+# Changes to the made Johto maps (tools/hgss_world.py applies them; the same syntax as World/patches.txt).
+# {msg:CODE:N} is HeartGold's message N of that map (CODE as in the decomp: T20 New Bark Town, T20R0101 Elm's lab);
+# {msg:CODE:N:/} the same with "/" between its pages (inside give / fight / block lines).
+
+# ------------------------------------------------------------------ New Bark Town
+[patch New Bark Town]
+drop sign 16 23
+sign = 16 23 Lyra's House
+# HeartGold's opening: no Pokemon from Elm yet, so you're stopped at the edge of town
+block = 4 12 rstarter:1|{msg:T20:4:/}
+block = 4 13 rstarter:1|{msg:T20:4:/}
+block = 4 14 rstarter:1|{msg:T20:4:/}
+block = 4 15 rstarter:1|{msg:T20:4:/}
+block = 4 16 rstarter:1|{msg:T20:4:/}
+block = 4 17 rstarter:1|{msg:T20:4:/}
+block = 4 18 rstarter:1|{msg:T20:4:/}
+
+[patch Elm's Lab]
+drop npc 5 3
+npc = 5 2 hg_elm down 0 talk|{msg:T20R0101:0}|Go on, choose! The Poke Balls are on the table.
+if = !rstarter:1
+npc = 5 2 hg_elm down 0 talk|{msg:T20R0101:12}
+if = rstarter:1
+# the three Poke Balls: yours to choose (gone once you have one from Elm, or once someone took that one)
+npc = 6 3 item_ball down 0 starter|Cyndaquil|1
+if = !rstarter:1&!ball:Cyndaquil
+npc = 7 3 item_ball down 0 starter|Totodile|1
+if = !rstarter:1&!ball:Totodile
+npc = 8 3 item_ball down 0 starter|Chikorita|1
+if = !rstarter:1&!ball:Chikorita
+
+# ------------------------------------------------------------------ the story battles (story.txt's Johto stages) on the map
+[patch Cherrygrove City]
+npc = 60 14 hg_silver left 4 trainer|Cherrygrove City|... You got a Pokemon from Elm's lab too?/What a waste. Don't get in my way!|...Humph. I won't lose next time.
+if = rstarter:1
+[patch Route 30]
+story Youngster Joey = Route 30
+[patch Sprout Tower 3F]
+drop npc 10 2
+npc = 10 2 hg_sage down 0 trainer|Sprout Tower|So good of you to come here!/Sprout Tower is a place of training./Let us see how you and your Pokemon bend together.|Indeed, you and your Pokemon are one. Take this TM.
+[patch Union Cave 1F]
+story Hiker Daniel = Union Cave
+[patch Slowpoke Well B1F]
+drop npc 5 2
+npc = 5 2 hg_proton down 2 trainer|Slowpoke Well|What do you want? We're Team Rocket!/Selling SlowpokeTails is our business!|...You beat me? Team Rocket will be back!
+[patch Azalea Town]
+npc = 22 26 hg_silver up 4 trainer|Azalea Town|... Tell me something. Is it true that Team Rocket has returned?/Hah! You're no match for me anyway!|...Humph. That was luck.
+[patch Ilex Forest]
+npc = 13 76 bug_catcher up 3 trainer|Ilex Forest|The trees here are full of bug Pokemon!/Let's battle!|You're tough!
+[patch Route 34]
+story Picnicker Gina = Route 34
+[patch Route 36]
+drop npc 63 22
+npc = 63 22 mon:Sudowoodo left 0 trainer|Route 36|A strange tree is blocking the way.../It suddenly moved! It's a Pokemon!|The odd tree ran away!
+[patch Burned Tower 1F]
+npc = 8 9 hg_silver left 3 trainer|Burned Tower|... Oh, it's you./I came looking for the legendary Pokemon. Let's see how much you've grown!|...Humph. I'm not interested in you any more.
+[patch Olivine Lighthouse 2F]
+drop npc 9 3
+npc = 9 3 sailor right 3 trainer|Olivine Lighthouse|Men of the sea are always spoiling for a good fight!|Argh! I lost!
+[patch Route 41]
+story Swimmer Charlie = Route 41
+[patch Lake of Rage]
+set weather = rain
+drop npc 45 39
+npc = 45 39 mon:Gyarados down 0 trainer|Lake of Rage|The red Gyarados is enraged!|The red Gyarados calmed down...
+[patch Team Rocket HQ B2F]
+npc = 20 16 hg_petrel up 3 trainer|Rocket Hideout|Who are you? How did you get in here?/I'll show you the power of Team Rocket's executives!|Ugh... The others will deal with you!
+[patch Team Rocket HQ B3F]
+drop npc 8 3
+npc = 8 3 hg_ariana up 3 trainer|Rocket Hideout B3|You've gone far enough! We'll take you on together!|We... lost? Impossible...
+[patch Goldenrod City]
+npc = 58 40 hg_silver down 3 trainer|Goldenrod Underground|... I've been looking for you./Show me what you've got!|...Humph. I'll beat you next time.
+[patch Radio Tower 3F]
+drop npc 5 1
+npc = 5 1 hg_proton right 2 trainer|Radio Tower 3F|We've taken over the Radio Tower!/Nobody gets in our way!|Grr... Hold the line upstairs!
+[patch Radio Tower 4F]
+drop npc 14 1
+npc = 14 1 hg_petrel left 2 trainer|Radio Tower 4F|Team Rocket's executive! You'll go no further!|Hmph. The boss won't be pleased...
+[patch Radio Tower 5F]
+drop npc 13 5
+npc = 13 5 hg_archer left 2 trainer|Radio Tower 5F|So you made it this far. I'm Team Rocket's executive Archer!/I'll show you what an adult can do!|...We'll disband. Team Rocket is finished.
+[patch Ecruteak Dance Theater]
+drop npc 0 2
+drop npc 2 1
+drop npc 9 1
+drop npc 11 2
+drop npc 6 2
+npc = 6 2 hg_kimono_girl down 0 trainer|Ecruteak Dance Theater|We are the Kimono Girls of Ecruteak./Will you dance with us in battle?|Your Pokemon move beautifully.
+[patch Ice Path 1F]
+npc = 30 50 cooltrainer_m up 3 trainer|Ice Path|Watch me glide over the ice!/Let's battle!|You're cool under pressure!
+[patch Dragon's Den B1F]
+story Twins Clea & Gil = Dragon's Den
+[patch Route 27]
+story Ace Trainer F Megan = Route 27
+[patch Johto Victory Road 3F]
+drop npc 33 29
+npc = 33 29 hg_silver down 4 trainer|Victory Road|... Hold it. Are you going to the Pokemon League?/Then show me if you're ready!|...I couldn't win. I need to know why.
+[patch Mt. Silver]
+npc = 5 8 hg_red down 0 trainer|Mt. Silver|...|...
+
+# a new journey that starts in Johto: your room in New Bark Town
+[patch Your House (New Bark) 2F]
+start = 6 6
+
+# ------------------------------------------------------------------ to Kanto and back (the S.S. Aqua, the Magnet Train)
+[patch Olivine Port]
+drop npc 1 2
+npc = 1 2 sailor down 0 travel|Welcome aboard the S.S. Aqua! We sail for Vermilion City in Kanto. All aboard?|Vermilion City|23|32|up|done:Kanto,done:Johto|Sorry, the S.S. Aqua only takes trainers who've beaten a Pokemon League.
+[patch Goldenrod City Magnet Train Station 1F]
+drop npc 5 2
+npc = 5 2 policeman down 0 travel|The Magnet Train to Saffron City in Kanto is about to leave. Would you like to board?|Saffron City|27|40|down|done:Kanto,done:Johto|Sorry, the Magnet Train only takes trainers who've beaten a Pokemon League.
+
+# the Pokemon League Reception Gate: Route 26 below, Victory Road above, Route 28 (Mt. Silver) and Kanto's Route 22 to the sides
+[patch Pokemon League Reception Gate]
+drop door 4 1
+drop door 5 1
+drop door 4 10
+drop door 5 9
+drop npc 1 6
+drop npc 5 5
+door = 4 1 warp|Johto Victory Road 1F|46|58|up
+door = 5 1 warp|Johto Victory Road 1F|46|58|up
+door = 4 10 warp|Route 26|13|11|down
+door = 5 9 warp|Route 26|13|11|down
+block = 3 5 badge:Rising|Only Trainers who have proven themselves may pass./You need the eight Badges of Johto.
+block = 4 5 badge:Rising|Only Trainers who have proven themselves may pass./You need the eight Badges of Johto.
+block = 5 5 badge:Rising|Only Trainers who have proven themselves may pass./You need the eight Badges of Johto.
+npc = 3 8 policeman right 0 travel|This way leads to Route 28 and Mt. Silver. Go on through?|Route 28|55|7|up|done:Johto|This way leads to Mt. Silver. You'll see scary-strong Pokemon out there. You're not ready for it.
+npc = 5 8 policeman left 0 travel|This way leads to Route 22 and Viridian City in Kanto. Go on through?|Route 22|8|6|down|done:Kanto,done:Johto|Huh? This way leads to Kanto... It's only open to trainers who've beaten a Pokemon League.
+[patch Johto Victory Road 1F]
+drop door 46 59
+door = 46 59 warp|Pokemon League Reception Gate|4|2|down
+[patch Route 28]
+drop door 55 8
+door = 55 8 warp|Pokemon League Reception Gate|4|7|up
+
+# ------------------------------------------------------------------ gaps the 3D models' props closed off
+[patch Route 44]
+tile 89 11 .
+[patch Ice Path B1F]
+tile 26 41 .
+[patch Blackthorn City]
+tile 32 6 .
+drop npc 32 5
+npc = 33 6 old_man_1 left 0 talk|The Dragon's Den is where the dragon masters of Blackthorn train.|Clair is in there now. Go on in.
+block = 32 5 badge:Rising|No. Only chosen Trainers may train here. Please leave.
+[patch Dragon's Den]
+tile 6 6 .
+tile 6 7 .
+tile 6 8 .
+[patch Violet City]
+tile 42 8 .
+[patch Azalea Town]
+tile 49 11 .
+tile 49 10 .
+tile 49 9 .
+tile 49 8 s
+[patch Route 28]
+tile 10 8 .
+tile 10 9 .
+tile 1 20 .
+tile 1 21 .
+
+# ------------------------------------------------------------------ the Day Care (shared with Kanto's)
+[patch Route 34 Day-Care]
+npc = 2 3 hg_granny down 0 daycare|I'm the Day-Care Lady. Should I raise a Pokemon for you?
+npc = 7 3 hg_grandpa down 0 daycare|I'm the Day-Care Man. Leave two Pokemon that get along, and you might find an Egg!
+
+# HeartGold's own weather: it always rains on Route 33 and at the Lake of Rage (the rest follows the day's weather)
+[patch Route 33]
+set weather = rain

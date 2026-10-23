@@ -1,8 +1,0 @@
-# Amaura - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
-# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
-shiny = 244EC4 > 008194
-shiny = 5577A8 > 86958D
-shiny = 8ECAF7 > D3E7DD
-shiny = E4AF86 > D3BC8A
-shiny = FAFAFA > F4FFF4
-shiny = FFE77E > F8FFEA

@@ -1,0 +1,59 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Lunala
+dex  = 792
+type = Psychic / Ghost
+
+hp         = 137
+attack     = 113
+defense    = 89
+sp_attack  = 137
+sp_defense = 107
+speed      = 97
+
+size   = 1.45
+height = 4.0      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 120.0      # Pokedex weight in kg
+hovers = yes
+heavy  = yes
+winged = yes
+rare   = no
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = evo, Moongeist Beam
+learn = 1, Confusion
+learn = 1, Teleport
+learn = 1, Hypnosis
+learn = 1, Cosmic Power
+learn = 7, Night Shade
+learn = 14, Confuse Ray
+learn = 21, Air Slash
+learn = 28, Shadow Ball
+learn = 35, Moonlight
+learn = 42, Night Daze
+learn = 49, Psychic
+learn = 56, Moonblast
+learn = 63, Phantom Force
+learn = 70, Dream Eater
+learn = 77, Wide Guard
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Agility, Scary Face, Protect, Acrobatics, Confuse Ray, Charge Beam
+tm = Facade, Aerial Ace, Hex, Swift, Icy Wind, Night Shade
+tm = Endure, Sunny Day, Rain Dance, Psyshock, Shadow Claw, Air Slash
+tm = Sleep Talk, Reflect, Light Screen, Dazzling Gleam, Rest, Fly
+tm = Substitute, Will-O-Wisp, Trick, Tailwind, Shadow Ball, Heat Wave
+tm = Psychic, Thunderbolt, Calm Mind, Helping Hand, Ice Beam, Blizzard
+tm = Phantom Force, Giga Impact, Focus Blast, Trick Room, Hyper Beam, Thunder
+tm = Solar Beam, Tera Blast, Spite, Dual Wingbeat, Poltergeist, Psych Up
+tm = Future Sight, Expanding Force, Meteor Beam

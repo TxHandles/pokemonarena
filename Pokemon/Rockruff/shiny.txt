@@ -1,0 +1,7 @@
+# Rockruff - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 483933 > 42433F
+shiny = 685148 > 56626F
+shiny = 7A4F46 > 695F55
+shiny = A07864 > 69A1BB
+shiny = C69E87 > 92CAE4

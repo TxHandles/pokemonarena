@@ -341,7 +341,7 @@ void Battle::UpdateLegendField(float dt) {
                 p.spin = Frand(0, 6);
                 projs.push_back(p);
             }
-            if (field.kind == ArenaKind::Unknown) AddText(bf.pos, bf.sp->name + " hurls a boulder with its mind!", Color{220, 140, 255, 255}, 30);
+            if (field.kind == ArenaKind::Unknown) AddText(bf.pos, bf.Name() + " hurls a boulder with its mind!", Color{220, 140, 255, 255}, 30);
         }
     }
     if (field.kind == ArenaKind::Unknown) {   // a psychic pulse ripples out from Mewtwo
@@ -378,7 +378,7 @@ void Battle::UpdateLegendField(float dt) {
             bf.dashing = false;
             bf.knock = {0, 0};
             Burst(bf.pos, Color{120, 220, 255, 255}, 16, 70, 10);
-            AddText(bf.pos, bf.sp->name + " teleported!", Color{120, 220, 255, 255}, 34);
+            AddText(bf.pos, bf.Name() + " teleported!", Color{120, 220, 255, 255}, 34);
             PlaySfx(Sfx::Shield);
         }
     }
@@ -396,7 +396,7 @@ void Battle::UpdateLegendField(float dt) {
                 bf.dashing = false;
                 bf.knock = {0, 0};
                 Burst(bf.pos, kPink, 16, 70, 10);
-                AddText(bf.pos, bf.sp->name + " teleported!", kPink, 34);
+                AddText(bf.pos, bf.Name() + " teleported!", kPink, 34);
                 PlaySfx(Sfx::Shield);
             }
         }

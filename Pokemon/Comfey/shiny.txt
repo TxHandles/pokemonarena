@@ -1,0 +1,6 @@
+# Comfey - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 475425 > 2E4F69
+shiny = 8B7B31 > 1E3445
+shiny = B7CB57 > 57A3CB
+shiny = CAEE7A > 7AB6EE

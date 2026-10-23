@@ -1,0 +1,60 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: Princess-Phoenix, Larryturbo, Kidkatt, Zender1752 and SageDeoxys (DeviantArt, "Gen 7 (Alola) Overworld Sprites") - credit wanted
+name = Necrozma
+dex  = 800
+type = Psychic
+
+hp         = 97
+attack     = 107
+defense    = 101
+sp_attack  = 127
+sp_defense = 89
+speed      = 79
+
+size   = 1.32
+height = 2.4      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 230.0      # Pokedex weight in kg
+hovers = yes
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Confusion
+learn = 1, Moonlight
+learn = 1, Morning Sun
+learn = 1, Metal Claw
+learn = 1, Charge Beam
+learn = 8, Stealth Rock
+learn = 16, Slash
+learn = 24, Night Slash
+learn = 32, Psycho Cut
+learn = 40, Stored Power
+learn = 48, Rock Blast
+learn = 56, Iron Defense
+learn = 64, Power Gem
+learn = 72, Photon Geyser
+learn = 80, Gravity
+learn = 88, Prismatic Laser
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Scary Face, Protect, Thief, Charge Beam, Facade, Aerial Ace
+tm = Bulldoze, Metal Claw, Swift, Rock Tomb, Stored Power, Fling
+tm = Endure, Sunny Day, Sandstorm, Smart Strike, Psyshock, Brick Break
+tm = Shadow Claw, Psychic Fangs, Body Slam, Sleep Talk, Reflect, Light Screen
+tm = Rock Blast, Rest, Rock Slide, Swords Dance, Imprison, Flash Cannon
+tm = Dark Pulse, Iron Head, Dragon Dance, Power Gem, Substitute, Iron Defense
+tm = X-Scissor, Dragon Pulse, Stealth Rock, Hyper Voice, Heat Wave, Psychic
+tm = Calm Mind, Earth Power, Earthquake, Stone Edge, Giga Impact, Outrage
+tm = Trick Room, Hyper Beam, Solar Beam, Tera Blast, Gravity, Gyro Ball
+tm = Knock Off, Future Sight, Expanding Force, Meteor Beam

@@ -1,0 +1,8 @@
+# Hakamo-o - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 454443 > 655437
+shiny = 5E4924 > 874361
+shiny = 7C7A6E > D9B527
+shiny = BCBBB0 > F0E162
+shiny = DFA745 > C66EA2
+shiny = F4EA54 > EBABDA

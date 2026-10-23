@@ -1,0 +1,4 @@
+# Salandit - shiny colours (from the artists' own Gen 7 shiny sheet)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 555A5B > 999595
+shiny = 7E8282 > D8D8D8

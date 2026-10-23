@@ -1,0 +1,62 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+# Overworld sprites: princess-phoenix (DeviantArt, "Gen 6 (Kalos) Pokemon Overworld Sprites") - credit wanted
+name = Volcanion
+dex  = 721
+type = Fire / Water
+
+hp         = 80
+attack     = 110
+defense    = 120
+sp_attack  = 130
+sp_defense = 90
+speed      = 70
+
+size   = 1.23
+height = 1.7      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 195.0      # Pokedex weight in kg
+hovers = no
+heavy  = yes
+winged = no
+rare   = no
+legendary = yes
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Scarlet/Violet) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Water Gun
+learn = 1, Steam Eruption
+learn = 1, Fire Spin
+learn = 6, Leer
+learn = 12, Weather Ball
+learn = 18, Flame Charge
+learn = 24, Water Pulse
+learn = 30, Scary Face
+learn = 36, Incinerate
+learn = 42, Stomp
+learn = 48, Scald
+learn = 54, Take Down
+learn = 60, Haze
+learn = 60, Mist
+learn = 66, Hydro Pump
+learn = 78, Flare Blitz
+learn = 84, Overheat
+learn = 90, Explosion
+
+# ---- TM MOVES (Scarlet/Violet) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+tm = Take Down, Scary Face, Protect, Fire Fang, Thunder Fang, Water Pulse
+tm = Fire Spin, Facade, Bulldoze, Mud Shot, Rock Tomb, Flame Charge
+tm = Fling, Endure, Sunny Day, Rain Dance, Sandstorm, Dig
+tm = Brick Break, Body Slam, Sleep Talk, Stomping Tantrum, Rest, Rock Slide
+tm = Taunt, Body Press, Flash Cannon, Substitute, Will-O-Wisp, Liquidation
+tm = Heat Wave, Heavy Slam, Flamethrower, Earth Power, Misty Terrain, Fire Blast
+tm = Hydro Pump, Wild Charge, Sludge Bomb, Earthquake, Stone Edge, Giga Impact
+tm = Overheat, Focus Blast, Hyper Beam, Flare Blitz, Solar Beam, Tera Blast
+tm = Roar, Haze, Smack Down, Gyro Ball, Scald, Heat Crash
+tm = Weather Ball, Double-Edge, Sludge Wave, Scorching Sands

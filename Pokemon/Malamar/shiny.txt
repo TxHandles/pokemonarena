@@ -1,0 +1,18 @@
+# Malamar - shiny colours (from the official shiny sprite, made by tools/shinygen.py)
+# Each line: one of this Pokemon's sprite colours > its shiny colour. Edit freely.
+shiny = 31253B > 4A3500
+shiny = 46424B > 60530A
+shiny = 4889B8 > BE9B4A
+shiny = 533B67 > 63633B
+shiny = 6ACEEE > FFDB85
+shiny = 71B3D7 > EAC470
+shiny = 73688A > 989B5C
+shiny = 7C6EB0 > B58D40
+shiny = 8793C9 > D5AD5C
+shiny = A68B76 > 919A69
+shiny = A69BD1 > D1AF78
+shiny = C0279D > 958A64
+shiny = C4B8EB > C1E09F
+shiny = D25282 > BB5450
+shiny = EBC429 > D3D255
+shiny = EFDB8E > DAE894

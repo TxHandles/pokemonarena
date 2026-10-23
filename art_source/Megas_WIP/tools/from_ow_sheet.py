@@ -32,7 +32,7 @@ TOP = [
     [("Mega Metagross", 10076, "Metagrossite"), ("Mega Lopunny", 10088, "Lopunnite"),
      ("Mega Garchomp", 10058, "Garchompite"), ("Mega Lucario", 10059, "Lucarionite"),
      ("Mega Abomasnow", 10060, "Abomasite"), ("Mega Gallade", 10068, "Galladite"), ("Mega Audino", 10069, "Audinite"),
-     None],   # Mega Diancie: Diancie is Gen 6 (on hold)
+     None],   # Mega Diancie: cut from the Gen 6 sheet instead (Pokemon/Mega Diancie)
 ]
 BIG = [("Mega Steelix", 10072, "Steelixite"), ("Mega Latias", 10062, "Latiasite"), ("Mega Latios", 10063, "Latiosite"),
        ("Primal Kyogre", 10077, "Blue Orb"), ("Primal Groudon", 10078, "Red Orb"),
