@@ -413,6 +413,7 @@ void EnterStoryHub(Game& g) {
         }
         g.mode = Mode::CoopStory;
         g.ow.wildBattle = false;
+        if (!g.ow.active && !g.ow.hubOnly && InWorldMode(g)) { EnterWorld(g); return; }   // walked Kanto: the world is the story's home
         if (g.ow.active) { g.screen = Screen::World; return; }   // walking around: back on the map
         g.hubSel = 0;
         g.screen = Screen::CoopHub;
@@ -420,6 +421,7 @@ void EnterStoryHub(Game& g) {
     }
     g.mode = Mode::Story;
     g.ow.wildBattle = false;
+    if (!g.ow.active && !g.ow.hubOnly && InWorldMode(g)) { EnterWorld(g); return; }   // walked Kanto: the world is the story's home
     if (g.ow.active) { g.screen = Screen::World; g.ow.w[0].fadeT = 0.35f; return; }   // walking around: back on the map
     g.hubSel = 0;
     g.screen = Screen::StoryHub;
@@ -457,7 +459,8 @@ void UpdateProfileSelect(Game& g) {
     std::string problems;
     if (!LoadProfile(g.profiles[g.profSel], g.profile, &problems)) { Toast(g, "Could not load that profile"); return; }
     if (!problems.empty()) Toast(g, "Some Pokemon in this save are missing from the Pokemon folder");
-    if (ProfileRoster(g.profile).empty()) {
+    bool walkedStart = !g.profile.regionOrder.empty() && WalkedOpening(g.profile.regionOrder[0]);   // in your room, before Oak's Pokemon
+    if (ProfileRoster(g.profile).empty() && !walkedStart) {
         BeginRegionChoose(g, 0);   // a story not started yet: where it begins, then the first partner
     } else {
         EnterStoryHub(g);
@@ -572,10 +575,32 @@ std::string PrettyPerson(const std::string& n) {
 
 TrainerLook CreatorLookFor(const Game& g) { return CreatorLook(g); }
 
+// From the world's menu: start from the look you have now.
+void OpenCreator(Game& g, bool fromWorld) {
+    for (int& v : g.cr) v = 0;
+    TrainerLook l = ParseLook(g.profile.look);
+    if (l.Empty()) { l.type = g.coop && g.coopActive == 1 ? 1 : 0; l.head = l.body = l.type ? "leaf" : "player"; }
+    g.cr[0] = l.type;
+    g.cr[1] = IndexIn(LookHeads(), l.head.c_str());
+    g.cr[2] = std::max(0, std::min((int)LookColourNames().size() - 1, l.hair));
+    g.cr[3] = IndexIn(LookBodies(), l.body.c_str());
+    g.cr[4] = std::max(0, std::min((int)LookColourNames().size() - 1, l.cloth));
+    g.cr[5] = std::max(0, std::min((int)LookSkinNames().size() - 1, l.skin));
+    g.crSel = 0;
+    g.crReturn = fromWorld;
+    g.screen = Screen::Creator;
+}
+
 void FinishCreator(Game& g) {
     g.profile.look = LookText(CreatorLook(g));
     SaveOrWarn(g);
     PlaySfx(Sfx::MenuOk);
+    if (g.crReturn) {   // back out into the world, in your new look
+        g.crReturn = false;
+        Toast(g, "Looking good!");
+        EnterStoryHub(g);
+        return;
+    }
     if (g.netNewTrainer) {   // online co-op: back to the online menu with the new trainer chosen
         g.netNewTrainer = false;
         g.profiles = ListProfiles();
@@ -589,6 +614,7 @@ void FinishCreator(Game& g) {
 
 void UpdateCreator(Game& g) {
     PlayerInput in = MenuInput();
+    if (g.crReturn && in.back) { g.crReturn = false; PlaySfx(Sfx::MenuBack); EnterStoryHub(g); return; }   // never mind
     if (in.up) { g.crSel = (g.crSel + 6) % 7; PlaySfx(Sfx::MenuMove); }
     if (in.down) { g.crSel = (g.crSel + 1) % 7; PlaySfx(Sfx::MenuMove); }
     if (g.crSel < 6 && (in.left || in.right)) {
@@ -647,13 +673,14 @@ void DrawCreator(const Game& g) {
         int y = 74 + r * 34;
         bool sel = g.crSel == idx;
         DrawPanel(250, y, 352, 28, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
-        if (idx == 6) { DrawTextCentered("Done - start your journey", 426, y + 9, 10, sel ? UI_GOLD : Color{140, 220, 150, 255}, false); continue; }
+        if (idx == 6) { DrawTextCentered(g.crReturn ? "Done" : "Done - start your journey", 426, y + 9, 10, sel ? UI_GOLD : Color{140, 220, 150, 255}, false); continue; }
         GDrawText(kRow[r], 262, y + 9, 10, sel ? UI_GOLD : UI_TEXT);
         const char* shown = vals[idx];
         std::string t = std::string(sel ? "<  " : "") + shown + (sel ? "  >" : "");
         GDrawText(t.c_str(), 590 - TextW(t.c_str(), 10), y + 9, 10, sel ? UI_TEXT : UI_DIM);
     }
-    GDrawText("Up / Down pick   Left / Right change   Tab (X) random   Enter on Done to finish", 20, 340, 10, UI_DIM);
+    GDrawText(g.crReturn ? "Up / Down pick   Left / Right change   Tab (X) random   Enter on Done to finish   Esc cancel"
+                         : "Up / Down pick   Left / Right change   Tab (X) random   Enter on Done to finish", 20, 340, 10, UI_DIM);
     DrawToast(g);
 }
 
@@ -1040,8 +1067,10 @@ void UpdateStoryHub(Game& g) {
         case 9:
             StartPractice(g);
             break;
-        case 10:
-            EnterWorld(g);
+        case 10:   // back to the walked region (Kanto): its post-game
+            if (InWorldMode(g) || WorldRequired(g)) { g.ow.hubOnly = false; EnterWorld(g); }
+            else if (CanVisitWorld(g)) VisitWorld(g);
+            else Toast(g, "Beat Kanto's Champion first - then you can travel back to Kanto any time.");
             break;
         case 11:
             if (g.profile.raidDay == RaidToday()) { Toast(g, "You've fought today's raid. A new boss appears tomorrow!"); break; }
@@ -1225,7 +1254,7 @@ void DrawStoryHub(const Game& g) {
         TextFormat("Pokedex (%d caught)", dexCaught),
         IsNight(p.clock) ? "Wait until morning" : "Wait until night",
         "Practice arena",
-        "Walk around (test): " + WorldPlaceName(g),
+        CanVisitWorld(g) ? "Travel to Kanto" : "Kanto (beat its League first)",
         raidLabel,
         "Save and quit",
     };
@@ -2571,7 +2600,7 @@ void ProcessStoryBattleEnd(Game& g) {
     int& losses = coop ? g.coopSave.losses : g.profile.losses;
     int& trainingWins = coop ? g.coopSave.trainingWins : g.profile.trainingWins;
 
-    StoryTimeStep(g, true);
+    if (!(g.ow.active || g.ow.wildBattle || g.owFight)) StoryTimeStep(g, true);   // (out in the world, the day goes by as you walk)
     // The after-battle stats screen: everyone who was sent out.
     g.statRows.clear();
     for (int s = 0; s < b.NumSlots(); s++) {
@@ -2637,6 +2666,24 @@ void ProcessStoryBattleEnd(Game& g) {
     struct Took { int who, mon; bool fought, fainted; };
     std::vector<Took> took;
     int brought[2] = {0, 0}, standing[2] = {0, 0};
+    // Exp. Share, like the newer games: the Pokemon that didn't fight - on the bench or back in the party -
+    // each get half of what the ones that fought earned on average.
+    int half[2] = {0, 0};
+    {
+        long sum[2] = {0, 0};
+        int cnt[2] = {0, 0};
+        for (int s = 0; s < b.NumSlots(); s++) {
+            const Side& sd = b.GetSide(s);
+            if (sd.teamId != 0 || !sd.earnXp) continue;
+            for (const Fighter& f : sd.team) {
+                if (f.lent || !f.sentOut || f.ownedId < 0) continue;
+                int who = coop ? (f.owner & 1) : 0;
+                sum[who] += f.xpGained + (g.won ? std::lround(bonus * 0.35f) : 0);
+                cnt[who]++;
+            }
+        }
+        for (int w = 0; w < 2; w++) half[w] = cnt[w] ? (int)(sum[w] / cnt[w] / 2) : 0;
+    }
 
     for (int s = 0; s < b.NumSlots(); s++) {
         const Side& sd = b.GetSide(s);
@@ -2681,9 +2728,9 @@ void ProcessStoryBattleEnd(Game& g) {
             bool mine = OnlineMine(g, who);
             if (mine) for (const auto& mv : f.pendingLearn) g.learnQueue.push_back({f.ownedId, mv, who});
 
-            if (g.won && bonus > 0) {
+            if ((g.won && bonus > 0 && f.sentOut) || (!f.sentOut && half[who] > 0)) {
                 Growth gr;
-                int share = (int)std::lround(bonus * (f.sentOut ? 0.35f : 0.2f));
+                int share = f.sentOut ? (int)std::lround(bonus * 0.35f) : half[who];
                 int b2 = f.Holds(ItemFx::LuckyEgg) ? (int)(share * f.item->value) : share;
                 AddXp(m, b2, gr);
                 row.xp += b2;
@@ -2704,6 +2751,28 @@ void ProcessStoryBattleEnd(Game& g) {
             else if (!f.sentOut) row.note = "stayed on the bench";
             else if (f.hp <= 0) row.note = "fainted";
             if (f.sentOut || row.xp > 0) g.resultRows.push_back(row);
+        }
+    }
+    for (int w = 0; w < (coop ? 2 : 1); w++) {   // ...and the party members that stayed home
+        if (half[w] <= 0) continue;
+        Profile& P = Prof(g, w);
+        bool mine = OnlineMine(g, w);
+        for (int i = 0; i < (int)P.mons.size(); i++) {
+            OwnedMon& m = P.mons[i];
+            if (m.boxed || m.hp <= 0) continue;
+            bool was = false;
+            for (const auto& k : took) was |= k.who == w && k.mon == i;
+            if (was) continue;
+            Growth gr;
+            int lv = m.level;
+            int x = m.item == "Lucky Egg" || m.item == "Macho Brace" ? (int)(half[w] * (FindItem(m.item) ? FindItem(m.item)->value : 1)) : half[w];
+            AddXp(m, x, gr);
+            ResultRow row;
+            row.who = w; row.mon = i; row.levelFrom = lv; row.levelTo = m.level; row.xp = x; row.name = m.species; row.note = "shared";
+            g.resultRows.push_back(row);
+            for (const auto& mv : gr.learned) g.resultLines.push_back(m.species + " learned " + mv + "!");
+            if (mine) for (const auto& mv : gr.wantsToLearn) g.learnQueue.push_back({i, mv, w});
+            if (mine && gr.evolveTo >= 0) g.evoQueue.push_back({i, gr.evolveTo, w});
         }
     }
 
@@ -3577,7 +3646,7 @@ void DrawStoryResults(const Game& g) {
     }
     int y = 70;
     bool compact = g.resultRows.size() > 3;
-    int rh = g.resultRows.size() > 4 ? 24 : (compact ? 30 : 40);
+    int rh = g.resultRows.size() > 8 ? 18 : g.resultRows.size() > 4 ? 24 : (compact ? 30 : 40);   // (co-op with shared XP: up to 12 rows)
     int rowI = -1;
     for (const auto& r : g.resultRows) {
         rowI++;
@@ -3607,7 +3676,7 @@ void DrawStoryResults(const Game& g) {
         std::string lv = r.levelTo > r.levelFrom ? TextFormat("Lv%d -> Lv%d", r.levelFrom, r.levelTo) : TextFormat("Lv%d", r.levelTo);
         GDrawText(lv.c_str(), 290, y + 4, 10, r.levelTo > r.levelFrom ? UI_GOLD : UI_TEXT);
         GDrawText(TextFormat("+%d XP", r.xp), 420, y + 4, 10, Color{120, 190, 255, 255});
-        if (!r.note.empty()) GDrawText(r.note.c_str(), 172, y + rh - 12, 10, UI_DIM);
+        if (!r.note.empty() && rh >= 24) GDrawText(r.note.c_str(), 172, y + rh - 12, 10, UI_DIM);
         DrawHpBar(290, y + rh - 11, 90, 3, m.hp);
         {   // the XP bar fills up; a level-up flashes
             float fill = std::min(1.0f, std::max(0.0f, (st0 - 0.5f - rowI * 0.08f) / 0.8f));
@@ -4837,7 +4906,7 @@ void CoopContinueSetup(Game& g) {
         g.screen = Screen::CoopSetup;
         return;
     }
-    if (g.coopP[0].mons.empty() || g.coopP[1].mons.empty()) {
+    if (CoopNeedsStarter(g)) {
         g.coopStarterSel[0] = 0;
         g.coopStarterSel[1] = std::min(1, (int)RegionStarters(g.journeyRegion).size() - 1);
         g.screen = Screen::CoopStarter;
@@ -4908,7 +4977,11 @@ void CoopBeginJourney(Game& g) {
     EnterStoryHub(g);
 }
 
-bool CoopNeedsStarter(const Game& g) { return g.coopP[0].mons.empty() || g.coopP[1].mons.empty(); }
+bool CoopNeedsStarter(const Game& g) {
+    int r = g.coopSave.regionOrder.empty() ? g.journeyRegion : g.coopSave.regionOrder[0];
+    if (WalkedOpening(r) && g.coopSave.storyStage <= RegionInfo(r).first) return false;   // walked Kanto: Oak's lab has them
+    return g.coopP[0].mons.empty() || g.coopP[1].mons.empty();
+}
 
 // ------------------------------------------------------------------ co-op story: hub
 
@@ -5049,8 +5122,11 @@ void UpdateCoopHub(Game& g) {
         case 10:
             StartPractice(g);
             break;
-        case 11:
-            EnterWorld(g);
+        case 11:   // back to the walked region (Kanto): its post-game
+            if (online && g.on.me != 0 && !InWorldMode(g)) { Toast(g, g.coopP[0].name + " decides when you travel."); break; }
+            if (InWorldMode(g) || WorldRequired(g)) { g.ow.hubOnly = false; EnterWorld(g); }
+            else if (CanVisitWorld(g)) VisitWorld(g);
+            else Toast(g, "Beat Kanto's Champion first - then you can travel back to Kanto any time.");
             break;
         case HUB_GEAR:
             g.settingsSel = 0;
@@ -5133,7 +5209,7 @@ void DrawCoopHubBase(const Game& g) {
         partnerTrading ? "Trade (your partner is waiting!)" : "Trade Pokemon",
         IsNight(g.coopSave.clock) ? "Wait until morning" : "Wait until night",
         "Practice arena",
-        "Walk around (test): " + WorldPlaceName(g),
+        CanVisitWorld(g) ? "Travel to Kanto together" : "Kanto (beat its League first)",
         craidDone ? std::string("Daily Raid: done - back tomorrow") : "Daily Raid: " + (craid.species >= 0 ? AllSpecies()[craid.species].name : std::string("?")) + (craid.shiny ? " (shiny!)" : ""),
         "Save and quit",
     };
@@ -5281,6 +5357,8 @@ int HofCount(const Game& g) {
     return n;
 }
 } // namespace
+
+int HallOfFameCount(const Game& g) { return HofCount(g); }
 
 void UpdateHallOfFame(Game& g) {
     PlayerInput in = MenuInput();

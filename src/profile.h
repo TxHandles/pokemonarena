@@ -37,6 +37,7 @@ struct Profile {
     std::set<std::string> dexSeen, dexCaught;   // Pokedex (species names); creatures you own count as caught
     std::string starter;               // the starter species chosen (the rival picks against it)
     int storyRev = 0;                  // story layout this save's stage index belongs to
+    int clockSec = 0;                  // the walked world: seconds into this half of the day (20 minutes each)
     int clock = 0;                     // Story time: +1 per battle or wait. Odd = night; season = (clock / 4) % 4
     std::string trainArea;             // where training battles happen (a wild.txt area; empty = the newest)
     std::string owMap;                 // the overworld: where you are (empty: not been there yet)
@@ -101,6 +102,7 @@ struct CoopSave {
     std::vector<std::string> badges;
     int storyRev = 0;
     int clock = 0;                     // shared time of day / season
+    int clockSec = 0;                  // the walked world: seconds into this half of the day
     std::string trainArea;             // where co-op training battles happen
     struct RunStats { int kos = 0, damage = 0, caught = 0, mvp = 0, faints = 0, battles = 0; };
     RunStats run[2];                   // each player's record over the whole co-op run (hub leaderboard)

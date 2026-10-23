@@ -20,6 +20,7 @@ struct Settings {
     bool autoAim = true;
     bool screenShake = true;
     bool damageNumbers = true;
+    bool questMarker = true;      // the walked story: an arrow toward the next story battle
     int fxLevel = 0;              // effects intensity: 0 full, 1 reduced (no camera moves or big flashes), 2 minimal
     int screenFilter = 0;         // 0 off, 1 soft glow, 2 retro CRT
     int teamSize = 6;

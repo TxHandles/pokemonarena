@@ -4019,45 +4019,10 @@ namespace { std::vector<char> gOwned; }
 void SetOwnedSpecies(std::vector<char> owned) { gOwned = std::move(owned); }
 bool OwnedSpecies(int sp) { return sp >= 0 && sp < (int)gOwned.size() && gOwned[sp]; }
 
-void Battle::DrawHud() const {
-    if (weather != Weather::None) {
-        const char* wn = weather == Weather::Rain ? "Rain" : weather == Weather::Sun ? "Harsh sun" : weather == Weather::Sand ? "Sandstorm" : "Snow";
-        const char* lbl = weatherT > 1000 ? wn : TextFormat("%s %ds", wn, (int)std::ceil(weatherT));
-        int w = TextW(lbl, 10);
-        int y = field.kind != ArenaKind::Stadium ? 17 : 5;
-        DrawRectangle(VW / 2 - w / 2 - 4, y - 1, w + 8, 12, Fade(UI_INK, 0.7f));
-        GDrawText(lbl, VW / 2 - w / 2, y, 10, Color{170, 210, 255, 255});
-    }
-    if (field.kind != ArenaKind::Stadium) {
-        const char* an = ArenaName(field.kind);
-        int w = TextW(an, 10);
-        DrawRectangle(VW / 2 - w / 2 - 4, 4, w + 8, 12, Fade(UI_INK, 0.7f));
-        GDrawText(an, VW / 2 - w / 2, 5, 10, UI_GOLD);
-        if (field.kind == ArenaKind::Psychic && field.portalT < 3.0f) {
-            const char* m = "portals shifting...";
-            GDrawText(m, VW / 2 - TextW(m, 10) / 2, 17, 10, Color{230, 120, 240, 255});
-        }
-    }
-    // Which slots get the big move panels at the bottom: players first, then their teammates.
-    std::vector<int> bottom;
-    if (!IsDoubles()) {
-        for (int s = 0; s < N(); s++) if (sides[s].teamId == 0) bottom.push_back(s);
-        for (int s = 0; s < N(); s++) if (sides[s].teamId == 1) bottom.push_back(s);
-    } else {
-        for (int in = 0; in < 2; in++)
-            for (int s = 0; s < N(); s++) if (sides[s].input == in) bottom.push_back(s);
-        for (int s = 0; s < N(); s++)
-            if (sides[s].teamId == 0 && std::find(bottom.begin(), bottom.end(), s) == bottom.end()) bottom.push_back(s);
-        for (int s = 0; s < N(); s++)
-            if (std::find(bottom.begin(), bottom.end(), s) == bottom.end()) bottom.push_back(s);
-    }
-    if (bottom.size() > 2) bottom.resize(2);
-
+void DrawHudTexture(const Battle* b, const float fade[2]);
+void Battle::DrawPlates() const {
     int perTeam[2] = {0, 0}, minis = 0;
-    if (setup.raid) {   // the raid: just you on the big panel, so the boss's panel takes the right
-        bottom.clear();
-        for (int s = 0; s < N(); s++) if (sides[s].teamId == 0 && !sides[s].cpu) bottom.push_back(s);
-    }
+    plateRects.clear();
     for (int s = 0; s < N(); s++) {
         const Side& sd = sides[s];
         const Fighter& f = sd.Cur();
@@ -4077,6 +4042,7 @@ void Battle::DrawHud() const {
         int pw = 250, ph = compact ? 21 : 29;
         int x = sd.teamId == 0 ? 4 : VW - 4 - pw;
         int y = 3 + perTeam[sd.teamId]++ * (ph + 2);
+        plateRects.push_back({sd.teamId, Rectangle{(float)x, (float)y, (float)pw, (float)ph + 8}});
         const char* who = compact && !sd.tag.empty() ? sd.tag.c_str() : sd.label.c_str();
         {   // a slanted, see-through name plate in the team's colour
             float sl = 8;
@@ -4178,6 +4144,113 @@ void Battle::DrawHud() const {
         }
     }
 
+}
+
+// The plates fade (to a quarter) while a Pokemon on the field is under them, and come back when it leaves.
+namespace {
+struct HudRt { const Battle* b = nullptr; RenderTexture2D rt{}; double used = 0; };
+HudRt gHudRt[4];
+constexpr int HUD_H = 96;   // the plates' strip at the top of the screen
+RenderTexture2D* HudRtFor(const Battle* b, bool make) {
+    HudRt* lru = &gHudRt[0];
+    for (auto& h : gHudRt) {
+        if (h.b == b && h.rt.id) { h.used = GetTime(); return &h.rt; }
+        if (h.used < lru->used) lru = &h;
+    }
+    if (!make) return nullptr;
+    if (!lru->rt.id) { lru->rt = LoadRenderTexture(VW * CANVAS_ZOOM, HUD_H * CANVAS_ZOOM); SetTextureFilter(lru->rt.texture, TEXTURE_FILTER_BILINEAR); }
+    lru->b = b;
+    lru->used = GetTime();
+    return &lru->rt;
+}
+} // namespace
+void DrawHudTexture(const Battle* b, const float fade[2]) {
+    RenderTexture2D* rt = HudRtFor(b, false);
+    if (!rt) return;
+    BeginBlendMode(BLEND_ALPHA_PREMULTIPLY);
+    for (int side = 0; side < 2; side++) {   // the left half (your team), the right half (the foes)
+        float a = fade[side];
+        unsigned char v = (unsigned char)(255 * a);
+        float sw = rt->texture.width / 2.0f;
+        Rectangle src{side * sw, 0, sw, -(float)rt->texture.height};
+        Rectangle dst{side * VW / 2.0f, 0, VW / 2.0f, (float)HUD_H};
+        DrawTexturePro(rt->texture, src, dst, {0, 0}, 0, Color{v, v, v, v});
+    }
+    EndBlendMode();
+}
+void Battle::PrepareHud() const {
+    RenderTexture2D* rt = HudRtFor(this, true);
+    if (!rt || !rt->id) return;
+    // which plates have a Pokemon under them
+    bool under[2] = {false, false};
+    for (int s = 0; s < N(); s++) {
+        const Fighter& f = sides[s].Cur();
+        if (f.state != FState::Active && f.state != FState::Evolving) continue;
+        Vector2 p = ToScreen(f.pos);
+        Rectangle box{p.x - 18, p.y - 52, 36, 56};
+        for (const auto& [team, r] : plateRects) if (CheckCollisionRecs(box, r)) under[team & 1] = true;
+    }
+    float dt = GetFrameTime();
+    for (int t = 0; t < 2; t++) {
+        float want = under[t] ? 0.25f : 1.0f;
+        hudFade[t] += (want - hudFade[t]) * std::min(1.0f, dt * 8);
+    }
+    BeginTextureMode(*rt);
+    ClearBackground(BLANK);
+    Camera2D cam{};
+    cam.zoom = (float)CANVAS_ZOOM;
+    BeginMode2D(cam);
+    rlSetBlendFactorsSeparate(RL_SRC_ALPHA, RL_ONE_MINUS_SRC_ALPHA, RL_ONE, RL_ONE_MINUS_SRC_ALPHA, RL_FUNC_ADD, RL_FUNC_ADD);
+    BeginBlendMode(BLEND_CUSTOM_SEPARATE);
+    DrawPlates();
+    EndBlendMode();
+    EndMode2D();
+    EndTextureMode();
+    hudReady = true;
+}
+
+void Battle::DrawHud() const {
+    if (weather != Weather::None) {
+        const char* wn = weather == Weather::Rain ? "Rain" : weather == Weather::Sun ? "Harsh sun" : weather == Weather::Sand ? "Sandstorm" : "Snow";
+        const char* lbl = weatherT > 1000 ? wn : TextFormat("%s %ds", wn, (int)std::ceil(weatherT));
+        int w = TextW(lbl, 10);
+        int y = field.kind != ArenaKind::Stadium ? 17 : 5;
+        DrawRectangle(VW / 2 - w / 2 - 4, y - 1, w + 8, 12, Fade(UI_INK, 0.7f));
+        GDrawText(lbl, VW / 2 - w / 2, y, 10, Color{170, 210, 255, 255});
+    }
+    if (field.kind != ArenaKind::Stadium) {
+        const char* an = ArenaName(field.kind);
+        int w = TextW(an, 10);
+        DrawRectangle(VW / 2 - w / 2 - 4, 4, w + 8, 12, Fade(UI_INK, 0.7f));
+        GDrawText(an, VW / 2 - w / 2, 5, 10, UI_GOLD);
+        if (field.kind == ArenaKind::Psychic && field.portalT < 3.0f) {
+            const char* m = "portals shifting...";
+            GDrawText(m, VW / 2 - TextW(m, 10) / 2, 17, 10, Color{230, 120, 240, 255});
+        }
+    }
+    // Which slots get the big move panels at the bottom: players first, then their teammates.
+    std::vector<int> bottom;
+    if (!IsDoubles()) {
+        for (int s = 0; s < N(); s++) if (sides[s].teamId == 0) bottom.push_back(s);
+        for (int s = 0; s < N(); s++) if (sides[s].teamId == 1) bottom.push_back(s);
+    } else {
+        for (int in = 0; in < 2; in++)
+            for (int s = 0; s < N(); s++) if (sides[s].input == in) bottom.push_back(s);
+        for (int s = 0; s < N(); s++)
+            if (sides[s].teamId == 0 && std::find(bottom.begin(), bottom.end(), s) == bottom.end()) bottom.push_back(s);
+        for (int s = 0; s < N(); s++)
+            if (std::find(bottom.begin(), bottom.end(), s) == bottom.end()) bottom.push_back(s);
+    }
+    if (bottom.size() > 2) bottom.resize(2);
+
+    if (setup.raid) {   // the raid: just you on the big panel, so the boss's panel takes the right
+        bottom.clear();
+        for (int s = 0; s < N(); s++) if (sides[s].teamId == 0 && !sides[s].cpu) bottom.push_back(s);
+    }
+    if (hudReady) {   // the plates, drawn off-screen: each team's fades while a Pokemon walks under it
+        hudReady = false;
+        DrawHudTexture(this, hudFade);
+    } else DrawPlates();
     for (size_t bi = 0; bi < bottom.size(); bi++) {
         int s = bottom[bi];
         const Side& sd = sides[s];

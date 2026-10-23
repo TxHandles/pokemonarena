@@ -200,6 +200,7 @@ int main() {
         transT = std::max(0.0f, transT - GetFrameTime());
 
         WorldPreDraw(g);   // a co-op player's own battle, drawn for their half of the screen
+        if (g.screen == Screen::Battle) g.battle.PrepareHud();   // the HP plates, so they can fade over the field
         BeginTextureMode(target);
         ClearBackground(BLACK);
         BeginMode2D(cam);

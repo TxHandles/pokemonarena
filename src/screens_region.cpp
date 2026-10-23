@@ -70,6 +70,7 @@ void UpdateRegionChoose(Game& g) {
             g.profile.storyStage = RegionInfo(r).first;
             if (!SaveProfile(g.profile)) Toast(g, "Could not save the profile!");
             g.starterSel = 0;
+            if (WalkedOpening(r)) { g.profile.owMap.clear(); SaveProfile(g.profile); EnterStoryHub(g); break; }   // your room: Oak has your first Pokemon
             if (r == 0) { g.regionPick = 0; g.screen = Screen::Starter; }   // Professor Oak's lab, as always
             else { g.regionPick = r + 1; g.newJourney = true; g.regionRevealT = -1; g.screen = Screen::Starter; }
         } break;

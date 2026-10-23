@@ -29,6 +29,7 @@
 #include "legend.h"
 #include "storymap.h"
 #include "ui.h"
+#include "settings.h"
 #include "wild.h"
 
 void OnlineSendWorldPos(bool here, int map, int x, int y, int face);
@@ -84,7 +85,7 @@ struct OwMap {
     struct Item { int x, y; std::string item; int n = 1; bool hidden = false; std::string ifF, unlessF; };
     std::vector<Item> items;          // item balls (and hidden items) to pick up, once each
     struct Gate { int x, y; std::string flag; };
-    struct Block { int x, y; std::string flag, text; };
+    struct Block { int x, y; std::string flag, text, act; };   // act: done after the text (">warp|..." in world.txt)
     std::vector<Block> blocks;        // "block = x y flag|text": you're turned back there until the flag (FireRed's guards, the old man)
     std::vector<Gate> gates;          // solid until the flag is set (a guard's gone, a switch is pressed)
     bool dark = false;                // a cave you can barely see in until you use Flash
@@ -114,11 +115,14 @@ struct Ferry { std::string label, map; int x, y; std::string cond; };
 std::vector<Ferry> gFerries;   // the Seagallop: where it sails (world.txt "ferry = Label | Map | x y | flag")   // story stage -> the town you'd be in before it (a save that never walked starts there)
 Texture2D gChars{};
 Texture2D gActions{};   // the player's bike / surf / fishing frames (32x32): rows red bike, green bike, red surf, green surf, red fish, green fish
-Texture2D gFieldObj{};  // Cut tree, smashable rock, boulder, item ball
+Texture2D gFieldObj{};
+Texture2D gWxRain{}, gWxSnow[2]{}, gWxFog{}, gWxSand{};   // FireRed's weather sprites (tools/frlg_weather.py)  // Cut tree, smashable rock, boulder, item ball
 bool gLoaded = false;
 
 const int DX[4] = {0, 0, -1, 1}, DY[4] = {1, -1, 0, 0};
 int Opp(int f) { return f == 0 ? 1 : f == 1 ? 0 : f == 2 ? 3 : 2; }
+std::string WorldWeatherAt(const Game& g, const OwMap& m);
+constexpr int HALF_DAY_SEC = 20 * 60;   // the walked world: 20 minutes of day, then 20 of night
 
 std::vector<std::string> Split(const std::string& s, char c) {
     std::vector<std::string> v;
@@ -194,6 +198,8 @@ bool HasFlag(const Game& g, int i, const std::string& f0) {
     if (f0.rfind("badges:", 0) == 0) return (int)(g.coop ? g.coopSave.badges : g.profile.badges).size() >= std::atoi(f0.c_str() + 7);
     if (f0.rfind("stage:", 0) == 0) { int s = StageIndexByName(f0.substr(6)); return s >= 0 && StageBeaten(g, s); }
     if (f0.rfind("item:", 0) == 0) return BagCount(WP(g, i), f0.substr(5)) > 0;
+    if (f0 == "pokemon") return !WP(g, i).mons.empty();   // this walker has a Pokemon (Oak's starter)
+    if (f0 == "allpokemon") return g.coop ? !g.coopP[0].mons.empty() && !g.coopP[1].mons.empty() : !g.profile.mons.empty();   // everyone has
     return Flags(g).count(f0) > 0;
 }
 bool CondOk(const Game& g, int i, const std::string& ifF, const std::string& unlessF) {
@@ -411,7 +417,7 @@ bool CheckSight(Game& g, int i) {
     const OwMap& m = MapOf(w);
     for (size_t k = 0; k < m.npcs.size(); k++) {
         const OwNpc& n = m.npcs[k];
-        if (n.sight <= 0 || !NpcHere(g, n) || !TrainerReady(g, n)) continue;
+        if (n.sight <= 0 || !NpcHere(g, n) || !TrainerReady(g, n) || WP(g, i).mons.empty()) continue;
         const NpcRt& r = gNpc[w.map][k];
         for (int d = 1; d <= n.sight; d++) {
             int cx = r.x + DX[r.face] * d, cy = r.y + DY[r.face] * d;
@@ -468,7 +474,9 @@ void QuickBattle(Game& t) {
     t.encounterT = ENCOUNTER_WIPE_T;
     PlaySfx(Sfx::Status);
 }
+void NoteBattleWeather(const Game& g, int i);
 void StartRouteFight(Game& g, int i, int npc) {
+    NoteBattleWeather(g, i);
     OwWalker& w = g.ow.w[i];
     const OwMap& m = MapOf(w);
     const OwNpc& n = m.npcs[npc];
@@ -491,6 +499,7 @@ void StartRouteFight(Game& g, int i, int npc) {
 }
 
 void StartStoryFight(Game& g, int i, int npc) {
+    NoteBattleWeather(g, i);
     OwWalker& w = g.ow.w[i];
     const OwNpc& n = MapOf(w).npcs[npc];
     if (n.kind == "fight") { StartRouteFight(g, i, npc); return; }
@@ -751,6 +760,32 @@ void RunAction(Game& g, int i, const std::string& act) {
         if (g.coop) SaveProfile(WP(g, i));
         Say(w, t);
     }
+    else if (k == "starter" && a.size() > 1) {   // starter|Species: a Poke Ball on Oak's table
+        if (!WP(g, i).mons.empty()) { Say(w, "That's Prof. Oak's last Pokemon..."); return; }
+        if (Flags(g).count("ball:" + a[1])) return;
+        int sp = SpeciesIndex(a[1]);
+        if (sp < 0) return;
+        std::string type = TypeName(AllSpecies()[sp].type1);
+        Ask(w, "Oak: Ah! " + a[1] + " is your choice.|So, {PLAYER}, you want to go with the " + type + " Pokemon " + a[1] + "?",
+            {{"Yes", "starteryes|" + a[1]}, {"No", ""}});
+    }
+    else if (k == "starteryes" && a.size() > 1) {
+        Profile& P = WP(g, i);
+        int sp = SpeciesIndex(a[1]);
+        if (sp < 0 || !P.mons.empty() || Flags(g).count("ball:" + a[1])) return;
+        P.mons.push_back(NewMon(sp, Story().startLevel));
+        RegionStarter(P, 0) = a[1];
+        if (!g.coop) { P.starter = a[1]; P.rival.clear(); }
+        DexRegisterOwned(P);
+        SetFlag(g, "ball:" + a[1]);
+        if (g.coop) { SaveProfile(P); OnlineSendProfile(g); }
+        if (!g.coop || (!g.coopP[0].mons.empty() && !g.coopP[1].mons.empty())) EnsureRival(g, 0);   // Blue takes the one that beats yours (co-op: once you both have yours)
+        SaveAll(g);
+        PlaySfx(Sfx::LevelUp);
+        std::string rv = g.coop ? g.coopSave.rival[0] : g.profile.rival;
+        Say(w, "Oak: This Pokemon is really quite energetic!|{PLAYER} received the " + a[1] + " from Prof. Oak!" +
+                   (!rv.empty() && rv != a[1] ? "|Blue: I'll take this one, then!|Blue received the " + rv + " from Prof. Oak!" : std::string()));
+    }
     else if (k == "ferry") {   // ferry|text: the Seagallop to the places your passes allow
         std::vector<std::pair<std::string, std::string>> ch;
         for (const auto& f : gFerries)
@@ -828,6 +863,7 @@ void TrashCan(Game& g, int i, const std::string& flag) {
     Say(w, "Nope! There's only trash here.|Hey! The electric locks were reset!");
 }
 
+void LeaveWorldForQuit(Game& g) { g.ow.active = false; g.ow.menu = false; if (Online(g)) OnlineSendWorldPos(false, -1, 0, 0, 0); }
 void AfterMessage(Game& g, int i) {
     OwWalker& w = g.ow.w[i];
     std::string a = w.after;
@@ -839,6 +875,13 @@ void AfterMessage(Game& g, int i) {
     else if (a == "joinfight") { OnlineSetReady(g, 1); g.ow.waitFight = true; }
     else if (a == "joinwild") { OnlineSetReady(g, 2); g.ow.waitFight = true; g.ow.wildBattle = true; g.ow.waitName = "the wild Pokemon"; }
     else if (a == "teamyes") { g.ow.teamUp = true; OnlineSendTeam(2); PlaySfx(Sfx::Buff); }
+    else if (a == "quitgame") {
+        SaveAll(g);
+        if (Online(g)) { LeaveWorldForQuit(g); OnlineLeave(g, "Left the online game. Your progress is saved."); return; }
+        if (g.coop) { SaveWho(g, 0); SaveWho(g, 1); SaveCoop(g.coopSave); }
+        LeaveWorldForQuit(g);
+        GoTitle(g);
+    }
     else RunAction(g, i, a);
 }
 
@@ -878,6 +921,7 @@ void StaticEncounter(Game& g, int i, const std::string& species, int level, cons
     int sp = SpeciesIndex(species);
     if (sp < 0) return;
     if (HealthyCount(WP(g, i)) == 0) { Say(w, "Your Pokemon are all too tired to battle!|Rest them at a Pokemon Center first."); return; }
+    NoteBattleWeather(g, i);
     SaveAll(g);
     Game& t = g.coop ? StartSub(g, i) : g;
     t.ow.wildBattle = true;
@@ -898,6 +942,7 @@ void WildEncounter(Game& g, int i, const std::string& method) {
     const OwMap& m = MapOf(w);
     if (Online(g) && (g.ow.incoming || g.ow.waitFight)) return;   // already on your way into a battle together
     if (WildAreaIndex(m.wild) < 0 || HealthyCount(WP(g, i)) == 0) return;
+    NoteBattleWeather(g, i);
     w.stepsSinceWild = 0;
     SaveAll(g);
     g.ow.wildMethod = method;
@@ -1030,7 +1075,7 @@ void TryStep(Game& g, int i, int dir) {
     int nx = w.x + DX[dir], ny = w.y + DY[dir];
     auto bump = [&]() { if (w.bumpT <= 0) { PlaySfx(Sfx::Thud); w.bumpT = 0.35f; } w.spin = -1; };
     for (const auto& b : m.blocks)   // turned back until you've done what it takes
-        if (b.x == nx && b.y == ny && !HasFlag(g, i, b.flag)) { w.spin = -1; Say(w, b.text.empty() ? "You can't go this way yet." : b.text); return; }
+        if (b.x == nx && b.y == ny && !HasFlag(g, i, b.flag)) { w.spin = -1; Say(w, b.text.empty() ? "You can't go this way yet." : b.text, b.act); return; }
     for (const auto& d : m.doors)   // a door, stairs, or a mat you step off (it can be just past the edge)
         if (d.x == nx && d.y == ny && CondOk(g, i, d.ifF, d.unlessF)) { w.spin = -1; RunAction(g, i, d.act); return; }
     // off the edge: the next map
@@ -1427,11 +1472,68 @@ void TakeIncoming(Game& g) {
     } else Say(w, g.coopP[1 - g.on.me].name + " was challenged by " + o.inTrainer + "!|You hurry over to help!", "joinfight");
 }
 
-const char* const kHints = "Arrows walk   Shift / hold B run   Enter talk/read   Esc menu";
-
-// ---- the menu (like the games: Start) and the Town Map
-const char* kMenuRows[7] = {"POKeDEX", "POKeMON", "BAG", "MAP", "SAVE", "SETTINGS", "STORY MENU"};
+// ---- the menu (like the games: Start)
+enum MenuRow { MR_DEX, MR_MON, MR_BAG, MR_MAP, MR_QUEST, MR_LOOK, MR_PRACTICE, MR_WAIT, MR_TRADE, MR_HOF, MR_BOARD, MR_NEXT, MR_SAVE, MR_SETTINGS, MR_QUIT };
+std::vector<int> MenuRowsOf(const Game& g) {
+    std::vector<int> v{MR_DEX, MR_MON, MR_BAG, MR_MAP, MR_QUEST, MR_LOOK, MR_PRACTICE, MR_WAIT};
+    if (g.coop) v.push_back(MR_TRADE);
+    if (HallOfFameCount(g) > 0) v.push_back(MR_HOF);
+    if (g.coop) v.push_back(MR_BOARD);
+    if (Flags(g).count("ow:visit") || CanChooseRegion(g)) v.push_back(MR_NEXT);
+    v.push_back(MR_SAVE);
+    v.push_back(MR_SETTINGS);
+    v.push_back(MR_QUIT);
+    return v;
+}
+std::string NextRegionName(const Game& g) {
+    int s = std::min(StoryStageNow(g), (int)Story().stages.size() - 1);
+    return s >= 0 ? RegionInfo(StageRegion(s)).name : "the Story menu";
+}
+std::string MenuLabel(const Game& g, int r) {
+    switch (r) {
+        case MR_DEX: return "POKeDEX";
+        case MR_MON: return "POKeMON";
+        case MR_BAG: return "BAG";
+        case MR_MAP: return "MAP";
+        case MR_QUEST: return Cfg().questMarker ? "QUEST: ON" : "QUEST: OFF";
+        case MR_LOOK: return "YOUR LOOK";
+        case MR_PRACTICE: return "PRACTICE";
+        case MR_WAIT: return IsNight(StoryClock(g)) ? "WAIT TILL DAWN" : "WAIT";
+        case MR_TRADE: return "TRADE";
+        case MR_HOF: return "HALL OF FAME";
+        case MR_BOARD: return "LEADERBOARD";
+        case MR_NEXT: return Flags(g).count("ow:visit") ? "LEAVE KANTO" : "NEXT REGION";
+        case MR_SAVE: return "SAVE";
+        case MR_SETTINGS: return "SETTINGS";
+        default: return "SAVE & QUIT";
+    }
+}
+std::string MenuTip(const Game& g, int r) {
+    switch (r) {
+        case MR_DEX: return "Your Pokedex";
+        case MR_MON: return "Your party and your Box";
+        case MR_BAG: return "Items, Medicine, key items";
+        case MR_MAP: return "The Town Map - Fly to towns you've been to";
+        case MR_QUEST: return "An arrow toward your next story battle (Enter: turn it on or off)";
+        case MR_LOOK: return "Change how your trainer looks";
+        case MR_PRACTICE: return "The practice arena: try out moves on training dummies";
+        case MR_WAIT: return "Rest until morning - only indoors (a house, a Pokemon Center...)";
+        case MR_TRADE: return "Trade Pokemon with your partner";
+        case MR_HOF: return "Your Hall of Fame";
+        case MR_BOARD: return "Your journey's leaderboard: who did what";
+        case MR_NEXT: return Flags(g).count("ow:visit") ? "Back to " + NextRegionName(g) + " and its Story menu" : "On to the next region (you can come back from its Story menu)";
+        case MR_SAVE: return "Save your progress";
+        case MR_SETTINGS: return "Sound, controls and display";
+        default: return "Save and go back to the title screen";
+    }
+}
 PlayerInput MenuOf(const Game& g) { return LocalCoop(g) ? ReadInput(g.ow.menuWho, true) : MenuInput(); }
+
+void LeaveWorld(Game& g) {   // off to the Story menu (another region's)
+    g.ow.active = false;
+    g.ow.menu = false;
+    if (Online(g)) OnlineSendWorldPos(false, -1, 0, 0, 0);
+}
 
 void UpdatePauseMenu(Game& g) {
     OwState& o = g.ow;
@@ -1440,34 +1542,66 @@ void UpdatePauseMenu(Game& g) {
     if (gAutoMenu) { in.up = gAutoMenu & 1; in.down = gAutoMenu & 2; in.confirm = gAutoMenu & 16; in.back = gAutoMenu & 32; gAutoMenu = 0; }
 #endif
     if (IsKeyPressed(KEY_ESCAPE) && !LocalCoop(g)) in.back = true;
-    const int N = 7;
+    auto rows = MenuRowsOf(g);
+    const int N = (int)rows.size();
+    o.menuSel = std::max(0, std::min(N - 1, o.menuSel));
     if (in.up) { o.menuSel = (o.menuSel + N - 1) % N; PlaySfx(Sfx::MenuMove); }
     if (in.down) { o.menuSel = (o.menuSel + 1) % N; PlaySfx(Sfx::MenuMove); }
     if (in.back) { o.menu = false; PlaySfx(Sfx::MenuBack); return; }
     if (!in.confirm) return;
     PlaySfx(Sfx::MenuOk);
     int who = WhoOf(g, o.menuWho);
+    OwWalker& w = o.w[o.menuWho];
     SaveAll(g);
+    int row = rows[o.menuSel];
+    if (row == MR_QUEST) { Cfg().questMarker = !Cfg().questMarker; SaveSettings(); return; }   // (the menu stays open)
     o.menu = false;
-    switch (o.menuSel) {
-        case 0: OpenPokedex(g, who); break;
-        case 1:
+    switch (row) {
+        case MR_DEX: OpenPokedex(g, who); break;
+        case MR_MON:
             if (g.coop) CoopOpenFor(g, who);
             g.myCreSel = 0; g.itemPick = false; g.actMenu = false; g.swapFrom = -1; g.stonePick = false; g.moveOrder = false; g.boxTab = 0;
             g.screen = Screen::MyCreatures;
             break;
-        case 2:
+        case MR_BAG:
             if (g.coop) CoopOpenFor(g, who);
             OpenBag(g);
             break;
-        case 3: o.townMap = true; o.townSel = 0; break;
-        case 4: Toast(g, g.coop ? "Your journey together was saved." : WP(g, o.menuWho).name + " saved the game."); break;
-        case 5: g.settingsSel = 0; g.settingsBack = Screen::World; g.screen = Screen::Settings; break;
-        default:   // back to the Story menu (the overworld is still being built)
-            o.active = false;
-            if (Online(g)) OnlineSendWorldPos(false, -1, 0, 0, 0);
-            EnterStoryHub(g);
+        case MR_MAP: o.townMap = true; o.townSel = 0; break;
+        case MR_LOOK:
+            if (g.coop) CoopOpenFor(g, who);
+            OpenCreator(g, true);
             break;
+        case MR_PRACTICE: StartPractice(g); break;
+        case MR_WAIT:
+            if (!MapOf(w).indoor) { Say(w, "You can't rest out here!|Find somewhere indoors - a house or a Pokemon Center."); break; }
+            if (!IsNight(StoryClock(g))) { Say(w, "It's already daytime.|(You can rest until morning once night falls.)"); break; }
+            if (Online(g) && g.on.me != 0) { Say(w, "Your partner keeps the time - ask them to rest until morning."); break; }
+            StoryTimeStep(g, true);
+            (g.coop ? g.coopSave.clockSec : g.profile.clockSec) = 0;
+            SaveAll(g);
+            if (Online(g)) OnlineSendCoop(g);
+            w.fadeT = 0.35f;
+            break;
+        case MR_TRADE: OpenTrade(g); break;
+        case MR_HOF: g.hofSel = 0; g.hofBack = Screen::World; g.hofT = 0; g.screen = Screen::HallOfFame; break;
+        case MR_BOARD: g.showBoard = true; break;
+        case MR_NEXT:
+            if (Flags(g).count("ow:visit")) {
+                Flags(g).erase("ow:visit");
+                if (Online(g)) OnlineSendCoop(g);
+                SaveAll(g);
+                LeaveWorld(g);
+                EnterStoryHub(g);
+                break;
+            }
+            if (Online(g) && g.on.me != 0) { Toast(g, g.coopP[0].name + " picks the next region."); break; }
+            LeaveWorld(g);
+            BeginRegionChoose(g, g.coop ? 3 : 1);
+            break;
+        case MR_SAVE: Toast(g, g.coop ? "Your journey together was saved." : WP(g, o.menuWho).name + " saved the game."); break;
+        case MR_SETTINGS: g.settingsSel = 0; g.settingsBack = Screen::World; g.screen = Screen::Settings; break;
+        default: Ask(w, "Save and quit to the title screen?", {{"Yes", "quitgame"}, {"No", ""}}); break;
     }
 }
 
@@ -1609,7 +1743,9 @@ void LoadWorld(std::string& log) {
             std::sscanf(v.c_str(), "%d %d %n", &b.x, &b.y, &n);
             auto p = Split(v.substr(n), '|');
             b.flag = Trim(p[0]);
-            for (size_t q = 1; q < p.size(); q++) b.text += (q > 1 ? "|" : "") + p[q];
+            size_t q = 1;
+            for (; q < p.size() && (p[q].empty() || p[q][0] != '>'); q++) b.text += (q > 1 ? "|" : "") + p[q];
+            for (size_t r = q; r < p.size(); r++) b.act += (r > q ? "|" : "") + (r == q ? p[r].substr(1) : p[r]);
             for (char& ch : b.text) if (ch == '/') ch = '|';
             m->blocks.push_back(b);
         } else if (k == "gate") {   // x y flag: solid until the flag is set
@@ -1680,6 +1816,11 @@ void LoadWorld(std::string& log) {
     gChars = LoadTex(dir + "chars.png");
     gActions = LoadTex(dir + "actions.png");
     gFieldObj = LoadTex(dir + "fieldobj.png");
+    gWxRain = LoadTex(dir + "weather_rain.png");   // FireRed's weather
+    gWxSnow[0] = LoadTex(dir + "weather_snow0.png");
+    gWxSnow[1] = LoadTex(dir + "weather_snow1.png");
+    gWxFog = LoadTex(dir + "weather_fog_horizontal.png");
+    gWxSand = LoadTex(dir + "weather_sandstorm.png");
     gLoaded = !gMaps.empty();
     log += "World: " + std::to_string(gMaps.size()) + " maps\n";
 }
@@ -1868,6 +2009,22 @@ void UpdateWanderers(Game& g, float dt) {
     }
 }
 
+// The walked day: 20 minutes of daylight, 20 of night (the story clock; online, the host keeps it).
+void WorldClock(Game& g, float dt) {
+    OwState& o = g.ow;
+    int& sec = g.coop ? g.coopSave.clockSec : g.profile.clockSec;
+    o.clockAcc += dt;
+    while (o.clockAcc >= 1) {
+        o.clockAcc -= 1;
+        if (Online(g) && g.on.me != 0) { sec = std::min(sec + 1, HALF_DAY_SEC - 1); continue; }   // (the host's clock turns it over)
+        if (++sec < HALF_DAY_SEC) continue;
+        sec = 0;
+        StoryTimeStep(g, true);
+        SaveAll(g);
+        if (Online(g)) OnlineSendCoop(g);
+    }
+}
+
 void UpdateWorld(Game& g, float dt) {
     if (!WorldAvailable() || g.ow.w[0].map < 0) { g.ow.active = false; EnterStoryHub(g); return; }
     OwState& o = g.ow;
@@ -1890,6 +2047,14 @@ void UpdateWorld(Game& g, float dt) {
             return;
         }
     }
+    if (g.showBoard) {   // the leaderboard (from the menu): any key closes it
+        PlayerInput in = MenuInput();
+        if (in.confirm || in.back) { g.showBoard = false; PlaySfx(Sfx::MenuBack); }
+        return;
+    }
+    if (gWorldHome && !o.hubOnly && !InWorldMode(g) && !AnySub(g)) { LeaveWorld(g); EnterStoryHub(g); return; }   // the story went on to another region
+    WorldClock(g, dt);
+    if (g.coop && !g.coopP[0].mons.empty() && !g.coopP[1].mons.empty() && SpeciesIndex(g.coopSave.rival[0]) < 0) EnsureRival(g, 0);   // Blue, once you both have Oak's Pokemon
     if (o.townMap) { UpdateTownMap(g); return; }
     if (o.menu) { UpdatePauseMenu(g); return; }
 #ifdef ARENA_AUTOTEST
@@ -1898,7 +2063,7 @@ void UpdateWorld(Game& g, float dt) {
         bool busy = false;
         for (int i = 0; i < Driven(g); i++) busy |= o.w[i].stepT < 1 || !o.w[i].msg.empty() || o.w[i].approach >= 0;
         busy |= AnySub(g);
-        if ((gAutoMenu & 32) && !busy) { gAutoMenu = 0; SaveAll(g); o.active = false; if (Online(g)) OnlineSendWorldPos(false, -1, 0, 0, 0); EnterStoryHub(g); return; }
+        if ((gAutoMenu & 32) && !busy) { gAutoMenu = 0; SaveAll(g); o.active = false; o.hubOnly = true; if (Online(g)) OnlineSendWorldPos(false, -1, 0, 0, 0); EnterStoryHub(g); return; }
     }
 #endif
     UpdateWanderers(g, dt);
@@ -2139,10 +2304,12 @@ RenderTexture2D gSubRT[2];
 bool gSubRTok[2] = {false, false};
 
 // Morning, day, evening and night, from the clock: a soft colour over the outdoor maps.
-Color DayTint() {
-    std::time_t now = std::time(nullptr);
-    std::tm* lt = std::localtime(&now);
-    float h = lt ? lt->tm_hour + lt->tm_min / 60.0f : 12.0f;
+float WorldHour(const Game& g) {   // the story clock as an hour: a day half runs 6:00-18:00, a night half 18:00-6:00
+    int sec = g.coop ? g.coopSave.clockSec : g.profile.clockSec;
+    float u = std::min(1.0f, sec / (float)HALF_DAY_SEC);
+    return std::fmod((IsNight(StoryClock(g)) ? 18.0f : 6.0f) + 12 * u, 24.0f);
+}
+Color DayTint(float h) {
 #ifdef ARENA_AUTOTEST
     if (const char* e = getenv("ARENA_HOUR")) h = (float)std::atof(e);
 #endif
@@ -2163,6 +2330,54 @@ Color DayTint() {
 }
 // Rain, snow, fog or a sandstorm drifting over the view.
 void DrawMapWeather(const std::string& wx, int vx, int vw, float t) {   // (DrawView clips to the view)
+    auto tile = [&](const Texture2D& tx, float sx, float sy, float alpha, float h) {   // a 64-pixel weather layer, scrolling
+        float w = 64 * Z, hh = h * Z;
+        float ox = std::fmod(sx, w), oy = std::fmod(sy, hh);
+        if (ox > 0) ox -= w;
+        if (oy > 0) oy -= hh;
+        for (float y = oy; y < VH; y += hh)
+            for (float x = ox; x < vw; x += w)
+                DrawTexturePro(tx, {0, 0, 64, h}, {vx + x, y, w, hh}, {0, 0}, 0, Fade(WHITE, alpha));
+    };
+    if (wx == "fog" && gWxFog.id) {   // FireRed's fog: two layers drifting at different speeds
+        tile(gWxFog, t * 10, 0, 0.40f, 64);
+        tile(gWxFog, -t * 6 + 32 * Z, 20 * Z, 0.25f, 64);
+        return;
+    }
+    if (wx == "sand" && gWxSand.id) {
+        DrawRectangle(vx, 0, vw, VH, Fade(Color{200, 160, 90, 255}, 0.18f));
+        tile(gWxSand, t * 260, std::sin(t * 2) * 6, 0.9f, 64);
+        tile(gWxSand, t * 180 + 20 * Z, 32 * Z, 0.6f, 64);
+        return;
+    }
+    if (wx == "rain" && gWxRain.id) {   // streaks falling down-left; each one ends in a little splash
+        DrawRectangle(vx, 0, vw, VH, Fade(Color{40, 50, 90, 255}, 0.16f));
+        for (int k = 0; k < 70; k++) {
+            float sx = (float)((k * 7919) % 1000) / 1000.0f, sy = (float)((k * 104729) % 1000) / 1000.0f;
+            float period = 0.8f + sx * 0.4f, ph = std::fmod(t / period + sy, 1.0f);
+            float x0 = sx * (vw + 120), y0 = sy * VH * 0.6f;
+            if (ph < 0.8f) {   // falling
+                float u = ph / 0.8f;
+                float x = x0 - u * 120, y = y0 + u * VH * 0.55f - 40;
+                DrawTexturePro(gWxRain, {0, (float)(k % 2) * 32, 16, 32}, {vx + x, y, 16 * Z, 32 * Z}, {0, 0}, 0, Fade(WHITE, 0.8f));
+            } else {           // the splash
+                int f = 2 + std::min(3, (int)((ph - 0.8f) / 0.05f));
+                float x = x0 - 120, y = y0 + VH * 0.55f - 40;
+                DrawTexturePro(gWxRain, {0, (float)f * 32, 16, 32}, {vx + x, y, 16 * Z, 32 * Z}, {0, 0}, 0, Fade(WHITE, 0.8f));
+            }
+        }
+        return;
+    }
+    if (wx == "snow" && gWxSnow[0].id) {   // flakes drifting down, swaying
+        for (int k = 0; k < 60; k++) {
+            float sx = (float)((k * 7919) % 1000) / 1000.0f, sy = (float)((k * 104729) % 1000) / 1000.0f;
+            float y = std::fmod(sy * VH + t * (28 + (k % 5) * 6), (float)VH + 16) - 16;
+            float x = std::fmod(sx * vw + std::sin(t * 1.1f + k) * 14 + vw, (float)vw);
+            const Texture2D& fl = gWxSnow[k % 2];
+            DrawTexturePro(fl, {0, 0, 8, 8}, {vx + x, y, 8 * Z, 8 * Z}, {0, 0}, 0, Fade(WHITE, 0.9f));
+        }
+        return;
+    }
     if (wx == "fog") {
         for (int k = 0; k < 3; k++) {
             float x = std::fmod(t * (8 + k * 5), (float)vw);
@@ -2187,6 +2402,107 @@ void DrawMapWeather(const std::string& wx, int vx, int vw, float t) {   // (Draw
         if (wx == "rain") DrawRectangle(vx, 0, vw, VH, Fade(Color{40, 50, 90, 255}, 0.18f));
         if (wx == "sand") DrawRectangle(vx, 0, vw, VH, Fade(Color{200, 160, 90, 255}, 0.2f));
     }
+}
+
+// ---- the quest marker: which way to the next story battle (an arrow by you; a "!" over them once they're in view)
+bool QuestTarget(const Game& g, int i, int& tm, int& tx, int& ty) {
+    auto at = [&](const char* map, int x, int y) { tm = MapIndex(map); tx = x; ty = y; return tm >= 0; };
+    if (WP(g, i).mons.empty()) return at("Oak's Lab", 9, 5);   // Oak's Pokemon on the table
+    if (BagCount(WP(g, i), "Oak's Parcel") > 0) return at("Oak's Lab", 6, 3);
+    bool lab = StageBeaten(g, 0);
+    if (lab && !Flags(g).count("parcel_done") && !Flags(g).count("got_parcel")) return at("Viridian City Poke Mart", 2, 3);   // the Mart has Oak's order
+    for (int s = 0; s < (int)Story().stages.size(); s++) {
+        if (!StageWalked(s) || StageBeaten(g, s)) continue;
+        for (int pass = 0; pass < 2; pass++)   // standing there now; else where they'll be
+            for (int k = 0; k < (int)gMaps.size(); k++)
+                for (const auto& n : gMaps[k].npcs)
+                    if (TrainerStage(n) == s && (pass == 1 || NpcHere(g, n))) { tm = k; tx = n.x; ty = n.y; return true; }
+    }
+    return false;
+}
+// The first step toward map `to` from map `from` (BFS over doors and the roads between maps): the tile to head for.
+bool QuestStepRaw(int from, int to, int px, int py, int& ex, int& ey);
+bool QuestStep(int from, int to, int px, int py, int& ex, int& ey) {   // (remembered while you stand still)
+    static int k[4] = {-1, -1, -1, -1}, rx = 0, ry = 0;
+    static bool ok = false;
+    if (k[0] != from || k[1] != to || k[2] != px || k[3] != py) { k[0] = from; k[1] = to; k[2] = px; k[3] = py; ok = QuestStepRaw(from, to, px, py, rx, ry); }
+    ex = rx; ey = ry;
+    return ok;
+}
+bool QuestStepRaw(int from, int to, int px, int py, int& ex, int& ey) {
+    if (from == to) return false;
+    int n = (int)gMaps.size();
+    std::vector<int> prev(n, -2);
+    std::vector<std::array<int, 2>> exitOf(n, {0, 0});   // (for the first hop) where you leave `from`
+    std::vector<int> q{from};
+    prev[from] = -1;
+    for (size_t h = 0; h < q.size(); h++) {
+        int cur = q[h];
+        const OwMap& m = gMaps[cur];
+        auto push = [&](int nx, int x, int y) {
+            if (nx < 0 || nx >= n || prev[nx] != -2) return;
+            prev[nx] = cur;
+            exitOf[nx] = cur == from ? std::array<int, 2>{x, y} : exitOf[cur];
+            q.push_back(nx);
+        };
+        for (const auto& d : m.doors) {
+            auto a = Split(d.act, '|');
+            if (a.size() > 1 && a[0] == "warp") push(MapIndex(a[1]), d.x, d.y);
+        }
+        for (int d = 0; d < 4; d++) {
+            const OwLink& L = m.link[d];
+            if (L.map < 0) continue;
+            int x = d == 2 ? -1 : d == 3 ? m.w : std::max(0, std::min(m.w - 1, px));
+            int y = d == 1 ? -1 : d == 0 ? m.h : std::max(0, std::min(m.h - 1, py));
+            push(L.map, x, y);
+        }
+        if (prev[to] != -2) { ex = exitOf[to][0]; ey = exitOf[to][1]; return true; }
+    }
+    return false;
+}
+} // namespace
+std::string WorldQuestInfo(const Game& g) {   // (autotests) where the quest marker points
+    int tm, tx, ty, ex = -1, ey = -1;
+    if (!QuestTarget(g, 0, tm, tx, ty)) return "none";
+    bool step = QuestStep(g.ow.w[0].map, tm, g.ow.w[0].x, g.ow.w[0].y, ex, ey);
+    return gMaps[tm].name + " " + std::to_string(tx) + "," + std::to_string(ty) + (step ? " via " + std::to_string(ex) + "," + std::to_string(ey) : "");
+}
+namespace {
+void DrawQuestMarker(const Game& g, int me, const View& c, float px, float py) {
+    if (!Cfg().questMarker || !InWorldMode(g)) return;
+    const OwWalker& w = g.ow.w[me];
+    if (!w.msg.empty() || w.map < 0) return;
+    int tm, tx, ty;
+    if (!QuestTarget(g, me, tm, tx, ty)) return;
+    float bob = std::sin(g.t * 5) * 2;
+    if (tm == w.map) {
+        Vector2 t = Scr(c, tx * T + T / 2.0f, ty * T - 12 + bob);
+        bool onScreen = t.x > c.vx && t.x < c.vx + c.vw && t.y > 0 && t.y < VH;
+        if (onScreen && (std::abs(tx - w.x) > 0 || std::abs(ty - w.y) > 1)) {   // a "!" over them
+            Color ink{40, 30, 30, 255}, gold{255, 210, 60, 255};
+            DrawRectangleRounded({t.x - 5, t.y - 24, 10, 17}, 0.4f, 4, ink);
+            DrawRectangleRounded({t.x - 3.5f, t.y - 22.5f, 7, 14}, 0.4f, 4, gold);
+            DrawRectangleRounded({t.x - 5, t.y - 5, 10, 9}, 0.4f, 4, ink);
+            DrawRectangleRounded({t.x - 3.5f, t.y - 3.5f, 7, 6}, 0.4f, 4, gold);
+            return;
+        }
+        if (onScreen) return;   // right beside them
+    } else if (!QuestStep(w.map, tm, w.x, w.y, tx, ty)) return;
+    float dx = tx * T + T / 2.0f - (px + T / 2.0f), dy = ty * T + T / 2.0f - (py + T / 2.0f);
+    float len = std::sqrt(dx * dx + dy * dy);
+    if (len < 1) return;
+    dx /= len; dy /= len;
+    Vector2 ctr = Scr(c, px + T / 2.0f, py + T / 2.0f - 6);
+    float r = 26 + bob;   // a gold arrow circling you, pointing the way
+    auto tri = [&](float len, float wid, float back, Color col) {
+        Vector2 tip{ctr.x + dx * (r + len), ctr.y + dy * (r + len)};
+        Vector2 l{ctr.x + dx * (r - back) - dy * wid, ctr.y + dy * (r - back) + dx * wid};
+        Vector2 rr{ctr.x + dx * (r - back) + dy * wid, ctr.y + dy * (r - back) - dx * wid};
+        DrawTriangle(tip, rr, l, col);
+        DrawTriangle(tip, l, rr, col);
+    };
+    tri(14, 10, 2, Fade(Color{40, 30, 30, 255}, 0.85f));
+    tri(11, 7, 0, Color{255, 210, 60, 255});
 }
 
 void DrawView(const Game& g, int me, int vx, int vw) {
@@ -2353,11 +2669,17 @@ void DrawView(const Game& g, int me, int vx, int vw) {
                 else over(n, m.w * T, -L.off * T);
             }
     }
-    if (!m.indoor && !m.dark) {   // outdoors: the time of day (your computer's clock) tints the world
-        Color tint = DayTint();
+    if (!m.indoor && !m.dark) {   // outdoors: the season, the time of day (the story clock) and the day's weather
+        static const Color kSeason[4] = {{0, 0, 0, 0}, {255, 236, 190, 16}, {230, 140, 60, 26}, {205, 225, 255, 40}};
+        Color sc = kSeason[SeasonOf(StoryClock(g)) & 3];
+        if (sc.a) DrawRectangle(vx, 0, vw, VH, sc);
+        Color tint = DayTint(WorldHour(g));
         if (tint.a) DrawRectangle(vx, 0, vw, VH, tint);
-        if (!m.weather.empty()) DrawMapWeather(m.weather, vx, vw, g.t);
+        std::string wx = WorldWeatherAt(g, m);
+        if (wx == "sun") { if (!IsNight(StoryClock(g))) DrawRectangle(vx, 0, vw, VH, Color{255, 230, 150, 22}); }
+        else if (!wx.empty()) DrawMapWeather(wx, vx, vw, g.t);
     }
+    if (me == 0 || Driven(g) == 2) DrawQuestMarker(g, me, c, px, py);
     if (m.dark && w.flashMap != w.map) {   // a dark cave: only a little circle of light around you
         Vector2 ctr = Scr(c, px + T / 2.0f, py + T / 2.0f);
         float r = 26 * Z, R = (float)VW + VH;
@@ -2406,6 +2728,7 @@ void WorldPreDraw(const Game& g) {
     for (int i = 0; i < 2; i++) {
         const std::shared_ptr<Game>& s = g.ow.sub[i];
         if (!s || s->screen == Screen::World) continue;
+        if (s->screen == Screen::Battle) s->battle.PrepareHud();
         if (!gSubRTok[i]) {
             gSubRT[i] = LoadRenderTexture(VW * CANVAS_ZOOM, VH * CANVAS_ZOOM);
             SetTextureFilter(gSubRT[i].texture, TEXTURE_FILTER_BILINEAR);
@@ -2429,17 +2752,18 @@ void WorldPreDraw(const Game& g) {
 namespace {
 void DrawPauseMenu(const Game& g) {
     const OwState& o = g.ow;
-    int bw = 118, bh = 7 * 18 + 12, bx = VW - bw - 10, by = 10;
+    auto rows = MenuRowsOf(g);
+    int n = (int)rows.size();
+    int bw = 128, bh = n * 16 + 12, bx = VW - bw - 10, by = 10;
     DrawPanel(bx, by, bw, bh, Color{250, 250, 250, 248}, Color{60, 90, 140, 255});
-    for (int k = 0; k < 7; k++) {
-        int y = by + 8 + k * 18;
-        const char* label = k == 6 && g.coop ? "CO-OP MENU" : kMenuRows[k];
-        if (k == o.menuSel) DrawTriangle({(float)bx + 8, (float)y + 2}, {(float)bx + 8, (float)y + 11}, {(float)bx + 14, (float)y + 6.5f}, Color{40, 40, 50, 255});
-        GDrawText(label, bx + 20, y + 1, 10, Color{40, 40, 50, 255});
+    int sel = std::max(0, std::min(n - 1, o.menuSel));
+    for (int k = 0; k < n; k++) {
+        int y = by + 8 + k * 16;
+        if (k == sel) DrawTriangle({(float)bx + 8, (float)y + 2}, {(float)bx + 8, (float)y + 11}, {(float)bx + 14, (float)y + 6.5f}, Color{40, 40, 50, 255});
+        bool dim = rows[k] == MR_WAIT && !MapOf(o.w[o.menuWho]).indoor;
+        GDrawText(MenuLabel(g, rows[k]).c_str(), bx + 20, y + 1, 10, dim ? Color{150, 150, 160, 255} : Color{40, 40, 50, 255});
     }
-    const char* tips[7] = {"Your Pokedex", "Your party and your Box", "Items, Medicine, key items", "The Town Map - Fly to towns you've been to",
-                           "Save your progress", "Sound, controls and display", "Back to the Story menu"};
-    DrawBox(10, VH - 40, VW - 20 - bw - 10, 30, tips[std::min(6, o.menuSel)], false);
+    DrawBox(10, VH - 40, VW - 20 - bw - 10, 30, MenuTip(g, rows[sel]), false);
     if (g.coop) GDrawText(TextFormat("(%s)", WP(g, o.menuWho).name.c_str()), bx + 6, by + bh + 4, 10, UI_DIM);
 }
 
@@ -2485,6 +2809,7 @@ void DrawWorld(const Game& g) {
         GDrawText(g.coopP[0].name.c_str(), 6, VH - 13, 10, UI_GOLD);
         GDrawText(g.coopP[1].name.c_str(), VW / 2 + 6, VH - 13, 10, Color{255, 150, 230, 255});
         if (g.ow.menu) DrawPauseMenu(g);
+        if (g.showBoard) DrawLeaderboard(g);
         return;
     }
     if (g.ow.watching) {   // your partner's battle
@@ -2506,8 +2831,8 @@ void DrawWorld(const Game& g) {
     DrawView(g, 0, 0, VW);
     if (g.ow.sub[0]) return;   // your own battle / Healing Center / Mart (online) fills the screen
     if (g.ow.menu) { DrawPauseMenu(g); return; }
+    if (g.showBoard) { DrawLeaderboard(g); return; }
     if (g.ow.teamUp) DrawTeamTag(VW - 8);
-    if (g.ow.w[0].msg.empty() && !g.ow.waitFight) GDrawText(kHints, 8, VH - 14, 10, Fade(UI_TEXT, 0.75f));
     if (Online(g) && g.ow.w[1].here) {   // facing your partner: watch their battle, or team up / split up
         const OwWalker& w = g.ow.w[0];
         const OwWalker& p = g.ow.w[1];
@@ -2534,6 +2859,54 @@ bool WorldRequired(const Game& g) {
     if (s < 0 || s >= (int)Story().stages.size()) return false;
     return gWalkedRegions.count(StageRegion(s)) > 0;
 }
+
+// The story lives out in the world: the walked region's story, the time after its Champion until you go on
+// to the next region, and a visit back from the Story menu.
+#ifdef ARENA_AUTOTEST
+bool gWorldHome = false;
+#else
+bool gWorldHome = true;
+#endif
+bool InWorldMode(const Game& g) {
+    if (!gWorldHome || !WorldAvailable() || gWalkedRegions.empty()) return false;
+    if (WorldRequired(g) || Flags(g).count("ow:visit")) return true;
+    int s = StoryStageNow(g);
+    return s > 0 && s <= (int)Story().stages.size() && CanChooseRegion(g) && gWalkedRegions.count(StageRegion(s - 1)) > 0;
+}
+bool WalkedOpening(int region) { return gWorldHome && WorldAvailable() && gWalkedRegions.count(region) > 0; }
+bool CanVisitWorld(const Game& g) {
+    if (!WorldAvailable() || gWalkedRegions.empty()) return false;
+    for (int r : gWalkedRegions) if (RegionDone(g, r)) return true;
+    return false;
+}
+void VisitWorld(Game& g) {
+    if (!CanVisitWorld(g)) return;
+    SetFlag(g, "ow:visit");
+    g.ow.hubOnly = false;
+    EnterWorld(g);
+}
+// The weather of a battle out in the world: the map's own (FireRed's rainy routes) or the day's.
+int gBattleWx = -1;   // (set as a world battle starts: a Weather, -1 = not from the world)
+Weather WorldBattleWeather(const Game& g, int clock) {
+    if (gBattleWx >= 0) return (Weather)gBattleWx;
+    (void)g;
+    return DayBattleWeather(clock);
+}
+namespace {
+std::string WorldWeatherAt(const Game& g, const OwMap& m) {   // what's falling on this map now ("" clear)
+    if (m.indoor) return "";
+    if (!m.weather.empty()) return m.weather;
+    return DayWeather(StoryClock(g));
+}
+} // namespace
+namespace {
+void NoteBattleWeather(const Game& g, int i) {   // a battle starts here: its weather is the map's
+    const OwMap& m = MapOf(g.ow.w[i]);
+    std::string wx = WorldWeatherAt(g, m);
+    gBattleWx = (int)(wx == "rain" ? Weather::Rain : wx == "snow" ? Weather::Snow : wx == "sand" ? Weather::Sand
+                      : wx == "sun" && !IsNight(StoryClock(g)) ? Weather::Sun : Weather::None);
+}
+} // namespace
 
 std::string WorldVsSeeker(Game& g) {
     if (!g.ow.active || !WorldAvailable()) return "Use it out in the world, near Trainers you've beaten.";

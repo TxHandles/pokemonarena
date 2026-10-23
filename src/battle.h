@@ -434,7 +434,8 @@ struct BallThrow {   // a Poke Ball on its way: flies, swallows the target, shak
 
 class Battle {
 public:
-    bool PressHotItem(int s, int slot) { return UseHotItem(s, slot); }   // (autotests: a hotkey pressed)
+    bool PressHotItem(int s, int slot) { return UseHotItem(s, slot); }
+    void PrepareHud() const;   // before the frame's drawing: the plates into a texture, to fade over the field   // (autotests: a hotkey pressed)
     void Start(const BattleSetup& setup);
     void Update(float dt, const PlayerInput in[2]);
     void Draw(bool banners = true) const;
@@ -683,6 +684,10 @@ private:
     void DrawFighter(int s) const;
     void DrawProjectile(const Projectile& p) const;
     void DrawHud() const;
+    void DrawPlates() const;                 // the name / HP plates along the top
+    mutable bool hudReady = false;           // PrepareHud drew the plates off-screen this frame (so they can fade)
+    mutable float hudFade[2] = {1, 1};       // each team's plates: faded while a Pokemon walks under them
+    mutable std::vector<std::pair<int, Rectangle>> plateRects;   // (team, where) as last drawn
     void DrawObstacle(const Obstacle& o) const;
     void DrawFieldFloor() const;
     void DrawFieldTop() const;

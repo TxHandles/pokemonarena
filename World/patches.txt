@@ -89,11 +89,24 @@ npc = 8 4 mom left 0 give|Mom: All boys leave home someday. It said so on TV./Oh
 
 [patch Pallet Town]
 drop npc 10 8
+# FireRed's opening: no Pokemon yet, so Oak stops you at the edge of the grass and takes you to his lab
+block = 12 1 pokemon|Oak: Hey! Wait! Don't go out!/It's unsafe! Wild Pokemon live in tall grass!/You need your own Pokemon for your protection./I know! Here, come with me!|>warp|Oak's Lab|7|5|up
+block = 13 1 pokemon|Oak: Hey! Wait! Don't go out!/It's unsafe! Wild Pokemon live in tall grass!/You need your own Pokemon for your protection./I know! Here, come with me!|>warp|Oak's Lab|7|5|up
 
 [patch Oak's Lab]
 stage 5 4 Oak's Lab | Blue: Wait, {PLAYER}! Let's check out our Pokemon! Come on, I'll take you on! | Blue: What? Unbelievable! I picked the wrong Pokemon! | rival | 4
 drop npc 6 3
+# the three Poke Balls on the table: yours to choose (gone once you have a Pokemon, or once someone took that one)
+npc = 8 4 item_ball down 0 starter|Bulbasaur
+if = !allpokemon&!ball:Bulbasaur
+npc = 9 4 item_ball down 0 starter|Squirtle
+if = !allpokemon&!ball:Squirtle
+npc = 10 4 item_ball down 0 starter|Charmander
+if = !allpokemon&!ball:Charmander
+npc = 6 3 prof_oak down 0 talk|Oak: Now, {PLAYER}. There are three Pokemon here!|Haha! They are inside the Poke Balls on the table.|When I was young, I was a serious Pokemon Trainer.|In my old age, I have only three left, but you can have one.|Go on, choose!
+if = !allpokemon
 npc = 6 3 prof_oak down 0 deliver|Oak's Parcel|parcel_done|Oak: Oh, {PLAYER}! How is my old Pokemon?/Ah! This is the custom Poke Ball I ordered! Thank you!/{PLAYER}, take these too. Catching Pokemon is how you fill your Pokedex!|Poke Ball|5|Oak: {PLAYER}, raise your young Pokemon by battling!/Viridian City's Mart has something for me, I hear.|Oak: The world is full of Pokemon! Go out and meet them all!
+if = allpokemon
 
 # ------------------------------------------------------------------ Viridian City
 [patch Viridian City Poke Mart]

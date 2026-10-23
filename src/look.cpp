@@ -143,32 +143,49 @@ const std::vector<const char*>& LookSkinNames() {
     return v;
 }
 
+namespace {
+// Your walking sheet as an image: the head person's head and hair over the body person's outfit, recoloured.
+Image ComposeWalk(const TrainerLook& l) {
+    LoadSheets();
+    Image out = GenImageColor(144, 32, BLANK);
+    int hr = RowOf(l.head.empty() ? "player" : l.head), br = RowOf(l.body.empty() ? "player" : l.body);
+    if (!gChars.data || hr < 0 || br < 0) return out;
+    std::vector<unsigned> headSkin = SkinOf(gChars, hr), bodySkin = SkinOf(gChars, br);
+    int top[9];   // the head's top in each frame: a hat or hair can share the face's shades, so skin starts 6 rows down
+    for (int f = 0; f < 9; f++) {
+        top[f] = 32;
+        for (int y = 0; y < 32 && top[f] == 32; y++)
+            for (int x = 0; x < 16; x++) if (GetImageColor(gChars, f * 16 + x, hr * 32 + y).a) { top[f] = y; break; }
+    }
+    for (int y = 0; y < 32; y++)
+        for (int x = 0; x < 144; x++) {
+            bool headPart = y < NECK;
+            Color c = GetImageColor(gChars, x, (headPart ? hr : br) * 32 + y);
+            if (c.a == 0) continue;
+            bool skin = headPart ? y >= top[x / 16] + 6 && In(headSkin, c) : In(bodySkin, c);
+            if (skin) c = Skin(c, l.skin);
+            else if (ToHsv(c).s > 0.1f || ToHsv(c).v > 0.85f) c = Recolour(c, headPart ? l.hair : l.cloth);
+            ImageDrawPixel(&out, x, y, c);
+        }
+    return out;
+}
+// A head in one cell: its top row, and the middle of its columns (rows top..bottom-1).
+void HeadSpan(const Image& im, int cx0, int cy0, int cw, int bottom, int& top, float& mid, int& x0, int& x1) {
+    top = 32;
+    for (int y = 0; y < 32 && top == 32; y++)
+        for (int x = 0; x < cw; x++) if (GetImageColor(im, cx0 + x, cy0 + y).a) { top = y; break; }
+    x0 = cw; x1 = -1;
+    for (int y = top; y < std::min(32, bottom); y++)
+        for (int x = 0; x < cw; x++) if (GetImageColor(im, cx0 + x, cy0 + y).a) { x0 = std::min(x0, x); x1 = std::max(x1, x); }
+    mid = x1 >= x0 ? (x0 + x1) / 2.0f : cw / 2.0f;
+}
+} // namespace
+
 Texture2D LookChars(const TrainerLook& l) {
     std::string key = LookText(l);
     auto it = gCharTex.find(key);
     if (it != gCharTex.end()) return it->second;
-    LoadSheets();
-    Image out = GenImageColor(144, 32, BLANK);
-    int hr = RowOf(l.head.empty() ? "player" : l.head), br = RowOf(l.body.empty() ? "player" : l.body);
-    if (gChars.data && hr >= 0 && br >= 0) {
-        std::vector<unsigned> headSkin = SkinOf(gChars, hr), bodySkin = SkinOf(gChars, br);
-        int top[9];   // the head's top in each frame: a hat or hair can share the face's shades, so skin starts 6 rows down
-        for (int f = 0; f < 9; f++) {
-            top[f] = 32;
-            for (int y = 0; y < 32 && top[f] == 32; y++)
-                for (int x = 0; x < 16; x++) if (GetImageColor(gChars, f * 16 + x, hr * 32 + y).a) { top[f] = y; break; }
-        }
-        for (int y = 0; y < 32; y++)
-            for (int x = 0; x < 144; x++) {
-                bool headPart = y < NECK;
-                Color c = GetImageColor(gChars, x, (headPart ? hr : br) * 32 + y);
-                if (c.a == 0) continue;
-                bool skin = headPart ? y >= top[x / 16] + 6 && In(headSkin, c) : In(bodySkin, c);
-                if (skin) c = Skin(c, l.skin);
-                else if (ToHsv(c).s > 0.1f || ToHsv(c).v > 0.85f) c = Recolour(c, headPart ? l.hair : l.cloth);
-                ImageDrawPixel(&out, x, y, c);
-            }
-    }
+    Image out = ComposeWalk(l);
     Texture2D t = LoadTextureFromImage(out);
     UnloadImage(out);
     gCharTex[key] = t;
@@ -182,15 +199,20 @@ Texture2D LookActions(const TrainerLook& l) {
     LoadSheets();
     int w = gActs.data ? gActs.width : 32;
     Image out = GenImageColor(w, 96, BLANK);
+    const char* base = l.type ? "leaf" : "player";
+    bool ownHead = !l.head.empty() && l.head != base;   // someone else's head: put it on Red's / Leaf's poses
+    Image walk = ownHead ? ComposeWalk(l) : Image{};
+    int baseRow = RowOf(base);
     if (gActs.data) {
+        // the poses' skin: the shades Red's / Leaf's own face uses on the walking sheet
+        std::vector<unsigned> skin = SkinOf(gChars, baseRow);
         for (int row = 0; row < 3; row++) {   // bike, surf, fish: Red's (boy) or Leaf's (girl) rows, in your colours
             int src = row * 2 + (l.type ? 1 : 0);
-            // the poses' skin: the shades Red's / Leaf's own face uses on the walking sheet
-            std::vector<unsigned> skin = SkinOf(gChars, RowOf(l.type ? "leaf" : "player"));
             for (int cx = 0; cx < w / 32; cx++) {
                 int top = 32;   // the character's top in this cell: the head is the 10 rows from there
                 for (int y = 0; y < 32 && top == 32; y++)
                     for (int x = 0; x < 32; x++) if (GetImageColor(gActs, cx * 32 + x, src * 32 + y).a) { top = y; break; }
+                if (top == 32) continue;
                 for (int y = 0; y < 32; y++)
                     for (int x = 0; x < 32; x++) {
                         Color c = GetImageColor(gActs, cx * 32 + x, src * 32 + y);
@@ -199,9 +221,35 @@ Texture2D LookActions(const TrainerLook& l) {
                         else if (ToHsv(c).s > 0.25f) c = Recolour(c, y < top + 10 ? l.hair : l.cloth);
                         ImageDrawPixel(&out, cx * 32 + x, row * 32 + y, c);
                     }
+                if (!ownHead || !walk.data || baseRow < 0) continue;
+                // which way it faces: bike cells go down x3, up x3, left x3; surf down, up, left; fishing left x4, up x4, down x4
+                int dir = row == 0 ? cx / 3 : row == 1 ? cx : (cx < 4 ? 2 : cx < 8 ? 1 : 0);
+                if (dir > 2) continue;
+                int wc = dir == 0 ? 1 : dir == 1 ? 4 : 7;   // the standing frame that way
+                int rt, ax0, ax1, rx0, rx1, ot, ox0, ox1;
+                float rm, am, om;
+                HeadSpan(gChars, wc * 16, baseRow * 32, 16, NECK, rt, rm, rx0, rx1);   // Red's / Leaf's head walking
+                int hh = NECK - rt;                                                   // ...its height
+                int at;
+                HeadSpan(gActs, cx * 32, src * 32, 32, top + hh, at, am, ax0, ax1);   // ...and on this pose
+                int neck = at + hh;
+                for (int y = at; y < neck; y++)   // off with Red's head
+                    for (int x = ax0; x <= ax1; x++) ImageDrawPixel(&out, cx * 32 + x, row * 32 + y, BLANK);
+                HeadSpan(walk, wc * 16, 0, 16, NECK, ot, om, ox0, ox1);              // your head
+                int dx = (int)std::lround(am - rm);
+                for (int y = ot; y < NECK; y++)
+                    for (int x = 0; x < 16; x++) {
+                        Color c = GetImageColor(walk, wc * 16 + x, y);
+                        if (c.a == 0) continue;
+                        int px = cx * 32 + x + dx, py = row * 32 + neck - (NECK - y);
+                        if (px < cx * 32 || px >= cx * 32 + 32 || py < row * 32 || py >= row * 32 + 32) continue;
+                        ImageDrawPixel(&out, px, py, c);
+                    }
+                (void)ox0; (void)ox1;
             }
         }
     }
+    if (walk.data) UnloadImage(walk);
     Texture2D t = LoadTextureFromImage(out);
     UnloadImage(out);
     gActTex[key] = t;

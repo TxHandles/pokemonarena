@@ -143,6 +143,10 @@ inline int SeasonOf(int clock) { return (clock / 4) % 4; }
 inline int StepsToNextSeason(int clock) { return 4 - clock % 4; }
 const char* SeasonName(int season);
 Weather RollSeasonWeather(int season);   // the day's weather for a battle (often none)
+// The walked world's weather for the whole day (the same all day: a day is two clock steps):
+// "" clear, "rain", "snow", "fog" or "sun".
+std::string DayWeather(int clock);
+Weather DayBattleWeather(int clock);
 
 // A rare species for a training encounter (prefers ones the player doesn't own).
 int PickRareSpecies(const std::vector<std::string>& ownedSpecies, int teamLevel = 100);

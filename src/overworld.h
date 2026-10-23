@@ -7,6 +7,7 @@
 // screen and your partner shows up wherever they are (their game sends where they walk). Story and
 // gym battles are always fought together; wild Pokemon in the grass are fought alone.
 #include <memory>
+#include "moves.h"
 #include <array>
 #include <string>
 #include <vector>
@@ -77,17 +78,26 @@ struct OwState {
     int menuSel = 0, menuWho = 0; // ...the row, and which walker opened it
     bool townMap = false;         // the Town Map (and Fly) is open
     int townSel = 0;
+    bool hubOnly = false;         // (autotests) stepped out to the Story menu: don't send them straight back out
+    float clockAcc = 0;           // the walked day: seconds toward the next clock second
 };
 
 bool WorldAvailable();                    // World/world.txt loaded
 bool StageWalked(int stage);
 bool StageSkipped(int stage);              // a story stage the walked map has no place for (it counts as done)               // this story stage is met on the walked map (its region is walked): it can be won out of order
-bool WorldRequired(const Game& g);        // this part of the story is walked (world.txt "walked = Kanto"): the hub sends you out into the world
+bool WorldRequired(const Game& g);
+extern bool gWorldHome;                    // the walked region has no Story menu (autotests turn it on themselves)
+bool InWorldMode(const Game& g);           // the story lives in the world right now (walked Kanto, its post-game, a visit): no Story menu
+bool WalkedOpening(int region);            // that region's story starts in your room (no starter screen: Oak's lab)
+bool CanVisitWorld(const Game& g);         // the Story menu can travel back to the walked region (its League is done)
+void VisitWorld(Game& g);                  // ...and does
+Weather WorldBattleWeather(const Game& g, int clock);   // a battle out in the world: the map's weather, or the day's        // this part of the story is walked (world.txt "walked = Kanto"): the hub sends you out into the world
 void LoadWorld(std::string& log);         // after InitWindow
 void EnterWorld(Game& g);                 // from the menu: where you left off (or your room)
 void UpdateWorld(Game& g, float dt);
 void DrawWorld(const Game& g);
 void WorldPreDraw(const Game& g);           // before the frame: the halves' own games, into their pictures
+std::string WorldQuestInfo(const Game& g);   // (autotests) where the quest marker points
 std::string WorldPlaceName(const Game& g);   // where you'll be (for the menu)
 // Online: the partner walked / was challenged (from the network).
 void WorldPartnerPos(Game& g, int map, int x, int y, int face);

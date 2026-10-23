@@ -295,6 +295,7 @@ struct Game {
     int cr[7] = {0, 0, 0, 0, 0, 0, 0};    // the trainer creator: poses, head, hair colour, outfit, outfit colour, skin
     std::string bagSellArm;                // the Bag: a valuable you pressed once (press again to sell it)
     double bagSellT = 0;
+    bool crReturn = false;                 // the creator was opened from the world's menu (back there after)
     int crSel = 0;                         // ... and the row picked (6 = Done)
     bool netNewTrainer = false;            // online menu: typing a new trainer's name
     Screen settingsBack = Screen::Title;   // where Settings returns to
@@ -490,3 +491,6 @@ void DrawStoryCard(const Game& g);
 bool PostgameBeaten(const Game& g, int stage);   // an optional post-game battle (Red, Steven) has been won
 int ProfileStarter(const Profile& p);       // species index of the starter they chose (-1 unknown)
 void StoryTimeStep(Game& g, bool announce); // one step of time (a battle or a Wait)
+int HallOfFameCount(const Game& g);
+void DrawLeaderboard(const Game& g);           // co-op: the journey's leaderboard (an overlay)
+void OpenCreator(Game& g, bool fromWorld);     // the trainer creator (from the world's menu: change your look)

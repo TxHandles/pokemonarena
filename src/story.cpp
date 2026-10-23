@@ -908,6 +908,22 @@ Weather RollSeasonWeather(int season) {
     }
 }
 
+std::string DayWeather(int clock) {
+    unsigned h = (unsigned)(clock / 2) * 2654435761u + 0x9e3779b9u;   // the day number, mixed
+    h ^= h >> 15; h *= 2246822519u; h ^= h >> 13;
+    int r = (int)(h % 100) + 1;
+    switch (SeasonOf(clock)) {
+        case 0: return r <= 15 ? "sun" : r <= 35 ? "rain" : "";              // spring: sun or showers
+        case 1: return r <= 35 ? "sun" : r <= 45 ? "rain" : "";              // summer: harsh sunlight, a storm now and then
+        case 2: return r <= 30 ? "rain" : r <= 45 ? "fog" : "";              // fall: rain and fog
+        default: return r <= 45 ? "snow" : r <= 55 ? "fog" : "";             // winter: snow
+    }
+}
+Weather DayBattleWeather(int clock) {
+    std::string w = DayWeather(clock);
+    return w == "rain" ? Weather::Rain : w == "snow" ? Weather::Snow : w == "sun" && !IsNight(clock) ? Weather::Sun : Weather::None;
+}
+
 int StoryStageForRev(int stage, int fromRev) {
     if (fromRev >= Story().rev || Story().rev < 2) return stage;
     if (fromRev < 2) {   // story_rev 2 added rival battles before these stages of the old ladder

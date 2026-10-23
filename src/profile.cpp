@@ -118,6 +118,8 @@ bool ProfileFromText(const std::string& text, const std::string& name, Profile& 
             else if (k == "story_stage") out.storyStage = iv;
             else if (k == "story_rev") out.storyRev = iv;
             else if (k == "clock") out.clock = std::max(0, iv);
+        else if (k == "clock_sec") out.clockSec = std::max(0, iv);
+            else if (k == "clock_sec") out.clockSec = std::max(0, iv);
             else if (k == "starter") out.starter = v;
             else if (k == "train_area") out.trainArea = v;
             else if (k == "ow_map") out.owMap = v;
@@ -249,7 +251,7 @@ std::string ProfileToText(const Profile& p) {
     std::string o = "# Arena Clash save file\n";
     o += "name = " + p.name + "\n";
     o += TextFormat("story_stage = %d\nwins = %d\nlosses = %d\ntraining_wins = %d\ncoins = %d\n", p.storyStage, p.wins, p.losses, p.trainingWins, p.coins);
-    o += TextFormat("story_rev = %d\nclock = %d\n", p.storyRev > 0 ? p.storyRev : Story().rev, p.clock);
+    o += TextFormat("story_rev = %d\nclock = %d\nclock_sec = %d\n", p.storyRev > 0 ? p.storyRev : Story().rev, p.clock, p.clockSec);
     if (!p.trainArea.empty()) o += "train_area = " + p.trainArea + "\n";
     if (!p.owFlags.empty()) { std::string f; for (const auto& x : p.owFlags) f += (f.empty() ? "" : ";") + x; o += "ow_flags = " + f + "\n"; }
     if (!p.owMap.empty()) o += "ow_map = " + p.owMap + "\now_pos = " + std::to_string(p.owX) + " " + std::to_string(p.owY) + " " + std::to_string(p.owFace) + "\n";
@@ -577,7 +579,7 @@ bool SaveCoop(const CoopSave& c) {
     std::string o = "# Arena Clash co-op save: the progress these two profiles share\n";
     o += "player1 = " + c.p[0] + "\nplayer2 = " + c.p[1] + "\n";
     o += TextFormat("story_stage = %d\nwins = %d\nlosses = %d\ntraining_wins = %d\n", c.storyStage, c.wins, c.losses, c.trainingWins);
-    o += TextFormat("story_rev = %d\nclock = %d\n", c.storyRev > 0 ? c.storyRev : Story().rev, c.clock);
+    o += TextFormat("story_rev = %d\nclock = %d\nclock_sec = %d\n", c.storyRev > 0 ? c.storyRev : Story().rev, c.clock, c.clockSec);
     if (!c.trainArea.empty()) o += "train_area = " + c.trainArea + "\n";
     if (!c.owFlags.empty()) { std::string f; for (const auto& x : c.owFlags) f += (f.empty() ? "" : ";") + x; o += "ow_flags = " + f + "\n"; }
     for (int p = 0; p < 2; p++)

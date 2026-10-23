@@ -964,7 +964,8 @@ void StartBattleFromSelect(Game& g) {
         if (!indoors) {   // gyms and buildings are lit and dry; outdoors gets the time of day and weather
             su.night = IsNight(clock);
             su.daylight = !su.night;
-            su.weather = RollSeasonWeather(SeasonOf(clock));
+            bool world = g.ow.active || g.ow.wildBattle || g.owFight;   // out in the walked world: the weather you were walking in
+            su.weather = world ? WorldBattleWeather(g, clock) : RollSeasonWeather(SeasonOf(clock));
         }
         if (su.arena == ArenaKind::Ice || su.arena == ArenaKind::GiantChasm) su.weather = Weather::Snow;   // it never stops snowing in Lorelei's chamber
         if (g.legend >= 0) {   // a legendary brings its own weather
