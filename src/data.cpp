@@ -1,3 +1,4 @@
+#include <unordered_map>
 #include "data.h"
 #include "natures.h"
 #include <algorithm>
@@ -178,11 +179,27 @@ int SpeciesIndex(const std::string& name) {
     std::string k = Squash(name);
     if (k.empty()) return -1;
     const auto& all = AllSpecies();
-    for (size_t i = 0; i < all.size(); i++)
-        if (Squash(all[i].name) == k) return (int)i;
-    // A renamed built-in slot still answers to its original name (e.g. "Thistlet").
-    for (size_t i = 0; i < all.size(); i++)
-        if (Squash(all[i].artName) == k) return (int)i;
+    // An index of squashed names, checked on every hit and rebuilt when it's out of date (the registry
+    // grows and renames slots while the Pokemon folder loads): a lookup is a hash, not a walk over 1000 names.
+    static std::unordered_map<std::string, int> byName, byArt;
+    static size_t built = (size_t)-1;
+    auto rebuild = [&]() {
+        byName.clear(); byArt.clear();
+        for (size_t i = 0; i < all.size(); i++) {
+            byName.emplace(Squash(all[i].name), (int)i);
+            byArt.emplace(Squash(all[i].artName), (int)i);
+        }
+        built = all.size();
+    };
+    for (int pass = 0; pass < 2; pass++) {
+        if (pass == 1 || built != all.size()) rebuild();
+        auto it = byName.find(k);
+        if (it != byName.end() && it->second < (int)all.size() && Squash(all[it->second].name) == k) return it->second;
+        if (pass == 1) {   // a renamed built-in slot still answers to its original name (e.g. "Thistlet")
+            auto a = byArt.find(k);
+            return a != byArt.end() && a->second < (int)all.size() ? a->second : -1;
+        }
+    }
     return -1;
 }
 

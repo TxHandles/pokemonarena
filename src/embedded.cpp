@@ -1,5 +1,6 @@
 #include "embedded.h"
 #include <cstring>
+#include <vector>
 #include <cstddef>
 #include <cstdio>
 #include <cstdlib>
@@ -8,12 +9,31 @@
 namespace {
 struct EmbeddedFile {
     const char* path;
-    const unsigned char* data;
-    size_t size;
+    unsigned offset;     // where it starts in the blob
+    unsigned size;       // its size
+    unsigned packed;     // deflated to this many bytes (0: stored as it is)
 };
 } // namespace
-#include "embedded_files.inc"   // the data itself is in embedded_data_NN.cpp
+#include "embedded_files.inc"   // the list; the bytes are embedded_blob.bin (embedded_blob.cpp)
+const unsigned char* EmbeddedBlob();
 namespace {
+// A file's bytes, unpacked
+std::vector<unsigned char> Bytes(const EmbeddedFile& f) {
+    const unsigned char* b = EmbeddedBlob();
+    if (!b) return {};
+    if (!f.packed) return std::vector<unsigned char>(b + f.offset, b + f.offset + f.size);
+    int n = 0;
+    unsigned char* d = DecompressData(b + f.offset, (int)f.packed, &n);
+    std::vector<unsigned char> v;
+    if (d && n == (int)f.size) v.assign(d, d + n);
+    if (d) MemFree(d);
+    return v;
+}
+bool SameAs(const EmbeddedFile& f, const unsigned char* old, int n) {
+    if (!old || n != (int)f.size) return false;
+    std::vector<unsigned char> v = Bytes(f);
+    return v.size() == f.size && std::memcmp(old, v.data(), f.size) == 0;
+}
 
 void MakeDirs(const std::string& base, const std::string& rel) {
     size_t pos = 0;
@@ -124,7 +144,7 @@ std::string RestoreEmbeddedFiles() {
                 if (!FileExists(path.c_str())) continue;
                 int n = 0;
                 unsigned char* old = LoadFileData(path.c_str(), &n);
-                bool same = old && n == (int)f.size && std::memcmp(old, f.data, f.size) == 0;
+                bool same = SameAs(f, old, n);
                 if (old && !same) {
                     MakeDirs(base, "Pokemon/_old_files/x");
                     SaveFileData((base + "Pokemon/_old_files/" + folder + ".txt").c_str(), old, n);
@@ -155,7 +175,7 @@ std::string RestoreEmbeddedFiles() {
                 if (!FileExists(path.c_str())) continue;
                 int n = 0;
                 unsigned char* old = LoadFileData(path.c_str(), &n);
-                bool same = old && n == (int)f.size && std::memcmp(old, f.data, f.size) == 0;
+                bool same = SameAs(f, old, n);
                 if (old && !same) SaveFileData((path + ".old").c_str(), old, n);
                 if (old) UnloadFileData(old);
                 if (!same) { std::remove(path.c_str()); updated++; }
@@ -167,7 +187,8 @@ std::string RestoreEmbeddedFiles() {
         std::string path = base + f.path;
         if (FileExists(path.c_str())) continue;
         MakeDirs(base, f.path);
-        if (SaveFileData(path.c_str(), (void*)f.data, (int)f.size)) restored++;
+        std::vector<unsigned char> v = Bytes(f);
+        if (v.size() == f.size && SaveFileData(path.c_str(), v.empty() ? (void*)"" : (void*)v.data(), (int)f.size)) restored++;
         else failed++;
     }
     std::string r;

@@ -14,11 +14,14 @@ pick this folder, choose `ArenaClash.exe`, press F5. raylib downloads automatica
 Data lives next to the exe when that folder already has game data (the zip layout); a lone
 `ArenaClash.exe` makes an `ArenaClash Data` folder next to itself instead.
 
-The game's data files (`Pokemon/`, `story.txt`, `map.png`) are also baked
-into the exe (`src/embedded_files.inc`, made by `python tools/embed_files.py`). On startup the game
-writes back any of them that are missing, so the exe alone is a complete game and your own edits are
-never overwritten. Re-run the script after changing those files if you want the exe to carry the
-changes. The build also copies `Pokemon/` and `story.txt` next to the exe. Saves go in `saves/` and settings in
+The game's data files (`Pokemon/`, `World/`, `Sounds/`, `story.txt`, the region maps) are also baked
+into the exe: `python tools/embed_files.py` packs them into `src/embedded_blob.bin` (text deflated, images and
+sounds as they are) with its list in `src/embedded_files.inc`, and the build links the blob in directly (the
+assembler's `.incbin` on GCC / Clang / MinGW, a resource on Visual Studio), so it takes seconds. Run the script
+once before the first build, and again after changing those files. On startup the game writes back any of them that
+are missing, so the exe alone is a complete game and your own edits are never overwritten. `python
+tools/png_shrink.py` re-saves the PNGs as small as they go without changing a pixel (run it after a tool redraws
+maps or sprites). The build also copies `Pokemon/` and `story.txt` next to the exe. Saves go in `saves/` and settings in
 `settings.txt`, both next to the exe.
 
 ## Title menu

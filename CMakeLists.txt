@@ -25,6 +25,17 @@ file(GLOB ENET_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/enet/*.c)
 add_executable(ArenaClash ${GAME_SOURCES} ${ENET_SOURCES})
 target_include_directories(ArenaClash PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/enet/include)
 target_link_libraries(ArenaClash PRIVATE raylib)
+# The game's data files go in the exe as one blob (python tools/embed_files.py makes it): GCC / Clang link it
+# with the assembler's .incbin, Visual Studio as a Windows resource. Rebuild when the blob changes.
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src/embedded_blob.bin)
+    set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/src/embedded_blob.cpp PROPERTIES
+        OBJECT_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/embedded_blob.bin)
+    if(MSVC)
+        target_sources(ArenaClash PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/embedded_blob.rc)
+        set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/src/embedded_blob.rc PROPERTIES
+            OBJECT_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/embedded_blob.bin)
+    endif()
+endif()
 if(WIN32)
     target_link_libraries(ArenaClash PRIVATE ws2_32 winmm)
 endif()

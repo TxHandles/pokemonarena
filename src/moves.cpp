@@ -1,3 +1,4 @@
+#include <unordered_map>
 #include "moves.h"
 #include <cctype>
 #include <cstdio>
@@ -954,9 +955,11 @@ const MoveDef* FindMove(const std::string& name) {
                                      {"hijump", "High Jump Kick"}, {"sonicboom", "Sonic Boom"}, {"doubleslap", "Double Slap"}};
     for (auto& a : alias)
         if (key == a[0]) key = Squash(a[1]);
-    for (const auto& m : MoveLibrary())
-        if (Squash(m.name) == key) return &m;
-    return nullptr;
+    static std::unordered_map<std::string, const MoveDef*> index;   // squashed name -> move (the library never changes)
+    if (index.empty())
+        for (const auto& m : MoveLibrary()) index.emplace(Squash(m.name), &m);
+    auto it = index.find(key);
+    return it == index.end() ? nullptr : it->second;
 }
 
 MoveDef MakeMove(const std::string& name, Type t, MoveKind k, int power, float cd) {
