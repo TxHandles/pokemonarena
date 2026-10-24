@@ -61,6 +61,8 @@ std::vector<ItemDef> Build() {
     add("Dawn Stone", ItemFx::Stone, 0, 2500, 3, "Evolves Kirlia (into Gallade) and Snorunt (into Froslass).", Type::Psychic);
     add("Ice Stone", ItemFx::Stone, 0, 2000, 3, "Evolves Eevee into Glaceon.", Type::Ice);
     add("Oval Stone", ItemFx::Stone, 0, 2000, 2, "Evolves Happiny into Chansey.", Type::Normal);
+    add("Up-Grade", ItemFx::Stone, 0, 3000, 3, "A transparent device from Silph Co. Evolves Porygon into Porygon2.", Type::Normal);
+    add("Dragon Scale", ItemFx::Stone, 0, 3000, 3, "A thick, tough scale. Evolves Seadra into Kingdra.", Type::Dragon);
     add("Razor Claw", ItemFx::Stone, 0, 3000, 3, "A sharp claw. Evolves Sneasel into Weavile.", Type::Dark);
     add("Razor Fang", ItemFx::Stone, 0, 3000, 3, "A sharp fang. Evolves Gligar into Gliscor.", Type::Dark);
 
@@ -176,6 +178,7 @@ std::vector<ItemDef> Build() {
     pu("Revive", 0.5f, -1, 1500, 3, "Revives a fainted Pokemon with half its HP. Use it from Party & Box.");
     pu("Max Revive", 1.0f, -1, 4000, 99, "Revives a fainted Pokemon with all its HP. Use it from Party & Box.");
     pu("Revival Herb", 1.0f, -1, 2800, 99, "A very bitter herb that revives a fainted Pokemon with all its HP. Use it from Party & Box.");
+    pu("Sacred Ash", 1.0f, -1, 5000, 99, "Ho-Oh's ash: revives every fainted Pokemon in your party with all its HP. Use it from Party & Box.");
     pu("Rare Candy", 0, -1, 4800, 99, "Raises a Pokemon's level by one. Use it from Party & Box.");
     // vitamins: +10 EVs in one stat (up to 252, as in Sword and Shield on)
     pu("HP Up", 0, 0, 9800, 4, "A nutritious drink: +10 HP EVs (up to 252). EVs raise a stat as it levels. Use it from Party & Box.");
@@ -236,6 +239,7 @@ std::vector<ItemDef> Build() {
     add("Everstone", ItemFx::Everstone, 0, 2000, 1, "A strange stone: the Pokemon holding it doesn't evolve.");
     add("Soothe Bell", ItemFx::None, 2, 3000, 2, "A bell with a comforting chime: the Pokemon holding it grows fond of you twice as fast.");
     add("Cleanse Tag", ItemFx::None, 0, 2000, 2, "Held by the first Pokemon in your party, wild Pokemon show up a third less often.");
+    add("Bright Powder", ItemFx::DefMul, 1.08f, 2000, 3, "A glittery powder that dazzles attackers: DEF +8%.");
     add("Lax Incense", ItemFx::DefMul, 1.08f, 2000, 3, "A light incense that wafts around it: DEF +8%.");
     add("Sea Incense", ItemFx::TypeBoost, 1.1f, 2000, 3, "A watery incense: Water-type moves deal 10% more damage.", Type::Water);
     add("Lucky Punch", ItemFx::ScopeLens, 1.0f, 2500, 3, "A glove that brings luck: held by Chansey, its critical hits are much more likely.");

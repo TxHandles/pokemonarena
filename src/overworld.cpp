@@ -90,8 +90,11 @@ struct OwMap {
     std::vector<Act> steps;           // "step = x y action": done when you step onto that square (the Trick House's buttons)
     std::string img2;                 // "img2 = picture": a second picture of the map (the Trick House: its buttons pressed)...
     Texture2D tex2{};
-    struct Swap { int x, y; std::string flag; };
-    std::vector<Swap> swaps;          // ..."swap = x y flag": that square comes from img2 while the flag is set
+    struct Swap { int x, y; std::string flag; char cell = 0; };
+    std::vector<Swap> swaps;          // ..."swap = x y flag [c]": that square comes from img2 while the flag is set (and is c on the grid)
+    std::map<int, std::pair<int, int>> rtiles;   // "rtile = x y colour dir": Emerald's rotating tile puzzle (Mossdeep Gym, Trick House 7)
+    struct WildAt { int x0, y0, x1, y1; std::string area; };
+    std::vector<WildAt> wildAt;       // "wildat = x0 y0 x1 y1 Area": walking there, that area's Pokemon (Mirage Island's Wynaut)
     struct RGate { int x, y, shape, orient; };
     std::vector<RGate> rgates;        // "rgate = x y shape orientation": Emerald's rotating gates (Fortree Gym, the Trick House)
     std::vector<OwNpc> npcs;
@@ -108,7 +111,7 @@ struct OwMap {
     std::vector<std::pair<int, int>> lap;   // "lap = flag|gx gy|x,y x,y ...": a lap along these tiles, back to (gx, gy) (Island Cave)
     std::string lapFlag;
     int lapGX = -1, lapGY = -1;
-    struct BerryTree { int x, y, id; std::string berry; };   // "berry = x y tree Oran" (Soil: nothing planted at first)
+    struct BerryTree { int x, y, id; std::string berry; std::string ifF; };   // "berry = x y tree Oran" (Soil: nothing planted at first)
     std::vector<BerryTree> berries;   // Hoenn's berry trees
     struct WxZone { int x0, y0, x1, y1; std::string wx; };
     std::vector<WxZone> wxZones;      // "wxzone = x0 y0 x1 y1 sand": just there (Route 111's desert)
@@ -249,6 +252,7 @@ bool HasBadge(const Game& g, const std::string& b) {
 // A condition: a flag that's been set, or "badge:Cascade", "stage:Cerulean Gym" (the story is past it),
 // "item:Bicycle" (this walker carries it); "!" in front turns it around.
 int MapRegionOf(const Game& g, int i) { int m = g.ow.w[i].map; return m >= 0 && m < (int)gMaps.size() ? gMaps[m].region : 0; }
+float WorldHour(const Game& g);
 bool HasFlag(const Game& g, int i, const std::string& f0) {
     if (f0.empty()) return true;
     if (size_t amp = f0.find('&'); amp != std::string::npos) return HasFlag(g, i, f0.substr(0, amp)) && HasFlag(g, i, f0.substr(amp + 1));   // all of them
@@ -262,6 +266,11 @@ bool HasFlag(const Game& g, int i, const std::string& f0) {
     if (f0 == "biking") return i >= 0 && i < 2 && g.ow.w[i].biking;   // (cracked floors: a bike gets across)
     if (f0 == "safari") return g.ow.safari.on && !g.ow.safari.contest;   // in the Safari Zone's game
     if (f0 == "bugcontest") return g.ow.safari.on && g.ow.safari.contest;   // in the Bug-Catching Contest
+    if (f0 == "mirage") {   // Mirage Island off Route 130: there on some days (Emerald: when a Pokemon's number matches the day's)
+        uint32_t d = (uint32_t)(StoryClock(g) / 2) * 2654435761u;
+        return ((d >> 13) % 5) == 0;
+    }
+    if (f0 == "hightide") { float h = WorldHour(g); return (h >= 3 && h < 9) || (h >= 15 && h < 21); }   // Shoal Cave (Emerald's tide times)
     if (f0 == "pokemon") return !WP(g, i).mons.empty();   // this walker has a Pokemon (Oak's starter)
     if (f0.rfind("rstarter:", 0) == 0) {   // the region's professor has given you theirs (rstarter:1 = Elm's)
         int r = std::atoi(f0.c_str() + 9);
@@ -280,6 +289,46 @@ void SetFlag(Game& g, const std::string& f) {
     if (Online(g)) OnlineSendCoop(g);
 }
 
+// ---- the move tutors: who can learn what (World/tutors.txt - Emerald's tutor tables, the starters' ultimate moves).
+// A move the file doesn't list (Headbutt), or a Pokemon newer than the lists: anyone who could learn it some other way.
+}  // namespace
+bool MonCanLearnTM(const OwnedMon& m, const std::string& move);   // (screens_story.cpp)
+bool TutorCanLearn(const OwnedMon& m, const std::string& move);
+void LoadTutors();
+namespace {
+std::map<std::string, std::set<std::string>> gTutorCompat;
+std::set<std::string> gTutorKnown;   // species the lists cover
+}  // namespace
+void LoadTutors() {
+    gTutorCompat.clear(); gTutorKnown.clear();
+    char* txt = LoadFileText((DataDir() + "World/tutors.txt").c_str());
+    if (!txt) return;
+    std::string s = txt;
+    UnloadFileText(txt);
+    for (const auto& line : Split(s, '\n')) {
+        std::string l = Trim(line);
+        if (l.empty() || l[0] == '#') continue;
+        size_t eq = l.find('=');
+        if (eq == std::string::npos) continue;
+        std::string mv = Trim(l.substr(0, eq));
+        for (const auto& sp : Split(l.substr(eq + 1), ',')) {
+            std::string n = Trim(sp);
+            if (n.empty()) continue;
+            if (mv == "covers") gTutorKnown.insert(n); else gTutorCompat[mv].insert(n);
+        }
+    }
+}
+bool TutorCanLearn(const OwnedMon& m, const std::string& move) {
+    auto it = gTutorCompat.find(move);
+    if (it == gTutorCompat.end()) return true;   // (Headbutt: anyone)
+    if (it->second.count(m.species)) return true;
+    if (gTutorKnown.count(m.species)) return false;
+    int si = MonSpecies(m);
+    if (si < 0) return false;
+    for (const auto& lm : AllSpecies()[si].learnset) if (lm.move.name == move) return true;
+    return MonCanLearnTM(m, move);
+}
+namespace {
 // ---- the field moves: someone in your party knows it, and you have the badge
 bool PartyKnows(const Profile& p, const std::string& mv, std::string* who = nullptr) {
     for (const auto& m : p.mons)
@@ -395,6 +444,7 @@ char Cell(const Game& g, int i, int map, int x, int y) {
     if (c == 'B') c = '.';
     if (!gReachMode && std::find(r.boulders.begin(), r.boulders.end(), k) != r.boulders.end()) return 'B';
     for (const auto& gt : m.gates) if (gt.x == x && gt.y == y && !HasFlag(g, i, gt.flag) && !gReachMode) return '#';
+    for (const auto& sw : m.swaps) if (sw.cell && sw.x == x && sw.y == y && HasFlag(g, i, sw.flag)) return sw.cell;
     return c;
 }
 bool Walkable(char c) { return c == '.' || c == 'i' || c == '^' || c == 'g' || c == 'c' || c == 'D' || c == 's' || c == 'u' || c == '0' || (c >= '1' && c <= '4'); }   // (s: a slope or steps, 3D maps; u: under the sea, where you can surface; ^: floor with a wall along its top edge, Crystal's caves; i: slippery - you slide on)
@@ -935,14 +985,14 @@ const char* ApriBall(const std::string& color) {
     for (const auto& [c, b] : k) if (color == c) return b;
     return "Poke Ball";
 }
-int TreeAt(int map, int x, int y) {
+int TreeAt(const Game& g, int i, int map, int x, int y) {
     const auto& v = gMaps[map].berries;
-    for (size_t k = 0; k < v.size(); k++) if (v[k].x == x && v[k].y == y) return (int)k;
+    for (size_t k = 0; k < v.size(); k++) if (v[k].x == x && v[k].y == y && HasFlag(g, i, v[k].ifF)) return (int)k;
     return -1;
 }
 bool BerryTreeHere(Game& g, int i, int fx, int fy) {   // A at a berry tree: pick, water, or plant
     OwWalker& w = g.ow.w[i];
-    int k = TreeAt(w.map, fx, fy);
+    int k = TreeAt(g, i, w.map, fx, fy);
     if (k < 0) return false;
     const auto& t = gMaps[w.map].berries[k];
     TreeState s = TreeOf(g, t);
@@ -983,7 +1033,13 @@ void RunAction(Game& g, int i, const std::string& act) {
         SaveAll(g);
         Game& t = g.coop ? StartSub(g, i) : g;
         if (k == "heal") OpenHealingCenter(t);
-        else { t.shopSel = 0; t.screen = Screen::Shop; }
+        else { t.shopSel = 0; t.shopTab = 0; t.relearnMon = -1; t.screen = Screen::Shop; }
+    }
+    else if (k == "relearner") Say(w, a.size() > 1 && !a[1].empty() ? act.substr(10) : "I'm the Move Relearner. I can make Pokemon remember moves they've forgotten.", "relearnopen");
+    else if (k == "relearnopen") {   // the shop's Move Relearner tab
+        SaveAll(g);
+        Game& t = g.coop ? StartSub(g, i) : g;
+        t.shopSel = 0; t.shopTab = 4; t.relearnMon = -1; t.screen = Screen::Shop;
     }
     else if (k == "shopmsg" || k == "healmsg") Say(w, act.substr(k.size() + 1), k == "shopmsg" ? "shop" : "heal");
     else if (k == "daycare") Say(w, a.size() > 1 && !a[1].empty() ? a[1] : "I'm the Day Care man. Shall we raise a Pokemon for you?", "daycareopen");
@@ -1004,18 +1060,58 @@ void RunAction(Game& g, int i, const std::string& act) {
         if (SimRand(0, 99) < 55 && WildAreaHasMethod(a[1], "headbutt")) { Say(w, who + " did a Headbutt!|A wild Pokemon fell out of the tree!", "wild|headbutt@" + a[1]); return; }
         Say(w, who + " did a Headbutt!|...Nothing fell out.");
     }
-    else if (k == "tutor" && a.size() > 1) {   // tutor|Move|what they say: teaches it to one of your party
+    else if (k == "tutorpick" && a.size() > 1) {   // tutorpick|Move,Move,...|what they say: you choose which (Cape Brink's starter moves)
+        std::vector<std::pair<std::string, std::string>> ch;
+        for (const auto& mv : Split(a[1], ',')) ch.push_back({Trim(mv), "tutor|" + Trim(mv)});
+        ch.push_back({"Never mind", ""});
+        std::string intro;
+        for (size_t q = 2; q < a.size(); q++) if (!a[q].empty()) intro += a[q] + "|";
+        Ask(w, intro + "Which move would you like to learn?", ch);
+    }
+    else if (k == "deleter") {   // the Move Deleter: a Pokemon forgets a move (it has to keep one)
         std::vector<std::pair<std::string, std::string>> ch;
         const Profile& P = WP(g, i);
+        for (int m = 0; m < (int)P.mons.size() && ch.size() < 6; m++)
+            if (!P.mons[m].boxed && P.mons[m].moves.size() > 1) ch.push_back({P.mons[m].nick.empty() ? P.mons[m].species : P.mons[m].nick, "deletepick|" + std::to_string(m)});
+        if (ch.empty()) { Say(w, "Uh... Oh, yes, I'm the Move Deleter.|Your Pokemon each know just one move - I can't make them forget that!"); return; }
+        ch.push_back({"Never mind", ""});
+        Ask(w, "Uh... Oh, yes, I'm the Move Deleter. I can make Pokemon forget their moves.|Which Pokemon should forget a move?", ch);
+    }
+    else if (k == "deletepick" && a.size() > 1) {
+        const Profile& P = WP(g, i);
+        int m = std::atoi(a[1].c_str());
+        if (m < 0 || m >= (int)P.mons.size()) return;
+        std::vector<std::pair<std::string, std::string>> ch;
+        for (int q = 0; q < (int)P.mons[m].moves.size(); q++) ch.push_back({P.mons[m].moves[q], "deletego|" + a[1] + "|" + std::to_string(q)});
+        ch.push_back({"Never mind", ""});
+        Ask(w, "Which move should it forget?", ch);
+    }
+    else if (k == "deletego" && a.size() > 2) {
+        Profile& P = WP(g, i);
+        int m = std::atoi(a[1].c_str()), q = std::atoi(a[2].c_str());
+        if (m < 0 || m >= (int)P.mons.size() || q < 0 || q >= (int)P.mons[m].moves.size() || P.mons[m].moves.size() <= 1) return;
+        OwnedMon& om = P.mons[m];
+        std::string old = om.moves[q];
+        om.moves.erase(om.moves.begin() + q);
+        if (std::find(om.forgotten.begin(), om.forgotten.end(), old) == om.forgotten.end()) om.forgotten.push_back(old);
+        SaveAll(g);
+        PlaySfx(Sfx::MenuOk);
+        Say(w, std::string("Hm! ") + (om.nick.empty() ? om.species : om.nick) + " has forgotten " + old + " completely.|(A Move Relearner can teach it again.)");
+    }
+    else if (k == "tutor" && a.size() > 1) {   // tutor|Move|what they say: teaches it to one of your party (World/tutors.txt: who can)
+        std::vector<std::pair<std::string, std::string>> ch;
+        const Profile& P = WP(g, i);
+        int cannot = 0;
         for (int m = 0; m < (int)P.mons.size(); m++) {
             const OwnedMon& om = P.mons[m];
             if (om.boxed || std::find(om.moves.begin(), om.moves.end(), a[1]) != om.moves.end()) continue;
+            if (!TutorCanLearn(om, a[1])) { cannot++; continue; }
             ch.push_back({om.nick.empty() ? om.species : om.nick, "tutorgo|" + a[1] + "|" + std::to_string(m)});
             if (ch.size() >= 5) break;
         }
         std::string intro;   // (what they say: the rest, one page each)
         for (size_t q = 2; q < a.size(); q++) if (!a[q].empty()) intro += a[q] + "|";
-        if (ch.empty()) { Say(w, intro + "Hmm... all of your Pokemon already know " + a[1] + "."); return; }
+        if (ch.empty()) { Say(w, intro + (cannot ? "Hmm... none of your Pokemon can learn " + a[1] + "." : "Hmm... all of your Pokemon already know " + a[1] + ".")); return; }
         ch.push_back({"Never mind", ""});
         Ask(w, intro + "Which Pokemon should learn " + a[1] + "?", ch);
     }
@@ -1049,42 +1145,61 @@ void RunAction(Game& g, int i, const std::string& act) {
         PlaySfx(Sfx::LevelUp);
         Say(w, std::string("1, 2 and... Poof! ") + (om.nick.empty() ? om.species : om.nick) + " forgot " + old + " and learned " + a[1] + "!");
     }
-    else if (k == "ttower" || k == "ttgo" || k == "ttquit" || k == "ttfinish") {   // the Trainer Tower (FireRed): its challenges, against the clock
+    else if (k == "ttower" || k == "ttgo" || k == "ttquit" || k == "ttfinish" || k == "thill" || k == "thgo" || k == "thquit" || k == "thfinish" || k == "thup") {
+        // the Trainer Tower (FireRed) and the Trainer Hill (Emerald): their challenges, against the clock
+        bool hill = k[1] == 'h';
+        const std::string P = hill ? "th:" : "tt:", start = hill ? "thstart|" : "ttstart|", bestKey = hill ? "thbest:" : "ttbest:";
         auto& fl = Flags(g);
-        auto clear = [&]() { for (auto it = fl.begin(); it != fl.end();) it = (it->rfind("tt:", 0) == 0 || it->rfind("ttstart|", 0) == 0) ? fl.erase(it) : std::next(it); };
+        auto clear = [&]() { for (auto it = fl.begin(); it != fl.end();) it = (it->rfind(P, 0) == 0 || it->rfind(start, 0) == 0) ? fl.erase(it) : std::next(it); };
         auto flagNum = [&](const std::string& key) { for (const auto& f : fl) if (f.rfind(key, 0) == 0) return std::atoll(f.c_str() + key.size()); return -1LL; };
-        static const char* kTypes[4] = {"single", "double", "knockout", "mixed"};
-        static const char* kNames[4] = {"Single Battle", "Double Battle", "Knockout", "Mixed"};
+        static const char* kTypes[2][4] = {{"single", "double", "knockout", "mixed"}, {"normal", "variety", "unique", "expert"}};
+        static const char* kNames[2][4] = {{"Single Battle", "Double Battle", "Knockout", "Mixed"}, {"Normal", "Variety", "Unique", "Expert"}};
         static const char* kPrize[4] = {"Metal Coat", "Mental Herb", "Choice Band", "King's Rock"};
+        static const char* kHillTop[4] = {"TM049 Sunny Day", "Elixir", "TM111 Giga Drain", "TM058 Brick Break"};   // (Emerald's prize under 12 minutes)
+        const char* const* types = kTypes[hill];
+        const char* const* names = kNames[hill];
         int type = -1;
-        for (int t = 0; t < 4; t++) if (fl.count(std::string("tt:") + kTypes[t])) type = t;
+        for (int t = 0; t < 4; t++) if (fl.count(P + types[t])) type = t;
         auto clock = [](long long s) { return std::string(TextFormat("%lld:%02lld", s / 60, s % 60)); };
-        if (k == "ttower") {
-            if (fl.count("tt:on") && type >= 0) {
-                Ask(w, std::string("You're taking the ") + kNames[type] + " challenge. The clock is running!|Would you like to give up?", {{"Keep going", ""}, {"Give up", "ttquit"}});
+        if (k == "ttower" || k == "thill") {
+            if (fl.count(P + "on") && type >= 0) {
+                Ask(w, std::string("You're taking the ") + names[type] + " challenge. The clock is running!|Would you like to give up?", {{"Keep going", ""}, {"Give up", hill ? "thquit" : "ttquit"}});
                 return;
             }
             std::string best;
-            for (int t = 0; t < 4; t++) if (long long b = flagNum(std::string("ttbest:") + kTypes[t] + "|"); b >= 0) best += std::string("|Your best ") + kNames[t] + " time: " + clock(b) + ".";
-            Ask(w, "Welcome to the Trainer Tower! Trainers from all over wait on every floor.|Beat them all and reach the roof as fast as you can!" + best + "|Which challenge would you like?",
-                {{"Single Battle", "ttgo|0"}, {"Double Battle", "ttgo|1"}, {"Knockout", "ttgo|2"}, {"Mixed", "ttgo|3"}, {"Not now", ""}});
-        } else if (k == "ttgo" && a.size() > 1) {
+            for (int t = 0; t < 4; t++) if (long long b = flagNum(bestKey + types[t] + "|"); b >= 0) best += std::string("|Your best ") + names[t] + " time: " + clock(b) + ".";
+            std::string go = hill ? "thgo|" : "ttgo|";
+            if (hill)
+                Ask(w, "Welcome to the Trainer Hill! Two Trainers wait on each of its four floors.|Beat them all and climb to the roof as fast as you can!" + best + "|Which mode would you like?",
+                    {{"Normal", go + "0"}, {"Variety", go + "1"}, {"Unique", go + "2"}, {"Expert", go + "3"}, {"Not now", ""}});
+            else
+                Ask(w, "Welcome to the Trainer Tower! Trainers from all over wait on every floor.|Beat them all and reach the roof as fast as you can!" + best + "|Which challenge would you like?",
+                    {{"Single Battle", go + "0"}, {"Double Battle", go + "1"}, {"Knockout", go + "2"}, {"Mixed", go + "3"}, {"Not now", ""}});
+        } else if ((k == "ttgo" || k == "thgo") && a.size() > 1) {
             int t = std::max(0, std::min(3, std::atoi(a[1].c_str())));
             clear();
-            fl.insert("tt:on");
-            fl.insert(std::string("tt:") + kTypes[t]);
-            fl.insert("ttstart|" + std::to_string(StorySeconds(g)));
+            fl.insert(P + "on");
+            fl.insert(P + types[t]);
+            fl.insert(start + std::to_string(StorySeconds(g)));
             SaveAll(g);
-            Say(w, std::string("The ") + kNames[t] + " challenge! The clock starts... now!|Please go through the door behind me. Good luck!");
-        } else if (k == "ttquit") {
+            Say(w, std::string("The ") + names[t] + (hill ? " mode" : " challenge") + "! The clock starts... now!|Please go " + (hill ? "up the stairs" : "through the door behind me") + ". Good luck!");
+        } else if (k == "thup") {   // the stairs from the lobby: to the first floor of your mode
+            if ((!fl.count(P + "on") || type < 0) && !gReachMode) { Say(w, "(Please sign up at the counter for a challenge first.)"); return; }
+            if (type < 0) type = 0;
+            Warp(g, i, Split(std::string("warp|Trainer Hill 1F (") + names[type] + ")|" + (a.size() > 2 ? a[1] + "|" + a[2] : "2|2") + "|down", '|'));
+        } else if (k == "ttquit" || k == "thquit") {
             clear();
             SaveAll(g);
             Say(w, "You've given up the challenge. Please come back anytime!");
         } else {   // the owner on the roof
-            if (!fl.count("tt:on") || type < 0) { Say(w, "Hello... I am the owner of this Tower...|How the sky soars above this rooftop... Come back when you've climbed it as a challenger."); return; }
-            long long start = flagNum("ttstart|");
-            long long secs = std::max(0LL, StorySeconds(g) - std::max(0LL, start));
-            std::string key = std::string("ttbest:") + kTypes[type] + "|";
+            if (!fl.count(P + "on") || type < 0) {
+                Say(w, hill ? "I'm the owner of the Trainer Hill. Ah, the wind up here...|Come back when you've climbed it as a challenger, and I'll have a prize for you."
+                            : "Hello... I am the owner of this Tower...|How the sky soars above this rooftop... Come back when you've climbed it as a challenger.");
+                return;
+            }
+            long long st = flagNum(start);
+            long long secs = std::max(0LL, StorySeconds(g) - std::max(0LL, st));
+            std::string key = bestKey + types[type] + "|";
             long long best = flagNum(key);
             std::string rec = best < 0 || secs < best ? "|That's a new record!" : "|Your record is " + clock(best) + ".";
             if (best < 0 || secs < best) {
@@ -1092,12 +1207,46 @@ void RunAction(Game& g, int i, const std::string& act) {
                 fl.insert(key + std::to_string(secs));
             }
             clear();
-            BagAdd(WP(g, i), kPrize[type]);
+            std::string prize = kPrize[type];
+            if (hill) {   // Emerald: the faster, the better
+                long long mins = secs / 60;
+                prize = mins < 12 ? kHillTop[type] : mins < 13 ? "Ether" : mins < 14 ? "Max Potion" : mins < 16 ? "Revive" : mins < 18 ? "Hyper Potion" : "Great Ball";
+            }
+            BagAdd(WP(g, i), prize);
             SaveAll(g);
             PlaySfx(Sfx::ItemGet);
-            Say(w, std::string("Hello... I am the owner of this Tower... You've climbed to the top!|Your ") + kNames[type] + " time: " + clock(secs) + "." + rec +
-                   "|As a reward, please take this " + kPrize[type] + ".|You got the " + kPrize[type] + "!");
+            Say(w, std::string(hill ? "I'm the owner of the Trainer Hill. You've climbed all the way up!" : "Hello... I am the owner of this Tower... You've climbed to the top!") +
+                   "|Your " + names[type] + " time: " + clock(secs) + "." + rec + "|As a reward, please take this.|You got the " + prize + "!");
         }
+    }
+    else if (k == "daily" && a.size() > 3) {   // daily|Item|key|what's there once it's taken: one a day (Shoal Cave's salt and shells)
+        long long day = StoryClock(g) / 2;
+        std::string key = "daily:" + a[2] + "|";
+        auto& fl = Flags(g);
+        for (const auto& f : fl) if (f.rfind(key, 0) == 0 && std::atoll(f.c_str() + key.size()) == day) { Say(w, a[3]); return; }
+        for (auto it = fl.begin(); it != fl.end();) it = it->rfind(key, 0) == 0 ? fl.erase(it) : std::next(it);
+        fl.insert(key + std::to_string(day));
+        BagAdd(WP(g, i), a[1]);
+        SaveAll(g);
+        PlaySfx(Sfx::ItemGet);
+        Say(w, "You found a " + a[1] + "!");
+    }
+    else if (k == "mirageman") Say(w, HasFlag(g, i, "mirage") ? "Oh! Oh my! I can see Mirage Island today!" : "I can't see Mirage Island today...");   // Pacifidlog's watcher
+    else if (k == "shellbell") {   // Shoal Cave's old man: four Shoal Salt and four Shoal Shells make a Shell Bell
+        Profile& P = WP(g, i);
+        if (BagCount(P, "Shoal Salt") >= 4 && BagCount(P, "Shoal Shell") >= 4) {
+            for (int n = 0; n < 4; n++) { BagTake(P, "Shoal Salt"); BagTake(P, "Shoal Shell"); }
+            BagAdd(P, "Shell Bell");
+            SaveAll(g);
+            PlaySfx(Sfx::ItemGet);
+            Say(w, "Oh! Four Shoal Salt and four Shoal Shells! I'll make you a Shell Bell right away.|...There! You got the Shell Bell!|"
+                   "A Pokemon holding it gets back a little of the damage it deals. Its chime will soothe you.");
+        } else if (BagCount(P, "Shoal Salt") + BagCount(P, "Shoal Shell") > 0)
+            Say(w, "If you bring me four each of the Shoal Salt and Shoal Shells, I can make you a Shell Bell.|"
+                   "(You have " + std::to_string(BagCount(P, "Shoal Salt")) + " Shoal Salt and " + std::to_string(BagCount(P, "Shoal Shell")) + " Shoal Shells.)");
+        else
+            Say(w, "Are you planning on going in there? The tide rises and falls - high tide from 3 to 9, morning and evening. You can reach different places at low tide.|"
+                   "If you bring me four each of the Shoal Salt and Shoal Shells, I can make you a Shell Bell.");
     }
     else if (k == "slots" || k == "voltorbflip") {   // a Game Corner's machines: the slots, HeartGold's Voltorb Flip
         if (g.coop) { Say(w, "(The Game Corner's machines are for playing on your own.)"); return; }
@@ -1157,7 +1306,7 @@ void RunAction(Game& g, int i, const std::string& act) {
                "|Could it have something to do with " + (L.marine ? "Kyogre" : "Groudon") + "?");
     }
     else if (k == "dexrate") {   // dexrate|greeting: one of Prof. Oak's aides looks at your Pokedex
-        int n = (int)WP(g, i).dexCaught.size();
+        int n = DexCaughtCount(WP(g, i));
         const char* say = n < 10 ? "Just getting started! Catch Pokemon in the tall grass and the caves - the Pokedex fills in as you go."
                         : n < 30 ? "That's a fine start! Try fishing and Surfing too - different Pokemon live on the water."
                         : n < 60 ? "Very good! Trading and evolving will fill in the gaps."
@@ -1254,6 +1403,27 @@ void RunAction(Game& g, int i, const std::string& act) {
         else return;
         PlaySfx(Sfx::Door);
     }
+    else if (k == "rtile" && a.size() > 1) {   // rtile|colour: a switch - everyone on that colour's arrows moves along and turns left
+        const OwMap& m = MapOf(w);
+        int c = std::atoi(a[1].c_str());
+        auto& v = gNpc[w.map];
+        static const int kDx[4] = {1, 0, -1, 0}, kDy[4] = {0, 1, 0, -1};   // right, down, left, up
+        static const int kLeft[4] = {3, 2, 0, 1};   // facing down/up/left/right -> right/left/down/up (a quarter turn to the left)
+        bool moved = false;
+        for (size_t n = 0; n < v.size() && n < m.npcs.size(); n++) {
+            if (!NpcHere(g, m.npcs[n])) continue;
+            auto it = m.rtiles.find(v[n].y * 100000 + v[n].x);
+            if (it == m.rtiles.end() || it->second.first != c) continue;
+            int d = it->second.second;
+            v[n].fromX = v[n].x; v[n].fromY = v[n].y;
+            v[n].x += kDx[d]; v[n].y += kDy[d];
+            v[n].st = 0;
+            v[n].face = kLeft[v[n].face & 3];
+            moved = true;
+        }
+        PlaySfx(moved ? Sfx::Door : Sfx::MenuMove);
+    }
+    else if (k == "statue") {}   // (a stone statue: nothing to say)
     else if (k == "quiz3" && a.size() > 3) {   // quiz3|flag|x,y|q1~q2~q3 (each "correct^question^A^B^C"): a Mechadoll asks; wrong: back to x, y
         if (HasFlag(g, i, a[1])) return;
         auto qs = Split(a[3], '~');
@@ -1784,6 +1954,8 @@ void WildEncounter(Game& g, int i, const std::string& method0) {
     OwWalker& w = g.ow.w[i];
     const OwMap& m = MapOf(w);
     std::string method, area = WildMethodArea(m, method0, &method);
+    if (method0 == "walk")
+        for (const auto& z : m.wildAt) if (w.x >= z.x0 && w.x <= z.x1 && w.y >= z.y0 && w.y <= z.y1) area = WildMethodArea(m, "walk@" + z.area, &method);
     if (Online(g) && (g.ow.incoming || g.ow.waitFight)) return;   // already on your way into a battle together
     if (WildAreaIndex(area) < 0 || HealthyCount(WP(g, i)) == 0) return;
     if (SafariArea(g, w)) { SafariEncounter(g, i, method); return; }
@@ -2216,6 +2388,8 @@ std::string OwReach(Game& g, const std::string& region, const std::string& start
                 if (IsWater(Cell(g, 0, s.map, s.x, y))) push({s.map, s.x, y, true});
             }
         }
+        for (const auto& d : m.doors)   // every door next to you, whatever it waits for (Shoal Cave's tides: both ways in)
+            if (std::abs(d.x - s.x) + std::abs(d.y - s.y) == 1 && d.act.rfind("warp|", 0) == 0) { put(s); RunAction(g, 0, d.act); push(here()); }
         for (const auto& e : m.emergeAt) if (s.surf && e.x == s.x && e.y == s.y) push({MapIndex(e.map), e.tx, e.ty, true});
         if (s.surf) if (const auto* d = DiveSpotAt(g, 0, m, s.x, s.y)) push({MapIndex(d->map), d->tx, d->ty, true});
         if (s.surf && (!m.diveTo.empty() || !m.emergeTo.empty())) {                      // Dive
@@ -2821,6 +2995,7 @@ void LoadWorld(std::string& log) {
     gSkipStages.clear();
     gFerries.clear();
     gLoaded = false;
+    LoadTutors();
     std::string dir = DataDir() + "World/";
     std::ifstream f0(dir + "world.txt");
     if (!f0) return;
@@ -2909,7 +3084,7 @@ void LoadWorld(std::string& log) {
                 while (ss >> xy) { int x = 0, y = 0; if (std::sscanf(xy.c_str(), "%d,%d", &x, &y) == 2) m->lap.push_back({x, y}); }
             }
         }
-        else if (k == "berry") { OwMap::BerryTree bt; char nm[32] = {}; if (std::sscanf(v.c_str(), "%d %d %d %31s", &bt.x, &bt.y, &bt.id, nm) == 4) { bt.berry = nm; m->berries.push_back(bt); } }
+        else if (k == "berry") { OwMap::BerryTree bt; char nm[32] = {}; if (std::sscanf(v.c_str(), "%d %d %d %31s", &bt.x, &bt.y, &bt.id, nm) == 4) { bt.berry = nm; m->berries.push_back(bt); lastIf = &m->berries.back().ifF; lastUnless = nullptr; } }
         else if (k == "wxzone") { OwMap::WxZone z; char kind[16] = {}; if (std::sscanf(v.c_str(), "%d %d %d %d %15s", &z.x0, &z.y0, &z.x1, &z.y1, kind) == 5) { z.wx = kind; m->wxZones.push_back(z); } }
         else if (k == "bike") m->bike = v == "yes";
         else if (k == "underwater") m->underwater = v == "yes";
@@ -2969,7 +3144,15 @@ void LoadWorld(std::string& log) {
             int d = k == "south" ? 0 : k == "north" ? 1 : k == "west" ? 2 : 3;
             m->link[d].msg = v;
         } else if (k == "img2") m->img2 = v;
-        else if (k == "swap") { OwMap::Swap sw; int n = 0; std::sscanf(v.c_str(), "%d %d %n", &sw.x, &sw.y, &n); sw.flag = Trim(v.substr(n)); m->swaps.push_back(sw); }
+        else if (k == "swap") {
+            OwMap::Swap sw; int n = 0; std::sscanf(v.c_str(), "%d %d %n", &sw.x, &sw.y, &n);
+            auto p = Split(Trim(v.substr(n)), ' ');
+            sw.flag = p.empty() ? "" : p[0];
+            if (p.size() > 1 && p[1].size() == 1) sw.cell = p[1][0];
+            m->swaps.push_back(sw);
+        }
+        else if (k == "rtile") { int x, y, c, d; if (std::sscanf(v.c_str(), "%d %d %d %d", &x, &y, &c, &d) == 4) m->rtiles[y * 100000 + x] = {c, d}; }
+        else if (k == "wildat") { OwMap::WildAt z; int n = 0; if (std::sscanf(v.c_str(), "%d %d %d %d %n", &z.x0, &z.y0, &z.x1, &z.y1, &n) >= 4) { z.area = Trim(v.substr(n)); m->wildAt.push_back(z); } }
         else if (k == "rgate") { OwMap::RGate rg{}; if (std::sscanf(v.c_str(), "%d %d %d %d", &rg.x, &rg.y, &rg.shape, &rg.orient) == 4) m->rgates.push_back(rg); }
         else if (k == "door" || k == "sign" || k == "spot" || k == "step") {
             int x = 0, y = 0, n = 0;
@@ -3234,9 +3417,9 @@ void UpdateWanderers(Game& g, float dt) {
         const OwMap& m = gMaps[map];
         for (int k = 0; k < (int)m.npcs.size(); k++) {
             const OwNpc& n = m.npcs[k];
-            if (!n.wander) continue;
             NpcRt& r = gNpc[map][k];
-            if (r.st < 1) { r.st = std::min(1.0f, r.st + dt / (WALK * 1.25f)); continue; }
+            if (r.st < 1) { r.st = std::min(1.0f, r.st + dt / (WALK * 1.25f)); continue; }   // (mid-step: a wanderer, or carried along by a rotating tile)
+            if (!n.wander) continue;
             if (busy) continue;
             r.wt -= dt;
             if (r.wt > 0) continue;
@@ -3460,6 +3643,7 @@ void UpdateRustle(float dt) {
 void DrawBerryTrees(const Game& g, int map, const View& c) {
     if (!gBerryTex.id) return;
     for (const auto& t : gMaps[map].berries) {
+        if (!HasFlag(g, 0, t.ifF)) continue;
         TreeState s = TreeOf(g, t);
         int st = TreeStage(g, s), bi = BerryIndexOf(s.berry);
         if (st < 0 || bi < 0) continue;
@@ -4461,4 +4645,16 @@ void AlphSolved(Game& g, const std::string& kind) {
     for (const auto& k : kAt) if (kind == k.kind) { x = k.x; y = k.y; }
     PlaySfx(Sfx::Thud);
     Say(g.ow.w[0], "*Rumble...*|The floor gave way!", TextFormat("warp|Ruins of Alph Inner Chamber|%d|%d|down", x, y));
+}
+
+// (the autotests: a flag the way the map sees it - "hightide", "mirage" - and the square at x,y as you'd walk it)
+bool OwHasFlag(const Game& g, const std::string& f) { return HasFlag(g, 0, f); }
+char OwCell(const Game& g, int x, int y) { return g.ow.w[0].map >= 0 ? Cell(g, 0, g.ow.w[0].map, x, y) : '#'; }
+std::string OwNpcDump(const Game& g) {   // (the autotests: where everyone on this map stands, and which way they face)
+    std::string s;
+    int map = g.ow.w[0].map;
+    if (map < 0) return s;
+    for (size_t k = 0; k < gNpc[map].size() && k < gMaps[map].npcs.size(); k++)
+        s += TextFormat("%s@%d,%d/%d ", gMaps[map].npcs[k].kind.c_str(), gNpc[map][k].x, gNpc[map][k].y, gNpc[map][k].face);
+    return s;
 }

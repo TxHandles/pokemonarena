@@ -303,7 +303,7 @@ std::vector<CombatantSpec> MakeWildTeam(int n, int avg) {
         }
         used.push_back(pick->species);
         CombatantSpec c;
-        c.species = pick->species;   // as found in the games: no evolving to the team's level
+        c.species = RandomFormOf(pick->species);   // as found in the games: no evolving to the team's level (Unown: any letter)
         // Your first region: the levels its game has. Every region after it: up to your strongest Pokemon,
         // never below the game's own.
         (void)avg;

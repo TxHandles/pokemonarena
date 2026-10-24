@@ -231,7 +231,7 @@ def item_name(it):
         name = " ".join(w.capitalize() if not re.match(r"^[A-Z]{1,2}$", w) or w in ("UP",) else w for w in clean_text(e).replace("é", "e").split())
         name = name.replace("Pokeball", "Poke Ball").replace("Poke ball", "Poke Ball")
     name = {"Thunderstone": "Thunder Stone", "Blackglasses": "Black Glasses", "Nevermeltice": "Never-Melt Ice",
-            "Dragon Scale": "Linking Cord", "Up-grade": "Linking Cord", "Guard Spec": "Guard Spec."}.get(name, name)
+            "Up-grade": "Up-Grade", "Guard Spec": "Guard Spec."}.get(name, name)
     low = {n.lower(): n for n in OURS}
     if name.lower() in low:
         return low[name.lower()]

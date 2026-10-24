@@ -3658,6 +3658,10 @@ pokemon = walk, Whismur, 25, 95-100
 pokemon = walk, Loudred, 30, 95-100
 pokemon = walk, Wynaut, 5, 95-100, rare
 
+[Mirage Island]
+unlock = Meteor Falls
+pokemon = walk, Wynaut, 100, 95-100
+
 # ==========================================================================
 #  SINNOH (Pokemon Platinum encounter tables). Levels follow the story's level range there.
 # ==========================================================================

@@ -1220,9 +1220,9 @@ indoor = yes
 wild = 
 door = 4 10 warp|Battle Frontier West|5|20|down
 npc = 0 7 em_sailor wander 0 talk|Those ladies, the way they bad-mouth each other, you probably think that they don't get along.|But if that were true, they wouldn't stay out here together, would they?
-npc = 2 5 em_expert_f right 0 talk|Buhahaha!|Are you back to learn special and yet cute Pokemon moves?
-npc = 6 5 em_expert_f left 0 talk|Ihihihi!|Have you come to learn hard and yet pretty Pokemon moves?
 npc = 8 3 em_gentleman left 0 talk|When I was just a wee Youngster, those ladies were strong and beautiful.|They were idols among us Trainers.|Even now, age hasn't dulled their abilities.|In fact, their Pokemon moves have grown even more polished.|But... For some reason, I can't help but feel this...|Time is so cruel...
+npc = 2 5 em_expert_f right 0 tutorpick|Soft-Boiled,Seismic Toss,Dream Eater,Mega Punch,Mega Kick,Body Slam,Rock Slide,Counter,Thunder Wave,Swords Dance|Buhahaha! I can teach your Pokemon moves - special and cute ones!
+npc = 6 5 em_expert_f left 0 tutorpick|Defense Curl,Snore,Mud-Slap,Swift,Icy Wind,Endure,Psych Up,Ice Punch,Thunder Punch,Fire Punch|Buhahaha! I can teach your Pokemon moves - special and tough ones!
 grid:
 #########
 #########
@@ -2737,7 +2737,7 @@ npc = 1 3 clerk right 0 shop|Welcome! How may I serve you?
 npc = 5 3 em_woman_2 wander 0 talk|I'm having a hard time deciding if I should make my Skitty evolve or not.|I only have to use this Moon Stone, but it's so hard to decide...|If I make it evolve, it will become much stronger.|But it will look so different, too.
 npc = 9 6 em_pokefan_m down 0 talk|This Nugget I found here... I suppose I'll have to sell it, seeing as how it has no other use.
 npc = 2 5 mon:Skitty down 0 talk|Skitty: Miyao?
-npc = 7 2 em_girl_2 up 0 talk|When a Pokemon waggles its finger like a Metronome, all sorts of nice things happen.|Wouldn't it be nice if we could use it, too?
+npc = 7 2 em_girl_2 up 0 tutor|Metronome|I want all sorts of things! But I used up my allowance...|Wouldn't it be nice if there were a spell that made money appear when you waggle a finger?|If you want, I can teach your Pokemon the move Metronome.|Money won't appear, but your Pokemon will waggle a finger. Yes?
 grid:
 ###########
 ###########
@@ -2758,7 +2758,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Fallarbor Town|1|6|down
 door = 4 8 warp|Fallarbor Town|1|6|down
-npc = 4 4 em_fat_man down 0 talk|If your Pokemon need to learn a move, come back with a Heart Scale.
+npc = 4 4 em_fat_man down 0 relearner|I'm the Move Relearner. I can make Pokemon remember moves they've forgotten.|(In the old days I'd ask for a Heart Scale.)
 grid:
 ###########
 ###########
@@ -3111,7 +3111,7 @@ wild =
 door = 3 6 warp|Fortree City|17|3|down
 door = 4 6 warp|Fortree City|17|3|down
 npc = 2 3 em_expert_f wander 0 give|People... Pokemon.../Their hidden powers are aroused by living in natural environments...|TM171 Tera Blast|1|got:FLAG_RECEIVED_TM_HIDDEN_POWER|Hidden Power is a move that changes with the Pokemon.
-npc = 6 3 em_expert_m left 0 talk|I've never once gotten my wife's coin trick right.|I would be happy if I got it right even as I Sleep Talk...
+npc = 6 3 em_expert_m left 0 tutor|Sleep Talk|Humph! My wife relies on Hidden Power to stay awake.|She should just take a nap like I do, and Sleep Talk.|I can teach your Pokemon how to Sleep Talk instead. Interested?
 grid:
 ########
 ########
@@ -3832,7 +3832,7 @@ door = 3 8 warp|Lavaridge Town|16|15|down
 door = 4 8 warp|Lavaridge Town|16|15|down
 npc = 2 3 em_old_man down 0 talk|My wife's warming an Egg in the hot springs. This is what she told me.|She left two Pokemon with the Day Care. And they discovered that Egg!
 npc = 6 6 mon:Zigzagoon down 0 talk|Zigzagoon: Pshoo!
-npc = 8 4 em_ninja_boy wander 0 talk|Mimic is a move of great depth.|Could you execute it to perfection as well as me...?
+npc = 8 4 em_ninja_boy wander 0 tutor|Mimic|Ah, young one!|I am also a young one, but I mimic the styles and speech of the elderly folks of this town.|What do you say, young one? Would you agree to it if I were to offer to teach the move Mimic?
 grid:
 ##########
 ##########
@@ -4149,7 +4149,7 @@ npc = 4 4 em_man_2 up 0 talk|Yes! I've been waiting a long time for this clear-o
 npc = 7 5 em_man_3 wander 0 talk|Ohh... I'm bone-dry thirsty!
 npc = 6 1 em_rooftop_sale_woman down 0 shop|Welcome! How may I serve you?
 unless = gone:FLAG_HIDE_LILYCOVE_DEPARTMENT_STORE_ROOFTOP_SALE_WOMAN
-npc = 15 5 em_woman_3 down 0 talk|We human beings should enjoy our own lives to the utmost!|I hope you'll get that way, too!
+npc = 15 5 em_woman_3 down 0 tutor|Substitute|When I see the wide world from up here on the roof...|I think about how nice it would be if there were more than just one me so I could enjoy all sorts of lives.|Of course it's not possible. Giggle...|I know! Would you be interested in having a Pokemon learn Substitute?
 grid:
 ################..
 #........##.####..
@@ -4532,7 +4532,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Lilycove City|36|6|down
 door = 4 8 warp|Lilycove City|36|6|down
-npc = 4 4 em_expert_m down 0 talk|Uh... Oh, yes, I'm the Move Deleter.|I can make Pokemon forget their moves.|Would you like me to do that?
+npc = 4 4 em_expert_m down 0 deleter
 grid:
 ###########
 ###########
@@ -5307,9 +5307,9 @@ unless = gone:FLAG_HIDE_MAUVILLE_CITY_WALLYS_UNCLE
 npc = 29 9 em_wattson down 0 give|Wattson: Wahahahaha!/I knew it, {PLAYER}! I knew I'd made the right choice asking you!/This is my thanks--a TM containing Thunderbolt!/Go on, you've earned it!|TM126 Thunderbolt|1|got:FLAG_GOT_TM_THUNDERBOLT_FROM_WATTSON|Wattson: Wahahahaha!/It pleases me to no end to see the young step up and take charge!
 if = show:FLAG_HIDE_MAUVILLE_CITY_WATTSON
 item = 28 19 X Speed 1
-npc = 13 7 em_fat_man left 0 talk|Rolling around in the grass makes me happy. Come on, let's roll!
 npc = 12 14 em_scott up 0 talk|...
 if = show:FLAG_HIDE_MAUVILLE_CITY_SCOTT
+npc = 13 7 em_fat_man left 0 tutor|Rollout|Did you know that you can go from here a long way in that direction without changing direction?|I might even be able to roll that way.|Do you think your Pokemon will want to roll, too?|I can teach one the move Rollout if you'd like.
 grid:
 ##..........#.......####################
 ##..........#.......#.##################
@@ -5991,10 +5991,10 @@ npc = 44 26 em_magma_member_m up 0 talk|...
 if = show:FLAG_HIDE_MOSSDEEP_CITY_TEAM_MAGMA
 npc = 45 25 em_maxie left 0 talk|...
 if = show:FLAG_HIDE_MOSSDEEP_CITY_TEAM_MAGMA
-npc = 19 25 em_black_belt down 0 talk|I want you to win at the Mossdeep Gym using that Dynamicpunch!
 npc = 61 29 em_scott down 0 talk|Scott: {PLAYER}, feeling good? I'm doing great!|I'd heard Mossdeep's Gym Leader is pretty strong, so I decided to come take a look-see for myself.|But there's something wrong about this town.|People are going on about a warning letter and the Space Center...|I don't think it concerns me in any way, though.
 unless = gone:FLAG_HIDE_MOSSDEEP_CITY_SCOTT
 npc = 31 29 em_black_belt down 0 talk|Ahh... It feels great letting the waves wash over my feet...|Speaking of the waves, you know that island city Sootopolis?|I think the Gym there had a new Leader come in.|People tell me the new Leader once mentored Wallace.
+npc = 19 25 em_black_belt down 0 tutor|Dynamic Punch|I can't do this anymore!|It's utterly hopeless!|I'm a Fighting-type Trainer, so I can't win at the Mossdeep Gym no matter how hard I try!|Argh! Punch! Punch! Punch! Punch! Punch! Punch!|What, don't look at me that way! I'm only hitting the ground!|Or do you want me to teach your Pokemon Dynamicpunch?
 grid:
 wwww#..####...######wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww##wwwwwwwwwwwwwwwwwwwwwwwww
 wwww###.....###wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww####wwwwwwwwwwwwwwwwwwwwwwwww
@@ -6116,12 +6116,85 @@ npc = 6 9 em_psychic_m down 1 fight|Psychic Virgil|Ralts 36|Let me see your tale
 npc = 6 3 em_lass down 1 fight|Psychic Hannah|Kirlia 36|When you lose to me, don't be too hard on yourself./It's not that you're weak--I'm just too strong!|I'm not going to get down on myself for losing. I just need to train harder./Positive thinking--that's my strong point!
 npc = 5 33 em_man_2 down 0 talk|Wow, you're astounding! You're one great Trainer!
 npc = 24 7 em_liza down 1 trainer|Mossdeep Gym|Tate: Hehehe... Were you surprised?/Liza: Fufufu... Were you surprised?/Tate: That there are two Gym Leaders? Liza: That there are two Gym Leaders?/Tate: We're twins! Liza: We're twins!/Tate: We don't need to talk because... Liza: We can each determine what.../Tate: The other is thinking... Liza: All in our minds!/Tate: This combination of ours... Liza: Can you beat it?|Tate: You can knock us down, but we'll never stay down!/Liza: Because the two of us, we always support each other!
+npc = 2 30 em_statue down 0 statue
+npc = 1 29 em_statue down 0 statue
+npc = 4 30 em_statue down 0 statue
+npc = 5 29 em_statue down 0 statue
+npc = 5 21 em_statue down 0 statue
+npc = 7 9 em_statue down 0 statue
+npc = 10 8 em_statue down 0 statue
 npc = 9 8 em_gentleman up 1 fight|Gentleman Nate|Spoink 36|Hohoho./You need me to show you how tenacious the Psychic type can be.|I... I don't let defeat rattle m-me, however b-badly.
 npc = 7 5 em_hex_maniac right 1 fight|Hex Maniac Sylvia|Meditite 36|Even at the risk of life, I will win this battle!|How dare you beat me.../It won't be my fault if something horrible befalls you...
+npc = 6 6 em_statue down 0 statue
+npc = 12 5 em_statue down 0 statue
+npc = 11 5 em_statue down 0 statue
+npc = 11 34 em_statue down 0 statue
+npc = 12 33 em_statue down 0 statue
+npc = 12 34 em_statue down 0 statue
 npc = 22 25 em_gentleman up 1 fight|Gentleman Clifford|Girafarig 36|I may be past my prime, but I suggest you not patronize me.|It seems that I could not overcome your youthful energy.
+npc = 23 26 em_statue down 0 statue
 npc = 25 25 em_lass left 1 fight|Psychic Macey|Natu 36|You're not getting through to the end! Not if I can help it!|Humph! You may be strong, but you're not suitable for the Psychic type!/The way you battle is somehow brutal!
 npc = 22 23 em_hex_maniac down 1 fight|Hex Maniac Kathleen|Kadabra 36|Let me show you a perfectly awful, horrifying time!|Your vitality is contagious! Get away from me quickly!
+npc = 21 23 em_statue down 0 statue
+npc = 21 22 em_statue down 0 statue
+npc = 22 22 em_statue down 0 statue
 npc = 25 22 em_psychic_m up 1 fight|Psychic Nicholas|Wobbuffet 36|Wroooar! Have a taste of my super Pokemon hard-battling power!|All right! I think I'll develop a special invincible Pokemon power next.
+npc = 24 22 em_statue down 0 statue
+npc = 24 23 em_statue down 0 statue
+npc = 6 5 em_statue down 0 statue
+npc = 23 25 em_statue down 0 statue
+rtile = 6 5 4 1
+rtile = 7 5 4 2
+rtile = 11 5 4 1
+rtile = 12 5 4 2
+rtile = 6 6 4 0
+rtile = 7 6 4 3
+rtile = 11 6 4 0
+rtile = 12 6 4 3
+rtile = 6 8 1 1
+rtile = 7 8 1 2
+rtile = 9 8 1 1
+rtile = 10 8 1 2
+rtile = 6 9 1 0
+rtile = 7 9 1 3
+rtile = 9 9 1 0
+rtile = 10 9 1 3
+rtile = 4 20 0 1
+rtile = 5 20 0 2
+rtile = 4 21 0 0
+rtile = 5 21 0 3
+rtile = 21 22 3 1
+rtile = 22 22 3 2
+rtile = 24 22 3 1
+rtile = 25 22 3 2
+rtile = 21 23 3 0
+rtile = 22 23 3 3
+rtile = 24 23 3 0
+rtile = 25 23 3 3
+rtile = 22 25 3 1
+rtile = 23 25 3 2
+rtile = 22 26 3 0
+rtile = 23 26 3 3
+rtile = 1 29 0 1
+rtile = 2 29 0 2
+rtile = 4 29 0 1
+rtile = 5 29 0 2
+rtile = 1 30 0 0
+rtile = 2 30 0 3
+rtile = 4 30 0 0
+rtile = 5 30 0 3
+rtile = 11 33 2 1
+rtile = 12 33 2 2
+rtile = 11 34 2 0
+rtile = 12 34 2 3
+step = 2 21 rtile|0
+step = 8 10 rtile|1
+step = 6 7 rtile|1
+step = 15 34 rtile|2
+step = 23 24 rtile|3
+step = 23 21 rtile|3
+step = 8 6 rtile|4
+step = 3 30 rtile|0
 grid:
 ##########################
 ######.###################
@@ -7875,8 +7948,8 @@ indoor = yes
 wild = 
 door = 4 9 warp|Pacifidlog Town|17|21|down
 door = 5 9 warp|Pacifidlog Town|17|21|down
-npc = 9 4 em_expert_m right 0 talk|Oh! Oh my! I can see Mirage Island today!
 npc = 3 4 em_gentleman right 0 talk|Mirage Island...|It must become visible and invisible depending on the weather conditions that make mirages appear.|Or is it really appearing and disappearing?
+npc = 9 4 em_expert_m right 0 mirageman
 grid:
 ##########
 ##########
@@ -7902,7 +7975,7 @@ npc = 7 2 em_nurse down 0 heal|Welcome to our Pokemon Center!|We restore your ti
 npc = 10 6 em_old_man left 0 talk|The ancestors of the people in Pacifidlog were said to have been born on boats and then lived and died aboard them.|I understand that they lived that way because they were searching for something.
 npc = 2 2 em_girl_2 up 0 talk|What color is your Trainer Card? Mine's copper!
 npc = 4 5 em_woman_1 down 0 talk|Pacifidlog Town floats on top of a colony of Corsola.|If I told you that, would you believe me?
-npc = 12 8 em_man_5 up 0 talk|For a long time, I've taught Pokemon how to use Explosion, but I've yet to ignite my own Explosion...|Maybe it's because deep down, I would rather stay here...
+npc = 12 8 em_man_5 up 0 tutor|Explosion|I don't intend to be going nowhere fast in the sticks like this forever.|You watch me, I'll get out to the city and become a huge hit.|Seriously, I'm going to cause a huge Explosion of popularity!|If you overheard that, I'll happily teach Explosion to your Pokemon!
 grid:
 ##############
 ##############
@@ -9775,9 +9848,35 @@ npc = 8 17 em_hex_maniac left 1 fight|Hex Maniac Patricia|Banette 41, Lunatone 4
 npc = 9 2 em_psychic_m down 1 fight|Psychic Alvaro|Banette 41, Kadabra 41|I ever so closely watched you coming!|Well, anyway, we both picked a weird place to get acquainted./As one weirdo to another, let's do our best!
 npc = 8 13 em_lass up 1 fight|Psychic Mariela|Chimecho 41|Nufufufu, here at last! Let's get right with it!|Humph! I'm not upset! Not me!
 npc = 9 12 em_gentleman left 1 fight|Gentleman Everett|Wobbuffet 41|It's awfully cramped in here...|I was hoping to switch places with you when I beat you, but...
+npc = 4 17 em_statue down 0 statue
+npc = 4 6 em_statue down 0 statue
 spot = 6 17 trickscroll|7
 door = 13 1 warp|Route 110 Trick House End|10|2|down
 block = 13 1 trick:scroll7|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+rtile = 10 2 3 1
+rtile = 11 2 3 2
+rtile = 10 3 3 0
+rtile = 11 3 3 3
+rtile = 3 6 2 1
+rtile = 4 6 2 2
+rtile = 3 7 2 0
+rtile = 4 7 2 3
+rtile = 3 17 1 1
+rtile = 4 17 1 2
+rtile = 8 17 0 1
+rtile = 9 17 0 2
+rtile = 3 18 1 0
+rtile = 4 18 1 3
+rtile = 8 18 0 0
+rtile = 9 18 0 3
+rtile = 8 20 0 1
+rtile = 9 20 0 2
+rtile = 8 21 0 0
+rtile = 9 21 0 3
+step = 8 19 rtile|0
+step = 0 14 rtile|1
+step = 6 6 rtile|2
+step = 9 7 rtile|3
 grid:
 ###############
 #############D#
@@ -9855,6 +9954,7 @@ door = 13 113 warp|Route 111 Winstrate Family's House|3|7|up
 door = 29 87 warp|Desert Ruins|8|29|up
 door = 26 18 warp|Route 111 Old Lady's Rest Stop|3|7|up
 door = 19 58 warp|Mirage Tower 1F|10|14|up
+door = 31 113 warp|Trainer Hill Entrance|9|16|up
 sign = 16 114 "Our family's hearts beat as one!" The Winstrate's House
 sign = 24 126 Route 111| Mauville City
 sign = 7 66 Route 111| Route 112
@@ -10040,7 +10140,7 @@ grid:
 ####wwwwww###########.....#####..#######
 ####wwwwww######.###....################
 ####wwwwww###.##.###....################
-###..wwwww###D##.##.......#####.########
+###..wwwww###D##.##.......#####D########
 ###.wwwwww###.####.....###.......#######
 ####wwwwww............#####......#######
 ####wwwwww##...........###.......#######
@@ -11837,7 +11937,6 @@ wild = Routes 124 to 128
 connect = south Mossdeep City 0
 connect = west Route 124 0
 dive = Underwater Route 125
-door = 22 19 warp|Shoal Cave Low Tide Entrance Room|20|30|up
 npc = 7 31 em_swimmer_m down 2 fight|Swimmer M Nolen|Tentacruel 34|I heard you approaching, so I hung around for you!|Sound travels faster in water than it does through air.
 npc = 45 9 em_swimmer_m right 2 fight|Swimmer M Stan|Horsea 34|Hey, there! Check out my sweet Pokemon!|I was blown away by Horsea's charm, so I started swimming, too.
 npc = 38 24 em_swimmer_f down 3 fight|Swimmer F Tanya|Luvdisc 34|I'm tired of swimming. Are you up for a battle with me?|Whew... Which way is it to Mossdeep City?
@@ -11876,6 +11975,9 @@ swap = 55 20 abw:125e
 swap = 53 21 abw:125e
 swap = 54 21 abw:125e
 divespot = 53 19 54 20 abw:125e|Underwater Marine Cave|9|7
+door = 22 19 warp|Shoal Cave High Tide Entrance Room|20|30|up
+if = hightide
+door = 22 19 warp|Shoal Cave Low Tide Entrance Room|20|30|up
 grid:
 wwwwwwwwwwwwwwwwww##ww##############wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwww##ww##############wwwww##wwwwwww##ww###ww##wwwwwwwwwwwwwwwwwww
@@ -12318,8 +12420,965 @@ connect = west Route 131 0
 connect = east Route 129 0
 npc = 70 21 em_swimmer_m down 3 fight|Swimmer M Rodney|Gyarados 34|What a surprise! I didn't expect to see a Trainer out in the sea./I think we should battle!|Your eyes have that look of someone who's experienced harsh challenges and won. It suits you well!
 npc = 7 21 em_swimmer_f down 5 fight|Swimmer F Katie|Goldeen 33, Spheal 33|In the deep blue sea, my shattered blue heart finds comfort among waves.|The world's children dream of one day becoming the Pokemon Champion.
-berry = 52 9 82 Liechi
 npc = 7 30 em_swimmer_m wander 5 fight|Swimmer M Santiago|Tentacruel 33, Wailmer 33|Floating on the open sea like this... It's peaceful.|Swimming and battling like this... I'm one happy guy...
+img2 = maps/em_Route130_mirage.png
+swap = 34 1 mirage #
+swap = 35 1 mirage #
+swap = 36 1 mirage #
+swap = 37 1 mirage #
+swap = 38 1 mirage #
+swap = 39 1 mirage #
+swap = 40 1 mirage #
+swap = 41 1 mirage #
+swap = 42 1 mirage #
+swap = 43 1 mirage #
+swap = 44 1 mirage #
+swap = 45 1 mirage #
+swap = 46 1 mirage #
+swap = 47 1 mirage #
+swap = 48 1 mirage #
+swap = 49 1 mirage #
+swap = 34 2 mirage #
+swap = 35 2 mirage .
+swap = 36 2 mirage .
+swap = 37 2 mirage .
+swap = 38 2 mirage .
+swap = 39 2 mirage .
+swap = 40 2 mirage .
+swap = 41 2 mirage .
+swap = 42 2 mirage .
+swap = 43 2 mirage .
+swap = 44 2 mirage .
+swap = 45 2 mirage .
+swap = 46 2 mirage .
+swap = 47 2 mirage .
+swap = 48 2 mirage .
+swap = 49 2 mirage #
+swap = 33 3 mirage #
+swap = 34 3 mirage .
+swap = 35 3 mirage .
+swap = 36 3 mirage .
+swap = 37 3 mirage .
+swap = 38 3 mirage .
+swap = 39 3 mirage .
+swap = 40 3 mirage .
+swap = 41 3 mirage g
+swap = 42 3 mirage g
+swap = 43 3 mirage g
+swap = 44 3 mirage .
+swap = 45 3 mirage .
+swap = 46 3 mirage .
+swap = 47 3 mirage .
+swap = 48 3 mirage .
+swap = 49 3 mirage .
+swap = 50 3 mirage #
+swap = 32 4 mirage #
+swap = 33 4 mirage .
+swap = 34 4 mirage .
+swap = 35 4 mirage .
+swap = 36 4 mirage .
+swap = 37 4 mirage .
+swap = 38 4 mirage .
+swap = 39 4 mirage .
+swap = 40 4 mirage g
+swap = 41 4 mirage g
+swap = 42 4 mirage g
+swap = 43 4 mirage g
+swap = 44 4 mirage g
+swap = 45 4 mirage g
+swap = 46 4 mirage g
+swap = 47 4 mirage g
+swap = 48 4 mirage .
+swap = 49 4 mirage .
+swap = 50 4 mirage .
+swap = 51 4 mirage #
+swap = 29 5 mirage #
+swap = 30 5 mirage #
+swap = 31 5 mirage #
+swap = 32 5 mirage #
+swap = 33 5 mirage .
+swap = 34 5 mirage .
+swap = 35 5 mirage #
+swap = 36 5 mirage .
+swap = 37 5 mirage .
+swap = 38 5 mirage .
+swap = 39 5 mirage g
+swap = 40 5 mirage g
+swap = 41 5 mirage g
+swap = 42 5 mirage g
+swap = 43 5 mirage g
+swap = 44 5 mirage g
+swap = 45 5 mirage g
+swap = 46 5 mirage g
+swap = 47 5 mirage g
+swap = 48 5 mirage g
+swap = 49 5 mirage .
+swap = 50 5 mirage .
+swap = 51 5 mirage #
+swap = 52 5 mirage #
+swap = 53 5 mirage #
+swap = 29 6 mirage #
+swap = 30 6 mirage .
+swap = 31 6 mirage .
+swap = 32 6 mirage .
+swap = 33 6 mirage .
+swap = 34 6 mirage #
+swap = 35 6 mirage #
+swap = 36 6 mirage #
+swap = 37 6 mirage .
+swap = 38 6 mirage .
+swap = 39 6 mirage g
+swap = 40 6 mirage g
+swap = 41 6 mirage g
+swap = 42 6 mirage g
+swap = 43 6 mirage g
+swap = 44 6 mirage g
+swap = 45 6 mirage g
+swap = 46 6 mirage g
+swap = 47 6 mirage g
+swap = 48 6 mirage g
+swap = 49 6 mirage g
+swap = 50 6 mirage .
+swap = 51 6 mirage .
+swap = 52 6 mirage .
+swap = 53 6 mirage .
+swap = 54 6 mirage #
+swap = 28 7 mirage #
+swap = 29 7 mirage .
+swap = 30 7 mirage .
+swap = 31 7 mirage .
+swap = 32 7 mirage .
+swap = 33 7 mirage #
+swap = 34 7 mirage #
+swap = 35 7 mirage #
+swap = 36 7 mirage #
+swap = 37 7 mirage .
+swap = 38 7 mirage .
+swap = 39 7 mirage g
+swap = 40 7 mirage g
+swap = 41 7 mirage g
+swap = 42 7 mirage g
+swap = 43 7 mirage g
+swap = 44 7 mirage g
+swap = 45 7 mirage g
+swap = 46 7 mirage g
+swap = 47 7 mirage g
+swap = 48 7 mirage g
+swap = 49 7 mirage g
+swap = 50 7 mirage g
+swap = 51 7 mirage .
+swap = 52 7 mirage .
+swap = 53 7 mirage .
+swap = 54 7 mirage .
+swap = 55 7 mirage #
+swap = 60 7 mirage #
+swap = 61 7 mirage #
+swap = 24 8 mirage #
+swap = 25 8 mirage #
+swap = 27 8 mirage #
+swap = 28 8 mirage #
+swap = 29 8 mirage .
+swap = 30 8 mirage .
+swap = 31 8 mirage .
+swap = 32 8 mirage #
+swap = 33 8 mirage #
+swap = 34 8 mirage #
+swap = 35 8 mirage #
+swap = 36 8 mirage #
+swap = 37 8 mirage .
+swap = 38 8 mirage .
+swap = 39 8 mirage .
+swap = 40 8 mirage g
+swap = 41 8 mirage g
+swap = 42 8 mirage g
+swap = 43 8 mirage g
+swap = 44 8 mirage g
+swap = 45 8 mirage g
+swap = 46 8 mirage g
+swap = 47 8 mirage g
+swap = 48 8 mirage g
+swap = 49 8 mirage g
+swap = 50 8 mirage g
+swap = 51 8 mirage .
+swap = 52 8 mirage .
+swap = 53 8 mirage .
+swap = 54 8 mirage .
+swap = 55 8 mirage #
+swap = 56 8 mirage #
+swap = 58 8 mirage #
+swap = 59 8 mirage #
+swap = 60 8 mirage #
+swap = 61 8 mirage #
+swap = 24 9 mirage #
+swap = 25 9 mirage #
+swap = 26 9 mirage #
+swap = 27 9 mirage #
+swap = 28 9 mirage #
+swap = 29 9 mirage .
+swap = 30 9 mirage .
+swap = 31 9 mirage .
+swap = 32 9 mirage #
+swap = 33 9 mirage #
+swap = 34 9 mirage #
+swap = 35 9 mirage #
+swap = 36 9 mirage #
+swap = 37 9 mirage .
+swap = 38 9 mirage .
+swap = 39 9 mirage .
+swap = 40 9 mirage .
+swap = 41 9 mirage .
+swap = 42 9 mirage .
+swap = 43 9 mirage .
+swap = 44 9 mirage g
+swap = 45 9 mirage g
+swap = 46 9 mirage g
+swap = 47 9 mirage g
+swap = 48 9 mirage g
+swap = 49 9 mirage g
+swap = 50 9 mirage g
+swap = 51 9 mirage .
+swap = 52 9 mirage #
+swap = 53 9 mirage .
+swap = 54 9 mirage .
+swap = 55 9 mirage #
+swap = 56 9 mirage #
+swap = 57 9 mirage #
+swap = 58 9 mirage #
+swap = 59 9 mirage #
+swap = 61 9 mirage #
+swap = 62 9 mirage #
+swap = 24 10 mirage w
+swap = 25 10 mirage #
+swap = 26 10 mirage #
+swap = 27 10 mirage #
+swap = 28 10 mirage #
+swap = 29 10 mirage .
+swap = 30 10 mirage .
+swap = 31 10 mirage .
+swap = 32 10 mirage .
+swap = 33 10 mirage #
+swap = 34 10 mirage #
+swap = 35 10 mirage .
+swap = 36 10 mirage .
+swap = 37 10 mirage .
+swap = 38 10 mirage .
+swap = 39 10 mirage .
+swap = 40 10 mirage .
+swap = 41 10 mirage #
+swap = 42 10 mirage #
+swap = 43 10 mirage #
+swap = 44 10 mirage .
+swap = 45 10 mirage .
+swap = 46 10 mirage g
+swap = 47 10 mirage g
+swap = 48 10 mirage g
+swap = 49 10 mirage g
+swap = 50 10 mirage g
+swap = 51 10 mirage .
+swap = 52 10 mirage .
+swap = 53 10 mirage .
+swap = 54 10 mirage .
+swap = 55 10 mirage #
+swap = 56 10 mirage #
+swap = 57 10 mirage #
+swap = 58 10 mirage #
+swap = 59 10 mirage w
+swap = 61 10 mirage #
+swap = 62 10 mirage #
+swap = 24 11 mirage w
+swap = 25 11 mirage #
+swap = 26 11 mirage #
+swap = 27 11 mirage #
+swap = 28 11 mirage #
+swap = 29 11 mirage .
+swap = 30 11 mirage .
+swap = 31 11 mirage .
+swap = 32 11 mirage .
+swap = 33 11 mirage .
+swap = 34 11 mirage .
+swap = 35 11 mirage .
+swap = 36 11 mirage .
+swap = 37 11 mirage .
+swap = 38 11 mirage .
+swap = 39 11 mirage .
+swap = 40 11 mirage #
+swap = 41 11 mirage #
+swap = 42 11 mirage #
+swap = 43 11 mirage #
+swap = 44 11 mirage #
+swap = 45 11 mirage #
+swap = 46 11 mirage .
+swap = 47 11 mirage .
+swap = 48 11 mirage g
+swap = 49 11 mirage g
+swap = 50 11 mirage g
+swap = 51 11 mirage .
+swap = 52 11 mirage .
+swap = 53 11 mirage .
+swap = 54 11 mirage .
+swap = 55 11 mirage #
+swap = 56 11 mirage #
+swap = 57 11 mirage #
+swap = 58 11 mirage #
+swap = 59 11 mirage w
+swap = 20 12 mirage #
+swap = 21 12 mirage #
+swap = 24 12 mirage w
+swap = 25 12 mirage #
+swap = 26 12 mirage #
+swap = 27 12 mirage #
+swap = 28 12 mirage #
+swap = 29 12 mirage .
+swap = 30 12 mirage .
+swap = 31 12 mirage .
+swap = 32 12 mirage .
+swap = 33 12 mirage .
+swap = 34 12 mirage .
+swap = 35 12 mirage .
+swap = 36 12 mirage .
+swap = 37 12 mirage .
+swap = 38 12 mirage .
+swap = 39 12 mirage .
+swap = 40 12 mirage #
+swap = 41 12 mirage #
+swap = 42 12 mirage #
+swap = 43 12 mirage #
+swap = 44 12 mirage #
+swap = 45 12 mirage #
+swap = 46 12 mirage #
+swap = 47 12 mirage #
+swap = 48 12 mirage .
+swap = 49 12 mirage g
+swap = 50 12 mirage .
+swap = 51 12 mirage .
+swap = 52 12 mirage .
+swap = 53 12 mirage .
+swap = 54 12 mirage .
+swap = 55 12 mirage #
+swap = 56 12 mirage #
+swap = 57 12 mirage #
+swap = 58 12 mirage #
+swap = 59 12 mirage w
+swap = 20 13 mirage #
+swap = 21 13 mirage #
+swap = 24 13 mirage w
+swap = 25 13 mirage #
+swap = 26 13 mirage #
+swap = 27 13 mirage #
+swap = 28 13 mirage #
+swap = 29 13 mirage #
+swap = 30 13 mirage #
+swap = 31 13 mirage #
+swap = 32 13 mirage #
+swap = 33 13 mirage .
+swap = 34 13 mirage .
+swap = 35 13 mirage .
+swap = 36 13 mirage .
+swap = 37 13 mirage .
+swap = 38 13 mirage .
+swap = 39 13 mirage .
+swap = 40 13 mirage .
+swap = 41 13 mirage #
+swap = 42 13 mirage #
+swap = 43 13 mirage #
+swap = 44 13 mirage #
+swap = 45 13 mirage #
+swap = 46 13 mirage #
+swap = 47 13 mirage #
+swap = 48 13 mirage #
+swap = 49 13 mirage .
+swap = 50 13 mirage .
+swap = 51 13 mirage #
+swap = 52 13 mirage #
+swap = 53 13 mirage #
+swap = 54 13 mirage #
+swap = 55 13 mirage #
+swap = 56 13 mirage #
+swap = 57 13 mirage #
+swap = 58 13 mirage #
+swap = 59 13 mirage w
+swap = 24 14 mirage w
+swap = 25 14 mirage #
+swap = 26 14 mirage #
+swap = 27 14 mirage #
+swap = 28 14 mirage #
+swap = 29 14 mirage #
+swap = 30 14 mirage #
+swap = 31 14 mirage #
+swap = 32 14 mirage #
+swap = 33 14 mirage .
+swap = 34 14 mirage .
+swap = 35 14 mirage .
+swap = 36 14 mirage .
+swap = 37 14 mirage .
+swap = 38 14 mirage .
+swap = 39 14 mirage .
+swap = 40 14 mirage .
+swap = 41 14 mirage .
+swap = 42 14 mirage #
+swap = 43 14 mirage #
+swap = 44 14 mirage #
+swap = 45 14 mirage #
+swap = 46 14 mirage #
+swap = 47 14 mirage #
+swap = 48 14 mirage #
+swap = 49 14 mirage .
+swap = 50 14 mirage .
+swap = 51 14 mirage #
+swap = 52 14 mirage #
+swap = 53 14 mirage #
+swap = 54 14 mirage #
+swap = 55 14 mirage #
+swap = 56 14 mirage #
+swap = 57 14 mirage #
+swap = 58 14 mirage #
+swap = 59 14 mirage w
+swap = 60 14 mirage w
+swap = 22 15 mirage #
+swap = 23 15 mirage #
+swap = 24 15 mirage w
+swap = 25 15 mirage #
+swap = 26 15 mirage #
+swap = 27 15 mirage #
+swap = 28 15 mirage #
+swap = 29 15 mirage #
+swap = 30 15 mirage #
+swap = 31 15 mirage #
+swap = 32 15 mirage #
+swap = 33 15 mirage .
+swap = 34 15 mirage .
+swap = 35 15 mirage .
+swap = 36 15 mirage .
+swap = 37 15 mirage .
+swap = 38 15 mirage .
+swap = 39 15 mirage .
+swap = 40 15 mirage .
+swap = 41 15 mirage .
+swap = 42 15 mirage .
+swap = 43 15 mirage #
+swap = 44 15 mirage #
+swap = 45 15 mirage #
+swap = 46 15 mirage #
+swap = 47 15 mirage #
+swap = 48 15 mirage #
+swap = 49 15 mirage .
+swap = 50 15 mirage .
+swap = 51 15 mirage #
+swap = 52 15 mirage #
+swap = 53 15 mirage #
+swap = 54 15 mirage #
+swap = 55 15 mirage #
+swap = 56 15 mirage #
+swap = 57 15 mirage #
+swap = 58 15 mirage #
+swap = 59 15 mirage w
+swap = 60 15 mirage w
+swap = 22 16 mirage #
+swap = 23 16 mirage #
+swap = 24 16 mirage w
+swap = 25 16 mirage #
+swap = 26 16 mirage #
+swap = 27 16 mirage #
+swap = 28 16 mirage #
+swap = 29 16 mirage #
+swap = 30 16 mirage #
+swap = 31 16 mirage #
+swap = 32 16 mirage #
+swap = 33 16 mirage #
+swap = 34 16 mirage #
+swap = 35 16 mirage #
+swap = 36 16 mirage #
+swap = 37 16 mirage .
+swap = 38 16 mirage .
+swap = 39 16 mirage .
+swap = 40 16 mirage .
+swap = 41 16 mirage .
+swap = 42 16 mirage .
+swap = 43 16 mirage #
+swap = 44 16 mirage #
+swap = 45 16 mirage #
+swap = 46 16 mirage #
+swap = 47 16 mirage #
+swap = 48 16 mirage #
+swap = 49 16 mirage #
+swap = 50 16 mirage #
+swap = 51 16 mirage #
+swap = 52 16 mirage #
+swap = 53 16 mirage #
+swap = 54 16 mirage #
+swap = 55 16 mirage #
+swap = 56 16 mirage #
+swap = 57 16 mirage #
+swap = 58 16 mirage #
+swap = 59 16 mirage w
+swap = 60 16 mirage w
+swap = 61 16 mirage #
+swap = 62 16 mirage #
+swap = 24 17 mirage w
+swap = 25 17 mirage .
+swap = 26 17 mirage .
+swap = 27 17 mirage .
+swap = 28 17 mirage .
+swap = 29 17 mirage #
+swap = 30 17 mirage #
+swap = 31 17 mirage #
+swap = 32 17 mirage #
+swap = 33 17 mirage #
+swap = 34 17 mirage #
+swap = 35 17 mirage #
+swap = 36 17 mirage #
+swap = 37 17 mirage #
+swap = 38 17 mirage #
+swap = 39 17 mirage #
+swap = 40 17 mirage .
+swap = 41 17 mirage .
+swap = 42 17 mirage .
+swap = 43 17 mirage .
+swap = 44 17 mirage #
+swap = 45 17 mirage #
+swap = 46 17 mirage #
+swap = 47 17 mirage #
+swap = 48 17 mirage #
+swap = 49 17 mirage #
+swap = 50 17 mirage #
+swap = 51 17 mirage #
+swap = 52 17 mirage #
+swap = 53 17 mirage #
+swap = 54 17 mirage #
+swap = 55 17 mirage .
+swap = 56 17 mirage .
+swap = 57 17 mirage .
+swap = 58 17 mirage .
+swap = 59 17 mirage w
+swap = 60 17 mirage w
+swap = 61 17 mirage #
+swap = 62 17 mirage #
+swap = 16 18 mirage w
+swap = 17 18 mirage w
+swap = 18 18 mirage w
+swap = 19 18 mirage w
+swap = 24 18 mirage w
+swap = 25 18 mirage .
+swap = 26 18 mirage .
+swap = 27 18 mirage .
+swap = 28 18 mirage .
+swap = 29 18 mirage #
+swap = 30 18 mirage #
+swap = 31 18 mirage #
+swap = 32 18 mirage #
+swap = 33 18 mirage #
+swap = 34 18 mirage #
+swap = 35 18 mirage #
+swap = 36 18 mirage #
+swap = 37 18 mirage #
+swap = 38 18 mirage #
+swap = 39 18 mirage #
+swap = 40 18 mirage #
+swap = 41 18 mirage .
+swap = 42 18 mirage .
+swap = 43 18 mirage #
+swap = 44 18 mirage #
+swap = 45 18 mirage #
+swap = 46 18 mirage #
+swap = 47 18 mirage #
+swap = 48 18 mirage #
+swap = 49 18 mirage #
+swap = 50 18 mirage #
+swap = 51 18 mirage #
+swap = 52 18 mirage #
+swap = 53 18 mirage #
+swap = 54 18 mirage #
+swap = 55 18 mirage .
+swap = 56 18 mirage .
+swap = 57 18 mirage .
+swap = 58 18 mirage .
+swap = 59 18 mirage w
+swap = 60 18 mirage w
+swap = 61 18 mirage w
+swap = 16 19 mirage w
+swap = 17 19 mirage w
+swap = 18 19 mirage w
+swap = 19 19 mirage w
+swap = 24 19 mirage w
+swap = 25 19 mirage .
+swap = 26 19 mirage .
+swap = 27 19 mirage .
+swap = 28 19 mirage .
+swap = 29 19 mirage #
+swap = 30 19 mirage #
+swap = 31 19 mirage #
+swap = 32 19 mirage #
+swap = 33 19 mirage #
+swap = 34 19 mirage #
+swap = 35 19 mirage #
+swap = 36 19 mirage #
+swap = 37 19 mirage #
+swap = 38 19 mirage #
+swap = 39 19 mirage #
+swap = 40 19 mirage #
+swap = 41 19 mirage .
+swap = 42 19 mirage .
+swap = 43 19 mirage #
+swap = 44 19 mirage #
+swap = 45 19 mirage #
+swap = 46 19 mirage #
+swap = 47 19 mirage #
+swap = 48 19 mirage #
+swap = 50 19 mirage #
+swap = 51 19 mirage #
+swap = 52 19 mirage #
+swap = 53 19 mirage #
+swap = 54 19 mirage #
+swap = 55 19 mirage .
+swap = 56 19 mirage .
+swap = 57 19 mirage .
+swap = 58 19 mirage .
+swap = 59 19 mirage w
+swap = 24 20 mirage w
+swap = 25 20 mirage .
+swap = 26 20 mirage .
+swap = 27 20 mirage .
+swap = 28 20 mirage .
+swap = 29 20 mirage .
+swap = 30 20 mirage .
+swap = 31 20 mirage .
+swap = 32 20 mirage .
+swap = 33 20 mirage #
+swap = 34 20 mirage #
+swap = 35 20 mirage #
+swap = 36 20 mirage #
+swap = 37 20 mirage #
+swap = 38 20 mirage #
+swap = 39 20 mirage #
+swap = 40 20 mirage #
+swap = 41 20 mirage .
+swap = 42 20 mirage .
+swap = 43 20 mirage #
+swap = 44 20 mirage #
+swap = 45 20 mirage #
+swap = 46 20 mirage #
+swap = 47 20 mirage #
+swap = 48 20 mirage #
+swap = 49 20 mirage #
+swap = 50 20 mirage #
+swap = 51 20 mirage .
+swap = 52 20 mirage .
+swap = 53 20 mirage .
+swap = 54 20 mirage .
+swap = 55 20 mirage .
+swap = 56 20 mirage .
+swap = 57 20 mirage .
+swap = 58 20 mirage .
+swap = 59 20 mirage w
+swap = 24 21 mirage w
+swap = 25 21 mirage w
+swap = 26 21 mirage w
+swap = 27 21 mirage .
+swap = 28 21 mirage .
+swap = 29 21 mirage .
+swap = 30 21 mirage .
+swap = 31 21 mirage .
+swap = 32 21 mirage .
+swap = 33 21 mirage .
+swap = 34 21 mirage .
+swap = 35 21 mirage .
+swap = 36 21 mirage #
+swap = 37 21 mirage #
+swap = 38 21 mirage #
+swap = 39 21 mirage #
+swap = 40 21 mirage #
+swap = 41 21 mirage .
+swap = 42 21 mirage .
+swap = 43 21 mirage #
+swap = 44 21 mirage #
+swap = 45 21 mirage #
+swap = 46 21 mirage #
+swap = 47 21 mirage #
+swap = 48 21 mirage .
+swap = 49 21 mirage .
+swap = 50 21 mirage .
+swap = 51 21 mirage .
+swap = 52 21 mirage .
+swap = 53 21 mirage .
+swap = 54 21 mirage .
+swap = 55 21 mirage .
+swap = 56 21 mirage .
+swap = 57 21 mirage .
+swap = 58 21 mirage w
+swap = 59 21 mirage w
+swap = 26 22 mirage w
+swap = 27 22 mirage .
+swap = 28 22 mirage .
+swap = 29 22 mirage .
+swap = 30 22 mirage .
+swap = 31 22 mirage .
+swap = 32 22 mirage .
+swap = 33 22 mirage .
+swap = 34 22 mirage .
+swap = 35 22 mirage .
+swap = 36 22 mirage .
+swap = 37 22 mirage .
+swap = 38 22 mirage .
+swap = 39 22 mirage .
+swap = 40 22 mirage .
+swap = 41 22 mirage .
+swap = 42 22 mirage .
+swap = 43 22 mirage .
+swap = 44 22 mirage .
+swap = 45 22 mirage .
+swap = 46 22 mirage .
+swap = 47 22 mirage .
+swap = 48 22 mirage .
+swap = 49 22 mirage .
+swap = 50 22 mirage .
+swap = 51 22 mirage .
+swap = 52 22 mirage .
+swap = 53 22 mirage .
+swap = 54 22 mirage .
+swap = 55 22 mirage .
+swap = 56 22 mirage .
+swap = 57 22 mirage .
+swap = 58 22 mirage w
+swap = 26 23 mirage w
+swap = 27 23 mirage .
+swap = 28 23 mirage .
+swap = 29 23 mirage .
+swap = 30 23 mirage .
+swap = 31 23 mirage .
+swap = 32 23 mirage .
+swap = 33 23 mirage .
+swap = 34 23 mirage .
+swap = 35 23 mirage .
+swap = 36 23 mirage .
+swap = 37 23 mirage .
+swap = 38 23 mirage .
+swap = 39 23 mirage .
+swap = 40 23 mirage .
+swap = 41 23 mirage .
+swap = 42 23 mirage .
+swap = 43 23 mirage .
+swap = 44 23 mirage .
+swap = 45 23 mirage .
+swap = 46 23 mirage .
+swap = 47 23 mirage .
+swap = 48 23 mirage .
+swap = 49 23 mirage .
+swap = 50 23 mirage .
+swap = 51 23 mirage .
+swap = 52 23 mirage .
+swap = 53 23 mirage .
+swap = 54 23 mirage .
+swap = 55 23 mirage .
+swap = 56 23 mirage .
+swap = 57 23 mirage w
+swap = 58 23 mirage w
+swap = 26 24 mirage w
+swap = 27 24 mirage .
+swap = 28 24 mirage .
+swap = 29 24 mirage .
+swap = 30 24 mirage .
+swap = 31 24 mirage .
+swap = 32 24 mirage .
+swap = 33 24 mirage .
+swap = 34 24 mirage .
+swap = 35 24 mirage .
+swap = 36 24 mirage .
+swap = 37 24 mirage .
+swap = 38 24 mirage .
+swap = 39 24 mirage .
+swap = 40 24 mirage .
+swap = 41 24 mirage .
+swap = 42 24 mirage .
+swap = 43 24 mirage .
+swap = 44 24 mirage .
+swap = 45 24 mirage .
+swap = 46 24 mirage .
+swap = 47 24 mirage .
+swap = 48 24 mirage .
+swap = 49 24 mirage .
+swap = 50 24 mirage .
+swap = 51 24 mirage .
+swap = 52 24 mirage .
+swap = 53 24 mirage .
+swap = 54 24 mirage .
+swap = 55 24 mirage .
+swap = 56 24 mirage .
+swap = 57 24 mirage w
+swap = 26 25 mirage w
+swap = 27 25 mirage .
+swap = 28 25 mirage .
+swap = 29 25 mirage .
+swap = 30 25 mirage .
+swap = 31 25 mirage .
+swap = 32 25 mirage .
+swap = 33 25 mirage .
+swap = 34 25 mirage .
+swap = 35 25 mirage .
+swap = 36 25 mirage .
+swap = 37 25 mirage .
+swap = 38 25 mirage .
+swap = 39 25 mirage .
+swap = 40 25 mirage .
+swap = 41 25 mirage .
+swap = 42 25 mirage .
+swap = 43 25 mirage .
+swap = 44 25 mirage .
+swap = 45 25 mirage .
+swap = 46 25 mirage .
+swap = 47 25 mirage .
+swap = 48 25 mirage .
+swap = 49 25 mirage .
+swap = 50 25 mirage .
+swap = 51 25 mirage .
+swap = 52 25 mirage .
+swap = 53 25 mirage .
+swap = 54 25 mirage .
+swap = 55 25 mirage .
+swap = 56 25 mirage .
+swap = 57 25 mirage w
+swap = 26 26 mirage w
+swap = 27 26 mirage w
+swap = 28 26 mirage w
+swap = 29 26 mirage .
+swap = 30 26 mirage .
+swap = 31 26 mirage .
+swap = 32 26 mirage .
+swap = 33 26 mirage .
+swap = 34 26 mirage .
+swap = 35 26 mirage .
+swap = 36 26 mirage .
+swap = 37 26 mirage .
+swap = 38 26 mirage .
+swap = 39 26 mirage .
+swap = 40 26 mirage .
+swap = 41 26 mirage .
+swap = 42 26 mirage .
+swap = 43 26 mirage .
+swap = 44 26 mirage .
+swap = 45 26 mirage .
+swap = 46 26 mirage .
+swap = 47 26 mirage .
+swap = 48 26 mirage .
+swap = 49 26 mirage .
+swap = 50 26 mirage .
+swap = 51 26 mirage .
+swap = 52 26 mirage .
+swap = 53 26 mirage .
+swap = 54 26 mirage .
+swap = 55 26 mirage w
+swap = 56 26 mirage w
+swap = 57 26 mirage w
+swap = 28 27 mirage w
+swap = 29 27 mirage .
+swap = 30 27 mirage .
+swap = 31 27 mirage .
+swap = 32 27 mirage .
+swap = 33 27 mirage .
+swap = 34 27 mirage .
+swap = 35 27 mirage .
+swap = 36 27 mirage .
+swap = 37 27 mirage .
+swap = 38 27 mirage .
+swap = 39 27 mirage .
+swap = 40 27 mirage .
+swap = 41 27 mirage .
+swap = 42 27 mirage .
+swap = 43 27 mirage .
+swap = 44 27 mirage .
+swap = 45 27 mirage .
+swap = 46 27 mirage .
+swap = 47 27 mirage .
+swap = 48 27 mirage .
+swap = 49 27 mirage .
+swap = 50 27 mirage .
+swap = 51 27 mirage .
+swap = 52 27 mirage .
+swap = 53 27 mirage .
+swap = 54 27 mirage .
+swap = 55 27 mirage w
+swap = 28 28 mirage w
+swap = 29 28 mirage w
+swap = 30 28 mirage .
+swap = 31 28 mirage .
+swap = 32 28 mirage .
+swap = 33 28 mirage .
+swap = 34 28 mirage .
+swap = 35 28 mirage .
+swap = 36 28 mirage .
+swap = 37 28 mirage .
+swap = 38 28 mirage .
+swap = 39 28 mirage .
+swap = 40 28 mirage .
+swap = 41 28 mirage .
+swap = 42 28 mirage .
+swap = 43 28 mirage .
+swap = 44 28 mirage .
+swap = 45 28 mirage .
+swap = 46 28 mirage .
+swap = 47 28 mirage .
+swap = 48 28 mirage .
+swap = 49 28 mirage .
+swap = 50 28 mirage .
+swap = 51 28 mirage w
+swap = 52 28 mirage w
+swap = 53 28 mirage w
+swap = 54 28 mirage w
+swap = 55 28 mirage w
+swap = 29 29 mirage w
+swap = 30 29 mirage .
+swap = 31 29 mirage .
+swap = 32 29 mirage .
+swap = 33 29 mirage .
+swap = 34 29 mirage .
+swap = 35 29 mirage .
+swap = 36 29 mirage .
+swap = 37 29 mirage .
+swap = 38 29 mirage .
+swap = 39 29 mirage .
+swap = 40 29 mirage .
+swap = 41 29 mirage .
+swap = 42 29 mirage .
+swap = 43 29 mirage .
+swap = 44 29 mirage .
+swap = 45 29 mirage .
+swap = 46 29 mirage .
+swap = 47 29 mirage .
+swap = 48 29 mirage .
+swap = 49 29 mirage .
+swap = 50 29 mirage w
+swap = 51 29 mirage w
+swap = 28 30 mirage w
+swap = 29 30 mirage w
+swap = 30 30 mirage w
+swap = 31 30 mirage w
+swap = 32 30 mirage w
+swap = 33 30 mirage w
+swap = 34 30 mirage w
+swap = 35 30 mirage w
+swap = 36 30 mirage w
+swap = 37 30 mirage w
+swap = 38 30 mirage w
+swap = 39 30 mirage w
+swap = 40 30 mirage w
+swap = 41 30 mirage w
+swap = 42 30 mirage w
+swap = 43 30 mirage w
+swap = 44 30 mirage w
+swap = 45 30 mirage w
+swap = 46 30 mirage w
+swap = 47 30 mirage w
+swap = 48 30 mirage w
+swap = 49 30 mirage w
+swap = 50 30 mirage w
+swap = 58 30 mirage w
+swap = 59 30 mirage w
+swap = 28 31 mirage w
+swap = 29 31 mirage w
+swap = 58 31 mirage w
+swap = 59 31 mirage w
+wildat = 20 1 62 29 Mirage Island
+berry = 52 9 82 Liechi
+if = mirage
 grid:
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
@@ -14113,6 +15172,11 @@ objects = sprites
 indoor = yes
 cycling = yes
 wild = 
+wild = Shoal Cave
+door = 20 30 warp|Route 125|22|19|down
+door = 6 2 warp|Shoal Cave High Tide Inner Room|14|33|up
+door = 27 2 warp|Shoal Cave High Tide Inner Room|40|33|up
+npc = 18 15 em_expert_m left 0 shellbell
 grid:
 ###################################
 ###################################
@@ -14159,6 +15223,16 @@ objects = sprites
 indoor = yes
 cycling = yes
 wild = 
+wild = Shoal Cave
+door = 34 30 warp|Shoal Cave High Tide Entrance Room|19|5|up
+door = 42 4 warp|Shoal Cave Low Tide Stair's Room|7|4|up
+door = 19 14 warp|Shoal Cave Low Tide Lower Room|7|2|up
+door = 14 34 warp|Shoal Cave High Tide Entrance Room|6|2|up
+door = 40 34 warp|Shoal Cave High Tide Entrance Room|27|2|up
+spot = 41 20 daily|Shoal Shell|shoal2|There was a Shoal Shell here. But there's nothing here now - come back tomorrow.
+spot = 41 10 daily|Shoal Shell|shoal3|There was a Shoal Shell here. But there's nothing here now - come back tomorrow.
+spot = 6 9 daily|Shoal Shell|shoal4|There was a Shoal Shell here. But there's nothing here now - come back tomorrow.
+spot = 16 13 daily|Shoal Shell|shoal5|There was a Shoal Shell here. But there's nothing here now - come back tomorrow.
 grid:
 ##############################################
 ##############################################
@@ -14208,11 +15282,17 @@ indoor = yes
 cycling = yes
 wild = Shoal Cave
 door = 20 30 warp|Route 125|22|19|down
-door = 19 5 warp|Shoal Cave Low Tide Inner Room|34|29|up
-door = 6 2 warp|Shoal Cave Low Tide Inner Room|14|33|up
-door = 27 2 warp|Shoal Cave Low Tide Inner Room|40|33|up
 item = 30 3 Big Pearl 1
-npc = 18 15 em_expert_m left 0 talk|If you bring me four each of the Shoal Salt and Shoal Shells, I can make you a Shell Bell...|You can get those ingredients every day.
+door = 19 5 warp|Shoal Cave High Tide Inner Room|34|29|up
+if = hightide
+door = 19 5 warp|Shoal Cave Low Tide Inner Room|34|29|up
+door = 6 2 warp|Shoal Cave High Tide Inner Room|14|33|up
+if = hightide
+door = 6 2 warp|Shoal Cave Low Tide Inner Room|14|33|up
+door = 27 2 warp|Shoal Cave High Tide Inner Room|40|33|up
+if = hightide
+door = 27 2 warp|Shoal Cave Low Tide Inner Room|40|33|up
+npc = 18 15 em_expert_m left 0 shellbell
 grid:
 ###################################
 ###################################
@@ -14302,21 +15382,27 @@ objects = sprites
 indoor = yes
 cycling = yes
 wild = Shoal Cave
-door = 34 30 warp|Shoal Cave Low Tide Entrance Room|19|5|up
 door = 38 15 warp|Shoal Cave Low Tide Stair's Room|3|12|up
 door = 42 4 warp|Shoal Cave Low Tide Stair's Room|7|4|up
 door = 19 14 warp|Shoal Cave Low Tide Lower Room|7|2|up
 door = 15 19 warp|Shoal Cave Low Tide Lower Room|2|6|up
 door = 30 25 warp|Shoal Cave Low Tide Lower Room|19|11|up
-door = 14 34 warp|Shoal Cave Low Tide Entrance Room|6|2|up
-door = 40 34 warp|Shoal Cave Low Tide Entrance Room|27|2|up
-sign = 31 8 There was some Shoal Salt here. But, there's nothing here now.
-sign = 14 26 There was some Shoal Salt here. But, there's nothing here now.
-sign = 41 20 There was a Shoal Shell here. But, there's nothing here now.
-sign = 41 10 There was a Shoal Shell here. But, there's nothing here now.
-sign = 6 9 There was a Shoal Shell here. But, there's nothing here now.
-sign = 16 13 There was a Shoal Shell here. But, there's nothing here now.
 item = 26 14 Rare Candy 1
+door = 34 30 warp|Shoal Cave High Tide Entrance Room|19|5|up
+if = hightide
+door = 34 30 warp|Shoal Cave Low Tide Entrance Room|19|5|up
+door = 14 34 warp|Shoal Cave High Tide Entrance Room|6|2|up
+if = hightide
+door = 14 34 warp|Shoal Cave Low Tide Entrance Room|6|2|up
+door = 40 34 warp|Shoal Cave High Tide Entrance Room|27|2|up
+if = hightide
+door = 40 34 warp|Shoal Cave Low Tide Entrance Room|27|2|up
+spot = 31 8 daily|Shoal Salt|shoal0|There was some Shoal Salt here. But there's nothing here now - come back tomorrow.
+spot = 14 26 daily|Shoal Salt|shoal1|There was some Shoal Salt here. But there's nothing here now - come back tomorrow.
+spot = 41 20 daily|Shoal Shell|shoal2|There was a Shoal Shell here. But there's nothing here now - come back tomorrow.
+spot = 41 10 daily|Shoal Shell|shoal3|There was a Shoal Shell here. But there's nothing here now - come back tomorrow.
+spot = 6 9 daily|Shoal Shell|shoal4|There was a Shoal Shell here. But there's nothing here now - come back tomorrow.
+spot = 16 13 daily|Shoal Shell|shoal5|There was a Shoal Shell here. But there's nothing here now - come back tomorrow.
 grid:
 ##############################################
 ##############################################
@@ -14365,12 +15451,18 @@ objects = sprites
 indoor = yes
 cycling = yes
 wild = Shoal Cave
-door = 7 2 warp|Shoal Cave Low Tide Inner Room|19|14|up
-door = 2 7 warp|Shoal Cave Low Tide Inner Room|15|19|up
-door = 19 12 warp|Shoal Cave Low Tide Inner Room|30|25|up
 door = 28 11 warp|Shoal Cave Low Tide Ice Room|17|10|up
-sign = 18 2 There was some Shoal Salt here. But, there's nothing here now.
 npc = 11 4 em_black_belt wander 0 give|The penetrating cold around these parts is an impediment to training./But with focus, one can overcome!/With this Focus Band, buckle down and withstand the cold!|Focus Band|1|got:FLAG_RECEIVED_FOCUS_BAND|Everything starts with focus!
+door = 7 2 warp|Shoal Cave High Tide Inner Room|19|14|up
+if = hightide
+door = 7 2 warp|Shoal Cave Low Tide Inner Room|19|14|up
+door = 2 7 warp|Shoal Cave High Tide Inner Room|15|19|up
+if = hightide
+door = 2 7 warp|Shoal Cave Low Tide Inner Room|15|19|up
+door = 19 12 warp|Shoal Cave High Tide Inner Room|30|25|up
+if = hightide
+door = 19 12 warp|Shoal Cave Low Tide Inner Room|30|25|up
+spot = 18 2 daily|Shoal Salt|shoal6|There was some Shoal Salt here. But there's nothing here now - come back tomorrow.
 grid:
 ###############################
 ###############################
@@ -14395,10 +15487,14 @@ objects = sprites
 indoor = yes
 cycling = yes
 wild = Shoal Cave
-door = 3 12 warp|Shoal Cave Low Tide Inner Room|38|15|up
-door = 7 4 warp|Shoal Cave Low Tide Inner Room|42|4|up
-sign = 11 11 There was some Shoal Salt here. But, there's nothing here now.
 item = 13 12 Ice Heal 1
+door = 3 12 warp|Shoal Cave High Tide Inner Room|38|15|up
+if = hightide
+door = 3 12 warp|Shoal Cave Low Tide Inner Room|38|15|up
+door = 7 4 warp|Shoal Cave High Tide Inner Room|42|4|up
+if = hightide
+door = 7 4 warp|Shoal Cave Low Tide Inner Room|42|4|up
+spot = 11 11 daily|Shoal Salt|shoal7|There was some Shoal Salt here. But there's nothing here now - come back tomorrow.
 grid:
 #####################
 #####################
@@ -15220,7 +16316,7 @@ npc = 6 5 em_gentleman down 0 talk|The Pokemon of a Trainer who has entered a Po
 npc = 3 9 mon:Zigzagoon down 0 talk|Zigzagoon: Kyuuu...
 npc = 8 3 mon:Skitty down 0 talk|Skitty: Fffnyaaaah...
 npc = 10 8 mon:Azumarill down 0 talk|Azumarill: Marimari?
-npc = 11 8 em_man_4 left 0 talk|I'll just praise my Pokemon from now on without the swagger.
+npc = 11 8 em_man_4 left 0 tutor|Swagger|Heh! My Pokemon totally rules! It's cooler than any Pokemon!|I was lipping off with a swagger in my step like that when the Chairman chewed me out.|That took the swagger out of my step.|If you'd like, I'll teach the move Swagger to a Pokemon of yours.
 grid:
 ##############
 ##############
@@ -15742,7 +16838,7 @@ door = 6 9 warp|Sootopolis City|43|31|down
 npc = 7 2 em_nurse down 0 heal|Welcome to our Pokemon Center!|We restore your tired Pokemon to full health.
 npc = 12 4 em_gentleman wander 0 talk|Wallace is rumored to be the toughest Trainer in the whole Hoenn region.|This town's Gym is led by the Trainer who taught Wallace.|But the Elite Four... They're said to be even stronger than Wallace's mentor.|How strong could they be?
 npc = 4 7 em_woman_5 wander 0 talk|Whenever, wherever, and whatever happens, I will always be friends with Pokemon.|Because it's fun to be with Pokemon!
-npc = 2 3 em_woman_1 wander 0 talk|I won't live for love anymore! I'll become tough!
+npc = 2 3 em_woman_1 wander 0 tutor|Double-Edge|Sigh...|Sootopolis's Gym Leader is really lovably admirable.|But that also means I have many rivals for his attention.|He's got appeal with a Double-edge. I couldn't even catch his eye.|Please, let me teach your Pokemon the move Double-edge!
 grid:
 ##############
 ##############
@@ -15914,6 +17010,89 @@ grid:
 #####.......########
 #######....#########
 ####################
+
+[map]
+name = Trainer Hill Elevator
+region = Hoenn
+image = maps/em_TrainerHill_Elevator.png
+objects = sprites
+indoor = yes
+wild = 
+door = 1 7 warp|Trainer Hill Roof|15|5|up
+door = 2 7 warp|Trainer Hill Roof|15|5|up
+npc = 0 6 em_teala right 0 warp|Trainer Hill Entrance|9|2|down
+grid:
+.####
+.####
+.####
+.....
+.....
+.....
+.....
+
+[map]
+name = Trainer Hill Entrance
+region = Hoenn
+image = maps/em_TrainerHill_Entrance.png
+over = maps/em_TrainerHill_Entrance_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 9 17 warp|Route 111|31|113|down
+door = 10 17 warp|Route 111|31|113|down
+npc = 4 9 em_nurse down 0 heal|Welcome to our Pokemon Center!|We restore your tired Pokemon to full health.
+npc = 14 9 clerk down 0 shop|Welcome! How may I serve you?
+npc = 5 14 em_girl_3 wander 0 talk|Do you know when they're opening this place up?|I'm waiting here to be the first challenger ever!
+npc = 14 15 em_man_3 wander 0 talk|I heard tough Trainers come to this Trainer Hill from all over.|I can't wait to test the waters!|I'll knock aside anyone that stands in my way!
+npc = 11 6 em_teala down 0 thill
+door = 9 1 thup|2|1
+grid:
+###################
+#########.#########
+#######.....#######
+#######.....#######
+#########.#########
+#######.#.#.#######
+#######.#.#.#######
+#######.#.#.#######
+#########.#########
+####..###.##...#...
+#########..########
+...................
+...................
+...................
+...................
+.###...........###.
+...................
+
+[map]
+name = Trainer Hill Roof
+region = Hoenn
+image = maps/em_TrainerHill_Roof.png
+over = maps/em_TrainerHill_Roof_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 15 5 warp|Trainer Hill Elevator|2|6|up
+npc = 12 7 em_gentleman down 0 thfinish
+door = 9 5 msg|(The stairs down are closed. Please take the elevator.)
+grid:
+#########################
+#########################
+#########################
+#########################
+#########################
+#######.#.#####D#.#######
+.#.####....###....####.#.
+.#.####...........####.#.
+#######...........#######
+#######...........#######
+#######...........#######
+#########################
+#########################
+#########################
+#########################
+#######...#####...#######
 
 [map]
 name = Underwater Marine Cave
@@ -16787,7 +17966,7 @@ door = 6 9 warp|Verdanturf Town|16|3|down
 npc = 7 2 em_nurse down 0 heal|Welcome to our Pokemon Center!|We restore your tired Pokemon to full health.
 npc = 4 5 em_gentleman wander 0 talk|You can't consider yourself a real Trainer if you don't have faith in your Pokemon.|Only those people who can believe in their battling Pokemon can win through to the very end.
 npc = 12 2 em_expert_m up 0 talk|The reason why anyone would visit Verdanturf...|It's the Battle Tent. It goes without saying.|Or is there somebody here that you came to see?
-npc = 10 6 em_little_boy left 0 talk|I get a thrill watching to see if the move keeps hitting in succession!
+npc = 10 6 em_little_boy left 0 tutor|Fury Cutter|There's a move that gets stronger when you keep using it in a row.|It's a Bug-type move, and it is wickedly cool.|It's called Fury Cutter. Want me to teach it to a Pokemon?
 grid:
 ##############
 ##############
@@ -17013,3 +18192,611 @@ grid:
 ##############################################
 ##############################################
 ##############################################
+
+[map]
+name = Trainer Hill 1F (Normal)
+region = Hoenn
+image = maps/em_TrainerHill_1F_Normal.png
+over = maps/em_TrainerHill_1F_Normal_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill Entrance|9|1|up
+door = 12 1 warp|Trainer Hill 2F (Normal)|2|1|up
+npc = 11 6 em_hex_maniac up 1 fight|Hex Maniac Alaina|Misdreavus 50, Solrock 50, Claydol 50|You can choose not to believe|This must be a nightmare!|th:1F:normal:1
+fightopts = scale
+npc = 13 7 em_boy_1 left 2 fight|Cycling Triathlete Alfonso|Flareon 50, Magneton 50, Pinsir 50|I never take a train|My bike! you've destroyed it|th:1F:normal:2
+fightopts = scale
+block = 12 2 th:1F:normal:1&th:1F:normal:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+..#########..#.#
+.....#.........#
+#.vvv#.vvv#.##.#
+#....#....#..#.#
+##.vvv#vv.#vv#.#
+......#...#....#
+.#vv#vv..#vvv###
+....#..#.#.....#
+.#vv#vv#.vv#vv.#
+....#..#...#...#
+.####vv#vv##.###
+.#.....#.......#
+.#vv#..#vv#vv..#
+....#.........##
+################
+
+[map]
+name = Trainer Hill 2F (Normal)
+region = Hoenn
+image = maps/em_TrainerHill_2F_Normal.png
+over = maps/em_TrainerHill_2F_Normal_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill 1F (Normal)|12|1|up
+door = 12 1 warp|Trainer Hill 3F (Normal)|2|1|up
+npc = 4 16 em_black_belt right 5 fight|Black Belt Theodore|Meditite 50, Heracross 50, Hitmontop 50|My power will stomp you!|I went at it too hard|th:2F:normal:1
+fightopts = scale
+npc = 9 19 em_woman_2 down 3 fight|Pokemon Breeder Jayden|Mr. Mime 50, Plusle 50, Togepi 50|Some things you can't do alone|We couldn't win together?|th:2F:normal:2
+fightopts = scale
+block = 12 2 th:2F:normal:1&th:2F:normal:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+.###..#######.##
+.#..iii.....#.##
+.#..iii.....#.##
+.#.#iii####.#.##
+.#.#..###...#.##
+.#.#...##.###.##
+.#.#...##...#.##
+.#.#...####.#.##
+.#.#...##...#.##
+.#.#...##.###.##
+.#.#..........##
+.#.#.......#####
+...#.......#####
+...#.......#####
+################
+
+[map]
+name = Trainer Hill 3F (Normal)
+region = Hoenn
+image = maps/em_TrainerHill_3F_Normal.png
+over = maps/em_TrainerHill_3F_Normal_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill 2F (Normal)|12|1|up
+door = 12 1 warp|Trainer Hill 4F (Normal)|2|1|up
+npc = 5 7 em_man_4 right 3 fight|Pokemon Breeder Salvadore|Vaporeon 50, Dodrio 50, Omastar 50|Let's wrap things up here hey?|I will make you sorry friend|th:3F:normal:1
+fightopts = scale
+npc = 9 7 em_woman_2 left 3 fight|Pokemon Breeder Veronica|Nidoqueen 50, Ninetales 50, Charizard 50|I am the strong beauty around here|I am tired today that's why!|th:3F:normal:2
+fightopts = scale
+block = 12 2 th:3F:normal:1&th:3F:normal:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+.#####....####.#
+.#...........#.#
+.#...........#.#
+.#42123223322#.#
+.#.......#...#.#
+.#24444233121#.#
+.#..#........#.#
+.#21332233323#.#
+.#.......#...#.#
+.#23244222142#.#
+.#....#......#.#
+.#21423323323#.#
+.#.......#...#.#
+.4423324221323.#
+.3...........3.#
+
+[map]
+name = Trainer Hill 4F (Normal)
+region = Hoenn
+image = maps/em_TrainerHill_4F_Normal.png
+over = maps/em_TrainerHill_4F_Normal_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill 3F (Normal)|12|1|up
+door = 12 1 warp|Trainer Hill Roof|9|5|up
+npc = 7 9 em_psychic_m up 3 fight|Psychic Keenan|Alakazam 50, Blissey 50, Grumpig 50|You look so hurried|Does the time worry you?|th:4F:normal:1
+fightopts = scale
+npc = 7 15 em_woman_2 down 3 fight|Aroma Lady Kristina|Tropius 50, Bellossom 50, Meganium 50|It's hot... what a stench|I covet any strong stench|th:4F:normal:2
+fightopts = scale
+block = 12 2 th:4F:normal:1&th:4F:normal:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+iiiii#####.....#
+#iiii#...#.....#
+#iiii#...###.###
+#iiii#...#iiiii#
+#i#ii#...#iiiii#
+iiiii#....iiiii#
+iiiiiii...iiiii#
+#iiii#....iiiii#
+#iiii#...##..#i#
+iiiii#...#iii#i#
+iii#i#...#i.i.i#
+#iiii#...#i.#.i#
+#iiii#...#i.#.i#
+#iiii#####iiiii#
+################
+
+[map]
+name = Trainer Hill 1F (Variety)
+region = Hoenn
+image = maps/em_TrainerHill_1F_Variety.png
+over = maps/em_TrainerHill_1F_Variety_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill Entrance|9|1|up
+door = 12 1 warp|Trainer Hill 2F (Variety)|2|1|up
+npc = 5 13 em_gentleman right 3 fight|Gentleman Terrance|Delibird 50, Clefairy 50, Pikachu 50|Good children will get a present|That was my present to you|th:1F:variety:1
+fightopts = scale
+npc = 9 13 em_woman_2 left 3 fight|Lady Elizabeth|Corsola 50, Clamperl 50, Starmie 50|Can you sense me focus energy?|Things don't always work out|th:1F:variety:2
+fightopts = scale
+block = 12 2 th:1F:variety:1&th:1F:variety:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+122222344444122#
+1.42223142333.2#
+12.222314244.12#
+122.4231444.212#
+122233314442212#
+1222.......2212#
+1222.......2212#
+1232.......2212#
+1222.......2212#
+1222.......2212#
+132444213333212#
+112.2222222.212#
+11.442223333.12#
+1.44224444444.2#
+133333333333333#
+
+[map]
+name = Trainer Hill 2F (Variety)
+region = Hoenn
+image = maps/em_TrainerHill_2F_Variety.png
+over = maps/em_TrainerHill_2F_Variety_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill 1F (Variety)|12|1|up
+door = 12 1 warp|Trainer Hill 3F (Variety)|2|1|up
+npc = 3 13 em_woman_5 right 7 fight|Parasol Lady Annabell|Jigglypuff 50, Jynx 50, Exploud 50|Hi are you feeling upbeat?|I can see you're feeling great|th:2F:variety:1
+fightopts = scale
+npc = 11 13 em_maniac left 7 fight|Collector Coleman|Illumise 50, Spheal 50, Vigoroth 50|I seek someone as my idol|You're like a heal bell to me!|th:2F:variety:2
+fightopts = scale
+block = 12 2 th:2F:variety:1&th:2F:variety:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+....11...11....#
+...1..1.1..3...#
+..1.........3..#
+.3...........3.#
+.3...........3.#
+.3...........3.#
+.3...........3.#
+.3...........3.#
+..3.........3..#
+...3.......3...#
+....3.....3....#
+.....2...3.....#
+......2.3......#
+.......1.......#
+################
+
+[map]
+name = Trainer Hill 3F (Variety)
+region = Hoenn
+image = maps/em_TrainerHill_3F_Variety.png
+over = maps/em_TrainerHill_3F_Variety_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill 2F (Variety)|12|1|up
+door = 12 1 warp|Trainer Hill 4F (Variety)|2|1|up
+npc = 9 6 em_rich_boy right 4 fight|Rich Boy Enrique|Wooper 50, Poliwag 50, Psyduck 50|Get ready for an awesome time|Aww couldn't you let me win?|th:3F:variety:1
+fightopts = scale
+npc = 14 6 em_woman_2 left 4 fight|Lady Colleen|Baltoy 50, Pineco 50, Voltorb 50|I would like to rock out|Go ahead and crush my dream...|th:3F:variety:2
+fightopts = scale
+block = 12 2 th:3F:variety:1&th:3F:variety:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+......###......#
+ivvvvvvvvvvvivv#
+i.iiiiiiiii.iii#
+ivvvvvvvvvvvivv#
+iii.iiiii.iiiii#
+ivvvvvvvvvvvivv#
+ii.iiii.iiiiiii#
+ivvvvvvvvvvvivv#
+iiiii.iiii.iiii#
+ivvvvvvvvvvvivv#
+iiiiiiiii.ii.ii#
+ivvvvvvvvvvvivv#
+iiii.iiiiiiiiii#
+ivvvvvvvvvvvivv#
+i...........i..#
+
+[map]
+name = Trainer Hill 4F (Variety)
+region = Hoenn
+image = maps/em_TrainerHill_4F_Variety.png
+over = maps/em_TrainerHill_4F_Variety_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill 3F (Variety)|12|1|up
+door = 12 1 warp|Trainer Hill Roof|9|5|up
+npc = 10 7 em_pokefan_f right 3 fight|Pokefan Kimberly|Unown 50, Unown 50, Unown 50|I like working at my own tempo|You're a mean kid it seems|th:4F:variety:1
+fightopts = scale
+npc = 14 7 em_pokefan_m left 3 fight|Pokefan Francisco|Unown 50, Unown 50, Unown 50|I study every day too|No wonder I couldn't beat you|th:4F:variety:2
+fightopts = scale
+block = 12 2 th:4F:variety:1&th:4F:variety:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+.1.2.2.2.3.....#
+4.#.4.#.2......#
+.1.3.3.3.3.....#
+#.2.#.1.#.1.3.2#
+.1.2.1.4.4.3.3.#
+1.#.4.#.2.#.2.##
+.3.3.2.1.3.2.3.#
+#.2.#.3.#.3.#.3#
+.1.2.2.3.4.2.4.#
+1.#.4.#.4.#.3.##
+.3.3.4.3.3.2.1.#
+#.1.#.2.#.3.#.3#
+.1.3.3.4.1.2.1.#
+1.#.1.#.1.#.4.##
+################
+
+[map]
+name = Trainer Hill 1F (Unique)
+region = Hoenn
+image = maps/em_TrainerHill_1F_Unique.png
+over = maps/em_TrainerHill_1F_Unique_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill Entrance|9|1|up
+door = 12 1 warp|Trainer Hill 2F (Unique)|2|1|up
+npc = 4 8 em_picnicker right 2 fight|Pokemon Ranger Meredith|Sunflora 50, Tangela 50, Venusaur 50|Um... I...|Um... waaah...|th:1F:unique:1
+fightopts = scale
+npc = 7 8 em_man_5 left 2 fight|Kindler Bernard|Magcargo 50, Rapidash 50, Moltres 50|I can't lose this hot battle|Aiyeeh! you're a terrible person|th:1F:unique:2
+fightopts = scale
+block = 12 2 th:1F:unique:1&th:1F:unique:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+.#.####........#
+.#.#....########
+.#.#....#.....##
+.#.#......###.##
+.#.########.#.##
+##........#.#.##
+.#.########.#.##
+.#.#........#..#
+.#.#.#########.#
+...#.........#.#
+.###########.#.#
+...........#.#.#
+.###########.#.#
+...............#
+################
+
+[map]
+name = Trainer Hill 2F (Unique)
+region = Hoenn
+image = maps/em_TrainerHill_2F_Unique.png
+over = maps/em_TrainerHill_2F_Unique_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill 1F (Unique)|12|1|up
+door = 12 1 warp|Trainer Hill 3F (Unique)|2|1|up
+npc = 9 11 em_hiker right 3 fight|Ruin Maniac Abraham|Smeargle 50, Smeargle 50, Smeargle 50|I like this Pokemon the best|I confused a move with another|th:2F:unique:1
+fightopts = scale
+npc = 13 11 em_tuber_m left 3 fight|Tuber Luc|Cubone 50, Beedrill 50, Raticate 50|I have a cool rare move|Didn't you see my move?|th:2F:unique:2
+fightopts = scale
+block = 12 2 th:2F:unique:1&th:2F:unique:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+.....#####.....#
+#...#.#.#.#....#
+......#.....#..#
+.#.#.#.#.#.#.###
+#.#...#.#......#
+........#......#
+.#.###.#.##.##.#
+..#...#.#.....##
+........#...#..#
+##.###.#.#.#.#.#
+..#.....#.#....#
+....#.#.#......#
+.#####.#.#.###.#
+............#..#
+################
+
+[map]
+name = Trainer Hill 3F (Unique)
+region = Hoenn
+image = maps/em_TrainerHill_3F_Unique.png
+over = maps/em_TrainerHill_3F_Unique_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill 2F (Unique)|12|1|up
+door = 12 1 warp|Trainer Hill 4F (Unique)|2|1|up
+npc = 6 14 em_youngster right 1 fight|Youngster Breyden|Charmeleon 50, Wartortle 50, Ivysaur 50|I care for my Pokemon a lot|It's not like we always win|th:3F:unique:1
+fightopts = scale
+npc = 8 14 em_tuber_f left 1 fight|Tuber Aniya|Cleffa 50, Wynaut 50, Magby 50|Someone got me a little Pokemon egg|Oh but... why why?!|th:3F:unique:2
+fightopts = scale
+block = 12 2 th:3F:unique:1&th:3F:unique:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+.############.##
+.#............##
+.#.#############
+.#............##
+.############.##
+.#............##
+.######.########
+.#...#...#....##
+.#...#...#....##
+.#...#...#....##
+.######.########
+.#.............#
+.#############.#
+...............#
+################
+
+[map]
+name = Trainer Hill 4F (Unique)
+region = Hoenn
+image = maps/em_TrainerHill_4F_Unique.png
+over = maps/em_TrainerHill_4F_Unique_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill 3F (Unique)|12|1|up
+door = 12 1 warp|Trainer Hill Roof|9|5|up
+npc = 8 7 em_man_5 up 3 fight|Bird Keeper Dane|Sudowoodo 50, Slowking 50, Entei 50|I got my Pokemon on vacation|Waaah! my rare Pokemon!|th:4F:unique:1
+fightopts = scale
+npc = 11 10 em_running_triathlete_f left 3 fight|Swimming Triathlete Stephanie|Houndoom 50, Stantler 50, Articuno 50|This is how you win!|Yes that's how you do it|th:4F:unique:2
+fightopts = scale
+block = 12 2 th:4F:unique:1&th:4F:unique:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+......#######..#
+####.....#.....#
+.........#.....#
+.#######.#.#####
+.#...#.........#
+.#...#.#.#.....#
+.#.#.#.#.####..#
+.#.#.#.#.#.....#
+.#.#.#.#.#.#####
+.#.#.#.#.#.....#
+.#.#.#.#.#.....#
+.#.#.#.#.#####.#
+...#...#.......#
+...#...#.......#
+################
+
+[map]
+name = Trainer Hill 1F (Expert)
+region = Hoenn
+image = maps/em_TrainerHill_1F_Expert.png
+over = maps/em_TrainerHill_1F_Expert_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill Entrance|9|1|up
+door = 12 1 warp|Trainer Hill 2F (Expert)|2|1|up
+npc = 4 12 em_man_3 right 5 fight|Cooltrainer Alfred|Snorlax 50, Miltank 50, Ursaring 50|We can take on any type|Our strategy isn't any good...|th:1F:expert:1
+fightopts = scale
+npc = 10 12 em_lass left 5 fight|Psychic Edie|Gengar 50, Gardevoir 50, Alakazam 50|We will be here for any Trainer challenge|No no... that won't do|th:1F:expert:2
+fightopts = scale
+block = 12 2 th:1F:expert:1&th:1F:expert:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+......#........#
+..#####.#####..#
+..#####.#####..#
+1.#####.#####.2#
+.2#.........#2.#
+..##.......##..#
+..#.........#..#
+..##.......##..#
+.2#.........#2.#
+1.##.......##.2#
+..##.......##..#
+..####...####..#
+...............#
+...............#
+################
+
+[map]
+name = Trainer Hill 2F (Expert)
+region = Hoenn
+image = maps/em_TrainerHill_2F_Expert.png
+over = maps/em_TrainerHill_2F_Expert_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill 1F (Expert)|12|1|up
+door = 12 1 warp|Trainer Hill 3F (Expert)|2|1|up
+npc = 7 15 em_man_3 up 3 fight|Cooltrainer Roderick|Swellow 50, Machamp 50, Ursaring 50|I can win without a helping hand|Losing has me feeling small...|th:2F:expert:1
+fightopts = scale
+npc = 7 19 em_woman_5 down 3 fight|Cooltrainer Alicia|Dusclops 50, Ninetales 50, Banette 50|I don't need a helping hand!|What an unbelievable struggle that was!|th:2F:expert:2
+fightopts = scale
+block = 12 2 th:2F:expert:1&th:2F:expert:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+.#############.#
+.#.............#
+.#.#############
+.#.............#
+.#############.#
+.#.............#
+.#.#############
+.#.............#
+.#############.#
+...............#
+...............#
+...............#
+...............#
+...............#
+################
+
+[map]
+name = Trainer Hill 3F (Expert)
+region = Hoenn
+image = maps/em_TrainerHill_3F_Expert.png
+over = maps/em_TrainerHill_3F_Expert_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill 2F (Expert)|12|1|up
+door = 12 1 warp|Trainer Hill 4F (Expert)|2|1|up
+npc = 7 11 em_expert_m up 3 fight|Expert Terrence|Wobbuffet 50, Exploud 50, Crobat 50|Oh dear this match is for you|Oh dear I am so sorry|th:3F:expert:1
+fightopts = scale
+npc = 7 15 em_expert_f down 3 fight|Expert Carlotta|Dewgong 50, Politoed 50, Marowak 50|Oh dear I will win for you|Oh dear I am sorry to disappoint you|th:3F:expert:2
+fightopts = scale
+block = 12 2 th:3F:expert:1&th:3F:expert:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+......#........#
+....###.###....#
+...####.####...#
+..#####.#####..#
+..#####.#####..#
+.######..#####.#
+.####.....####.#
+......#.#.####.#
+.####.....####.#
+.######..#####.#
+..#####..####..#
+..#####.#####..#
+...####.####...#
+....###.###....#
+......#........#
+
+[map]
+name = Trainer Hill 4F (Expert)
+region = Hoenn
+image = maps/em_TrainerHill_4F_Expert.png
+over = maps/em_TrainerHill_4F_Expert_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Trainer Hill 3F (Expert)|12|1|up
+door = 12 1 warp|Trainer Hill Roof|9|5|up
+npc = 7 11 em_picnicker up 3 fight|Pokemon Ranger Nora|Forretress 50, Electrode 50, Exeggutor 50|Waaah this is so exciting!|Waaah I am so sad I lost|th:4F:expert:1
+fightopts = scale
+npc = 7 15 em_camper down 3 fight|Pokemon Ranger Gav|Gengar 50, Dusclops 50, Misdreavus 50|Wahahaha you can't stop me!|I am not cool at all!|th:4F:expert:2
+fightopts = scale
+block = 12 2 th:4F:expert:1&th:4F:expert:2|The stairs up open once you've beaten both of this floor's Trainers!
+grid:
+################
+##D#########D###
+....#######....#
+....#######....#
+....#######....#
+......###......#
+.......#.......#
+.......#.......#
+.....##.##.....#
+....#.....#....#
+...#.##.##.#...#
+..#.#.....#.#..#
+..#.........#..#
+...............#
+..#.........#..#
+..#.#.....#.#..#
+...#.##.##.#...#
+....#.....#....#
+.....##.##.....#
+.......#.......#
+.......#.......#

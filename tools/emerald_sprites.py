@@ -4,7 +4,7 @@
     emerald_sprites.py <pokeemerald dir> [World dir]
 
 Every person Emerald's maps use (from pret/pokeemerald's object-event graphics), plus Brendan, May,
-Professor Birch, the Gym Leaders, the Elite Four and the Frontier Brains, go after the sheet's other people
+Professor Birch, the Gym Leaders, the Elite Four and the Frontier Brains (and the Trick House's statues), go after the sheet's other people
 as em_* rows of World/chars.png (32x32 cells, the 16x32 people in the middle: down step/stand/step, up x3,
 left x3). Running it again replaces the em_* rows."""
 import os
@@ -64,7 +64,7 @@ def frames(path, w, h):
 EXTRA = ["BRENDAN_NORMAL", "MAY_NORMAL", "PROF_BIRCH", "ROXANNE", "BRAWLY", "WATTSON", "FLANNERY", "NORMAN", "WINONA", "TATE",
          "LIZA", "JUAN", "SIDNEY", "PHOEBE", "GLACIA", "DRAKE", "WALLACE", "STEVEN", "WALLY", "MAXIE", "ARCHIE", "SCOTT",
          "ANABEL", "TUCKER", "SPENSER", "GRETA", "NOLAND", "LUCY", "BRANDON", "MOM", "RIVAL_BRENDAN_NORMAL", "RIVAL_MAY_NORMAL"]
-NAME = {"BRENDAN_NORMAL": "brendan", "MAY_NORMAL": "may", "RIVAL_BRENDAN_NORMAL": "brendan", "RIVAL_MAY_NORMAL": "may"}
+NAME = {"TRICK_HOUSE_STATUE": "statue", "BRENDAN_NORMAL": "brendan", "MAY_NORMAL": "may", "RIVAL_BRENDAN_NORMAL": "brendan", "RIVAL_MAY_NORMAL": "may"}
 
 
 def main():
@@ -84,7 +84,7 @@ def main():
         if name in added:
             continue
         path, gi = sheet_of("OBJ_EVENT_GFX_" + g)
-        if not path or not os.path.exists(path) or gi["w"] != 16 or gi["h"] not in (16, 32) or "/pokemon/" in path or "/people/" not in path:
+        if not path or not os.path.exists(path) or gi["w"] != 16 or gi["h"] not in (16, 32) or "/pokemon/" in path or ("/people/" not in path and not path.endswith("misc/statue.png")):
             continue
         fr = frames(path, 16, gi["h"])
         if gi["h"] == 16:

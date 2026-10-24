@@ -1,5 +1,6 @@
 #include <unordered_map>
 #include "data.h"
+#include <map>
 #include "natures.h"
 #include <algorithm>
 #include "raylib.h"
@@ -312,6 +313,31 @@ int BaseFormOf(int idx) {
     return idx;
 }
 
+const std::vector<int>& FormsOf(int idx) {
+    static std::map<int, std::vector<int>> forms;
+    static size_t builtFor = 0;
+    static const std::vector<int> none;
+    const auto& all = AllSpecies();
+    if (builtFor != all.size()) {
+        forms.clear();
+        for (int i = 0; i < (int)all.size(); i++)
+            if (!all[i].formOf.empty()) { int b = SpeciesIndex(all[i].formOf); if (b >= 0) forms[b].push_back(i); }
+        builtFor = all.size();
+    }
+    auto it = forms.find(idx);
+    return it == forms.end() ? none : it->second;
+}
+int FormBase(int idx) {
+    if (idx < 0 || idx >= (int)AllSpecies().size() || AllSpecies()[idx].formOf.empty()) return idx;
+    int b = SpeciesIndex(AllSpecies()[idx].formOf);
+    return b >= 0 ? b : idx;
+}
+int RandomFormOf(int idx) {
+    const auto& f = FormsOf(idx);
+    if (f.empty()) return idx;
+    int k = GetRandomValue(0, (int)f.size());
+    return k == 0 ? idx : f[k - 1];
+}
 bool IsMegaForm(int idx) { return idx >= 0 && idx < (int)AllSpecies().size() && !AllSpecies()[idx].megaOf.empty(); }
 
 int MegaFormFor(int idx, const std::string& item) {
@@ -344,6 +370,7 @@ bool InSpeciesPool(int idx) {
     }
     if (idx < 0 || idx >= (int)all.size()) return false;
     if (!all[idx].megaOf.empty()) return false;   // Mega forms are only reached in battle
+    if (!all[idx].formOf.empty()) return false;   // (Unown's letters: they turn up as Unown does)
     return customCount < 20 || all[idx].custom;
 }
 
@@ -358,6 +385,11 @@ bool CanEvolve(int idx) {
 int StoneEvolution(int idx, const std::string& item) {
     if (idx < 0 || idx >= (int)AllSpecies().size()) return -1;
     if (Squash(item) == "linkingcord") return TradeEvolution(idx);   // Legends: Arceus' stand-in for trading
+    if (Squash(item) == "upgrade" || Squash(item) == "dragonscale") {   // what it held when traded: Porygon2, Kingdra
+        int t = TradeEvolution(idx);
+        const char* want = Squash(item) == "upgrade" ? "Porygon2" : "Kingdra";
+        return t >= 0 && AllSpecies()[t].name == want ? t : -1;
+    }
     for (const auto& e : AllSpecies()[idx].evoAlts)
         if (!e.item.empty() && Squash(e.item) == Squash(item)) {
             int t = SpeciesIndex(e.to);
@@ -381,7 +413,10 @@ std::vector<std::string> EvolutionStonesFor(int idx) {
     if (idx < 0 || idx >= (int)AllSpecies().size()) return v;
     for (const auto& e : AllSpecies()[idx].evoAlts)
         if (!e.item.empty() && SpeciesIndex(e.to) >= 0 && std::find(v.begin(), v.end(), e.item) == v.end()) v.push_back(e.item);
-    if (TradeEvolution(idx) >= 0) v.push_back("Linking Cord");
+    if (TradeEvolution(idx) >= 0) {
+        v.push_back("Linking Cord");
+        for (const char* it : {"Up-Grade", "Dragon Scale"}) if (StoneEvolution(idx, it) >= 0) v.push_back(it);
+    }
     return v;
 }
 

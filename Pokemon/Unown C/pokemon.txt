@@ -1,0 +1,36 @@
+# Generated from the Pokedex (pokemondb.net / PokeAPI data). Edit freely.
+name = Unown C
+dex  = 201
+form_of = Unown      # one of Unown's letters: it shares Unown's Pokedex entry (tools/unown_forms.py)
+type = Psychic
+
+hp         = 48
+attack     = 72
+defense    = 48
+sp_attack  = 72
+sp_defense = 48
+speed      = 48
+
+size   = 0.91
+height = 0.5      # Pokedex height in meters (height and weight set its battle size: picture and hit area)
+weight = 5.0      # Pokedex weight in kg
+hovers = yes
+heavy  = no
+winged = no
+rare   = yes
+legendary = no
+starter = no
+
+
+# "evo" = learned when it evolves into this Pokemon
+
+# ---- EVOLUTION (Story Mode) ----------------------------------------------
+# (does not evolve)
+
+# ---- LEVEL-UP MOVES (Brilliant Diamond/Shining Pearl) ---------------------
+# "evo" = learned when it evolves into this Pokemon
+learn = 1, Hidden Power
+
+# ---- TM MOVES (Ultra Sun/Ultra Moon) ----------------------------------------
+# Moves this Pokemon can learn from TMs (bought in the Poke Mart's TMs tab).
+# (it can't learn any TMs)

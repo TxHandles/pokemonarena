@@ -97,7 +97,8 @@ const std::string& RegionRival(const Profile& p, int region);
 void DexSee(Profile& p, const std::string& species);
 bool DexHasSeen(const Profile& p, const std::string& species);
 bool DexHasCaught(const Profile& p, const std::string& species);
-void DexRegisterOwned(Profile& p);    // everything in the collection counts as seen and caught
+void DexRegisterOwned(Profile& p);
+int DexCaughtCount(const Profile& p);   // Pokedex entries caught (Unown's letters count once)    // everything in the collection counts as seen and caught
 int RollAbilitySlot(int speciesIndex, bool allowHidden = true);   // 1 in 20 hidden
 std::string MonAbility(const OwnedMon& m);
 

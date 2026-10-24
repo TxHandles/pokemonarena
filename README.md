@@ -405,6 +405,30 @@ night, the weather and every system from Kanto and Johto work the same here.
 - The **ticket islands**: the S.S. Tidal sails to Southern Island (Latias), Faraway Island (Mew), Birth Island (Deoxys)
   and Navel Rock (Ho-Oh, Lugia) with their tickets - the clerk at Lilycove's harbor has them for Trainers who've earned
   them.
+- The **Trainer Hill** on Route 111 (`tools/emerald_trainer_hill.py`): Normal, Variety, Unique or Expert - four floors
+  built from Emerald's own floor plans for that mode, two Trainers on each (their Emerald teams, levelled to your
+  party). The stairs up open once both are beaten; the owner on the roof times you and gives Emerald's prize (the
+  faster, the better). The elevator takes you back down.
+- **Shoal Cave**'s tides (`tools/emerald_shoal.py`): high tide from 3 to 9, morning and evening, by the story clock -
+  the Entrance and Inner Rooms flood and other ways open. The Shoal Salt and Shoal Shells come back every day; four of
+  each make the old man's **Shell Bell**.
+- **Mirage Island** (`tools/emerald_mirage.py`) rises off Route 130 on some days - the watcher in Pacifidlog can tell
+  you. Wynaut live in its grass, and its Liechi Berry tree grows there.
+- Mossdeep Gym's and Trick House Puzzle 7's **rotating tiles** (`tools/emerald_rotating.py`): step on a coloured
+  switch and the Trainers and stone statues on that colour's arrows move along and turn.
+
+### Move tutors and Unown's letters
+
+- The **move tutors** of FireRed and Emerald teach their moves (`tools/move_tutors.py`; Mega Punch and Mega Kick on
+  Route 4, Seismic Toss in the Pewter Museum, Body Slam on Four Island, Dynamic Punch in Mossdeep, the Frontier's
+  two Lounge 7 tutors, Cape Brink's ultimate moves for the final starters, and the rest). Who can learn what is
+  Emerald's tutor table (World/tutors.txt); a Pokemon newer than Emerald can learn a tutor move it could learn by
+  level or TM. The **Move Deleters** (Fuchsia, Lilycove, Blackthorn) make a Pokemon forget a move; the **Move
+  Relearners** (Two Island, Fallarbor, Blackthorn) teach it back.
+- New items: **Up-Grade** (Porygon) and **Dragon Scale** (Seadra) - use them like an evolution stone, the trade's
+  stand-in; **Sacred Ash** revives the whole party; **Bright Powder** (held: DEF +8%).
+- **Unown's letters**: A to Z, ! and ? (`tools/unown_forms.py`, pictures from Emerald's party icons). A wild Unown
+  can be any of them; they're all the same one Pokedex entry.
 
 ### Kanto extras
 
@@ -723,6 +747,8 @@ reacts fast and aims perfectly: Easy wins ~9%, Normal ~31%, Hard ~57%.
 - Alola (Gen 7) Pokemon: "Gen 7 (Alola) Overworld Sprites" by **Princess-Phoenix, Larryturbo, Kidkatt, Zender1752
   and SageDeoxys** (DeviantArt, posted by Larryturbo).
 - The Ruins of Alph's puzzle pictures and chambers: **pret/pokecrystal** (`gfx/unown_puzzle`).
+- Unown's letters (B to Z, ! and ?): Emerald's party icons from **pret/pokeemerald** (`graphics/pokemon/unown`), and
+  the Trick House statue from its object-event pictures.
 - Johto's walked maps: the "Pokemon HeartGold / SoulSilver - Locations" models from **The Models Resource** (rendered
   top-down by `tools/hgss_render.py`); the gyms, towers and other special rooms are drawn from **pret/pokecrystal**,
   and the doors, people, lines and trainers come from **pret/pokeheartgold** (`tools/hgss_world.py`).

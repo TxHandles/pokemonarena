@@ -111,7 +111,6 @@ npc = 36 14 mon:Poliwrath right 0 talk|Poliwrath: Ribi ribit!
 npc = 11 18 little_girl down 0 talk|I got my Koffing in Cinnabar.|It's usually nice, but it breathes poison when it's angry.
 npc = 18 22 woman_2 wander 0 talk|Celadon takes pride in its efforts to keep the city beautiful.|That's why the new Game Corner is bad for our city's image.
 npc = 30 24 old_man_1 down 0 talk|Moan... I blew it all at the slots!|I knew I should have cashed in my Coins for prizes!
-npc = 26 19 old_man_2 down 0 talk|...
 npc = 38 31 rocket_m wander 0 talk|What are you staring at? Get lost, or I'll punch you.
 unless = gone:FLAG_HIDE_CELADON_ROCKETS
 npc = 9 30 old_man_1 up 0 talk|Heheh! This Gym is great! It's full of women!
@@ -121,6 +120,7 @@ unless = gone:FLAG_HIDE_CELADON_CITY_ETHER
 npc = 47 24 scientist down 0 talk|Oh, what am I to do...|Someone stole our Silph Scope.|The thief came running this way, I'm sure of it.|But I lost sight of him! Where'd he go?
 unless = gone:FLAG_HIDE_CELADON_ROCKETS
 npc = 10 25 em_twin right 3 trainer|Celadon Park|Twins Jo & Zoe: We do everything together - even battling!|Twins Jo & Zoe: We lost together, too...
+npc = 26 19 old_man_2 down 0 tutor|Soft-Boiled|Hello, there!|I've seen you about, but I never had a chance to chat.|It must be good luck that brought us together finally.|I'd like to celebrate by teaching you the move Softboiled.
 grid:
 ############################################################
 ############################################################
@@ -436,11 +436,11 @@ sign = 4 8 It's a Super Nes.
 sign = 4 11 It's a Super Nes.
 sign = 2 4 Red and Green! Both are Pokemon!
 sign = 0 4 Red and Green! Both are Pokemon!
-npc = 10 9 clerk up 0 talk|...
 npc = 11 6 gba_kid down 0 talk|Captured Pokemon are registered with an ID No. and the Ot.|Ot stands for "Original Trainer" - the Trainer that caught it first.
 npc = 4 9 gba_kid down 0 talk|Come on, Haunter!|I love Haunter! I collect them!|Huh?|Haunter turned into a different Pokemon while being traded!
 npc = 1 9 gba_kid down 0 talk|All right!|My buddy's going to trade me his Kangaskhan for my Haunter!
 npc = 9 14 little_girl left 0 talk|You can identify Pokemon you get in trades by their ID Numbers.
+npc = 10 9 clerk up 0 tutor|Counter|Oh, hi! I finally finished Pokemon.|Not done yet? How about I teach you a good move?|The move I have in mind is Counter.|Not like the one I'm leaning on, mind you!
 grid:
 #############
 ######D######
@@ -1507,8 +1507,8 @@ wild =
 door = 7 10 warp|Cinnabar Island Pokemon Lab Entrance|19|5|up
 sign = 6 1 An amber pipe!
 sign = 3 1 There's an e-mail message.|... ... ...|There are three legendary bird Pokemon.|They are Articuno, Zapdos, and Moltres.|Their whereabouts are unknown.|We plan to explore the cavern close to Cerulean.|From: Pokemon Research Team...
-npc = 5 4 poke_maniac wander 0 talk|...
 npc = 10 3 scientist wander 0 talk|Eevee can evolve into one of three kinds of Pokemon.
+npc = 5 4 poke_maniac wander 0 tutor|Metronome|Tch-tch-tch! I'll teach you a nifty move.|Teach it to a Pokemon, and watch the fun unfold!|It's a move called Metronome. Does it strike your fancy?
 grid:
 ###############
 ###############
@@ -2396,10 +2396,9 @@ item = 17 3 TM148 Sludge Bomb 1
 unless = gone:FLAG_HIDE_FIVE_ISLAND_ROCKET_WAREHOUSE_TM36
 item = 1 16 Pearl 1
 unless = gone:FLAG_HIDE_FIVE_ISLAND_ROCKET_WAREHOUSE_PEARL
-item = 4 5 Linking Cord 1
-unless = gone:FLAG_HIDE_FIVE_ISLAND_ROCKET_WAREHOUSE_UP_GRADE
 item = 26 4 Sapphire 1
 if = beat:Rocket Warehouse:Scientist Gideon
+item = 4 5 Up-Grade 1
 grid:
 #############################
 #############################
@@ -2567,8 +2566,8 @@ objects = sprites
 indoor = yes
 wild = 
 door = 4 8 warp|Four Island|25|14|down
-npc = 8 3 fat_man right 0 talk|Ready? Boing!|We're having a Body Slam match to see who wimps out first.|If you were to join us, you'd be squashed like a bug, though...|How about I teach Body Slam to a Pokemon of yours instead?
 npc = 9 3 fat_man left 0 talk|There! Boing! You're awfully heavy!
+npc = 8 3 fat_man right 0 tutor|Body Slam|Ready? Boing!|We're having a Body Slam match to see who wimps out first.|If you were to join us, you'd be squashed like a bug, though...|How about I teach Body Slam to a Pokemon of yours instead?
 grid:
 ###########
 ###########
@@ -2930,9 +2929,9 @@ npc = 14 15 little_boy wander 0 talk|Did you try the Safari Game?|There are some
 npc = 12 20 mon:Lapras down 0 talk|Lapras: ...!
 npc = 36 20 old_man_1 wander 0 talk|The Safari Zone has a zoo in front of the entrance.|Out back is the Safari Game for catching Pokemon.
 npc = 16 9 mon:Kangaskhan down 0 talk|Kangaskhan: ...!
-npc = 15 11 bug_catcher up 0 talk|Aww, I wish I was a Kangaskhan baby.|I'd love to be a substitute for the baby...|And snuggle in the mother Kangaskhan's belly pouch.|But only Pokemon can use the technique Substitute...|Want me to teach Substitute to one of your Pokemon?
 npc = 40 6 lass down 0 talk|My father is the Gym Leader of this town.|I'm training to use Poison Pokemon as well as my father.
 unless = gone:FLAG_HIDE_POSTGAME_GOSSIPERS
+npc = 15 11 bug_catcher up 0 tutor|Substitute|Aww, I wish I was a Kangaskhan baby.|I'd love to be a substitute for the baby...|And snuggle in the mother Kangaskhan's belly pouch.|But only Pokemon can use the technique Substitute...|Want me to teach Substitute to one of your Pokemon?
 grid:
 ################################################
 ################################################
@@ -3076,7 +3075,7 @@ objects = sprites
 indoor = yes
 wild = 
 door = 4 8 warp|Fuchsia City|19|31|down
-npc = 4 4 balding_man right 0 talk|Uh... Oh, yes, I'm the Move Deleter.|I can make Pokemon forget their moves.|Would you like me to do that?
+npc = 4 4 balding_man right 0 deleter
 grid:
 ###########
 ###########
@@ -3481,7 +3480,6 @@ door = 29 6 warp|Mt. Ember Summit|9|15|up
 door = 42 39 warp|Mt. Ember Ruby Path 1F|22|17|up
 item = 18 17 Fire Stone 1 hidden
 item = 8 30 Ultra Ball 1 hidden
-npc = 29 45 hiker up 0 talk|Can you imagine? If this volcano were to erupt?|The explosion would be the end of us. How terrifying is that?|While we're terrified, would you like me to teach Explosion?
 npc = 41 40 rocket_m right 1 fight|Team Rocket Grunt|Cubone 37, Marowak 37|Huh, what?|Why'd you have to win?
 unless = gone:FLAG_HIDE_MT_EMBER_EXTERIOR_ROCKETS
 npc = 22 35 crush_girl down 1 fight|Crush Girl Jocelyn|Hitmonchan 38, Hitmonchan 38|I've been in training so I can mend my broken heart.../It toughened me up physically at least! Hi-yah!|The way you battle, it reminds me of the guy who dumped me...
@@ -3494,6 +3492,7 @@ unless = gone:FLAG_HIDE_MT_EMBER_EXTERIOR_FIRE_STONE
 item = 48 20 Dire Hit 1
 unless = gone:FLAG_HIDE_MT_EMBER_EXTERIOR_DIRE_HIT
 npc = 42 40 rocket_m left 1 fight|Rocket Grunt|Rattata 35, Raticate 35, Sandshrew 35, Sandslash 35|Hey! What are you doing up here? Team Rocket's busy digging on this mountain!/Get lost, kid!|Wait! But how?/...Ugh. Fine, I'll go back to the Warehouse. Let's see... the password was "Goldeen need log."/...Hey! Forget you heard that!
+npc = 29 45 hiker up 0 tutor|Explosion|Can you imagine? If this volcano were to erupt?|The explosion would be the end of us. How terrifying is that?|While we're terrified, would you like me to teach Explosion?
 grid:
 #############################..##########################
 ############################..###########################
@@ -4906,7 +4905,7 @@ npc = 16 5 worker_m left 0 talk|You can't sneak in the back way! Nice try, kid, 
 npc = 2 4 old_man_1 right 0 talk|I should be grateful for my long life.|Never did I think I would get to see the bones of a dragon!
 npc = 21 3 scientist down 0 give|Ssh! Listen, I need to share a secret with someone./I think that this chunk of Amber contains Pokemon Dna!/It would be a shattering scientific breakthrough if Pokemon could be resurrected from it./But, my colleagues just ignore what I have to say./So, I have a favor to ask!/I want you to get this examined at a Pokemon Lab somewhere.|Old Amber|1|got:FLAG_GOT_OLD_AMBER|Ssh! Get the Old Amber checked!
 npc = 26 4 scientist right 0 talk|We have two fossils of rare, prehistoric Pokemon on exhibit.
-npc = 26 7 scientist right 0 talk|The secrets of space... The mysteries of earth...|There are so many things about which we know so little.|But that should spur us to study harder, not toss in the towel.|The only thing you should toss...|Well, how about Seismic Toss? Should I teach that to a Pokemon?
+npc = 26 7 scientist right 0 tutor|Seismic Toss|The secrets of space... The mysteries of earth...|There are so many things about which we know so little.|But that should spur us to study harder, not toss in the towel.|The only thing you should toss...|Well, how about Seismic Toss? Should I teach that to a Pokemon?
 grid:
 ############################
 ############################
@@ -5887,11 +5886,11 @@ npc = 41 5 hiker right 3 fight|Hiker Eric|Machop 20, Onix 20|Hit me with your be
 npc = 23 23 poke_maniac right 4 fight|PokeMANIAC Steve|Charmander 22, Cubone 22|Um... Do you know about Pokemon cosplay?|Pokemon cosplay is dressing up as Pokemon for fun./Clefairy is a favorite.
 npc = 15 33 picnicker right 2 fight|Picnicker Martha|Oddish 22, Bulbasaur 22|I don't often come here, but I will battle you.|I like tiny Pokemon. Big ones are too scary!
 npc = 29 35 poke_maniac down 3 fight|PokeMANIAC Winston|Slowpoke 25|I draw illustrations of Pokemon when I'm home.|I'm an artist, not a fighter. I'll go home to draw.
-npc = 2 29 youngster right 0 talk|When you're up on a rocky mountain like this, rockslides are a threat.|Can you imagine? Boulders tumbling down on you?|That'd be, like, waaaaaaaaaaah! Total terror!|You don't seem to be scared. Want to try using Rock Slide?
 item = 2 37 Revive 1
 unless = gone:FLAG_HIDE_ROCK_TUNNEL_B1F_REVIVE
 item = 9 2 Max Ether 1
 unless = gone:FLAG_HIDE_ROCK_TUNNEL_B1F_MAX_ETHER
+npc = 2 29 youngster right 0 tutor|Rock Slide|When you're up on a rocky mountain like this, rockslides are a threat.|Can you imagine? Boulders tumbling down on you?|That'd be, like, waaaaaaaaaaah! Total terror!|You don't seem to be scared. Want to try using Rock Slide?
 grid:
 ###############################################c
 ###cc###cccc####ccccc##c#Rc#######ccccccc#c####c
@@ -8296,8 +8295,8 @@ npc = 75 3 lass right 4 fight|Lass Crissy|Paras 31, Paras 31, Parasect 31|I came
 item = 67 5 TM172 Roar 1
 unless = gone:FLAG_HIDE_ROUTE4_TM05
 npc = 15 14 boy wander 0 talk|Oh, wow, that's the Boulderbadge! You got it from Brock, didn't you?|Brock is cool. He's not just tough. People like and respect him.|I want to become a Gym Leader like him.
-npc = 47 3 black_belt right 0 talk|A punch of roaring ferocity!|Packed with destructive power!|When the chips are down, Mega Punch is the ultimate attack! You agree, yes?|Now! Let me teach it to your Pokemon!
-npc = 50 3 black_belt left 0 talk|A kick of brutal ferocity!|Packed with destructive power!|When you get right down to it, Mega Kick is the ultimate attack! Don't you agree?|Okay! I'll teach it to your Pokemon!
+npc = 47 3 black_belt right 0 tutor|Mega Punch|A punch of roaring ferocity!|Packed with destructive power!|When the chips are down, Mega Punch is the ultimate attack! You agree, yes?|Now! Let me teach it to your Pokemon!
+npc = 50 3 black_belt left 0 tutor|Mega Kick|A kick of brutal ferocity!|Packed with destructive power!|When you get right down to it, Mega Kick is the ultimate attack! Don't you agree?|Okay! I'll teach it to your Pokemon!
 grid:
 ############################################################################################################
 ##########.....#############################################################################################
@@ -10478,9 +10477,9 @@ door = 5 9 warp|Seven Island Poke Mart|4|7|up
 door = 12 3 warp|Seven Island Pokemon Center|7|8|up
 door = 16 14 warp|Seven Island Harbor|8|2|up
 sign = 17 9 Seven Island|Quest Island of Infinity
-npc = 7 18 cooltrainer_m left 0 talk|Not many people come out here.|If I train here, I'm convinced that I'll get stronger and stronger.|Yep, stronger and stronger...|How would you like to learn a move like that? It's Swords Dance.
 npc = 9 7 old_woman down 0 talk|These islands are called the Sevii Islands because there are seven.|...Or at least that's what the young people believe.|The truth is, these islands are so named because they are said to have been made in seven days.
 npc = 15 5 scientist wander 0 talk|This island has been left virtually untouched in its natural state.|It could be a little difficult to hike around because of that.
+npc = 7 18 cooltrainer_m left 0 tutor|Swords Dance|Not many people come out here.|If I train here, I'm convinced that I'll get stronger and stronger.|Yep, stronger and stronger...|How would you like to learn a move like that? It's Swords Dance.
 grid:
 #######...##############
 #######...##############
@@ -11272,7 +11271,7 @@ npc = 20 14 rocket_m down 3 fight|Team Rocket Grunt|Cubone 29, Zubat 29|No kids 
 unless = gone:FLAG_HIDE_SILPH_ROCKETS
 npc = 5 19 scientist down 1 fight|Scientist Connor|Grimer 26, Weezing 26, Koffing 26, Weezing 26|Help! I'm a Silph employee.|I work for both Silph and Team Rocket.
 unless = gone:FLAG_HIDE_SILPH_ROCKETS
-npc = 10 4 woman_2 up 0 talk|...
+npc = 10 4 woman_2 up 0 tutor|Thunder Wave|Eeek! No! Stop! Help!|Oh, you're not with Team Rocket. I'm sorry, I thought...|Will you forgive me if I teach you the Thunder Wave technique?
 grid:
 ####################################
 ####################################
@@ -12276,8 +12275,7 @@ npc = 7 21 little_girl down 1 fight|Twins Miu & Mia|Pikachu 50, Pikachu 50|Mia: 
 npc = 11 76 hiker up 4 fight|Hiker Earl|Onix 49, Machoke 49|Tell me, where are the mountains around these parts?|Aren't there any mountains around these parts?
 item = 17 19 Elixir 1
 unless = gone:FLAG_HIDE_SIX_ISLAND_WATER_PATH_ELIXIR
-item = 17 87 Linking Cord 1
-unless = gone:FLAG_HIDE_SIX_ISLAND_WATER_PATH_DRAGON_SCALE
+item = 17 87 Dragon Scale 1
 grid:
 wwwwwwwwwwwwww##wwwwwwww
 w##www##wwwwww##wwwww##w
@@ -13385,7 +13383,7 @@ objects = sprites
 indoor = yes
 wild = 
 door = 4 8 warp|Cape Brink|12|16|down
-npc = 4 4 channeler down 0 talk|After I passed on my knowledge to you, I felt so much relief.|In fact, I feel rejuvenated, as if I were younger again!
+npc = 4 4 channeler down 0 tutorpick|Frenzy Plant,Blast Burn,Hydro Cannon|I have devoted my life to the ultimate moves of the three kinds - grass, fire and water.|I will teach one to a Pokemon worthy of it.|(Only the final forms of the starter Pokemon can learn these.)
 grid:
 ###########
 ###########
@@ -13428,7 +13426,7 @@ objects = sprites
 indoor = yes
 wild = 
 door = 4 8 warp|Two Island|33|9|down
-npc = 7 5 fat_man down 0 talk|If your Pokemon need to learn a move, I need a Mushroom or two.
+npc = 7 5 fat_man down 0 relearner|I'm the Move Relearner. I can make Pokemon remember moves they've forgotten.|(In the old days I'd ask for a Tiny Mushroom or a Big Mushroom.)
 grid:
 ###########
 ###########
@@ -14048,7 +14046,7 @@ item = 25 13 Full Heal 1
 unless = gone:FLAG_HIDE_VICTORY_ROAD_2F_FULL_HEAL
 item = 14 13 TM051 Sandstorm 1
 unless = gone:FLAG_HIDE_VICTORY_ROAD_2F_TM37
-npc = 40 9 cooltrainer_m down 0 talk|You should be proud of yourself, having battled your way through Victory Road so courageously.|In recognition of your feat, I'll teach you Double-Edge.|Would you like me to teach that technique?
+npc = 40 9 cooltrainer_m down 0 tutor|Double-Edge|You should be proud of yourself, having battled your way through Victory Road so courageously.|In recognition of your feat, I'll teach you Double-edge.|Would you like me to teach that technique?
 grid:
 ##########################################ccccccccc
 #######################cccccccccccccccccc##cccccccc
@@ -14139,7 +14137,6 @@ sign = 32 10 Viridian City Pokemon Gym
 sign = 20 31 Trainer Tips|The battle moves of Pokemon are limited by their Power Points, PP.|To replenish PP, rest your tired Pokemon at a Pokemon Center.
 sign = 20 16 Viridian City|The Eternally Green Paradise
 sign = 36 10 Viridian Gym's doors are locked...
-npc = 8 26 fat_man down 0 talk|...
 npc = 34 11 old_man_1 up 0 talk|Viridian Gym's Leader returned!
 npc = 20 12 woman_3 up 0 talk|Oh, Grandpa! Don't be so mean!|I'm so sorry. He hasn't had his coffee yet.
 npc = 33 26 youngster wander 0 talk|You want to know about the two kinds of caterpillar Pokemon?
@@ -14148,6 +14145,7 @@ item = 17 5 Potion 1
 unless = gone:FLAG_HIDE_VIRIDIAN_CITY_POTION
 block = 22 11 parcel_done|Old man: You can't go through here!/This is private property!|Girl: Oh, Grandpa! Don't be so mean! He hasn't had his coffee yet.
 block = 36 11 badge:Boulder&badge:Cascade&badge:Thunder&badge:Rainbow&badge:Soul&badge:Marsh&badge:Volcano|Viridian Gym's doors are locked...
+npc = 8 26 fat_man down 0 tutor|Dream Eater|Yawn! I must have dozed off in the sun.|I had this weird dream about a Drowzee eating my dream.|And... I learned how to eat dreams...|Oogh, this is too spooky!|Let me teach it to a Pokemon so I can forget about it!
 grid:
 ###################.....########################
 ###################....#########################

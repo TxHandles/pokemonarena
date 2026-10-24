@@ -68,7 +68,7 @@ std::string RestoreEmbeddedFiles() {
     int restored = 0, failed = 0;
     // Data updates: files this game version changed are refreshed once (the old copy is kept
     // next to it as .old). Everything else is only written when it's missing, so your edits stay.
-    const int DATA_VERSION = 36;
+    const int DATA_VERSION = 37;
     struct Upd { const char* path; int version; };
     static const Upd kUpdated[] = {
         {"Pokemon/Bulbasaur/pokemon.txt", 2}, {"Pokemon/Pikachu/pokemon.txt", 2},
@@ -122,6 +122,9 @@ std::string RestoreEmbeddedFiles() {
         {"wild.txt", 36}, {"World/world.txt", 36}, {"World/johto.txt", 36}, {"World/hoenn.txt", 36},   // the Trick House, Trainer Tower, Battle
         {"World/patches.txt", 36}, {"World/patches_johto.txt", 36}, {"World/patches_hoenn.txt", 36},     // Tents, Headbutt trees, Terra / Marine Cave,
                                                                                                         // the ticket islands, Voltorb Flip
+        {"wild.txt", 37}, {"World/world.txt", 37}, {"World/johto.txt", 37}, {"World/hoenn.txt", 37},   // move tutors, Move Deleters and
+        {"World/patches.txt", 37}, {"World/patches_johto.txt", 37}, {"World/patches_hoenn.txt", 37},     // Relearners, the Trainer Hill, Shoal
+        {"World/chars.png", 37}, {"World/chars.txt", 37},                                               // Cave's tides, Mirage Island, rotating tiles
     };
     std::string verPath = base + "data_version.txt";
     int have = 1;

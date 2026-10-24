@@ -23,7 +23,7 @@ MAPS = os.path.join(ROOT, "data/maps")
 # Not walked: link rooms, Secret Bases, event islands, the Contest stage (the Contest is a screen of its own),
 # the Battle Frontier's battle rooms (its facilities run from their lobbies) and Ruby/Sapphire leftovers.
 SKIP = re.compile(r"^(BattleColosseum|RecordCorner|TradeCenter|UnionRoom|LinkContestRoom|SecretBase|InsideOfTruck|"
-                  r"ContestHall|TrainerHill|AlteringCave|"
+                  r"ContestHall|AlteringCave|"
                   r"BattlePyramidSquare|SSTidalLowerDeck|SSTidalRooms|"
                   r"BattleFrontier_(BattlePike(Room|Corridor|ThreePathRoom)|BattlePyramid(Floor|Top)|BattleArenaBattleRoom|"
                   r"BattleDome(BattleRoom|PreBattleRoom|Corridor)|BattlePalace(BattleRoom|Corridor)|BattleFactory(PreBattleRoom|BattleRoom)|"
@@ -305,7 +305,7 @@ MON_GFX = {"WINGULL": "Wingull", "KECLEON": "Kecleon", "POOCHYENA": "Poochyena",
 LEGENDS = {"Rayquaza", "Kyogre", "Groudon", "Regirock", "Regice", "Registeel"}
 SKIP_GFX = {"OBJ_EVENT_GFX_TRUCK", "OBJ_EVENT_GFX_MOVING_BOX", "OBJ_EVENT_GFX_SS_TIDAL", "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
             "OBJ_EVENT_GFX_CABLE_CAR", "OBJ_EVENT_GFX_SUBMARINE_SHADOW", "OBJ_EVENT_GFX_KECLEON_BRIDGE_SHADOW",
-            "OBJ_EVENT_GFX_FOSSIL", "OBJ_EVENT_GFX_TRICK_HOUSE_STATUE", "OBJ_EVENT_GFX_DEOXYS_TRIANGLE",
+            "OBJ_EVENT_GFX_FOSSIL", "OBJ_EVENT_GFX_DEOXYS_TRIANGLE",
             "OBJ_EVENT_GFX_BIRCHS_BAG", "OBJ_EVENT_GFX_BERRY_TREE", "0",
             "OBJ_EVENT_GFX_TREECKO_DOLL", "OBJ_EVENT_GFX_TORCHIC_DOLL", "OBJ_EVENT_GFX_MUDKIP_DOLL", "OBJ_EVENT_GFX_SWABLU_DOLL",
             "OBJ_EVENT_GFX_SKITTY_DOLL", "OBJ_EVENT_GFX_PIKACHU_DOLL", "OBJ_EVENT_GFX_PICHU_DOLL"}
@@ -507,14 +507,18 @@ def main():
             j = json.load(open(p))
             j["folder"] = d
             maps[j["id"]] = j
+    import emerald_trainer_hill
+    emerald_trainer_hill.expand(ROOT, maps, lays)   # the Trainer Hill's floors: one map for each of its four modes
     by_folder = {j["folder"]: mid for mid, j in maps.items()}
-    names = {mid: pretty(j["folder"]) for mid, j in maps.items()}
+    names = {mid: j.get("_name") or pretty(j["folder"]) for mid, j in maps.items()}
     dup = {}
     for mid, n in names.items():
         dup.setdefault(n, []).append(mid)
     for n, ids in dup.items():
         if len(ids) > 1:
             for mid in ids:
+                if maps[mid].get("_name"):
+                    continue
                 names[mid] = words(maps[mid]["folder"].replace("_", " "))
     taken = existing_names()
     for mid in names:   # Kanto and Johto have a Victory Road 1F and a Safari Zone North too
@@ -677,6 +681,10 @@ def main():
                         L.append(f"item = {x} {y} {item_name(m.group(1))} {m.group(2) or 1}")
                         L += cond
                         break
+                continue
+            if gfx == "OBJ_EVENT_GFX_TRICK_HOUSE_STATUE":   # a statue (in the way; Mossdeep Gym's and the Trick House's rotating tiles move them)
+                L.append(f"npc = {x} {y} em_statue down 0 statue")
+                L += cond
                 continue
             if gfx in SKIP_GFX or short.startswith("VAR_"):
                 continue

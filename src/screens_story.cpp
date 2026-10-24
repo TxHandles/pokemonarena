@@ -1370,7 +1370,7 @@ void DrawStoryHub(const Game& g) {
     int hurt = 0;
     for (const auto& m : p.mons) hurt += (!m.boxed && m.hp < 0.999f) ? 1 : 0;
     int dexCaught = 0;
-    for (const auto& sp : AllSpecies()) if (sp.dex > 0 && sp.custom && DexHasCaught(p, sp.name)) dexCaught++;
+    for (const auto& sp : AllSpecies()) if (sp.dex > 0 && sp.custom && sp.formOf.empty() && DexHasCaught(p, sp.name)) dexCaught++;
     RaidInfo raid = RaidOfDay(RaidToday());
     bool raidDone = p.raidDay == RaidToday();
     std::string raidLabel = raid.species < 0 ? std::string("Daily Raid") : (raidDone ? "Daily Raid: done - back tomorrow" : "Daily Raid: " + AllSpecies()[raid.species].name + (raid.shiny ? " (shiny!)" : ""));
@@ -2200,6 +2200,13 @@ void UpdateMyCreatures(Game& g) {
                 Toast(g, TextFormat("%s turned friendly! Its base %s fell. (%d EVs)", MonName(m).c_str(), kWhat[k], m.ev[k]));
                 SaveOrWarn(g);
                 PlaySfx(Sfx::Buff);
+                return;
+            }
+            if (d->value > 0 && d->name == "Sacred Ash") {   // the whole party
+                for (auto& o : p.mons) if (!o.boxed && o.hp <= 0) o.hp = 1.0f;
+                Toast(g, "Your Pokemon were all revived!");
+                SaveOrWarn(g);
+                PlaySfx(Sfx::Heal);
                 return;
             }
             if (d->value > 0) {
@@ -5866,3 +5873,5 @@ void StartCoopTrainingBattle(Game& g) {
     }
     BeginTeamSelect(g);
 }
+
+bool MonCanLearnTM(const OwnedMon& m, const std::string& move) { return CanLearnTM(m, move); }   // (the move tutors, overworld.cpp)

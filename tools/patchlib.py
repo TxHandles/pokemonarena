@@ -4,7 +4,7 @@
     story Youngster Calvin = Route 103      a route trainer who is a story battle
     stage x y Story stage|before|after|sprite|sight   the person standing there fights that story battle
     at x y: line                            a line after the person standing there (if = ..., need = ...)
-    drop npc|sign|door|item|spot|block x y  removes it
+    drop npc|sign|door|item|spot|block|berry x y  removes it
     set key = value                         replaces a map key
     tile x y C                              changes one grid square
     anything else                           is added to the map as it is
@@ -37,7 +37,7 @@ def apply_patches(text, patch):
                 sto = re.match(r"story (.+?) = (.+)$", e)
                 stg = re.match(r"stage (\d+) (\d+) ([^|]+?)\s*(?:\|(.*))?$", e)
                 at = re.match(r"at (\d+) (\d+): (.+)$", e)
-                d = re.match(r"drop (npc|sign|door|item|spot|block) (\d+) (\d+)$", e)
+                d = re.match(r"drop (npc|sign|door|item|spot|block|berry) (\d+) (\d+)$", e)
                 st = re.match(r"set (\w+) = (.*)$", e)
                 tl = re.match(r"tile (\d+) (\d+) (\S)$", e)
                 if sto:

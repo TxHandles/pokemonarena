@@ -67,6 +67,8 @@ struct SpeciesDef {
     bool custom = false;   // defined or changed by a creatures/ folder
     // Mega Evolution: this is the Mega form of megaOf, reached in battle by holding megaStone (pokemon.txt mega_of / mega_stone)
     std::string megaOf, megaStone;
+    // A cosmetic form (pokemon.txt form_of = Unown): Unown's letters. One Pokedex entry - the base's - for all of them.
+    std::string formOf;
 };
 
 // All playable creatures: the built-ins, then anything added from the creatures/ folder.
@@ -91,6 +93,9 @@ bool IsBaseForm(int speciesIndex);            // nothing evolves into it
 bool CanEvolve(int speciesIndex);             // by level, stone or friendship
 int BaseFormOf(int speciesIndex);             // first stage of its line
 bool IsMegaForm(int speciesIndex);           // a Mega Evolution (only reached in battle)
+int RandomFormOf(int speciesIndex);          // a wild one: the species or one of its cosmetic forms (Unown's letters), at random
+const std::vector<int>& FormsOf(int speciesIndex);   // its cosmetic forms (form_of)
+int FormBase(int speciesIndex);              // a cosmetic form's species (itself if it isn't one)
 int MegaFormFor(int speciesIndex, const std::string& item);   // the Mega form this species reaches holding this item (-1 none)
 std::vector<int> MegaFormsOf(int speciesIndex);   // its Mega forms (the Dex page shows them)
 bool InSpeciesPool(int speciesIndex);         // can show up as an opponent / reward / free-play pick

@@ -11652,11 +11652,11 @@ indoor = yes
 door = 3 7 warp|Blackthorn City|18|49|down
 door = 4 8 warp|Blackthorn City|18|49|down
 door = 5 7 warp|Blackthorn City|18|49|down
-npc = 4 5 gentleman right 0 talk|Um... Who did you say I was again?|... ...|Oh, yes, I remember now! I'm the Move Deleter!|You've come to make me force your Pokemon to forget some moves?
-npc = 7 2 fat_man down 0 talk|Ha! That's it! That's an honest-to- goodness Heart Scale!|Let me guess, you want me to teach one of your Pokemon a move?|Which Pokemon needs tutoring?|Which move should I make it remember?
 npc = 9 4 old_man_1 down 0 talk|Your quest for power has brought you here...|Very well.|Let me reward your passion with some absolutely astounding moves.|They're the ultimate moves!|Shall I teach them to your Pokemon?|Hmm... Well, that is fine, as well. Visit if you have a change of heart.
 npc = 8 4 old_woman down 0 talk|Hohoho... They call me Grandma Wilma.|I sense a slight talent as a Dragon Tamer in you.|Would you like me to teach a move to one of your Pokemon?|I see... I like your sense of adventure.|However, none of the Pokemon with you now can learn the move.
 npc = 1 5 man down 0 talk|To the Pokemon listed here, the ultimate moves may be taught!|The blazing Fire-type Pokemon CHARIZARD TYPHLOSION|BLAZIKEN INFERNAPE|The restless Water-type Pokemon BLASTOISE FERALIGATR|SWAMPERT EMPOLEON|The quiet Grass-type Pokemon VENUSAUR MEGANIUM|SCEPTILE TORTERRA
+npc = 4 5 gentleman right 0 deleter
+npc = 7 2 fat_man down 0 relearner|Ha! I'm the Move Relearner. Let me guess, you want me to teach one of your Pokemon a move?
 grid:
 ###########
 ###########

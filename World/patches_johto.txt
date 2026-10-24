@@ -413,3 +413,10 @@ spot = 18 8 voltorbflip
 spot = 18 9 voltorbflip
 spot = 18 10 voltorbflip
 spot = 18 11 voltorbflip
+
+# ------------------------------------------------------------------ move tutors, Move Deleters, Move Relearners (tools/move_tutors.py)
+[patch Blackthorn City Move Tutor House]
+drop npc 4 5
+npc = 4 5 gentleman right 0 deleter
+drop npc 7 2
+npc = 7 2 fat_man down 0 relearner|Ha! I'm the Move Relearner. Let me guess, you want me to teach one of your Pokemon a move?

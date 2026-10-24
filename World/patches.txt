@@ -830,3 +830,63 @@ drop sign 17 8
 spot = 17 8 slots
 drop sign 17 9
 spot = 17 9 slots
+
+# ------------------------------------------------------------------ move tutors, Move Deleters, Move Relearners (tools/move_tutors.py)
+[patch Celadon City]
+drop npc 26 19
+npc = 26 19 old_man_2 down 0 tutor|Soft-Boiled|Hello, there!|I've seen you about, but I never had a chance to chat.|It must be good luck that brought us together finally.|I'd like to celebrate by teaching you the move Softboiled.
+[patch Celadon City Department Store 3F]
+drop npc 10 9
+npc = 10 9 clerk up 0 tutor|Counter|Oh, hi! I finally finished Pokemon.|Not done yet? How about I teach you a good move?|The move I have in mind is Counter.|Not like the one I'm leaning on, mind you!
+[patch Cinnabar Island Pokemon Lab Research Room]
+drop npc 5 4
+npc = 5 4 poke_maniac wander 0 tutor|Metronome|Tch-tch-tch! I'll teach you a nifty move.|Teach it to a Pokemon, and watch the fun unfold!|It's a move called Metronome. Does it strike your fancy?
+[patch Four Island House 1]
+drop npc 8 3
+npc = 8 3 fat_man right 0 tutor|Body Slam|Ready? Boing!|We're having a Body Slam match to see who wimps out first.|If you were to join us, you'd be squashed like a bug, though...|How about I teach Body Slam to a Pokemon of yours instead?
+[patch Fuchsia City]
+drop npc 15 11
+npc = 15 11 bug_catcher up 0 tutor|Substitute|Aww, I wish I was a Kangaskhan baby.|I'd love to be a substitute for the baby...|And snuggle in the mother Kangaskhan's belly pouch.|But only Pokemon can use the technique Substitute...|Want me to teach Substitute to one of your Pokemon?
+[patch Fuchsia City House 3]
+drop npc 4 4
+npc = 4 4 balding_man right 0 deleter
+[patch Mt. Ember Exterior]
+drop npc 29 45
+npc = 29 45 hiker up 0 tutor|Explosion|Can you imagine? If this volcano were to erupt?|The explosion would be the end of us. How terrifying is that?|While we're terrified, would you like me to teach Explosion?
+[patch Pewter City Museum 1F]
+drop npc 26 7
+npc = 26 7 scientist right 0 tutor|Seismic Toss|The secrets of space... The mysteries of earth...|There are so many things about which we know so little.|But that should spur us to study harder, not toss in the towel.|The only thing you should toss...|Well, how about Seismic Toss? Should I teach that to a Pokemon?
+[patch Rock Tunnel B1F]
+drop npc 2 29
+npc = 2 29 youngster right 0 tutor|Rock Slide|When you're up on a rocky mountain like this, rockslides are a threat.|Can you imagine? Boulders tumbling down on you?|That'd be, like, waaaaaaaaaaah! Total terror!|You don't seem to be scared. Want to try using Rock Slide?
+[patch Route 4]
+drop npc 47 3
+npc = 47 3 black_belt right 0 tutor|Mega Punch|A punch of roaring ferocity!|Packed with destructive power!|When the chips are down, Mega Punch is the ultimate attack! You agree, yes?|Now! Let me teach it to your Pokemon!
+drop npc 50 3
+npc = 50 3 black_belt left 0 tutor|Mega Kick|A kick of brutal ferocity!|Packed with destructive power!|When you get right down to it, Mega Kick is the ultimate attack! Don't you agree?|Okay! I'll teach it to your Pokemon!
+[patch Seven Island]
+drop npc 7 18
+npc = 7 18 cooltrainer_m left 0 tutor|Swords Dance|Not many people come out here.|If I train here, I'm convinced that I'll get stronger and stronger.|Yep, stronger and stronger...|How would you like to learn a move like that? It's Swords Dance.
+[patch Silph Co 2F]
+drop npc 10 4
+npc = 10 4 woman_2 up 0 tutor|Thunder Wave|Eeek! No! Stop! Help!|Oh, you're not with Team Rocket. I'm sorry, I thought...|Will you forgive me if I teach you the Thunder Wave technique?
+[patch Cape Brink House]
+drop npc 4 4
+npc = 4 4 channeler down 0 tutorpick|Frenzy Plant,Blast Burn,Hydro Cannon|I have devoted my life to the ultimate moves of the three kinds - grass, fire and water.|I will teach one to a Pokemon worthy of it.|(Only the final forms of the starter Pokemon can learn these.)
+[patch Two Island House]
+drop npc 7 5
+npc = 7 5 fat_man down 0 relearner|I'm the Move Relearner. I can make Pokemon remember moves they've forgotten.|(In the old days I'd ask for a Tiny Mushroom or a Big Mushroom.)
+[patch Victory Road 2F]
+drop npc 40 9
+npc = 40 9 cooltrainer_m down 0 tutor|Double-Edge|You should be proud of yourself, having battled your way through Victory Road so courageously.|In recognition of your feat, I'll teach you Double-edge.|Would you like me to teach that technique?
+[patch Viridian City]
+drop npc 8 26
+npc = 8 26 fat_man down 0 tutor|Dream Eater|Yawn! I must have dozed off in the sun.|I had this weird dream about a Drowzee eating my dream.|And... I learned how to eat dreams...|Oogh, this is too spooky!|Let me teach it to a Pokemon so I can forget about it!
+
+# ---- the trade-evolution items (Up-Grade, Dragon Scale), once stand-in Linking Cords
+[patch Rocket Warehouse]
+drop item 4 5
+item = 4 5 Up-Grade 1
+[patch Water Path]
+drop item 17 87
+item = 17 87 Dragon Scale 1

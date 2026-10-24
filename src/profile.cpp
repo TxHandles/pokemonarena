@@ -411,9 +411,19 @@ void DexSee(Profile& p, const std::string& species) { if (!species.empty()) p.de
 bool DexHasCaught(const Profile& p, const std::string& species) {
     if (p.dexCaught.count(species)) return true;
     for (const auto& m : p.mons) if (m.species == species) return true;
+    for (int f : FormsOf(SpeciesIndex(species))) if (DexHasCaught(p, AllSpecies()[f].name)) return true;   // (any of Unown's letters)
     return false;
 }
-bool DexHasSeen(const Profile& p, const std::string& species) { return p.dexSeen.count(species) || DexHasCaught(p, species); }
+bool DexHasSeen(const Profile& p, const std::string& species) {
+    if (p.dexSeen.count(species) || DexHasCaught(p, species)) return true;
+    for (int f : FormsOf(SpeciesIndex(species))) if (p.dexSeen.count(AllSpecies()[f].name)) return true;
+    return false;
+}
+int DexCaughtCount(const Profile& p) {   // Pokedex entries caught (Unown's letters are one)
+    int n = 0;
+    for (int i = 0; i < (int)AllSpecies().size(); i++) if (AllSpecies()[i].dex > 0 && InSpeciesPool(i) && DexHasCaught(p, AllSpecies()[i].name)) n++;
+    return n;
+}
 void DexRegisterOwned(Profile& p) {
     for (const auto& m : p.mons) { p.dexCaught.insert(m.species); p.dexSeen.insert(m.species); }
 }
