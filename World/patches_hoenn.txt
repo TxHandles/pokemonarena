@@ -2110,3 +2110,58 @@ step = 8 19 rtile|0
 step = 0 14 rtile|1
 step = 6 6 rtile|2
 step = 9 7 rtile|3
+
+# ------------------------------------------------------------------ in-game trades (tools/ingame_trades.py)
+[patch Battle Frontier Lounge 6]
+drop npc 2 4
+npc = 2 4 em_beauty right 0 trade|MEOWTH
+[patch Fortree City House 1]
+drop npc 1 3
+npc = 1 3 em_ninja_boy right 0 trade|PLUSLE
+[patch Pacifidlog Town House 3]
+drop npc 4 2
+npc = 4 2 em_man_3 right 0 trade|HORSEA
+[patch Rustboro City House 1]
+drop npc 6 4
+npc = 6 4 em_camper left 0 trade|SEEDOT
+
+# ------------------------------------------------------------------ gift Pokemon and Kecleon (Emerald's: the Lavaridge Egg; the invisible Kecleon need the Devon Scope)
+[patch Lavaridge Town]
+drop npc 4 7
+npc = 4 7 em_expert_f down 0 giftegg|Wynaut|lavaridgeegg|I have here an Egg. I'd hoped to hatch it by covering it in hot sand by the hot springs./But that doesn't seem to be enough... I've heard it would be best if it were kept together with Pokemon and carried about./You are a Trainer, yes? Please take this Egg.|Good! I hope you'll walk plenty with this here Egg!
+[patch Fortree City]
+drop npc 25 8
+npc = 25 8 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:fortree|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
+[patch Route 119]
+drop npc 31 6
+npc = 31 6 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:r119a|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
+drop npc 25 15
+npc = 25 15 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:r119b|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
+[patch Route 120]
+drop npc 20 11
+npc = 20 11 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:r120a|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
+drop npc 27 2
+npc = 27 2 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:r120b|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
+drop npc 4 77
+npc = 4 77 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:r120c|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
+drop npc 7 51
+npc = 7 51 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:r120d|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
+drop npc 19 48
+npc = 19 48 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:r120e|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
+
+# ---- the Lottery Corner (overworld.cpp "lottery")
+[patch Lilycove City Department Store 1F]
+drop npc 10 2
+npc = 10 2 em_beauty down 0 lottery|lilycove
+
+# ------------------------------------------------------------------ Emerald's town extras (overworld.cpp): Mauville's old man, the Lilycove Lady, Dewford's trend, the Glass Workshop
+[patch Mauville City Pokemon Center]
+npc = 2 3 em_old_man down 0 mauvilleman
+[patch Lilycove City Pokemon Center]
+npc = 1 3 em_woman_4 down 0 lilycovelady
+[patch Dewford Town]
+drop npc 1 6
+npc = 1 6 em_boy_1 down 0 trendy
+[patch Route 113 Glass Workshop]
+drop npc 2 3
+npc = 2 3 em_man_1 down 0 glassworks

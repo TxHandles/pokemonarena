@@ -420,3 +420,55 @@ drop npc 4 5
 npc = 4 5 gentleman right 0 deleter
 drop npc 7 2
 npc = 7 2 fat_man down 0 relearner|Ha! I'm the Move Relearner. Let me guess, you want me to teach one of your Pokemon a move?
+
+# ------------------------------------------------------------------ in-game trades (tools/ingame_trades.py)
+[patch Blackthorn City East House]
+drop npc 1 2
+npc = 1 2 lass up 0 trade|DORIS
+[patch Goldenrod Dept. Store 5F]
+drop npc 13 5
+npc = 13 5 fat_man wander 0 trade|MUSCLE
+[patch Olivine City North House]
+drop npc 5 2
+npc = 5 2 fisher down 0 trade|BILLY
+[patch Violet City Bellsprout Onyx Trade House]
+drop npc 7 2
+npc = 7 2 boy wander 0 trade|ROCKY
+
+# ------------------------------------------------------------------ gift Pokemon (HeartGold's: the Egg from Elm's aide, Bill's Eevee, Kirk's Shuckie, Randy's Kenya, the Karate King's Tyrogue, the Dragon Shrine's Dratini, Union Cave's Friday Lapras)
+[patch Violet City Poke Mart]
+drop npc 1 5
+npc = 1 5 scientist down 0 giftegg|Togepi|elmegg|Long time no see, {PLAYER}. I've been waiting for you./This is from Professor Elm./The thing is... we would like you to take care of an Egg!|Pokemon Eggs hatch as you walk. Professor Elm wants to see what hatches!
+[patch Goldenrod City Bill's House]
+drop npc 6 5
+npc = 6 5 man right 0 giftmon|Eevee|5|billeevee|Bill: Hi, {PLAYER}! Would you do something for me and take this Eevee?/It came over when I was adjusting the PC system./Someone has to take care of it, but I don't like being outside.|Bill: How is the Eevee doing? It evolves in all sorts of ways, you know!
+[patch Cianwood City Kirk's House]
+drop npc 4 4
+npc = 4 4 man down 0 shuckie
+[patch Route 35 Goldenrod Gate]
+npc = 1 8 man right 0 kenya
+[patch Route 31]
+drop npc 28 15
+npc = 28 15 fat_man down 0 kenyamail
+[patch Mt. Mortar B1F]
+drop npc 41 18
+npc = 41 18 black_belt down 3 fight|Black Belt Kiyo|Hitmonlee 34, Hitmonchan 34|Hey! I am the Karate King! I train alone here in the cave! You! Battle with me! Hwaaarggh!|I... I'm crushed... My training is still not enough...|kiyo:beat
+npc = 41 18 black_belt down 0 giftmon|Tyrogue|10|kiyotyrogue|But a loss is a loss. I admit it./As proof that you defeated me, I'll give you a rare fighting Pokemon.|Tyrogue evolves depending on its stats. Raise it well!
+if = kiyo:beat
+[patch Dragon Shrine]
+drop npc 5 1
+npc = 5 1 hg_sage down 0 giftmon|Dratini|15|shrinedratini|Clair appears to have learned an invaluable lesson from you./I thank you as her grandfather./You have shown us the heart of a true dragon tamer. Please, take this Dratini.|It's a rare Pokemon, prized by our clan. Raise it with care.
+if = badge:Rising
+[patch Union Cave B2F]
+npc = 18 88 mon:Lapras down 0 encounter|Lapras|20|unionlapras|A Lapras is resting at the water's edge...!
+if = weekday:5
+
+# ---- Buena's Password (the Pokegear radio's Variety channel; overworld.cpp "buena")
+[patch Radio Tower 2F]
+drop npc 14 5
+npc = 14 5 beauty right 0 buena
+
+# ---- the Lottery Corners (overworld.cpp "lottery": a real-world week's number against your Pokemon's IDs)
+[patch Radio Tower 1F]
+drop npc 8 6
+npc = 8 6 gentleman up 0 lottery|goldenrod

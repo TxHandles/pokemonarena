@@ -1,0 +1,23 @@
+# The Lilycove Lady (made by tools/emerald_lilycove_lady.py from pret/pokeemerald's src/data/lilycove_lady.h).
+quiz ~ Which Stores Information On Pokemon? ~ Camera ~ Pokedex ~ Pokenav ~ Pokedex ~ Rare Candy
+quiz ~ Which Isn't A Game Version? ~ Ruby ~ Sapphire ~ Dark ~ Dark ~ Rare Candy
+quiz ~ How Do Pokemon Evolve? ~ Level ~ Insomnia ~ Cute Charm ~ Level ~ Rare Candy
+quiz ~ Which Is The Pretty Item? ~ Cold ~ Flowers ~ Machine ~ Flowers ~ Max Ether
+quiz ~ Which Item Do You Break? ~ Egg ~ Mail ~ Phone ~ Egg ~ Max Ether
+quiz ~ Which Will Stop Confusion? ~ Illuminate ~ Own Tempo ~ Swift Swim ~ Own Tempo ~ Max Ether
+quiz ~ Which Of These Is Music? ~ Flying ~ Steel ~ Rock ~ Rock ~ Watmel Berry
+quiz ~ Which Will Block Escape? ~ Run Away ~ Shadow Tag ~ Wonder Guard ~ Shadow Tag ~ Belue Berry
+quiz ~ Which Will Stop Poison? ~ Guts ~ Immunity ~ Shed Skin ~ Immunity ~ Durin Berry
+quiz ~ Which Goes With Center? ~ Pokedex ~ Pokemon ~ Pokenav ~ Pokemon ~ Luxury Ball
+quiz ~ Which Stores Your Pokemon? ~ PC ~ Dept. Store ~ Television ~ PC ~ TM163 Hyper Beam
+quiz ~ Which Machine Gives You Information? ~ Bike ~ Locomotive ~ Television ~ Television ~ Big Pearl
+quiz ~ A Pokemon Was Once This? ~ Phone ~ Plush Doll ~ Letter ~ Plush Doll ~ Star Piece
+quiz ~ Steel Is Strong Versus Which? ~ Ice ~ Ground ~  ~ Ice ~ Rare Candy
+quiz ~ Dark Is Weak Versus Which? ~ Psychic ~ Fighting ~  ~ Fighting ~ Rare Candy
+quiz ~ Ghost Is Weak Versus Which? ~ Normal ~ Dark ~  ~ Dark ~ Premier Ball
+favor ~ slippery ~ Repel, Super Repel, Max Repel, Antidote, Paralyze Heal, Burn Heal, Belue Berry, Awakening, Ice Heal, Revive, Max Revive, Energy Powder ~ Luxury Ball
+favor ~ roundish ~ Pearl, Big Pearl, Smoke Ball, Shoal Shell, Tiny Mushroom, Big Mushroom, Pecha Berry, Aspear Berry, Oran Berry, Grepa Berry, Magost Berry, Watmel Berry, Poke Ball, Ultra Ball ~ Nugget
+favor ~ wham-ish ~ Revival Herb, Potion, Fresh Water, Soda Pop, Lemonade, Lava Cookie, Chesto Berry, Nanab Berry, Wepear Berry, Kelpsy Berry, Nomel Berry, Durin Berry ~ Protein
+favor ~ shiny ~ Heal Powder, X Speed, X Attack, Yellow Flute, Nugget, Sun Stone, Stardust, Star Piece, Pearl, Big Pearl, Bright Powder, Luxury Ball, Premier Ball ~ Heart Scale
+favor ~ sticky ~ Energy Root, Full Restore, Max Potion, Dire Hit, X Accuracy, Watmel Berry, Leftovers, Tiny Mushroom, Heart Scale ~ Rare Candy
+favor ~ pointy ~ Quick Claw, Tamato Berry, Durin Berry, Petaya Berry, Salac Berry, Stardust, Star Piece ~ PP Max

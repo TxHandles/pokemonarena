@@ -60,4 +60,9 @@ std::vector<CombatantSpec> MakeWildTeam(int n, int avgLevel);
 void SetWildMethod(const std::string& method);   // the overworld: "surf", "old-rod"... only that method's Pokemon ("" any)
 bool WildAreaHasMethod(const std::string& area, const std::string& method);
 int PickRareWild(const std::vector<std::string>& owned);    // -1 if the area has nothing
-bool WildAvailableNow(int species, int storyStage, int badges);   // catchable (not rare-only) somewhere already reached
+bool WildAvailableNow(int species, int storyStage, int badges);
+// HeartGold's radio and swarms (overworld.cpp): the next wild Pokemon is this species (-1: as the area has it);
+// a species from another region's wild areas (Hoenn / Sinnoh Sound); Unown letters you haven't seen come more often.
+void SetWildOverride(int species);
+int RandomRegionWild(int region);
+void SetWildUnseenForms(const std::vector<int>& forms);   // catchable (not rare-only) somewhere already reached

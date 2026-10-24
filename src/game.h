@@ -16,7 +16,7 @@ enum class Screen {
     RosterPick, Select, Battle, Results,
     StoryResults, Evolve, LearnMove, Reward, Catch, Heal, Map, Shop, DoublesMenu,
     CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame, Legends, LegendCatch, Bag,
-    RegionChoose, World, Creator, Nickname, Hatch, Daycare, Contest, Safari, UnownPuzzle, VoltorbFlip
+    RegionChoose, World, Creator, Nickname, Hatch, Daycare, Contest, Safari, UnownPuzzle, VoltorbFlip, NpcTrade, EasyChat
 };
 
 // Online ready kinds (what a player picked in the co-op hub): 1 story, 2 training, 3+N a rematch
@@ -452,6 +452,12 @@ void UpdateSafari(Game& g);          void DrawSafari(const Game& g);
 void OpenUnownPuzzle(Game& g, const std::string& kind);   // the Ruins of Alph's panels (screens_puzzle.cpp)
 void UpdateUnownPuzzle(Game& g);     void DrawUnownPuzzle(const Game& g);
 void AlphSolved(Game& g, const std::string& kind);        // (overworld.cpp) the floor gives way
+void OpenNpcTrade(Game& g, int giveSpecies, bool giveShiny, const std::string& giveName, int getSpecies, const std::string& getName, const std::string& who);   // (screens_npctrade.cpp)
+void UpdateNpcTrade(Game& g, float dt);  void DrawNpcTrade(const Game& g);
+// Emerald's Easy Chat word picker (screens_easychat.cpp): done, it runs "then|word+word...|ok" (or "|cancel") for walker who
+void OpenEasyChat(Game& g, int who, int slots, const std::string& title, const std::string& then, const std::vector<std::string>& start = {});
+void UpdateEasyChat(Game& g);  void DrawEasyChat(const Game& g);
+std::string EasyChatWordOf(const std::string& group, uint32_t seed);
 void OpenVoltorbFlip(Game& g);       // HeartGold's Goldenrod Game Corner (screens_voltorb.cpp)
 void UpdateVoltorbFlip(Game& g);     void DrawVoltorbFlip(const Game& g);
 void OpenSlotsFromWorld(Game& g);    // a slot machine on the map (screens_slots.cpp): back to the map after   // the Safari Zone / the Bug-Catching Contest

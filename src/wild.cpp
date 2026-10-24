@@ -286,6 +286,17 @@ void SetWildContext(int area, int storyStage, int badges) {
 bool WildActive() { return gCtxArea >= 0 && gCtxArea < (int)gAreas.size(); }
 int WildContextArea() { return gCtxArea; }
 
+int gWildOverride = -1;
+std::vector<int> gWildUnseen;
+void SetWildOverride(int species) { gWildOverride = species; }
+void SetWildUnseenForms(const std::vector<int>& forms) { gWildUnseen = forms; }
+int RandomRegionWild(int region) {
+    std::vector<int> v;
+    for (int a = 0; a < (int)gAreas.size(); a++)
+        if (AreaRegion(a) == region)
+            for (const auto& e : gAreas[a].mons) if (!e.rare && e.method == "walk" && e.species >= 0) v.push_back(e.species);
+    return v.empty() ? -1 : v[GetRandomValue(0, (int)v.size() - 1)];
+}
 std::vector<CombatantSpec> MakeWildTeam(int n, int avg) {
     std::vector<CombatantSpec> team;
     auto pool = Usable(gCtxArea, gCtxStage, gCtxBadges, false);
@@ -304,6 +315,9 @@ std::vector<CombatantSpec> MakeWildTeam(int n, int avg) {
         used.push_back(pick->species);
         CombatantSpec c;
         c.species = RandomFormOf(pick->species);   // as found in the games: no evolving to the team's level (Unown: any letter)
+        if (!gWildUnseen.empty() && !FormsOf(pick->species).empty() && GetRandomValue(0, 99) < 70)   // the Ruins' radio signal
+            c.species = gWildUnseen[GetRandomValue(0, (int)gWildUnseen.size() - 1)];
+        if (i == 0 && gWildOverride >= 0) c.species = gWildOverride;   // a swarm, Hoenn / Sinnoh Sound
         // Your first region: the levels its game has. Every region after it: up to your strongest Pokemon,
         // never below the game's own.
         (void)avg;
@@ -315,6 +329,8 @@ std::vector<CombatantSpec> MakeWildTeam(int n, int avg) {
         c.moves = MovesAtLevel(AllSpecies()[c.species], c.level);
         team.push_back(c);
     }
+    gWildOverride = -1;
+    gWildUnseen.clear();
     return team;
 }
 

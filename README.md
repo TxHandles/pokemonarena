@@ -430,6 +430,32 @@ night, the weather and every system from Kanto and Johto work the same here.
 - **Unown's letters**: A to Z, ! and ? (`tools/unown_forms.py`, pictures from Emerald's party icons). A wild Unown
   can be any of them; they're all the same one Pokedex entry.
 
+### Trades, gifts, the radio and town life
+
+- **In-game trades** (`tools/ingame_trades.py`, World/trades.txt): FireRed's nine (Abra for Mr. Mime on Route 2...),
+  HeartGold's four in Johto (Bellsprout for Onix in Violet City, Drowzee for Machop, Krabby for Voltorb, Dragonair for
+  Dodrio) and Emerald's four (Ralts for Seedot in Rustboro, Volbeat for Plusle, Bagon for Horsea, Skitty for Meowth).
+  Their Pokemon keep the games' nicknames and original trainers (a traded Pokemon can't be renamed), and a little
+  animation shows yours going over and theirs coming back. In co-op each of you can make each trade once.
+- **Gift Pokemon**: Silph Co.'s Lapras, Celadon's Eevee, the Dojo's Hitmonlee or Hitmonchan, the Magikarp salesman,
+  the Water Labyrinth's Togepi Egg; the Egg from Elm's aide, Bill's Eevee, Kirk's Shuckie (a loan he may let you keep),
+  Randy's Kenya (deliver the Mail on Route 31), the Karate King's Tyrogue, the Dragon Shrine's Dratini and Union
+  Cave's Lapras on Fridays; the Lavaridge Egg (Wynaut). The invisible Kecleon on Routes 119 and 120 need the Devon Scope.
+- **The Pokegear radio** (RADIO in the walking menu, in Johto): Prof. Oak's Pokemon Talk (and, after the League,
+  the day's swarm - Yanma on Route 35, Dunsparce in Dark Cave...), Pokemon Music (the March brings wild Pokemon out,
+  the Lullaby keeps them away), Hoenn and Sinnoh Sound (their Pokemon in Johto's grass), the Ruins' strange signal
+  (unseen Unown letters), and Buena's Password - tell her the day's word at the Radio Tower for Blue Card points.
+- **Lottery Corners**: Goldenrod's Lucky Number Show and Lilycove's Lottery draw a number each real week; your
+  Pokemon's ID numbers (traded ones have their trainers') can win a PP Up, Exp. All, Max Revive or Master Ball.
+- **Emerald's towns**: Mauville's old man (a different one each day: the Bard - write him new lyrics -, the Hipster,
+  the Trader, the Storyteller with tales of your journey, Giddy), the Lilycove Lady (a quiz, a favor or her Contest
+  Pokemon's Pokeblocks, a new one each week), Dewford's trendy saying (tell the boy something hipper; the whole Hall
+  talks about it), the Glass Workshop (ash from Route 113's grass in the Soot Sack becomes the five flutes) and the TVs
+  (Emerald's shows about your journey, and the day's mass outbreak - Seedot on Route 102...). The Easy Chat word
+  picker (Emerald's own words, `tools/emerald_easychat.py`) writes the lyrics, the trend and the quiz answers.
+- The trainer creator now offers whole trainers only (no mixing heads, outfits and colours); older mixed looks
+  become the trainer whose head they had.
+
 ### Kanto extras
 
 - The **Safari Zone** (Fuchsia City; Hoenn's is past Route 121): 500 coins for 30 Safari Balls and 600 steps. Wild

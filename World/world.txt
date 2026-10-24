@@ -335,6 +335,8 @@ sign = 4 1 Pokemon Lecture|Playing with the Wireless Adapter
 sign = 5 1 Pokemon Lecture|Playing with the Wireless Adapter
 sign = 4 4 It's a pamphlet on TMs.|... ...|There are fifty TMs in all.|There are also seven HMs that can be used repeatedly.|Silph Co.
 npc = 3 5 black_belt down 0 talk|There is nothing that I don't know, like I wrote on the blackboard.|I know about the world of Pokemon in your Game Boy Advance!|Get together with your friends and enjoy trading Pokemon!
+npc = 7 3 item_ball down 0 giftmon|Eevee|25|celadoneevee|It's a Poke Ball! There's a Pokemon inside...|(The Poke Ball is empty now.)
+unless = own:gift:celadoneevee
 grid:
 ##########
 ##########
@@ -1155,8 +1157,8 @@ wild =
 door = 3 7 warp|Cerulean City|15|17|down
 door = 4 8 warp|Cerulean City|15|17|down
 door = 5 7 warp|Cerulean City|15|17|down
-npc = 2 2 old_man_1 up 0 talk|The  that I traded you, has it grown stronger?
 npc = 7 5 old_woman left 0 talk|My husband likes trading Pokemon.|You're collecting Pokemon for your PokeDEX, aren't you?|Would you please trade with him?
+npc = 2 2 old_man_1 up 0 trade|JYNX
 grid:
 ###########
 ###########
@@ -1458,8 +1460,8 @@ objects = sprites
 indoor = yes
 wild = 
 door = 7 10 warp|Cinnabar Island Pokemon Lab Entrance|25|5|up
-npc = 11 8 boy up 0 talk|Isn't my old  great?
 npc = 12 3 scientist wander 0 talk|Aiyah! You come again!
+npc = 11 8 boy up 0 trade|SEEL
 grid:
 ###############
 ###############
@@ -1482,8 +1484,8 @@ indoor = yes
 wild = 
 door = 7 10 warp|Cinnabar Island Pokemon Lab Entrance|13|5|up
 npc = 5 3 scientist wander 0 talk|I found this most remarkable fossil inside Mt. Moon.|I think it's of a rare, prehistoric Pokemon.
-npc = 4 6 old_man_2 down 0 talk|The  that I traded you, has it grown stronger?
-npc = 10 5 woman_2 down 0 talk|How is my old ? My  is doing great!
+npc = 4 6 old_man_2 down 0 trade|ELECTRODE
+npc = 10 5 woman_2 down 0 trade|TANGELA
 grid:
 ###############
 ###############
@@ -2435,8 +2437,8 @@ objects = sprites
 wild = Water Labyrinth
 connect = north Resort Gorgeous -48
 connect = south Five Island -48
-npc = 14 11 gentleman down 0 talk|Oh, hello. That's a cute .|Seeing it reminds me of a sweet little girl I met while traveling.|She was gently grooming Pokemon... She was a little angel.|That little girl's name... I think it was Daisy.
 npc = 9 7 woman_2 wander 1 fight|Pkmn Breeder Alize|Pikachu 48, Clefairy 48, Marill 48|This is an excellent environment for raising Pokemon.|You know, I think you have the talent to be a good Breeder.
+npc = 14 11 gentleman down 0 giftegg|Togepi|waterlabegg|You travel all over the place, don't you? You're not driving your Pokemon too harshly, are you?/Let me take a look... Ah, hmm... I see, I see.../Your Pokemon adore you. Here, I'd like you to have this Egg - a sweet little girl gave it to me long ago.|Seeing your Pokemon reminds me of that sweet little girl I met while traveling.
 grid:
 wwwww##wwwwwwwwww##wwwwwww####wwwwwwwwwwww##wwwwwww##wwwwwwww##www##wwww
 w##ww##www##wwwww##wwwwwww####wwwwww##########wwww##wwwwwwwww##w####wwww
@@ -6443,8 +6445,8 @@ wild =
 door = 9 9 warp|Route 11 East Entrance 1F|9|10|up
 sign = 4 1 Let's see what the binoculars have to show...|What a breathtaking view!
 sign = 8 1 Let's see what the binoculars have to show...|To get to Lavender Town from Cerulean City...|Rock Tunnel appears to be a good route to take.
-npc = 7 3 youngster wander 0 talk|Isn't my old  great?
 npc = 2 6 scientist down 0 give|Hi! Remember me? I'm one of Prof. Oak's Aides./If your PokeDEX has complete data on  species, I'm supposed to give you a reward./Prof. Oak entrusted me with the  for you./So, {PLAYER}, let me ask you./Have you gathered data on at least  kinds of Pokemon?|Itemfinder|1|got:FLAG_GOT_ITEMFINDER|There are items on the ground that may be hidden from view./Use the Itemfinder to detect any hidden items close to you./The machine is a bit limited. It can't pinpoint item locations./What it does is show the direction where the item is./Use it to get your bearings, then search the suspect area by hand.
+npc = 7 3 youngster wander 0 trade|NIDORINOA
 grid:
 #############
 #############
@@ -7310,7 +7312,7 @@ wild =
 door = 9 9 warp|Route 18 East Entrance 1F|9|10|up
 sign = 4 1 Let's see what the binoculars have to show...|Pallet Town is in the west.
 sign = 8 1 Let's see what the binoculars have to show...|There are people swimming.
-npc = 5 3 boy left 0 talk|Isn't my old  great?
+npc = 5 3 boy left 0 trade|LICKITUNG
 grid:
 #############
 #############
@@ -8166,7 +8168,7 @@ door = 3 7 warp|Route 2|17|22|down
 door = 4 8 warp|Route 2|17|22|down
 door = 5 7 warp|Route 2|17|22|down
 npc = 4 5 scientist right 0 talk|A fainted Pokemon just has no energy left to battle.|It can still use moves like Cut outside of battle.
-npc = 7 2 gba_kid down 0 talk|Isn't my old  great?
+npc = 7 2 gba_kid down 0 trade|MR_MIME
 grid:
 ###########
 ###########
@@ -8330,10 +8332,10 @@ door = 6 8 warp|Route 4|12|5|down
 door = 7 9 warp|Route 4|12|5|down
 door = 8 8 warp|Route 4|12|5|down
 npc = 7 2 nurse down 0 heal|Welcome to our Pokemon Center!|We restore your tired Pokemon to full health.
-npc = 1 3 balding_man down 0 talk|Man: Well, I don't give refunds. You knew what you were getting!
 npc = 12 5 gentleman down 0 talk|Team Rocket attacks Cerulean citizens...|Not a day goes by without Team Rocket being in the news.
 npc = 5 4 boy wander 0 talk|Okay, set six Poke Balls in my belt...|Yeah, that'll do it. At most, you can have six Pokemon with you.
 npc = 14 4 youngster down 0 talk|Sometimes, you'll have too many Pokemon with you to add any more.|In that case, you should just store some using any PC.
+npc = 1 3 balding_man down 0 giftbuy|Magikarp|5|magikarp|500|Man: Hello there, kid! Have I got a deal just for you!/I'll let you have a secret Pokemon - a Magikarp - for just 500!|Man: Well, I don't give refunds. You knew what you were getting!|No? I'm only doing this as a favor to you!
 grid:
 #.#############
 ###############
@@ -10007,6 +10009,10 @@ npc = 1 10 black_belt right 7 fight|Black Belt Hideki|Machop 32, Machoke 32|I he
 npc = 11 8 black_belt left 7 fight|Black Belt Aaron|Primeape 36|Hiyah! I have no fear for anything tough!/I shatter boulders for training every day!|The only thing that frightens us is psychic power!
 npc = 1 8 black_belt right 7 fight|Black Belt Mike|Mankey 31, Mankey 31, Primeape 31|Hoargh! Take your shoes off!|You wait 'til you see our Master! I'm a small fry compared to him!
 npc = 6 5 black_belt down 2 trainer|Saffron Dojo|Grunt!/I am the Karate Master! I am the Leader here!/You wish to challenge us? Expect no mercy!/Fwaaa!|Grunt! Stay and train at karate with us!
+npc = 5 3 item_ball down 0 giftpick|dojo|Hitmonlee|25|You want the hard-kicking Hitmonlee?|Better not get greedy...
+unless = own:gift:dojo
+npc = 7 3 item_ball down 0 giftpick|dojo|Hitmonchan|25|You want the piston-punching Hitmonchan?|Better not get greedy...
+unless = own:gift:dojo
 grid:
 #############
 #############
@@ -11528,7 +11534,6 @@ item = 22 11 Zinc 1 hidden
 sign = 20 1 Silph Co. Head Office|7F
 npc = 2 6 rival up 4 trainer|Silph Co. 7F|Blue: What kept you, {PLAYER}? Hahaha! I thought you'd turn up if I waited here! I'll take you on!|Blue: Oh, man! So, you are ready for Boss Rocket!
 unless = gone:FLAG_HIDE_SILPH_RIVAL
-npc = 0 7 worker_m right 0 talk|Team Rocket's Boss went to the boardroom!|Is our President okay? I'm worried.
 npc = 24 5 rocket_m left 4 fight|Team Rocket Grunt|Cubone 29, Cubone 29|I am one of the four Rocket Brothers!|Doesn't matter. My brothers will repay the favor!
 unless = gone:FLAG_HIDE_SILPH_ROCKETS
 npc = 24 15 rocket_m right 2 fight|Team Rocket Grunt|Sandshrew 29, Sandslash 29|A child intruder? That must be you!|Go on home before my Boss gets ticked off!
@@ -11544,6 +11549,7 @@ item = 0 12 Calcium 1
 unless = gone:FLAG_HIDE_SILPH_CO_7F_CALCIUM
 item = 30 11 TM064 Bulk Up 1
 unless = gone:FLAG_HIDE_SILPH_CO_7F_TM08
+npc = 0 7 worker_m right 0 giftmon|Lapras|25|silphlapras|Oh! Hi! You're not a Rocket! You came to save us? Why, thank you!/I want you to have this Pokemon for saving us.|It's a Lapras. It's very intelligent.
 grid:
 ###############################
 ###############################
@@ -13547,7 +13553,7 @@ door = 5 8 warp|Route 5|31|31|down
 door = 6 9 warp|Route 5|31|31|down
 door = 7 8 warp|Route 5|31|31|down
 door = 6 4 warp|Underground Path North South Tunnel|4|3|up
-npc = 5 6 little_girl down 0 talk|How is my old ? My  is doing great!
+npc = 5 6 little_girl down 0 trade|NIDORAN
 grid:
 #############
 #############
@@ -13858,7 +13864,7 @@ wild =
 door = 3 7 warp|Vermilion City|19|17|down
 door = 4 8 warp|Vermilion City|19|17|down
 door = 5 7 warp|Vermilion City|19|17|down
-npc = 4 4 little_girl up 0 talk|How is my old ?|My  is doing great!
+npc = 4 4 little_girl up 0 trade|FARFETCHD
 grid:
 ###########
 ###########

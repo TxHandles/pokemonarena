@@ -17,6 +17,7 @@ TrainerLook ParseLook(const std::string& s);          // "type=0;head=player;bod
 std::string LookText(const TrainerLook& l);
 const std::vector<std::string>& LookHeads();   // the heads and outfits you can pick from (on the people sheet)
 const std::vector<std::string>& LookBodies();
+const std::vector<std::string>& LookPeople();   // whole trainers (the creator offers only these)
 const std::vector<const char*>& LookColourNames();   // the colour presets ("As drawn", "Red", "Brown"...)
 const std::vector<const char*>& LookSkinNames();
 // The walking sheet (one 144x32 row: down x3, up x3, left x3) and the action sheet (rows: bike, surf, fish; 32x32

@@ -169,6 +169,8 @@ std::vector<ItemDef> Build() {
     bx("Salac Berry", I::BOOST_SPD, 1000, 99, "A rare berry: raises speed by half for 30 s in battle.", Type::Grass);
     bx("Lansat Berry", I::BOOST_CRIT, 1000, 99, "A rare berry: critical hits are much more likely for 60 s in battle.", Type::Grass);
     bx("Starf Berry", I::BOOST_ATK, 1000, 99, "A rare berry: sharply raises its attacks for 30 s in battle.", Type::Grass);
+    med("Blue Flute", 0, I::CURE_SLEEP, 0, 99, "A glass flute from Route 113's Glass Workshop. Its tune wakes a sleeping Pokemon.", Type::Water);
+    med("Red Flute", 0, I::CURE_CONFUSE, 0, 99, "A glass flute from Route 113's Glass Workshop. Its tune snaps a Pokemon out of confusion.", Type::Fire);
     med("Lava Cookie", 0, I::CURE_ALL, 200, 99, "Lavaridge Town's local specialty. Cures every status condition and confusion.", Type::Fire);
     // Used on a Pokemon from Party & Box
     auto pu = [&](const char* name, float value, int boost, int price, int badges, const char* desc) {
@@ -208,6 +210,8 @@ std::vector<ItemDef> Build() {
         v.back().boost = 100 + i;
     }
     // Used from the Bag out in the world
+    add("White Flute", ItemFx::Field, 0, 0, 99, "A glass flute from the Glass Workshop. Play it from the Bag: wild Pokemon come out more often (play it again to stop).");
+    add("Black Flute", ItemFx::Field, 0, 0, 99, "A glass flute from the Glass Workshop. Play it from the Bag: wild Pokemon come out less often (play it again to stop).");
     add("Repel", ItemFx::Field, 100, 350, 1, "Keeps wild Pokemon away for 100 steps. Use it from the Bag.");
     add("Super Repel", ItemFx::Field, 200, 500, 3, "Keeps wild Pokemon away for 200 steps. Use it from the Bag.");
     add("Max Repel", ItemFx::Field, 250, 700, 5, "Keeps wild Pokemon away for 250 steps. Use it from the Bag.");

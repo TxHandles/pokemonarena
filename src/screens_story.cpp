@@ -660,29 +660,15 @@ int IndexIn(const std::vector<std::string>& v, const char* n) {
     for (int i = 0; i < (int)v.size(); i++) if (v[i] == n) return i;
     return 0;
 }
-TrainerLook CreatorLook(const Game& g) {
+TrainerLook CreatorLook(const Game& g) {   // a whole trainer, as drawn (no mixing parts or colours)
     TrainerLook l;
-    const auto& heads = LookHeads();
-    const auto& bodies = LookBodies();
+    const auto& people = LookPeople();
     l.type = g.cr[0] ? 1 : 0;
-    l.head = heads[std::max(0, std::min((int)heads.size() - 1, g.cr[1]))];
-    l.hair = g.cr[2];
-    l.body = bodies[std::max(0, std::min((int)bodies.size() - 1, g.cr[3]))];
-    l.cloth = g.cr[4];
-    l.skin = g.cr[5];
+    l.head = l.body = people.empty() ? (l.type ? "leaf" : "player") : people[std::max(0, std::min((int)people.size() - 1, g.cr[1]))];
     return l;
 }
-// How many choices each row has: poses, head, hair colour, outfit, outfit colour, skin
-int CreatorCount(int row) {
-    switch (row) {
-        case 0: return 2;
-        case 1: return (int)LookHeads().size();
-        case 3: return (int)LookBodies().size();
-        case 2: case 4: return (int)LookColourNames().size();
-        case 5: return (int)LookSkinNames().size();
-    }
-    return 1;
-}
+// How many choices each row has: poses, trainer
+int CreatorCount(int row) { return row == 0 ? 2 : row == 1 ? std::max(1, (int)LookPeople().size()) : 1; }
 std::string PrettyPerson(const std::string& n) {
     if (n == "player") return "Red";
     if (n == "leaf") return "Leaf";
@@ -709,11 +695,7 @@ void OpenCreator(Game& g, bool fromWorld) {
     TrainerLook l = ParseLook(g.profile.look);
     if (l.Empty()) { l.type = g.coop && g.coopActive == 1 ? 1 : 0; l.head = l.body = l.type ? "leaf" : "player"; }
     g.cr[0] = l.type;
-    g.cr[1] = IndexIn(LookHeads(), l.head.c_str());
-    g.cr[2] = std::max(0, std::min((int)LookColourNames().size() - 1, l.hair));
-    g.cr[3] = IndexIn(LookBodies(), l.body.c_str());
-    g.cr[4] = std::max(0, std::min((int)LookColourNames().size() - 1, l.cloth));
-    g.cr[5] = std::max(0, std::min((int)LookSkinNames().size() - 1, l.skin));
+    g.cr[1] = IndexIn(LookPeople(), l.head.c_str());
     g.crSel = 0;
     g.crReturn = fromWorld;
     g.screen = Screen::Creator;
@@ -743,34 +725,28 @@ void FinishCreator(Game& g) {
 void UpdateCreator(Game& g) {
     PlayerInput in = MenuInput();
     if (g.crReturn && in.back) { g.crReturn = false; PlaySfx(Sfx::MenuBack); EnterStoryHub(g); return; }   // never mind
-    if (in.up) { g.crSel = (g.crSel + 6) % 7; PlaySfx(Sfx::MenuMove); }
-    if (in.down) { g.crSel = (g.crSel + 1) % 7; PlaySfx(Sfx::MenuMove); }
-    if (g.crSel < 6 && (in.left || in.right)) {
+    g.crSel = std::max(0, std::min(2, g.crSel));
+    if (in.up) { g.crSel = (g.crSel + 2) % 3; PlaySfx(Sfx::MenuMove); }
+    if (in.down) { g.crSel = (g.crSel + 1) % 3; PlaySfx(Sfx::MenuMove); }
+    if (g.crSel < 2 && (in.left || in.right)) {
         int n = CreatorCount(g.crSel);
         int& v = g.cr[g.crSel];
         v = (v + (in.left ? n - 1 : 1)) % n;
-        if (g.crSel == 0) {   // a boy or a girl: Red's or Leaf's poses, and their own look to start from
-            const auto& heads = LookHeads();
-            const auto& bodies = LookBodies();
-            const char* was = v ? "player" : "leaf";
-            const char* now = v ? "leaf" : "player";
-            if (heads[g.cr[1]] == was) g.cr[1] = IndexIn(heads, now);
-            if (bodies[g.cr[3]] == was) g.cr[3] = IndexIn(bodies, now);
+        if (g.crSel == 0) {   // a boy or a girl: Red's or Leaf's poses (and Red or Leaf, if you were the other)
+            const auto& people = LookPeople();
+            if (!people.empty() && people[g.cr[1]] == (v ? "player" : "leaf")) g.cr[1] = IndexIn(people, v ? "leaf" : "player");
         }
         PlaySfx(Sfx::MenuMove);
     }
-    if (in.sort) {   // a random trainer
-        for (int r = 1; r < 6; r++) g.cr[r] = GetRandomValue(0, CreatorCount(r) - 1);
-        PlaySfx(Sfx::MenuOk);
-    }
-    if (in.confirm && g.crSel == 6) { FinishCreator(g); return; }
-    if (in.confirm) { g.crSel = 6; PlaySfx(Sfx::MenuMove); }
+    if (in.sort) { g.cr[1] = GetRandomValue(0, CreatorCount(1) - 1); PlaySfx(Sfx::MenuOk); }   // a random trainer
+    if (in.confirm && g.crSel == 2) { FinishCreator(g); return; }
+    if (in.confirm) { g.crSel = 2; PlaySfx(Sfx::MenuMove); }
 }
 
 void DrawCreator(const Game& g) {
     DrawMenuBackdrop(Color{24, 20, 38, 255}, (float)GetTime());
     DrawTextCentered("YOUR TRAINER", VW / 2, 14, 30, UI_GOLD);
-    DrawTextCentered("Mix and match: one trainer's head and hair, another's outfit, in your own colours.", VW / 2, 48, 10, UI_DIM, false);
+    DrawTextCentered("Pick a trainer to walk the regions as - FireRed's, HeartGold's or Emerald's people, as drawn.", VW / 2, 48, 10, UI_DIM, false);
     TrainerLook l = CreatorLook(g);
     // the preview: turning round and walking, then on the Bicycle and surfing
     Texture2D walk = LookChars(l), acts = LookActions(l);
@@ -792,20 +768,20 @@ void DrawCreator(const Game& g) {
         GDrawText("Bicycle", 66, 302, 10, UI_DIM);
         GDrawText("Surfing", 164, 302, 10, UI_DIM);
     }
-    static const char* kRow[7] = {"Poses", "Head & hair", "Hair colour", "Outfit", "Outfit colour", "Skin", "Done"};
-    std::string head = PrettyPerson(l.head), body = PrettyPerson(l.body);
-    const char* vals[6] = {g.cr[0] ? "Girl (Leaf's)" : "Boy (Red's)", head.c_str(), LookColourNames()[g.cr[2]], body.c_str(),
-                           LookColourNames()[g.cr[4]], LookSkinNames()[g.cr[5]]};
-    for (int r = 0; r < 7; r++) {
-        int idx = r;
-        int y = 74 + r * 34;
-        bool sel = g.crSel == idx;
-        DrawPanel(250, y, 352, 28, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
-        if (idx == 6) { DrawTextCentered(g.crReturn ? "Done" : "Done - start your journey", 426, y + 9, 10, sel ? UI_GOLD : Color{140, 220, 150, 255}, false); continue; }
-        GDrawText(kRow[r], 262, y + 9, 10, sel ? UI_GOLD : UI_TEXT);
-        const char* shown = vals[idx];
-        std::string t = std::string(sel ? "<  " : "") + shown + (sel ? "  >" : "");
-        GDrawText(t.c_str(), 590 - TextW(t.c_str(), 10), y + 9, 10, sel ? UI_TEXT : UI_DIM);
+    static const char* kRow[3] = {"Bike & surf poses", "Trainer", "Done"};
+    std::string who = PrettyPerson(l.head);
+    const auto& people = LookPeople();
+    std::string count = TextFormat("(%d of %d)", g.cr[1] + 1, (int)people.size());
+    const char* vals[2] = {g.cr[0] ? "Girl (Leaf's)" : "Boy (Red's)", who.c_str()};
+    for (int r = 0; r < 3; r++) {
+        int y = 110 + r * 50;
+        bool sel = g.crSel == r;
+        DrawPanel(250, y, 352, 34, sel ? UI_PANEL_LIGHT : UI_PANEL, sel ? UI_GOLD : Color{70, 64, 92, 255});
+        if (r == 2) { DrawTextCentered(g.crReturn ? "Done" : "Done - start your journey", 426, y + 12, 10, sel ? UI_GOLD : Color{140, 220, 150, 255}, false); continue; }
+        GDrawText(kRow[r], 262, y + 12, 10, sel ? UI_GOLD : UI_TEXT);
+        std::string t = std::string(sel ? "<  " : "") + vals[r] + (sel ? "  >" : "");
+        GDrawText(t.c_str(), 590 - TextW(t.c_str(), 10), y + 12, 10, sel ? UI_TEXT : UI_DIM);
+        if (r == 1) GDrawText(count.c_str(), 590 - TextW(count.c_str(), 10), y + 24, 10, UI_DIM);
     }
     GDrawText(g.crReturn ? "Up / Down pick   Left / Right change   Tab (X) random   Enter on Done to finish   Esc cancel"
                          : "Up / Down pick   Left / Right change   Tab (X) random   Enter on Done to finish", 20, 340, 10, UI_DIM);

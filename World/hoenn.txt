@@ -1078,6 +1078,7 @@ objects = sprites
 indoor = yes
 wild = 
 door = 4 10 warp|Battle Frontier East|4|44|down
+spot = 4 2 tv
 npc = 0 6 em_old_man right 0 talk|For 70 years I have raised Pokemon! I am the man they revere as the legendary top Pokemon Breeder!|If you ever become as seasoned as me, you'll see the abilities of Pokemon at a glance.|You're a Trainer. Doesn't it interest you to know your own Pokemon's abilities?|Here! Let's have a look at your Pokemon!
 npc = 7 6 em_boy_3 wander 0 talk|He said my Pokemon is outstanding! I'm glad I raised it carefully!
 npc = 5 4 em_boy_2 wander 0 talk|He said my Pokemon is outstanding! But I didn't do anything special raising it...
@@ -1103,6 +1104,7 @@ indoor = yes
 wild = 
 door = 1 8 warp|Battle Frontier West|45|44|down
 door = 2 8 warp|Battle Frontier West|45|44|down
+spot = 6 1 tv
 npc = 8 4 em_maniac right 0 talk|Howdy! Did you swing by to grill me about the latest word? Oh, all right!
 npc = 10 4 em_maniac left 0 talk|What amazing news-gathering power! My mentor's like none other!
 npc = 10 3 em_maniac left 0 talk|What amazing powers of observation! My mentor's like none other!
@@ -1126,6 +1128,7 @@ objects = sprites
 indoor = yes
 wild = 
 door = 4 10 warp|Battle Frontier East|65|31|down
+spot = 4 2 tv
 npc = 4 6 em_hiker up 0 talk|Oh...
 npc = 4 4 em_fat_man down 0 talk|That Trainer...|He's good, but he gets rattled too easily to survive the Battle Dome...
 npc = 3 5 em_woman_2 right 0 talk|I backed the wrong Trainer again!|Maybe I should be battling normally like everyone else...
@@ -1151,6 +1154,7 @@ objects = sprites
 indoor = yes
 wild = 
 door = 4 10 warp|Battle Frontier West|53|44|down
+spot = 4 2 tv
 npc = 4 4 em_woman_3 up 0 talk|I wonder if they'll be airing interviews with tough Trainers today?
 npc = 6 6 em_cook wander 0 talk|If I opened a restaurant here, it'd make money for sure.
 npc = 0 5 em_man_3 right 0 talk|Whew...|I need to take a breather after some intense battles...|But even now, I never take a break from plotting strategy and combos.
@@ -1176,6 +1180,7 @@ indoor = yes
 wild = 
 door = 1 8 warp|Battle Frontier East|22|51|down
 door = 2 8 warp|Battle Frontier East|22|51|down
+spot = 6 1 tv
 npc = 12 4 em_little_girl left 0 talk|Ehehe! I can tell what Pokemon are thinking!|Please! Can I see your Pokemon?
 npc = 0 4 em_gentleman right 0 talk|How charming! That little lady claims she can understand Pokemon!
 npc = 6 5 em_black_belt wander 0 talk|I have this feeling that the little girl is saying something profound.
@@ -1198,7 +1203,8 @@ objects = sprites
 indoor = yes
 wild = 
 door = 4 10 warp|Battle Frontier East|5|8|down
-npc = 2 4 em_beauty right 0 talk|Giggle! A Skitty is so much cuter than I had imagined. I'm delighted!
+spot = 4 2 tv
+npc = 2 4 em_beauty right 0 trade|MEOWTH
 grid:
 #########
 #########
@@ -1219,6 +1225,7 @@ objects = sprites
 indoor = yes
 wild = 
 door = 4 10 warp|Battle Frontier West|5|20|down
+spot = 4 2 tv
 npc = 0 7 em_sailor wander 0 talk|Those ladies, the way they bad-mouth each other, you probably think that they don't get along.|But if that were true, they wouldn't stay out here together, would they?
 npc = 8 3 em_gentleman left 0 talk|When I was just a wee Youngster, those ladies were strong and beautiful.|They were idols among us Trainers.|Even now, age hasn't dulled their abilities.|In fact, their Pokemon moves have grown even more polished.|But... For some reason, I can't help but feel this...|Time is so cruel...
 npc = 2 5 em_expert_f right 0 tutorpick|Soft-Boiled,Seismic Toss,Dream Eater,Mega Punch,Mega Kick,Body Slam,Rock Slide,Counter,Thunder Wave,Swords Dance|Buhahaha! I can teach your Pokemon moves - special and cute ones!
@@ -1243,6 +1250,7 @@ objects = sprites
 indoor = yes
 wild = 
 door = 4 10 warp|Battle Frontier East|14|51|down
+spot = 4 2 tv
 npc = 4 5 em_ninja_boy wander 0 talk|At the Battle Tower, an older girl told me that I have a lot of talent for battling!|I like Pokemon Contests more!|But I'm no good at Contests!|I guess having talent and liking something aren't the same.
 npc = 8 7 em_man_3 left 0 talk|What a Trainer needs...|Knowledge... Strategy... Luck... Guts... Spirit... Bravery... And ability...|Well, I'm all set in every way! I'll be unstoppable at every building!|Huh? Pokemon? What's that?
 npc = 8 4 em_woman_5 left 0 talk|Do you know about the Frontier Brains?|That's what Scott calls the seven special Trainers that run the seven facilities in the Battle Frontier.
@@ -1267,6 +1275,7 @@ indoor = yes
 wild = 
 door = 1 9 warp|Battle Frontier East|21|45|down
 door = 2 9 warp|Battle Frontier East|21|45|down
+spot = 4 2 tv
 npc = 6 3 em_girl_2 down 0 talk|...
 grid:
 #########
@@ -1947,8 +1956,8 @@ sign = 11 16 Dewford Town Pokemon Gym Leader: Brawly "A big wave in fighting!"
 sign = 2 4 Dewford Hall|"Everyone's information exchange!"
 npc = 7 12 em_woman_2 wander 0 talk|Dewford is a tiny island community. If something gets trendy here, everyone picks up on it right away.
 npc = 12 14 em_fisherman wander 0 give|Is that right! That's great! Haul in some big ones!|Old Rod|1|got:FLAG_RECEIVED_OLD_ROD|And, as an added bonus, I'll even throw in a little fishing advice!/First, you want to face the water, then use the Rod./Focus your mind... If you get a bite, pull on the Rod./Sometimes you can snag something immediately, but with bigger catches, you need to time the pulls on your Rod to haul them in.
-npc = 1 6 em_boy_1 down 0 talk|I like what's hip, happening, and trendy. I'm always checking it out.|Listen, have you heard about this new ""?|That's right! Of course you know!|I mean, sheesh, ""... It's the hottest thing in cool!|Wherever you're from, "" is the biggest happening thing, right?
 npc = 12 9 em_expert_m left 0 sailto|Mr. Briney: Ahoy! Where shall we sail?||Ahoy!|Route 104 (Petalburg);Route 104;17;51;down|Route 109 (Slateport);Route 109;21;23;up
+npc = 1 6 em_boy_1 down 0 trendy
 grid:
 ###........ww####.#.
 ######.....ww#######
@@ -2033,16 +2042,17 @@ indoor = yes
 wild = 
 door = 5 9 warp|Dewford Town|3|3|down
 door = 6 9 warp|Dewford Town|3|3|down
-sign = 0 1 Identifying Good|"" & Bad ""...|The Link Between|"" And Pokemon...|Useful|""...|It's neatly jammed with books about "."
-npc = 4 6 em_girl_2 up 0 talk|What's in vogue? Why, it has to be ""!|But I'm getting kind of bored with it.|I should look for the next big thing.
+spot = 9 1 tv
+sign = 0 1 Identifying Good|"{TREND}" & Bad "{TREND}"...|The Link Between|"{TREND}" And Pokemon...|Useful|"{TREND}"...|It's neatly jammed with books about "."
+npc = 4 6 em_girl_2 up 0 talk|What's in vogue? Why, it has to be "{TREND}"!|But I'm getting kind of bored with it.|I should look for the next big thing.
 npc = 1 5 em_woman_2 right 0 talk|I'm teaching my Pokemon about "," but it's not going well.|It's a bit too much, I think.
-npc = 5 4 em_man_1 left 0 talk|I'm studying up on the hip and trendy "" now.|Is it true that there's a deep link between "" and ""?
-npc = 9 3 em_expert_m up 0 talk|This whole business about ""... Isn't there a TV show on it?
-npc = 5 2 em_twin up 0 talk|Across the sea...|Is "" even more popular?
-npc = 14 7 em_little_boy wander 0 talk|I collect official "" licensed merchandise.|I have official "" Dolls...|Official "" brand clothing...|And officially licensed "" picture books.|Heheh, I own! I'm not sharing anything with you!
+npc = 5 4 em_man_1 left 0 talk|I'm studying up on the hip and trendy "{TREND}" now.|Is it true that there's a deep link between "{TREND}" and "{TREND}"?
+npc = 9 3 em_expert_m up 0 talk|This whole business about "{TREND}"... Isn't there a TV show on it?
+npc = 5 2 em_twin up 0 talk|Across the sea...|Is "{TREND}" even more popular?
+npc = 14 7 em_little_boy wander 0 talk|I collect official "{TREND}" licensed merchandise.|I have official "{TREND}" Dolls...|Official "{TREND}" brand clothing...|And officially licensed "{TREND}" picture books.|Heheh, I own! I'm not sharing anything with you!
 npc = 12 3 em_school_kid_m right 0 talk|...
 npc = 15 3 em_psychic_m left 0 talk|...
-npc = 8 6 em_maniac wander 0 give|For me, Sludge Bomb is at the peak of popularity. It's the one./Hunh? You're telling me that you don't know about Sludge Bomb?/That's outright pitiful. I'll give you one.|TM148 Sludge Bomb|1|got:FLAG_RECEIVED_TM_SLUDGE_BOMB|I love Sludge Bomb./But Pokemon with the move "" are in, too.
+npc = 8 6 em_maniac wander 0 give|For me, Sludge Bomb is at the peak of popularity. It's the one./Hunh? You're telling me that you don't know about Sludge Bomb?/That's outright pitiful. I'll give you one.|TM148 Sludge Bomb|1|got:FLAG_RECEIVED_TM_SLUDGE_BOMB|I love Sludge Bomb./But Pokemon with the move "{TREND}" are in, too.
 if = show:FLAG_HIDE_DEWFORD_HALL_SLUDGE_BOMB_MAN
 grid:
 #################
@@ -2064,6 +2074,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Dewford Town|17|14|down
 door = 4 8 warp|Dewford Town|17|14|down
+spot = 5 1 tv
 npc = 6 3 em_woman_3 left 0 talk|I left the major port of Slateport City when I married my husband here.|Life goes by slowly on this little island. But being surrounded by the beautiful sea--that's happiness, too.
 npc = 3 3 em_man_1 right 0 talk|There's a lot to be said for living on a small island like this in harmony with Pokemon and the family.
 npc = 4 2 mon:Zigzagoon down 0 talk|Zigzagoon: Guguuh!
@@ -2758,6 +2769,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Fallarbor Town|1|6|down
 door = 4 8 warp|Fallarbor Town|1|6|down
+spot = 2 1 tv
 npc = 4 4 em_fat_man down 0 relearner|I'm the Move Relearner. I can make Pokemon remember moves they've forgotten.|(In the old days I'd ask for a Heart Scale.)
 grid:
 ###########
@@ -2978,8 +2990,7 @@ npc = 32 10 em_woman_5 wander 0 talk|I've got my pride-and-joy Pokemon with me. 
 npc = 11 14 em_boy_1 down 0 talk|Living on top of trees is okay.|But sometimes Bug Pokemon come in through windows. It can be really startling.
 npc = 8 10 em_old_man down 0 talk|The City consists of homes built on trees.|Perhaps because of that lifestyle, everyone is healthy and lively.|Why, even myself--I feel as if I've grown thirty years younger.
 npc = 9 16 em_gameboy_kid down 0 talk|There are Pokemon that evolve when you trade them! That's what I heard.
-npc = 25 8 mon:Kecleon down 0 talk|Something unseeable is in the way.|Want to use the Devon Scope?
-unless = gone:FLAG_HIDE_FORTREE_CITY_KECLEON
+npc = 25 8 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:fortree|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
 grid:
 ########################################
 ########################################
@@ -3089,9 +3100,9 @@ indoor = yes
 wild = 
 door = 3 6 warp|Fortree City|10|3|down
 door = 4 6 warp|Fortree City|10|3|down
-npc = 1 3 em_ninja_boy right 0 talk|I'm going to make Volbeat super strong from this moment on!|I hope you do the same with Plusle!
 npc = 2 3 mon:Zigzagoon left 0 talk|Zigzagoon: Gumomoh?
 npc = 7 4 em_expert_f down 0 talk|Trading Pokemon with others...|It's as if you're trading your own memories with other people.
+npc = 1 3 em_ninja_boy right 0 trade|PLUSLE
 grid:
 ########
 ########
@@ -3110,6 +3121,7 @@ indoor = yes
 wild = 
 door = 3 6 warp|Fortree City|17|3|down
 door = 4 6 warp|Fortree City|17|3|down
+spot = 6 1 tv
 npc = 2 3 em_expert_f wander 0 give|People... Pokemon.../Their hidden powers are aroused by living in natural environments...|TM171 Tera Blast|1|got:FLAG_RECEIVED_TM_HIDDEN_POWER|Hidden Power is a move that changes with the Pokemon.
 npc = 6 3 em_expert_m left 0 tutor|Sleep Talk|Humph! My wife relies on Hidden Power to stay awake.|She should just take a nap like I do, and Sleep Talk.|I can teach your Pokemon how to Sleep Talk instead. Interested?
 grid:
@@ -3150,6 +3162,7 @@ indoor = yes
 wild = 
 door = 3 6 warp|Fortree City|32|2|down
 door = 4 6 warp|Fortree City|32|2|down
+spot = 6 1 tv
 npc = 6 4 em_woman_4 wander 0 talk|By being together with Pokemon, people make more and more friends.|And that brings the world closer together. I think it's wonderful!
 npc = 1 3 em_boy_3 down 0 give|Good! Welcome back, Wingull!/Huh? What is this? What is it holding?/A Mental Herb? It must have picked it up somewhere./But I'm not a Trainer, so you can have it.|Mental Herb|1|got:FLAG_RECEIVED_MENTAL_HERB|Thanks to my Wingull, I have friends who live far away.
 npc = 2 3 mon:Wingull down 0 talk|Wingull: Pihyoh!
@@ -3655,7 +3668,7 @@ npc = 5 8 em_old_man down 0 talk|Being buried in this hot sand is... Sigh...|So 
 npc = 10 13 em_twin wander 0 talk|I bathe in the hot springs every day.|I want to become a beautiful and strong Gym Leader like Flannery.
 npc = 4 4 em_hot_springs_old_woman down 0 talk|If people put Pokemon in hot springs, it might be seriously strange.|Why, it might be an electric bath, or a bubble bath, or even a lava bath...
 npc = 5 4 em_hot_springs_old_woman down 0 talk|They're claiming that these hot springs are good for calming nervous tension, relieving aching muscles, solving romantic problems, and attracting money...
-npc = 4 7 em_expert_f down 0 talk|Every so often, an Egg will be found at the Pokemon Day Care.|Or at least that's how the rumor goes.
+npc = 4 7 em_expert_f down 0 giftegg|Wynaut|lavaridgeegg|I have here an Egg. I'd hoped to hatch it by covering it in hot sand by the hot springs./But that doesn't seem to be enough... I've heard it would be best if it were kept together with Pokemon and carried about./You are a Trainer, yes? Please take this Egg.|Good! I hope you'll walk plenty with this here Egg!
 grid:
 ####################
 #####.....##########
@@ -3830,6 +3843,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Lavaridge Town|16|15|down
 door = 4 8 warp|Lavaridge Town|16|15|down
+spot = 5 1 tv
 npc = 2 3 em_old_man down 0 talk|My wife's warming an Egg in the hot springs. This is what she told me.|She left two Pokemon with the Day Care. And they discovered that Egg!
 npc = 6 6 mon:Zigzagoon down 0 talk|Zigzagoon: Pshoo!
 npc = 8 4 em_ninja_boy wander 0 tutor|Mimic|Ah, young one!|I am also a young one, but I mimic the styles and speech of the elderly folks of this town.|What do you say, young one? Would you agree to it if I were to offer to teach the move Mimic?
@@ -4072,6 +4086,7 @@ wild =
 door = 5 9 warp|Lilycove City|37|24|down
 door = 6 9 warp|Lilycove City|37|24|down
 door = 2 1 warp|Lilycove City Cove Lily Motel 2F|2|1|up
+spot = 10 1 tv
 npc = 10 3 em_man_1 up 0 talk|Amazing! A house-sitting Pokemon caught a burglar?|That's something. If we had a tough Pokemon as a security guard...|We would be able to provide our guests with greater safety.
 grid:
 ############
@@ -4178,11 +4193,11 @@ door = 16 1 warp|Lilycove City Department Store 2F|16|1|up
 door = 2 1 warp|Lilycove City Department Store Elevator|1|5|up
 sign = 0 8 1F: Service Counter|Lottery Corner|2F: Trainer's Zone|3F: Battle Collection|4F: TM Corner|5F: Poke Doll Floor|Rooftop: Rooftop Plaza
 npc = 8 2 em_beauty down 0 talk|Welcome to Lilycove Department Store.
-npc = 10 2 em_beauty down 0 talk|{PLAYER}? Yes, I've been expecting you.|This is the prize we've been holding for you.
 npc = 14 5 em_pokefan_f wander 0 talk|Whenever I come to the Department Store, I always end up buying all sorts of things because it's so fun.
 npc = 4 4 em_little_girl wander 0 talk|Today, my mom is going to buy me some nice furniture.
 npc = 3 6 em_pokefan_m down 0 talk|I'm buying something for my Azumarill as a reward for winning a Contest.
 npc = 2 6 mon:Azumarill down 0 talk|Azumarill: Maririroo!
+npc = 10 2 em_beauty down 0 lottery|lilycove
 grid:
 ##################
 ##D#############D#
@@ -4382,6 +4397,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Lilycove City|11|22|down
 door = 4 8 warp|Lilycove City|11|22|down
+spot = 2 1 tv
 npc = 3 4 em_gameboy_kid down 0 talk|...
 npc = 7 4 em_pokefan_f left 0 talk|Oh, my, my! Are you traveling alone? But you're so young! Good for you!|I'm sure my kids could learn a thing or two from you!|Me? I'm a master of Pokeblocks.|If I get serious just a little, why, I can concoct great Pokeblocks.|Would you like to learn from me, a master of Pokeblocks?
 npc = 1 4 em_gameboy_kid down 0 talk|...
@@ -4532,6 +4548,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Lilycove City|36|6|down
 door = 4 8 warp|Lilycove City|36|6|down
+spot = 2 1 tv
 npc = 4 4 em_expert_m down 0 deleter
 grid:
 ###########
@@ -4556,6 +4573,7 @@ door = 6 9 warp|Lilycove City|24|14|down
 npc = 7 2 em_nurse down 0 heal|Welcome to our Pokemon Center!|We restore your tired Pokemon to full health.
 npc = 10 7 em_boy_1 right 0 talk|I wonder how many kinds of Pokemon there are in the world.|It'd be great to cross seas and trade Pokemon with people far away.
 npc = 11 8 em_maniac up 0 talk|Those rotten scoundrels who steal Pokemon and rip off Meteorites...|I haven't seen them around recently.
+npc = 1 3 em_woman_4 down 0 lilycovelady
 grid:
 ##############
 ##############
@@ -4577,6 +4595,7 @@ indoor = yes
 wild = 
 door = 6 14 warp|Lilycove City|39|14|down
 door = 5 14 warp|Lilycove City|39|14|down
+spot = 8 1 tv
 npc = 3 11 em_lass up 0 talk|Whatever anyone says, my favorite Trainer is Dewford's Gym Leader Brawly!
 npc = 8 10 em_man_4 left 0 talk|I've been hearing things about a tough new Trainer.|This Trainer's supposed to be beating Gym Leaders, even.|Do you know anything about this new Trainer?
 npc = 6 11 em_pokefan_m up 0 talk|Everyone here, we're all huge fans of Pokemon battles.|We discuss who we consider to be the strongest of all Trainers.|If you were to become famous, we might even become your fans!
@@ -4665,6 +4684,7 @@ wild =
 door = 9 9 warp|Littleroot Town|5|8|down
 door = 8 9 warp|Littleroot Town|5|8|down
 door = 8 2 warp|Your Home 2F|7|1|up
+spot = 4 4 tv
 npc = 2 6 em_mom right 0 talk|Don't push yourself too hard, dear. You can always come home.|Go for it, honey!
 unless = gone:FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_MOM
 npc = 1 3 mon:Vigoroth down 0 talk|Huggoh, uggo uggo...
@@ -4699,6 +4719,7 @@ objects = sprites
 indoor = yes
 wild = 
 door = 7 1 warp|Your Home 1F|8|2|up
+spot = 4 1 tv
 sign = 1 1 {PLAYER} flipped open the notebook.|Adventure Rule No. 1|Open the Menu with Start.|Adventure Rule No. 2|Record your progress with Save.|The remaining pages are blank...
 sign = 5 1 The clock is stopped...|Better set it and start it!
 sign = 3 1 It's a Nintendo GameCube.|A Game Boy Advance is connected to serve as the Controller.
@@ -4730,6 +4751,7 @@ wild =
 door = 1 9 warp|Littleroot Town|14|8|down
 door = 2 9 warp|Littleroot Town|14|8|down
 door = 2 2 warp|May's House 2F|1|1|up
+spot = 6 4 tv
 npc = 8 6 em_mom left 0 talk|Don't push yourself too hard, dear. You can always come home.|Go for it, honey!
 unless = gone:FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MOM
 npc = 6 5 mon:Vigoroth up 0 talk|Fugiiiiih!
@@ -4764,6 +4786,7 @@ objects = sprites
 indoor = yes
 wild = 
 door = 1 1 warp|May's House 1F|2|2|up
+spot = 4 1 tv
 sign = 5 1 It's a Nintendo GameCube.|A Game Boy Advance is connected to serve as the Controller.
 sign = 7 1 {PLAYER} flipped open the notebook.|Adventure Rule No. 1|Open the Menu with Start.|Adventure Rule No. 2|Record your progress with Save.|The remaining pages are blank...
 sign = 3 1 The clock is stopped...|Better set it and start it!
@@ -5468,6 +5491,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Mauville City|32|14|down
 door = 4 8 warp|Mauville City|32|14|down
+spot = 2 1 tv
 npc = 4 4 em_scientist_1 right 0 give|Woohoo!/I hear people call me the Rock Smash Guy, but I find that sort of degrading./I think I deserve a bit more respect, like maybe the Rock Smash Dude./Woohoo!/Anyways, your Pokemon look pretty strong./I like that! Here, take this Hidden Machine!|HM06 Rock Smash|1|got:FLAG_RECEIVED_HM_ROCK_SMASH|Oh, yes, if you smash a rock, a Pokemon could come flying out of hiding./Woohoo!
 grid:
 ###########
@@ -5538,6 +5562,7 @@ npc = 7 2 em_nurse down 0 heal|Welcome to our Pokemon Center!|We restore your ti
 npc = 8 6 em_woman_1 down 0 talk|That man over there, he says weird things!|He's funny in a weird way. I doubt I'll forget about him!
 npc = 11 4 em_woman_5 wander 0 talk|When I accessed the Record Corner, the data for what's hot in Dewford got updated.|Now that bit of data is the same as my friend's!
 npc = 2 8 em_youngster down 0 talk|A Record Corner opened upstairs in the Pokemon Center.|I don't know what it's about, but it sounds fun. I'll go check it out!
+npc = 2 3 em_old_man down 0 mauvilleman
 grid:
 ##############
 ##############
@@ -6243,6 +6268,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Mossdeep City|28|9|down
 door = 4 8 warp|Mossdeep City|28|9|down
+spot = 2 1 tv
 npc = 3 3 em_black_belt wander 0 talk|Hmm! Your ...
 npc = 7 4 em_woman_2 left 0 talk|My husband can tell what kind of Pokeblocks a Pokemon likes at a glance.
 grid:
@@ -6290,6 +6316,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Mossdeep City|49|6|down
 door = 4 8 warp|Mossdeep City|49|6|down
+spot = 2 1 tv
 npc = 4 4 em_fisherman right 0 give|Hey there, Trainer! A Super Rod really is super!/Say all you want, but this baby can catch Pokemon off the seafloor!/What do you think? You want it, don't you?|Super Rod|1|got:FLAG_RECEIVED_SUPER_ROD|Go after the seafloor Pokemon with your Super Rod.
 grid:
 ###########
@@ -7721,6 +7748,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Oldale Town|15|16|down
 door = 4 8 warp|Oldale Town|15|16|down
+spot = 2 1 tv
 npc = 4 4 em_pokefan_f right 0 talk|When Pokemon battle, they eventually level up and become stronger.
 npc = 7 4 em_school_kid_m left 0 talk|If the Pokemon with you become stronger, you'll be able to go farther away from here.
 grid:
@@ -7877,6 +7905,7 @@ indoor = yes
 wild = 
 door = 4 9 warp|Pacifidlog Town|3|22|down
 door = 5 9 warp|Pacifidlog Town|3|22|down
+spot = 7 1 tv
 npc = 3 5 em_gentleman down 0 give|Ah! Your Pokemon...|TM066 Body Slam|1|got:FLAG_RECEIVED_FANCLUB_TM_THIS_WEEK|Oh, yes. In about  or so days, I should be getting a good TM or two./You should come see me then. I'll give you a TM that's suitable for your Pokemon.
 npc = 8 6 mon:Azurill down 0 talk|Azurill: Rurii.
 npc = 1 7 mon:Azurill down 0 talk|Azurill: Rururi!
@@ -7902,7 +7931,7 @@ wild =
 door = 4 9 warp|Pacifidlog Town|12|24|down
 door = 5 9 warp|Pacifidlog Town|12|24|down
 npc = 3 5 em_girl_2 down 0 talk|Is that a PokeDEX?|Did you get to meet a lot of different Pokemon?|I wish I was like you.
-npc = 4 2 em_man_3 right 0 talk|I know I could go looking for one on my own, but...|But I really wanted to get a Bagon that another Trainer caught...
+npc = 4 2 em_man_3 right 0 trade|HORSEA
 grid:
 ##########
 ##########
@@ -7924,6 +7953,7 @@ indoor = yes
 wild = 
 door = 4 9 warp|Pacifidlog Town|2|12|down
 door = 5 9 warp|Pacifidlog Town|2|12|down
+spot = 7 1 tv
 npc = 3 4 em_woman_2 down 0 talk|People were saying they saw a Pokemon flying high above Hoenn.|Is it flying around all the time? Doesn't it need to rest somewhere?
 npc = 7 5 em_little_girl wander 0 talk|A sky Pokemon! A sky Pokemon!
 npc = 7 4 em_boy_1 wander 0 talk|Where did you come from?
@@ -8348,6 +8378,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Petalburg City|7|5|down
 door = 4 8 warp|Petalburg City|7|5|down
+spot = 2 1 tv
 npc = 3 4 em_pokefan_m right 0 talk|Oh? You met Wally in Ever Grande City?|Oh, {PLAYER}, don't be silly.|He may have gotten healthy, but he can't go somewhere far away like that all by himself.
 npc = 7 5 em_woman_4 left 0 talk|I want you to keep this a secret from my husband...|But our Wally left Verdanturf Town without telling anyone.|You know, Wally is frail, but he's surprisingly strong-willed.|I'm sure that he'll come back safe and sound one day!
 grid:
@@ -10177,6 +10208,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Route 111|26|18|down
 door = 4 8 warp|Route 111|26|18|down
+spot = 5 1 tv
 npc = 6 3 em_expert_f left 0 talk|Oh, dear, dear. Aren't your Pokemon exhausted?|If you'd like, rest up here. That's a fine idea! You should do that.
 grid:
 ##########
@@ -10198,6 +10230,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Route 111|13|113|down
 door = 4 8 warp|Route 111|13|113|down
+spot = 2 1 tv
 npc = 7 5 em_lass left 0 talk|Mommy is stronger than Daddy.|I'm stronger than Mommy.|And Grandma's stronger than me!|But my big brother is even stronger than Grandma.
 npc = 4 5 em_man_1 right 0 talk|You're the first Trainer I've seen who deploys Pokemon so masterfully.|But, I should tell you--my son is stronger than you.|He even took the Pokemon League challenge, I'll have you know.
 npc = 7 4 em_pokefan_f left 0 give|We use this Macho Brace to more effectively strengthen our Pokemon in training./Since you've beaten all of us here, I don't know if you need it, but we would like you to have our Macho Brace.|Macho Brace|1|got:FLAG_RECEIVED_MACHO_BRACE|When it comes to Pokemon battles, we tend to be pretty passionate.
@@ -10405,8 +10438,8 @@ indoor = yes
 wild = 
 door = 3 9 warp|Route 113|33|5|down
 door = 4 9 warp|Route 113|33|5|down
-npc = 2 3 em_man_1 down 0 talk|Hah? You haven't got your Soot Sack with you, huff-puff.|You have to keep it with you to collect volcanic ash, huff-puff.
 npc = 5 4 em_ninja_boy wander 0 talk|It's fun to blow a glass flute while my boss is talking.|Huff-huff! Puff-puff!
+npc = 2 3 em_man_1 down 0 glassworks
 grid:
 ##########
 ##########
@@ -10564,6 +10597,7 @@ wild =
 door = 4 8 warp|Route 114|29|5|down
 door = 5 8 warp|Route 114|29|5|down
 door = 4 1 warp|Route 114 Fossil Maniac's Tunnel|6|25|up
+spot = 9 1 tv
 sign = 5 3 Rocks in peculiar shapes fill the display case...
 sign = 6 3 Rocks in peculiar shapes fill the display case...
 sign = 7 2 The Composition Of Strata...|How Rain Shapes The Land... Stones, Soil, And Rock...|It's crammed with books.
@@ -11096,10 +11130,6 @@ npc = 19 133 youngster wander 0 talk|Tch... It's a no-go...|The tall grass snare
 item = 3 56 Hyper Potion 1
 npc = 35 93 em_boy_2 wander 0 talk|Can your Pokemon use its Secret Power on a big pile of grass and make a Secret Base?
 npc = 29 6 em_ninja_boy down 3 fight|Ninja Boy Hideo|Koffing 25, Koffing 25|To hide a tree, use a forest!|To hide a tree, use a forest! To hide a Pokemon, use a Pokemon!/There is no deep, hidden meaning to that.
-npc = 31 6 mon:Kecleon down 0 talk|Kecleon: ...!
-unless = gone:FLAG_HIDE_ROUTE_119_KECLEON_1
-npc = 25 15 mon:Kecleon down 0 talk|Kecleon: ...!
-unless = gone:FLAG_HIDE_ROUTE_119_KECLEON_2
 npc = 13 104 em_fisherman right 1 fight|Fisherman Chris|Magikarp 29, Tentacool 20, Feebas 26, Carvanha 23|You spoke to me... So you want to challenge me!/Sure! I'll try out the Pokemon I caught while Surfing!|Go for a Surf on my Pokemon.../Then fish off its back.../It's an indescribably luxuriant moment!
 npc = 8 68 em_woman_2 up 5 fight|Parasol Lady Rachel|Goldeen 26|Wherever and whenever I may be, I always have my parasol in hand.|You're asking if my parasol is heavy? Your Bag is filled with more junk than I ever carry around.
 npc = 16 52 em_man_5 right 3 fight|Kindler Dayton|Slugma 25, Numel 25|Hohoho! I like kid Trainers! Let's have a good one!|Hohoho! I'll try emulating the pep of kid Trainers like you!
@@ -11110,6 +11140,8 @@ npc = 28 25 em_scott down 0 talk|...
 if = show:FLAG_HIDE_ROUTE_119_SCOTT
 npc = 25 32 em_may down 4 trainer|Route 119|May: {PLAYER}! Are you headed for Fortree too?/Then you'll have to get past me!|May: I lost again... You're a real Trainer now, {PLAYER}.
 weather = rain
+npc = 31 6 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:r119a|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
+npc = 25 15 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:r119b|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
 grid:
 ########################################
 ########################################
@@ -11412,16 +11444,6 @@ npc = 13 15 em_steven down 0 give|Steven: {PLAYER}, are your Pokemon ready for b
 unless = gone:FLAG_HIDE_ROUTE_120_STEVEN
 npc = 10 72 em_ninja_boy down 3 fight|Ninja Boy Keigo|Koffing 28, Ninjask 28|I will adopt the movements of Pokemon and create new ninja techniques.|Perhaps I ought to apprentice under a ninja sensei.
 npc = 19 28 em_ninja_boy down 3 fight|Ninja Boy Riley|Nincada 28, Koffing 28|We ninja conceal ourselves under our camouflage cloaks. I bet you didn't know where I was!|Our camouflage cloaks are all handmade.
-npc = 20 11 mon:Kecleon down 0 talk|Kecleon: ...!
-unless = gone:FLAG_HIDE_ROUTE_120_KECLEON_1
-npc = 27 2 mon:Kecleon down 0 talk|Kecleon: ...!
-unless = gone:FLAG_HIDE_ROUTE_120_KECLEON_2
-npc = 4 77 mon:Kecleon down 0 talk|Kecleon: ...!
-unless = gone:FLAG_HIDE_ROUTE_120_KECLEON_3
-npc = 7 51 mon:Kecleon down 0 talk|Kecleon: ...!
-unless = gone:FLAG_HIDE_ROUTE_120_KECLEON_5
-npc = 19 48 mon:Kecleon down 0 talk|Kecleon: ...!
-unless = gone:FLAG_HIDE_ROUTE_120_KECLEON_4
 npc = 19 32 em_girl_3 up 3 fight|Battle Girl Callie|Meditite 28, Makuhita 28|If you don't pay attention, you could get hurt!|I wonder... Should I evolve my Pokemon? They're cute the way they are, though.
 npc = 14 34 em_man_3 right 3 fight|Cooltrainer Leonel|Manectric 30|Your party Pokemon... Do you have different types?|I think it's awesome you're so strong battling with your favorite Pokemon.
 item = 24 33 Revive 1
@@ -11429,6 +11451,11 @@ npc = 12 16 mon:Kecleon down 0 trainer|Route 120|Something unseeable is in the w
 need = Devon Scope|Something unseeable is in the way.|You used the Devon Scope!
 weather = rain
 block = 7 55 regi_doors|The door is shut tight. There's braille on it, but nothing happens...
+npc = 20 11 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:r120a|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
+npc = 27 2 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:r120b|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
+npc = 4 77 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:r120c|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
+npc = 7 51 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:r120d|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
+npc = 19 48 mon:Kecleon down 0 encounter|Kecleon|30|kecleon:r120e|The Devon Scope revealed something unseeable in the way - a Kecleon!|Devon Scope|Something unseeable is in the way.
 grid:
 ########################################
 #########...###T....T###################
@@ -11781,6 +11808,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Route 123|22|6|down
 door = 4 8 warp|Route 123|22|6|down
+spot = 2 1 tv
 npc = 4 4 em_expert_m down 0 talk|I'm done for today. Come again another day.|Let flowers fill the world!
 npc = 7 4 em_old_woman down 0 give|Our four grandchildren should become more accomplished than my husband./Joy never goes out of my life!|Spelon Berry|1|got:FLAG_RECEIVED_SPELON_BERRY|Oh! A good saying it is. You're quite remarkable./I want you to have this.
 grid:
@@ -14046,8 +14074,9 @@ indoor = yes
 wild = 
 door = 5 8 warp|Rustboro City|33|19|down
 door = 6 8 warp|Rustboro City|33|19|down
-npc = 6 4 em_camper left 0 talk|Any Pokemon can be cute if you raise it with care and kindness.
+spot = 3 1 tv
 npc = 9 2 em_hiker down 0 talk|In all sorts of places, there are all sorts of Pokemon and people.|I find that fascinating, so I go to all sorts of places.
+npc = 6 4 em_camper left 0 trade|SEEDOT
 grid:
 #############
 #############
@@ -14068,6 +14097,7 @@ indoor = yes
 wild = 
 door = 5 9 warp|Rustboro City|30|28|down
 door = 6 9 warp|Rustboro City|30|28|down
+spot = 8 1 tv
 npc = 4 4 em_pokefan_f down 0 talk|The Trainer's School is excellent.|If you study there, you could even become a Gym Leader.
 npc = 4 5 em_little_girl up 0 talk|Roxanne, the Gym Leader, really knows a lot about Pokemon.|She's really strong, too!
 grid:
@@ -14091,6 +14121,7 @@ indoor = yes
 wild = 
 door = 5 9 warp|Rustboro City|26|46|down
 door = 6 9 warp|Rustboro City|26|46|down
+spot = 8 1 tv
 npc = 4 5 em_old_man right 0 talk|For my own Pokemon, I give them perfectly suited nicknames!|It's my expression of, uh... originality, yes, that's it!
 npc = 7 5 em_old_woman left 0 talk|But giving the name Pekachu to a Pikachu? It seems pointless.|I suppose it is good to use a name that's easy to understand, but...
 npc = 4 4 mon:Pikachu down 0 talk|Pekachu: Peka!
@@ -16108,6 +16139,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Slateport City|21|44|down
 door = 4 8 warp|Slateport City|21|44|down
+spot = 2 1 tv
 npc = 4 4 em_pokefan_m right 0 talk|My Pokemon has a Hasty nature.|It has higher Speed compared to my other Pokemon.|Maybe their nature has something to do with the stat gains of Pokemon.
 npc = 7 4 em_girl_3 left 0 talk|You're a Trainer, aren't you?|Since you came to Slateport City, you must be going to the Battle Tent.
 grid:
@@ -16608,6 +16640,7 @@ indoor = yes
 wild = 
 door = 3 7 warp|Sootopolis City|9|6|down
 door = 4 7 warp|Sootopolis City|9|6|down
+spot = 7 1 tv
 npc = 2 4 em_black_belt right 0 give|For thirty years I've remained in Sootopolis honing my skills./I developed a shattering TM. I bequeath it to you!|TM058 Brick Break|1|got:FLAG_RECEIVED_TM_BRICK_BREAK|TM31 contains Brick Break! It's a move so horrible that I can't describe it.
 npc = 2 3 mon:Kecleon down 0 talk|Kecleon: Puu puhyaah.
 grid:
@@ -16667,6 +16700,7 @@ indoor = yes
 wild = 
 door = 3 7 warp|Sootopolis City|44|17|down
 door = 4 7 warp|Sootopolis City|44|17|down
+spot = 7 1 tv
 npc = 2 4 em_man_1 right 0 talk|Listen up, and I'll tell you something good.|There's supposed to be an ancient ruin in the sea around here.|There could be treasures just waiting to be discovered down there.
 npc = 5 2 em_woman_4 up 0 talk|Ancient treasures...|It would be nice if they existed, but even if they didn't, it would be so beautiful to take an underwater stroll with my Pokemon.
 npc = 2 3 mon:Azumarill down 0 talk|Azumarill: Marurii.
@@ -16727,6 +16761,7 @@ indoor = yes
 wild = 
 door = 3 7 warp|Sootopolis City|8|35|down
 door = 4 7 warp|Sootopolis City|8|35|down
+spot = 7 1 tv
 npc = 5 3 em_old_man left 0 talk|An underwater volcano erupted and forced itself up from the depths.|Its crater emerged from the sea and became filled with rainwater.|That's how Sootopolis City came into being.
 npc = 1 4 em_pokefan_f wander 0 talk|The cave that links Sootopolis and the outside world...|It seems as if the cave was made to keep something from getting out.|Or am I just imagining things?
 grid:
@@ -16794,6 +16829,7 @@ wild =
 door = 3 8 warp|Sootopolis City|51|36|down
 door = 4 8 warp|Sootopolis City|51|36|down
 door = 3 1 warp|Sootopolis City Mystery Event's House B1F|3|1|up
+spot = 7 1 tv
 npc = 6 4 em_old_man right 0 talk|When I was young, I traveled the world as a Pokemon Trainer.|Now that I've become an old buzzard, my only amusement is watching young Trainers battle.
 grid:
 ###########
@@ -17894,6 +17930,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Verdanturf Town|1|14|down
 door = 4 8 warp|Verdanturf Town|1|14|down
+spot = 2 1 tv
 npc = 3 4 em_woman_2 down 0 talk|Let me see your Pokemon. I'll check to see how much it likes you.|Oh. Your Pokemon...
 npc = 4 4 mon:Pikachu down 0 talk|Pikachu: Pika pika!
 grid:

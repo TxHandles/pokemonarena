@@ -112,7 +112,20 @@ TrainerLook ParseLook(const std::string& s) {
         else if (k == "cloth") l.cloth = std::atoi(v.c_str());
         else if (k == "skin") l.skin = std::atoi(v.c_str());
     }
+    // Whole trainers only now (mixed heads, outfits and colours made too many odd sprites): an old mixed look
+    // becomes the trainer whose head it had, as drawn.
+    if (!l.head.empty()) l.body = l.head;
+    else if (!l.body.empty()) l.head = l.body;
+    l.hair = l.cloth = l.skin = 0;
     return l;
+}
+const std::vector<std::string>& LookPeople() {   // every trainer you can be: one with both a head and an outfit on the sheet
+    static std::vector<std::string> v;
+    if (v.empty()) {
+        const auto& b = LookBodies();
+        for (const auto& h : LookHeads()) if (std::find(b.begin(), b.end(), h) != b.end()) v.push_back(h);
+    }
+    return v;
 }
 std::string LookText(const TrainerLook& l) {
     if (l.Empty()) return "";

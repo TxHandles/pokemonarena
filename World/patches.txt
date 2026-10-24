@@ -890,3 +890,50 @@ item = 4 5 Up-Grade 1
 [patch Water Path]
 drop item 17 87
 item = 17 87 Dragon Scale 1
+
+# ------------------------------------------------------------------ in-game trades (tools/ingame_trades.py)
+[patch Cerulean City House 3]
+drop npc 2 2
+npc = 2 2 old_man_1 up 0 trade|JYNX
+[patch Cinnabar Island Pokemon Lab Experiment Room]
+drop npc 11 8
+npc = 11 8 boy up 0 trade|SEEL
+[patch Cinnabar Island Pokemon Lab Lounge]
+drop npc 4 6
+npc = 4 6 old_man_2 down 0 trade|ELECTRODE
+drop npc 10 5
+npc = 10 5 woman_2 down 0 trade|TANGELA
+[patch Route 11 East Entrance 2F]
+drop npc 7 3
+npc = 7 3 youngster wander 0 trade|NIDORINOA
+[patch Route 18 East Entrance 2F]
+drop npc 5 3
+npc = 5 3 boy left 0 trade|LICKITUNG
+[patch Route 2 House]
+drop npc 7 2
+npc = 7 2 gba_kid down 0 trade|MR_MIME
+[patch Underground Path North Entrance]
+drop npc 5 6
+npc = 5 6 little_girl down 0 trade|NIDORAN
+[patch Vermilion City House 2]
+drop npc 4 4
+npc = 4 4 little_girl up 0 trade|FARFETCHD
+
+# ------------------------------------------------------------------ gift Pokemon (FireRed's: Silph Co.'s Lapras, Celadon's Eevee, the Dojo's Hitmonlee / Hitmonchan, the Magikarp salesman, the Water Labyrinth's Egg)
+[patch Silph Co 7F]
+drop npc 0 7
+npc = 0 7 worker_m right 0 giftmon|Lapras|25|silphlapras|Oh! Hi! You're not a Rocket! You came to save us? Why, thank you!/I want you to have this Pokemon for saving us.|It's a Lapras. It's very intelligent.
+[patch Celadon City Condominiums Roof Room]
+npc = 7 3 item_ball down 0 giftmon|Eevee|25|celadoneevee|It's a Poke Ball! There's a Pokemon inside...|(The Poke Ball is empty now.)
+unless = own:gift:celadoneevee
+[patch Saffron City Dojo]
+npc = 5 3 item_ball down 0 giftpick|dojo|Hitmonlee|25|You want the hard-kicking Hitmonlee?|Better not get greedy...
+unless = own:gift:dojo
+npc = 7 3 item_ball down 0 giftpick|dojo|Hitmonchan|25|You want the piston-punching Hitmonchan?|Better not get greedy...
+unless = own:gift:dojo
+[patch Route 4 Pokemon Center]
+drop npc 1 3
+npc = 1 3 balding_man down 0 giftbuy|Magikarp|5|magikarp|500|Man: Hello there, kid! Have I got a deal just for you!/I'll let you have a secret Pokemon - a Magikarp - for just 500!|Man: Well, I don't give refunds. You knew what you were getting!|No? I'm only doing this as a favor to you!
+[patch Water Labyrinth]
+drop npc 14 11
+npc = 14 11 gentleman down 0 giftegg|Togepi|waterlabegg|You travel all over the place, don't you? You're not driving your Pokemon too harshly, are you?/Let me take a look... Ah, hmm... I see, I see.../Your Pokemon adore you. Here, I'd like you to have this Egg - a sweet little girl gave it to me long ago.|Seeing your Pokemon reminds me of that sweet little girl I met while traveling.

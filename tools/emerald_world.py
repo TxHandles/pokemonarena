@@ -633,6 +633,10 @@ def main():
                 elif beh == MB["MB_CRACKED_FLOOR"] and not coll:   # on foot it gives way; a bike's fast enough to cross
                     L.append(f"door = {k % W} {k // W} warp|{names[hw.group(1)]}|{k % W}|{k // W}|down")
                     L.append("unless = biking")
+        # TVs (Emerald's shows: overworld.cpp's "tv")
+        for k, (_, coll, _, beh) in enumerate(cells):
+            if beh == MB["MB_TELEVISION"]:
+                L.append(f"spot = {k % W} {k // W} tv")
         # signs, hidden items, braille
         for b in j.get("bg_events") or []:
             if b["type"] == "sign":
@@ -763,6 +767,8 @@ def main():
         "",
         "walked = Hoenn",
     ] + ["story_town = %s | %s" % st for st in STORY_TOWN] + [""]
+    # Dewford's trendy saying: the lines that talk about it ({STR_VAR} in the games) say the trend of the moment
+    out = [re.sub(r'""', '"{TREND}"', b) if re.search(r"^name = Dewford Town( Hall)?$", b, re.M) else b for b in out]
     text = "\n".join(head) + "\n" + "\n\n".join(out) + "\n"
     patch = os.path.join(WORLD, "patches_hoenn.txt")
     if os.path.exists(patch):
