@@ -84,6 +84,7 @@ void UpdateScreenOf(Game& g, float dt) {
         case Screen::Contest: UpdateContest(g); break;
         case Screen::Safari: UpdateSafari(g); break;
         case Screen::UnownPuzzle: UpdateUnownPuzzle(g); break;
+        case Screen::VoltorbFlip: UpdateVoltorbFlip(g); break;
     }
 }
 void DrawScreenOf(const Game& g) {
@@ -136,6 +137,7 @@ void DrawScreenOf(const Game& g) {
         case Screen::Contest: DrawContest(g); break;
         case Screen::Safari: DrawSafari(g); break;
         case Screen::UnownPuzzle: DrawUnownPuzzle(g); break;
+        case Screen::VoltorbFlip: DrawVoltorbFlip(g); break;
     }
     if (g.encounterT > 0) DrawEncounterWipe(g);
 }

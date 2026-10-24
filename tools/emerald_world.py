@@ -23,12 +23,12 @@ MAPS = os.path.join(ROOT, "data/maps")
 # Not walked: link rooms, Secret Bases, event islands, the Contest stage (the Contest is a screen of its own),
 # the Battle Frontier's battle rooms (its facilities run from their lobbies) and Ruby/Sapphire leftovers.
 SKIP = re.compile(r"^(BattleColosseum|RecordCorner|TradeCenter|UnionRoom|LinkContestRoom|SecretBase|InsideOfTruck|"
-                  r"NavelRock|BirthIsland|FarawayIsland|SouthernIsland|ContestHall|TrainerHill|AlteringCave|"
+                  r"ContestHall|TrainerHill|AlteringCave|"
                   r"BattlePyramidSquare|SSTidalLowerDeck|SSTidalRooms|"
                   r"BattleFrontier_(BattlePike(Room|Corridor|ThreePathRoom)|BattlePyramid(Floor|Top)|BattleArenaBattleRoom|"
                   r"BattleDome(BattleRoom|PreBattleRoom|Corridor)|BattlePalace(BattleRoom|Corridor)|BattleFactory(PreBattleRoom|BattleRoom)|"
                   r"BattleTower(BattleRoom|Elevator|Corridor|MultiPartnerRoom|MultiCorridor|MultiBattleRoom))|"
-                  r"Route\d+_?Unused|.*Unused|Route104_Prototype|.*BattleTent(BattleRoom|Corridor)|Route110_TrickHouse(Puzzle|Corridor|End))|_PokemonCenter_2F$|^LilycoveCity_ContestHall|^.*_UnusedRubySapphire")
+                  r"Route\d+_?Unused|.*Unused|Route104_Prototype|.*BattleTent(BattleRoom|Corridor))|_PokemonCenter_2F$|^LilycoveCity_ContestHall|^.*_UnusedRubySapphire")
 
 # ------------------------------------------------------------------ names
 OVERRIDE = {
@@ -410,6 +410,8 @@ def grid_of(cells, W, H, land, underwater):
             c = "#"
         elif beh in spin and not coll:
             c = spin[beh]
+        elif beh == b["MB_TRICK_HOUSE_PUZZLE_8_FLOOR"] and not coll:
+            c = "i"   # (slippery: you slide on to the next obstacle)
         elif not coll and beh in grass:
             c = "g"
         elif not coll and land and beh in cave:

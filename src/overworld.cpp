@@ -70,6 +70,7 @@ struct OwNpc {
     std::string tree;                 // sprite "apricorn:Color": an Apricorn tree (HeartGold) of that colour
     std::string needItem, needText, usedText;   // "need = Item|text without it|text using it": Snorlax and the Poke Flute
     std::vector<std::string> rematch; // "rematch = team / team": Emerald's stronger teams for Match Call's rematches (tier 1, 2, ...)
+    std::string opts;                 // "fightopts = scale double": levelled to your party / a double battle (the Trainer Tower)
 };
 struct OwLink { int map = -1; int off = 0; std::string msg; };
 struct OwMap {
@@ -86,6 +87,13 @@ struct OwMap {
     OwLink link[4];                   // down (south), up (north), left (west), right (east)
     struct Act { int x, y; std::string act; std::string ifF, unlessF; };
     std::vector<Act> doors, spots;
+    std::vector<Act> steps;           // "step = x y action": done when you step onto that square (the Trick House's buttons)
+    std::string img2;                 // "img2 = picture": a second picture of the map (the Trick House: its buttons pressed)...
+    Texture2D tex2{};
+    struct Swap { int x, y; std::string flag; };
+    std::vector<Swap> swaps;          // ..."swap = x y flag": that square comes from img2 while the flag is set
+    struct RGate { int x, y, shape, orient; };
+    std::vector<RGate> rgates;        // "rgate = x y shape orientation": Emerald's rotating gates (Fortree Gym, the Trick House)
     std::vector<OwNpc> npcs;
     struct Item { int x, y; std::string item; int n = 1; bool hidden = false; std::string ifF, unlessF; };
     std::vector<Item> items;          // item balls (and hidden items) to pick up, once each
@@ -113,6 +121,8 @@ struct OwMap {
     int diveX = -1, diveY = -1, emergeX = -1, emergeY = -1;   // "emerge = Map": back up to the surface
     struct EmergeAt { int x, y; std::string map; int tx, ty; };
     std::vector<EmergeAt> emergeAt;   // "emergeat = x y Map|tx|ty": surfacing on that one square goes somewhere else (the Sealed Chamber)
+    struct DiveSpot { int x0, y0, x1, y1; std::string flag, map; int tx, ty; };
+    std::vector<DiveSpot> diveSpots;  // "divespot = x0 y0 x1 y1 flag|Map|tx|ty": diving there (while the flag's set) goes there (Marine Cave)
     std::string town;                 // a town you can Fly to (its name on the Town Map)
     int flyX = -1, flyY = -1;         // ...where you land (outside its Pokemon Center)
     int startX = -1, startY = -1;
@@ -387,7 +397,7 @@ char Cell(const Game& g, int i, int map, int x, int y) {
     for (const auto& gt : m.gates) if (gt.x == x && gt.y == y && !HasFlag(g, i, gt.flag) && !gReachMode) return '#';
     return c;
 }
-bool Walkable(char c) { return c == '.' || c == '^' || c == 'g' || c == 'c' || c == 'D' || c == 's' || c == 'u' || c == '0' || (c >= '1' && c <= '4'); }   // (s: a slope or steps, 3D maps; u: under the sea, where you can surface; ^: floor with a wall along its top edge, Crystal's caves)
+bool Walkable(char c) { return c == '.' || c == 'i' || c == '^' || c == 'g' || c == 'c' || c == 'D' || c == 's' || c == 'u' || c == '0' || (c >= '1' && c <= '4'); }   // (s: a slope or steps, 3D maps; u: under the sea, where you can surface; ^: floor with a wall along its top edge, Crystal's caves; i: slippery - you slide on)
 bool IsWater(char c) { return c == 'w' || c == 'W' || c == 'd'; }   // (d: deep water - you can Dive there)
 int ItemAt(const Game& g, int i, int map, int x, int y, bool hidden) {   // an item not picked up yet (-1 none)
     const OwMap& m = gMaps[map];
@@ -443,9 +453,12 @@ void SendPos(Game& g) {
     OnlineSendWorldPos(true, w.map, w.x, w.y, (w.face & 3) | (w.running ? 4 : 0) | (w.biking ? 8 : 0) | (w.surfing ? 16 : 0));
 }
 
+void ResetGates(int map);
+const OwMap::DiveSpot* DiveSpotAt(const Game& g, int i, const OwMap& m, int x, int y);
 void PlaceAt(Game& g, int i, int map, int x, int y) {
     OwWalker& w = g.ow.w[i];
     bool newMap = map != w.map;
+    if (newMap && map >= 0) ResetGates(map);   // (rotating gates are as they were when you come back in)
     bool someoneThere = false;
     for (int k = 0; k < Driven(g); k++) if (k != i && g.ow.w[k].map == map) someoneThere = true;
     w.map = map;
@@ -525,6 +538,15 @@ StageDef FightStage(const OwMap& m, const OwNpc& n, int tier = 0) {
     st.reward = false;
     st.outdoor = !m.indoor;
     st.region = m.region;
+    if (n.opts.find("scale") != std::string::npos) {   // the Trainer Tower: levelled to your party, all at one level
+        st.team.clear();
+        for (const auto& [sp, lv] : team) st.team.push_back(sp);
+        st.baseLevel = 0;
+        st.orig = 0;
+        st.levelOffset = 2;
+        st.cpu = AILevel::Hard;
+    }
+    if (n.opts.find("double") != std::string::npos) st.dbl = true;
     return st;
 }
 // Straight into a battle with your party as it stands (the flash-and-wipe first), like a wild one.
@@ -720,6 +742,8 @@ void UseField(Game& g, int i, const std::string& mv) {
         int tx = down ? here.diveX : here.emergeX, ty = down ? here.diveY : here.emergeY;
         if (!down)
             for (const auto& e : here.emergeAt) if (e.x == w.x && e.y == w.y) { to = e.map; tx = e.tx; ty = e.ty; }
+        if (down)
+            if (const auto* d = DiveSpotAt(g, i, here, w.x, w.y)) { to = d->map; tx = d->tx; ty = d->ty; }
         if (tx < 0) { tx = w.x; ty = w.y; }
         if (MapIndex(to) < 0) return;
         int face = w.face;
@@ -777,12 +801,13 @@ void WorldChallenge(Game& g, int i, const std::vector<std::string>& a) {
     if (k == "frontier" && a.size() > 1) {   // frontier|n: a Battle Frontier facility's receptionist
         int fac = std::atoi(a[1].c_str());
         const FrontierInfo& F = Frontier(fac);
-        bool johto = fac >= 8;
-        if (!HasFlag(g, i, johto ? "done:Johto" : "done:Hoenn")) { Say(w, std::string("The Battle Frontier is open to Trainers who've conquered ") + (johto ? "Johto" : "Hoenn") + "'s Pokemon League."); return; }
+        bool johto = fac >= 8 && fac <= 12;
+        if (!BattleTent(fac) && !HasFlag(g, i, johto ? "done:Johto" : "done:Hoenn")) { Say(w, std::string("The Battle Frontier is open to Trainers who've conquered ") + (johto ? "Johto" : "Hoenn") + "'s Pokemon League."); return; }
         if (online) { Say(w, std::string("Welcome to the ") + F.name + "!|Playing online, the challenge for two is the Battle Tower in your co-op menu."); return; }
         int best = 0, runs = 0, n = FrontierStreak(g, fac, &best, &runs);
         bool silver = HasFlag(g, i, std::string("symbol:") + F.symbol + ":silver"), gold = HasFlag(g, i, std::string("symbol:") + F.symbol + ":gold");
-        std::string rec = n > 0 ? TextFormat("You're on a %d-win streak (record %d). Carry on?", n, best) : best > 0 ? TextFormat("Your record here: %d wins in a row. Take the challenge?", best) : "Would you like to take the challenge?";
+        std::string rec = BattleTent(fac) ? (n > 0 ? TextFormat("You've won %d of 3. Ready for battle %d?", n, n + 1) : "Would you like to take the challenge?")
+                        : n > 0 ? TextFormat("You're on a %d-win streak (record %d). Carry on?", n, best) : best > 0 ? TextFormat("Your record here: %d wins in a row. Take the challenge?", best) : "Would you like to take the challenge?";
         std::string sym = gold ? std::string("|You hold the ") + F.symbol + " Symbol in gold!" : silver ? std::string("|You hold the ") + F.symbol + " Symbol in silver." : "";
         if (fac == 11) {   // the Castle: its points, and what they buy
             int cp = CastlePoints(g);
@@ -967,6 +992,170 @@ void RunAction(Game& g, int i, const std::string& act) {
         Game& t = g.coop ? StartSub(g, i) : g;
         OpenDaycare(t, 0, Screen::World);
     }
+    else if (k == "headbutt" && a.size() > 1) {   // headbutt|<its wild area>: a tree with Pokemon in it (HeartGold)
+        std::string who;
+        if (!PartyKnows(WP(g, i), "Headbutt", &who)) { Say(w, "It's a big tree. A Pokemon might be living in it...|(Teach a Pokemon Headbutt to shake it.)"); return; }
+        Ask(w, "It's a big tree. A Pokemon might be living in it...|Want to use Headbutt?", {{"Yes", "headbuttgo|" + a[1]}, {"No", ""}});
+    }
+    else if (k == "headbuttgo" && a.size() > 1) {
+        std::string who;
+        PartyKnows(WP(g, i), "Headbutt", &who);
+        PlaySfx(Sfx::Thud);
+        if (SimRand(0, 99) < 55 && WildAreaHasMethod(a[1], "headbutt")) { Say(w, who + " did a Headbutt!|A wild Pokemon fell out of the tree!", "wild|headbutt@" + a[1]); return; }
+        Say(w, who + " did a Headbutt!|...Nothing fell out.");
+    }
+    else if (k == "tutor" && a.size() > 1) {   // tutor|Move|what they say: teaches it to one of your party
+        std::vector<std::pair<std::string, std::string>> ch;
+        const Profile& P = WP(g, i);
+        for (int m = 0; m < (int)P.mons.size(); m++) {
+            const OwnedMon& om = P.mons[m];
+            if (om.boxed || std::find(om.moves.begin(), om.moves.end(), a[1]) != om.moves.end()) continue;
+            ch.push_back({om.nick.empty() ? om.species : om.nick, "tutorgo|" + a[1] + "|" + std::to_string(m)});
+            if (ch.size() >= 5) break;
+        }
+        std::string intro;   // (what they say: the rest, one page each)
+        for (size_t q = 2; q < a.size(); q++) if (!a[q].empty()) intro += a[q] + "|";
+        if (ch.empty()) { Say(w, intro + "Hmm... all of your Pokemon already know " + a[1] + "."); return; }
+        ch.push_back({"Never mind", ""});
+        Ask(w, intro + "Which Pokemon should learn " + a[1] + "?", ch);
+    }
+    else if (k == "tutorgo" && a.size() > 2) {
+        Profile& P = WP(g, i);
+        int m = std::atoi(a[2].c_str());
+        if (m < 0 || m >= (int)P.mons.size()) return;
+        OwnedMon& om = P.mons[m];
+        std::string nm = om.nick.empty() ? om.species : om.nick;
+        if (om.moves.size() < 4) {
+            om.moves.push_back(a[1]);
+            SaveAll(g);
+            PlaySfx(Sfx::LevelUp);
+            Say(w, nm + " learned " + a[1] + "!");
+            return;
+        }
+        std::vector<std::pair<std::string, std::string>> ch;
+        for (int k2 = 0; k2 < (int)om.moves.size(); k2++) ch.push_back({om.moves[k2], "tutorforget|" + a[1] + "|" + a[2] + "|" + std::to_string(k2)});
+        ch.push_back({"Don't learn it", ""});
+        Ask(w, nm + " already knows four moves. Which one should it forget for " + a[1] + "?", ch);
+    }
+    else if (k == "tutorforget" && a.size() > 3) {
+        Profile& P = WP(g, i);
+        int m = std::atoi(a[2].c_str()), mv = std::atoi(a[3].c_str());
+        if (m < 0 || m >= (int)P.mons.size() || mv < 0 || mv >= (int)P.mons[m].moves.size()) return;
+        OwnedMon& om = P.mons[m];
+        std::string old = om.moves[mv];
+        om.moves[mv] = a[1];
+        if (std::find(om.forgotten.begin(), om.forgotten.end(), old) == om.forgotten.end()) om.forgotten.push_back(old);
+        SaveAll(g);
+        PlaySfx(Sfx::LevelUp);
+        Say(w, std::string("1, 2 and... Poof! ") + (om.nick.empty() ? om.species : om.nick) + " forgot " + old + " and learned " + a[1] + "!");
+    }
+    else if (k == "ttower" || k == "ttgo" || k == "ttquit" || k == "ttfinish") {   // the Trainer Tower (FireRed): its challenges, against the clock
+        auto& fl = Flags(g);
+        auto clear = [&]() { for (auto it = fl.begin(); it != fl.end();) it = (it->rfind("tt:", 0) == 0 || it->rfind("ttstart|", 0) == 0) ? fl.erase(it) : std::next(it); };
+        auto flagNum = [&](const std::string& key) { for (const auto& f : fl) if (f.rfind(key, 0) == 0) return std::atoll(f.c_str() + key.size()); return -1LL; };
+        static const char* kTypes[4] = {"single", "double", "knockout", "mixed"};
+        static const char* kNames[4] = {"Single Battle", "Double Battle", "Knockout", "Mixed"};
+        static const char* kPrize[4] = {"Metal Coat", "Mental Herb", "Choice Band", "King's Rock"};
+        int type = -1;
+        for (int t = 0; t < 4; t++) if (fl.count(std::string("tt:") + kTypes[t])) type = t;
+        auto clock = [](long long s) { return std::string(TextFormat("%lld:%02lld", s / 60, s % 60)); };
+        if (k == "ttower") {
+            if (fl.count("tt:on") && type >= 0) {
+                Ask(w, std::string("You're taking the ") + kNames[type] + " challenge. The clock is running!|Would you like to give up?", {{"Keep going", ""}, {"Give up", "ttquit"}});
+                return;
+            }
+            std::string best;
+            for (int t = 0; t < 4; t++) if (long long b = flagNum(std::string("ttbest:") + kTypes[t] + "|"); b >= 0) best += std::string("|Your best ") + kNames[t] + " time: " + clock(b) + ".";
+            Ask(w, "Welcome to the Trainer Tower! Trainers from all over wait on every floor.|Beat them all and reach the roof as fast as you can!" + best + "|Which challenge would you like?",
+                {{"Single Battle", "ttgo|0"}, {"Double Battle", "ttgo|1"}, {"Knockout", "ttgo|2"}, {"Mixed", "ttgo|3"}, {"Not now", ""}});
+        } else if (k == "ttgo" && a.size() > 1) {
+            int t = std::max(0, std::min(3, std::atoi(a[1].c_str())));
+            clear();
+            fl.insert("tt:on");
+            fl.insert(std::string("tt:") + kTypes[t]);
+            fl.insert("ttstart|" + std::to_string(StorySeconds(g)));
+            SaveAll(g);
+            Say(w, std::string("The ") + kNames[t] + " challenge! The clock starts... now!|Please go through the door behind me. Good luck!");
+        } else if (k == "ttquit") {
+            clear();
+            SaveAll(g);
+            Say(w, "You've given up the challenge. Please come back anytime!");
+        } else {   // the owner on the roof
+            if (!fl.count("tt:on") || type < 0) { Say(w, "Hello... I am the owner of this Tower...|How the sky soars above this rooftop... Come back when you've climbed it as a challenger."); return; }
+            long long start = flagNum("ttstart|");
+            long long secs = std::max(0LL, StorySeconds(g) - std::max(0LL, start));
+            std::string key = std::string("ttbest:") + kTypes[type] + "|";
+            long long best = flagNum(key);
+            std::string rec = best < 0 || secs < best ? "|That's a new record!" : "|Your record is " + clock(best) + ".";
+            if (best < 0 || secs < best) {
+                for (auto it = fl.begin(); it != fl.end();) it = it->rfind(key, 0) == 0 ? fl.erase(it) : std::next(it);
+                fl.insert(key + std::to_string(secs));
+            }
+            clear();
+            BagAdd(WP(g, i), kPrize[type]);
+            SaveAll(g);
+            PlaySfx(Sfx::ItemGet);
+            Say(w, std::string("Hello... I am the owner of this Tower... You've climbed to the top!|Your ") + kNames[type] + " time: " + clock(secs) + "." + rec +
+                   "|As a reward, please take this " + kPrize[type] + ".|You got the " + kPrize[type] + "!");
+        }
+    }
+    else if (k == "slots" || k == "voltorbflip") {   // a Game Corner's machines: the slots, HeartGold's Voltorb Flip
+        if (g.coop) { Say(w, "(The Game Corner's machines are for playing on your own.)"); return; }
+        if (k == "slots" && g.profile.casino <= 0) { Say(w, "It's a slot machine. You need Game Corner coins to play - buy some at the counter."); return; }
+        SaveAll(g);
+        if (k == "slots") OpenSlotsFromWorld(g); else OpenVoltorbFlip(g);
+    }
+    else if (k == "islandtickets") {   // the S.S. Tidal's island tours: a ticket for each island, once you're ready for it
+        struct Tk { const char* item; const char* why; };
+        auto caught = [&](const char* sp) { int id = LegendIdOf(sp); return id >= 0 && LegendCaughtBy(g, id) >= 0; };
+        std::string got;
+        auto give = [&](const char* item, bool ok) { if (ok && BagCount(WP(g, i), item) == 0) { BagAdd(WP(g, i), item); got += std::string("|You got the ") + item + "!"; } };
+        give("Eon Ticket", HasFlag(g, i, "done:Hoenn"));
+        give("Old Sea Map", caught("Mewtwo"));
+        give("Aurora Ticket", caught("Rayquaza"));
+        give("Mystic Ticket", HasFlag(g, i, "done:Johto") && HasFlag(g, i, "done:Hoenn"));
+        if (!got.empty()) { SaveAll(g); PlaySfx(Sfx::ItemGet); Say(w, "Hello! The S.S. Tidal also sails to some faraway islands - with the right ticket.|Some mail came for you!" + got + "|Show it at the ferry counter, and off you go!"); return; }
+        Say(w, "Hello! The S.S. Tidal also sails to some faraway islands - with the right ticket.|Tickets turn up for Trainers who've done great things: conquering Hoenn's League, catching Mewtwo or Rayquaza, conquering Johto too...");
+    }
+    else if (k == "abweather" || k == "abwback") {   // Emerald's abnormal weather: Groudon's drought, Kyogre's heavy rain (Terra / Marine Cave)
+        struct Loc { const char* id; const char* route; bool marine; int bx, by; };   // where the cave's way in is (and where you come back out)
+        static const Loc kLoc[16] = {{"114n", "Route 114", false, 7, 5}, {"114s", "Route 114", false, 6, 47}, {"115w", "Route 115", false, 21, 7},
+                                     {"115e", "Route 115", false, 36, 11}, {"116n", "Route 116", false, 59, 14}, {"116s", "Route 116", false, 79, 7},
+                                     {"118e", "Route 118", false, 42, 7}, {"118w", "Route 118", false, 9, 7},
+                                     {"105n", "Route 105", true, 11, 29}, {"105s", "Route 105", true, 21, 54}, {"125w", "Route 125", true, 9, 17},
+                                     {"125e", "Route 125", true, 54, 19}, {"127n", "Route 127", true, 58, 10}, {"127s", "Route 127", true, 62, 31},
+                                     {"129w", "Route 129", true, 17, 15}, {"129e", "Route 129", true, 43, 20}};
+        auto& fl = Flags(g);
+        int cur = -1;
+        for (int l = 0; l < 16; l++) if (fl.count(std::string("abw:") + kLoc[l].id)) cur = l;
+        if (k == "abwback") {   // out of the cave: back where you came in
+            if (cur < 0) cur = 0;
+            const Loc& L = kLoc[cur];
+            Warp(g, i, {"warp", L.route, std::to_string(L.bx), std::to_string(L.by), "down"});
+            if (L.marine) w.surfing = true;
+            return;
+        }
+        int groudon = LegendIdOf("Groudon"), kyogre = LegendIdOf("Kyogre");
+        bool gDone = groudon >= 0 && LegendCaughtBy(g, groudon) >= 0, kDone = kyogre >= 0 && LegendCaughtBy(g, kyogre) >= 0;
+        if (!HasFlag(g, i, "done:Hoenn")) { Say(w, "We're studying the weather here. Hoenn's weather can change in strange ways..."); return; }
+        if (gDone && kDone) {
+            for (auto it = fl.begin(); it != fl.end();) it = it->rfind("abw:", 0) == 0 ? fl.erase(it) : std::next(it);
+            Say(w, "The weather all over Hoenn has been calm lately. Nothing unusual to report!");
+            return;
+        }
+        if (cur < 0 || (kLoc[cur].marine ? kDone : gDone)) {   // a new report: wherever the one still sleeping stirs
+            for (auto it = fl.begin(); it != fl.end();) it = it->rfind("abw:", 0) == 0 ? fl.erase(it) : std::next(it);
+            bool marine = gDone ? true : kDone ? false : SimRand(0, 1) == 1;
+            cur = (marine ? 8 : 0) + SimRand(0, 7);
+            SetFlag(g, std::string("abw:") + kLoc[cur].id);
+            SaveAll(g);
+        }
+        const Loc& L = kLoc[cur];
+        Say(w, std::string("Oh, it's you! We've been tracking something odd.|") +
+               (L.marine ? "There's been a sudden, terrible downpour on " : "A severe drought has struck ") + L.route + "!|" +
+               (L.marine ? "Somewhere out on the sea there, the water is said to be churning..." : "Somewhere there, a cave has opened where there wasn't one before...") +
+               "|Could it have something to do with " + (L.marine ? "Kyogre" : "Groudon") + "?");
+    }
     else if (k == "dexrate") {   // dexrate|greeting: one of Prof. Oak's aides looks at your Pokedex
         int n = (int)WP(g, i).dexCaught.size();
         const char* say = n < 10 ? "Just getting started! Catch Pokemon in the tall grass and the caves - the Pokedex fills in as you go."
@@ -1057,6 +1246,69 @@ void RunAction(Game& g, int i, const std::string& act) {
     else if (k == "switch" && a.size() > 1) {   // switch|flag|text: a secret switch (the Pokemon Mansion's statues)
         std::string text = act.size() > 8 + a[1].size() ? act.substr(8 + a[1].size()) : "A switch!|Press it?";
         Ask(w, text, {{"Yes", "toggle|" + a[1]}, {"No", ""}});
+    }
+    else if (k == "press" && a.size() > 1) {   // press|flag[|toggle]: a button underfoot (the Trick House): sets the flag (or flips it)
+        bool on = Flags(g).count(a[1]) > 0;
+        if (a.size() > 2 && a[2] == "toggle" && on) { Flags(g).erase(a[1]); if (Online(g)) OnlineSendCoop(g); }
+        else if (!on) SetFlag(g, a[1]);
+        else return;
+        PlaySfx(Sfx::Door);
+    }
+    else if (k == "quiz3" && a.size() > 3) {   // quiz3|flag|x,y|q1~q2~q3 (each "correct^question^A^B^C"): a Mechadoll asks; wrong: back to x, y
+        if (HasFlag(g, i, a[1])) return;
+        auto qs = Split(a[3], '~');
+        auto q = Split(qs[SimRand(0, (int)qs.size() - 1)], '^');
+        if (q.size() < 3) return;
+        int right = std::atoi(q[0].c_str());
+        std::string text = q[1];
+        for (char& ch : text) if (ch == '/') ch = '|';
+        std::vector<std::pair<std::string, std::string>> ch;
+        for (size_t c = 2; c < q.size(); c++) ch.push_back({q[c], (int)c - 2 == right ? "quizright|" + a[1] : "quizwrong|" + a[2]});
+        w.spin = -1;
+        Ask(w, text, ch);
+    }
+    else if (k == "quizright" && a.size() > 1) { SetFlag(g, a[1]); PlaySfx(Sfx::ItemGet); Say(w, "Congratulations. Correct you are. Go through, please."); }
+    else if (k == "quizwrong" && a.size() > 1) {   // back to the start of the room
+        PlaySfx(Sfx::Bump);
+        auto xy = Split(a[1], ',');
+        Say(w, "Disappointment. Error you are.|Wahahahaha!|Wait for the next challenge!",
+            "warp|" + MapOf(w).name + "|" + xy[0] + "|" + (xy.size() > 1 ? xy[1] : "0") + "|up");
+    }
+    else if (k == "trickgo" || k == "trickscroll" || k == "trickreward") {   // the Trick House (Emerald): the Trick Master's eight puzzles
+        auto& fl = Flags(g);
+        int level = 0;
+        for (const auto& f : fl) if (f.rfind("tricklevel|", 0) == 0) level = std::atoi(f.c_str() + 11);
+        auto setLevel = [&](int n) {
+            for (auto it = fl.begin(); it != fl.end();) it = it->rfind("tricklevel|", 0) == 0 ? fl.erase(it) : std::next(it);
+            fl.insert("tricklevel|" + std::to_string(n));
+        };
+        static const char* kBadge[9] = {"", "", "Dynamo", "Heat", "Balance", "Feather", "Mind", "Rain", "Rain"};   // what each puzzle waits for
+        if (k == "trickgo") {
+            int n = level + 1;
+            if (n > 8) { Say(w, "There's a note: \"I, the Trick Master, have gone on a journey to devise new tricks. Wait for me!\""); return; }
+            if (n >= 2 && !HasBadge(g, kBadge[n])) { Say(w, "Trick Master: I'm still preparing the next trick! Come back once you've earned more Badges."); return; }
+            for (auto it = fl.begin(); it != fl.end();) it = it->rfind("thp:", 0) == 0 ? fl.erase(it) : std::next(it);   // (its buttons as they start)
+            Warp(g, i, {"warp", TextFormat("Route 110 Trick House Puzzle %d", n), "0", "21", "up"});
+        } else if (k == "trickscroll" && a.size() > 1) {
+            int n = std::atoi(a[1].c_str());
+            std::string f = "trick:scroll" + std::to_string(n);
+            if (fl.count(f)) { Say(w, "{PLAYER} reread the secret code on the scroll: \"Trick Master is fabulous.\""); return; }
+            SetFlag(g, f);
+            PlaySfx(Sfx::ItemGet);
+            Say(w, "{PLAYER} found a scroll.|{PLAYER} memorized the secret code written on the scroll.|\"Trick Master is fabulous.\"|...The door to the next room should open with it.");
+        } else {   // the Trick Master at the end: that puzzle's prize
+            static const char* kPrize[9] = {"", "Rare Candy", "Timer Ball", "Hard Stone", "Smoke Ball", "TM087 Taunt", "Magnet", "PP Max", "Nugget"};
+            int n = level + 1;
+            if (n > 8 || !fl.count("trick:scroll" + std::to_string(n))) { Say(w, "Trick Master: Aak! You've made it to me? Hmmm... You're sharp!"); return; }
+            setLevel(n);
+            std::string prize = kPrize[n];
+            if (!FindItem(prize)) prize = "Nugget";
+            BagAdd(WP(g, i), prize);
+            SaveAll(g);
+            PlaySfx(Sfx::ItemGet);
+            Say(w, std::string("Trick Master: Aak! You've made it to me? Hmmm... You're sharp!|Fine! You've earned the reward for getting through my Trick House!|You got the ") + prize + "!" +
+                   (n < 8 ? "|Next time, there'll be an even trickier trick waiting for you!" : "|You've solved all my tricks... I'll go on a journey to think up new ones!"));
+        }
     }
     else if (k == "toggle" && a.size() > 1) {
         if (Flags(g).count(a[1])) { Flags(g).erase(a[1]); if (Online(g)) OnlineSendCoop(g); }
@@ -1383,15 +1635,22 @@ void AfterMessage(Game& g, int i) {
 
 // Teamed up: a 2v2 wild battle for both players (your partner comes over). False: they're busy,
 // so it's your own battle after all.
+// "headbutt@Route 30 (Headbutt)": a method with its own wild area (a tree's Pokemon); plain: the map's area
+std::string WildMethodArea(const OwMap& m, const std::string& method, std::string* meth) {
+    size_t at = method.find('@');
+    if (meth) *meth = at == std::string::npos ? method : method.substr(0, at);
+    return at == std::string::npos ? m.wild : method.substr(at + 1);
+}
 bool TeamWild(Game& g, int i, const std::string& method = "walk") {
     OwWalker& w = g.ow.w[i];
     const OwMap& m = MapOf(w);
+    std::string meth, area = WildMethodArea(m, method, &meth);
     for (int p = 0; p < 2; p++) if (HealthyCount(Prof(g, p)) == 0) return false;
     if (Online(g)) {
         if (PartnerBattling(g) || !g.ow.w[1].here) return false;
         g.ow.wildBattle = true;
-        g.ow.wildArea = m.wild;
-        g.ow.wildMethod = method;
+        g.ow.wildArea = area;
+        g.ow.wildMethod = meth;
         OnlineSendWorldFight(-1, w.map, w.x, w.y, "wild|" + method);
         OnlineSetReady(g, 2);
         g.ow.waitFight = true;
@@ -1404,7 +1663,8 @@ bool TeamWild(Game& g, int i, const std::string& method = "walk") {
     if (FreeBeside(g, o, w.map, w.x, w.y, w.face, ox, oy)) { PlaceAt(g, o, w.map, ox, oy); g.ow.w[o].face = w.face; }
     SaveAll(g);
     g.ow.wildBattle = true;
-    g.ow.wildArea = m.wild;
+    g.ow.wildArea = area;
+    g.ow.wildMethod = meth;
     StartCoopTrainingBattle(g);
     return true;
 }
@@ -1520,22 +1780,23 @@ std::string BugJudging(Game& g) {
            (boxed ? " was sent to the Box." : " joined your party.");
 }
 
-void WildEncounter(Game& g, int i, const std::string& method) {
+void WildEncounter(Game& g, int i, const std::string& method0) {
     OwWalker& w = g.ow.w[i];
     const OwMap& m = MapOf(w);
+    std::string method, area = WildMethodArea(m, method0, &method);
     if (Online(g) && (g.ow.incoming || g.ow.waitFight)) return;   // already on your way into a battle together
-    if (WildAreaIndex(m.wild) < 0 || HealthyCount(WP(g, i)) == 0) return;
+    if (WildAreaIndex(area) < 0 || HealthyCount(WP(g, i)) == 0) return;
     if (SafariArea(g, w)) { SafariEncounter(g, i, method); return; }
     NoteBattleWeather(g, i);
     w.stepsSinceWild = 0;
     SaveAll(g);
     g.ow.wildMethod = method;
     // co-op: teamed up (always, online: you both go in at once, so neither of you walks into another one meanwhile)
-    if (g.coop && (Online(g) || (g.ow.teamUp && method == "walk")) && TeamWild(g, i, method)) return;
+    if (g.coop && (Online(g) || (g.ow.teamUp && method == "walk")) && TeamWild(g, i, method0)) return;
     Game& t = g.coop ? StartSub(g, i) : g;
-    if (t.profile.trainArea != m.wild) { t.profile.trainArea = m.wild; t.rareSpecies = -1; }
+    if (t.profile.trainArea != area) { t.profile.trainArea = area; t.rareSpecies = -1; }
     t.ow.wildBattle = true;
-    t.ow.wildArea = m.wild;
+    t.ow.wildArea = area;
     t.ow.wildMethod = method;
     t.encounterBlank = g.coop;
     if (!SaveProfile(t.profile)) Toast(g, "Could not save the profile!");
@@ -1698,6 +1959,10 @@ void Arrived(Game& g, int i) {
     char c = Cell(g, i, w.map, w.x, w.y);
     if (c >= '1' && c <= '4') w.spin = c == '1' ? 1 : c == '2' ? 0 : c == '3' ? 2 : 3;   // a spin tile: off you go
     else if (c == '0') w.spin = -1;
+    else if (c == 'i') w.spin = w.face;   // slippery: on you slide, the way you were going
+    else if (w.spin >= 0 && m.At(w.fromX, w.fromY) == 'i') w.spin = -1;   // (off the slippery floor: you stop)
+    for (const auto& st : m.steps)   // stepped onto a button
+        if (st.x == w.x && st.y == w.y && CondOk(g, i, st.ifF, st.unlessF)) { w.spin = -1; RunAction(g, i, st.act); return; }
     if (w.spin >= 0) return;
     {   // a new map: the roaming legendaries move on too (as in the games, whenever you change routes)
         static int lastMap[2] = {-1, -1};
@@ -1724,6 +1989,60 @@ bool TooSteep(float rise, char to, char from) {   // ...unless it's a slope or s
     return std::abs(rise) > ((to == 's' || from == 's') ? 48 : kSteep);
 }
 // One step (or a ledge hop, a boulder push, Surf on and off).
+// ---- Emerald's rotating gates (pokeemerald's rotating_gate.c): arms on the lines between squares, turning on a
+// corner; walk through an arm and it swings round (if the squares it sweeps are clear), or it stops you.
+std::map<int, std::vector<int>> gGateOri;   // map -> each gate's orientation now (back as it was when you come in)
+std::vector<int>& GateOri(int map) {
+    auto& v = gGateOri[map];
+    const auto& gs = gMaps[map].rgates;
+    if (v.size() != gs.size()) { v.clear(); for (const auto& gt : gs) v.push_back(gt.orient & 3); }
+    return v;
+}
+void ResetGates(int map) { gGateOri.erase(map); }
+namespace rg {
+constexpr int NONE = 255;
+constexpr int R(int dirn, int arm, int lng) { return (dirn << 4) | (arm * 2 + lng); }   // dirn 1 anticlockwise, 2 clockwise
+const uint8_t kNorth[16] = {NONE, NONE, NONE, NONE, R(2, 3, 1), R(2, 3, 0), R(1, 1, 0), R(1, 1, 1), NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE};
+const uint8_t kSouth[16] = {NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, R(1, 3, 1), R(1, 3, 0), R(2, 1, 0), R(2, 1, 1), NONE, NONE, NONE, NONE};
+const uint8_t kWest[16] = {NONE, R(1, 0, 1), NONE, NONE, NONE, R(1, 0, 0), NONE, NONE, NONE, R(2, 2, 0), NONE, NONE, NONE, R(2, 2, 1), NONE, NONE};
+const uint8_t kEast[16] = {NONE, NONE, R(2, 0, 1), NONE, NONE, NONE, R(2, 0, 0), NONE, NONE, NONE, R(1, 2, 0), NONE, NONE, NONE, R(1, 2, 1), NONE};
+const int kCW[8][2] = {{0, -1}, {1, -2}, {0, 0}, {1, 0}, {-1, 0}, {-1, 1}, {-1, -1}, {-2, -1}};
+const int kACW[8][2] = {{-1, -1}, {-1, -2}, {0, -1}, {1, -1}, {0, 0}, {0, 1}, {-1, 0}, {-2, 0}};
+const uint8_t kArms[8][8] = {{1, 0, 1, 0, 0, 0, 0, 0}, {1, 1, 1, 0, 0, 0, 0, 0}, {1, 0, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 0, 0, 0, 0},
+                             {1, 0, 1, 0, 1, 0, 0, 0}, {1, 1, 1, 0, 1, 0, 0, 0}, {1, 0, 1, 1, 1, 0, 0, 0}, {1, 0, 1, 0, 1, 1, 0, 0}};
+}
+// false: a gate's arm is in the way and can't turn (moving dir onto nx, ny); a gate that can turn, turns
+bool GateLetsPass(Game& g, int i, int map, int dir, int nx, int ny) {
+    const OwMap& m = gMaps[map];
+    if (m.rgates.empty() || gReachMode) return true;
+    auto& ori = GateOri(map);
+    for (int k = 0; k < (int)m.rgates.size(); k++) {
+        const auto& gt = m.rgates[k];
+        if (nx < gt.x - 2 || nx > gt.x + 1 || ny < gt.y - 2 || ny > gt.y + 1) continue;
+        int cx = nx - gt.x + 2, cy = ny - gt.y + 2;
+        const uint8_t* tab = dir == 1 ? rg::kNorth : dir == 0 ? rg::kSouth : dir == 2 ? rg::kWest : rg::kEast;
+        int info = tab[cy * 4 + cx];
+        if (info == rg::NONE) continue;
+        int rot = info >> 4, armInfo = info & 15;
+        int arm = armInfo / 2, lng = armInfo % 2;
+        int shape = std::max(0, std::min(7, gt.shape));
+        if (!rg::kArms[shape][((arm - ori[k] + 4) % 4) * 2 + lng]) continue;   // no arm there
+        const int (*pos)[2] = rot == 1 ? rg::kACW : rg::kCW;
+        bool can = true;
+        for (int a = 0; a < 4 && can; a++)
+            for (int j = 0; j < 2 && can; j++)
+                if (rg::kArms[shape][a * 2 + j]) {
+                    int idx = 2 * ((ori[k] + a) % 4) + j;
+                    char c = Cell(g, i, map, gt.x + pos[idx][0], gt.y + pos[idx][1]);
+                    if (c == '#') can = false;
+                }
+        if (!can) return false;
+        ori[k] = rot == 1 ? (ori[k] + 3) % 4 : (ori[k] + 1) % 4;
+        PlaySfx(Sfx::Door);
+        return true;
+    }
+    return true;
+}
 void TryStep(Game& g, int i, int dir) {
     OwWalker& w = g.ow.w[i];
     const OwMap& m = MapOf(w);
@@ -1820,6 +2139,7 @@ void TryStep(Game& g, int i, int dir) {
         bump();
         return;
     }
+    if (!hop && !GateLetsPass(g, i, w.map, dir, nx, ny)) { bump(); return; }   // a rotating gate's arm that can't turn
     w.fFromX = w.fx; w.fFromY = w.fy;
     w.fx = w.x; w.fy = w.y;
     w.fFace = w.fx != w.fFromX ? (w.fx > w.fFromX ? 3 : 2) : (w.fy > w.fFromY ? 0 : w.fy < w.fFromY ? 1 : w.fFace);
@@ -1897,6 +2217,7 @@ std::string OwReach(Game& g, const std::string& region, const std::string& start
             }
         }
         for (const auto& e : m.emergeAt) if (s.surf && e.x == s.x && e.y == s.y) push({MapIndex(e.map), e.tx, e.ty, true});
+        if (s.surf) if (const auto* d = DiveSpotAt(g, 0, m, s.x, s.y)) push({MapIndex(d->map), d->tx, d->ty, true});
         if (s.surf && (!m.diveTo.empty() || !m.emergeTo.empty())) {                      // Dive
             for (int down = 0; down < 2; down++) {
                 std::string to = down ? m.diveTo : m.emergeTo;
@@ -1998,11 +2319,16 @@ void Ask(OwWalker& w, const std::string& text, std::vector<std::pair<std::string
     PlaySfx(Sfx::MenuMove);
 }
 // Dive: A on the dark deep water while surfing (down), or under the sea where light filters down (up).
+const OwMap::DiveSpot* DiveSpotAt(const Game& g, int i, const OwMap& m, int x, int y) {
+    for (const auto& d : m.diveSpots)
+        if (x >= d.x0 && x <= d.x1 && y >= d.y0 && y <= d.y1 && (gReachMode || HasFlag(g, i, d.flag))) return &d;
+    return nullptr;
+}
 bool DiveHere(Game& g, int i) {
     OwWalker& w = g.ow.w[i];
     const OwMap& m = MapOf(w);
     char c = m.At(w.x, w.y);
-    bool down = !m.underwater && w.surfing && c == 'd' && !m.diveTo.empty();
+    bool down = !m.underwater && w.surfing && ((c == 'd' && !m.diveTo.empty()) || DiveSpotAt(g, i, m, w.x, w.y));
     bool up = m.underwater && c == 'u' && !m.emergeTo.empty();
     if (!down && !up) return false;
     std::string who;
@@ -2472,6 +2798,7 @@ void TouchMap(int map) {
     m.tex = LoadTex(dir + (m.altShown ? m.altImage : m.image));
     const std::string& ov = m.altShown ? m.altOver : m.overImage;
     if (!ov.empty()) m.over = LoadTex(dir + ov);
+    if (!m.img2.empty()) m.tex2 = LoadTex(dir + m.img2);
     int loaded = 0;
     for (const auto& o : gMaps) loaded += o.tex.id != 0;
     while (loaded > 24) {
@@ -2480,12 +2807,13 @@ void TouchMap(int map) {
         if (!old || old == &m) break;
         UnloadTexture(old->tex); old->tex = {};
         if (old->over.id) { UnloadTexture(old->over); old->over = {}; }
+        if (old->tex2.id) { UnloadTexture(old->tex2); old->tex2 = {}; }
         loaded--;
     }
 }
 
 void LoadWorld(std::string& log) {
-    for (auto& m : gMaps) { if (m.tex.id) UnloadTexture(m.tex); if (m.over.id) UnloadTexture(m.over); }
+    for (auto& m : gMaps) { if (m.tex.id) UnloadTexture(m.tex); if (m.over.id) UnloadTexture(m.over); if (m.tex2.id) UnloadTexture(m.tex2); }
     gMaps.clear();
     gSpriteNames.clear();
     gStoryTown.clear();
@@ -2544,6 +2872,13 @@ void LoadWorld(std::string& log) {
         else if (k == "image") m->image = v;
         else if (k == "over") m->overImage = v;
         else if (k == "cycling") m->cycling = v == "yes";
+        else if (k == "divespot") {
+            OwMap::DiveSpot d{};
+            int n = 0;
+            std::sscanf(v.c_str(), "%d %d %d %d %n", &d.x0, &d.y0, &d.x1, &d.y1, &n);
+            auto p = Split(v.substr(n), '|');
+            if (p.size() >= 4) { d.flag = Trim(p[0]); d.map = Trim(p[1]); d.tx = std::atoi(p[2].c_str()); d.ty = std::atoi(p[3].c_str()); m->diveSpots.push_back(d); }
+        }
         else if (k == "emergeat") {
             int x = 0, y = 0, n = 0;
             std::sscanf(v.c_str(), "%d %d %n", &x, &y, &n);
@@ -2586,6 +2921,7 @@ void LoadWorld(std::string& log) {
                 (k == "dive" ? m->diveY : m->emergeY) = std::atoi(p[2].c_str());
             }
         }
+        else if (k == "fightopts" && lastNpc) lastNpc->opts = v;
         else if (k == "rematch" && lastNpc) { for (const auto& t : Split(v, '/')) lastNpc->rematch.push_back(Trim(t)); }
         else if (k == "town") m->town = v;
         else if (k == "fly") std::sscanf(v.c_str(), "%d %d", &m->flyX, &m->flyY);
@@ -2632,12 +2968,15 @@ void LoadWorld(std::string& log) {
         } else if (k == "north" || k == "south" || k == "west" || k == "east") {
             int d = k == "south" ? 0 : k == "north" ? 1 : k == "west" ? 2 : 3;
             m->link[d].msg = v;
-        } else if (k == "door" || k == "sign" || k == "spot") {
+        } else if (k == "img2") m->img2 = v;
+        else if (k == "swap") { OwMap::Swap sw; int n = 0; std::sscanf(v.c_str(), "%d %d %n", &sw.x, &sw.y, &n); sw.flag = Trim(v.substr(n)); m->swaps.push_back(sw); }
+        else if (k == "rgate") { OwMap::RGate rg{}; if (std::sscanf(v.c_str(), "%d %d %d %d", &rg.x, &rg.y, &rg.shape, &rg.orient) == 4) m->rgates.push_back(rg); }
+        else if (k == "door" || k == "sign" || k == "spot" || k == "step") {
             int x = 0, y = 0, n = 0;
             std::sscanf(v.c_str(), "%d %d %n", &x, &y, &n);
             std::string act = v.substr(n);
             if (k == "sign") act = "msg|" + act;
-            auto& list = k == "door" ? m->doors : m->spots;
+            auto& list = k == "door" ? m->doors : k == "step" ? m->steps : m->spots;
             list.push_back({x, y, act, "", ""});
             lastIf = &list.back().ifF; lastUnless = &list.back().unlessF;
         } else if (k == "npc") {
@@ -2659,10 +2998,11 @@ void LoadWorld(std::string& log) {
                 for (size_t i = 0; i < p.args.size(); i++) t += (i ? "|" : "") + p.args[i];
                 p.args = {t};
             }
-            if (p.kind == "fight") {   // name|team|before|after -> + the flag a win sets
+            if (p.kind == "fight") {   // name|team|before|after[|flag] -> + the flag a win sets (beat:Map:Name unless it's given)
+                std::string own = p.args.size() > 4 ? Trim(p.args[4]) : "";
                 while (p.args.size() < 4) p.args.push_back("");
                 p.args.resize(4);
-                p.args.push_back("beat:" + m->name + ":" + p.args[0]);
+                p.args.push_back(own.empty() ? "beat:" + m->name + ":" + p.args[0] : own);
             }
             if (p.kind == "give" || p.kind == "legend" || p.kind == "fight" || p.kind == "encounter" || p.kind == "trainer") for (auto& a : p.args) for (char& ch : a) if (ch == '/') ch = '|';   // (text pages: "/" between them)
             m->npcs.push_back(p);
@@ -2952,6 +3292,7 @@ void UpdateWorld(Game& g, float dt) {
             m.altShown = want;
             if (m.tex.id) { UnloadTexture(m.tex); m.tex = {}; }
             if (m.over.id) { UnloadTexture(m.over); m.over = {}; }
+            if (m.tex2.id) { UnloadTexture(m.tex2); m.tex2 = {}; }
         };
         check(gMaps[mi]);
         for (const auto& nb : gMaps[mi].near) check(gMaps[nb.map]);
@@ -3128,10 +3469,31 @@ void DrawBerryTrees(const Game& g, int map, const View& c) {
         DrawTexturePro(gBerryTex, {(float)col * 16, (float)bi * 32, 16, 32}, {p.x, p.y, 16 * Z, 32 * Z}, {0, 0}, 0, WHITE);
     }
 }
+Texture2D gGateTex[8] = {};   // the rotating gates' pictures (World/rgates/, pokeemerald's graphics/rotating_gates)
 void DrawMapChanges(const Game& g, int map, const View& c) {
     const OwMap& m = gMaps[map];
     const MapRt& rt = gRt[map];
     if (!m.tex.id) return;
+    if (m.tex2.id)   // squares from the second picture (a button pressed, a hole filled)
+        for (const auto& sw : m.swaps)
+            if (HasFlag(g, 0, sw.flag)) {
+                Vector2 p = Scr(c, (float)sw.x * T, (float)sw.y * T);
+                DrawTexturePro(m.tex2, {(float)sw.x * T, (float)sw.y * T - m.imgOffY, (float)T, (float)T}, {p.x, p.y, T * Z, T * Z}, {0, 0}, 0, WHITE);
+            }
+    if (!m.rgates.empty()) {   // the rotating gates, turned as they are now
+        static const char* kGate[8] = {"l1", "l2", "l3", "l4", "t1", "t2", "t3", "t4"};
+        auto it = gGateOri.find(map);
+        for (int k = 0; k < (int)m.rgates.size(); k++) {
+            const auto& gt = m.rgates[k];
+            int s = std::max(0, std::min(7, gt.shape));
+            if (!gGateTex[s].id) gGateTex[s] = LoadTex(DataDir() + "World/rgates/" + kGate[s] + ".png");
+            if (!gGateTex[s].id) continue;
+            int o = it != gGateOri.end() && k < (int)it->second.size() ? it->second[k] : (gt.orient & 3);
+            Vector2 p = Scr(c, (float)gt.x * T, (float)gt.y * T);   // (they turn on the corner at the top left of their square)
+            float wpx = (float)gGateTex[s].width;
+            DrawTexturePro(gGateTex[s], {0, 0, wpx, (float)gGateTex[s].height}, {p.x, p.y, wpx * Z, gGateTex[s].height * Z}, {wpx * Z / 2, gGateTex[s].height * Z / 2}, 90.0f * o, WHITE);
+        }
+    }
     auto tileAt = [&](int k, int kx, int ky) {   // copy picture tile k to tile (kx, ky)
         Rectangle src{(float)(k % m.w) * T, (float)(k / m.w) * T, (float)T, (float)T};
         Vector2 p = Scr(c, (float)kx * T, (float)ky * T);

@@ -655,3 +655,178 @@ if = badge:Boulder
 drop npc 42 20
 npc = 42 20 boy down 0 talk|You're a Trainer, right?|Brock's looking for new challengers. Go see him at the Gym first!
 unless = badge:Boulder
+
+
+# ------------------------------------------------------------------ the Trainer Tower (tools/frlg_trainer_tower.py)
+[patch Trainer Tower]
+drop npc 11 7
+npc = 11 7 union_room_receptionist left 0 ttower
+drop door 17 8
+tile 17 8 #
+door = 9 2 warp|Trainer Tower 1F|4|7|down
+block = 9 2 tt:on|Please register for a challenge at the counter first.
+[patch Trainer Tower 1F]
+npc = 15 13 sailor left 0 fight|Sailor Alberto|Feraligatr 50, Poliwrath 50, Kangaskhan 50|Let's get with it right away|It's all over... I surrender|tt:1F:single
+fightopts = scale
+if = tt:single
+npc = 10 10 em_twin down 0 fight|Twins Jen & Kira|Jolteon 50, Espeon 50, Jolteon 50, Espeon 50|I am going to try hard!|Waaah!|tt:1F:double
+fightopts = scale double
+if = tt:double
+npc = 10 16 rocker up 0 fight|Jordy, Ernest & Gabriel|Magby 50, Cleffa 50, Pichu 50|Don't make me giggle you pushover|What was that?|tt:1F:knockout
+fightopts = scale
+if = tt:knockout
+npc = 15 13 cooltrainer_f left 0 fight|Cooltrainer Allyson|Starmie 50, Blastoise 50, Kingdra 50|I am not about to lose today|I was confused about things I think|tt:1F:mixed
+fightopts = scale
+if = tt:mixed
+block = 14 6 tt:1F:single,tt:1F:double,tt:1F:knockout,tt:1F:mixed|The way up opens once you've beaten this floor's Trainers!
+[patch Trainer Tower 2F]
+drop door 13 5
+npc = 15 13 bug_catcher left 0 fight|Bug Catcher Brandon|Butterfree 50, Beedrill 50, Parasect 50|Poison is just so awful isn't it?|Huh? our poison didn't work?|tt:2F:single
+fightopts = scale
+if = tt:single
+npc = 10 10 crush_girl down 0 fight|Crush Kin Jo & Haley|Sneasel 50, Alakazam 50, Hypno 50, Hitmonchan 50|We're using that strategy okay?|Wimpy... we were weak...|tt:2F:double
+fightopts = scale double
+if = tt:double
+npc = 10 16 hiker up 0 fight|Mike, Rebecca & Nicolas|Pinsir 50, Sandslash 50, Hitmonlee 50|My Pokemon are full of power|Why couldn't I beat you?|tt:2F:knockout
+fightopts = scale
+if = tt:knockout
+npc = 15 13 man left 0 fight|Psychic Lorenzo|Mr. Mime 50, Hypno 50, Alakazam 50|This power is now complete!|Here it is!!... what|tt:2F:mixed
+fightopts = scale
+if = tt:mixed
+block = 14 6 tt:2F:single,tt:2F:double,tt:2F:knockout,tt:2F:mixed|The way up opens once you've beaten this floor's Trainers!
+[patch Trainer Tower 3F]
+drop door 13 5
+npc = 15 13 man left 0 fight|Juggler Jarrett|Electrode 50, Voltorb 50, Weezing 50|Let's have an party!|Nice there! you're perfect|tt:3F:single
+fightopts = scale
+if = tt:single
+npc = 10 10 crush_girl down 0 fight|Crush Kin Ric & Rene|Hitmonlee 50, Rhydon 50, Machamp 50, Pinsir 50|My big brother is really awesome|Huh? I am not very awesome?|tt:3F:double
+fightopts = scale double
+if = tt:double
+npc = 10 16 picnicker up 0 fight|Camryn, Natalia & Kathleen|Murkrow 50, Bellossom 50, Marowak 50|Let's battle I won't lose!|This is hard to believe...|tt:3F:knockout
+fightopts = scale
+if = tt:knockout
+npc = 15 13 poke_maniac left 0 fight|Super Nerd Owen|Magneton 50, Pikachu 50, Jolteon 50|Here it is don't me!|Electric spiraling around|tt:3F:mixed
+fightopts = scale
+if = tt:mixed
+block = 14 6 tt:3F:single,tt:3F:double,tt:3F:knockout,tt:3F:mixed|The way up opens once you've beaten this floor's Trainers!
+[patch Trainer Tower 4F]
+drop door 13 5
+npc = 15 13 youngster left 0 fight|Youngster Cole|Raticate 50, Magmar 50, Magcargo 50|Ahaha you're not going anywhere!|Hiyah!! done in totally!!|tt:4F:single
+fightopts = scale
+if = tt:single
+npc = 10 10 cooltrainer_m down 0 fight|Cool Couple Isac & Mag|Nidoking 50, Gligar 50, Skarmory 50, Mantine 50|Our will make you shaky|Huh? you left me feeling shaky|tt:4F:double
+fightopts = scale double
+if = tt:double
+npc = 10 16 sailor up 0 fight|Brennan, Kaden & Emanuel|Lapras 50, Chinchou 50, Vaporeon 50|Take things easy... that's important|You truly are a master Trainer|tt:4F:knockout
+fightopts = scale
+if = tt:knockout
+npc = 10 10 cooltrainer_m down 0 fight|Cool Couple Geb & Megan|Politoed 50, Gyarados 50, Marowak 50, Ursaring 50|You're our opponent? pushover hahaha|My word this is just incredible|tt:4F:mixed
+fightopts = scale double
+if = tt:mixed
+block = 14 6 tt:4F:single,tt:4F:double,tt:4F:knockout,tt:4F:mixed|The way up opens once you've beaten this floor's Trainers!
+[patch Trainer Tower 5F]
+drop door 13 5
+npc = 15 13 camper left 0 fight|Camper Joey|Murkrow 50, Tauros 50, Slowbro 50|My Pokemon are scary strong!|Your Pokemon are way too strong!|tt:5F:single
+fightopts = scale
+if = tt:single
+npc = 10 10 cooltrainer_m down 0 fight|Cool Couple Jos & Anne|Rapidash 50, Ninetales 50, Houndoom 50, Aerodactyl 50|I can't lose to you here|Lost?! you must be joking!|tt:5F:double
+fightopts = scale double
+if = tt:double
+npc = 10 16 beauty up 0 fight|Maura, Mikaela & Flint|Pichu 50, Nidorino 50, Wigglytuff 50|I am the group leader!|I can't drink any more drinks|tt:5F:knockout
+fightopts = scale
+if = tt:knockout
+npc = 10 10 lass down 0 fight|Sis and Bro Kat & Kipp|Sneasel 50, Omastar 50, Furret 50, Azumarill 50|I am going to try my best|What huh? are you joking?|tt:5F:mixed
+fightopts = scale double
+if = tt:mixed
+block = 14 6 tt:5F:single,tt:5F:double,tt:5F:knockout,tt:5F:mixed|The way up opens once you've beaten this floor's Trainers!
+[patch Trainer Tower 6F]
+drop door 13 5
+npc = 15 13 swimmer_m_land left 0 fight|Swimmer Braden|Vaporeon 50, Slowbro 50, Politoed 50|I am pretty happy with my toughness|You shocked me out of happiness|tt:6F:single
+fightopts = scale
+if = tt:single
+npc = 10 10 boy down 0 fight|Young Couple Emy & Alek|Tauros 50, Kangaskhan 50, Lickitung 50, Noctowl 50|I am so lost in lovey dovey happiness|Waaah!! you can't be serious|tt:6F:double
+fightopts = scale double
+if = tt:double
+npc = 10 16 rocker up 0 fight|Ben, Camden & Zackery|Electrode 50, Granbull 50, Weezing 50|Lalala let's about electric power|Electric!!!|tt:6F:knockout
+fightopts = scale
+if = tt:knockout
+npc = 10 16 cooltrainer_f up 0 fight|Chelsea, Trenton & Albert|Vileplume 50, Gyarados 50, Kingdra 50|The green world is important isn't it?|You're strong that was wild and exciting|tt:6F:mixed
+fightopts = scale
+if = tt:mixed
+block = 14 6 tt:6F:single,tt:6F:double,tt:6F:knockout,tt:6F:mixed|The way up opens once you've beaten this floor's Trainers!
+[patch Trainer Tower 7F]
+drop door 13 5
+npc = 15 13 man left 0 fight|Burglar Jac|Meowth 50, Flareon 50, Porygon 50|I am a! give me something|Eek!! I am sorry I surrender|tt:7F:single
+fightopts = scale
+if = tt:single
+npc = 10 10 lass down 0 fight|Sis and Bro Axe & Ren|Lanturn 50, Mantine 50, Electabuzz 50, Magneton 50|It's going to get awfully cold|I am hungry for any hot eats|tt:7F:double
+fightopts = scale double
+if = tt:double
+npc = 10 16 tuber_f up 0 fight|Priscilla, Charlotte & Shania|Goldeen 50, Octillery 50, Mantine 50|I am a little Pokemon girl here I come!|Why?! you should not lie|tt:7F:knockout
+fightopts = scale
+if = tt:knockout
+npc = 10 10 crush_girl down 0 fight|Crush Kin Ric & Rene|Hitmonlee 50, Rhydon 50, Machamp 50, Pinsir 50|My big brother is really awesome|Huh? I am not very awesome?|tt:7F:mixed
+fightopts = scale double
+if = tt:mixed
+block = 14 6 tt:7F:single,tt:7F:double,tt:7F:knockout,tt:7F:mixed|The way up opens once you've beaten this floor's Trainers!
+[patch Trainer Tower 8F]
+drop door 13 5
+npc = 15 13 woman_1 left 0 fight|Pokemon Breeder Lily|Clefairy 50, Togepi 50, Meowth 50|I want something in!|I need something in...|tt:8F:single
+fightopts = scale
+if = tt:single
+npc = 10 10 cooltrainer_m down 0 fight|Cool Couple Geb & Megan|Politoed 50, Gyarados 50, Marowak 50, Ursaring 50|You're our opponent? pushover hahaha|My word this is just incredible|tt:8F:double
+fightopts = scale double
+if = tt:double
+npc = 10 16 cooltrainer_f up 0 fight|Chelsea, Trenton & Albert|Vileplume 50, Gyarados 50, Kingdra 50|The green world is important isn't it?|You're strong that was wild and exciting|tt:8F:knockout
+fightopts = scale
+if = tt:knockout
+npc = 10 16 hiker up 0 fight|Mike, Rebecca & Nicolas|Pinsir 50, Sandslash 50, Hitmonlee 50|My Pokemon are full of power|Why couldn't I beat you?|tt:8F:mixed
+fightopts = scale
+if = tt:mixed
+block = 14 6 tt:8F:single,tt:8F:double,tt:8F:knockout,tt:8F:mixed|The way up opens once you've beaten this floor's Trainers!
+[patch Trainer Tower Roof]
+drop npc 9 7
+npc = 9 7 trainer_tower_dude down 0 ttfinish
+drop door 13 5
+door = 13 5 warp|Trainer Tower|17|9|down
+
+# ------------------------------------------------------------------ the Game Corner's slot machines, played on the map
+[patch Celadon City Game Corner]
+drop sign 0 7
+spot = 0 7 slots
+drop sign 0 9
+spot = 0 9 slots
+drop sign 0 10
+spot = 0 10 slots
+drop sign 5 6
+spot = 5 6 slots
+drop sign 5 9
+spot = 5 9 slots
+drop sign 5 10
+spot = 5 10 slots
+drop sign 6 6
+spot = 6 6 slots
+drop sign 6 7
+spot = 6 7 slots
+drop sign 6 9
+spot = 6 9 slots
+drop sign 11 6
+spot = 11 6 slots
+drop sign 11 7
+spot = 11 7 slots
+drop sign 11 8
+spot = 11 8 slots
+drop sign 11 10
+spot = 11 10 slots
+drop sign 12 6
+spot = 12 6 slots
+drop sign 12 9
+spot = 12 9 slots
+drop sign 12 10
+spot = 12 10 slots
+drop sign 17 7
+spot = 17 7 slots
+drop sign 17 8
+spot = 17 8 slots
+drop sign 17 9
+spot = 17 9 slots

@@ -16,7 +16,7 @@ enum class Screen {
     RosterPick, Select, Battle, Results,
     StoryResults, Evolve, LearnMove, Reward, Catch, Heal, Map, Shop, DoublesMenu,
     CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame, Legends, LegendCatch, Bag,
-    RegionChoose, World, Creator, Nickname, Hatch, Daycare, Contest, Safari, UnownPuzzle
+    RegionChoose, World, Creator, Nickname, Hatch, Daycare, Contest, Safari, UnownPuzzle, VoltorbFlip
 };
 
 // Online ready kinds (what a player picked in the co-op hub): 1 story, 2 training, 3+N a rematch
@@ -451,7 +451,10 @@ void UpdateDaycare(Game& g);         void DrawDaycare(const Game& g);
 void UpdateSafari(Game& g);          void DrawSafari(const Game& g);
 void OpenUnownPuzzle(Game& g, const std::string& kind);   // the Ruins of Alph's panels (screens_puzzle.cpp)
 void UpdateUnownPuzzle(Game& g);     void DrawUnownPuzzle(const Game& g);
-void AlphSolved(Game& g, const std::string& kind);        // (overworld.cpp) the floor gives way   // the Safari Zone / the Bug-Catching Contest
+void AlphSolved(Game& g, const std::string& kind);        // (overworld.cpp) the floor gives way
+void OpenVoltorbFlip(Game& g);       // HeartGold's Goldenrod Game Corner (screens_voltorb.cpp)
+void UpdateVoltorbFlip(Game& g);     void DrawVoltorbFlip(const Game& g);
+void OpenSlotsFromWorld(Game& g);    // a slot machine on the map (screens_slots.cpp): back to the map after   // the Safari Zone / the Bug-Catching Contest
 void OpenSafariEncounter(Game& g, int species, int level, bool shiny, int nature, const int iv[6]);
 void SafariEnded(Game& g);           // out of balls: back to the gate (overworld.cpp)
 void OpenDaycare(Game& g, int who, Screen back);
@@ -479,9 +482,14 @@ void BeginTowerFloor(Game& g, int floor, uint32_t seed);   // set up the next To
 // so co-op shares it) and its Frontier Brain at Emerald's streaks, who gives a Silver and then a Gold Symbol.
 struct FrontierInfo { const char* name; const char* brain; const char* symbol; int silver, gold, teamSize; const char* rule; const char* team[2]; };
 const FrontierInfo& Frontier(int fac);      // 1 Tower, 2 Dome, 3 Palace, 4 Arena, 5 Factory, 6 Pike, 7 Pyramid (Emerald);
-                                            // 8 Tower, 9 Factory, 10 Arcade, 11 Castle, 12 Hall (HeartGold's, past Route 40)
-constexpr int FRONTIER_COUNT = 12;
-inline bool FrontierRentals(int fac) { return fac == 5 || fac == 9; }   // the Factories: rental Pokemon
+                                            // 8 Tower, 9 Factory, 10 Arcade, 11 Castle, 12 Hall (HeartGold's, past Route 40);
+                                            // 13 Slateport, 14 Verdanturf, 15 Fallarbor: Hoenn's Battle Tents (three in a row)
+constexpr int FRONTIER_COUNT = 15;
+// the rules a facility battles by: the Emerald facility it's like (a Battle Tent is a small Factory, Palace or Arena)
+inline int FrontierKind(int fac) { return fac == 9 || fac == 13 ? 5 : fac == 14 ? 3 : fac == 15 ? 4 : fac == 8 ? 1 : fac; }
+inline bool FrontierRentals(int fac) { return FrontierKind(fac) == 5; }   // the Factories: rental Pokemon
+inline bool BattleTent(int fac) { return fac >= 13 && fac <= 15; }
+const char* TentPrize(int fac);             // what three wins in a row at a Battle Tent bring
 int ArcadeEffect(const Game& g);            // the Battle Arcade's board: what this battle's roll landed on (0 nothing)
 const char* ArcadeEffectName(int e);
 std::string HallType(int n);

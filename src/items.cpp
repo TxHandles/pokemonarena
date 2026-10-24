@@ -409,6 +409,9 @@ std::vector<ItemDef> Build() {
     add("Contest Pass", ItemFx::KeyItem, 0, 0, 99, "A pass for entering Pokemon Contests in Hoenn's Contest Hall.");
     add("Pokeblock Case", ItemFx::KeyItem, 0, 0, 99, "A case for Pokeblocks made in a Berry Blender. Feed them to a Pokemon to make it shine in Contests.");
     add("Eon Ticket", ItemFx::KeyItem, 0, 0, 99, "A ticket for a ferry to a distant southern island.");
+    add("Old Sea Map", ItemFx::KeyItem, 0, 0, 99, "A faded sea chart that shows the way to a faraway island.");
+    add("Aurora Ticket", ItemFx::KeyItem, 0, 0, 99, "A ticket for a ferry to a distant island where a strange triangle stands.");
+    add("Mystic Ticket", ItemFx::KeyItem, 0, 0, 99, "A ticket for a ferry to Navel Rock, where two legendary Pokemon are said to rest.");
     add("S.S. Tidal Ticket", ItemFx::KeyItem, 0, 0, 99, "A ticket for the S.S. Tidal, sailing between Slateport and Lilycove (and on to the Battle Frontier).");
     add("Teachy TV", ItemFx::KeyItem, 0, 0, 99, "A TV that shows handy tips for new trainers.");
     add("Helix Fossil", ItemFx::KeyItem, 0, 0, 99, "A fossil of an ancient spiral-shelled Pokemon. The Cinnabar Lab can revive it.", Type::Rock);

@@ -4334,3 +4334,215 @@ pokemon = surf, Tentacool, 92, 5-40
 pokemon = surf, Tentacruel, 5, 35-40
 pokemon = surf, Mantine, 2, 35-40
 # ---- end of generated areas
+
+# ---- Headbutt trees (made by tools/hgss_headbutt.py)
+
+[Route 26 (Headbutt)]
+unlock = Route 27
+pokemon = headbutt, Hoothoot, 75, 75-80
+pokemon = headbutt, Pineco, 30, 75-80
+pokemon = headbutt, Exeggcute, 30, 75-80
+pokemon = headbutt, Spinarak, 15, 75-80
+
+[Route 27 (Headbutt)]
+unlock = Route 27
+pokemon = headbutt, Hoothoot, 75, 75-80
+pokemon = headbutt, Pineco, 30, 75-80
+pokemon = headbutt, Exeggcute, 30, 75-80
+pokemon = headbutt, Spinarak, 15, 75-80
+
+[Route 28 (Headbutt)]
+unlock = Mt. Silver
+pokemon = headbutt, Heracross, 75, 92-93
+pokemon = headbutt, Aipom, 45, 92-93
+pokemon = headbutt, Natu, 30, 92-93
+
+[Route 29 (Headbutt)]
+unlock = Cherrygrove City
+pokemon = headbutt, Hoothoot, 75, 55-60
+pokemon = headbutt, Pineco, 30, 55-60
+pokemon = headbutt, Exeggcute, 30, 55-60
+pokemon = headbutt, Spinarak, 15, 55-60
+
+[Route 30 (Headbutt)]
+unlock = Route 30
+pokemon = headbutt, Hoothoot, 75, 55-61
+pokemon = headbutt, Pineco, 30, 55-61
+pokemon = headbutt, Exeggcute, 30, 55-61
+pokemon = headbutt, Spinarak, 15, 55-61
+
+[Route 31 (Headbutt)]
+unlock = Route 30
+pokemon = headbutt, Hoothoot, 75, 55-61
+pokemon = headbutt, Pineco, 30, 55-61
+pokemon = headbutt, Exeggcute, 30, 55-61
+pokemon = headbutt, Spinarak, 15, 55-61
+
+[Route 32 (Headbutt)]
+unlock = Violet Gym
+pokemon = headbutt, Hoothoot, 90, 58-63
+pokemon = headbutt, Pineco, 30, 58-63
+pokemon = headbutt, Exeggcute, 30, 58-63
+
+[Route 33 (Headbutt)]
+unlock = Violet Gym
+pokemon = headbutt, Spearow, 90, 58-63
+pokemon = headbutt, Heracross, 30, 58-63
+pokemon = headbutt, Aipom, 30, 58-63
+
+[Route 34 (Headbutt)]
+unlock = Route 34
+pokemon = headbutt, Hoothoot, 75, 62-68
+pokemon = headbutt, Pineco, 30, 62-68
+pokemon = headbutt, Exeggcute, 30, 62-68
+pokemon = headbutt, Spinarak, 15, 62-68
+
+[Route 35 (Headbutt)]
+unlock = Route 34
+pokemon = headbutt, Hoothoot, 75, 62-68
+pokemon = headbutt, Pineco, 30, 62-68
+pokemon = headbutt, Exeggcute, 30, 62-68
+pokemon = headbutt, Spinarak, 15, 62-68
+
+[Route 36 (Headbutt)]
+unlock = Route 36
+pokemon = headbutt, Hoothoot, 75, 64-70
+pokemon = headbutt, Pineco, 30, 64-70
+pokemon = headbutt, Exeggcute, 30, 64-70
+pokemon = headbutt, Spinarak, 15, 64-70
+
+[Route 37 (Headbutt)]
+unlock = Route 36
+pokemon = headbutt, Hoothoot, 75, 64-70
+pokemon = headbutt, Pineco, 30, 64-70
+pokemon = headbutt, Exeggcute, 30, 64-70
+pokemon = headbutt, Spinarak, 15, 64-70
+
+[Route 38 (Headbutt)]
+unlock = Route 36
+pokemon = headbutt, Hoothoot, 75, 64-70
+pokemon = headbutt, Pineco, 30, 64-70
+pokemon = headbutt, Exeggcute, 46, 64-70
+pokemon = headbutt, Spinarak, 15, 64-70
+pokemon = headbutt, Burmy, 9, 64-70
+
+[Route 39 (Headbutt)]
+unlock = Route 36
+pokemon = headbutt, Hoothoot, 75, 64-70
+pokemon = headbutt, Pineco, 30, 64-70
+pokemon = headbutt, Exeggcute, 30, 64-70
+pokemon = headbutt, Spinarak, 15, 64-70
+
+[Route 42 (Headbutt)]
+unlock = Lake of Rage
+pokemon = headbutt, Spearow, 90, 70-75
+pokemon = headbutt, Heracross, 30, 70-75
+pokemon = headbutt, Aipom, 30, 70-75
+
+[Route 43 (Headbutt)]
+unlock = Lake of Rage
+pokemon = headbutt, Hoothoot, 82, 70-75
+pokemon = headbutt, Pineco, 30, 70-75
+pokemon = headbutt, Exeggcute, 30, 70-75
+pokemon = headbutt, Venonat, 8, 70-75
+
+[Route 44 (Headbutt)]
+unlock = Mahogany Gym
+pokemon = headbutt, Spearow, 90, 72-77
+pokemon = headbutt, Heracross, 30, 72-77
+pokemon = headbutt, Aipom, 30, 72-77
+
+[Route 45 (Headbutt)]
+unlock = Mahogany Gym
+pokemon = headbutt, Spearow, 90, 72-77
+pokemon = headbutt, Heracross, 30, 72-77
+pokemon = headbutt, Aipom, 30, 72-77
+
+[Route 46 (Headbutt)]
+unlock = Cherrygrove City
+pokemon = headbutt, Spearow, 90, 55-60
+pokemon = headbutt, Heracross, 30, 55-60
+pokemon = headbutt, Aipom, 30, 55-60
+
+[New Bark Town (Headbutt)]
+unlock = Cherrygrove City
+pokemon = headbutt, Hoothoot, 75, 55-56
+pokemon = headbutt, Pineco, 30, 55-56
+pokemon = headbutt, Exeggcute, 30, 55-56
+pokemon = headbutt, Spinarak, 15, 57-58
+
+[Cherrygrove City (Headbutt)]
+unlock = Cherrygrove City
+pokemon = headbutt, Hoothoot, 75, 55-56
+pokemon = headbutt, Pineco, 30, 55-56
+pokemon = headbutt, Exeggcute, 46, 55-56
+pokemon = headbutt, Spinarak, 15, 57-58
+pokemon = headbutt, Taillow, 9, 71-73
+
+[Violet City (Headbutt)]
+unlock = Sprout Tower
+pokemon = headbutt, Hoothoot, 90, 55-56
+pokemon = headbutt, Pineco, 30, 63-63
+pokemon = headbutt, Exeggcute, 30, 63-63
+
+[Azalea Town (Headbutt)]
+unlock = Azalea Town
+pokemon = headbutt, Spearow, 90, 56-58
+pokemon = headbutt, Heracross, 30, 56-58
+pokemon = headbutt, Aipom, 30, 56-58
+
+[Ecruteak City (Headbutt)]
+unlock = Burned Tower
+pokemon = headbutt, Hoothoot, 75, 65-67
+pokemon = headbutt, Pineco, 30, 65-67
+pokemon = headbutt, Exeggcute, 30, 65-67
+pokemon = headbutt, Spinarak, 15, 68-70
+
+[Lake of Rage (Headbutt)]
+unlock = Lake of Rage
+pokemon = headbutt, Hoothoot, 82, 70-75
+pokemon = headbutt, Pineco, 30, 70-75
+pokemon = headbutt, Exeggcute, 30, 70-75
+pokemon = headbutt, Venonat, 8, 70-75
+
+[Mt. Silver (Headbutt)]
+unlock = Champion's Room
+pokemon = headbutt, Heracross, 75, 80-88
+pokemon = headbutt, Aipom, 45, 80-88
+pokemon = headbutt, Natu, 30, 80-88
+
+[National Park (Headbutt)]
+unlock = Goldenrod Gym
+pokemon = headbutt, Hoothoot, 75, 63-68
+pokemon = headbutt, Pineco, 30, 63-68
+pokemon = headbutt, Exeggcute, 46, 63-68
+pokemon = headbutt, Spinarak, 15, 63-68
+pokemon = headbutt, Cherubi, 9, 63-68
+
+[Ilex Forest (Headbutt)]
+unlock = Ilex Forest
+pokemon = headbutt, Hoothoot, 85, 61-67
+pokemon = headbutt, Caterpie, 30, 61-67
+pokemon = headbutt, Metapod, 10, 61-67
+pokemon = headbutt, Pineco, 15, 61-67
+pokemon = headbutt, Noctowl, 5, 61-67
+pokemon = headbutt, Butterfree, 5, 61-67
+
+[Route 47 (Headbutt)]
+unlock = Mt. Silver
+pokemon = headbutt, Hoothoot, 75, 68-69
+pokemon = headbutt, Pineco, 30, 68-69
+pokemon = headbutt, Exeggcute, 30, 68-69
+pokemon = headbutt, Spinarak, 15, 70-71
+pokemon = headbutt, Metapod, 12, 78-81
+pokemon = headbutt, Butterfree, 8, 78-81
+pokemon = headbutt, Heracross, 5, 78-81
+
+[Route 48 (Headbutt)]
+unlock = Mt. Silver
+pokemon = headbutt, Hoothoot, 75, 68-69
+pokemon = headbutt, Pineco, 30, 68-69
+pokemon = headbutt, Exeggcute, 30, 68-69
+pokemon = headbutt, Spinarak, 15, 70-71
+
+# ---- end of the Headbutt trees

@@ -354,6 +354,10 @@ Department Store, Team Rocket's HQ, the Lighthouse, the Whirl Islands and the Jo
 - The **Ruins of Alph**: the Kabuto, Omanyte, Aerodactyl and Ho-Oh chambers have Crystal's stone puzzles (swap the
   sixteen stones back into the picture, `tools/hgss_alph.py`). Solve one and the floor gives way into the Inner
   Chamber, where the Unown start appearing, and the chamber's back wall opens on its item room.
+- **Headbutt trees** on Johto's routes and towns (HeartGold's trees and their Pokemon, `tools/hgss_headbutt.py`): the man
+  in Ilex Forest teaches Headbutt. Face a tree and shake it - a Hoothoot, Pineco, Heracross... may fall out.
+- The **Ruins of Alph** word rooms: up the stairs behind each item room, the Unown's words on the walls.
+- **Goldenrod Game Corner**: HeartGold's **Voltorb Flip** at the card tables, the slots at the others.
 - HeartGold's **Battle Frontier** past Route 40 (after Johto's League): Frontier Access and the Frontier rendered
   from the HeartGold models (`tools/hgss_frontier.py`). The Tower (Palmer), Factory (rentals, Thorton), Arcade (a
   roulette before each battle: weather, halved HP, levels up), Castle (no healing between battles - spend Castle
@@ -390,12 +394,26 @@ night, the weather and every system from Kanto and Johto work the same here.
   Pokemon), Pike (three doors per room) and Pyramid, each with its Frontier Brain and silver / gold Symbols at
   Emerald's streaks.
 - Ferries between regions after a League: the S.S. Tidal joins Vermilion, Olivine and Hoenn.
+- The **Battle Tents** (Slateport: rentals, Verdanturf: your Pokemon battle on their own, Fallarbor: judged bouts):
+  three wins in a row for Emerald's prize.
+- The **Trick House** on Route 110 (`tools/emerald_trickhouse.py`): the Trick Master's eight rooms, a new one with each
+  Badge - Cut trees, buttons over holes, red and blue doors, boulders, the Mechadolls' quizzes, rotating gates (Fortree
+  Gym's turn too now), warp panels and a slippery floor. Find the scroll, open the door, collect the prize.
+- **Abnormal weather** (after the League, `tools/emerald_abnormal.py`): the Weather Institute reports a drought or a
+  downpour on a route - the **Terra Cave** opens there (Groudon), or the sea churns where you can Dive to the
+  **Marine Cave** (Kyogre).
+- The **ticket islands**: the S.S. Tidal sails to Southern Island (Latias), Faraway Island (Mew), Birth Island (Deoxys)
+  and Navel Rock (Ho-Oh, Lugia) with their tickets - the clerk at Lilycove's harbor has them for Trainers who've earned
+  them.
 
 ### Kanto extras
 
 - The **Safari Zone** (Fuchsia City; Hoenn's is past Route 121): 500 coins for 30 Safari Balls and 600 steps. Wild
   Pokemon meet you without a battle - throw a ball, bait (it stays longer, harder to catch) or a rock (easier to
   catch, quicker to run). Played on your own; in co-op the gate says so.
+- The **Trainer Tower** on Seven Island (`tools/frlg_trainer_tower.py`): Single, Double, Knockout or Mixed - FireRed's
+  trainers on every floor, levelled to your party, against the clock. The owner on the roof times you and hands out a prize.
+- The Game Corners' slot machines are played right at the machines (Celadon, Mauville, Goldenrod).
 - The **Pokemon Mansion**'s secret switches swap which barriers stand, on every floor (`tools/frlg_mansion.py`).
 - Every story trainer stands on the map now (Route 1's Youngster, Diglett's Cave, Celadon, the Safari Zone,
   Seafoam, Cinnabar).

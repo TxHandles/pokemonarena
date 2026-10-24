@@ -387,7 +387,12 @@ const FrontierInfo kFrontier[FRONTIER_COUNT + 1] = {
      {"Houndoom, Staraptor, Empoleon", "Gallade, Staraptor, Empoleon"}},
     {"Battle Hall", "Hall Matron Argenta", "Hall", 50, 170, 1, "One Pokemon against one, battle after battle - a different type of foe each time, and they get stronger.",
      {"Milotic", "Heatran"}},
+    // Hoenn's Battle Tents (Emerald): three wins in a row for a prize, no Frontier Brain
+    {"Slateport Battle Tent", "", "", 0, 0, 3, "The Battle Factory's rules: choose three of six rental Pokemon. Win three battles in a row for a prize!", {"", ""}},
+    {"Verdanturf Battle Tent", "", "", 0, 0, 3, "The Battle Palace's rules: your Pokemon battle on their own, following their natures. Win three battles in a row for a prize!", {"", ""}},
+    {"Fallarbor Battle Tent", "", "", 0, 0, 3, "The Battle Arena's rules: the judges decide when time's up. Win three battles in a row for a prize!", {"", ""}},
 };
+const char* TentPrize(int fac) { return fac == 13 ? "Full Heal" : fac == 14 ? "Nest Ball" : fac == 15 ? "Hyper Potion" : ""; }   // (pokeemerald's battle_tent.c)
 // the Battle Arcade's board (rolled from the run's seed and the battle number, so it's the same on a retry)
 int ArcadeEffect(const Game& g) {
     uint32_t h = g.towerSeed ^ ((uint32_t)g.towerFloor * 0x9E3779B1u) ^ 0xA5C4DEu;
@@ -3204,7 +3209,15 @@ void ProcessStoryBattleEnd(Game& g) {
             }
             if (fac == 2 && streak % 4 == 0) g.resultLines.push_back(TextFormat("You won the tournament! (%d in a row)", streak / 4));
             if (streak > best) { best = streak; g.resultLines.push_back(std::string("New ") + F.name + TextFormat(" record: %d wins in a row!", best)); }
-            else g.resultLines.push_back(TextFormat("%d wins in a row! Talk to the receptionist to go on.", streak));
+            else if (!BattleTent(fac)) g.resultLines.push_back(TextFormat("%d wins in a row! Talk to the receptionist to go on.", streak));
+            if (BattleTent(fac)) {   // a Battle Tent: three in a row is the whole challenge
+                if (streak >= 3) {
+                    BagAdd(coop ? Prof(g, 0) : g.profile, TentPrize(fac));
+                    if (coop) BagAdd(Prof(g, 1), TentPrize(fac));
+                    g.resultLines.push_back(std::string("Three wins in a row! In recognition, you get a ") + TentPrize(fac) + "!");
+                    streak = 0;
+                } else g.resultLines.push_back(TextFormat("Battle %d of 3 won! Talk to the receptionist for the next one.", streak));
+            }
             if (fac == 11) {   // the Castle: Castle Points for every win
                 int cp = CastlePoints(g) + 3;
                 SetCastlePoints(g, cp);

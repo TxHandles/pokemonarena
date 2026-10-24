@@ -71,6 +71,22 @@ block = 4 15 rstarter:1|It's dangerous to go out without a Pokemon!/Wild Pokemon
 block = 4 16 rstarter:1|It's dangerous to go out without a Pokemon!/Wild Pokemon jump out of the grass on the way to the next town.
 block = 4 17 rstarter:1|It's dangerous to go out without a Pokemon!/Wild Pokemon jump out of the grass on the way to the next town.
 block = 4 18 rstarter:1|It's dangerous to go out without a Pokemon!/Wild Pokemon jump out of the grass on the way to the next town.
+
+
+spot = 26 20 headbutt|New Bark Town (Headbutt)
+spot = 26 21 headbutt|New Bark Town (Headbutt)
+spot = 26 22 headbutt|New Bark Town (Headbutt)
+spot = 26 23 headbutt|New Bark Town (Headbutt)
+spot = 26 27 headbutt|New Bark Town (Headbutt)
+spot = 26 28 headbutt|New Bark Town (Headbutt)
+spot = 9 28 headbutt|New Bark Town (Headbutt)
+spot = 2 23 headbutt|New Bark Town (Headbutt)
+spot = 3 23 headbutt|New Bark Town (Headbutt)
+spot = 20 6 headbutt|New Bark Town (Headbutt)
+spot = 20 7 headbutt|New Bark Town (Headbutt)
+spot = 21 7 headbutt|New Bark Town (Headbutt)
+spot = 4 11 headbutt|New Bark Town (Headbutt)
+spot = 5 11 headbutt|New Bark Town (Headbutt)
 grid:
 ################################
 ################################
@@ -160,6 +176,56 @@ npc = 84 16 mon:Marill right 0 talk|Marill: ...
 item = 78 2 Potion
 npc = 53 21 woman_2 down 0 talk|...
 npc = 20 8 apricorn:Green down 0 apricorn|5|Green
+
+
+spot = 12 12 headbutt|Route 29 (Headbutt)
+spot = 12 13 headbutt|Route 29 (Headbutt)
+spot = 13 13 headbutt|Route 29 (Headbutt)
+spot = 37 12 headbutt|Route 29 (Headbutt)
+spot = 40 9 headbutt|Route 29 (Headbutt)
+spot = 41 9 headbutt|Route 29 (Headbutt)
+spot = 40 8 headbutt|Route 29 (Headbutt)
+spot = 54 11 headbutt|Route 29 (Headbutt)
+spot = 55 11 headbutt|Route 29 (Headbutt)
+spot = 54 10 headbutt|Route 29 (Headbutt)
+spot = 72 13 headbutt|Route 29 (Headbutt)
+spot = 73 13 headbutt|Route 29 (Headbutt)
+spot = 72 12 headbutt|Route 29 (Headbutt)
+spot = 64 26 headbutt|Route 29 (Headbutt)
+spot = 29 22 headbutt|Route 29 (Headbutt)
+spot = 4 9 headbutt|Route 29 (Headbutt)
+spot = 5 9 headbutt|Route 29 (Headbutt)
+spot = 18 5 headbutt|Route 29 (Headbutt)
+spot = 19 5 headbutt|Route 29 (Headbutt)
+spot = 28 5 headbutt|Route 29 (Headbutt)
+spot = 29 5 headbutt|Route 29 (Headbutt)
+spot = 30 17 headbutt|Route 29 (Headbutt)
+spot = 31 17 headbutt|Route 29 (Headbutt)
+spot = 82 2 headbutt|Route 29 (Headbutt)
+spot = 41 23 headbutt|Route 29 (Headbutt)
+spot = 42 23 headbutt|Route 29 (Headbutt)
+spot = 42 22 headbutt|Route 29 (Headbutt)
+spot = 46 19 headbutt|Route 29 (Headbutt)
+spot = 47 19 headbutt|Route 29 (Headbutt)
+spot = 47 18 headbutt|Route 29 (Headbutt)
+spot = 62 5 headbutt|Route 29 (Headbutt)
+spot = 65 17 headbutt|Route 29 (Headbutt)
+spot = 6 9 headbutt|Route 29 (Headbutt)
+spot = 7 9 headbutt|Route 29 (Headbutt)
+spot = 92 11 headbutt|Route 29 (Headbutt)
+spot = 93 11 headbutt|Route 29 (Headbutt)
+spot = 78 13 headbutt|Route 29 (Headbutt)
+spot = 79 13 headbutt|Route 29 (Headbutt)
+spot = 79 12 headbutt|Route 29 (Headbutt)
+spot = 82 11 headbutt|Route 29 (Headbutt)
+spot = 83 11 headbutt|Route 29 (Headbutt)
+spot = 83 10 headbutt|Route 29 (Headbutt)
+spot = 56 17 headbutt|Route 29 (Headbutt)
+spot = 57 17 headbutt|Route 29 (Headbutt)
+spot = 46 5 headbutt|Route 29 (Headbutt)
+spot = 47 5 headbutt|Route 29 (Headbutt)
+spot = 70 1 headbutt|Route 29 (Headbutt)
+spot = 71 1 headbutt|Route 29 (Headbutt)
 grid:
 ##################################################..############################################
 #################################################....###########################################
@@ -254,6 +320,23 @@ npc = 18 22 fat_man right 0 talk|A Pokemon I caught had an item. I think it's My
 fly = 52 8
 npc = 60 14 hg_silver left 4 trainer|Cherrygrove City|... You got a Pokemon from Elm's lab too?/What a waste. Don't get in my way!|...Humph. I won't lose next time.
 if = rstarter:1
+
+
+spot = 58 24 headbutt|Cherrygrove City (Headbutt)
+spot = 58 25 headbutt|Cherrygrove City (Headbutt)
+spot = 48 7 headbutt|Cherrygrove City (Headbutt)
+spot = 49 7 headbutt|Cherrygrove City (Headbutt)
+spot = 40 6 headbutt|Cherrygrove City (Headbutt)
+spot = 40 7 headbutt|Cherrygrove City (Headbutt)
+spot = 41 7 headbutt|Cherrygrove City (Headbutt)
+spot = 10 3 headbutt|Cherrygrove City (Headbutt)
+spot = 11 3 headbutt|Cherrygrove City (Headbutt)
+spot = 12 3 headbutt|Cherrygrove City (Headbutt)
+spot = 13 3 headbutt|Cherrygrove City (Headbutt)
+spot = 9 5 headbutt|Cherrygrove City (Headbutt)
+spot = 9 4 headbutt|Cherrygrove City (Headbutt)
+spot = 14 5 headbutt|Cherrygrove City (Headbutt)
+spot = 14 4 headbutt|Cherrygrove City (Headbutt)
 grid:
 ##################################......##############wwwwwwww##
 ##################################......##############wwwwwwww##
@@ -348,6 +431,50 @@ item = 20 81 Potion
 npc = 13 78 bug_catcher wander 0 talk|Oh! You're wearing the Running Shoes.|They make you feel like you are flying, don't they?|But beware of wild Pokemon and Trainers!|When you run, the noise will attract them.
 npc = 9 67 apricorn:Green down 0 apricorn|6|Green
 npc = 18 5 apricorn:Pink down 0 apricorn|7|Pink
+
+
+spot = 15 6 headbutt|Route 30 (Headbutt)
+spot = 16 6 headbutt|Route 30 (Headbutt)
+spot = 16 5 headbutt|Route 30 (Headbutt)
+spot = 13 22 headbutt|Route 30 (Headbutt)
+spot = 14 22 headbutt|Route 30 (Headbutt)
+spot = 14 21 headbutt|Route 30 (Headbutt)
+spot = 10 17 headbutt|Route 30 (Headbutt)
+spot = 10 16 headbutt|Route 30 (Headbutt)
+spot = 22 87 headbutt|Route 30 (Headbutt)
+spot = 22 86 headbutt|Route 30 (Headbutt)
+spot = 23 87 headbutt|Route 30 (Headbutt)
+spot = 2 79 headbutt|Route 30 (Headbutt)
+spot = 2 78 headbutt|Route 30 (Headbutt)
+spot = 2 59 headbutt|Route 30 (Headbutt)
+spot = 2 58 headbutt|Route 30 (Headbutt)
+spot = 15 40 headbutt|Route 30 (Headbutt)
+spot = 16 40 headbutt|Route 30 (Headbutt)
+spot = 3 33 headbutt|Route 30 (Headbutt)
+spot = 3 32 headbutt|Route 30 (Headbutt)
+spot = 7 58 headbutt|Route 30 (Headbutt)
+spot = 7 57 headbutt|Route 30 (Headbutt)
+spot = 24 68 headbutt|Route 30 (Headbutt)
+spot = 24 69 headbutt|Route 30 (Headbutt)
+spot = 24 66 headbutt|Route 30 (Headbutt)
+spot = 24 67 headbutt|Route 30 (Headbutt)
+spot = 30 90 headbutt|Route 30 (Headbutt)
+spot = 30 91 headbutt|Route 30 (Headbutt)
+spot = 21 94 headbutt|Route 30 (Headbutt)
+spot = 21 95 headbutt|Route 30 (Headbutt)
+spot = 7 64 headbutt|Route 30 (Headbutt)
+spot = 7 63 headbutt|Route 30 (Headbutt)
+spot = 3 24 headbutt|Route 30 (Headbutt)
+spot = 3 25 headbutt|Route 30 (Headbutt)
+spot = 17 10 headbutt|Route 30 (Headbutt)
+spot = 17 9 headbutt|Route 30 (Headbutt)
+spot = 16 9 headbutt|Route 30 (Headbutt)
+spot = 5 3 headbutt|Route 30 (Headbutt)
+spot = 5 2 headbutt|Route 30 (Headbutt)
+spot = 18 79 headbutt|Route 30 (Headbutt)
+spot = 18 78 headbutt|Route 30 (Headbutt)
+spot = 25 45 headbutt|Route 30 (Headbutt)
+spot = 25 44 headbutt|Route 30 (Headbutt)
 grid:
 ######sss#######################
 ######sss#######################
@@ -566,6 +693,29 @@ rematch = Metapod 18, Butterfree 29, Kakuna 22, Metapod 18 / Butterfree 28, Butt
 item = 45 13 Potion
 item = 33 25 Poke Ball
 npc = 26 15 apricorn:Black down 0 apricorn|8|Black
+
+
+spot = 46 11 headbutt|Route 31 (Headbutt)
+spot = 47 11 headbutt|Route 31 (Headbutt)
+spot = 32 3 headbutt|Route 31 (Headbutt)
+spot = 33 3 headbutt|Route 31 (Headbutt)
+spot = 6 9 headbutt|Route 31 (Headbutt)
+spot = 7 9 headbutt|Route 31 (Headbutt)
+spot = 23 20 headbutt|Route 31 (Headbutt)
+spot = 23 19 headbutt|Route 31 (Headbutt)
+spot = 41 23 headbutt|Route 31 (Headbutt)
+spot = 42 23 headbutt|Route 31 (Headbutt)
+spot = 41 22 headbutt|Route 31 (Headbutt)
+spot = 37 27 headbutt|Route 31 (Headbutt)
+spot = 37 26 headbutt|Route 31 (Headbutt)
+spot = 47 25 headbutt|Route 31 (Headbutt)
+spot = 48 25 headbutt|Route 31 (Headbutt)
+spot = 56 21 headbutt|Route 31 (Headbutt)
+spot = 56 20 headbutt|Route 31 (Headbutt)
+spot = 36 15 headbutt|Route 31 (Headbutt)
+spot = 37 15 headbutt|Route 31 (Headbutt)
+spot = 16 9 headbutt|Route 31 (Headbutt)
+spot = 17 9 headbutt|Route 31 (Headbutt)
 grid:
 #####################################################...########
 #####################################################...########
@@ -673,6 +823,52 @@ npc = 58 44 woman_3 wander 0 talk|We care about the traditional buildings around
 npc = 34 17 little_boy wander 0 talk|Did you know that Pokegear allows you to put marks and memos on its Map?|I'd love to have one of those Pokegears, but my mom won't let me.
 fly = 49 48
 npc = 24 51 apricorn:Yellow down 0 apricorn|29|Yellow
+
+
+spot = 62 52 headbutt|Violet City (Headbutt)
+spot = 62 53 headbutt|Violet City (Headbutt)
+spot = 58 41 headbutt|Violet City (Headbutt)
+spot = 59 41 headbutt|Violet City (Headbutt)
+spot = 56 41 headbutt|Violet City (Headbutt)
+spot = 57 41 headbutt|Violet City (Headbutt)
+spot = 48 56 headbutt|Violet City (Headbutt)
+spot = 48 57 headbutt|Violet City (Headbutt)
+spot = 33 57 headbutt|Violet City (Headbutt)
+spot = 33 56 headbutt|Violet City (Headbutt)
+spot = 39 49 headbutt|Violet City (Headbutt)
+spot = 39 48 headbutt|Violet City (Headbutt)
+spot = 22 48 headbutt|Violet City (Headbutt)
+spot = 22 49 headbutt|Violet City (Headbutt)
+spot = 23 49 headbutt|Violet City (Headbutt)
+spot = 21 56 headbutt|Violet City (Headbutt)
+spot = 21 57 headbutt|Violet City (Headbutt)
+spot = 17 50 headbutt|Violet City (Headbutt)
+spot = 17 51 headbutt|Violet City (Headbutt)
+spot = 17 48 headbutt|Violet City (Headbutt)
+spot = 17 49 headbutt|Violet City (Headbutt)
+spot = 13 38 headbutt|Violet City (Headbutt)
+spot = 13 39 headbutt|Violet City (Headbutt)
+spot = 20 26 headbutt|Violet City (Headbutt)
+spot = 20 27 headbutt|Violet City (Headbutt)
+spot = 20 22 headbutt|Violet City (Headbutt)
+spot = 20 23 headbutt|Violet City (Headbutt)
+spot = 18 19 headbutt|Violet City (Headbutt)
+spot = 19 19 headbutt|Violet City (Headbutt)
+spot = 56 11 headbutt|Violet City (Headbutt)
+spot = 57 11 headbutt|Violet City (Headbutt)
+spot = 58 12 headbutt|Violet City (Headbutt)
+spot = 58 13 headbutt|Violet City (Headbutt)
+spot = 58 14 headbutt|Violet City (Headbutt)
+spot = 58 15 headbutt|Violet City (Headbutt)
+spot = 58 16 headbutt|Violet City (Headbutt)
+spot = 9 6 headbutt|Violet City (Headbutt)
+spot = 9 4 headbutt|Violet City (Headbutt)
+spot = 9 5 headbutt|Violet City (Headbutt)
+spot = 10 3 headbutt|Violet City (Headbutt)
+spot = 11 3 headbutt|Violet City (Headbutt)
+spot = 12 3 headbutt|Violet City (Headbutt)
+spot = 13 3 headbutt|Violet City (Headbutt)
+spot = 14 3 headbutt|Violet City (Headbutt)
 grid:
 .####################################.....######################
 .####################################.....######################
@@ -841,6 +1037,53 @@ item = 8 49 Repel
 item = 11 94 Great Ball
 npc = 23 121 lass left 0 talk|...
 item = 27 151 Shell Bell
+
+
+spot = 10 1 headbutt|Route 32 (Headbutt)
+spot = 11 1 headbutt|Route 32 (Headbutt)
+spot = 25 15 headbutt|Route 32 (Headbutt)
+spot = 25 16 headbutt|Route 32 (Headbutt)
+spot = 15 32 headbutt|Route 32 (Headbutt)
+spot = 16 32 headbutt|Route 32 (Headbutt)
+spot = 15 31 headbutt|Route 32 (Headbutt)
+spot = 17 40 headbutt|Route 32 (Headbutt)
+spot = 12 43 headbutt|Route 32 (Headbutt)
+spot = 13 43 headbutt|Route 32 (Headbutt)
+spot = 13 25 headbutt|Route 32 (Headbutt)
+spot = 13 24 headbutt|Route 32 (Headbutt)
+spot = 6 47 headbutt|Route 32 (Headbutt)
+spot = 5 65 headbutt|Route 32 (Headbutt)
+spot = 5 64 headbutt|Route 32 (Headbutt)
+spot = 5 63 headbutt|Route 32 (Headbutt)
+spot = 5 62 headbutt|Route 32 (Headbutt)
+spot = 2 71 headbutt|Route 32 (Headbutt)
+spot = 3 71 headbutt|Route 32 (Headbutt)
+spot = 5 87 headbutt|Route 32 (Headbutt)
+spot = 6 87 headbutt|Route 32 (Headbutt)
+spot = 5 88 headbutt|Route 32 (Headbutt)
+spot = 1 99 headbutt|Route 32 (Headbutt)
+spot = 1 98 headbutt|Route 32 (Headbutt)
+spot = 17 110 headbutt|Route 32 (Headbutt)
+spot = 18 110 headbutt|Route 32 (Headbutt)
+spot = 18 109 headbutt|Route 32 (Headbutt)
+spot = 24 121 headbutt|Route 32 (Headbutt)
+spot = 28 151 headbutt|Route 32 (Headbutt)
+spot = 21 142 headbutt|Route 32 (Headbutt)
+spot = 21 141 headbutt|Route 32 (Headbutt)
+spot = 23 133 headbutt|Route 32 (Headbutt)
+spot = 7 129 headbutt|Route 32 (Headbutt)
+spot = 7 128 headbutt|Route 32 (Headbutt)
+spot = 24 106 headbutt|Route 32 (Headbutt)
+spot = 24 105 headbutt|Route 32 (Headbutt)
+spot = 10 19 headbutt|Route 32 (Headbutt)
+spot = 11 19 headbutt|Route 32 (Headbutt)
+spot = 1 87 headbutt|Route 32 (Headbutt)
+spot = 13 35 headbutt|Route 32 (Headbutt)
+spot = 13 34 headbutt|Route 32 (Headbutt)
+spot = 14 132 headbutt|Route 32 (Headbutt)
+spot = 14 133 headbutt|Route 32 (Headbutt)
+spot = 7 118 headbutt|Route 32 (Headbutt)
+spot = 7 119 headbutt|Route 32 (Headbutt)
 grid:
 ##############............######
 ##############............######
@@ -1195,6 +1438,7 @@ item = 19 18 Potion
 item = 2 17 Hyper Potion
 
 
+
 door = 20 10 warp|Ruins of Alph Kabuto Chamber|3|8|up
 door = 9 33 warp|Ruins of Alph Ho-Oh Chamber|3|8|up
 door = 9 53 warp|Ruins of Alph Omanyte Chamber|3|8|up
@@ -1350,6 +1594,10 @@ npc = 21 25 lass wander 0 talk|Pant, pant... I finally got through that cave.|It
 weather = rain
 npc = 23 26 apricorn:Pink down 0 apricorn|9|Pink
 npc = 24 26 apricorn:Black down 0 apricorn|10|Black
+
+
+spot = 5 17 headbutt|Route 33 (Headbutt)
+spot = 5 16 headbutt|Route 33 (Headbutt)
 grid:
 .....................##.########
 .....................##.########
@@ -1457,6 +1705,24 @@ npc = 50 15 hg_rocket_m left 0 talk|Nothing is going on. It's unsafe to go in th
 fly = 26 13
 npc = 22 26 hg_silver up 4 trainer|Azalea Town|... Tell me something. Is it true that Team Rocket has returned?/Hah! You're no match for me anyway!|...Humph. That was luck.
 npc = 12 5 apricorn:White down 0 apricorn|30|White
+
+
+spot = 40 11 headbutt|Azalea Town (Headbutt)
+spot = 41 11 headbutt|Azalea Town (Headbutt)
+spot = 30 7 headbutt|Azalea Town (Headbutt)
+spot = 31 7 headbutt|Azalea Town (Headbutt)
+spot = 22 7 headbutt|Azalea Town (Headbutt)
+spot = 23 7 headbutt|Azalea Town (Headbutt)
+spot = 12 1 headbutt|Azalea Town (Headbutt)
+spot = 13 1 headbutt|Azalea Town (Headbutt)
+spot = 9 4 headbutt|Azalea Town (Headbutt)
+spot = 9 5 headbutt|Azalea Town (Headbutt)
+spot = 11 20 headbutt|Azalea Town (Headbutt)
+spot = 11 21 headbutt|Azalea Town (Headbutt)
+spot = 11 22 headbutt|Azalea Town (Headbutt)
+spot = 11 23 headbutt|Azalea Town (Headbutt)
+spot = 11 24 headbutt|Azalea Town (Headbutt)
+spot = 11 25 headbutt|Azalea Town (Headbutt)
 grid:
 ######################################..####.##########.########
 ##################################################....##########
@@ -1557,6 +1823,26 @@ npc = 12 20 hg_officer left 0 talk|I'm on patrol for suspicious individuals.
 npc = 13 26 old_man_1 down 0 talk|...
 npc = 9 17 mon:Marill up 0 talk|Marill: ...
 npc = 29 47 gentleman left 3 fight|Pokefan Brandon|Snubbull 13, Mareep 13|I just got my Pokemon back from Day Care. Let's see how much stronger/it got!|My Pokemon knew moves I didn't know it had. That confounded me to no end!
+
+
+spot = 3 21 headbutt|Route 34 (Headbutt)
+spot = 3 20 headbutt|Route 34 (Headbutt)
+spot = 3 19 headbutt|Route 34 (Headbutt)
+spot = 3 18 headbutt|Route 34 (Headbutt)
+spot = 3 17 headbutt|Route 34 (Headbutt)
+spot = 3 16 headbutt|Route 34 (Headbutt)
+spot = 30 41 headbutt|Route 34 (Headbutt)
+spot = 30 40 headbutt|Route 34 (Headbutt)
+spot = 26 33 headbutt|Route 34 (Headbutt)
+spot = 27 33 headbutt|Route 34 (Headbutt)
+spot = 18 29 headbutt|Route 34 (Headbutt)
+spot = 18 28 headbutt|Route 34 (Headbutt)
+spot = 12 17 headbutt|Route 34 (Headbutt)
+spot = 12 16 headbutt|Route 34 (Headbutt)
+spot = 20 87 headbutt|Route 34 (Headbutt)
+spot = 21 87 headbutt|Route 34 (Headbutt)
+spot = 9 89 headbutt|Route 34 (Headbutt)
+spot = 9 88 headbutt|Route 34 (Headbutt)
 grid:
 ..............................##
 ..............................##
@@ -1973,6 +2259,35 @@ npc = 15 57 man down 3 fight|Bird Keeper Bryan|Pidgey 12, Pidgeotto 14|What kind
 npc = 13 11 hg_officer down 0 talk|Your Pokemon look pretty tough. You could go anywhere safely.
 item = 23 21 Parlyz Heal
 npc = 6 37 apricorn:Green down 0 apricorn|11|Green
+
+
+spot = 25 2 headbutt|Route 35 (Headbutt)
+spot = 25 3 headbutt|Route 35 (Headbutt)
+spot = 27 8 headbutt|Route 35 (Headbutt)
+spot = 27 7 headbutt|Route 35 (Headbutt)
+spot = 18 26 headbutt|Route 35 (Headbutt)
+spot = 19 26 headbutt|Route 35 (Headbutt)
+spot = 18 25 headbutt|Route 35 (Headbutt)
+spot = 22 20 headbutt|Route 35 (Headbutt)
+spot = 23 20 headbutt|Route 35 (Headbutt)
+spot = 3 20 headbutt|Route 35 (Headbutt)
+spot = 3 21 headbutt|Route 35 (Headbutt)
+spot = 25 63 headbutt|Route 35 (Headbutt)
+spot = 25 62 headbutt|Route 35 (Headbutt)
+spot = 3 59 headbutt|Route 35 (Headbutt)
+spot = 3 58 headbutt|Route 35 (Headbutt)
+spot = 26 57 headbutt|Route 35 (Headbutt)
+spot = 27 57 headbutt|Route 35 (Headbutt)
+spot = 14 61 headbutt|Route 35 (Headbutt)
+spot = 14 60 headbutt|Route 35 (Headbutt)
+spot = 7 45 headbutt|Route 35 (Headbutt)
+spot = 7 44 headbutt|Route 35 (Headbutt)
+spot = 7 13 headbutt|Route 35 (Headbutt)
+spot = 7 12 headbutt|Route 35 (Headbutt)
+spot = 3 31 headbutt|Route 35 (Headbutt)
+spot = 3 30 headbutt|Route 35 (Headbutt)
+spot = 16 9 headbutt|Route 35 (Headbutt)
+spot = 17 9 headbutt|Route 35 (Headbutt)
 grid:
 ######..........##########..####
 ######..........##########..####
@@ -2134,6 +2449,42 @@ npc = 79 20 boy up 0 talk|...
 item = 41 13 Hyper Potion
 npc = 63 22 mon:Sudowoodo left 0 trainer|Route 36|A strange tree is blocking the way.../It suddenly moved! It's a Pokemon!|The odd tree ran away!
 npc = 30 9 apricorn:Blue down 0 apricorn|12|Blue
+
+
+spot = 28 7 headbutt|Route 36 (Headbutt)
+spot = 29 7 headbutt|Route 36 (Headbutt)
+spot = 25 29 headbutt|Route 36 (Headbutt)
+spot = 25 28 headbutt|Route 36 (Headbutt)
+spot = 51 10 headbutt|Route 36 (Headbutt)
+spot = 52 10 headbutt|Route 36 (Headbutt)
+spot = 52 9 headbutt|Route 36 (Headbutt)
+spot = 51 9 headbutt|Route 36 (Headbutt)
+spot = 40 8 headbutt|Route 36 (Headbutt)
+spot = 40 7 headbutt|Route 36 (Headbutt)
+spot = 62 21 headbutt|Route 36 (Headbutt)
+spot = 62 20 headbutt|Route 36 (Headbutt)
+spot = 32 21 headbutt|Route 36 (Headbutt)
+spot = 32 20 headbutt|Route 36 (Headbutt)
+spot = 76 17 headbutt|Route 36 (Headbutt)
+spot = 77 17 headbutt|Route 36 (Headbutt)
+spot = 50 3 headbutt|Route 36 (Headbutt)
+spot = 51 3 headbutt|Route 36 (Headbutt)
+spot = 50 2 headbutt|Route 36 (Headbutt)
+spot = 92 17 headbutt|Route 36 (Headbutt)
+spot = 93 17 headbutt|Route 36 (Headbutt)
+spot = 84 17 headbutt|Route 36 (Headbutt)
+spot = 85 17 headbutt|Route 36 (Headbutt)
+spot = 69 19 headbutt|Route 36 (Headbutt)
+spot = 69 18 headbutt|Route 36 (Headbutt)
+spot = 35 19 headbutt|Route 36 (Headbutt)
+spot = 36 19 headbutt|Route 36 (Headbutt)
+spot = 25 25 headbutt|Route 36 (Headbutt)
+spot = 25 24 headbutt|Route 36 (Headbutt)
+spot = 53 23 headbutt|Route 36 (Headbutt)
+spot = 54 23 headbutt|Route 36 (Headbutt)
+spot = 58 17 headbutt|Route 36 (Headbutt)
+spot = 59 17 headbutt|Route 36 (Headbutt)
+spot = 82 28 headbutt|Route 36 (Headbutt)
 grid:
 ..................##################............################################################
 ..................##################............################################################
@@ -2222,6 +2573,28 @@ npc = 11 12 woman_2 left 5 fight|Beauty Kassandra|Wigglytuff 16, Clefable 16|Hey
 npc = 17 10 apricorn:Red down 0 apricorn|13|Red
 npc = 22 10 apricorn:Blue down 0 apricorn|14|Blue
 npc = 20 12 apricorn:Black down 0 apricorn|15|Black
+
+
+spot = 6 18 headbutt|Route 37 (Headbutt)
+spot = 6 17 headbutt|Route 37 (Headbutt)
+spot = 7 17 headbutt|Route 37 (Headbutt)
+spot = 7 18 headbutt|Route 37 (Headbutt)
+spot = 12 25 headbutt|Route 37 (Headbutt)
+spot = 13 25 headbutt|Route 37 (Headbutt)
+spot = 17 15 headbutt|Route 37 (Headbutt)
+spot = 17 14 headbutt|Route 37 (Headbutt)
+spot = 16 25 headbutt|Route 37 (Headbutt)
+spot = 3 22 headbutt|Route 37 (Headbutt)
+spot = 3 23 headbutt|Route 37 (Headbutt)
+spot = 16 1 headbutt|Route 37 (Headbutt)
+spot = 17 1 headbutt|Route 37 (Headbutt)
+spot = 22 7 headbutt|Route 37 (Headbutt)
+spot = 23 7 headbutt|Route 37 (Headbutt)
+spot = 4 3 headbutt|Route 37 (Headbutt)
+spot = 5 3 headbutt|Route 37 (Headbutt)
+spot = 5 2 headbutt|Route 37 (Headbutt)
+spot = 24 15 headbutt|Route 37 (Headbutt)
+spot = 24 14 headbutt|Route 37 (Headbutt)
 grid:
 ######....######################
 ######....######################
@@ -2329,6 +2702,30 @@ npc = 40 43 old_man_1 left 0 talk|Hmm... I thought I just heard a woman|screamin
 npc = 52 57 lass wander 0 talk|I'm going to rehearse at the Dance Theater. Care to join me?
 npc = 22 25 old_man_1 wander 0 talk|In the distant past...|When this tower burned in a fire, three nameless Pokemon perished in it.|Then, a rainbow-hued Pokemon descended from the sky and|somehow brought them back...|The people were afraid of power such as the rainbow-hued Pokemon had shown.|They tried to control it by force.|The nameless Pokemon made no attempt to fight back. Instead, their|great sorrow compelled them to leave.|This legend has been passed down by the Ecruteak Gym Leader. Me?|I was a Trainer way back when. Ho ho ho!
 fly = 45 56
+
+
+spot = 62 38 headbutt|Ecruteak City (Headbutt)
+spot = 62 39 headbutt|Ecruteak City (Headbutt)
+spot = 62 54 headbutt|Ecruteak City (Headbutt)
+spot = 62 55 headbutt|Ecruteak City (Headbutt)
+spot = 62 56 headbutt|Ecruteak City (Headbutt)
+spot = 62 57 headbutt|Ecruteak City (Headbutt)
+spot = 36 36 headbutt|Ecruteak City (Headbutt)
+spot = 17 58 headbutt|Ecruteak City (Headbutt)
+spot = 17 59 headbutt|Ecruteak City (Headbutt)
+spot = 17 54 headbutt|Ecruteak City (Headbutt)
+spot = 17 55 headbutt|Ecruteak City (Headbutt)
+spot = 17 48 headbutt|Ecruteak City (Headbutt)
+spot = 17 49 headbutt|Ecruteak City (Headbutt)
+spot = 17 46 headbutt|Ecruteak City (Headbutt)
+spot = 17 47 headbutt|Ecruteak City (Headbutt)
+spot = 8 35 headbutt|Ecruteak City (Headbutt)
+spot = 9 35 headbutt|Ecruteak City (Headbutt)
+spot = 10 35 headbutt|Ecruteak City (Headbutt)
+spot = 11 35 headbutt|Ecruteak City (Headbutt)
+spot = 17 30 headbutt|Ecruteak City (Headbutt)
+spot = 17 31 headbutt|Ecruteak City (Headbutt)
+spot = 26 45 headbutt|Ecruteak City (Headbutt)
 grid:
 ################################################################
 ################################################################
@@ -2485,6 +2882,23 @@ npc = 48 6 sailor wander 2 fight|Sailor Harry|Wooper 20|I've been overseas, so I
 item = 41 17 Max Potion
 item = 9 26 Lax Incense
 npc = 27 12 apricorn:White down 0 apricorn|16|White
+
+
+spot = 60 4 headbutt|Route 38 (Headbutt)
+spot = 61 4 headbutt|Route 38 (Headbutt)
+spot = 52 5 headbutt|Route 38 (Headbutt)
+spot = 53 5 headbutt|Route 38 (Headbutt)
+spot = 44 1 headbutt|Route 38 (Headbutt)
+spot = 45 1 headbutt|Route 38 (Headbutt)
+spot = 34 1 headbutt|Route 38 (Headbutt)
+spot = 35 1 headbutt|Route 38 (Headbutt)
+spot = 36 4 headbutt|Route 38 (Headbutt)
+spot = 48 21 headbutt|Route 38 (Headbutt)
+spot = 25 14 headbutt|Route 38 (Headbutt)
+spot = 25 13 headbutt|Route 38 (Headbutt)
+spot = 15 10 headbutt|Route 38 (Headbutt)
+spot = 15 9 headbutt|Route 38 (Headbutt)
+spot = 14 30 headbutt|Route 38 (Headbutt)
 grid:
 #########.################################################..####
 #########.........................###########################..#
@@ -2581,6 +2995,11 @@ npc = 6 21 mon:Miltank down 0 talk|MILTANK: Mooo!
 npc = 12 18 mon:Miltank down 0 talk|MILTANK: Mooo!
 npc = 7 28 hg_brock up 0 talk|Lt. Surge: Hey, you!|Don't you want a good memory of us together? How about taking a|picture with me?|Lt. Surge: OK! OK!|Show me a very good smile!|Lt. Surge: Wow! This turned out to be a really|good one!|We root for Route 39!
 npc = 13 3 apricorn:Green down 0 apricorn|17|Green
+
+
+spot = 13 23 headbutt|Route 39 (Headbutt)
+spot = 14 23 headbutt|Route 39 (Headbutt)
+spot = 14 22 headbutt|Route 39 (Headbutt)
 grid:
 ##................##############
 ##.#...#...#......##############
@@ -3383,6 +3802,22 @@ npc = 50 22 mon:Suicune left 0 talk|Suicune: ...
 npc = 48 24 apricorn:Pink down 0 apricorn|18|Pink
 npc = 49 24 apricorn:Green down 0 apricorn|19|Green
 npc = 50 24 apricorn:Yellow down 0 apricorn|20|Yellow
+
+
+spot = 8 13 headbutt|Route 42 (Headbutt)
+spot = 9 13 headbutt|Route 42 (Headbutt)
+spot = 9 12 headbutt|Route 42 (Headbutt)
+spot = 32 24 headbutt|Route 42 (Headbutt)
+spot = 33 24 headbutt|Route 42 (Headbutt)
+spot = 54 26 headbutt|Route 42 (Headbutt)
+spot = 45 26 headbutt|Route 42 (Headbutt)
+spot = 26 22 headbutt|Route 42 (Headbutt)
+spot = 27 22 headbutt|Route 42 (Headbutt)
+spot = 16 22 headbutt|Route 42 (Headbutt)
+spot = 42 21 headbutt|Route 42 (Headbutt)
+spot = 42 20 headbutt|Route 42 (Headbutt)
+spot = 43 20 headbutt|Route 42 (Headbutt)
+spot = 43 21 headbutt|Route 42 (Headbutt)
 grid:
 #################.....#####################################################.........#........#..
 #################.....###################################################.#.........#........#..
@@ -3570,6 +4005,32 @@ npc = 18 8 poke_maniac wander 2 fight|Poke Maniac Ron|Nidoking 20|Would you get 
 npc = 8 17 fisher right 7 fight|Fisherman Marvin|Magikarp 10, Gyarados 20, Magikarp 15|I'm in a slump./Maybe it's the gear I'm using. Let's battle for a change of pace!|Kurt's Lure Ball is the best for catching hooked Pokemon./It's much more effective than an Ultra Ball.
 item = 20 42 Max Ether
 npc = 1 29 apricorn:Black down 0 apricorn|21|Black
+
+
+spot = 4 3 headbutt|Route 43 (Headbutt)
+spot = 4 2 headbutt|Route 43 (Headbutt)
+spot = 10 11 headbutt|Route 43 (Headbutt)
+spot = 11 11 headbutt|Route 43 (Headbutt)
+spot = 4 31 headbutt|Route 43 (Headbutt)
+spot = 5 31 headbutt|Route 43 (Headbutt)
+spot = 4 30 headbutt|Route 43 (Headbutt)
+spot = 5 30 headbutt|Route 43 (Headbutt)
+spot = 25 7 headbutt|Route 43 (Headbutt)
+spot = 26 7 headbutt|Route 43 (Headbutt)
+spot = 15 6 headbutt|Route 43 (Headbutt)
+spot = 24 29 headbutt|Route 43 (Headbutt)
+spot = 24 28 headbutt|Route 43 (Headbutt)
+spot = 16 59 headbutt|Route 43 (Headbutt)
+spot = 0 27 headbutt|Route 43 (Headbutt)
+spot = 1 27 headbutt|Route 43 (Headbutt)
+spot = 5 19 headbutt|Route 43 (Headbutt)
+spot = 5 18 headbutt|Route 43 (Headbutt)
+spot = 27 17 headbutt|Route 43 (Headbutt)
+spot = 28 17 headbutt|Route 43 (Headbutt)
+spot = 27 16 headbutt|Route 43 (Headbutt)
+spot = 15 26 headbutt|Route 43 (Headbutt)
+spot = 14 26 headbutt|Route 43 (Headbutt)
+spot = 14 25 headbutt|Route 43 (Headbutt)
 grid:
 ##..##########.....############.
 ##..##########.....############.
@@ -3735,6 +4196,49 @@ npc = 23 48 hg_pryce up 0 talk|Pryce: The strong rain falling on the surface see
 fly = 17 11
 weather = rain
 npc = 45 39 mon:Gyarados down 0 trainer|Lake of Rage|The red Gyarados is enraged!|The red Gyarados calmed down...
+
+
+spot = 72 20 headbutt|Lake of Rage (Headbutt)
+spot = 72 21 headbutt|Lake of Rage (Headbutt)
+spot = 73 21 headbutt|Lake of Rage (Headbutt)
+spot = 72 30 headbutt|Lake of Rage (Headbutt)
+spot = 73 30 headbutt|Lake of Rage (Headbutt)
+spot = 73 29 headbutt|Lake of Rage (Headbutt)
+spot = 76 31 headbutt|Lake of Rage (Headbutt)
+spot = 76 30 headbutt|Lake of Rage (Headbutt)
+spot = 76 29 headbutt|Lake of Rage (Headbutt)
+spot = 76 28 headbutt|Lake of Rage (Headbutt)
+spot = 66 36 headbutt|Lake of Rage (Headbutt)
+spot = 67 36 headbutt|Lake of Rage (Headbutt)
+spot = 68 36 headbutt|Lake of Rage (Headbutt)
+spot = 69 36 headbutt|Lake of Rage (Headbutt)
+spot = 63 48 headbutt|Lake of Rage (Headbutt)
+spot = 43 57 headbutt|Lake of Rage (Headbutt)
+spot = 43 56 headbutt|Lake of Rage (Headbutt)
+spot = 32 59 headbutt|Lake of Rage (Headbutt)
+spot = 33 59 headbutt|Lake of Rage (Headbutt)
+spot = 28 59 headbutt|Lake of Rage (Headbutt)
+spot = 29 59 headbutt|Lake of Rage (Headbutt)
+spot = 26 59 headbutt|Lake of Rage (Headbutt)
+spot = 27 59 headbutt|Lake of Rage (Headbutt)
+spot = 20 53 headbutt|Lake of Rage (Headbutt)
+spot = 21 53 headbutt|Lake of Rage (Headbutt)
+spot = 21 52 headbutt|Lake of Rage (Headbutt)
+spot = 7 42 headbutt|Lake of Rage (Headbutt)
+spot = 7 41 headbutt|Lake of Rage (Headbutt)
+spot = 7 40 headbutt|Lake of Rage (Headbutt)
+spot = 8 39 headbutt|Lake of Rage (Headbutt)
+spot = 9 39 headbutt|Lake of Rage (Headbutt)
+spot = 24 1 headbutt|Lake of Rage (Headbutt)
+spot = 25 1 headbutt|Lake of Rage (Headbutt)
+spot = 26 1 headbutt|Lake of Rage (Headbutt)
+spot = 27 1 headbutt|Lake of Rage (Headbutt)
+spot = 58 3 headbutt|Lake of Rage (Headbutt)
+spot = 59 3 headbutt|Lake of Rage (Headbutt)
+spot = 60 3 headbutt|Lake of Rage (Headbutt)
+spot = 61 3 headbutt|Lake of Rage (Headbutt)
+spot = 62 3 headbutt|Lake of Rage (Headbutt)
+spot = 63 3 headbutt|Lake of Rage (Headbutt)
 grid:
 ######################################################################################..........
 ######################################################################################..........
@@ -3893,6 +4397,34 @@ item = 20 17 Max Repel
 item = 45 13 Max Revive
 item = 63 2 Ultra Ball
 npc = 13 11 apricorn:Red down 0 apricorn|22|Red
+
+
+spot = 80 12 headbutt|Route 44 (Headbutt)
+spot = 80 13 headbutt|Route 44 (Headbutt)
+spot = 79 13 headbutt|Route 44 (Headbutt)
+spot = 70 18 headbutt|Route 44 (Headbutt)
+spot = 71 18 headbutt|Route 44 (Headbutt)
+spot = 62 12 headbutt|Route 44 (Headbutt)
+spot = 63 12 headbutt|Route 44 (Headbutt)
+spot = 63 11 headbutt|Route 44 (Headbutt)
+spot = 62 11 headbutt|Route 44 (Headbutt)
+spot = 64 4 headbutt|Route 44 (Headbutt)
+spot = 64 3 headbutt|Route 44 (Headbutt)
+spot = 60 24 headbutt|Route 44 (Headbutt)
+spot = 60 23 headbutt|Route 44 (Headbutt)
+spot = 59 24 headbutt|Route 44 (Headbutt)
+spot = 47 24 headbutt|Route 44 (Headbutt)
+spot = 48 24 headbutt|Route 44 (Headbutt)
+spot = 42 6 headbutt|Route 44 (Headbutt)
+spot = 42 5 headbutt|Route 44 (Headbutt)
+spot = 21 11 headbutt|Route 44 (Headbutt)
+spot = 6 14 headbutt|Route 44 (Headbutt)
+spot = 7 14 headbutt|Route 44 (Headbutt)
+spot = 13 8 headbutt|Route 44 (Headbutt)
+spot = 14 8 headbutt|Route 44 (Headbutt)
+spot = 23 4 headbutt|Route 44 (Headbutt)
+spot = 24 4 headbutt|Route 44 (Headbutt)
+spot = 24 3 headbutt|Route 44 (Headbutt)
 grid:
 .................########################wwwwwwwwww#########################..#....#............
 .................########################wwwwwwwwwwwwwwwwwwwwww#############..#....#............
@@ -4157,6 +4689,12 @@ item = 7 90 Nugget
 item = 5 110 Revive
 npc = 8 127 man wander 0 talk|Have you heard of a place called the Battle Frontier?|It's a huge place with many battle facilities, and it's located west of|Olivine City!|Let's see...|If you manage to win all the way up through the Pokemon League,|you might want to try it.
 npc = 26 140 apricorn:Green down 0 apricorn|23|Green
+
+
+spot = 22 149 headbutt|Route 45 (Headbutt)
+spot = 22 148 headbutt|Route 45 (Headbutt)
+spot = 17 139 headbutt|Route 45 (Headbutt)
+spot = 17 138 headbutt|Route 45 (Headbutt)
 grid:
 ##################ww##...#######
 ##################ww##...#######
@@ -4503,6 +5041,20 @@ item = 3 24 X Speed
 npc = 10 46 man wander 0 talk|A dead end...?|Did I take the wrong path?|I didn't know this was only one way.
 npc = 9 11 apricorn:Green down 0 apricorn|24|Green
 npc = 8 12 apricorn:Yellow down 0 apricorn|25|Yellow
+
+
+spot = 6 11 headbutt|Route 46 (Headbutt)
+spot = 6 10 headbutt|Route 46 (Headbutt)
+spot = 20 31 headbutt|Route 46 (Headbutt)
+spot = 20 32 headbutt|Route 46 (Headbutt)
+spot = 21 32 headbutt|Route 46 (Headbutt)
+spot = 2 31 headbutt|Route 46 (Headbutt)
+spot = 2 30 headbutt|Route 46 (Headbutt)
+spot = 22 57 headbutt|Route 46 (Headbutt)
+spot = 22 56 headbutt|Route 46 (Headbutt)
+spot = 15 60 headbutt|Route 46 (Headbutt)
+spot = 18 11 headbutt|Route 46 (Headbutt)
+spot = 18 10 headbutt|Route 46 (Headbutt)
 grid:
 #####.#..#######################
 #####.#..#######################
@@ -4661,6 +5213,31 @@ npc = 17 14 woman_3 down 3 fight|Ace Trainer F Jamie|Rapidash 36, Flaaffy 31|I l
 rematch = Rapidash 38, Ampharos 37 / Rapidash 42, Ampharos 40 / Rapidash 56, Ampharos 59
 item = 14 26 Max Elixir
 npc = 24 54 apricorn:Blue down 0 apricorn|4|Blue
+
+
+spot = 30 59 headbutt|Route 26 (Headbutt)
+spot = 30 58 headbutt|Route 26 (Headbutt)
+spot = 30 69 headbutt|Route 26 (Headbutt)
+spot = 30 68 headbutt|Route 26 (Headbutt)
+spot = 30 76 headbutt|Route 26 (Headbutt)
+spot = 30 77 headbutt|Route 26 (Headbutt)
+spot = 25 74 headbutt|Route 26 (Headbutt)
+spot = 25 73 headbutt|Route 26 (Headbutt)
+spot = 28 33 headbutt|Route 26 (Headbutt)
+spot = 28 32 headbutt|Route 26 (Headbutt)
+spot = 9 102 headbutt|Route 26 (Headbutt)
+spot = 10 102 headbutt|Route 26 (Headbutt)
+spot = 10 101 headbutt|Route 26 (Headbutt)
+spot = 24 93 headbutt|Route 26 (Headbutt)
+spot = 24 92 headbutt|Route 26 (Headbutt)
+spot = 17 95 headbutt|Route 26 (Headbutt)
+spot = 18 95 headbutt|Route 26 (Headbutt)
+spot = 22 84 headbutt|Route 26 (Headbutt)
+spot = 23 84 headbutt|Route 26 (Headbutt)
+spot = 23 83 headbutt|Route 26 (Headbutt)
+spot = 16 86 headbutt|Route 26 (Headbutt)
+spot = 17 86 headbutt|Route 26 (Headbutt)
+spot = 17 85 headbutt|Route 26 (Headbutt)
 grid:
 ################################
 ################################
@@ -4949,6 +5526,36 @@ npc = 170 19 woman_3 up 2 fight|Ace Trainer F Reena|Growlithe 36, Nidorina 33, S
 rematch = Growlithe 38, Nidorina 36, Staryu 38 / Arcanine 47, Nidoqueen 43, Starmie 47 / Arcanine 54, Nidoqueen 53, Starmie 56
 item = 79 23 Rare Candy
 item = 139 10 Destiny Knot
+
+
+spot = 84 10 headbutt|Route 27 (Headbutt)
+spot = 85 10 headbutt|Route 27 (Headbutt)
+spot = 61 18 headbutt|Route 27 (Headbutt)
+spot = 61 17 headbutt|Route 27 (Headbutt)
+spot = 52 18 headbutt|Route 27 (Headbutt)
+spot = 52 17 headbutt|Route 27 (Headbutt)
+spot = 44 24 headbutt|Route 27 (Headbutt)
+spot = 45 24 headbutt|Route 27 (Headbutt)
+spot = 40 16 headbutt|Route 27 (Headbutt)
+spot = 41 16 headbutt|Route 27 (Headbutt)
+spot = 40 15 headbutt|Route 27 (Headbutt)
+spot = 5 20 headbutt|Route 27 (Headbutt)
+spot = 5 21 headbutt|Route 27 (Headbutt)
+spot = 70 13 headbutt|Route 27 (Headbutt)
+spot = 70 12 headbutt|Route 27 (Headbutt)
+spot = 86 22 headbutt|Route 27 (Headbutt)
+spot = 87 22 headbutt|Route 27 (Headbutt)
+spot = 80 26 headbutt|Route 27 (Headbutt)
+spot = 80 25 headbutt|Route 27 (Headbutt)
+spot = 56 24 headbutt|Route 27 (Headbutt)
+spot = 57 24 headbutt|Route 27 (Headbutt)
+spot = 16 7 headbutt|Route 27 (Headbutt)
+spot = 17 7 headbutt|Route 27 (Headbutt)
+spot = 16 25 headbutt|Route 27 (Headbutt)
+spot = 16 24 headbutt|Route 27 (Headbutt)
+spot = 25 20 headbutt|Route 27 (Headbutt)
+spot = 50 24 headbutt|Route 27 (Headbutt)
+spot = 51 24 headbutt|Route 27 (Headbutt)
 grid:
 #######################.#..#....################################wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww##################################################################..............
 #######################.#..#....################################wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#####################################################################...........
@@ -5054,6 +5661,38 @@ door = 32 5 warp|Route 48|39|29|up
 door = 33 5 warp|Route 48|39|29|up
 door = 34 5 warp|Route 48|40|29|up
 door = 35 5 warp|Route 48|40|29|up
+
+
+spot = 44 31 headbutt|Route 47 (Headbutt)
+spot = 45 31 headbutt|Route 47 (Headbutt)
+spot = 36 9 headbutt|Route 47 (Headbutt)
+spot = 36 8 headbutt|Route 47 (Headbutt)
+spot = 42 21 headbutt|Route 47 (Headbutt)
+spot = 42 20 headbutt|Route 47 (Headbutt)
+spot = 57 14 headbutt|Route 47 (Headbutt)
+spot = 57 15 headbutt|Route 47 (Headbutt)
+spot = 42 31 headbutt|Route 47 (Headbutt)
+spot = 43 31 headbutt|Route 47 (Headbutt)
+spot = 42 30 headbutt|Route 47 (Headbutt)
+spot = 42 27 headbutt|Route 47 (Headbutt)
+spot = 42 26 headbutt|Route 47 (Headbutt)
+spot = 40 13 headbutt|Route 47 (Headbutt)
+spot = 41 13 headbutt|Route 47 (Headbutt)
+spot = 38 13 headbutt|Route 47 (Headbutt)
+spot = 39 13 headbutt|Route 47 (Headbutt)
+spot = 38 12 headbutt|Route 47 (Headbutt)
+spot = 36 7 headbutt|Route 47 (Headbutt)
+spot = 36 6 headbutt|Route 47 (Headbutt)
+spot = 36 5 headbutt|Route 47 (Headbutt)
+spot = 37 5 headbutt|Route 47 (Headbutt)
+spot = 40 3 headbutt|Route 47 (Headbutt)
+spot = 40 2 headbutt|Route 47 (Headbutt)
+spot = 18 9 headbutt|Route 47 (Headbutt)
+spot = 18 8 headbutt|Route 47 (Headbutt)
+spot = 18 11 headbutt|Route 47 (Headbutt)
+spot = 18 10 headbutt|Route 47 (Headbutt)
+spot = 57 13 headbutt|Route 47 (Headbutt)
+spot = 57 12 headbutt|Route 47 (Headbutt)
 grid:
 ##########################################################wwwwww################################
 ##########################################################wwwwww################################
@@ -5207,6 +5846,15 @@ door = 38 31 warp|Route 47|33|7|down
 door = 39 31 warp|Route 47|33|7|down
 door = 40 31 warp|Route 47|34|7|down
 door = 41 31 warp|Route 47|35|7|down
+
+
+spot = 18 5 headbutt|Route 48 (Headbutt)
+spot = 18 4 headbutt|Route 48 (Headbutt)
+spot = 11 15 headbutt|Route 48 (Headbutt)
+spot = 12 15 headbutt|Route 48 (Headbutt)
+spot = 42 15 headbutt|Route 48 (Headbutt)
+spot = 42 27 headbutt|Route 48 (Headbutt)
+spot = 42 26 headbutt|Route 48 (Headbutt)
 grid:
 ################################################################
 ################################################################
@@ -5290,6 +5938,26 @@ door = 19 7 warp|Route 28 House|4|7|up
 item = 42 6 Rare Candy hidden
 sign = 50 10 Rt. 28 West to Mt. Silver
 door = 55 8 warp|Pokemon League Reception Gate|4|7|up
+
+
+spot = 2 8 headbutt|Route 28 (Headbutt)
+spot = 2 9 headbutt|Route 28 (Headbutt)
+spot = 7 9 headbutt|Route 28 (Headbutt)
+spot = 7 8 headbutt|Route 28 (Headbutt)
+spot = 54 20 headbutt|Route 28 (Headbutt)
+spot = 54 19 headbutt|Route 28 (Headbutt)
+spot = 50 8 headbutt|Route 28 (Headbutt)
+spot = 51 8 headbutt|Route 28 (Headbutt)
+spot = 51 7 headbutt|Route 28 (Headbutt)
+spot = 44 14 headbutt|Route 28 (Headbutt)
+spot = 45 14 headbutt|Route 28 (Headbutt)
+spot = 43 6 headbutt|Route 28 (Headbutt)
+spot = 33 5 headbutt|Route 28 (Headbutt)
+spot = 34 5 headbutt|Route 28 (Headbutt)
+spot = 25 17 headbutt|Route 28 (Headbutt)
+spot = 31 26 headbutt|Route 28 (Headbutt)
+spot = 31 25 headbutt|Route 28 (Headbutt)
+spot = 1 19 headbutt|Route 28 (Headbutt)
 grid:
 ################################################################
 ################################################################
@@ -5374,6 +6042,17 @@ sign = 10 6 Mt. Silver
 item = 8 21 Reaper Cloth
 fly = 20 11
 npc = 5 8 hg_red down 0 trainer|Mt. Silver|...|...
+
+
+spot = 3 21 headbutt|Mt. Silver (Headbutt)
+spot = 4 21 headbutt|Mt. Silver (Headbutt)
+spot = 5 21 headbutt|Mt. Silver (Headbutt)
+spot = 6 21 headbutt|Mt. Silver (Headbutt)
+spot = 6 20 headbutt|Mt. Silver (Headbutt)
+spot = 11 19 headbutt|Mt. Silver (Headbutt)
+spot = 12 19 headbutt|Mt. Silver (Headbutt)
+spot = 13 19 headbutt|Mt. Silver (Headbutt)
+spot = 16 5 headbutt|Mt. Silver (Headbutt)
 grid:
 ################################
 ################################
@@ -6061,7 +6740,6 @@ item = 10 32 Big Mushroom hidden
 item = 53 48 Tiny Mushroom hidden
 item = 42 17 Tiny Mushroom hidden
 npc = 25 62 mon:Farfetch'd right 0 talk|Farfetch'd: ...
-npc = 36 37 fat_man up 0 talk|What am I doing?|I'm shaking trees using Headbutt.|It's fun. Here, you try it with your Pokemon, too!|Which Pokemon should learn it?|Sorry... That Pokemon cannot learn Headbutt.
 npc = 41 54 mon:Farfetch'd down 0 talk|Farfetch'd: ...
 npc = 15 64 boy down 0 talk|Oh, man... My boss is going to be angry...|The FARFETCH'D that cut trees for charcoal took off in the forest.|Can you catch them for me? FARFETCH'D have sensitive ears.|If you step on a branch, they will face toward you. That's your chance.|Sneak up from behind and catch them... Do you think you can do that?
 npc = 11 75 black_belt up 0 talk|Ah! My Far and Fetch'd!|You found them for us, kid? Without them, we wouldn't be able to|cut trees for charcoal.|Thanks, kid!|Now, how can I thank you...? I know! Here, take this.|That's the HM Cut. Teach that to a Pokemon to clear small trees.|Of course, you have to have the Gym Badge from Azalea to use it.
@@ -6076,6 +6754,123 @@ npc = 11 48 old_man_1 down 0 talk|...
 npc = 10 46 mon:Marill down 0 talk|Marill: ...
 npc = 13 76 bug_catcher up 3 trainer|Ilex Forest|The trees here are full of bug Pokemon!/Let's battle!|You're tough!
 npc = 16 56 mon:Celebi down 0 legend|Celebi|Celebi: Biii!
+
+
+spot = 9 81 headbutt|Ilex Forest (Headbutt)
+spot = 9 80 headbutt|Ilex Forest (Headbutt)
+spot = 9 79 headbutt|Ilex Forest (Headbutt)
+spot = 9 78 headbutt|Ilex Forest (Headbutt)
+spot = 9 77 headbutt|Ilex Forest (Headbutt)
+spot = 9 76 headbutt|Ilex Forest (Headbutt)
+spot = 9 71 headbutt|Ilex Forest (Headbutt)
+spot = 9 70 headbutt|Ilex Forest (Headbutt)
+spot = 9 69 headbutt|Ilex Forest (Headbutt)
+spot = 9 68 headbutt|Ilex Forest (Headbutt)
+spot = 9 67 headbutt|Ilex Forest (Headbutt)
+spot = 9 66 headbutt|Ilex Forest (Headbutt)
+spot = 10 63 headbutt|Ilex Forest (Headbutt)
+spot = 11 63 headbutt|Ilex Forest (Headbutt)
+spot = 12 63 headbutt|Ilex Forest (Headbutt)
+spot = 13 63 headbutt|Ilex Forest (Headbutt)
+spot = 12 75 headbutt|Ilex Forest (Headbutt)
+spot = 13 75 headbutt|Ilex Forest (Headbutt)
+spot = 12 74 headbutt|Ilex Forest (Headbutt)
+spot = 21 67 headbutt|Ilex Forest (Headbutt)
+spot = 22 67 headbutt|Ilex Forest (Headbutt)
+spot = 37 73 headbutt|Ilex Forest (Headbutt)
+spot = 37 72 headbutt|Ilex Forest (Headbutt)
+spot = 42 71 headbutt|Ilex Forest (Headbutt)
+spot = 43 71 headbutt|Ilex Forest (Headbutt)
+spot = 28 51 headbutt|Ilex Forest (Headbutt)
+spot = 29 51 headbutt|Ilex Forest (Headbutt)
+spot = 33 61 headbutt|Ilex Forest (Headbutt)
+spot = 33 60 headbutt|Ilex Forest (Headbutt)
+spot = 33 59 headbutt|Ilex Forest (Headbutt)
+spot = 33 58 headbutt|Ilex Forest (Headbutt)
+spot = 33 55 headbutt|Ilex Forest (Headbutt)
+spot = 33 54 headbutt|Ilex Forest (Headbutt)
+spot = 42 63 headbutt|Ilex Forest (Headbutt)
+spot = 43 63 headbutt|Ilex Forest (Headbutt)
+spot = 42 62 headbutt|Ilex Forest (Headbutt)
+spot = 40 59 headbutt|Ilex Forest (Headbutt)
+spot = 40 58 headbutt|Ilex Forest (Headbutt)
+spot = 40 55 headbutt|Ilex Forest (Headbutt)
+spot = 40 54 headbutt|Ilex Forest (Headbutt)
+spot = 50 55 headbutt|Ilex Forest (Headbutt)
+spot = 51 55 headbutt|Ilex Forest (Headbutt)
+spot = 50 54 headbutt|Ilex Forest (Headbutt)
+spot = 51 54 headbutt|Ilex Forest (Headbutt)
+spot = 46 49 headbutt|Ilex Forest (Headbutt)
+spot = 47 49 headbutt|Ilex Forest (Headbutt)
+spot = 47 48 headbutt|Ilex Forest (Headbutt)
+spot = 48 47 headbutt|Ilex Forest (Headbutt)
+spot = 49 47 headbutt|Ilex Forest (Headbutt)
+spot = 9 50 headbutt|Ilex Forest (Headbutt)
+spot = 9 51 headbutt|Ilex Forest (Headbutt)
+spot = 10 43 headbutt|Ilex Forest (Headbutt)
+spot = 11 43 headbutt|Ilex Forest (Headbutt)
+spot = 11 42 headbutt|Ilex Forest (Headbutt)
+spot = 12 39 headbutt|Ilex Forest (Headbutt)
+spot = 13 39 headbutt|Ilex Forest (Headbutt)
+spot = 13 38 headbutt|Ilex Forest (Headbutt)
+spot = 22 33 headbutt|Ilex Forest (Headbutt)
+spot = 23 33 headbutt|Ilex Forest (Headbutt)
+spot = 23 32 headbutt|Ilex Forest (Headbutt)
+spot = 29 34 headbutt|Ilex Forest (Headbutt)
+spot = 29 35 headbutt|Ilex Forest (Headbutt)
+spot = 30 25 headbutt|Ilex Forest (Headbutt)
+spot = 31 25 headbutt|Ilex Forest (Headbutt)
+spot = 34 29 headbutt|Ilex Forest (Headbutt)
+spot = 35 29 headbutt|Ilex Forest (Headbutt)
+spot = 36 29 headbutt|Ilex Forest (Headbutt)
+spot = 37 29 headbutt|Ilex Forest (Headbutt)
+spot = 37 28 headbutt|Ilex Forest (Headbutt)
+spot = 40 25 headbutt|Ilex Forest (Headbutt)
+spot = 40 24 headbutt|Ilex Forest (Headbutt)
+spot = 51 26 headbutt|Ilex Forest (Headbutt)
+spot = 51 27 headbutt|Ilex Forest (Headbutt)
+spot = 54 31 headbutt|Ilex Forest (Headbutt)
+spot = 54 30 headbutt|Ilex Forest (Headbutt)
+spot = 42 39 headbutt|Ilex Forest (Headbutt)
+spot = 43 39 headbutt|Ilex Forest (Headbutt)
+spot = 48 21 headbutt|Ilex Forest (Headbutt)
+spot = 49 21 headbutt|Ilex Forest (Headbutt)
+spot = 40 16 headbutt|Ilex Forest (Headbutt)
+spot = 41 16 headbutt|Ilex Forest (Headbutt)
+spot = 40 15 headbutt|Ilex Forest (Headbutt)
+spot = 41 15 headbutt|Ilex Forest (Headbutt)
+spot = 32 9 headbutt|Ilex Forest (Headbutt)
+spot = 33 9 headbutt|Ilex Forest (Headbutt)
+spot = 36 9 headbutt|Ilex Forest (Headbutt)
+spot = 37 9 headbutt|Ilex Forest (Headbutt)
+spot = 38 9 headbutt|Ilex Forest (Headbutt)
+spot = 39 9 headbutt|Ilex Forest (Headbutt)
+spot = 24 19 headbutt|Ilex Forest (Headbutt)
+spot = 25 19 headbutt|Ilex Forest (Headbutt)
+spot = 20 21 headbutt|Ilex Forest (Headbutt)
+spot = 21 21 headbutt|Ilex Forest (Headbutt)
+spot = 16 21 headbutt|Ilex Forest (Headbutt)
+spot = 17 21 headbutt|Ilex Forest (Headbutt)
+spot = 16 20 headbutt|Ilex Forest (Headbutt)
+spot = 9 25 headbutt|Ilex Forest (Headbutt)
+spot = 9 24 headbutt|Ilex Forest (Headbutt)
+spot = 9 23 headbutt|Ilex Forest (Headbutt)
+spot = 9 22 headbutt|Ilex Forest (Headbutt)
+spot = 34 35 headbutt|Ilex Forest (Headbutt)
+spot = 35 35 headbutt|Ilex Forest (Headbutt)
+spot = 36 35 headbutt|Ilex Forest (Headbutt)
+spot = 37 35 headbutt|Ilex Forest (Headbutt)
+spot = 38 39 headbutt|Ilex Forest (Headbutt)
+spot = 38 38 headbutt|Ilex Forest (Headbutt)
+spot = 38 37 headbutt|Ilex Forest (Headbutt)
+spot = 38 36 headbutt|Ilex Forest (Headbutt)
+spot = 50 47 headbutt|Ilex Forest (Headbutt)
+spot = 51 47 headbutt|Ilex Forest (Headbutt)
+spot = 52 47 headbutt|Ilex Forest (Headbutt)
+spot = 53 47 headbutt|Ilex Forest (Headbutt)
+spot = 46 35 headbutt|Ilex Forest (Headbutt)
+spot = 47 35 headbutt|Ilex Forest (Headbutt)
+npc = 36 37 fat_man up 0 tutor|Headbutt|What am I doing? I'm shaking trees using Headbutt.|It's fun. Here, you try it with your Pokemon, too!
 grid:
 ################################################################
 ################################################################
@@ -6319,6 +7114,58 @@ rematch = Gloom 29, Voltorb 17 / Vileplume 38, Electrode 31 / Electrode 43, Vile
 item = 81 16 Shiny Stone
 npc = 52 82 gentleman up 0 talk|...
 npc = 58 39 hg_bugsy left 0 talk|Bugsy: Hi, {PLAYER}! We have a Bug-Catching Contest|tomorrow!|I have won the Contest many times, so I won't participate.|But you should try it.|I'm sure you can win!
+
+
+spot = 33 62 headbutt|National Park (Headbutt)
+spot = 27 56 headbutt|National Park (Headbutt)
+spot = 26 56 headbutt|National Park (Headbutt)
+spot = 26 57 headbutt|National Park (Headbutt)
+spot = 23 55 headbutt|National Park (Headbutt)
+spot = 23 54 headbutt|National Park (Headbutt)
+spot = 23 49 headbutt|National Park (Headbutt)
+spot = 23 48 headbutt|National Park (Headbutt)
+spot = 23 47 headbutt|National Park (Headbutt)
+spot = 23 46 headbutt|National Park (Headbutt)
+spot = 23 43 headbutt|National Park (Headbutt)
+spot = 23 42 headbutt|National Park (Headbutt)
+spot = 23 35 headbutt|National Park (Headbutt)
+spot = 23 34 headbutt|National Park (Headbutt)
+spot = 23 33 headbutt|National Park (Headbutt)
+spot = 23 32 headbutt|National Park (Headbutt)
+spot = 27 23 headbutt|National Park (Headbutt)
+spot = 27 22 headbutt|National Park (Headbutt)
+spot = 30 21 headbutt|National Park (Headbutt)
+spot = 31 21 headbutt|National Park (Headbutt)
+spot = 31 20 headbutt|National Park (Headbutt)
+spot = 36 15 headbutt|National Park (Headbutt)
+spot = 37 15 headbutt|National Park (Headbutt)
+spot = 40 13 headbutt|National Park (Headbutt)
+spot = 41 13 headbutt|National Park (Headbutt)
+spot = 46 13 headbutt|National Park (Headbutt)
+spot = 47 13 headbutt|National Park (Headbutt)
+spot = 48 13 headbutt|National Park (Headbutt)
+spot = 49 13 headbutt|National Park (Headbutt)
+spot = 54 13 headbutt|National Park (Headbutt)
+spot = 55 13 headbutt|National Park (Headbutt)
+spot = 56 13 headbutt|National Park (Headbutt)
+spot = 57 13 headbutt|National Park (Headbutt)
+spot = 60 13 headbutt|National Park (Headbutt)
+spot = 61 13 headbutt|National Park (Headbutt)
+spot = 64 15 headbutt|National Park (Headbutt)
+spot = 65 15 headbutt|National Park (Headbutt)
+spot = 68 16 headbutt|National Park (Headbutt)
+spot = 68 17 headbutt|National Park (Headbutt)
+spot = 68 18 headbutt|National Park (Headbutt)
+spot = 68 19 headbutt|National Park (Headbutt)
+spot = 76 25 headbutt|National Park (Headbutt)
+spot = 77 25 headbutt|National Park (Headbutt)
+spot = 80 15 headbutt|National Park (Headbutt)
+spot = 81 15 headbutt|National Park (Headbutt)
+spot = 82 20 headbutt|National Park (Headbutt)
+spot = 82 19 headbutt|National Park (Headbutt)
+spot = 82 18 headbutt|National Park (Headbutt)
+spot = 82 17 headbutt|National Park (Headbutt)
+spot = 82 16 headbutt|National Park (Headbutt)
 grid:
 ........########################################################################################
 ........########################################################################################
@@ -11292,6 +12139,36 @@ npc = 10 3 cooltrainer_f wander 0 talk|I won't quit until I win!
 npc = 5 10 gentleman right 0 talk|I taught Blizzard to my Pokemon.|It was hard to get enough coins for|it, but it was worth it.
 npc = 2 9 fat_man wander 0 talk|Coin Case? I threw it away in the Underground.
 npc = 17 10 fat_man right 0 talk|Wahahah! The coins keep rolling in!
+spot = 6 6 slots
+spot = 6 7 slots
+spot = 6 8 slots
+spot = 6 9 slots
+spot = 6 10 slots
+spot = 6 11 slots
+spot = 7 6 slots
+spot = 7 7 slots
+spot = 7 8 slots
+spot = 7 9 slots
+spot = 7 10 slots
+spot = 7 11 slots
+spot = 12 6 slots
+spot = 12 7 slots
+spot = 12 8 slots
+spot = 12 9 slots
+spot = 12 10 slots
+spot = 12 11 slots
+spot = 13 6 voltorbflip
+spot = 13 7 voltorbflip
+spot = 13 8 voltorbflip
+spot = 13 9 voltorbflip
+spot = 13 10 voltorbflip
+spot = 13 11 voltorbflip
+spot = 18 6 voltorbflip
+spot = 18 7 voltorbflip
+spot = 18 8 voltorbflip
+spot = 18 9 voltorbflip
+spot = 18 10 voltorbflip
+spot = 18 11 voltorbflip
 grid:
 ####################
 ##.###.#...##.#.....
@@ -13767,6 +14644,31 @@ grid:
 ###..###
 
 [map]
+name = Ruins of Alph Kabuto Word Room
+region = Johto
+image = maps/cr_RuinsOfAlphKabutoWordRoom.png
+objects = sprites
+indoor = yes
+door = 9 5 warp|Ruins of Alph Kabuto Item Room|3|2|down
+door = 10 5 warp|Ruins of Alph Kabuto Item Room|4|2|down
+door = 17 11 warp|Ruins of Alph Inner Chamber|15|4|down
+grid:
+####################
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+####################
+####################
+
+[map]
 name = Ruins of Alph Kabuto Item Room
 region = Johto
 image = maps/cr_RuinsOfAlphKabutoItemRoom.png
@@ -13774,6 +14676,8 @@ objects = sprites
 indoor = yes
 door = 3 9 warp|Ruins of Alph Kabuto Chamber|4|1|down
 door = 4 9 warp|Ruins of Alph Kabuto Chamber|4|1|down
+door = 3 1 warp|Ruins of Alph Kabuto Word Room|9|6|down
+door = 4 1 warp|Ruins of Alph Kabuto Word Room|10|6|down
 item = 2 6 Oran Berry
 item = 5 6 Pecha Berry
 item = 2 4 Heal Powder
@@ -13826,6 +14730,41 @@ grid:
 ###..###
 
 [map]
+name = Ruins of Alph Ho-Oh Word Room
+region = Johto
+image = maps/cr_RuinsOfAlphHoOhWordRoom.png
+objects = sprites
+indoor = yes
+door = 9 9 warp|Ruins of Alph Ho-Oh Item Room|3|2|down
+door = 10 9 warp|Ruins of Alph Ho-Oh Item Room|4|2|down
+door = 17 21 warp|Ruins of Alph Inner Chamber|3|16|down
+grid:
+####################
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+####################
+####################
+
+[map]
 name = Ruins of Alph Ho-Oh Item Room
 region = Johto
 image = maps/cr_RuinsOfAlphHoOhItemRoom.png
@@ -13833,6 +14772,8 @@ objects = sprites
 indoor = yes
 door = 3 9 warp|Ruins of Alph Ho-Oh Chamber|4|1|down
 door = 4 9 warp|Ruins of Alph Ho-Oh Chamber|4|1|down
+door = 3 1 warp|Ruins of Alph Ho-Oh Word Room|9|10|down
+door = 4 1 warp|Ruins of Alph Ho-Oh Word Room|10|10|down
 item = 2 6 Sitrus Berry
 item = 5 6 Leppa Berry
 item = 2 4 Revival Herb
@@ -13885,6 +14826,33 @@ grid:
 ###..###
 
 [map]
+name = Ruins of Alph Omanyte Word Room
+region = Johto
+image = maps/cr_RuinsOfAlphOmanyteWordRoom.png
+objects = sprites
+indoor = yes
+door = 9 7 warp|Ruins of Alph Omanyte Item Room|3|2|down
+door = 10 7 warp|Ruins of Alph Omanyte Item Room|4|2|down
+door = 17 13 warp|Ruins of Alph Inner Chamber|3|22|down
+grid:
+####################
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+####################
+####################
+
+[map]
 name = Ruins of Alph Omanyte Item Room
 region = Johto
 image = maps/cr_RuinsOfAlphOmanyteItemRoom.png
@@ -13892,6 +14860,8 @@ objects = sprites
 indoor = yes
 door = 3 9 warp|Ruins of Alph Omanyte Chamber|4|1|down
 door = 4 9 warp|Ruins of Alph Omanyte Chamber|4|1|down
+door = 3 1 warp|Ruins of Alph Omanyte Word Room|9|8|down
+door = 4 1 warp|Ruins of Alph Omanyte Word Room|10|8|down
 item = 2 6 Leppa Berry
 item = 5 6 Mystic Water
 item = 2 4 Stardust
@@ -13944,6 +14914,31 @@ grid:
 ###..###
 
 [map]
+name = Ruins of Alph Aerodactyl Word Room
+region = Johto
+image = maps/cr_RuinsOfAlphAerodactylWordRoom.png
+objects = sprites
+indoor = yes
+door = 9 5 warp|Ruins of Alph Aerodactyl Item Room|3|2|down
+door = 10 5 warp|Ruins of Alph Aerodactyl Item Room|4|2|down
+door = 17 11 warp|Ruins of Alph Inner Chamber|15|25|down
+grid:
+####################
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+#..................#
+####################
+####################
+
+[map]
 name = Ruins of Alph Aerodactyl Item Room
 region = Johto
 image = maps/cr_RuinsOfAlphAerodactylItemRoom.png
@@ -13951,6 +14946,8 @@ objects = sprites
 indoor = yes
 door = 3 9 warp|Ruins of Alph Aerodactyl Chamber|4|1|down
 door = 4 9 warp|Ruins of Alph Aerodactyl Chamber|4|1|down
+door = 3 1 warp|Ruins of Alph Aerodactyl Word Room|9|6|down
+door = 4 1 warp|Ruins of Alph Aerodactyl Word Room|10|6|down
 item = 2 6 Sitrus Berry
 item = 5 6 Moon Stone
 item = 2 4 Heal Powder

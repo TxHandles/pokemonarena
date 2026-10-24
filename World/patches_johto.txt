@@ -375,3 +375,41 @@ drop npc 7 5
 door = 4 1 warp|Frontier Access|14|33|up
 door = 5 1 warp|Frontier Access|15|33|up
 npc = 7 5 gentleman left 0 talk|The Battle Frontier is just ahead!|Trainers come from all over to test themselves against its Frontier Brains.
+
+# ------------------------------------------------------------------ Headbutt (the trees: tools/hgss_headbutt.py)
+[patch Ilex Forest]
+drop npc 36 37
+npc = 36 37 fat_man up 0 tutor|Headbutt|What am I doing? I'm shaking trees using Headbutt.|It's fun. Here, you try it with your Pokemon, too!
+
+# ------------------------------------------------------------------ Goldenrod's slots and Voltorb Flip (HeartGold), played on the map
+[patch Goldenrod Game Corner]
+spot = 6 6 slots
+spot = 6 7 slots
+spot = 6 8 slots
+spot = 6 9 slots
+spot = 6 10 slots
+spot = 6 11 slots
+spot = 7 6 slots
+spot = 7 7 slots
+spot = 7 8 slots
+spot = 7 9 slots
+spot = 7 10 slots
+spot = 7 11 slots
+spot = 12 6 slots
+spot = 12 7 slots
+spot = 12 8 slots
+spot = 12 9 slots
+spot = 12 10 slots
+spot = 12 11 slots
+spot = 13 6 voltorbflip
+spot = 13 7 voltorbflip
+spot = 13 8 voltorbflip
+spot = 13 9 voltorbflip
+spot = 13 10 voltorbflip
+spot = 13 11 voltorbflip
+spot = 18 6 voltorbflip
+spot = 18 7 voltorbflip
+spot = 18 8 voltorbflip
+spot = 18 9 voltorbflip
+spot = 18 10 voltorbflip
+spot = 18 11 voltorbflip

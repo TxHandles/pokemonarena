@@ -1026,10 +1026,10 @@ void StartBattleFromSelect(Game& g) {
             SideSetup& sd = su.side[k];
             int team = sd.team_ >= 0 ? sd.team_ : k;
             if (team != 0) continue;
-            if (g.frontier == 3) { sd.cpu = true; sd.level = AILevel::Hard; }   // the Palace: your Pokemon fight on their own
+            if (FrontierKind(g.frontier) == 3) { sd.cpu = true; sd.level = AILevel::Hard; }   // the Palace: your Pokemon fight on their own
             if (g.frontier == 7) for (int h = 0; h < 4; h++) sd.hotN[h] = 0;    // the Pyramid: no items
         }
-        if (g.frontier == 4) su.judgeTime = 93;   // the Arena: 90 seconds (after the intro), then the judges
+        if (FrontierKind(g.frontier) == 4) su.judgeTime = 93;   // the Arena: 90 seconds (after the intro), then the judges
         if (g.frontier == 10) {   // the Arcade: what the board landed on
             int e = ArcadeEffect(g);
             if (e >= 1 && e <= 4) su.weather = e == 1 ? Weather::Rain : e == 2 ? Weather::Sun : e == 3 ? Weather::Sand : Weather::Snow;

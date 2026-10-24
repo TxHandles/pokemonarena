@@ -8,6 +8,7 @@
 #include "audio.h"
 #include "story.h"
 #include "game.h"
+#include "overworld.h"
 #include "items.h"
 #include "sprites.h"
 #include "ui.h"
@@ -323,6 +324,16 @@ void DrawGameCorner(const Game& g) {
 
 // ------------------------------------------------------------------ the slot machine
 
+static bool gSlotsFromWorld = false;   // played at a machine on the map: Esc goes back there
+void OpenSlotsFromWorld(Game& g) {
+    g.slotPhase = 0;
+    g.slotWin = 0;
+    g.slotLines.clear();
+    g.slotBet = std::max(1, std::min(3, g.slotBet));
+    gSlotsFromWorld = true;
+    g.screen = Screen::Slots;
+    PlaySfx(Sfx::MenuOk);
+}
 void UpdateSlots(Game& g) {
     PlayerInput in = MenuInput();
     Profile& p = g.profile;
@@ -347,7 +358,11 @@ void UpdateSlots(Game& g) {
     bool settling = g.slotStopping[0] || g.slotStopping[1] || g.slotStopping[2];
     if (g.slotPhase == 4 && !settling && g.slotWin < 0) Payout(g);
     if (g.slotPhase == 0 || (g.slotPhase == 4 && !settling)) {
-        if (in.back) { PlaySfx(Sfx::MenuBack); g.screen = Screen::Shop; g.shopTab = 5; g.shopSel = 0; return; }
+        if (in.back) {
+            PlaySfx(Sfx::MenuBack);
+            if (gSlotsFromWorld) { gSlotsFromWorld = false; g.screen = Screen::World; return; }
+            g.screen = Screen::Shop; g.shopTab = 5; g.shopSel = 0; return;
+        }
         if (in.up || in.right) { g.slotBet = std::min(3, g.slotBet + 1); PlaySfx(Sfx::MenuMove); }
         if (in.down || in.left) { g.slotBet = std::max(1, g.slotBet - 1); PlaySfx(Sfx::MenuMove); }
         if (in.confirm) {
@@ -385,7 +400,13 @@ void DrawSlots(const Game& g) {
         DrawCircle(x + 28, 44, 3, on ? Color{255, 220, 80, 255} : Color{120, 90, 40, 255});
     }
     for (int x = 0; x < VW; x += 16) DrawCircle(x + 8, 30, 3, ((x / 16 + (int)(g.t * 6)) % 3) ? Color{255, 120, 200, 255} : Color{120, 40, 90, 255});
-    DrawTextCentered("CELADON GAME CORNER", VW / 2, 6, 20, Color{255, 150, 220, 255});
+    std::string title = "CELADON GAME CORNER";   // (a machine on the map: that Game Corner's name)
+    if (gSlotsFromWorld) {
+        title = WorldPlaceName(g);
+        for (char& ch : title) ch = (char)std::toupper((unsigned char)ch);
+        if (title.find("GAME CORNER") == std::string::npos) title = "GAME CORNER";
+    }
+    DrawTextCentered(title.c_str(), VW / 2, 6, 20, Color{255, 150, 220, 255});
     const Profile& p = g.profile;
     // the machine
     int mx = VW / 2 - 150, my = 100, mw = 300, mh = 200;
@@ -462,7 +483,7 @@ void DrawSlots(const Game& g) {
     GDrawText("3 coins: 3 rows", VW - 120, 176, 10, g.slotBet == 3 ? UI_GOLD : UI_TEXT);
     GDrawText("  + diagonals", VW - 120, 190, 10, g.slotBet == 3 ? UI_GOLD : UI_TEXT);
     bool idle = g.slotPhase == 0 || (g.slotPhase == 4 && !g.slotStopping[0] && !g.slotStopping[1] && !g.slotStopping[2]);
-    DrawTextCentered(idle ? "Up/Down bet   Enter spin   Esc back to the counter" : "Enter: stop the reel", VW / 2, 322, 10, idle ? UI_DIM : UI_GOLD, false);
+    DrawTextCentered(idle ? (gSlotsFromWorld ? "Up/Down bet   Enter spin   Esc leave" : "Up/Down bet   Enter spin   Esc back to the counter") : "Enter: stop the reel", VW / 2, 322, 10, idle ? UI_DIM : UI_GOLD, false);
     if (g.coop) GDrawText(TextFormat("Playing: %s", p.name.c_str()), 10, 340, 10, g.coopActive == 1 ? Color{120, 230, 255, 255} : UI_GOLD);
     DrawToast(g);
 }

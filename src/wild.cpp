@@ -214,6 +214,7 @@ std::string WildMethodName(const std::string& m) {
     if (m == "good-rod") return "Good Rod";
     if (m == "super-rod") return "Super Rod";
     if (m == "rock-smash") return "Rock Smash";
+    if (m == "headbutt") return "Headbutt trees";
     return m;
 }
 

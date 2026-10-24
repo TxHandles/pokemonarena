@@ -40,6 +40,10 @@ def chamber_name(kind):
     return "Ruins of Alph %s Chamber" % PRETTY[kind]
 
 
+def word_name(kind):
+    return "Ruins of Alph %s Word Room" % PRETTY[kind]
+
+
 def item_name(kind):
     return "Ruins of Alph %s Item Room" % PRETTY[kind]
 
@@ -84,7 +88,7 @@ def outside_door(grid, x, y):
 
 def main():
     johto = open(os.path.join(WORLD, "johto.txt"), encoding="utf-8").read()
-    ours = [INNER] + [chamber_name(k) for k, _, _ in KINDS] + [item_name(k) for k, _, _ in KINDS]
+    ours = [INNER] + [chamber_name(k) for k, _, _ in KINDS] + [item_name(k) for k, _, _ in KINDS] + [word_name(k) for k, _, _ in KINDS]
     blocks = re.split(r"\n(?=\[map\])", johto)
     blocks = [b for b in blocks if not any(re.search(r"^name = %s$" % re.escape(n), b, re.M) for n in ours)]
     johto = "\n".join(blocks).rstrip("\n") + "\n"
@@ -148,6 +152,16 @@ def main():
         r.image.save(os.path.join(WORLD, "maps", "cr_%s.png" % iname), optimize=True)
         L = ["[map]", "name = " + item_name(kind), "region = Johto", "image = maps/cr_%s.png" % iname, "objects = sprites", "indoor = yes",
              "door = 3 9 warp|%s|4|1|down" % chamber_name(kind), "door = 4 9 warp|%s|4|1|down" % chamber_name(kind)]
+        # its stairs up to the word room (the Unown's words on the walls), and the word room's way down to the Inner Chamber
+        wname = "RuinsOfAlph%sWordRoom" % crn
+        wr = CR.room(wname)
+        wr.image.save(os.path.join(WORLD, "maps", "cr_%s.png" % wname), optimize=True)
+        (s1x, s1y, _, _), _, (ix, iy, _, iw) = wr.warps[0], wr.warps[1], wr.warps[2]
+        L += ["door = 3 1 warp|%s|%d|%d|down" % (word_name(kind), s1x, s1y + 1), "door = 4 1 warp|%s|%d|%d|down" % (word_name(kind), s1x + 1, s1y + 1)]
+        inner = CR.room("RuinsOfAlphInnerChamber").warps[iw - 1]
+        out.append("\n".join(["[map]", "name = " + word_name(kind), "region = Johto", "image = maps/cr_%s.png" % wname, "objects = sprites", "indoor = yes",
+                               "door = %d %d warp|%s|3|2|down" % (s1x, s1y, item_name(kind)), "door = %d %d warp|%s|4|2|down" % (s1x + 1, s1y, item_name(kind)),
+                               "door = %d %d warp|%s|%d|%d|down" % (ix, iy, INNER, inner[0], inner[1] + 1), "grid:"] + wr.grid))
         conv = {"BERRY": "Oran Berry", "PSNCUREBERRY": "Pecha Berry", "HEAL_POWDER": "Heal Powder", "ENERGYPOWDER": "Energy Powder",
                 "MYSTERYBERRY": "Leppa Berry", "MYSTIC_WATER": "Mystic Water", "STARDUST": "Stardust", "STAR_PIECE": "Star Piece",
                 "GOLD_BERRY": "Sitrus Berry", "MOON_STONE": "Moon Stone", "PARLYZ_HEAL": "Paralyze Heal", "CHARCOAL": "Charcoal",

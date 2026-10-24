@@ -207,11 +207,11 @@ npc = 2 2 em_old_woman down 0 daycare|I'm the Day Care lady. We can raise your P
 [patch Slateport City Harbor]
 drop npc 8 10
 drop npc 7 10
-npc = 8 10 em_beauty down 0 sailto|Hello, are you here for the ferry? The S.S. Tidal sails to these ports. Where to?|done:Hoenn|Hello, are you here for the ferry? ...I'm sorry, the S.S. Tidal only takes Trainers who've conquered Hoenn's Pokemon League.|Lilycove City;Lilycove City Harbor;9;12;up|Battle Frontier;Battle Frontier West;20;67;up|Vermilion City (Kanto);Vermilion City;23;32;up|Olivine City (Johto);Olivine Port;4;6;up
+npc = 8 10 em_beauty down 0 sailto|Hello, are you here for the ferry? The S.S. Tidal sails to these ports. Where to?|done:Hoenn|Hello, are you here for the ferry? ...I'm sorry, the S.S. Tidal only takes Trainers who've conquered Hoenn's Pokemon League.|Lilycove City;Lilycove City Harbor;9;12;up|Battle Frontier;Battle Frontier West;20;67;up|Vermilion City (Kanto);Vermilion City;23;32;up|Olivine City (Johto);Olivine Port;4;6;up|Southern Island;Southern Island Exterior;13;22;up;item:Eon Ticket|Faraway Island;Faraway Island Entrance;13;38;up;item:Old Sea Map|Birth Island;Birth Island Harbor;8;4;up;item:Aurora Ticket|Navel Rock;Navel Rock Harbor;8;4;up;item:Mystic Ticket
 
 [patch Lilycove City Harbor]
 drop npc 8 10
-npc = 8 10 em_beauty down 0 sailto|Hello, are you here for the ferry? The S.S. Tidal sails to these ports. Where to?|done:Hoenn|I beg your pardon? You're looking for a ship? ...The S.S. Tidal only takes Trainers who've conquered Hoenn's Pokemon League.|Slateport City;Slateport City Harbor;9;12;up|Battle Frontier;Battle Frontier West;20;67;up|Vermilion City (Kanto);Vermilion City;23;32;up|Olivine City (Johto);Olivine Port;4;6;up
+npc = 8 10 em_beauty down 0 sailto|Hello, are you here for the ferry? The S.S. Tidal sails to these ports. Where to?|done:Hoenn|I beg your pardon? You're looking for a ship? ...The S.S. Tidal only takes Trainers who've conquered Hoenn's Pokemon League.|Slateport City;Slateport City Harbor;9;12;up|Battle Frontier;Battle Frontier West;20;67;up|Vermilion City (Kanto);Vermilion City;23;32;up|Olivine City (Johto);Olivine Port;4;6;up|Southern Island;Southern Island Exterior;13;22;up;item:Eon Ticket|Faraway Island;Faraway Island Entrance;13;38;up;item:Old Sea Map|Birth Island;Birth Island Harbor;8;4;up;item:Aurora Ticket|Navel Rock;Navel Rock Harbor;8;4;up;item:Mystic Ticket
 
 [patch Battle Frontier West]
 drop npc 19 68
@@ -325,3 +325,501 @@ drop npc 8 2
 npc = 8 2 em_camper down 0 safari|Welcome to the Safari Zone!|For 500 coins you get 30 Safari Balls - throw Pokeblocks... er, bait, and catch what you can!|Would you like to play?
 block = 2 6 safari|Please talk to the attendant first - the Safari Zone's entry is 500 coins.
 block = 3 6 safari|Please talk to the attendant first - the Safari Zone's entry is 500 coins.
+
+# ------------------------------------------------------------------ the Battle Tents: the receptionists take the challenge
+[patch Slateport City Battle Tent Lobby]
+drop npc 6 5
+npc = 6 5 em_scientist_1 down 0 frontier|13
+[patch Verdanturf Town Battle Tent Lobby]
+drop npc 6 5
+npc = 6 5 em_expert_m down 0 frontier|14
+[patch Fallarbor Town Battle Tent Lobby]
+drop npc 6 5
+npc = 6 5 em_black_belt down 0 frontier|15
+
+# ------------------------------------------------------------------ the Trick House (tools/emerald_trickhouse.py)
+[patch Route 110 Trick House Entrance]
+drop door 5 2
+door = 5 2 trickgo
+drop npc 6 2
+npc = 6 2 em_man_1 left 0 talk|Trick Master: I am the Trick Master! Hahaha!|Behind me is my Trick House - a new trick for every Badge you earn!|Find the scroll in each room, open the door with its secret code, and I'll be waiting with a reward!
+[patch Route 110 Trick House End]
+drop door 10 1
+drop npc 4 5
+npc = 4 5 em_man_1 right 0 trickreward
+[patch Route 110 Trick House Puzzle 1]
+drop sign 3 16
+spot = 3 16 trickscroll|1
+drop door 13 1
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll1|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+[patch Route 110 Trick House Puzzle 2]
+drop sign 14 14
+spot = 14 14 trickscroll|2
+drop door 13 1
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll2|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+[patch Route 110 Trick House Puzzle 3]
+drop sign 0 14
+spot = 0 14 trickscroll|3
+drop door 13 1
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll3|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+[patch Route 110 Trick House Puzzle 4]
+drop sign 14 13
+spot = 14 13 trickscroll|4
+drop door 13 1
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll4|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+[patch Route 110 Trick House Puzzle 5]
+drop sign 11 21
+spot = 11 21 trickscroll|5
+drop door 13 1
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll5|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+[patch Route 110 Trick House Puzzle 6]
+drop sign 0 10
+spot = 0 10 trickscroll|6
+drop door 13 1
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll6|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+[patch Route 110 Trick House Puzzle 7]
+drop sign 6 17
+spot = 6 17 trickscroll|7
+drop door 13 1
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll7|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+[patch Route 110 Trick House Puzzle 8]
+drop sign 3 21
+spot = 3 21 trickscroll|8
+drop door 13 1
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll8|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+[patch Route 110 Trick House Puzzle 2]
+img2 = maps/em_Route110_TrickHousePuzzle2_on.png
+step = 11 12 press|thp:2:1
+swap = 11 12 thp:2:1
+swap = 1 13 thp:2:1
+tile 1 13 .
+gate = 1 13 thp:2:1
+step = 0 4 press|thp:2:2
+swap = 0 4 thp:2:2
+swap = 5 6 thp:2:2
+tile 5 6 .
+gate = 5 6 thp:2:2
+step = 14 5 press|thp:2:3
+swap = 14 5 thp:2:3
+swap = 7 15 thp:2:3
+tile 7 15 .
+gate = 7 15 thp:2:3
+step = 7 11 press|thp:2:4
+swap = 7 11 thp:2:4
+swap = 14 12 thp:2:4
+tile 14 12 .
+gate = 14 12 thp:2:4
+[patch Route 110 Trick House Puzzle 3]
+set image = maps/em_Route110_TrickHousePuzzle3_s0.png
+alt = thp:3:doors|maps/em_Route110_TrickHousePuzzle3_alt.png|
+step = 4 14 press|thp:3:doors|toggle
+step = 3 11 press|thp:3:doors|toggle
+step = 12 5 press|thp:3:doors|toggle
+step = 8 2 press|thp:3:doors|toggle
+tile 1 4 .
+gate = 1 4 thp:3:doors
+tile 2 4 .
+gate = 2 4 thp:3:doors
+tile 13 4 .
+gate = 13 4 thp:3:doors
+tile 14 4 .
+gate = 14 4 thp:3:doors
+tile 6 5 .
+gate = 6 5 !thp:3:doors
+tile 9 5 .
+gate = 9 5 thp:3:doors
+tile 1 7 .
+gate = 1 7 !thp:3:doors
+tile 2 7 .
+gate = 2 7 !thp:3:doors
+tile 4 7 .
+gate = 4 7 thp:3:doors
+tile 5 7 .
+gate = 5 7 thp:3:doors
+tile 10 7 .
+gate = 10 7 thp:3:doors
+tile 11 7 .
+gate = 11 7 thp:3:doors
+tile 3 8 .
+gate = 3 8 !thp:3:doors
+tile 12 8 .
+gate = 12 8 !thp:3:doors
+tile 1 10 .
+gate = 1 10 !thp:3:doors
+tile 2 10 .
+gate = 2 10 !thp:3:doors
+tile 7 10 .
+gate = 7 10 thp:3:doors
+tile 8 10 .
+gate = 8 10 thp:3:doors
+tile 13 10 .
+gate = 13 10 !thp:3:doors
+tile 14 10 .
+gate = 14 10 !thp:3:doors
+tile 1 13 .
+gate = 1 13 thp:3:doors
+tile 2 13 .
+gate = 2 13 thp:3:doors
+tile 4 13 .
+gate = 4 13 thp:3:doors
+tile 5 13 .
+gate = 5 13 thp:3:doors
+tile 10 13 .
+gate = 10 13 thp:3:doors
+tile 11 13 .
+gate = 11 13 thp:3:doors
+tile 3 14 .
+gate = 3 14 !thp:3:doors
+tile 4 16 .
+gate = 4 16 !thp:3:doors
+tile 5 16 .
+gate = 5 16 !thp:3:doors
+tile 13 16 .
+gate = 13 16 !thp:3:doors
+tile 14 16 .
+gate = 14 16 !thp:3:doors
+tile 3 17 .
+gate = 3 17 thp:3:doors
+tile 9 17 .
+gate = 9 17 !thp:3:doors
+tile 4 19 .
+gate = 4 19 thp:3:doors
+tile 5 19 .
+gate = 5 19 thp:3:doors
+tile 10 19 .
+gate = 10 19 thp:3:doors
+tile 11 19 .
+gate = 11 19 thp:3:doors
+[patch Route 110 Trick House Puzzle 5]
+step = 5 17 quiz3|thp:5:1|0,21|2^Mechadoll 1 Quiz./One of these Pokemon is not found on Route 110. Which one is it?^Oddish^Poochyena^Taillow~0^Mechadoll 1 Quiz./One of these Pokemon is not of the Water type. Which one is it?^Azurill^Lotad^Wingull~0^Mechadoll 1 Quiz./One of these Pokemon does not use Leech Life. Which one is it?^Dustox^Zubat^Nincada
+unless = thp:5:1
+step = 4 17 quiz3|thp:5:1|0,21|2^Mechadoll 1 Quiz./One of these Pokemon is not found on Route 110. Which one is it?^Oddish^Poochyena^Taillow~0^Mechadoll 1 Quiz./One of these Pokemon is not of the Water type. Which one is it?^Azurill^Lotad^Wingull~0^Mechadoll 1 Quiz./One of these Pokemon does not use Leech Life. Which one is it?^Dustox^Zubat^Nincada
+unless = thp:5:1
+step = 3 17 quiz3|thp:5:1|0,21|2^Mechadoll 1 Quiz./One of these Pokemon is not found on Route 110. Which one is it?^Oddish^Poochyena^Taillow~0^Mechadoll 1 Quiz./One of these Pokemon is not of the Water type. Which one is it?^Azurill^Lotad^Wingull~0^Mechadoll 1 Quiz./One of these Pokemon does not use Leech Life. Which one is it?^Dustox^Zubat^Nincada
+unless = thp:5:1
+step = 2 17 quiz3|thp:5:1|0,21|2^Mechadoll 1 Quiz./One of these Pokemon is not found on Route 110. Which one is it?^Oddish^Poochyena^Taillow~0^Mechadoll 1 Quiz./One of these Pokemon is not of the Water type. Which one is it?^Azurill^Lotad^Wingull~0^Mechadoll 1 Quiz./One of these Pokemon does not use Leech Life. Which one is it?^Dustox^Zubat^Nincada
+unless = thp:5:1
+step = 1 17 quiz3|thp:5:1|0,21|2^Mechadoll 1 Quiz./One of these Pokemon is not found on Route 110. Which one is it?^Oddish^Poochyena^Taillow~0^Mechadoll 1 Quiz./One of these Pokemon is not of the Water type. Which one is it?^Azurill^Lotad^Wingull~0^Mechadoll 1 Quiz./One of these Pokemon does not use Leech Life. Which one is it?^Dustox^Zubat^Nincada
+unless = thp:5:1
+step = 1 7 quiz3|thp:5:2|0,21|1^Mechadoll 2 Quiz./Which of these Pokemon did Wally borrow from your father?^Ralts^Zigzagoon^Slakoth~2^Mechadoll 2 Quiz./Which of these Pokemon was chasing Prof. Birch?^Poochyena^Shroomish^Zigzagoon~0^Mechadoll 2 Quiz./Which of these Pokemon did Team Aqua use in Petalburg Forest?^Poochyena^Zubat^Carvanha
+unless = thp:5:2
+step = 2 7 quiz3|thp:5:2|0,21|1^Mechadoll 2 Quiz./Which of these Pokemon did Wally borrow from your father?^Ralts^Zigzagoon^Slakoth~2^Mechadoll 2 Quiz./Which of these Pokemon was chasing Prof. Birch?^Poochyena^Shroomish^Zigzagoon~0^Mechadoll 2 Quiz./Which of these Pokemon did Team Aqua use in Petalburg Forest?^Poochyena^Zubat^Carvanha
+unless = thp:5:2
+step = 3 7 quiz3|thp:5:2|0,21|1^Mechadoll 2 Quiz./Which of these Pokemon did Wally borrow from your father?^Ralts^Zigzagoon^Slakoth~2^Mechadoll 2 Quiz./Which of these Pokemon was chasing Prof. Birch?^Poochyena^Shroomish^Zigzagoon~0^Mechadoll 2 Quiz./Which of these Pokemon did Team Aqua use in Petalburg Forest?^Poochyena^Zubat^Carvanha
+unless = thp:5:2
+step = 4 7 quiz3|thp:5:2|0,21|1^Mechadoll 2 Quiz./Which of these Pokemon did Wally borrow from your father?^Ralts^Zigzagoon^Slakoth~2^Mechadoll 2 Quiz./Which of these Pokemon was chasing Prof. Birch?^Poochyena^Shroomish^Zigzagoon~0^Mechadoll 2 Quiz./Which of these Pokemon did Team Aqua use in Petalburg Forest?^Poochyena^Zubat^Carvanha
+unless = thp:5:2
+step = 5 7 quiz3|thp:5:2|0,21|1^Mechadoll 2 Quiz./Which of these Pokemon did Wally borrow from your father?^Ralts^Zigzagoon^Slakoth~2^Mechadoll 2 Quiz./Which of these Pokemon was chasing Prof. Birch?^Poochyena^Shroomish^Zigzagoon~0^Mechadoll 2 Quiz./Which of these Pokemon did Team Aqua use in Petalburg Forest?^Poochyena^Zubat^Carvanha
+unless = thp:5:2
+step = 6 7 quiz3|thp:5:2|0,21|1^Mechadoll 2 Quiz./Which of these Pokemon did Wally borrow from your father?^Ralts^Zigzagoon^Slakoth~2^Mechadoll 2 Quiz./Which of these Pokemon was chasing Prof. Birch?^Poochyena^Shroomish^Zigzagoon~0^Mechadoll 2 Quiz./Which of these Pokemon did Team Aqua use in Petalburg Forest?^Poochyena^Zubat^Carvanha
+unless = thp:5:2
+step = 13 10 quiz3|thp:5:3|0,21|0^Mechadoll 3 Quiz./Which costs more? Three Harbor Mails or one Burn Heal?^Burn Heal^Harbor Mail^Same Price~2^Mechadoll 3 Quiz./Sell one Great Ball and buy one Potion. How much money remains?^¥60^¥55^Nothing~1^Mechadoll 3 Quiz./Do one Repel and Soda Pop cost more than one Super Potion?^They Will Cost More.^They Will Cost Less.^Same Price
+unless = thp:5:3
+step = 12 10 quiz3|thp:5:3|0,21|0^Mechadoll 3 Quiz./Which costs more? Three Harbor Mails or one Burn Heal?^Burn Heal^Harbor Mail^Same Price~2^Mechadoll 3 Quiz./Sell one Great Ball and buy one Potion. How much money remains?^¥60^¥55^Nothing~1^Mechadoll 3 Quiz./Do one Repel and Soda Pop cost more than one Super Potion?^They Will Cost More.^They Will Cost Less.^Same Price
+unless = thp:5:3
+step = 11 10 quiz3|thp:5:3|0,21|0^Mechadoll 3 Quiz./Which costs more? Three Harbor Mails or one Burn Heal?^Burn Heal^Harbor Mail^Same Price~2^Mechadoll 3 Quiz./Sell one Great Ball and buy one Potion. How much money remains?^¥60^¥55^Nothing~1^Mechadoll 3 Quiz./Do one Repel and Soda Pop cost more than one Super Potion?^They Will Cost More.^They Will Cost Less.^Same Price
+unless = thp:5:3
+step = 10 10 quiz3|thp:5:3|0,21|0^Mechadoll 3 Quiz./Which costs more? Three Harbor Mails or one Burn Heal?^Burn Heal^Harbor Mail^Same Price~2^Mechadoll 3 Quiz./Sell one Great Ball and buy one Potion. How much money remains?^¥60^¥55^Nothing~1^Mechadoll 3 Quiz./Do one Repel and Soda Pop cost more than one Super Potion?^They Will Cost More.^They Will Cost Less.^Same Price
+unless = thp:5:3
+step = 9 10 quiz3|thp:5:3|0,21|0^Mechadoll 3 Quiz./Which costs more? Three Harbor Mails or one Burn Heal?^Burn Heal^Harbor Mail^Same Price~2^Mechadoll 3 Quiz./Sell one Great Ball and buy one Potion. How much money remains?^¥60^¥55^Nothing~1^Mechadoll 3 Quiz./Do one Repel and Soda Pop cost more than one Super Potion?^They Will Cost More.^They Will Cost Less.^Same Price
+unless = thp:5:3
+step = 13 19 quiz3|thp:5:4|0,21|0^Mechadoll 4 Quiz./In Seashore House, were there more men or women?^Male^Female^Neither~0^Mechadoll 4 Quiz./In Lavaridge Town, were there more elderly men or elderly women?^Elderly Men^Elderly Ladies^Same Number~1^Mechadoll 4 Quiz./In the Trainer'S School, how many girl students were there?^None^1^2
+unless = thp:5:4
+step = 12 19 quiz3|thp:5:4|0,21|0^Mechadoll 4 Quiz./In Seashore House, were there more men or women?^Male^Female^Neither~0^Mechadoll 4 Quiz./In Lavaridge Town, were there more elderly men or elderly women?^Elderly Men^Elderly Ladies^Same Number~1^Mechadoll 4 Quiz./In the Trainer'S School, how many girl students were there?^None^1^2
+unless = thp:5:4
+step = 11 19 quiz3|thp:5:4|0,21|0^Mechadoll 4 Quiz./In Seashore House, were there more men or women?^Male^Female^Neither~0^Mechadoll 4 Quiz./In Lavaridge Town, were there more elderly men or elderly women?^Elderly Men^Elderly Ladies^Same Number~1^Mechadoll 4 Quiz./In the Trainer'S School, how many girl students were there?^None^1^2
+unless = thp:5:4
+step = 10 19 quiz3|thp:5:4|0,21|0^Mechadoll 4 Quiz./In Seashore House, were there more men or women?^Male^Female^Neither~0^Mechadoll 4 Quiz./In Lavaridge Town, were there more elderly men or elderly women?^Elderly Men^Elderly Ladies^Same Number~1^Mechadoll 4 Quiz./In the Trainer'S School, how many girl students were there?^None^1^2
+unless = thp:5:4
+step = 9 19 quiz3|thp:5:4|0,21|0^Mechadoll 4 Quiz./In Seashore House, were there more men or women?^Male^Female^Neither~0^Mechadoll 4 Quiz./In Lavaridge Town, were there more elderly men or elderly women?^Elderly Men^Elderly Ladies^Same Number~1^Mechadoll 4 Quiz./In the Trainer'S School, how many girl students were there?^None^1^2
+unless = thp:5:4
+step = 11 4 quiz3|thp:5:5|0,21|1^Mechadoll 5 Quiz./In Slateport's Pokemon Fan Club, how many Pokemon were there?^2^3^4~0^Mechadoll 5 Quiz./In Fortree City, how many tree houses were there?^6^7^8~2^Mechadoll 5 Quiz./On the Cycling Road, how many Triathletes were there?^6^7^8
+unless = thp:5:5
+drop npc 6 17
+npc = 6 17 em_man_1 left 0 talk|Mechadoll: Beep. Correct answers only. Go through, please.
+drop npc 0 7
+npc = 0 7 em_man_1 left 0 talk|Mechadoll: Beep. Correct answers only. Go through, please.
+drop npc 14 10
+npc = 14 10 em_man_1 left 0 talk|Mechadoll: Beep. Correct answers only. Go through, please.
+drop npc 14 19
+npc = 14 19 em_man_1 left 0 talk|Mechadoll: Beep. Correct answers only. Go through, please.
+drop npc 10 4
+npc = 10 4 em_man_1 left 0 talk|Mechadoll: Beep. Correct answers only. Go through, please.
+[patch Route 110 Trick House Puzzle 6]
+rgate = 14 5 4 1
+rgate = 10 6 1 2
+rgate = 6 6 3 1
+rgate = 14 8 4 1
+rgate = 3 10 2 3
+rgate = 9 14 0 1
+rgate = 3 15 6 0
+rgate = 2 17 1 2
+rgate = 12 18 6 3
+rgate = 5 18 3 1
+rgate = 10 19 2 2
+[patch Fortree Gym]
+rgate = 6 7 5 1
+rgate = 9 15 5 2
+rgate = 3 19 5 1
+rgate = 2 6 4 1
+rgate = 9 12 4 0
+rgate = 6 23 4 0
+rgate = 12 22 4 0
+rgate = 6 3 3 2
+
+# ------------------------------------------------------------------ abnormal weather: Terra Cave and Marine Cave (tools/emerald_abnormal.py)
+[patch Route 114]
+img2 = maps/em_Route114_abw.png
+swap = 7 3 abw:114n
+swap = 7 4 abw:114n
+door = 7 4 warp|Terra Cave Entrance|8|17|up
+if = abw:114n
+swap = 6 45 abw:114s
+swap = 6 46 abw:114s
+door = 6 46 warp|Terra Cave Entrance|8|17|up
+if = abw:114s
+[patch Route 115]
+img2 = maps/em_Route115_abw.png
+swap = 21 5 abw:115w
+swap = 21 6 abw:115w
+door = 21 6 warp|Terra Cave Entrance|8|17|up
+if = abw:115w
+swap = 36 9 abw:115e
+swap = 36 10 abw:115e
+door = 36 10 warp|Terra Cave Entrance|8|17|up
+if = abw:115e
+[patch Route 116]
+img2 = maps/em_Route116_abw.png
+swap = 59 12 abw:116n
+swap = 59 13 abw:116n
+door = 59 13 warp|Terra Cave Entrance|8|17|up
+if = abw:116n
+swap = 79 5 abw:116s
+swap = 79 6 abw:116s
+door = 79 6 warp|Terra Cave Entrance|8|17|up
+if = abw:116s
+[patch Route 118]
+img2 = maps/em_Route118_abw.png
+swap = 42 5 abw:118e
+swap = 42 6 abw:118e
+door = 42 6 warp|Terra Cave Entrance|8|17|up
+if = abw:118e
+swap = 9 5 abw:118w
+swap = 9 6 abw:118w
+door = 9 6 warp|Terra Cave Entrance|8|17|up
+if = abw:118w
+[patch Route 105]
+img2 = maps/em_Route105_abw.png
+swap = 10 28 abw:105n
+swap = 11 28 abw:105n
+swap = 9 29 abw:105n
+swap = 10 29 abw:105n
+swap = 11 29 abw:105n
+swap = 12 29 abw:105n
+swap = 9 30 abw:105n
+swap = 10 30 abw:105n
+swap = 11 30 abw:105n
+swap = 12 30 abw:105n
+swap = 10 31 abw:105n
+swap = 11 31 abw:105n
+divespot = 10 29 11 30 abw:105n|Underwater Marine Cave|9|7
+swap = 20 53 abw:105s
+swap = 21 53 abw:105s
+swap = 19 54 abw:105s
+swap = 20 54 abw:105s
+swap = 21 54 abw:105s
+swap = 22 54 abw:105s
+swap = 19 55 abw:105s
+swap = 20 55 abw:105s
+swap = 21 55 abw:105s
+swap = 22 55 abw:105s
+swap = 20 56 abw:105s
+swap = 21 56 abw:105s
+divespot = 20 54 21 55 abw:105s|Underwater Marine Cave|9|7
+[patch Route 125]
+img2 = maps/em_Route125_abw.png
+swap = 8 16 abw:125w
+swap = 9 16 abw:125w
+swap = 7 17 abw:125w
+swap = 8 17 abw:125w
+swap = 9 17 abw:125w
+swap = 10 17 abw:125w
+swap = 7 18 abw:125w
+swap = 8 18 abw:125w
+swap = 9 18 abw:125w
+swap = 10 18 abw:125w
+swap = 8 19 abw:125w
+swap = 9 19 abw:125w
+divespot = 8 17 9 18 abw:125w|Underwater Marine Cave|9|7
+swap = 53 18 abw:125e
+swap = 54 18 abw:125e
+swap = 52 19 abw:125e
+swap = 53 19 abw:125e
+swap = 54 19 abw:125e
+swap = 55 19 abw:125e
+swap = 52 20 abw:125e
+swap = 53 20 abw:125e
+swap = 54 20 abw:125e
+swap = 55 20 abw:125e
+swap = 53 21 abw:125e
+swap = 54 21 abw:125e
+divespot = 53 19 54 20 abw:125e|Underwater Marine Cave|9|7
+[patch Route 127]
+img2 = maps/em_Route127_abw.png
+swap = 57 9 abw:127n
+swap = 58 9 abw:127n
+swap = 56 10 abw:127n
+swap = 57 10 abw:127n
+swap = 58 10 abw:127n
+swap = 59 10 abw:127n
+swap = 56 11 abw:127n
+swap = 57 11 abw:127n
+swap = 58 11 abw:127n
+swap = 59 11 abw:127n
+swap = 57 12 abw:127n
+swap = 58 12 abw:127n
+divespot = 57 10 58 11 abw:127n|Underwater Marine Cave|9|7
+swap = 61 30 abw:127s
+swap = 62 30 abw:127s
+swap = 60 31 abw:127s
+swap = 61 31 abw:127s
+swap = 62 31 abw:127s
+swap = 63 31 abw:127s
+swap = 60 32 abw:127s
+swap = 61 32 abw:127s
+swap = 62 32 abw:127s
+swap = 63 32 abw:127s
+swap = 61 33 abw:127s
+swap = 62 33 abw:127s
+divespot = 61 31 62 32 abw:127s|Underwater Marine Cave|9|7
+[patch Route 129]
+img2 = maps/em_Route129_abw.png
+swap = 16 14 abw:129w
+swap = 17 14 abw:129w
+swap = 15 15 abw:129w
+swap = 16 15 abw:129w
+swap = 17 15 abw:129w
+swap = 18 15 abw:129w
+swap = 15 16 abw:129w
+swap = 16 16 abw:129w
+swap = 17 16 abw:129w
+swap = 18 16 abw:129w
+swap = 16 17 abw:129w
+swap = 17 17 abw:129w
+divespot = 16 15 17 16 abw:129w|Underwater Marine Cave|9|7
+swap = 42 19 abw:129e
+swap = 43 19 abw:129e
+swap = 41 20 abw:129e
+swap = 42 20 abw:129e
+swap = 43 20 abw:129e
+swap = 44 20 abw:129e
+swap = 41 21 abw:129e
+swap = 42 21 abw:129e
+swap = 43 21 abw:129e
+swap = 44 21 abw:129e
+swap = 42 22 abw:129e
+swap = 43 22 abw:129e
+divespot = 42 20 43 21 abw:129e|Underwater Marine Cave|9|7
+[patch Terra Cave Entrance]
+door = 7 18 abwback
+door = 8 18 abwback
+door = 9 18 abwback
+door = 10 18 abwback
+[patch Underwater Marine Cave]
+emerge = Marine Cave Entrance|9|17
+door = 9 8 abwback
+[patch Marine Cave Entrance]
+dive = Underwater Marine Cave|9|7
+[patch Weather Institute 2F]
+drop npc 18 6
+npc = 18 6 em_scientist_1 down 0 abweather
+
+# ------------------------------------------------------------------ the ticket islands (Emerald's event islands): the S.S. Tidal sails
+# there with the ticket; the legendaries wait on them (the legend system's own rules: Mew after Mewtwo, Deoxys after Rayquaza...)
+[patch Southern Island Exterior]
+drop npc 13 23
+npc = 13 23 em_sailor up 0 sailto|Aye, mate. This island's a quiet one. Where shall we sail?||Ahoy!|Lilycove City;Lilycove City Harbor;9;12;up|Slateport City;Slateport City Harbor;9;12;up
+[patch Southern Island Interior]
+npc = 13 12 mon:Latias down 0 legend|Latias|Latias: ...!
+[patch Faraway Island Entrance]
+drop npc 13 39
+npc = 13 39 em_sailor up 0 sailto|Capt. Briney can be so maddeningly fickle... Shall we sail back?||Ahoy!|Lilycove City;Lilycove City Harbor;9;12;up|Slateport City;Slateport City Harbor;9;12;up
+[patch Faraway Island Interior]
+drop npc 13 17
+npc = 13 17 mon:Mew down 0 legend|Mew|Mew: ...!
+[patch Birth Island Harbor]
+drop npc 8 5
+npc = 8 5 em_sailor up 0 sailto|What an oddly shaped island, eh? Shall we sail back?||Ahoy!|Lilycove City;Lilycove City Harbor;9;12;up|Slateport City;Slateport City Harbor;9;12;up
+[patch Birth Island Exterior]
+drop npc 15 3
+npc = 15 3 mon:Deoxys down 0 legend|Deoxys|Deoxys: ...!
+[patch Navel Rock Harbor]
+drop npc 8 5
+npc = 8 5 em_sailor up 0 sailto|Did... Did you hear that? That low growling... Shall we leave?||Ahoy!|Lilycove City;Lilycove City Harbor;9;12;up|Slateport City;Slateport City Harbor;9;12;up
+[patch Navel Rock Top]
+drop npc 12 4
+npc = 12 4 mon:Ho-Oh down 0 legend|Ho-Oh|Ho-Oh: ...!
+[patch Navel Rock Bottom]
+drop npc 11 13
+npc = 11 13 mon:Lugia down 0 legend|Lugia|Lugia: ...!
+[patch Lilycove City Harbor]
+npc = 5 12 em_woman_2 down 0 islandtickets
+
+# ------------------------------------------------------------------ Mauville's slot machines, played on the map
+[patch Mauville City Game Corner]
+drop sign 2 6
+spot = 2 6 slots
+drop sign 2 8
+spot = 2 8 slots
+drop sign 2 9
+spot = 2 9 slots
+drop sign 3 7
+spot = 3 7 slots
+drop sign 3 8
+spot = 3 8 slots
+drop sign 3 9
+spot = 3 9 slots
+drop sign 7 6
+spot = 7 6 slots
+drop sign 7 7
+spot = 7 7 slots
+drop sign 7 9
+spot = 7 9 slots
+drop sign 8 6
+spot = 8 6 slots
+drop sign 8 7
+spot = 8 7 slots
+drop sign 8 9
+spot = 8 9 slots
+drop sign 14 6
+spot = 14 6 slots
+drop sign 15 6
+spot = 15 6 slots
+drop sign 14 7
+spot = 14 7 slots
+drop sign 15 7
+spot = 15 7 slots
+drop sign 14 8
+spot = 14 8 slots
+drop sign 15 8
+spot = 15 8 slots
+drop sign 18 6
+spot = 18 6 slots
+drop sign 19 6
+spot = 19 6 slots
+drop sign 18 7
+spot = 18 7 slots
+drop sign 19 7
+spot = 19 7 slots
+drop sign 18 8
+spot = 18 8 slots
+drop sign 19 8
+spot = 19 8 slots

@@ -1665,6 +1665,73 @@ grid:
 #....#
 
 [map]
+name = Birth Island Exterior
+region = Hoenn
+image = maps/em_BirthIsland_Exterior.png
+over = maps/em_BirthIsland_Exterior_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 15 25 warp|Birth Island Harbor|8|2|up
+npc = 15 3 mon:Deoxys down 0 legend|Deoxys|Deoxys: ...!
+grid:
+##############################
+##############################
+##############################
+##############################
+##############################
+##############################
+############.......###########
+###########.........##########
+###########.........##########
+#########.............########
+#########.............########
+########...............#######
+########................######
+######..................######
+######...................#####
+######..##...........##..#####
+#####...##...........##...####
+###############.##############
+###############.##############
+###############.##############
+##############...#############
+##############...#############
+##############...#############
+##############...#############
+##############...#############
+##############################
+##############################
+##############################
+##############################
+##############################
+
+[map]
+name = Birth Island Harbor
+region = Hoenn
+image = maps/em_BirthIsland_Harbor.png
+over = maps/em_BirthIsland_Harbor_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 8 2 warp|Birth Island Exterior|15|24|up
+npc = 8 5 em_sailor up 0 sailto|What an oddly shaped island, eh? Shall we sail back?||Ahoy!|Lilycove City;Lilycove City Harbor;9;12;up|Slateport City;Slateport City Harbor;9;12;up
+grid:
+#################
+#################
+########D########
+.................
+######.....######
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+
+[map]
 name = Cave of Origin 1F
 region = Hoenn
 image = maps/em_CaveOfOrigin_1F.png
@@ -2614,12 +2681,12 @@ wild =
 door = 6 10 warp|Fallarbor Town|8|7|down
 door = 7 10 warp|Fallarbor Town|8|7|down
 sign = 4 5 The Set KO Tourney's rules are listed.
-npc = 6 5 em_black_belt down 0 talk|How splendid! You have beaten three Trainers in succession!
 npc = 1 5 em_hiker wander 0 talk|I heard something about some tent, so I came to camp out.|I didn't know that tents these days are so luxurious!|Since I'm here, I may as well try my hand at battling!
 npc = 12 6 em_little_boy wander 0 talk|Fufufufufu.|I'm going to make everyone think I'm just a kid and let them play down.|Then, I'll shock them and grab the title!
 npc = 10 9 em_lass down 0 talk|You know how Battle Tents offer different events in different towns?|My favorite is definitely the Battle Tent in Fallarbor Town.|I think it's fantastic how Trainers try to win with all their faith in their Pokemon.
 npc = 0 7 em_scott right 0 talk|Scott: Instead of wasting your time with the likes of me, why not make a challenge?
 if = show:FLAG_HIDE_FALLARBOR_TOWN_BATTLE_TENT_SCOTT
+npc = 6 5 em_black_belt down 0 frontier|15
 grid:
 #############
 ######.######
@@ -2727,6 +2794,108 @@ grid:
 #..........##.
 ...........##.
 #............#
+
+[map]
+name = Faraway Island Entrance
+region = Hoenn
+image = maps/em_FarawayIsland_Entrance.png
+over = maps/em_FarawayIsland_Entrance_over.png
+objects = sprites
+indoor = yes
+cycling = yes
+wild = 
+door = 22 7 warp|Faraway Island Interior|12|19|up
+door = 23 7 warp|Faraway Island Interior|13|19|up
+sign = 3 32 The writing is fading as if it was written a long time ago...|"...ber, 6th day If any human...sets foot here... again...et it be a kindhearted pers... ...ith that hope, I depar..."
+npc = 13 39 em_sailor up 0 sailto|Capt. Briney can be so maddeningly fickle... Shall we sail back?||Ahoy!|Lilycove City;Lilycove City Harbor;9;12;up|Slateport City;Slateport City Harbor;9;12;up
+grid:
+w################################w
+w########...##......#############w
+w########....#.......############w
+w#######.....#.......############w
+w#######...#####...#.############w
+w#######..###..##..##############w
+w##########.#..#############.####w
+w########.......######DD####.####w
+w#######....###..#..##..####.####w
+w#######...##.##........###..####w
+w#######..##..#.#...#..##.#..####w
+w########.......#.....###.##.####w
+w##########.....##...#######.####w
+w########.###.#...#.##.##.#######w
+w########....#.....##..##.#######w
+w########......###.....##########w
+w########.###.###################w
+w########.#######################w
+w#######...######################w
+w#########.#####....#############w
+w##.######.####....##########wwwww
+w##.######.####.#.###########wwwww
+w##...####.####.#.###########wwwww
+w##.#.####.###..#.##########www##w
+w#..#.####.###..#.##########www##w
+w#..#.####..##.##.##########wwwwww
+w#..#.####..#..#..##########wwwwww
+w#..#.####..#..#..##########wwwwww
+w#..#.#####.#.##...########wwwwwww
+w#..#..####...#....#####wwwwwwwwww
+w#..#..####.###...###wwwwwwwwwwwww
+w#..#...#####.....###wwwwwwwwww#..
+w#.####..##.......##wwwwwwwwwww#..
+w#....##..........##wwww##wwwww###
+w#.....########..###wwww##wwwww###
+w#..###########..###wwwwwwww##w###
+w#.##w##ww#####..#wwwwwwwwww##w###
+w#.#ww##ww#......#wwwwwwwwwwwww###
+w###w##www#......#wwwwwwwwwwwww###
+w##ww##www###..###wwwwwwwwwwwww###
+w##wwwwwww########wwwwwwwwwwwww###
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww##w
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww##w
+wwwww##wwwwwwwwwwwwwwwwwwwwwwwwwww
+wwwww##wwwwwwwwwwwwwwwwwwwwwwwwwww
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+
+[map]
+name = Faraway Island Interior
+region = Hoenn
+image = maps/em_FarawayIsland_Interior.png
+over = maps/em_FarawayIsland_Interior_over.png
+objects = sprites
+indoor = yes
+cycling = yes
+weather = shade
+wild = 
+door = 12 20 warp|Faraway Island Entrance|22|7|up
+door = 13 20 warp|Faraway Island Entrance|23|7|up
+npc = 13 17 mon:Mew down 0 legend|Mew|Mew: ...!
+grid:
+###.....g......gg......#ggg##
+###...##g.......g###...#g.g##
+##.g...#..........##...#g..##
+#..g.g##.#.#.....###...#g#.##
+#...g.#.#############.##gg###
+#g.#..##............####gggg#
+#.#..##..............##ggggg#
+#.#.#...gggggggggggg.#gggggg#
+#####..ggggggg.ggg.g.#ggg..g#
+#..##..gg.gggg#ggg#g#.gg...g#
+#..g#..gg#gggggggggg#.gg...g#
+#g..##.ggggggggggggg.#g...gg#
+#...##.gggggg.ggggg..#g...gg#
+#....#..ggggg#ggggg.##g....g#
+#.....#...gggggggg..##g....g#
+#......#....ggg....###ggg..g#
+#..#...##..........##g..ggg.#
+#...#..##.........###g..gg..#
+#..#.ggg##.......####g..gg.##
+#..#.gg.####..####..ggggg.###
+#..##g..##########...ggg..###
+####gg.###########....g..####
+###gg.###############...#####
+###g..################.######
+###.#########################
+#############################
 
 [map]
 name = Fiery Path
@@ -2875,6 +3044,14 @@ npc = 9 8 em_man_5 down 2 fight|Bird Keeper Edwardo|Doduo 29, Pelipper 29|The lo
 npc = 15 21 em_man_2 down 0 talk|You did it! You've achieved liftoff!
 npc = 4 23 em_man_5 right 1 fight|Bird Keeper Humberto|Skarmory 30|When Winona takes to battle, her face shines with beautiful determination.../I'm not letting you witness that lovely sight!|You'd better watch it! Don't get distracted staring at Winona or you'll go crashing down in a heap!
 npc = 1 10 em_man_5 up 3 fight|Bird Keeper Darius|Tropius 30|You'd better know that there are all sorts of Flying-type Pokemon./You do know that, right?|Sure, you beat me all right. But you'd better watch it! Our Leader Winona's Pokemon are all business.
+rgate = 6 7 5 1
+rgate = 9 15 5 2
+rgate = 3 19 5 1
+rgate = 2 6 4 1
+rgate = 9 12 4 0
+rgate = 6 23 4 0
+rgate = 12 22 4 0
+rgate = 6 3 3 2
 grid:
 ####################
 ####..##############
@@ -4133,7 +4310,8 @@ wild =
 door = 11 15 warp|Lilycove City|12|32|down
 door = 12 15 warp|Lilycove City|12|32|down
 npc = 3 13 em_sailor wander 0 talk|The ferry S.S. Tidal is finally in operation.|The folks at the Shipyard in Slateport must've worked extra hard.|Well, it's my turn to get busy now!
-npc = 8 10 em_beauty down 0 sailto|Hello, are you here for the ferry? The S.S. Tidal sails to these ports. Where to?|done:Hoenn|I beg your pardon? You're looking for a ship? ...The S.S. Tidal only takes Trainers who've conquered Hoenn's Pokemon League.|Slateport City;Slateport City Harbor;9;12;up|Battle Frontier;Battle Frontier West;20;67;up|Vermilion City (Kanto);Vermilion City;23;32;up|Olivine City (Johto);Olivine Port;4;6;up
+npc = 8 10 em_beauty down 0 sailto|Hello, are you here for the ferry? The S.S. Tidal sails to these ports. Where to?|done:Hoenn|I beg your pardon? You're looking for a ship? ...The S.S. Tidal only takes Trainers who've conquered Hoenn's Pokemon League.|Slateport City;Slateport City Harbor;9;12;up|Battle Frontier;Battle Frontier West;20;67;up|Vermilion City (Kanto);Vermilion City;23;32;up|Olivine City (Johto);Olivine Port;4;6;up|Southern Island;Southern Island Exterior;13;22;up;item:Eon Ticket|Faraway Island;Faraway Island Entrance;13;38;up;item:Old Sea Map|Birth Island;Birth Island Harbor;8;4;up;item:Aurora Ticket|Navel Rock;Navel Rock Harbor;8;4;up;item:Mystic Ticket
+npc = 5 12 em_woman_2 down 0 islandtickets
 grid:
 ........................
 ........................
@@ -5070,6 +5248,7 @@ objects = sprites
 indoor = yes
 wild = 
 door = 14 1 warp|Marine Cave End|20|4|up
+dive = Underwater Marine Cave|9|7
 grid:
 ####################
 ##############D#####
@@ -5186,30 +5365,6 @@ indoor = yes
 wild = 
 door = 11 11 warp|Mauville City|8|13|down
 door = 12 11 warp|Mauville City|8|13|down
-sign = 2 6 You can't play if you don't have a Coin Case.
-sign = 2 8 You can't play if you don't have a Coin Case.
-sign = 2 9 You can't play if you don't have a Coin Case.
-sign = 3 7 You can't play if you don't have a Coin Case.
-sign = 3 8 You can't play if you don't have a Coin Case.
-sign = 3 9 You can't play if you don't have a Coin Case.
-sign = 7 6 You can't play if you don't have a Coin Case.
-sign = 7 7 You can't play if you don't have a Coin Case.
-sign = 7 9 You can't play if you don't have a Coin Case.
-sign = 8 6 You can't play if you don't have a Coin Case.
-sign = 8 7 You can't play if you don't have a Coin Case.
-sign = 8 9 You can't play if you don't have a Coin Case.
-sign = 14 6 You can't play if you don't have a Coin Case.
-sign = 15 6 You can't play if you don't have a Coin Case.
-sign = 14 7 You can't play if you don't have a Coin Case.
-sign = 15 7 You can't play if you don't have a Coin Case.
-sign = 14 8 You can't play if you don't have a Coin Case.
-sign = 15 8 You can't play if you don't have a Coin Case.
-sign = 18 6 You can't play if you don't have a Coin Case.
-sign = 19 6 You can't play if you don't have a Coin Case.
-sign = 18 7 You can't play if you don't have a Coin Case.
-sign = 19 7 You can't play if you don't have a Coin Case.
-sign = 18 8 You can't play if you don't have a Coin Case.
-sign = 19 8 You can't play if you don't have a Coin Case.
 npc = 12 7 em_woman_2 down 0 talk|Coins are needed to play here in the Game Corner.
 npc = 16 5 em_gentleman down 0 talk|This Roulette thing... It's rather demanding.|Win or lose, it's only by luck.
 npc = 11 2 em_beauty down 0 talk|This is Mauville Game Corner.
@@ -5222,6 +5377,30 @@ npc = 13 2 em_beauty down 0 talk|Welcome.|You can exchange your Coins for prizes
 npc = 1 7 em_man_3 right 0 talk|Up to three Coins can be used to play the Slots.
 npc = 9 8 em_maniac left 0 talk|It's very difficult to make it stop right on "7."|If it stops on "7" during the Reel Time bonus game, you'll receive extra Coins.
 npc = 4 6 em_woman_5 left 0 talk|Here's some information for you about the Slots.|The more lightning bolts you stock, the more Reel Time chances you get.|In a game with the maximum five Reel Time chances...|It is possible to receive four regular bonuses, then a big bonus.|That would total 660 Coins, but it's very difficult to get.
+spot = 2 6 slots
+spot = 2 8 slots
+spot = 2 9 slots
+spot = 3 7 slots
+spot = 3 8 slots
+spot = 3 9 slots
+spot = 7 6 slots
+spot = 7 7 slots
+spot = 7 9 slots
+spot = 8 6 slots
+spot = 8 7 slots
+spot = 8 9 slots
+spot = 14 6 slots
+spot = 15 6 slots
+spot = 14 7 slots
+spot = 15 7 slots
+spot = 14 8 slots
+spot = 15 8 slots
+spot = 18 6 slots
+spot = 19 6 slots
+spot = 18 7 slots
+spot = 19 7 slots
+spot = 18 8 slots
+spot = 19 8 slots
 grid:
 ######################
 ######################
@@ -6704,6 +6883,610 @@ grid:
 ####################.#####.#######################
 
 [map]
+name = Navel Rock B1F
+region = Hoenn
+image = maps/em_NavelRock_B1F.png
+over = maps/em_NavelRock_B1F_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 4 3 warp|Navel Rock Entrance|10|5|up
+door = 18 9 warp|Navel Rock Fork|11|79|up
+grid:
+.......................
+.#####################.
+.#####################.
+.##.D...............##.
+.##.................##.
+.##.................##.
+.##.................##.
+.##.................##.
+.##.................##.
+.##...............D.##.
+.#####################.
+
+[map]
+name = Navel Rock Bottom
+region = Hoenn
+image = maps/em_NavelRock_Bottom.png
+over = maps/em_NavelRock_Bottom_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 14 19 warp|Navel Rock Down 11|5|5|up
+npc = 11 13 mon:Lugia down 0 legend|Lugia|Lugia: ...!
+grid:
+######################
+######################
+######################
+######################
+######################
+######################
+######################
+######################
+######################
+######################
+######################
+######################
+#########.....########
+##########...#########
+###########.##########
+###########.##########
+##########...#########
+###########..#########
+##########...#########
+#########.....D#######
+########.#....########
+######################
+
+[map]
+name = Navel Rock Down 01
+region = Hoenn
+image = maps/em_NavelRock_Down01.png
+over = maps/em_NavelRock_Down01_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 3 3 warp|Navel Rock Fork|22|6|up
+door = 5 5 warp|Navel Rock Down 02|5|5|up
+grid:
+.........
+.#######.
+.#######.
+.##D..##.
+.##...##.
+.##..D##.
+.#######.
+.#######.
+
+[map]
+name = Navel Rock Down 02
+region = Hoenn
+image = maps/em_NavelRock_Down02.png
+over = maps/em_NavelRock_Down02_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 5 5 warp|Navel Rock Down 01|5|5|up
+door = 3 3 warp|Navel Rock Down 03|3|3|up
+grid:
+.........
+.#######.
+.#######.
+.##D.###.
+.##..###.
+.##..D##.
+.#######.
+.#######.
+
+[map]
+name = Navel Rock Down 03
+region = Hoenn
+image = maps/em_NavelRock_Down03.png
+over = maps/em_NavelRock_Down03_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 3 3 warp|Navel Rock Down 02|3|3|up
+door = 5 5 warp|Navel Rock Down 04|5|5|up
+grid:
+.........
+.#######.
+.#######.
+.##D..##.
+.##...##.
+.##..D##.
+.#######.
+.#######.
+
+[map]
+name = Navel Rock Down 04
+region = Hoenn
+image = maps/em_NavelRock_Down04.png
+over = maps/em_NavelRock_Down04_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 5 5 warp|Navel Rock Down 03|5|5|up
+door = 3 3 warp|Navel Rock Down 05|3|3|up
+grid:
+.........
+.#######.
+.#######.
+.##D.###.
+.##..###.
+.##..D##.
+.#######.
+.#######.
+
+[map]
+name = Navel Rock Down 05
+region = Hoenn
+image = maps/em_NavelRock_Down05.png
+over = maps/em_NavelRock_Down05_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 3 3 warp|Navel Rock Down 04|3|3|up
+door = 5 5 warp|Navel Rock Down 06|5|5|up
+grid:
+.........
+.#######.
+.#######.
+.##D..##.
+.##...##.
+.##..D##.
+.#######.
+.#######.
+
+[map]
+name = Navel Rock Down 06
+region = Hoenn
+image = maps/em_NavelRock_Down06.png
+over = maps/em_NavelRock_Down06_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 5 5 warp|Navel Rock Down 05|5|5|up
+door = 3 3 warp|Navel Rock Down 07|3|3|up
+grid:
+.........
+.#######.
+.#######.
+.##D.###.
+.##..###.
+.##..D##.
+.#######.
+.#######.
+
+[map]
+name = Navel Rock Down 07
+region = Hoenn
+image = maps/em_NavelRock_Down07.png
+over = maps/em_NavelRock_Down07_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 3 3 warp|Navel Rock Down 06|3|3|up
+door = 5 5 warp|Navel Rock Down 08|5|5|up
+grid:
+.........
+.#######.
+.#######.
+.##D..##.
+.##...##.
+.##..D##.
+.#######.
+.#######.
+
+[map]
+name = Navel Rock Down 08
+region = Hoenn
+image = maps/em_NavelRock_Down08.png
+over = maps/em_NavelRock_Down08_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 5 5 warp|Navel Rock Down 07|5|5|up
+door = 3 3 warp|Navel Rock Down 09|3|3|up
+grid:
+.........
+.#######.
+.#######.
+.##D.###.
+.##..###.
+.##..D##.
+.#######.
+.#######.
+
+[map]
+name = Navel Rock Down 09
+region = Hoenn
+image = maps/em_NavelRock_Down09.png
+over = maps/em_NavelRock_Down09_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 3 3 warp|Navel Rock Down 08|3|3|up
+door = 5 5 warp|Navel Rock Down 10|5|5|up
+grid:
+.........
+.#######.
+.#######.
+.##D..##.
+.##...##.
+.##..D##.
+.#######.
+.#######.
+
+[map]
+name = Navel Rock Down 10
+region = Hoenn
+image = maps/em_NavelRock_Down10.png
+over = maps/em_NavelRock_Down10_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 5 5 warp|Navel Rock Down 09|5|5|up
+door = 3 3 warp|Navel Rock Down 11|3|3|up
+grid:
+.........
+.#######.
+.#######.
+.##D.###.
+.##..###.
+.##..D##.
+.#######.
+.#######.
+
+[map]
+name = Navel Rock Down 11
+region = Hoenn
+image = maps/em_NavelRock_Down11.png
+over = maps/em_NavelRock_Down11_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 5 5 warp|Navel Rock Bottom|14|19|up
+door = 3 3 warp|Navel Rock Down 10|3|3|up
+grid:
+.........
+.#######.
+.#######.
+.##D..##.
+.##...##.
+.##..D##.
+.#######.
+.#######.
+
+[map]
+name = Navel Rock Entrance
+region = Hoenn
+image = maps/em_NavelRock_Entrance.png
+over = maps/em_NavelRock_Entrance_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 10 5 warp|Navel Rock B1F|4|3|up
+door = 10 27 warp|Navel Rock Exterior|10|10|up
+grid:
+.....................
+.###################.
+.###################.
+.##...##..........##.
+.##...............##.
+.##.......D.......##.
+.##...............##.
+.##...............##.
+.##...............##.
+.###..............##.
+.######.......######.
+......##....###......
+......##.....##......
+......##.....##......
+......##.....##......
+......##.....##......
+......##.....##......
+......##.....##......
+......##....###......
+......##.....##......
+......##.....##......
+......##....###......
+......###....##......
+......##.....##......
+......##.....##......
+......##.....##......
+......##.....##......
+......#########......
+......#.......#......
+......#.......#......
+......#########......
+.....................
+
+[map]
+name = Navel Rock Exterior
+region = Hoenn
+image = maps/em_NavelRock_Exterior.png
+over = maps/em_NavelRock_Exterior_over.png
+objects = sprites
+indoor = yes
+cycling = yes
+wild = 
+door = 10 19 warp|Navel Rock Harbor|8|2|up
+door = 10 10 warp|Navel Rock Entrance|10|26|up
+grid:
+#####################
+#####################
+#####################
+#####.#########.#####
+#######.......#######
+######..#...#.#######
+#########...##.######
+######.##...##.######
+######.###.###.######
+##############.######
+#####.#.##D####.#####
+######.#.....#.######
+########.....########
+#########...#########
+#########...#########
+#########...#########
+#########...#########
+#########...#########
+#########...#########
+#####################
+#####################
+#####################
+#####################
+#####################
+
+[map]
+name = Navel Rock Fork
+region = Hoenn
+image = maps/em_NavelRock_Fork.png
+over = maps/em_NavelRock_Fork_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 4 6 warp|Navel Rock Up 1|5|5|up
+door = 11 79 warp|Navel Rock B1F|18|9|up
+door = 22 6 warp|Navel Rock Down 01|3|3|up
+grid:
+...........................
+...........................
+...........................
+...........................
+.#########################.
+.#########################.
+.##.D.................D.##.
+.##.....................##.
+.##.....................##.
+.###########...###########.
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+.#####.....##.##.....#####.
+.#####.....##.##.....#####.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.##.....##.##.
+.##.##.....##.#########.##.
+.##.##.....##.#########.##.
+.##.##.....##...........##.
+.##.##.....##..###########.
+.##.##.....##.##...........
+.##.##.....##.##...........
+.##.##.....##.##...........
+.##.##.....##.##...........
+.##.##.....##.##...........
+.##.##.....##.##...........
+.##.##.....##.##...........
+.##.#########.##...........
+.##.#########.##...........
+.##...........##...........
+.###########..##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+...........##.##...........
+.........####.####.........
+.........####.####.........
+.........##D....##.........
+.........##.....##.........
+.........##.....##.........
+.........##.....##.........
+.........##.....##.........
+.........#########.........
+.........#########.........
+
+[map]
+name = Navel Rock Harbor
+region = Hoenn
+image = maps/em_NavelRock_Harbor.png
+over = maps/em_NavelRock_Harbor_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 8 2 warp|Navel Rock Exterior|10|18|up
+npc = 8 5 em_sailor up 0 sailto|Did... Did you hear that? That low growling... Shall we leave?||Ahoy!|Lilycove City;Lilycove City Harbor;9;12;up|Slateport City;Slateport City Harbor;9;12;up
+grid:
+#################
+#################
+########D########
+.................
+######.....######
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+
+[map]
+name = Navel Rock Top
+region = Hoenn
+image = maps/em_NavelRock_Top.png
+over = maps/em_NavelRock_Top_over.png
+objects = sprites
+indoor = yes
+weather = shade
+wild = 
+door = 13 20 warp|Navel Rock Up 4|5|5|up
+item = 12 9 Sacred Ash 1 hidden
+npc = 12 4 mon:Ho-Oh down 0 legend|Ho-Oh|Ho-Oh: ...!
+grid:
+#########################
+#########################
+#########################
+#########################
+#########################
+#########################
+#########################
+#########################
+#########################
+############.############
+############.############
+############.############
+############.############
+############.############
+############.############
+############.############
+##########.....##########
+##########.....##########
+##########.....##########
+##########.....##########
+##########...D.##########
+##########.....##########
+#########################
+#########################
+#########################
+#########################
+#########################
+#########################
+
+[map]
+name = Navel Rock Up 1
+region = Hoenn
+image = maps/em_NavelRock_Up1.png
+over = maps/em_NavelRock_Up1_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 5 5 warp|Navel Rock Fork|4|6|up
+door = 3 3 warp|Navel Rock Up 2|3|3|up
+grid:
+.........
+.#######.
+.#######.
+.##D..##.
+.##...##.
+.##..D##.
+.#######.
+.#######.
+
+[map]
+name = Navel Rock Up 2
+region = Hoenn
+image = maps/em_NavelRock_Up2.png
+over = maps/em_NavelRock_Up2_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 3 3 warp|Navel Rock Up 1|3|3|up
+door = 5 5 warp|Navel Rock Up 3|5|5|up
+grid:
+.........
+.#######.
+.#######.
+.##D.###.
+.##..###.
+.##..D##.
+.#######.
+.#######.
+
+[map]
+name = Navel Rock Up 3
+region = Hoenn
+image = maps/em_NavelRock_Up3.png
+over = maps/em_NavelRock_Up3_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 5 5 warp|Navel Rock Up 2|5|5|up
+door = 3 3 warp|Navel Rock Up 4|3|3|up
+grid:
+.........
+.#######.
+.#######.
+.##D..##.
+.##...##.
+.##..D##.
+.#######.
+.#######.
+
+[map]
+name = Navel Rock Up 4
+region = Hoenn
+image = maps/em_NavelRock_Up4.png
+over = maps/em_NavelRock_Up4_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 3 3 warp|Navel Rock Up 3|3|3|up
+door = 5 5 warp|Navel Rock Top|13|20|up
+grid:
+.........
+.#######.
+.#######.
+.##D.###.
+.##..###.
+.##..D##.
+.#######.
+.#######.
+
+[map]
 name = New Mauville Entrance
 region = Hoenn
 image = maps/em_NewMauville_Entrance.png
@@ -7948,6 +8731,33 @@ npc = 4 54 em_man_5 down 2 fight|Bird Keeper Josue|Taillow 25, Wingull 25|I'm ex
 npc = 4 58 em_hiker up 4 fight|Ruin Maniac Andres|Sandshrew 25, Sandshrew 25|I'm convinced that the sea keeps secrets from us.|I may be weak at battling, but my drive to explore can't be bested./I will travel the seas all around the world!
 rematch = Sandshrew 31, Sandshrew 31 / Nosepass 33, Sandshrew 33, Sandshrew 33 / Nosepass 35, Sandshrew 35, Sandshrew 35 / Nosepass 37, Sandslash 37, Sandslash 37
 block = 9 20 regi_doors|The door is shut tight. There's braille on it, but nothing happens...
+img2 = maps/em_Route105_abw.png
+swap = 10 28 abw:105n
+swap = 11 28 abw:105n
+swap = 9 29 abw:105n
+swap = 10 29 abw:105n
+swap = 11 29 abw:105n
+swap = 12 29 abw:105n
+swap = 9 30 abw:105n
+swap = 10 30 abw:105n
+swap = 11 30 abw:105n
+swap = 12 30 abw:105n
+swap = 10 31 abw:105n
+swap = 11 31 abw:105n
+divespot = 10 29 11 30 abw:105n|Underwater Marine Cave|9|7
+swap = 20 53 abw:105s
+swap = 21 53 abw:105s
+swap = 19 54 abw:105s
+swap = 20 54 abw:105s
+swap = 21 54 abw:105s
+swap = 22 54 abw:105s
+swap = 19 55 abw:105s
+swap = 20 55 abw:105s
+swap = 21 55 abw:105s
+swap = 22 55 abw:105s
+swap = 20 56 abw:105s
+swap = 21 56 abw:105s
+divespot = 20 54 21 55 abw:105s|Underwater Marine Cave|9|7
 grid:
 wwwwwww##wwwwwwwwwwwwwwwww##www#########
 wwwwwww##wwwwwwwwwwwwwwwww##www#########
@@ -8509,6 +9319,64 @@ grid:
 #.....####....#
 
 [map]
+name = Route 110 Trick House Corridor
+region = Hoenn
+image = maps/em_Route110_TrickHouseCorridor.png
+objects = sprites
+indoor = yes
+wild = 
+door = 13 3 warp|Route 110 Trick House End|2|1|up
+door = 14 3 warp|Route 110 Trick House End|2|1|up
+door = 4 24 warp|Route 110 Trick House Entrance|5|2|up
+door = 5 24 warp|Route 110 Trick House Entrance|5|2|up
+grid:
+###############
+###############
+###............
+###..........DD
+###...#########
+###...#########
+###...#########
+###...#########
+......#########
+......#########
+......#########
+...############
+...############
+...############
+...############
+...############
+...############
+...############
+...############
+...############
+...############
+...############
+......#########
+......#########
+
+[map]
+name = Route 110 Trick House End
+region = Hoenn
+image = maps/em_Route110_TrickHouseEnd.png
+over = maps/em_Route110_TrickHouseEnd_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 2 1 warp|Route 110 Trick House Corridor|13|3|up
+item = 4 5 Nugget 1 hidden
+npc = 4 5 em_man_1 right 0 trickreward
+grid:
+############
+##D#######D#
+............
+............
+.....##.....
+.....##.....
+............
+............
+
+[map]
 name = Route 110 Trick House Entrance
 region = Hoenn
 image = maps/em_Route110_TrickHouseEntrance.png
@@ -8518,17 +9386,460 @@ indoor = yes
 wild = 
 door = 5 8 warp|Route 110|11|66|down
 door = 6 8 warp|Route 110|11|66|down
-npc = 6 2 em_man_1 left 0 talk|...
-if = show:FLAG_HIDE_TRICK_HOUSE_ENTRANCE_MAN
+door = 5 2 trickgo
+npc = 6 2 em_man_1 left 0 talk|Trick Master: I am the Trick Master! Hahaha!|Behind me is my Trick House - a new trick for every Badge you earn!|Find the scroll in each room, open the door with its secret code, and I'll be waiting with a reward!
 grid:
 ############
 ############
-............
+.....D......
 .....##.....
 .....##.....
 #..........#
 ............
 ............
+
+[map]
+name = Route 110 Trick House Puzzle 1
+region = Hoenn
+image = maps/em_Route110_TrickHousePuzzle1.png
+over = maps/em_Route110_TrickHousePuzzle1_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 0 22 warp|Route 110 Trick House Entrance|5|2|up
+door = 1 22 warp|Route 110 Trick House Entrance|5|2|up
+npc = 14 20 em_lass left 6 fight|Lass Sally|Oddish 16|I'll hack and slash my way to victory with the Cut we just learned!|I never get tired of hacking and slashing!
+npc = 14 8 em_youngster left 2 fight|Youngster Eddie|Zigzagoon 14, Zigzagoon 16|I wandered into this weird house by accident...|I lost my way, I lost a battle, and I'm now even more lost... I can't get out...
+npc = 2 15 em_lass down 2 fight|Lass Robin|Skitty 14, Shroomish 14, Marill 14|Just who is the Trick Master?|You're strong! Just who are you?
+spot = 3 16 trickscroll|1
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll1|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+grid:
+###############
+#############D#
+############...
+..#...#.#..#...
+..T........#...
+..#...#.#..#...
+T############T#
+....#......#...
+.#..T......T...
+.#..#..##..#...
+###.##..T.#####
+..#..#..#..#...
+..T..#..#..T...
+..#..#..#..#...
+..############T
+....#.#....#...
+...##......T...
+....#......#...
+#############T#
+....#....#.....
+...............
+...............
+
+[map]
+name = Route 110 Trick House Puzzle 2
+region = Hoenn
+image = maps/em_Route110_TrickHousePuzzle2.png
+objects = sprites
+indoor = yes
+wild = 
+door = 0 22 warp|Route 110 Trick House Entrance|5|2|up
+door = 1 22 warp|Route 110 Trick House Entrance|5|2|up
+npc = 13 10 em_school_kid_m right 1 fight|School Kid Ted|Ralts 17|Which switch closes which hole?|Can I get you to push all the buttons for me?
+npc = 10 17 em_school_kid_m down 4 fight|School Kid Paul|Numel 15, Oddish 15, Wingull 15|Oh! You're on your second Trick House challenge!|The Trick Master rigged all the tricks in this house all by himself.
+npc = 11 9 em_girl_3 left 2 fight|School Kid Georgia|Shroomish 16, Beautifly 16|I want to make my own Gym one day. So, I'm studying how to set traps.|You're strong, aren't you? Maybe even enough to be a Gym Leader!
+spot = 14 14 trickscroll|2
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll2|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+img2 = maps/em_Route110_TrickHousePuzzle2_on.png
+step = 11 12 press|thp:2:1
+swap = 11 12 thp:2:1
+swap = 1 13 thp:2:1
+gate = 1 13 thp:2:1
+step = 0 4 press|thp:2:2
+swap = 0 4 thp:2:2
+swap = 5 6 thp:2:2
+gate = 5 6 thp:2:2
+step = 14 5 press|thp:2:3
+swap = 14 5 thp:2:3
+swap = 7 15 thp:2:3
+gate = 7 15 thp:2:3
+step = 7 11 press|thp:2:4
+swap = 7 11 thp:2:4
+swap = 14 12 thp:2:4
+gate = 14 12 thp:2:4
+grid:
+###############
+#############D#
+.........#.....
+...####..#.....
+...#.....#.####
+####.###...#...
+.......#####...
+.#...#.........
+.#..#########..
+.#..#.......#..
+.#..#.###...#..
+.##.#.#.#.####.
+..#.#.#.#.#..#.
+#.#.#...#.#..#.
+..#######.#..##
+..........#..##
+.#.#########...
+.#....#..#.##..
+.#....#..#.....
+.#.#.....#..##.
+...#######.....
+...............
+
+[map]
+name = Route 110 Trick House Puzzle 3
+region = Hoenn
+over = maps/em_Route110_TrickHousePuzzle3_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 0 22 warp|Route 110 Trick House Entrance|5|2|up
+door = 1 22 warp|Route 110 Trick House Entrance|5|2|up
+npc = 7 19 em_camper down 2 fight|Camper Justin|Kecleon 24|I keep coming back to this same place!|It's full of doors here! It's too small and dark in here! Help!
+npc = 4 4 em_picnicker right 1 fight|Picnicker Martha|Skitty 23, Swablu 23|I don't know what's going on here. I'm starting to feel sad...|I know I'm weak! And, I have no sense of direction!
+npc = 10 10 em_hiker down 1 fight|Hiker Alan|Geodude 22, Nosepass 22, Graveler 22|I don't get it. What would anyone want with a house this bizarre?|I don't get it. How many traps are in this house?/You may be the one to solve that.
+spot = 0 14 trickscroll|3
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll3|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+image = maps/em_Route110_TrickHousePuzzle3_s0.png
+alt = thp:3:doors|maps/em_Route110_TrickHousePuzzle3_alt.png|
+step = 4 14 press|thp:3:doors|toggle
+step = 3 11 press|thp:3:doors|toggle
+step = 12 5 press|thp:3:doors|toggle
+step = 8 2 press|thp:3:doors|toggle
+gate = 1 4 thp:3:doors
+gate = 2 4 thp:3:doors
+gate = 13 4 thp:3:doors
+gate = 14 4 thp:3:doors
+gate = 6 5 !thp:3:doors
+gate = 9 5 thp:3:doors
+gate = 1 7 !thp:3:doors
+gate = 2 7 !thp:3:doors
+gate = 4 7 thp:3:doors
+gate = 5 7 thp:3:doors
+gate = 10 7 thp:3:doors
+gate = 11 7 thp:3:doors
+gate = 3 8 !thp:3:doors
+gate = 12 8 !thp:3:doors
+gate = 1 10 !thp:3:doors
+gate = 2 10 !thp:3:doors
+gate = 7 10 thp:3:doors
+gate = 8 10 thp:3:doors
+gate = 13 10 !thp:3:doors
+gate = 14 10 !thp:3:doors
+gate = 1 13 thp:3:doors
+gate = 2 13 thp:3:doors
+gate = 4 13 thp:3:doors
+gate = 5 13 thp:3:doors
+gate = 10 13 thp:3:doors
+gate = 11 13 thp:3:doors
+gate = 3 14 !thp:3:doors
+gate = 4 16 !thp:3:doors
+gate = 5 16 !thp:3:doors
+gate = 13 16 !thp:3:doors
+gate = 14 16 !thp:3:doors
+gate = 3 17 thp:3:doors
+gate = 9 17 !thp:3:doors
+gate = 4 19 thp:3:doors
+gate = 5 19 thp:3:doors
+gate = 10 19 thp:3:doors
+gate = 11 19 thp:3:doors
+grid:
+###############
+#############D#
+#..#..#..#..#..
+#..#..#..#..#..
+#..#..#..#..#..
+...............
+#..#..#..#..#..
+#..#..#..#..#..
+.........#.....
+#..####..#..#..
+#..####..#..#..
+...............
+#..#..#..#..#..
+#..#..#..#..#..
+#...........#..
+####..####..#..
+####..####..#..
+......#........
+#..#..#..#..#..
+#..#..#..#..#..
+.R.............
+..R............
+
+[map]
+name = Route 110 Trick House Puzzle 4
+region = Hoenn
+image = maps/em_Route110_TrickHousePuzzle4.png
+objects = sprites
+indoor = yes
+wild = 
+door = 0 22 warp|Route 110 Trick House Entrance|5|2|up
+door = 1 22 warp|Route 110 Trick House Entrance|5|2|up
+npc = 2 2 em_girl_3 down 1 fight|Battle Girl Cora|Meditite 27|It's too much bother to think this out. I only wanted to battle!|Wouldn't you agree? You would go anywhere if Trainers were there.
+npc = 14 7 em_girl_3 left 2 fight|Battle Girl Paula|Breloom 27|The Trick House is getting trickier, isn't it?|Has anyone made it to the end?
+npc = 2 14 em_black_belt right 2 fight|Black Belt Yuji|Makuhita 26, Machoke 26|Heh! Boulders like this, I can brush aside with one finger!|It's not good enough to be brawny... You have to use your head. Be brainy!
+spot = 14 13 trickscroll|4
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll4|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+grid:
+###############
+#############D#
+....##.....#B.B
+.....#...B##.B.
+..##.##.#.#....
+...#....#.#.B##
+...#B...#.##.#.
+###..B..#......
+.....#..#......
+.....#...######
+.....#.........
+..########.....
+..#....#..B.###
+.##..#...#..#.#
+.#...#####.##..
+.#...#....B.#..
+.###.B...#.....
+.#...#.........
+.#vvv#vvv#vvvvv
+...............
+...............
+...............
+
+[map]
+name = Route 110 Trick House Puzzle 5
+region = Hoenn
+image = maps/em_Route110_TrickHousePuzzle5.png
+objects = sprites
+indoor = yes
+wild = 
+door = 0 22 warp|Route 110 Trick House Entrance|5|2|up
+door = 1 22 warp|Route 110 Trick House Entrance|5|2|up
+spot = 11 21 trickscroll|5
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll5|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+step = 5 17 quiz3|thp:5:1|0,21|2^Mechadoll 1 Quiz./One of these Pokemon is not found on Route 110. Which one is it?^Oddish^Poochyena^Taillow~0^Mechadoll 1 Quiz./One of these Pokemon is not of the Water type. Which one is it?^Azurill^Lotad^Wingull~0^Mechadoll 1 Quiz./One of these Pokemon does not use Leech Life. Which one is it?^Dustox^Zubat^Nincada
+unless = thp:5:1
+step = 4 17 quiz3|thp:5:1|0,21|2^Mechadoll 1 Quiz./One of these Pokemon is not found on Route 110. Which one is it?^Oddish^Poochyena^Taillow~0^Mechadoll 1 Quiz./One of these Pokemon is not of the Water type. Which one is it?^Azurill^Lotad^Wingull~0^Mechadoll 1 Quiz./One of these Pokemon does not use Leech Life. Which one is it?^Dustox^Zubat^Nincada
+unless = thp:5:1
+step = 3 17 quiz3|thp:5:1|0,21|2^Mechadoll 1 Quiz./One of these Pokemon is not found on Route 110. Which one is it?^Oddish^Poochyena^Taillow~0^Mechadoll 1 Quiz./One of these Pokemon is not of the Water type. Which one is it?^Azurill^Lotad^Wingull~0^Mechadoll 1 Quiz./One of these Pokemon does not use Leech Life. Which one is it?^Dustox^Zubat^Nincada
+unless = thp:5:1
+step = 2 17 quiz3|thp:5:1|0,21|2^Mechadoll 1 Quiz./One of these Pokemon is not found on Route 110. Which one is it?^Oddish^Poochyena^Taillow~0^Mechadoll 1 Quiz./One of these Pokemon is not of the Water type. Which one is it?^Azurill^Lotad^Wingull~0^Mechadoll 1 Quiz./One of these Pokemon does not use Leech Life. Which one is it?^Dustox^Zubat^Nincada
+unless = thp:5:1
+step = 1 17 quiz3|thp:5:1|0,21|2^Mechadoll 1 Quiz./One of these Pokemon is not found on Route 110. Which one is it?^Oddish^Poochyena^Taillow~0^Mechadoll 1 Quiz./One of these Pokemon is not of the Water type. Which one is it?^Azurill^Lotad^Wingull~0^Mechadoll 1 Quiz./One of these Pokemon does not use Leech Life. Which one is it?^Dustox^Zubat^Nincada
+unless = thp:5:1
+step = 1 7 quiz3|thp:5:2|0,21|1^Mechadoll 2 Quiz./Which of these Pokemon did Wally borrow from your father?^Ralts^Zigzagoon^Slakoth~2^Mechadoll 2 Quiz./Which of these Pokemon was chasing Prof. Birch?^Poochyena^Shroomish^Zigzagoon~0^Mechadoll 2 Quiz./Which of these Pokemon did Team Aqua use in Petalburg Forest?^Poochyena^Zubat^Carvanha
+unless = thp:5:2
+step = 2 7 quiz3|thp:5:2|0,21|1^Mechadoll 2 Quiz./Which of these Pokemon did Wally borrow from your father?^Ralts^Zigzagoon^Slakoth~2^Mechadoll 2 Quiz./Which of these Pokemon was chasing Prof. Birch?^Poochyena^Shroomish^Zigzagoon~0^Mechadoll 2 Quiz./Which of these Pokemon did Team Aqua use in Petalburg Forest?^Poochyena^Zubat^Carvanha
+unless = thp:5:2
+step = 3 7 quiz3|thp:5:2|0,21|1^Mechadoll 2 Quiz./Which of these Pokemon did Wally borrow from your father?^Ralts^Zigzagoon^Slakoth~2^Mechadoll 2 Quiz./Which of these Pokemon was chasing Prof. Birch?^Poochyena^Shroomish^Zigzagoon~0^Mechadoll 2 Quiz./Which of these Pokemon did Team Aqua use in Petalburg Forest?^Poochyena^Zubat^Carvanha
+unless = thp:5:2
+step = 4 7 quiz3|thp:5:2|0,21|1^Mechadoll 2 Quiz./Which of these Pokemon did Wally borrow from your father?^Ralts^Zigzagoon^Slakoth~2^Mechadoll 2 Quiz./Which of these Pokemon was chasing Prof. Birch?^Poochyena^Shroomish^Zigzagoon~0^Mechadoll 2 Quiz./Which of these Pokemon did Team Aqua use in Petalburg Forest?^Poochyena^Zubat^Carvanha
+unless = thp:5:2
+step = 5 7 quiz3|thp:5:2|0,21|1^Mechadoll 2 Quiz./Which of these Pokemon did Wally borrow from your father?^Ralts^Zigzagoon^Slakoth~2^Mechadoll 2 Quiz./Which of these Pokemon was chasing Prof. Birch?^Poochyena^Shroomish^Zigzagoon~0^Mechadoll 2 Quiz./Which of these Pokemon did Team Aqua use in Petalburg Forest?^Poochyena^Zubat^Carvanha
+unless = thp:5:2
+step = 6 7 quiz3|thp:5:2|0,21|1^Mechadoll 2 Quiz./Which of these Pokemon did Wally borrow from your father?^Ralts^Zigzagoon^Slakoth~2^Mechadoll 2 Quiz./Which of these Pokemon was chasing Prof. Birch?^Poochyena^Shroomish^Zigzagoon~0^Mechadoll 2 Quiz./Which of these Pokemon did Team Aqua use in Petalburg Forest?^Poochyena^Zubat^Carvanha
+unless = thp:5:2
+step = 13 10 quiz3|thp:5:3|0,21|0^Mechadoll 3 Quiz./Which costs more? Three Harbor Mails or one Burn Heal?^Burn Heal^Harbor Mail^Same Price~2^Mechadoll 3 Quiz./Sell one Great Ball and buy one Potion. How much money remains?^¥60^¥55^Nothing~1^Mechadoll 3 Quiz./Do one Repel and Soda Pop cost more than one Super Potion?^They Will Cost More.^They Will Cost Less.^Same Price
+unless = thp:5:3
+step = 12 10 quiz3|thp:5:3|0,21|0^Mechadoll 3 Quiz./Which costs more? Three Harbor Mails or one Burn Heal?^Burn Heal^Harbor Mail^Same Price~2^Mechadoll 3 Quiz./Sell one Great Ball and buy one Potion. How much money remains?^¥60^¥55^Nothing~1^Mechadoll 3 Quiz./Do one Repel and Soda Pop cost more than one Super Potion?^They Will Cost More.^They Will Cost Less.^Same Price
+unless = thp:5:3
+step = 11 10 quiz3|thp:5:3|0,21|0^Mechadoll 3 Quiz./Which costs more? Three Harbor Mails or one Burn Heal?^Burn Heal^Harbor Mail^Same Price~2^Mechadoll 3 Quiz./Sell one Great Ball and buy one Potion. How much money remains?^¥60^¥55^Nothing~1^Mechadoll 3 Quiz./Do one Repel and Soda Pop cost more than one Super Potion?^They Will Cost More.^They Will Cost Less.^Same Price
+unless = thp:5:3
+step = 10 10 quiz3|thp:5:3|0,21|0^Mechadoll 3 Quiz./Which costs more? Three Harbor Mails or one Burn Heal?^Burn Heal^Harbor Mail^Same Price~2^Mechadoll 3 Quiz./Sell one Great Ball and buy one Potion. How much money remains?^¥60^¥55^Nothing~1^Mechadoll 3 Quiz./Do one Repel and Soda Pop cost more than one Super Potion?^They Will Cost More.^They Will Cost Less.^Same Price
+unless = thp:5:3
+step = 9 10 quiz3|thp:5:3|0,21|0^Mechadoll 3 Quiz./Which costs more? Three Harbor Mails or one Burn Heal?^Burn Heal^Harbor Mail^Same Price~2^Mechadoll 3 Quiz./Sell one Great Ball and buy one Potion. How much money remains?^¥60^¥55^Nothing~1^Mechadoll 3 Quiz./Do one Repel and Soda Pop cost more than one Super Potion?^They Will Cost More.^They Will Cost Less.^Same Price
+unless = thp:5:3
+step = 13 19 quiz3|thp:5:4|0,21|0^Mechadoll 4 Quiz./In Seashore House, were there more men or women?^Male^Female^Neither~0^Mechadoll 4 Quiz./In Lavaridge Town, were there more elderly men or elderly women?^Elderly Men^Elderly Ladies^Same Number~1^Mechadoll 4 Quiz./In the Trainer'S School, how many girl students were there?^None^1^2
+unless = thp:5:4
+step = 12 19 quiz3|thp:5:4|0,21|0^Mechadoll 4 Quiz./In Seashore House, were there more men or women?^Male^Female^Neither~0^Mechadoll 4 Quiz./In Lavaridge Town, were there more elderly men or elderly women?^Elderly Men^Elderly Ladies^Same Number~1^Mechadoll 4 Quiz./In the Trainer'S School, how many girl students were there?^None^1^2
+unless = thp:5:4
+step = 11 19 quiz3|thp:5:4|0,21|0^Mechadoll 4 Quiz./In Seashore House, were there more men or women?^Male^Female^Neither~0^Mechadoll 4 Quiz./In Lavaridge Town, were there more elderly men or elderly women?^Elderly Men^Elderly Ladies^Same Number~1^Mechadoll 4 Quiz./In the Trainer'S School, how many girl students were there?^None^1^2
+unless = thp:5:4
+step = 10 19 quiz3|thp:5:4|0,21|0^Mechadoll 4 Quiz./In Seashore House, were there more men or women?^Male^Female^Neither~0^Mechadoll 4 Quiz./In Lavaridge Town, were there more elderly men or elderly women?^Elderly Men^Elderly Ladies^Same Number~1^Mechadoll 4 Quiz./In the Trainer'S School, how many girl students were there?^None^1^2
+unless = thp:5:4
+step = 9 19 quiz3|thp:5:4|0,21|0^Mechadoll 4 Quiz./In Seashore House, were there more men or women?^Male^Female^Neither~0^Mechadoll 4 Quiz./In Lavaridge Town, were there more elderly men or elderly women?^Elderly Men^Elderly Ladies^Same Number~1^Mechadoll 4 Quiz./In the Trainer'S School, how many girl students were there?^None^1^2
+unless = thp:5:4
+step = 11 4 quiz3|thp:5:5|0,21|1^Mechadoll 5 Quiz./In Slateport's Pokemon Fan Club, how many Pokemon were there?^2^3^4~0^Mechadoll 5 Quiz./In Fortree City, how many tree houses were there?^6^7^8~2^Mechadoll 5 Quiz./On the Cycling Road, how many Triathletes were there?^6^7^8
+unless = thp:5:5
+npc = 6 17 em_man_1 left 0 talk|Mechadoll: Beep. Correct answers only. Go through, please.
+npc = 0 7 em_man_1 left 0 talk|Mechadoll: Beep. Correct answers only. Go through, please.
+npc = 14 10 em_man_1 left 0 talk|Mechadoll: Beep. Correct answers only. Go through, please.
+npc = 14 19 em_man_1 left 0 talk|Mechadoll: Beep. Correct answers only. Go through, please.
+npc = 10 4 em_man_1 left 0 talk|Mechadoll: Beep. Correct answers only. Go through, please.
+grid:
+###############
+#############D#
+##...######....
+#.....#####.###
+.......###...##
+.......##.....#
+.......#.......
+...............
+.......#.......
+#.....##.......
+#.....##.......
+#.....###.....#
+##...####.....#
+##...####.....#
+###.######...##
+##...#####...##
+#.....#####.###
+.......###...##
+#.....###.....#
+##...###.......
+....#####.....#
+..########.#.##
+
+[map]
+name = Route 110 Trick House Puzzle 6
+region = Hoenn
+image = maps/em_Route110_TrickHousePuzzle6.png
+objects = sprites
+indoor = yes
+wild = 
+door = 0 22 warp|Route 110 Trick House Entrance|5|2|up
+door = 1 22 warp|Route 110 Trick House Entrance|5|2|up
+npc = 7 9 em_picnicker right 1 fight|Pokemon Ranger Sophia|Swablu 38, Roselia 38|When I heard there was a strange house, I had to check it out.|I'm sure having a good time checking this place out./It's a challenge I've found worth repeating!
+npc = 11 10 em_man_5 right 3 fight|Bird Keeper Benny|Swellow 36, Pelipper 36, Xatu 36|Maybe I could get my Bird Pokemon to fly over the wall...|Ehehehe... I guess I lost because I was trying to cheat.
+npc = 4 5 em_camper up 1 fight|Pokemon Ranger Sebastian|Cacturne 39|I'm getting dizzy from these rotating doors...|You don't seem to be affected at all. Or do you have your poker face on?
+spot = 0 10 trickscroll|6
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll6|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+rgate = 14 5 4 1
+rgate = 10 6 1 2
+rgate = 6 6 3 1
+rgate = 14 8 4 1
+rgate = 3 10 2 3
+rgate = 9 14 0 1
+rgate = 3 15 6 0
+rgate = 2 17 1 2
+rgate = 12 18 6 3
+rgate = 5 18 3 1
+rgate = 10 19 2 2
+grid:
+###############
+#############D#
+##...#......#..
+#....#..#...#..
+#.......#.#.##.
+.....#..#.#.#..
+...###......#..
+...#.....#..#.#
+.....###.#..#..
+......#....##..
+#.#.#.#...#....
+###.#.#...#....
+....#..##.##...
+....##..#..#...
+###..#..#.###.#
+#....#......#.#
+#.#..#..#......
+..#..##........
+.........##.#..
+............#..
+....##....###..
+....#....##....
+
+[map]
+name = Route 110 Trick House Puzzle 7
+region = Hoenn
+image = maps/em_Route110_TrickHousePuzzle7.png
+objects = sprites
+indoor = yes
+wild = 
+door = 0 22 warp|Route 110 Trick House Entrance|5|2|up
+door = 1 22 warp|Route 110 Trick House Entrance|5|2|up
+door = 13 4 warp|Route 110 Trick House Puzzle 7|7|3|up
+door = 7 3 warp|Route 110 Trick House Puzzle 7|13|4|up
+door = 13 11 warp|Route 110 Trick House Puzzle 7|4|3|up
+door = 4 3 warp|Route 110 Trick House Puzzle 7|13|11|up
+door = 1 17 warp|Route 110 Trick House Puzzle 7|0|11|up
+door = 0 11 warp|Route 110 Trick House Puzzle 7|1|17|up
+door = 2 3 warp|Route 110 Trick House Puzzle 7|4|13|up
+door = 4 13 warp|Route 110 Trick House Puzzle 7|2|3|up
+door = 1 3 warp|Route 110 Trick House Puzzle 7|8|12|up
+door = 8 12 warp|Route 110 Trick House Puzzle 7|1|3|up
+npc = 9 20 em_psychic_m right 1 fight|Psychic Joshua|Kadabra 41, Solrock 41|The Trick Master always vanishes like smoke. How does he do it?|I wish I could appear and disappear as if I were smoke, too.
+npc = 10 2 em_lass up 1 fight|Psychic Alexis|Kirlia 41, Xatu 41|Whoever wins will get through here first. That's the feeling I get.|You're solving all the puzzles in the Trick House. That's the feeling I get.
+npc = 8 17 em_hex_maniac left 1 fight|Hex Maniac Patricia|Banette 41, Lunatone 41|Going around the same spot... It begets ill fortune...|I've circled the same spot over ten times now... It's ill fortune...
+npc = 9 2 em_psychic_m down 1 fight|Psychic Alvaro|Banette 41, Kadabra 41|I ever so closely watched you coming!|Well, anyway, we both picked a weird place to get acquainted./As one weirdo to another, let's do our best!
+npc = 8 13 em_lass up 1 fight|Psychic Mariela|Chimecho 41|Nufufufu, here at last! Let's get right with it!|Humph! I'm not upset! Not me!
+npc = 9 12 em_gentleman left 1 fight|Gentleman Everett|Wobbuffet 41|It's awfully cramped in here...|I was hoping to switch places with you when I beat you, but...
+spot = 6 17 trickscroll|7
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll7|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+grid:
+###############
+#############D#
+#..#..#.......#
+#DD#D.#D....###
+#..#..#######D#
+#..#.####...#.#
+#.......###.#.#
+###..#......#.#
+....#######.#.#
+.####.......#.#
+.#.....###..#.#
+D#.#####.##.#D#
+##.#..##D.#.###
+...#D.##.##.#.#
+...#######....#
+............#.#
+###########.#.#
+#D....##..#.#.#
+###..###..#...#
+..####......#.#
+....##.#..#.#.#
+.......#..#####
+
+[map]
+name = Route 110 Trick House Puzzle 8
+region = Hoenn
+image = maps/em_Route110_TrickHousePuzzle8.png
+objects = sprites
+indoor = yes
+wild = 
+door = 0 22 warp|Route 110 Trick House Entrance|5|2|up
+door = 1 22 warp|Route 110 Trick House Entrance|5|2|up
+npc = 1 10 em_man_3 up 1 fight|Cooltrainer Vincent|Sableye 44, Medicham 44, Sharpedo 44|Not many Trainers have made it this far.|You've beaten the Pokemon League Champion? That's too much!
+npc = 4 2 em_man_3 right 1 fight|Cooltrainer Leroy|Mawile 46, Starmie 46|You've been slugging through the Trick House challenge, too.|Seeing someone like you should please the Trick Master.
+npc = 8 17 em_woman_5 left 1 fight|Cooltrainer Keira|Lairon 45, Manectric 45|Consider yourself lucky to be battling me!|It's a miracle that you beat me. You can brag about it.
+spot = 3 21 trickscroll|8
+door = 13 1 warp|Route 110 Trick House End|10|2|down
+block = 13 1 trick:scroll8|The door is locked. It needs a secret code...|(The Trick Master hides one on a scroll somewhere in this room.)
+grid:
+###############
+#############D#
+...#..........#
+ii###i#########
+iiii#i#iiiiiiii
+i#iiiiiiiiiiiii
+iiiiiii#iiiiii#
+iiiiiiiii#iiiii
+iiiiiiiiiiiii#i
+...##..#####i#.
+#.#######.#.i#.
+i#iiii##iiiiii.
+iiii#iiiii#iiii
+iiii#iiiii#iiii
+iiii#iiiii#iiii
+iiii#iiiii#iiii
+i#iiiiiiii#iiii
+iiiiiiii.i#iiii
+iiiiiiiiii#iiii
+ii###i#iii#iiii
+..###.#...#....
+..##..#........
 
 [map]
 name = Route 111
@@ -9051,6 +10362,15 @@ npc = 28 20 em_picnicker up 3 fight|Picnicker Charlotte|Nuzleaf 19|Me! I'm not j
 npc = 26 72 em_picnicker down 4 fight|Picnicker Angelina|Lombre 18, Marill 18|Have you made your Pokemon evolve very much?|Some Pokemon change so much when they evolve, it's startling!
 item = 31 19 Energy Powder 1
 npc = 28 16 em_fisherman down 3 fight|Fisherman Kai|Barboach 19|I landed a big one! A huge one, I tell you!|Okay! I'll just fish me a bigger one!
+img2 = maps/em_Route114_abw.png
+swap = 7 3 abw:114n
+swap = 7 4 abw:114n
+door = 7 4 warp|Terra Cave Entrance|8|17|up
+if = abw:114n
+swap = 6 45 abw:114s
+swap = 6 46 abw:114s
+door = 6 46 warp|Terra Cave Entrance|8|17|up
+if = abw:114s
 grid:
 ###############.#..##.###...............
 ################.####.##.###############
@@ -9264,6 +10584,15 @@ npc = 10 7 em_lass right 4 fight|Psychic Alix|Kadabra 26, Kirlia 26|Our eyes met
 npc = 28 62 em_lass left 4 fight|Psychic Marlene|Meditite 18, Spoink 18|You've disturbed my meditation... You'll be punished for it.|I was meditating with my Pokemon. But this place isn't very peaceful...
 item = 26 67 PP Up 1
 item = 12 14 Heal Powder 1
+img2 = maps/em_Route115_abw.png
+swap = 21 5 abw:115w
+swap = 21 6 abw:115w
+door = 21 6 warp|Terra Cave Entrance|8|17|up
+if = abw:115w
+swap = 36 9 abw:115e
+swap = 36 10 abw:115e
+door = 36 10 warp|Terra Cave Entrance|8|17|up
+if = abw:115e
 grid:
 w#######################################
 w#######################################
@@ -9396,6 +10725,15 @@ npc = 33 5 em_boy_2 down 2 fight|Rich Boy Dawson|Zigzagoon 8, Poochyena 8|When y
 item = 34 7 Potion 1
 npc = 36 13 em_youngster down 5 fight|Youngster Johnson|Shroomish 8, Lotad 8|It's a dead end up here. I'm bored, so can we battle?|Want to stay here and keep me company?
 npc = 42 13 em_hiker left 5 fight|Hiker Devan|Geodude 8, Geodude 8|We'll rock you hard!|I should try different Pokemon types, that's what I ought to do.
+img2 = maps/em_Route116_abw.png
+swap = 59 12 abw:116n
+swap = 59 13 abw:116n
+door = 59 13 warp|Terra Cave Entrance|8|17|up
+if = abw:116n
+swap = 79 5 abw:116s
+swap = 79 6 abw:116s
+door = 79 6 warp|Terra Cave Entrance|8|17|up
+if = abw:116s
 grid:
 ########################################.###########################################################
 ########################################.###########################################################
@@ -9573,6 +10911,15 @@ npc = 44 7 em_steven down 0 talk|...
 unless = gone:FLAG_HIDE_ROUTE_118_STEVEN
 item = 69 7 Hyper Potion 1
 npc = 7 7 em_youngster down 4 fight|Youngster Deandre|Zigzagoon 14, Aron 14, Electrike 14|Go, go, go! Pokemon 1, 2, and 3!|Isn't it cool that I have a Pokemon battle team?/You can copy me--I don't mind!
+img2 = maps/em_Route118_abw.png
+swap = 42 5 abw:118e
+swap = 42 6 abw:118e
+door = 42 6 warp|Terra Cave Entrance|8|17|up
+if = abw:118e
+swap = 9 5 abw:118w
+swap = 9 6 abw:118w
+door = 9 6 warp|Terra Cave Entrance|8|17|up
+if = abw:118w
 grid:
 #####>###..#########>.wwwww..<###########################...####################
 #####>###..#########>.wwwww..<###########################...####################
@@ -9890,13 +11237,13 @@ npc = 4 6 em_aqua_member_f right 1 trainer|Weather Institute|Ahahahaha!/You're g
 unless = gone:FLAG_HIDE_ROUTE_119_TEAM_AQUA
 npc = 0 6 em_man_4 right 0 talk|...
 unless = gone:FLAG_HIDE_WEATHER_INSTITUTE_2F_WORKERS
-npc = 18 6 em_scientist_1 down 0 talk|I track weather patterns over the Hoenn region.|Presently, a drought has been recorded in .|Could that mean, somewhere near ...
 npc = 1 7 em_man_4 right 0 talk|...
 unless = gone:FLAG_HIDE_WEATHER_INSTITUTE_2F_WORKERS
 npc = 16 6 em_aqua_member_m left 0 talk|...
 if = show:FLAG_HIDE_WEATHER_INSTITUTE_2F_AQUA_GRUNT_M
 npc = 19 6 em_aqua_member_f left 3 fight|Team Aqua Grunt|Zubat 27, Poochyena 27|Don't tell me you're looking for that weather Pokemon, too?/That's a no-no! We were here to get it first!|Humph, so what? What we want.../What we really want isn't here... Ihihihihi...
 unless = gone:FLAG_HIDE_ROUTE_119_TEAM_AQUA
+npc = 18 6 em_scientist_1 down 0 abweather
 grid:
 ####################
 #################D##
@@ -10502,6 +11849,33 @@ npc = 18 19 em_lass down 1 fight|Sr. and Jr. Kim & Iris|Swablu 32, Numel 35|Iris
 npc = 43 19 em_man_5 down 3 fight|Bird Keeper Presley|Tropius 33, Xatu 33|Why would a Birdkeeper like me come out to the sea?|I put a message in a bottle and put it out to sea./I'm sure that a girl Swimmer will find it!
 npc = 48 19 em_expert_m wander 3 fight|Expert Auron|Manectric 33, Machamp 33|Hey! Was it you throwing garbage into the sea?|I found an unsightly bottle bobbing in the waves earlier./It angers me that someone would pollute the sea!
 item = 46 17 Big Pearl 1
+img2 = maps/em_Route125_abw.png
+swap = 8 16 abw:125w
+swap = 9 16 abw:125w
+swap = 7 17 abw:125w
+swap = 8 17 abw:125w
+swap = 9 17 abw:125w
+swap = 10 17 abw:125w
+swap = 7 18 abw:125w
+swap = 8 18 abw:125w
+swap = 9 18 abw:125w
+swap = 10 18 abw:125w
+swap = 8 19 abw:125w
+swap = 9 19 abw:125w
+divespot = 8 17 9 18 abw:125w|Underwater Marine Cave|9|7
+swap = 53 18 abw:125e
+swap = 54 18 abw:125e
+swap = 52 19 abw:125e
+swap = 53 19 abw:125e
+swap = 54 19 abw:125e
+swap = 55 19 abw:125e
+swap = 52 20 abw:125e
+swap = 53 20 abw:125e
+swap = 54 20 abw:125e
+swap = 55 20 abw:125e
+swap = 53 21 abw:125e
+swap = 54 21 abw:125e
+divespot = 53 19 54 20 abw:125e|Underwater Marine Cave|9|7
 grid:
 wwwwwwwwwwwwwwwwww##ww##############wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwww##ww##############wwwww##wwwwwww##ww###ww##wwwwwwwwwwwwwwwwwww
@@ -10669,6 +12043,33 @@ npc = 63 63 em_black_belt down 3 fight|Black Belt Koji|Machoke 34|Run in your ba
 rematch = Machoke 37, Machoke 37 / Makuhita 39, Machoke 39, Machoke 39 / Hariyama 41, Machoke 41, Machoke 41 / Hariyama 43, Machamp 43, Machamp 43
 npc = 12 23 em_woman_5 right 2 fight|Cooltrainer Athena|Manectric 32, Linoone 32|We should have a slow and methodical match.|When I'm surrounded by the blue sea and sky, it feels as if time slows down.
 item = 13 20 Rare Candy 1
+img2 = maps/em_Route127_abw.png
+swap = 57 9 abw:127n
+swap = 58 9 abw:127n
+swap = 56 10 abw:127n
+swap = 57 10 abw:127n
+swap = 58 10 abw:127n
+swap = 59 10 abw:127n
+swap = 56 11 abw:127n
+swap = 57 11 abw:127n
+swap = 58 11 abw:127n
+swap = 59 11 abw:127n
+swap = 57 12 abw:127n
+swap = 58 12 abw:127n
+divespot = 57 10 58 11 abw:127n|Underwater Marine Cave|9|7
+swap = 61 30 abw:127s
+swap = 62 30 abw:127s
+swap = 60 31 abw:127s
+swap = 61 31 abw:127s
+swap = 62 31 abw:127s
+swap = 63 31 abw:127s
+swap = 60 32 abw:127s
+swap = 61 32 abw:127s
+swap = 62 32 abw:127s
+swap = 63 32 abw:127s
+swap = 61 33 abw:127s
+swap = 62 33 abw:127s
+divespot = 61 31 62 32 abw:127s|Underwater Marine Cave|9|7
 grid:
 #################.#.#.###wwwwwwwwww.########www#############wwwwwwwww#####.##.##
 #######################wwwwwwwwwwwwwwwwww##ww###############wwwwwwwww#####.##.##
@@ -10837,6 +12238,33 @@ npc = 10 14 em_swimmer_f down 2 fight|Triathlete Allison|Wingull 27, Staryu 33|I
 npc = 13 22 em_swimmer_f down 5 fight|Swimmer F Tisha|Chinchou 34|What's the hurry? Let's take it slow and easy.|Don't you hate making mistakes when you're in a rush?/That's why I try to take things slowly.
 npc = 35 9 em_swimmer_m down 2 fight|Swimmer M Reed|Spheal 33, Sharpedo 33|Say hey, hey! Let's get on with it!|There's nothing for a loser. Time for me to beat it home.
 npc = 13 27 em_swimmer_m up 5 fight|Swimmer M Clarence|Sharpedo 34|Surfing isn't as easy as it seems, isn't that right?|You have your sights on the Pokemon League? Keep at it!
+img2 = maps/em_Route129_abw.png
+swap = 16 14 abw:129w
+swap = 17 14 abw:129w
+swap = 15 15 abw:129w
+swap = 16 15 abw:129w
+swap = 17 15 abw:129w
+swap = 18 15 abw:129w
+swap = 15 16 abw:129w
+swap = 16 16 abw:129w
+swap = 17 16 abw:129w
+swap = 18 16 abw:129w
+swap = 16 17 abw:129w
+swap = 17 17 abw:129w
+divespot = 16 15 17 16 abw:129w|Underwater Marine Cave|9|7
+swap = 42 19 abw:129e
+swap = 43 19 abw:129e
+swap = 41 20 abw:129e
+swap = 42 20 abw:129e
+swap = 43 20 abw:129e
+swap = 44 20 abw:129e
+swap = 41 21 abw:129e
+swap = 42 21 abw:129e
+swap = 43 21 abw:129e
+swap = 44 21 abw:129e
+swap = 42 22 abw:129e
+swap = 43 22 abw:129e
+divespot = 42 20 43 21 abw:129e|Underwater Marine Cave|9|7
 grid:
 wwwwwwwwwwwwwwwwwwwwwwwwwwwww##wwwwwwwwwwwww##wwwwwwwww##ww##wwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwwwwwwwwwwwwww##wwwwwwwwwwwww#############ww##wwwwwwwwwwwwwwwwwww
@@ -13523,11 +14951,11 @@ wild =
 door = 6 10 warp|Slateport City|10|12|down
 door = 7 10 warp|Slateport City|10|12|down
 sign = 4 5 The Battle Swap rules are listed.
-npc = 6 5 em_scientist_1 down 0 talk|In recognition of your 3-win streak, we award you this prize.
 npc = 1 5 em_sailor wander 0 give|So, like, I couldn't find myself any Pokemon that were, like, for me./So, I figured, like, hey, I should file a complaint to the guy there?/And he wouldn't hear me out, like, hey! So, like, total bummer, man!/Hey, like, you! Zip it, you know? Just, you know, take this!|TM177 Spite|1|got:FLAG_RECEIVED_TM_TORMENT|That's, like, TM41, you know? Hey, it's Torment, you hearing me?/Like, it won't let the other guy use the same move twice in a row, see?/Hey, now, you listen here, like, I'm not laying a torment on you!
 npc = 3 7 em_man_3 up 0 talk|I don't really like Bug Pokemon, but maybe I'll try using some for a change of pace.|Who knows, I might even get to like them!
 npc = 1 8 em_girl_1 down 0 talk|You can battle all you want here even if you don't have any tough Pokemon.
 npc = 11 8 em_woman_2 left 0 talk|Wouldn't it be nice if they had more of a selection?
+npc = 6 5 em_scientist_1 down 0 frontier|13
 grid:
 #############
 ######.######
@@ -13556,7 +14984,7 @@ npc = 1 12 em_fat_man right 0 talk|I wanted to go with Capt. Stern on the ocean 
 unless = gone:FLAG_HIDE_SLATEPORT_CITY_HARBOR_PATRONS
 npc = 6 13 em_scientist_1 down 0 talk|Capt. Stern: Thanks, {PLAYER}! This will help our research a lot!
 if = show:FLAG_HIDE_SLATEPORT_CITY_HARBOR_CAPTAIN_STERN
-npc = 8 10 em_beauty down 0 sailto|Hello, are you here for the ferry? The S.S. Tidal sails to these ports. Where to?|done:Hoenn|Hello, are you here for the ferry? ...I'm sorry, the S.S. Tidal only takes Trainers who've conquered Hoenn's Pokemon League.|Lilycove City;Lilycove City Harbor;9;12;up|Battle Frontier;Battle Frontier West;20;67;up|Vermilion City (Kanto);Vermilion City;23;32;up|Olivine City (Johto);Olivine Port;4;6;up
+npc = 8 10 em_beauty down 0 sailto|Hello, are you here for the ferry? The S.S. Tidal sails to these ports. Where to?|done:Hoenn|Hello, are you here for the ferry? ...I'm sorry, the S.S. Tidal only takes Trainers who've conquered Hoenn's Pokemon League.|Lilycove City;Lilycove City Harbor;9;12;up|Battle Frontier;Battle Frontier West;20;67;up|Vermilion City (Kanto);Vermilion City;23;32;up|Olivine City (Johto);Olivine Port;4;6;up|Southern Island;Southern Island Exterior;13;22;up;item:Eon Ticket|Faraway Island;Faraway Island Entrance;13;38;up;item:Old Sea Map|Birth Island;Birth Island Harbor;8;4;up;item:Aurora Ticket|Navel Rock;Navel Rock Harbor;8;4;up;item:Mystic Ticket
 grid:
 ........................
 ........................
@@ -14327,6 +15755,88 @@ grid:
 #............#
 
 [map]
+name = Southern Island Exterior
+region = Hoenn
+image = maps/em_SouthernIsland_Exterior.png
+over = maps/em_SouthernIsland_Exterior_over.png
+objects = sprites
+wild = 
+fly = 15 20
+door = 14 5 warp|Southern Island Interior|13|18|down
+door = 15 5 warp|Southern Island Interior|14|18|down
+sign = 16 7 "Those whose memories fade seek to carve them in their hearts..."
+npc = 13 23 em_sailor up 0 sailto|Aye, mate. This island's a quiet one. Where shall we sail?||Ahoy!|Lilycove City;Lilycove City Harbor;9;12;up|Slateport City;Slateport City Harbor;9;12;up
+grid:
+###########################.####w
+################################w
+################################w
+################################w
+################################w
+##############DD################w
+###.##########..################w
+#############...################w
+#############....##......######ww
+#############.......###...#####ww
+#####.########.....#####..#####ww
+###############...######..#####ww
+########.###############...####ww
+w#######################..#####ww
+w#######################....###ww
+w##################.......####www
+w##############..........#####www
+w#########..........#########wwww
+wwww###########..##########wwwwww
+wwwwwww########..#####wwwwwwwwwww
+wwwwwwwwww#####..#wwwwwwwwwwwwwww
+wwwwwwwwww#......#wwwwwwwwwwwwwww
+wwwwwwwwww#......#wwwwwwwwwwwwwww
+wwwwwwwwww###..###wwwwwwwwwwwwwww
+wwwwwwwwww########wwwwwwwwwwwwwww
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+
+[map]
+name = Southern Island Interior
+region = Hoenn
+image = maps/em_SouthernIsland_Interior.png
+over = maps/em_SouthernIsland_Interior_over.png
+objects = sprites
+weather = shade
+wild = 
+door = 13 19 warp|Southern Island Exterior|14|5|down
+door = 14 19 warp|Southern Island Exterior|15|5|down
+sign = 13 11 "All dreams are but another reality. Never forget..."
+npc = 13 12 mon:Latias down 0 legend|Latias|Latias: ...!
+grid:
+###########################
+###########################
+###########################
+..########################.
+##..####################.##
+####..################.####
+######..##.......##..######
+##########.......##########
+########...........########
+########...........########
+########...........########
+########.....#.....########
+########...........########
+########...........########
+########...........########
+########...........########
+##########.......##########
+######..##.......##..######
+####.########..######..####
+##.####################..##
+.########################..
+###########################
+###########################
+###########################
+
+[map]
 name = Terra Cave End
 region = Hoenn
 image = maps/em_TerraCave_End.png
@@ -14379,6 +15889,10 @@ indoor = yes
 cycling = yes
 wild = 
 door = 14 1 warp|Terra Cave End|5|4|up
+door = 7 18 abwback
+door = 8 18 abwback
+door = 9 18 abwback
+door = 10 18 abwback
 grid:
 ####################
 ##############D#####
@@ -14409,6 +15923,8 @@ objects = sprites
 underwater = yes
 weather = bubbles
 wild = 
+emerge = Marine Cave Entrance|9|17
+door = 9 8 abwback
 grid:
 ####################
 ####################
@@ -15170,13 +16686,13 @@ wild =
 door = 6 10 warp|Verdanturf Town|3|7|down
 door = 7 10 warp|Verdanturf Town|3|7|down
 sign = 4 5 The Verdanturf Battle Tent rules are listed.
-npc = 6 5 em_expert_m down 0 talk|To achieve a 3-win streak...|The bonds that bind your heart with your Pokemon seem firm and true.
 npc = 0 5 em_girl_1 wander 0 give|My feelings toward my Pokemon... The attraction runs deep.../Oh, hi, you didn't see that, did you? Well, it doesn't matter./How would you like this TM for your Pokemon?|TM002 Charm|1|got:FLAG_RECEIVED_TM_ATTRACT|My feelings toward my Pokemon... I'm sure the attraction is mutual!/They battle exactly the way I want them to!
 npc = 9 7 em_boy_3 wander 0 talk|What kind of moves have you taught your Pokemon?|I think you would give yourself an advantage if they knew how to heal or protect themselves.
 npc = 1 8 em_boy_2 right 0 talk|If it doesn't like a certain move, a Pokemon will be reluctant to use it.|It doesn't matter how strong it is, either.|For example, a Pokemon with a Gentle nature probably won't enjoy hurting its opponents.|If it can't seem to live up to its potential, it's probably failing at using a disliked move against its will.
 npc = 12 6 em_scott left 0 talk|Scott: I visit here regularly in hopes of seeing tough Trainers in action in whatever the situation.
 if = show:FLAG_HIDE_VERDANTURF_TOWN_SCOTT
 npc = 2 8 em_little_boy left 0 talk|My big sister is gentle usually. But when she gets angry, she's really, really scary!|I bet a gentle Pokemon will be scary if it gets angry!
+npc = 6 5 em_expert_m down 0 frontier|14
 grid:
 #############
 ######.######
