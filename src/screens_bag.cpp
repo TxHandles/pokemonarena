@@ -227,6 +227,10 @@ void UpdateBag(Game& g) {
             else { PlaySfx(Sfx::MenuOk); EnterStoryHub(g); }
             return;
         }
+        if (r.item && (r.item->name == "Fame Checker" || r.item->name == "Teachy TV")) {   // FireRed's key items: their own screens
+            if (r.item->name == "Fame Checker") OpenFameChecker(g); else OpenTeachyTV(g);
+            return;
+        }
         if (r.item && (r.item->fx == ItemFx::Field || r.item->name == "Itemfinder")) {   // a Repel, the Escape Rope
             std::string why = WorldUseField(g, r.item->name);
             if (!why.empty()) { Toast(g, why); PlaySfx(Sfx::MenuBack); }

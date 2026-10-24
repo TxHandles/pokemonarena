@@ -663,12 +663,15 @@ int IndexIn(const std::vector<std::string>& v, const char* n) {
 TrainerLook CreatorLook(const Game& g) {   // a whole trainer, as drawn (no mixing parts or colours)
     TrainerLook l;
     const auto& people = LookPeople();
-    l.type = g.cr[0] ? 1 : 0;
-    l.head = l.body = people.empty() ? (l.type ? "leaf" : "player") : people[std::max(0, std::min((int)people.size() - 1, g.cr[1]))];
+    l.type = g.cr[0] & 1;
+    l.poses = std::max(0, std::min(2, g.cr[0] / 2));
+    l.head = l.body = people.empty() ? PoseBase(l.poses, l.type) : people[std::max(0, std::min((int)people.size() - 1, g.cr[1]))];
     return l;
 }
-// How many choices each row has: poses, trainer
-int CreatorCount(int row) { return row == 0 ? 2 : row == 1 ? std::max(1, (int)LookPeople().size()) : 1; }
+// How many choices each row has: poses (Red, Leaf, Ethan, Lyra, Brendan, May), trainer
+int CreatorCount(int row) { return row == 0 ? 6 : row == 1 ? std::max(1, (int)LookPeople().size()) : 1; }
+const char* kPoseName[6] = {"Red's (FireRed)", "Leaf's (FireRed)", "Ethan's (HeartGold)", "Lyra's (HeartGold)", "Brendan's (Emerald)", "May's (Emerald)"};
+bool IsPlayerPerson(const std::string& n) { for (int p = 0; p < 3; p++) for (int t = 0; t < 2; t++) if (n == PoseBase(p, t)) return true; return false; }
 std::string PrettyPerson(const std::string& n) {
     if (n == "player") return "Red";
     if (n == "leaf") return "Leaf";
@@ -694,7 +697,7 @@ void OpenCreator(Game& g, bool fromWorld) {
     for (int& v : g.cr) v = 0;
     TrainerLook l = ParseLook(g.profile.look);
     if (l.Empty()) { l.type = g.coop && g.coopActive == 1 ? 1 : 0; l.head = l.body = l.type ? "leaf" : "player"; }
-    g.cr[0] = l.type;
+    g.cr[0] = LookPoses(l) * 2 + l.type;
     g.cr[1] = IndexIn(LookPeople(), l.head.c_str());
     g.crSel = 0;
     g.crReturn = fromWorld;
@@ -732,13 +735,24 @@ void UpdateCreator(Game& g) {
         int n = CreatorCount(g.crSel);
         int& v = g.cr[g.crSel];
         v = (v + (in.left ? n - 1 : 1)) % n;
-        if (g.crSel == 0) {   // a boy or a girl: Red's or Leaf's poses (and Red or Leaf, if you were the other)
-            const auto& people = LookPeople();
-            if (!people.empty() && people[g.cr[1]] == (v ? "player" : "leaf")) g.cr[1] = IndexIn(people, v ? "leaf" : "player");
+        const auto& people = LookPeople();
+        if (g.crSel == 0) {   // whose poses (and that player, if you were one of the others)
+            if (!people.empty() && IsPlayerPerson(people[g.cr[1]])) g.cr[1] = IndexIn(people, PoseBase(v / 2, v & 1));
+        } else if (!people.empty()) {   // a trainer: their own game's poses
+            const std::string& n = people[g.cr[1]];
+            int game = n.rfind("hg_", 0) == 0 ? 1 : n.rfind("em_", 0) == 0 ? 2 : 0;
+            int type = g.cr[0] & 1;
+            for (int p = 0; p < 3; p++) for (int t = 0; t < 2; t++) if (n == PoseBase(p, t)) type = t;
+            g.cr[0] = game * 2 + type;
         }
         PlaySfx(Sfx::MenuMove);
     }
-    if (in.sort) { g.cr[1] = GetRandomValue(0, CreatorCount(1) - 1); PlaySfx(Sfx::MenuOk); }   // a random trainer
+    if (in.sort) {   // a random trainer (in their game's poses)
+        g.cr[1] = GetRandomValue(0, CreatorCount(1) - 1);
+        const std::string& n = LookPeople()[g.cr[1]];
+        g.cr[0] = (n.rfind("hg_", 0) == 0 ? 1 : n.rfind("em_", 0) == 0 ? 2 : 0) * 2 + (g.cr[0] & 1);
+        PlaySfx(Sfx::MenuOk);
+    }
     if (in.confirm && g.crSel == 2) { FinishCreator(g); return; }
     if (in.confirm) { g.crSel = 2; PlaySfx(Sfx::MenuMove); }
 }
@@ -772,7 +786,7 @@ void DrawCreator(const Game& g) {
     std::string who = PrettyPerson(l.head);
     const auto& people = LookPeople();
     std::string count = TextFormat("(%d of %d)", g.cr[1] + 1, (int)people.size());
-    const char* vals[2] = {g.cr[0] ? "Girl (Leaf's)" : "Boy (Red's)", who.c_str()};
+    const char* vals[2] = {kPoseName[std::max(0, std::min(5, g.cr[0]))], who.c_str()};
     for (int r = 0; r < 3; r++) {
         int y = 110 + r * 50;
         bool sel = g.crSel == r;
@@ -2587,6 +2601,12 @@ void DrawMyCreatures(const Game& g) {
         }
         GDrawText(TextFormat("Sheen %d   %d ribbon%s", m.cond[5], (int)m.ribbons.size(), m.ribbons.size() == 1 ? "" : "s"), 464, 320, 10, m.ribbons.empty() ? UI_DIM : UI_GOLD);
     }
+    if (!m.ribbons.empty()) {   // which ribbons (Contests, the Effort Ribbon, the Week Siblings')
+        std::string r;
+        for (const auto& x : m.ribbons) r += (r.empty() ? "" : ", ") + x;
+        if (r.size() > 84) r = r.substr(0, 81) + "...";
+        GDrawText(("Ribbons: " + r).c_str(), 212, 333, 10, UI_DIM);
+    }
     {   // IVs and EVs, stat by stat (the Judge's colours: gold for a perfect 31)
         static const char* kCol[6] = {"HP", "Atk", "Def", "SpA", "SpD", "Spe"};
         GDrawText("IV", 420, 146, 10, UI_DIM);
@@ -3031,6 +3051,7 @@ void ProcessStoryBattleEnd(Game& g) {
     if (storyBattle || g.tower || legend || g.owFight) stv = ActiveStage(g);
     const StageDef* st = storyBattle || g.tower || legend || g.owFight ? &stv : nullptr;
     if (g.owFight && g.won && !g.owFightFlag.empty()) (coop ? g.coopSave.owFlags : g.profile.owFlags).insert(g.owFightFlag);   // a route trainer: beaten for good
+    if (g.owFight && g.won && !g.owWinThen.empty()) (coop ? g.coopSave.owFlags : g.profile.owFlags).insert(g.owWinThen);   // ...and what happens next
     if (!g.ow.staticFlag.empty() && g.won) (coop ? g.coopSave.owFlags : g.profile.owFlags).insert(g.ow.staticFlag);   // a Pokemon met on the map: gone for good
     g.ow.staticFlag.clear();
     g.ow.staticLevel = 0;

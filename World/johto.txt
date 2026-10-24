@@ -226,6 +226,8 @@ spot = 46 5 headbutt|Route 29 (Headbutt)
 spot = 47 5 headbutt|Route 29 (Headbutt)
 spot = 70 1 headbutt|Route 29 (Headbutt)
 spot = 71 1 headbutt|Route 29 (Headbutt)
+npc = 53 21 woman_2 down 0 sibling|1
+if = weekday:2
 grid:
 ##################################################..############################################
 #################################################....###########################################
@@ -1084,6 +1086,8 @@ spot = 14 132 headbutt|Route 32 (Headbutt)
 spot = 14 133 headbutt|Route 32 (Headbutt)
 spot = 7 118 headbutt|Route 32 (Headbutt)
 spot = 7 119 headbutt|Route 32 (Headbutt)
+npc = 23 121 lass left 0 sibling|4
+if = weekday:5
 grid:
 ##############............######
 ##############............######
@@ -2098,6 +2102,8 @@ npc = 78 15 woman_2 down 0 talk|Get out of my way!|We, as Gym Trainers, will nev
 npc = 78 15 woman_2 down 0 talk|The Gym Leader, Whitney, went flying by saying, "I have got to|get a Radio Card!"
 fly = 64 49
 npc = 58 40 hg_silver down 3 trainer|Goldenrod Underground|... I've been looking for you./Show me what you've got!|...Humph. I'll beat you next time.
+door = 59 14 warp|Goldenrod Tunnel North Entrance|6|7|up
+door = 59 54 warp|Goldenrod Tunnel South Entrance|6|7|up
 grid:
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww................##..##....................##
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww................#....#....................##
@@ -2485,6 +2491,8 @@ spot = 54 23 headbutt|Route 36 (Headbutt)
 spot = 58 17 headbutt|Route 36 (Headbutt)
 spot = 59 17 headbutt|Route 36 (Headbutt)
 spot = 82 28 headbutt|Route 36 (Headbutt)
+npc = 79 20 boy up 0 sibling|3
+if = weekday:4
 grid:
 ..................##################............################################################
 ..................##################............################################################
@@ -2595,6 +2603,8 @@ spot = 5 3 headbutt|Route 37 (Headbutt)
 spot = 5 2 headbutt|Route 37 (Headbutt)
 spot = 24 15 headbutt|Route 37 (Headbutt)
 spot = 24 14 headbutt|Route 37 (Headbutt)
+npc = 20 8 little_boy down 0 sibling|6
+if = weekday:0
 grid:
 ######....######################
 ######....######################
@@ -3314,6 +3324,8 @@ npc = 15 49 swimmer_m_water up 5 fight|Swimmer Randall|Shellder 18, Wartortle 20
 npc = 12 53 swimmer_f_water right 5 fight|Swimmer Paula|Staryu 19, Shellder 19|No inflatable tube for me. I'm hanging on to a sea Pokemon!|While I float like this, the waves carry me along.
 npc = 14 17 woman_1 up 0 talk|...
 npc = 28 15 gentleman up 0 talk|Hey! Great waves here!|No one can resist such good waves!
+npc = 14 17 woman_1 up 0 sibling|0
+if = weekday:1
 grid:
 ###########......###############
 ###########......##########.....
@@ -4239,6 +4251,8 @@ spot = 60 3 headbutt|Lake of Rage (Headbutt)
 spot = 61 3 headbutt|Lake of Rage (Headbutt)
 spot = 62 3 headbutt|Lake of Rage (Headbutt)
 spot = 63 3 headbutt|Lake of Rage (Headbutt)
+npc = 18 15 man down 0 sibling|2
+if = weekday:3
 grid:
 ######################################################################################..........
 ######################################################################################..........
@@ -4527,6 +4541,8 @@ npc = 34 35 youngster down 0 talk|...
 fly = 34 49
 npc = 33 6 old_man_1 left 0 talk|The Dragon's Den is where the dragon masters of Blackthorn train.|Clair is in there now. Go on in.
 block = 32 5 badge:Rising|No. Only chosen Trainers may train here. Please leave.
+npc = 34 35 youngster down 0 sibling|5
+if = weekday:6
 grid:
 ..............................####..............................
 ..............................####..............................
@@ -10750,7 +10766,7 @@ indoor = yes
 door = 3 7 warp|Goldenrod City|64|15|down
 door = 4 8 warp|Goldenrod City|64|15|down
 door = 5 7 warp|Goldenrod City|64|15|down
-npc = 3 3 old_man_1 right 0 talk|Hello, hello! I am the official Name Rater!|Want me to rate the nicknames of your Pokemon?|Ah, good. I see. Do come visit again if you change|your mind.
+npc = 3 3 old_man_1 right 0 namerater|Hello, hello! I am the official Name Rater!
 grid:
 ###########
 ###########
@@ -11028,8 +11044,8 @@ indoor = yes
 door = 3 7 warp|Route 39|9|5|down
 door = 4 8 warp|Route 39|9|5|down
 door = 5 7 warp|Route 39|9|5|down
-npc = 5 2 gentleman down 0 talk|My MILTANK ain't givin' me milk n'more.|This here farm's got famous milk.|Most everyone wants a drink. It'll give me lots o' milk if'n I feed it|lots o' Berries, I reckon.
-npc = 2 4 woman_3 wander 0 talk|Our milk even goes out to Kanto.|So if our own MILTANK won't give us any milk, we're in trouble.
+npc = 5 2 gentleman down 0 moomoofarmer
+npc = 2 4 woman_3 wander 0 moomoowife
 grid:
 ###########
 ###########
@@ -11051,13 +11067,13 @@ indoor = yes
 door = 3 7 warp|Route 39|4|5|down
 door = 4 8 warp|Route 39|4|5|down
 door = 5 7 warp|Route 39|4|5|down
-npc = 7 4 little_girl left 0 talk|Moomoo is sick...|She needs lots of Oran Berries.
-npc = 1 2 mon:Miltank up 0 talk|MILTANK: ...Moo...|Its cry is weak...
-npc = 2 5 little_girl wander 0 talk|Moomoo is sick...|She needs lots of Oran Berries.
 npc = 9 4 mon:Miltank down 0 talk|MILTANK: Mooo!|It's brimming with energy.
 npc = 1 5 mon:Miltank down 0 talk|MILTANK: Mooo!|It's brimming with energy.
 npc = 8 4 mon:Miltank down 0 talk|MILTANK: Mooo!|It's brimming with energy.
 npc = 3 5 mon:Miltank down 0 talk|MILTANK: Mooo!|It's brimming with energy.
+npc = 1 2 mon:Miltank up 0 moomoo
+npc = 7 4 little_girl left 0 moomoogirl
+npc = 2 5 little_girl wander 0 moomoogirl
 grid:
 ###########
 ###########
@@ -11583,8 +11599,8 @@ indoor = yes
 door = 3 7 warp|Blackthorn City|44|41|down
 door = 4 8 warp|Blackthorn City|44|41|down
 door = 5 7 warp|Blackthorn City|44|41|down
-npc = 5 3 woman_1 right 0 talk|Oh? Your ...|It has worked stupendously hard, hasn't it?|As its reward, please give it the Effort Ribbon.|received the Effort Ribbon.
 npc = 1 2 lass up 0 trade|DORIS
+npc = 5 3 woman_1 right 0 effortribbon
 grid:
 ###########
 ###########
@@ -12437,8 +12453,9 @@ sign = 14 0 Customize Your Pokemon|5F TM Corner
 npc = 8 5 clerk up 0 shop|Welcome! How may I help you?
 npc = 3 6 lass wander 0 talk|On Sundays, a lady comes to check out Pokemon.|She even gives away TMs!
 npc = 9 1 little_girl down 0 talk|Mystery Gift.|With just a little beep, you get a gift.
-npc = 7 5 union_room_receptionist up 0 talk|Hello. Oh, your Pokemon...
 npc = 13 5 fat_man wander 0 trade|MUSCLE
+npc = 7 5 union_room_receptionist up 0 sundaylady
+if = weekday:0
 grid:
 ##.#########.##.
 ................
@@ -12458,12 +12475,12 @@ indoor = yes
 door = 15 0 warp|Goldenrod Dept. Store 5F|15|0|down
 door = 13 0 warp|Goldenrod Dept. Store Roof|13|1|down
 sign = 14 0 Take a Break from Shopping!|6F Tranquil Square
-sign = 8 1 A vending machine! Here's the menu.
-sign = 9 1 A vending machine! Here's the menu.
-sign = 10 1 A vending machine! Here's the menu.
-sign = 11 1 A vending machine! Here's the menu.
 npc = 10 2 lass left 0 talk|Do you listen to Lucky Channel?|If you want to win, trade Pokemon|with as many people as possible to|get different ID numbers.
 npc = 8 2 poke_maniac up 0 talk|If you're tired, try the vending machine's drinks.|Your Pokemon will love them too.
+spot = 8 1 vending
+spot = 9 1 vending
+spot = 10 1 vending
+spot = 11 1 vending
 grid:
 ##.##########.#.
 ........####....

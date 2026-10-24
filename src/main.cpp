@@ -87,6 +87,9 @@ void UpdateScreenOf(Game& g, float dt) {
         case Screen::VoltorbFlip: UpdateVoltorbFlip(g); break;
         case Screen::NpcTrade: UpdateNpcTrade(g, dt); break;
         case Screen::EasyChat: UpdateEasyChat(g); break;
+        case Screen::Roulette: UpdateRoulette(g, dt); break;
+        case Screen::FameChecker: UpdateFameChecker(g); break;
+        case Screen::TeachyTV: UpdateTeachyTV(g); break;
     }
 }
 void DrawScreenOf(const Game& g) {
@@ -142,6 +145,9 @@ void DrawScreenOf(const Game& g) {
         case Screen::VoltorbFlip: DrawVoltorbFlip(g); break;
         case Screen::NpcTrade: DrawNpcTrade(g); break;
         case Screen::EasyChat: DrawEasyChat(g); break;
+        case Screen::Roulette: DrawRoulette(g); break;
+        case Screen::FameChecker: DrawFameChecker(g); break;
+        case Screen::TeachyTV: DrawTeachyTV(g); break;
     }
     if (g.encounterT > 0) DrawEncounterWipe(g);
 }

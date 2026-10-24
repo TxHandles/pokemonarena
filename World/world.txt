@@ -473,7 +473,7 @@ door = 10 2 warp|Celadon City Department Store 5F|9|2|up
 sign = 4 1 Express yourself with gifts! 4F: Wise Man Gifts|Evolution Special! Element Stones on sale now!
 npc = 6 6 man down 0 talk|I'm getting a present for my girlfriend.|I guess a Poke Doll will be it. It's the popular thing.
 npc = 10 11 youngster wander 0 talk|I heard something useful.|If a wild Pokemon appears, you can distract it with a Poke Doll.|You can run away while the wild Pokemon is distracted.
-npc = 3 13 clerk up 0 shop|Hi there! May I help you?
+npc = 3 13 clerk up 0 buy|Hi there! May I help you?|Poke Doll:1000,shop
 grid:
 #############
 ######D######
@@ -548,11 +548,11 @@ indoor = yes
 wild = 
 door = 16 6 warp|Celadon City Department Store 5F|3|2|up
 sign = 14 3 Rooftop Square:|Vending Machines
-sign = 10 3 Not thirsty!
-sign = 11 3 Not thirsty!
-sign = 12 3 Not thirsty!
 npc = 9 5 cooltrainer_m left 0 talk|My sister is a Trainer, believe it or not.|But, she's so immature, she drives me nuts!
-npc = 5 4 little_girl wander 0 talk|I'm thirsty! I want something to drink!
+spot = 10 3 vending
+spot = 11 3 vending
+spot = 12 3 vending
+npc = 5 4 little_girl wander 0 thirstygirl
 grid:
 ###################
 ###################
@@ -985,6 +985,7 @@ unless = gone:FLAG_HIDE_CERULEAN_RIVAL
 npc = 12 30 woman_1 up 0 talk|I want a bright red bicycle.|I'll keep it at home, so it won't get dirty.
 npc = 1 13 cooltrainer_m down 0 talk|This is Cerulean Cave.|Horribly strong Pokemon live inside there.|It takes a very special Trainer to be allowed inside there.|You'd have to be strong enough to become the Pokemon League Champion for starters.|And, you would have to have made a great achievement.
 unless = gone:FLAG_HIDE_CERULEAN_CAVE_GUARD
+auto = stage:Cerulean City&!item:Fame Checker|famegift
 grid:
 ################wwwww#...#...#wwwwwwwwwwwwwwwwww
 ################wwwww#...#vvv#wwwwwwwwwwwwwwwwww
@@ -1810,10 +1811,10 @@ indoor = yes
 weather = fog
 wild = Lost Cave
 door = 5 9 warp|Lost Cave Room 1|5|1|up
-npc = 5 5 woman_2 up 0 talk|...
-unless = gone:FLAG_HIDE_LOST_CAVE_SELPHY
 item = 5 2 Silk Scarf 1
 unless = gone:FLAG_HIDE_FIVE_ISLAND_LOST_CAVE_ROOM10_SILK_SCARF
+npc = 5 5 woman_2 up 0 selphycave
+unless = selphy:found
 grid:
 ###########
 ###########
@@ -2299,8 +2300,6 @@ npc = 23 9 woman_2 wander 1 fight|Lady Jacki|Hoppip 48, Skiploom 50|I am visitin
 npc = 33 8 woman_2 down 1 fight|Lady Gillian|Mareep 47, Mareep 48, Flaaffy 49|I'm thinking of having a pool made specially for Pokemon.|A pool would be nice, but I must say, a sun-room may be sublime.
 npc = 33 3 youngster down 1 fight|Youngster Destin|Raticate 48, Pidgeotto 48|I'm a good runner. I'm really fast!|When I run with the wind, it feels like I could fly!
 npc = 56 7 swimmer_m_water down 1 fight|Swimmer M Toby|Poliwhirl 48, Tentacool 48, Tentacruel 48|I say, this marine life here at this resort agrees with me.|Getting so serious over this... How nonsensical.
-npc = 39 9 woman_2 down 0 talk|...
-unless = gone:FLAG_HIDE_RESORT_GORGEOUS_SELPHY
 grid:
 wwwwww##wwwwwwwwwwww####wwwwww####wwwwwwww####wwwwwwwwwwww##wwwwwwwwwwww
 wwwwww##wwwwwwwwwwww############################wwwwwwwwww##www##wwwwwww
@@ -2333,10 +2332,10 @@ wild =
 door = 4 8 warp|Resort Gorgeous|39|8|down
 sign = 9 1 Pokemon Journal|Special Feature: Cinnabar Gym Leader Blaine!|Blaine is said to remove his dark shades only when he is thinking up new quiz questions.
 sign = 8 1 Pokemon Journal|Special Feature: Cinnabar Gym Leader Blaine!|Blaine is said to remove his dark shades only when he is thinking up new quiz questions.
-npc = 4 4 woman_2 right 0 talk|Selphy: I wish you the best of luck.
-unless = gone:FLAG_HIDE_RESORT_GORGEOUS_INSIDE_SELPHY
+npc = 4 4 woman_2 right 0 selphy
+if = selphy:found
 npc = 6 2 gentleman down 0 talk|Butler: The smile of Lady Selphy has the brilliance of the sun.|Please, I beg you to bring joy to Lady Selphy.
-unless = gone:FLAG_HIDE_SELPHYS_BUTLER
+if = selphy:found
 grid:
 ###########
 ###########
@@ -3373,7 +3372,7 @@ wild =
 door = 3 7 warp|Lavender Town|10|16|down
 door = 4 8 warp|Lavender Town|10|16|down
 door = 5 7 warp|Lavender Town|10|16|down
-npc = 4 4 gentleman down 0 talk|Hello, hello! I am the official Name Rater!|Want me to rate the nicknames of your Pokemon?
+npc = 4 4 gentleman down 0 namerater|Hello, hello! I am the official Name Rater!
 grid:
 ###########
 ###########
@@ -9978,7 +9977,7 @@ item = 2 1 Nugget 1 hidden
 npc = 6 8 mon:Doduo down 0 talk|Doduo: Giiih!|Pretty Mirror Look At Me, See How Pretty I Can Be?
 npc = 4 6 mon:Pikachu down 0 talk|This is a rare Pokemon! Huh? It's only a doll!
 npc = 7 2 mon:Jigglypuff down 0 talk|This is a rare Pokemon! Huh? It's only a doll!
-npc = 9 6 little_girl wander 0 talk|{PLAYER}: Hi! Do you like Pokemon?|{PLAYER}: Uh, no, I just asked you.|{PLAYER}: Huh? You're strange!|Copycat: Hmm? Quit mimicking? But, that's my favorite hobby!
+npc = 9 6 little_girl wander 0 copycat
 grid:
 ############
 ############
@@ -14152,6 +14151,7 @@ unless = gone:FLAG_HIDE_VIRIDIAN_CITY_POTION
 block = 22 11 parcel_done|Old man: You can't go through here!/This is private property!|Girl: Oh, Grandpa! Don't be so mean! He hasn't had his coffee yet.
 block = 36 11 badge:Boulder&badge:Cascade&badge:Thunder&badge:Rainbow&badge:Soul&badge:Marsh&badge:Volcano|Viridian Gym's doors are locked...
 npc = 8 26 fat_man down 0 tutor|Dream Eater|Yawn! I must have dozed off in the sun.|I had this weird dream about a Drowzee eating my dream.|And... I learned how to eat dreams...|Oogh, this is too spooky!|Let me teach it to a Pokemon so I can forget about it!
+npc = 21 6 old_man_1 down 0 teachyman
 grid:
 ###################.....########################
 ###################....#########################

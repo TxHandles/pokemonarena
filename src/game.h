@@ -16,7 +16,7 @@ enum class Screen {
     RosterPick, Select, Battle, Results,
     StoryResults, Evolve, LearnMove, Reward, Catch, Heal, Map, Shop, DoublesMenu,
     CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame, Legends, LegendCatch, Bag,
-    RegionChoose, World, Creator, Nickname, Hatch, Daycare, Contest, Safari, UnownPuzzle, VoltorbFlip, NpcTrade, EasyChat
+    RegionChoose, World, Creator, Nickname, Hatch, Daycare, Contest, Safari, UnownPuzzle, VoltorbFlip, NpcTrade, EasyChat, Roulette, FameChecker, TeachyTV
 };
 
 // Online ready kinds (what a player picked in the co-op hub): 1 story, 2 training, 3+N a rematch
@@ -125,6 +125,7 @@ struct Game {
     bool owFight = false;        // a route trainer met on the map (not a story battle): owStage, and the flag a win sets
     StageDef owStage;
     std::string owFightFlag;
+    std::string owWinThen;     // a route battle won: this flag is set ("winthen|walker|action": the world does the action next)
     std::vector<CombatantSpec> raidTeam1;   // solo raid: Team 1, picked first (the team screen then picks Team 2)
     std::vector<int> raidTaken;             // solo raid: roster entries already on Team 1
     std::string catchBall;     // the ball just thrown (its colours in the catch animation)
@@ -458,6 +459,17 @@ void UpdateNpcTrade(Game& g, float dt);  void DrawNpcTrade(const Game& g);
 void OpenEasyChat(Game& g, int who, int slots, const std::string& title, const std::string& then, const std::vector<std::string>& start = {});
 void UpdateEasyChat(Game& g);  void DrawEasyChat(const Game& g);
 std::string EasyChatWordOf(const std::string& group, uint32_t seed);
+// Emerald's Mauville roulette (screens_roulette.cpp): table 0 the 1-coin table, 1 the 3-coin one; back to the map after
+void OpenRoulette(Game& g, int table);
+void UpdateRoulette(Game& g, float dt);  void DrawRoulette(const Game& g);
+// FireRed's Fame Checker and Teachy TV (screens_fame.cpp), from the Bag; World/fame.txt says where each note is learned
+void OpenFameChecker(Game& g);
+void UpdateFameChecker(Game& g);  void DrawFameChecker(const Game& g);
+void OpenTeachyTV(Game& g);
+void UpdateTeachyTV(Game& g);     void DrawTeachyTV(const Game& g);
+std::vector<std::string> FameNotesAt(const std::string& map, int x, int y);   // "KEY:n" learned there (talking / reading)
+std::vector<std::string> FameNotesOnEnter(const std::string& map);         // ...arriving there
+std::string FamePersonName(const std::string& key);
 void OpenVoltorbFlip(Game& g);       // HeartGold's Goldenrod Game Corner (screens_voltorb.cpp)
 void UpdateVoltorbFlip(Game& g);     void DrawVoltorbFlip(const Game& g);
 void OpenSlotsFromWorld(Game& g);    // a slot machine on the map (screens_slots.cpp): back to the map after   // the Safari Zone / the Bug-Catching Contest

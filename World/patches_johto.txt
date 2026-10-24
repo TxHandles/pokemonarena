@@ -472,3 +472,70 @@ npc = 14 5 beauty right 0 buena
 [patch Radio Tower 1F]
 drop npc 8 6
 npc = 8 6 gentleman up 0 lottery|goldenrod
+
+# ------------------------------------------------------------------ round 6: HeartGold's side activities
+# The Week Siblings: one on each day of the week (an item each; ribbons once you've met all seven)
+[patch Route 40]
+npc = 14 17 woman_1 up 0 sibling|0
+if = weekday:1
+[patch Route 29]
+npc = 53 21 woman_2 down 0 sibling|1
+if = weekday:2
+[patch Lake of Rage]
+npc = 18 15 man down 0 sibling|2
+if = weekday:3
+[patch Route 36]
+npc = 79 20 boy up 0 sibling|3
+if = weekday:4
+[patch Route 32]
+npc = 23 121 lass left 0 sibling|4
+if = weekday:5
+[patch Blackthorn City]
+npc = 34 35 youngster down 0 sibling|5
+if = weekday:6
+[patch Route 37]
+npc = 20 8 little_boy down 0 sibling|6
+if = weekday:0
+
+# Moomoo Farm: the sick Miltank and her Oran Berries
+[patch Route 39 MooMoo Farm Stable]
+drop npc 1 2
+npc = 1 2 mon:Miltank up 0 moomoo
+drop npc 7 4
+npc = 7 4 little_girl left 0 moomoogirl
+drop npc 2 5
+npc = 2 5 little_girl wander 0 moomoogirl
+[patch Route 39 MooMoo Farm House]
+drop npc 5 2
+npc = 5 2 gentleman down 0 moomoofarmer
+drop npc 2 4
+npc = 2 4 woman_3 wander 0 moomoowife
+
+# The Goldenrod Tunnel (World/extras.txt): the Haircut Brothers and the herb shop
+[patch Goldenrod City]
+door = 59 14 warp|Goldenrod Tunnel North Entrance|6|7|up
+door = 59 54 warp|Goldenrod Tunnel South Entrance|6|7|up
+
+[patch Goldenrod City Name Rater House]
+drop npc 3 3
+npc = 3 3 old_man_1 right 0 namerater|Hello, hello! I am the official Name Rater!
+
+[patch Goldenrod Dept. Store 6F]
+drop sign 8 1
+drop sign 9 1
+drop sign 10 1
+drop sign 11 1
+spot = 8 1 vending
+spot = 9 1 vending
+spot = 10 1 vending
+spot = 11 1 vending
+
+# Sundays: the lady who looks at your Pokemon (Return for one that loves you, Frustration for one that doesn't)
+[patch Goldenrod Dept. Store 5F]
+drop npc 7 5
+npc = 7 5 union_room_receptionist up 0 sundaylady
+if = weekday:0
+
+[patch Blackthorn City East House]
+drop npc 5 3
+npc = 5 3 woman_1 right 0 effortribbon

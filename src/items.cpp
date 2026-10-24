@@ -226,10 +226,11 @@ std::vector<ItemDef> Build() {
     val("Big Mushroom", 5000, "A big, rare mushroom. Sell it from the Bag for 2500 coins.");
     val("Tiny Mushroom", 500, "A small, rare mushroom. Sell it from the Bag for 250 coins.");
     val("Heart Scale", 200, "A pretty, heart-shaped scale. Sell it from the Bag for 100 coins.");
-    val("Red Shard", 400, "A small red shard from an ancient item. A man on Route 124 trades a Fire Stone for 4... or sell it for 200.");
-    val("Blue Shard", 400, "A small blue shard from an ancient item. A man on Route 124 trades a Water Stone for 4... or sell it for 200.");
-    val("Yellow Shard", 400, "A small yellow shard from an ancient item. A man on Route 124 trades a Thunder Stone for 4... or sell it for 200.");
-    val("Green Shard", 400, "A small green shard from an ancient item. A man on Route 124 trades a Leaf Stone for 4... or sell it for 200.");
+    val("Poke Doll", 1000, "A doll that attracts Pokemon. Saffron's Copycat would love one. Sold at the Celadon Dept. Store's 4F counter.");
+    val("Red Shard", 400, "A small red shard from an ancient item. A man on Route 124 trades a Fire Stone for one... or sell it for 200.");
+    val("Blue Shard", 400, "A small blue shard from an ancient item. A man on Route 124 trades a Water Stone for one... or sell it for 200.");
+    val("Yellow Shard", 400, "A small yellow shard from an ancient item. A man on Route 124 trades a Thunder Stone for one... or sell it for 200.");
+    val("Green Shard", 400, "A small green shard from an ancient item. A man on Route 124 trades a Leaf Stone for one... or sell it for 200.");
     val("Shoal Salt", 40, "Pure salt from deep inside Shoal Cave. Sell it for 20... or bring 4 with 4 Shoal Shells to the old man there.");
     val("Shoal Shell", 40, "A pretty seashell from Shoal Cave. Sell it for 20... or bring 4 with 4 Shoal Salts to the old man there.");
     val("PP Up", 9800, "A drink that powers up a move. Its moves don't run out here, so sell it from the Bag for 4900 coins.");
@@ -421,7 +422,8 @@ std::vector<ItemDef> Build() {
     add("Aurora Ticket", ItemFx::KeyItem, 0, 0, 99, "A ticket for a ferry to a distant island where a strange triangle stands.");
     add("Mystic Ticket", ItemFx::KeyItem, 0, 0, 99, "A ticket for a ferry to Navel Rock, where two legendary Pokemon are said to rest.");
     add("S.S. Tidal Ticket", ItemFx::KeyItem, 0, 0, 99, "A ticket for the S.S. Tidal, sailing between Slateport and Lilycove (and on to the Battle Frontier).");
-    add("Teachy TV", ItemFx::KeyItem, 0, 0, 99, "A TV that shows handy tips for new trainers.");
+    add("Teachy TV", ItemFx::KeyItem, 0, 0, 99, "A TV set tuned to an advice program with useful tips for novice Trainers. Watch it from the Bag.");
+    add("Fame Checker", ItemFx::KeyItem, 0, 0, 99, "A device for recalling what you've heard about famous people of Kanto - their sayings, rumors and more. Open it from the Bag.");
     add("Helix Fossil", ItemFx::KeyItem, 0, 0, 99, "A fossil of an ancient spiral-shelled Pokemon. The Cinnabar Lab can revive it.", Type::Rock);
     add("Dome Fossil", ItemFx::KeyItem, 0, 0, 99, "A fossil of an ancient Pokemon with a domed shell. The Cinnabar Lab can revive it.", Type::Rock);
     add("Old Amber", ItemFx::KeyItem, 0, 0, 99, "A piece of amber holding the genes of an ancient flying Pokemon. The Cinnabar Lab can revive it.", Type::Rock);

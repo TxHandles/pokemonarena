@@ -456,6 +456,37 @@ night, the weather and every system from Kanto and Johto work the same here.
 - The trainer creator now offers whole trainers only (no mixing heads, outfits and colours); older mixed looks
   become the trainer whose head they had.
 
+### Name Raters, Fame Checker, Week Siblings, roulette and more
+
+- **Name Raters** in Lavender Town, Goldenrod City and Slateport City rename your Pokemon (not traded ones - "a truly
+  impeccable name!"). **Vending machines** on the Celadon and Lilycove rooftops and Goldenrod's 6F sell Fresh Water,
+  Soda Pop and Lemonade (Emerald and HeartGold: one can in 64, a free extra); Celadon's thirsty girl swaps a drink for a
+  TM (Light Screen, Reflect, and Misty Terrain for FireRed's Safeguard, which isn't a Scarlet / Violet TM).
+- **FireRed's key items**: Blue hands you the **Fame Checker** in Cerulean after your battle - it notes what people
+  and signs say about Kanto's sixteen famous people (`tools/fame_checker.py` follows every `famechecker` script in
+  pret/pokefirered back to who says it, World/fame.txt); open it from the Bag. Viridian's old man (finally had his
+  coffee) gives you the **Teachy TV**: six short episodes on this game's battles. The **Copycat** in Saffron teaches
+  Mimic for a Poke Doll (Celadon 4F). **Lady Selphy** is lost in the Lost Cave: battle her, take her home, then show
+  her the Pokemon she wishes to see for her butler's thanks (a Luxury Ball, sometimes a Nugget or Rare Candy).
+- **HeartGold**: the seven **Week Siblings** (Monica on Route 40 on Mondays ... Sunny on Route 37 on Sundays, by the
+  real weekday) each give an item; meet all seven and they give your lead Pokemon a ribbon, one a week. **Moomoo
+  Farm**: feed the sick Miltank seven Oran Berries; then the farmer sells Moomoo Milk and his wife teaches Natural
+  Gift. The **Goldenrod Tunnel** (World/extras.txt) is open: the Haircut Brothers (the older one Tue / Thu / Sat, the
+  younger Sun / Wed / Fri; one cut a day makes a Pokemon friendlier) and the herb shop. On Sundays a lady on the Dept.
+  Store's 5F teaches Return to a Pokemon that loves you, or Frustration to one that doesn't. Blackthorn's woman
+  gives the **Effort Ribbon**, as does Slateport's (all 510 EVs). Ribbons now show by name in the summary.
+- **Emerald**: **Feebas** only bites on six of Route 119's water tiles, and they move whenever Dewford's trendy saying
+  changes. The Weather Institute's scientist gives you **Castform** (holding Mystic Water) after Shelly. The **Berry
+  Master** gives two berries a day and his wife one for a good saying (Easy Chat; "Great Battle", "Challenge Contest",
+  "Overwhelming Latias", "Cool Latios" and "Super Hustle" earn her rare ones). The Diving Treasure Hunter trades an
+  evolution stone for each Shard. Mauville's **roulette** tables (1 or 3 coins a ball, Emerald's x3 / x4 / x12 bets).
+  The **Winstrates** battle you four in a row, no healing in between.
+- **Bike, surf and fishing poses**: Ethan and Lyra (from pret/pokeheartgold's overworld textures) and Brendan and May
+  join Red and Leaf (`tools/player_poses.py`); a trainer from HeartGold or Emerald rides and surfs in their game's
+  poses (the creator's first row picks any of the six). Ethan and Lyra are trainers you can walk as, too.
+- Johto's tall grass over your legs is drawn from the middle of the patch (at a patch's edge the 3D-rendered picture
+  showed the path through you).
+
 ### Kanto extras
 
 - The **Safari Zone** (Fuchsia City; Hoenn's is past Route 121): 500 coins for 30 Safari Balls and 600 steps. Wild
@@ -780,6 +811,12 @@ reacts fast and aims perfectly: Easy wins ~9%, Normal ~31%, Hard ~57%.
   and the doors, people, lines and trainers come from **pret/pokeheartgold** (`tools/hgss_world.py`).
 - HeartGold / SoulSilver trainer overworld sprites: "Trainers (Overworld)" ripped by **Dragoon** for The Spriters
   Resource (`tools/hgss_sprites.py`).
+- Ethan's and Lyra's walking, Bicycle, surfing and fishing sprites: **pret/pokeheartgold**'s overworld textures
+  (`files/data/mmodel`); Brendan's and May's Mach Bike, surfing and fishing sprites: **pret/pokeemerald**
+  (`graphics/object_events/pics/people`) - `tools/player_poses.py`.
+- The Fame Checker's notes and the Lost Cave / Copycat / Celadon rooftop lines: **pret/pokefirered**; the Week
+  Siblings, Moomoo Farm, Haircut Brothers and Sunday lady: **pret/pokeheartgold**; the Berry Master, Treasure Hunter,
+  Winstrates, roulette rules and Feebas tiles: **pret/pokeemerald**.
 - Hoenn's walked maps, people, lines, trainers, Contests and berries: **pret/pokeemerald** (and **pret/pokefirered**
   for the Sevii story). Hoenn's sound effects: Pokemon Emerald's (`tools/emerald_sounds.py` picks 29 by their number
   in pokeemerald's songs.h into `Sounds/Hoenn/`).

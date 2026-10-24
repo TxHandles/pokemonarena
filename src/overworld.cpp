@@ -72,6 +72,7 @@ struct OwNpc {
     std::string needItem, needText, usedText;   // "need = Item|text without it|text using it": Snorlax and the Poke Flute
     std::vector<std::string> rematch; // "rematch = team / team": Emerald's stronger teams for Match Call's rematches (tier 1, 2, ...)
     std::string opts;                 // "fightopts = scale double": levelled to your party / a double battle (the Trainer Tower)
+    std::string winThen;              // "won = action": done once you've beaten them (the Winstrates come out one after another)
 };
 struct OwLink { int map = -1; int off = 0; std::string msg; };
 struct OwMap {
@@ -87,6 +88,7 @@ struct OwMap {
     double used = -1;                 // pictures are loaded when needed (the last time it was drawn)
     OwLink link[4];                   // down (south), up (north), left (west), right (east)
     struct Act { int x, y; std::string act; std::string ifF, unlessF; };
+    std::vector<std::pair<std::string, std::string>> autos;   // "auto = condition|action": done as soon as the condition holds here
     std::vector<Act> doors, spots;
     std::vector<Act> steps;           // "step = x y action": done when you step onto that square (the Trick House's buttons)
     std::string img2;                 // "img2 = picture": a second picture of the map (the Trick House: its buttons pressed)...
@@ -134,6 +136,7 @@ struct OwMap {
     int region = 0;                   // "region = Johto": whose story / levels it belongs to (route trainers scale with it)
     int imgOffY = 0;                  // "imgy = n": the picture starts this far above the map's top row
     std::string hts;                  // "heights:" one char per tile, 48 + lift / 4 (how far up the screen people stand)
+    mutable int grassSample = -2;     // rendered maps: a tall-grass square in the middle of a patch (its picture goes over people)
     bool hasPos = false;              // "pos = x y": where it sits in the region (maps that touch join up, any number per side)
     int gx = 0, gy = 0;
     struct Near { int map, dx, dy; };
@@ -693,11 +696,13 @@ void QuickBattle(Game& t) {
     PlaySfx(Sfx::Status);
 }
 void NoteBattleWeather(const Game& g, int i);
-void StartRouteFight(Game& g, int i, int npc) {
+void StartRouteFightNpc(Game& g, int i, const OwNpc& n);
+void StartRouteFight(Game& g, int i, int npc) { StartRouteFightNpc(g, i, MapOf(g.ow.w[i]).npcs[npc]); }
+// (a route trainer, or a team an action made up: the Winstrates, Selphy)
+void StartRouteFightNpc(Game& g, int i, const OwNpc& n) {
     NoteBattleWeather(g, i);
     OwWalker& w = g.ow.w[i];
     const OwMap& m = MapOf(w);
-    const OwNpc& n = m.npcs[npc];
     if (HealthyCount(WP(g, i)) == 0) { Say(w, "Your Pokemon are all too tired to battle!|Rest them at a Pokemon Center first."); return; }
     SaveAll(g);
     Game& t = g.coop ? StartSub(g, i) : g;   // co-op: your own battle, in your half of the screen
@@ -705,6 +710,7 @@ void StartRouteFight(Game& g, int i, int npc) {
     int tier = RematchTier(g, n);
     t.owStage = FightStage(m, n, tier);
     t.owFightFlag = n.args.size() > 4 ? n.args[4] + (tier > 0 ? "#" + std::to_string(tier) : "") : "";
+    t.owWinThen = n.winThen.empty() ? "" : "winthen|" + std::to_string(i) + "|" + n.winThen;   // (screens_story.cpp keeps it as a flag on a win)
     t.stageIdx = -1;
     t.legend = -1;
     t.tower = false;
@@ -757,10 +763,18 @@ void StartStoryFight(Game& g, int i, int npc) {
 }
 
 void RunAction(Game& g, int i, const std::string& act);
+// The Fame Checker learns something ("KEY:n"): kept as "fame:KEY:n"; a word about it if you carry one
+void FameNote(Game& g, int i, const std::string& note) {
+    std::string f = "fame:" + note;
+    if (Flags(g).count(f)) return;
+    Flags(g).insert(f);
+    if (BagCount(WP(g, i), "Fame Checker") > 0) Toast(g, "The Fame Checker noted something about " + FamePersonName(note.substr(0, note.find(':'))) + ".");
+}
 
 void Interact(Game& g, int i, int npc) {
     OwWalker& w = g.ow.w[i];
     const OwNpc& n = MapOf(w).npcs[npc];
+    for (const auto& note : FameNotesAt(MapOf(w).name, n.x, n.y)) FameNote(g, i, note);   // (the Fame Checker: what they told you)
     gNpc[w.map][npc].face = Opp(w.face);   // turn to you
     std::string line = n.args.empty() ? "..." : n.args[0];
     if (n.kind == "talk") Say(w, line);
@@ -895,6 +909,27 @@ void UseField(Game& g, int i, const std::string& mv) {
 }
 
 // Fishing with a rod, facing the water.
+// Emerald's Feebas: six of Route 119's water tiles, picked by Dewford's trendy saying (a new saying, new tiles)
+bool FeebasTile(const Game& g, const OwMap& m, int x, int y) {
+    if (m.name != "Route 119" || m.At(x, y) != 'w') return false;
+    static std::string seedFor;
+    static std::set<int> tiles;
+    std::string seed = DewfordTrend(g);
+    if (seed != seedFor || tiles.empty()) {
+        seedFor = seed;
+        tiles.clear();
+        std::vector<int> water;
+        for (int yy = 0; yy < m.h; yy++) for (int xx = 0; xx < m.w; xx++) if (m.At(xx, yy) == 'w') water.push_back(yy * m.w + xx);
+        uint32_t h = 2166136261u;
+        for (char c : seed) h = (h ^ (uint8_t)c) * 16777619u;
+        for (int n = 0; n < 6 && !water.empty(); n++) {
+            h = h * 1103515245u + 12345u;
+            tiles.insert(water[(h >> 8) % water.size()]);
+        }
+    }
+    return tiles.count(y * m.w + x) > 0;
+}
+
 void Fish(Game& g, int i, const std::string& rod) {
     OwWalker& w = g.ow.w[i];
     const OwMap& m = MapOf(w);
@@ -902,6 +937,11 @@ void Fish(Game& g, int i, const std::string& rod) {
     PlaySfx(Sfx::MenuOk);
     w.fishing = true;
     w.fishT = 0;
+    if (FeebasTile(g, m, w.x + DX[w.face], w.y + DY[w.face]) && SimRand(0, 99) < 50) {   // Route 119's six secret tiles: Feebas, half the time
+        SetWildOverride(SpeciesIndex("Feebas"));
+        Say(w, "You cast the " + rod + "...|Oh! A bite!", "wild|super-rod");   // (the route's fishing levels, whichever rod)
+        return;
+    }
     if (!WildAreaHasMethod(m.wild, method) || SimRand(0, 99) >= 75) Say(w, "You cast the " + rod + "...|Not even a nibble...");
     else Say(w, "You cast the " + rod + "...|Oh! A bite!", "wild|" + method);
 }
@@ -1960,6 +2000,497 @@ void RunAction(Game& g, int i, const std::string& act) {
             default: show = "It's \"Dewford Trends\"! The hottest saying in Dewford right now is \"" + DewfordTrend(g) + "\"!"; break;
         }
         Say(w, "(The TV is on.)|" + show);
+    }
+    // ================================================================ round 6: side activities from the real games
+    else if (k == "buy" && a.size() > 1) {   // buy|what they say (pages)|Item:price,Item:price: a little shop of its own
+        std::vector<std::pair<std::string, std::string>> ch;
+        for (const auto& e : Split(a.back(), ',')) {
+            auto p = Split(e, ':');
+            if (Trim(p[0]) == "shop") { ch.push_back({"See the other goods", "shop"}); continue; }
+            if (p.size() < 2 || !FindItem(Trim(p[0]))) continue;
+            ch.push_back({Trim(p[0]) + TextFormat("  (%d)", std::atoi(p[1].c_str())), "buygo|" + Trim(p[0]) + "|" + Trim(p[1])});
+        }
+        ch.push_back({"No thanks", "msg|Come by again sometime."});
+        std::string text;
+        for (size_t q = 1; q + 1 < a.size(); q++) if (!a[q].empty()) text += (text.empty() ? "" : "|") + a[q];
+        Ask(w, (text.empty() ? std::string("What would you like?") : text) + TextFormat("|(You have %d coins.)", WP(g, i).coins), ch);
+    }
+    else if (k == "buygo" && a.size() > 2) {
+        Profile& P = WP(g, i);
+        int price = std::atoi(a[2].c_str());
+        if (P.coins < price) { Say(w, "You'll need more money than that."); return; }
+        P.coins -= price;
+        BagAdd(P, a[1]);
+        SaveAll(g);
+        PlaySfx(Sfx::Shop);
+        Say(w, "Thank you! Here's your " + a[1] + ".");
+    }
+    else if (k == "vending" || k == "vendgo") {   // a vending machine (Celadon's roof, Goldenrod's 6F, Lilycove's rooftop)
+        static const char* kDrink[3] = {"Fresh Water", "Soda Pop", "Lemonade"};
+        static const int kPrice[3] = {200, 300, 350};
+        std::string region = RegionInfo(MapOf(w).region).name;
+        Profile& P = WP(g, i);
+        if (k == "vending") {
+            std::vector<std::pair<std::string, std::string>> ch;
+            for (int d = 0; d < 3; d++) ch.push_back({std::string(kDrink[d]) + TextFormat("  (%d)", kPrice[d]), "vendgo|" + std::to_string(d)});
+            ch.push_back({"Nothing", region == "Kanto" ? "msg|Not thirsty!" : "msg|Decided against buying a drink."});
+            Ask(w, std::string(region == "Kanto" ? "A vending machine! What does it have?" : "It's a vending machine. Which drink would you like?") +
+                       TextFormat("|(You have %d coins.)", P.coins), ch);
+            return;
+        }
+        int d = std::max(0, std::min(2, a.size() > 1 ? std::atoi(a[1].c_str()) : 0));
+        if (P.coins < kPrice[d]) { Say(w, region == "Kanto" ? "Oops, not enough money!" : "Not enough money..."); return; }
+        P.coins -= kPrice[d];
+        BagAdd(P, kDrink[d]);
+        std::string t = region == "Kanto" ? std::string("A can of ") + kDrink[d] + " popped out!" : std::string("Clang!|A can of ") + kDrink[d] + " dropped down.";
+        if (region != "Kanto" && SimRand(0, 63) == 0) {   // (Emerald, HeartGold: one time in 64, a second can)
+            BagAdd(P, kDrink[d]);
+            t += std::string("|Clang!|Score! An extra can of ") + kDrink[d] + " dropped down!";
+        }
+        SaveAll(g);
+        PlaySfx(Sfx::Shop);
+        Say(w, t);
+    }
+    else if (k == "thirstygirl" || k == "thirstygive") {   // Celadon's rooftop: a drink for a TM (FireRed: TM16, TM20, TM33)
+        // (Scarlet / Violet have no Safeguard TM: Misty Terrain keeps status problems away instead)
+        static const char* kDrink[3] = {"Fresh Water", "Soda Pop", "Lemonade"};
+        static const char* kTm[3] = {"TM075 Light Screen", "TM139 Misty Terrain", "TM074 Reflect"};
+        static const char* kWhat[3] = {"It's a move that weakens the power of special attacks by your foe.",
+                                       "It keeps your Pokemon on the ground safe from status problems.",
+                                       "It's a move that weakens the power of physical attacks by your foe."};
+        Profile& P = WP(g, i);
+        auto got = [&](int d) { return Flags(g).count(std::string("thirsty:") + kDrink[d] + ":" + P.name) > 0; };
+        if (k == "thirstygirl") {
+            std::vector<std::pair<std::string, std::string>> ch;
+            for (int d = 0; d < 3; d++) if (BagCount(P, kDrink[d]) > 0) ch.push_back({kDrink[d], "thirstygive|" + std::to_string(d)});
+            if (ch.empty()) { Say(w, "I'm thirsty! I want something to drink!"); return; }
+            ch.push_back({"Don't give her one", ""});
+            Ask(w, "I'm thirsty! I want something to drink!|Give her which drink?", ch);
+            return;
+        }
+        int d = std::max(0, std::min(2, a.size() > 1 ? std::atoi(a[1].c_str()) : 0));
+        if (got(d)) { Say(w, "No, thank you! I'm not thirsty after all!"); return; }
+        BagTake(P, kDrink[d]);
+        BagAdd(P, kTm[d]);
+        SetFlag(g, std::string("thirsty:") + kDrink[d] + ":" + P.name);
+        SaveAll(g);
+        PlaySfx(Sfx::ItemGet);
+        Say(w, std::string("Yay!|") + kDrink[d] + "!|Thank you! You can have this from me!|You received " + kTm[d] + " from the little girl.|" + kTm[d] + " contains " +
+                   (kTm[d] + 6) + ".|" + kWhat[d]);
+    }
+    else if (k == "namerater" || k == "nrpick" || k == "nrgo") {   // the Name Rater (Lavender, Goldenrod, Slateport)
+        Profile& P = WP(g, i);
+        if (k == "namerater") {
+            std::string hi = a.size() > 1 && !a[1].empty() ? a[1] : "Hello, hello! I am the official Name Rater!";
+            Ask(w, hi + "|Want me to rate the nicknames of your Pokemon?", {{"Yes", "nrpick"}, {"No", "msg|I see. Do come visit again."}});
+            return;
+        }
+        if (k == "nrpick") {
+            std::vector<std::pair<std::string, std::string>> ch;
+            for (int m = 0; m < (int)P.mons.size(); m++) if (!P.mons[m].boxed) ch.push_back({MonName(P.mons[m]), "nrgo|" + std::to_string(m)});
+            ch.push_back({"Never mind", "msg|I see. Do come visit again."});
+            Ask(w, "Which Pokemon's nickname should I critique?", ch);
+            return;
+        }
+        int m = a.size() > 1 ? std::atoi(a[1].c_str()) : -1;
+        if (m < 0 || m >= (int)P.mons.size()) return;
+        std::string nm = MonName(P.mons[m]);
+        if (a.size() > 2 && a[2] == "yes") {   // the nickname screen, then back here
+            Game& t = g.coop ? StartSub(g, i) : g;
+            OpenNickname(t, 0, m, 2, false);
+            return;
+        }
+        if (!P.mons[m].ot.empty() && P.mons[m].ot != P.name) {   // (a traded Pokemon keeps its name)
+            Say(w, nm + ", is it? That is a truly impeccable name!|Take good care of " + nm + "!");
+            return;
+        }
+        Ask(w, nm + ", is it? That is a decent nickname!|But, would you like me to give it a nicer name?|How about it?",
+            {{"Yes", "nrgo|" + a[1] + "|yes"}, {"No", "msg|I see. Do come visit again."}});
+    }
+    else if (k == "copycat") {   // Saffron's Copycat: a Poke Doll for her, and she teaches Mimic (FireRed)
+        Profile& P = WP(g, i);
+        bool male = ParseLook(P.look).type == 0;
+        if (Flags(g).count("copycat:" + P.name)) {
+            Say(w, male ? "{PLAYER}: Hi! Thanks for earlier!|{PLAYER}: Pardon?|{PLAYER}: Is it that fun to mimic my every move?|Copycat: You bet! It's a scream!"
+                        : "{PLAYER}: Hi! Thanks for what you did for us.|{PLAYER}: Pardon?|{PLAYER}: Is it really that fun to copy what I say and do?|Copycat: You bet! It's a scream!");
+            return;
+        }
+        if (BagCount(P, "Poke Doll") > 0) {
+            Ask(w, "Oh wow! A Poke Doll!|For me? Thank you!|You know what? I can teach the move Mimic.", {{"Learn Mimic", "copycatgo"}, {"No thanks", "msg|Don't you like Mimic?"}});
+            return;
+        }
+        Say(w, male ? "{PLAYER}: Hi! Do you like Pokemon?|{PLAYER}: Uh, no, I just asked you.|{PLAYER}: Huh? You're strange!|Copycat: Hmm? Quit mimicking? But, that's my favorite hobby!"
+                    : "{PLAYER}: Hi. You must like Pokemon.|{PLAYER}: No, not me. I asked you.|{PLAYER}: Pardon? You're weird!|Copycat: Hmm? Quit mimicking? But that's my favorite hobby!");
+    }
+    else if (k == "copycatgo") {
+        Profile& P = WP(g, i);
+        if (!BagTake(P, "Poke Doll")) return;
+        SetFlag(g, "copycat:" + P.name);
+        SaveAll(g);
+        RunAction(g, i, "tutor|Mimic|I really love Mimic! Who's going to learn it?");
+    }
+    else if (k == "teachyman") {   // Viridian's old man: his grandson's Teachy TV (FireRed)
+        Profile& P = WP(g, i);
+        if (BagCount(P, "Teachy TV") > 0) {
+            Say(w, "Well, now, I've had my coffee, and that's what I need to get going!|But I made it too strong. It gave me a headache...|"
+                   "Wahaha! It's my grandson on the show! Since he's the one doing the teaching, you're bound to learn.|(Use the Teachy TV from your Bag.)");
+            return;
+        }
+        BagAdd(P, "Teachy TV");
+        SaveAll(g);
+        PlaySfx(Sfx::ItemGet);
+        Say(w, "Well, now, I've had my coffee, and that's what I need to get going!|Hm? What is that red box you have? Ah, so you're working on your Pokedex.|"
+               "Then let me give you this, too.|You received the Teachy TV!|If there's something you don't understand, watch that.|"
+               "It will teach you about the basics of being a Pokemon Trainer.");
+    }
+    else if (k == "famegift") {   // Cerulean City: Blue's "little present" after your battle (FireRed's Fame Checker)
+        Profile& P = WP(g, i);
+        if (BagCount(P, "Fame Checker") > 0) return;
+        BagAdd(P, "Fame Checker");
+        SaveAll(g);
+        PlaySfx(Sfx::ItemGet);
+        Say(w, "Blue: Oh, yeah, right. I feel sorry for you. No, really. You're always plodding behind me.|So here, I'll give you a little present as a favor.|"
+               "You received the Fame Checker!|Blue: A chatty gossip like you... That thing's perfect.|I don't need it because I don't give a hoot about others.|"
+               "(Use the Fame Checker from your Bag: it notes what people tell you about the famous folk of Kanto.)");
+    }
+    else if (k == "selphycave" || k == "selphyhome") {   // Five Island's Lost Cave: Lady Selphy got lost (FireRed)
+        if (k == "selphycave") {
+            if (Flags(g).count("selphy:found")) return;
+            Say(w, "W-what do you intend to do with me?", "teamfightgo|Lady Selphy|Persian 49, Persian 49|Oh... I was afraid that you meant to harm me.|selphy:battle|selphyhome");
+            return;
+        }
+        SetFlag(g, "selphy:found");
+        SaveAll(g);
+        Say(w, "I am so glad that you happened here.|I grew rather bored of walking, and I am feeling fatigued.|May I ask you to take me home from here?|...|"
+               "Selphy: Thank you. You may go now.", "warp|Resort Gorgeous|39|9|up");
+    }
+    else if (k == "selphy" || k == "selphygo") {   // ...and at home: she wants to see a Pokemon you've caught, and her butler thanks you
+        Profile& P = WP(g, i);
+        std::string key = "selphywish:" + P.name + "|";
+        std::string cur = FlagStr(g, key);
+        auto setWish = [&](const std::string& v) {
+            auto& fl = Flags(g);
+            for (auto it = fl.begin(); it != fl.end();) it = it->rfind(key, 0) == 0 ? fl.erase(it) : std::next(it);
+            if (!v.empty()) fl.insert(key + v);
+        };
+        if (cur.empty()) {   // a new wish: one of the Pokemon in your Pokedex
+            std::vector<std::string> seen(P.dexCaught.begin(), P.dexCaught.end());
+            if (seen.empty()) { Say(w, "Selphy: I wish you the best of luck."); return; }
+            cur = seen[SimRand(0, (int)seen.size() - 1)];
+            setWish(cur);
+            SaveAll(g);
+            Say(w, "Selphy: Oh? Do I know you from somewhere?|Oh, but that doesn't matter.|I am exquisitely bored. Please, hear my wish.|"
+                   "I wish to see a Pokemon. A darling " + cur + ".|I want to see one right away. Please, make my wish come true.");
+            return;
+        }
+        bool has = false;
+        for (const auto& m : P.mons) has |= !m.boxed && m.species == cur;
+        if (!has) { Say(w, "Selphy: I wish to see a Pokemon. A darling " + cur + ".|I want to see one right away. Please, make my wish come true."); return; }
+        static const char* kDeluxe[6] = {"Big Pearl", "Pearl", "Stardust", "Star Piece", "Nugget", "Rare Candy"};
+        std::string prize = SimRand(0, 99) >= 30 ? "Luxury Ball" : kDeluxe[SimRand(0, 5)];
+        if (!FindItem(prize)) prize = "Nugget";
+        BagAdd(P, prize);
+        setWish("");
+        SaveAll(g);
+        PlaySfx(Sfx::ItemGet);
+        Say(w, "Selphy: Oh, hello, there.|Oh, my gracious. That must be the " + cur + " you caught for me.|Giggle... I see a resemblance to you.|Thank you so kindly.|"
+               "... ... ...|Is something the matter? You may leave.|... ... ...|Oh, fine. I understand now. Sebastian! I need you here this instant!|"
+               "Butler: Yes, my lady.|Selphy: See to it that this person is given a token of appreciation.|Butler: I sincerely thank you for pleasing Lady Selphy.|"
+               "Please accept this as her thanks...|You received a " + prize + "!");
+    }
+    else if (k == "teamfight" || k == "teamfightgo") {   // teamfight|name|team|before|after|flag|then: a battle an action sets up
+        // (teamfightgo: straight in - name|team|after|flag|then)
+        OwNpc n;
+        n.kind = "fight";
+        if (k == "teamfight") {
+            if (a.size() < 4) return;
+            std::string go = "teamfightgo|" + a[1] + "|" + a[2] + "|" + (a.size() > 4 ? a[4] : "") + "|" + (a.size() > 5 ? a[5] : "");
+            for (size_t q = 6; q < a.size(); q++) go += "|" + a[q];
+            Say(w, a[3], go);
+            return;
+        }
+        if (a.size() < 3) return;
+        n.args = {a[1], a[2], "", a.size() > 3 ? a[3] : "", a.size() > 4 && !a[4].empty() ? a[4] : "fought:" + a[1]};
+        for (size_t q = 5; q < a.size(); q++) n.winThen += (q > 5 ? "|" : "") + a[q];   // (the rest: an action of its own, with its own "|"s)
+        StartRouteFightNpc(g, i, n);
+    }
+    else if (k == "winstrate" || k == "winstratego") {   // Route 111: the Winstrates, four battles in a row (Emerald)
+        struct W4 { const char* name; const char* team; const char* intro; const char* after; };
+        static const W4 kFam[4] = {
+            {"Winstrate Victor", "Taillow 16, Zigzagoon 16", "That's the spirit! I like you!", "Hey, all! I've found a pretty strong Trainer!"},
+            {"Winstrate Victoria", "Roselia 17", "Oh, my goodness! Aren't you young?|You must be quite the Trainer to beat my husband, though.|It's my turn to battle now!",
+             "There's a strong Trainer here! This one's really strong!"},
+            {"Winstrate Vivi", "Marill 15, Shroomish 15, Numel 15", "You're stronger than Mommy? Wow!|But I'm strong, too! Really! Honestly!", "This stinks...|...Snivel... Grandma!"},
+            {"Winstrate Vicky", "Meditite 18", "How dare you make my granddaughter cry!|For that, I'm going to smack you! Prepare to lose!",
+             "If you're not in any hurry, visit with us awhile."}};
+        if (Flags(g).count("winstrates:done")) { Say(w, "Victor: You beat all four of us! Come in and visit with us awhile."); return; }
+        int n = k == "winstrate" ? -1 : std::atoi(a.size() > 1 ? a[1].c_str() : "0");
+        if (n < 0) {
+            Ask(w, "Victor: Hello! I take it you're a traveler.|How's this? What do you say to taking on our family of four in a series of Pokemon battles?",
+                {{"Yes", "winstratego|0"}, {"No", "msg|Victor: Is that so? Drop in, if you change your mind!"}});
+            return;
+        }
+        if (n >= 4) {
+            SetFlag(g, "winstrates:done");
+            SaveAll(g);
+            Say(w, kFam[3].after);
+            return;
+        }
+        std::string prev = n > 0 ? std::string(kFam[n - 1].after) + "|" : "";
+        std::string flag = "winstrate:" + std::to_string(n);
+        Flags(g).erase(flag);   // (a new run of four: lose one and it's back to Victor)
+        Say(w, prev + kFam[n].intro, std::string("teamfightgo|") + kFam[n].name + "|" + kFam[n].team + "||" + flag + "|winstratego|" + std::to_string(n + 1));
+    }
+    else if (k == "effortribbon") {   // the Effort Ribbon (Slateport; HeartGold's Blackthorn): for a Pokemon with all the EVs it can have
+        Profile& P = WP(g, i);
+        int lead = -1;
+        for (int m = 0; m < (int)P.mons.size() && lead < 0; m++) if (!P.mons[m].boxed) lead = m;
+        if (lead < 0) return;
+        OwnedMon& om = P.mons[lead];
+        std::string nm = MonName(om);
+        if (std::find(om.ribbons.begin(), om.ribbons.end(), "Effort Ribbon") != om.ribbons.end()) { Say(w, "Oh! Your " + nm + ", that Effort Ribbon looks good on it!"); return; }
+        int ev = 0;
+        for (int s2 = 0; s2 < 6; s2++) ev += om.ev[s2];
+        if (ev < EV_TOTAL_MAX) {
+            Say(w, "Oh? Your " + nm + "...|You have to go for it a little harder.|If you do, I'll give your Pokemon something nice." + TextFormat("|(Its EVs: %d of %d.)", ev, EV_TOTAL_MAX));
+            return;
+        }
+        om.ribbons.push_back("Effort Ribbon");
+        SaveAll(g);
+        PlaySfx(Sfx::ItemGet);
+        Say(w, "Oh? Your " + nm + "...|Went for it stupendously!|As its reward, please give it this Effort Ribbon.|{PLAYER} received the Effort Ribbon.|{PLAYER} put the Effort Ribbon on " + nm + ".");
+    }
+    else if (k == "sibling" && a.size() > 1) {   // HeartGold's Week Siblings: one for each day; an item each, then ribbons
+        struct Sib { const char* name; int day; const char* item; const char* ribbon; const char* hi; const char* about; const char* later; const char* wrong; };
+        static const Sib kSib[7] = {
+            {"Monica", 1, "Sharp Beak", "Alert Ribbon", "Monica: Glad to meet you. I'm Monica of Monday.|As a token of our friendship, I have a gift for you!",
+             "Monica: It's an item that raises the power of Flying-type moves.|You should equip a bird Pokemon with that item.",
+             "Monica: My brothers and sisters are all over the place.|See if you could find them all!", "Monica: Oh no! Today isn't Monday. See you another time!"},
+            {"Tuscany", 2, "Twisted Spoon", "Shock Ribbon", "Tuscany: Please allow me to introduce myself. I am Tuscany of Tuesday.|By way of introduction, please accept this gift, a TwistedSpoon.",
+             "Tuscany: Wouldn't you agree that it is most adorable?|It strengthens Psychic-type moves.|I am certain it will be of use.",
+             "Tuscany: Have you met Monica, my older sister?|Or my younger brother, Wesley?|I am the second of seven children.", "Tuscany: Tuesday was over before I even noticed...|I'll see you again next Tuesday..."},
+            {"Wesley", 3, "Black Belt", "Downcast Ribbon", "Wesley: I'm Wesley of Wednesday.|Pleased to meet you. Please take a souvenir.",
+             "Wesley: Black Belt beefs up the power of Fighting-type moves.", "Wesley: Since you found me, you must have met my brothers and sisters.|Or did you just get lucky?",
+             "Wesley: No way! Wednesday's already over!|See you next week!"},
+            {"Arthur", 4, "Hard Stone", "Careless Ribbon", "Arthur: Who are you?|I'm Arthur of Thursday.|Here, take this!",
+             "Arthur: If you use Rock-type moves, you should give that to your Pokemon.|It raises the strength of Rock-type moves.",
+             "Arthur: I'm Arthur of Thursday! I'm the second son in a line of seven siblings!",
+             "Arthur: Do you think that the middle of the week is Wednesday?|Or do you think it's Thursday?|Go decide, and I'll see you next Thursday!"},
+            {"Frieda", 5, "Poison Barb", "Relax Ribbon", "Frieda: Yahoo! It's Friday!|I'm Frieda of Friday! Nice to meet you!|Here's a Poison Barb for you!",
+             "Frieda: Give it to a Pokemon that has Poison-type moves.|Oh! It's wicked!|You'll be shocked how good it makes Poison-type moves!",
+             "Frieda: Hiya! What day do you like?|I love Friday. No doubt about it!|Don't you think it's great too?",
+             "Frieda: Oh, today's not Friday?|Man... I wish every day were Friday, that'd be so much fun!"},
+            {"Santos", 6, "Soft Sand", "Snooze Ribbon", "Santos: ...It's Saturday...|I'm Santos of Saturday...|Take this...",
+             "Santos: ...|Soft Sand...|Ground-type moves get stronger... It will startle you...", "Santos: ...|See you again on another Saturday...",
+             "Santos: Today's Saturday... No... Wait... Huh?|I'll see you next Saturday then..."},
+            {"Sunny", 0, "Magnet", "Smile Ribbon", "Sunny: Hi! I'm Sunny of Sunday, meaning it's Sunday today!|I was told to give you this if I saw you!",
+             "Sunny: That thing...|Um...|...What was it now...|...|Oh! I remember now!|A Pokemon that knows Electric-type moves should hold it.|My sis Monica said it powers up Electric-type moves!",
+             "Sunny: My sister Monica... My sister Tuscany... My brother Wesley... My brother Arthur... My sister Frieda... And my brother Santos.|They're all older than me!",
+             "Sunny: Huh? Isn't today Sunday? Um... I forgot!"}};
+        int s = std::max(0, std::min(6, std::atoi(a[1].c_str())));
+        const Sib& S = kSib[s];
+        Profile& P = WP(g, i);
+        auto met = [&](int q) { return Flags(g).count(std::string("sib:") + kSib[q].name + ":" + P.name) > 0; };
+        int metAll = 0;
+        for (int q = 0; q < 7; q++) metAll += met(q);
+        time_t now = time(nullptr);
+        bool today = localtime(&now)->tm_wday == S.day;
+        int lead = -1;
+        for (int m = 0; m < (int)P.mons.size() && lead < 0; m++) if (!P.mons[m].boxed) lead = m;
+        if (metAll == 7 && today && lead >= 0) {   // friends now: a ribbon for your lead Pokemon, once a week
+            OwnedMon& om = P.mons[lead];
+            std::string nm = MonName(om);
+            if (std::find(om.ribbons.begin(), om.ribbons.end(), S.ribbon) != om.ribbons.end()) { Say(w, std::string(S.name) + ": That " + S.ribbon + " looks great on your Pokemon..."); return; }
+            std::string wk = TextFormat("sibrib:%s:%s|%d", S.name, P.name.c_str(), (RaidToday() + 3) / 7);
+            if (Flags(g).count(wk)) { Say(w, "You can only get one ribbon per week...|If you want another ribbon, come find me again next week!"); return; }
+            SetFlag(g, wk);
+            om.ribbons.push_back(S.ribbon);
+            SaveAll(g);
+            PlaySfx(Sfx::ItemGet);
+            Say(w, std::string(S.name) + ": Hey, you! The one who found all of my siblings!|We're pretty good friends now, don't you agree?|"
+                   "Since we're such good friends, I'll give you this " + S.ribbon + "!|" + nm + " put on the " + S.ribbon + "!");
+            return;
+        }
+        if (met(s)) { Say(w, S.later); return; }
+        if (!today) { Say(w, S.wrong); return; }
+        std::string item = FindItem(S.item) ? S.item : (std::string(S.item) == "Twisted Spoon" && FindItem("TwistedSpoon") ? "TwistedSpoon" : S.item);
+        BagAdd(P, item);
+        SetFlag(g, std::string("sib:") + S.name + ":" + P.name);
+        SaveAll(g);
+        PlaySfx(Sfx::ItemGet);
+        Say(w, std::string(S.hi) + "|You received the " + item + "!|" + S.about);
+    }
+    else if (k == "moomoo" || k == "moomoofeed" || k == "moomoogirl" || k == "moomoofarmer" || k == "moomoowife") {   // Moomoo Farm (HeartGold)
+        Profile& P = WP(g, i);
+        bool healed = Flags(g).count("moomoo:healed") > 0;
+        int fed = 0;
+        { std::string v = FlagStr(g, "moomoo|"); if (!v.empty()) fed = std::atoi(v.c_str()); }
+        if (k == "moomoogirl") { Say(w, healed ? "Moomoo is totally healthy again!|We sell Moomoo Milk at home. Don't forget to drop by!" : "Moomoo is sick...|She needs lots of Oran Berries."); return; }
+        if (k == "moomoofarmer") {
+            if (!healed) { Say(w, "My Miltank ain't givin' me milk n'more.|This here farm's got famous milk. Most everyone wants a drink.|It'll give me lots o' milk if'n I feed it lots o' Berries, I reckon."); return; }
+            Ask(w, TextFormat("How'd you like my Moomoo Milk?|It's my pride and joy, there. Give it to Pokemon to restore HP!|I'll give it to ya fer just 500.|(You have %d coins.)", P.coins),
+                {{"1 bottle (500)", "buygo|Moomoo Milk|500"}, {"1 dozen (6000)", "moomoodozen"}, {"No thanks", "msg|You don't want it? Come again, hear?"}});
+            return;
+        }
+        if (k == "moomoowife") {
+            if (!healed) { Say(w, "Our milk even goes out to Kanto.|So if our own Miltank won't give us any milk, we're in trouble."); return; }
+            if (Flags(g).count("moomoo:gift:" + P.name)) { Say(w, "That there's Natural Gift.|Its move type and Power will depend on the Berry yer Pokemon holds.|When you use it once, the Berry's gone."); return; }
+            SetFlag(g, "moomoo:gift:" + P.name);
+            SaveAll(g);
+            RunAction(g, i, "tutor|Natural Gift|You fixed our Miltank, hon. Now it gives Moomoo Milk again.|Here's somethin' fer your trouble - I'll teach one of yer Pokemon Natural Gift.");
+            return;
+        }
+        if (healed) { Say(w, "Miltank: Mooo!|It's brimming with energy."); return; }
+        if (k == "moomoo") {
+            Ask(w, "Miltank: ...Moo...|Its cry is weak...|Give an Oran Berry to Miltank?", {{"Yes", "moomoofeed"}, {"No", "msg|{PLAYER} wouldn't give an Oran Berry.|Miltank looks sad."}});
+            return;
+        }
+        if (!BagTake(P, "Oran Berry")) { Say(w, "{PLAYER} has no Oran Berries..."); return; }
+        fed++;
+        auto& fl = Flags(g);
+        for (auto it = fl.begin(); it != fl.end();) it = it->rfind("moomoo|", 0) == 0 ? fl.erase(it) : std::next(it);
+        fl.insert("moomoo|" + std::to_string(fed));
+        std::string t = "{PLAYER} gave an Oran Berry to Miltank.";
+        if (fed >= 7) { SetFlag(g, "moomoo:healed"); t += "|Miltank became totally healthy!"; PlaySfx(Sfx::Heal); }
+        else if (fed == 5) t += "|Miltank is getting healthier!";
+        else if (fed == 3) t += "|Miltank became a little healthier!";
+        SaveAll(g);
+        Say(w, t);
+    }
+    else if (k == "moomoodozen") {
+        Profile& P = WP(g, i);
+        if (P.coins < 6000) { Say(w, "Sorry, there. No cash, no sale!"); return; }
+        P.coins -= 6000;
+        for (int n = 0; n < 12; n++) BagAdd(P, "Moomoo Milk");
+        SaveAll(g);
+        PlaySfx(Sfx::Shop);
+        Say(w, "Here ya go! Drink up'n enjoy!|You received 12 Moomoo Milk!");
+    }
+    else if ((k == "haircut" || k == "haircutgo") && a.size() > 1) {   // the Haircut Brothers in the Goldenrod Tunnel (HeartGold)
+        Profile& P = WP(g, i);
+        bool older = a[1] == "older";
+        int price = older ? 500 : 300;
+        std::string today = TextFormat("haircut:%s|%d", P.name.c_str(), RaidToday());
+        if (k == "haircut") {
+            if (Flags(g).count(today)) { Say(w, older ? "I do only one haircut a day, sorry. I'm done for today." : "I have a feeling that it won't go well next time. Let me close for the day!"); return; }
+            std::vector<std::pair<std::string, std::string>> ch;
+            for (int m = 0; m < (int)P.mons.size(); m++) if (!P.mons[m].boxed) ch.push_back({MonName(P.mons[m]), "haircutgo|" + a[1] + "|" + std::to_string(m)});
+            ch.push_back({"No thanks", older ? "msg|Is that right? That's a shame!" : "msg|No? How disappointing!"});
+            Ask(w, std::string(older ? "Welcome! I run the Pokemon Salon!|I'm the older and better of the two Haircut Brothers.|I can make your Pokemon beautiful for just 500."
+                                     : "Welcome to the Pokemon Salon!|I'm the younger and less expensive of the two Haircut Brothers.|I'll spruce up your Pokemon for just 300.") +
+                       "|Grooming gives a better look. Your Pokemon will become friendlier and more beautiful.|" + (older ? "Which Pokemon should I work on?" : "OK, which Pokemon should I spruce up?"),
+                ch);
+            return;
+        }
+        int m = a.size() > 2 ? std::atoi(a[2].c_str()) : -1;
+        if (m < 0 || m >= (int)P.mons.size()) return;
+        if (P.coins < price) { Say(w, older ? "You'll need more money than that." : "You're a little short on funds."); return; }
+        P.coins -= price;
+        SetFlag(g, today);
+        // (the older brother: 60% a big boost; the younger: 60% a small one)
+        int r = SimRand(0, 99), up = older ? (r >= 40 ? 10 : r >= 10 ? 5 : 1) : (r >= 40 ? 1 : r >= 10 ? 5 : 10);
+        OwnedMon& om = P.mons[m];
+        om.friendship = std::min(MAX_FRIENDSHIP, om.friendship + up);   // (HeartGold's +1 / +5 / +10)
+        SaveAll(g);
+        PlaySfx(Sfx::Heal);
+        std::string nm = MonName(om);
+        Say(w, std::string(older ? "OK! Watch it become beautiful!|...|There! All done!" : "OK! I hope I do a good job!|...|There we go! All done!") + "|" +
+                   nm + (up >= 10 ? " looks delighted!" : up >= 5 ? " looks happy." : " looks a little happier."));
+    }
+    else if (k == "sundaylady") {   // Goldenrod Dept. Store 5F, Sundays: a move for a Pokemon who loves you - or doesn't (Return / Frustration)
+        Profile& P = WP(g, i);
+        int lead = -1;
+        for (int m = 0; m < (int)P.mons.size() && lead < 0; m++) if (!P.mons[m].boxed) lead = m;
+        if (lead < 0) return;
+        std::string wk = TextFormat("sunday:%s|%d", P.name.c_str(), (RaidToday() + 3) / 7);
+        if (Flags(g).count(wk)) { Say(w, "There are sure to be TMs that are just perfect for your Pokemon."); return; }
+        const OwnedMon& om = P.mons[lead];
+        if (om.friendship >= 150) { SetFlag(g, wk); RunAction(g, i, "tutor|Return|Hello. Oh, your Pokemon...|It's very attached to you.|This move should be perfect for a pair like you."); return; }
+        if (om.friendship <= 50) { SetFlag(g, wk); RunAction(g, i, "tutor|Frustration|Hello. Oh, your Pokemon...|It looks a little bit evil. How about this move for it?"); return; }
+        Say(w, "Hello. Oh, your Pokemon...|It's adorable!|You should teach it good TM moves.");
+    }
+    else if (k == "castform") {   // the Weather Institute's scientist: Castform, for chasing Team Aqua off (Emerald)
+        Profile& P = WP(g, i);
+        if (!HasFlag(g, i, "stage:Weather Institute") || Flags(g).count("gift:castform:" + P.name)) { RunAction(g, i, "abweather"); return; }
+        RunAction(g, i, "giftmon|Castform|25|castform|Thanks! Thanks to you, we're safe!/It might be an odd way of thanking you, but take this Pokemon.|"
+                        "That Pokemon changes shape according to the weather conditions./There're plenty of them in the Institute--go ahead and take it.");
+        if (Flags(g).count("gift:castform:" + P.name)) {   // (holding Mystic Water)
+            for (auto it = P.mons.rbegin(); it != P.mons.rend(); ++it) if (it->species == "Castform") { if (it->item.empty() && FindItem("Mystic Water")) it->item = "Mystic Water"; break; }
+            SaveAll(g);
+        }
+    }
+    else if (k == "berrymaster") {   // Route 123: the Berry Master's two berries a day (Emerald: Pomeg to Nomel)
+        static const char* kB[] = {"Pomeg Berry", "Kelpsy Berry", "Qualot Berry", "Hondew Berry", "Grepa Berry", "Tamato Berry", "Cornn Berry", "Magost Berry", "Rabuta Berry", "Nomel Berry"};
+        Profile& P = WP(g, i);
+        std::string today = TextFormat("berrymaster:%s|%d", P.name.c_str(), RaidToday());
+        if (Flags(g).count(today)) { Say(w, "I'm done for today. Come again another day.|Let flowers fill the world!"); return; }
+        std::vector<std::string> have;
+        for (const char* b : kB) if (FindItem(b)) have.push_back(b);
+        if (have.empty()) return;
+        std::string b1 = have[SimRand(0, (int)have.size() - 1)], b2 = have[SimRand(0, (int)have.size() - 1)];
+        BagAdd(P, b1); BagAdd(P, b2);
+        SetFlag(g, today);
+        SaveAll(g);
+        PlaySfx(Sfx::ItemGet);
+        Say(w, "You may call me the Berry Master.|I dream of filling the world with beautiful flowers, so I raise Berries and hand them out to everyone.|You're deserving of one!|"
+               "You received a " + b1 + "!|Why be stingy? Take another!|You received a " + b2 + "!|Be sure to visit the Pretty Petal flower shop near Rustboro.|Let flowers fill the world!");
+    }
+    else if (k == "berrywife" || k == "berrywifesaid") {   // ...and his wife: a good saying (Easy Chat) for a berry; the right ones, a rare one
+        Profile& P = WP(g, i);
+        std::string today = TextFormat("berrywife:%s|%d", P.name.c_str(), RaidToday());
+        if (k == "berrywife") {
+            if (Flags(g).count(today)) { Say(w, "Our four grandchildren should become more accomplished than my husband.|Joy never goes out of my life!"); return; }
+            Say(w, "The way my husband grows Berries, oh, he's the best in the world.|He makes me proud, that he does.|Incidentally, child, have you heard a good saying lately?",
+                "ezchat|2|A good saying for the Berry Master's wife|berrywifesaid");
+            return;
+        }
+        if (a.size() > 2 && a[2] == "cancel") { Say(w, "Ah...|Our four grandchildren should become more accomplished than my husband.|Joy never goes out of my life!"); return; }
+        std::string said = a.size() > 1 ? a[1] : "";
+        struct Ph { const char* words; const char* berry; };
+        static const Ph kPh[] = {{"Great+Battle", "Spelon Berry"}, {"Challenge+Contest", "Pamtre Berry"}, {"Overwhelming+Latias", "Watmel Berry"},
+                                 {"Cool+Latios", "Durin Berry"}, {"Super+Hustle", "Belue Berry"}};
+        std::string berry;
+        for (const auto& ph : kPh)
+            if (said == ph.words && FindItem(ph.berry) && !Flags(g).count(std::string("berrywife:") + ph.berry + ":" + P.name)) { berry = ph.berry; SetFlag(g, std::string("berrywife:") + ph.berry + ":" + P.name); }
+        bool special = !berry.empty();
+        if (!special) {
+            static const char* kB[] = {"Cheri Berry", "Chesto Berry", "Pecha Berry", "Rawst Berry", "Aspear Berry", "Leppa Berry", "Oran Berry", "Persim Berry", "Lum Berry", "Sitrus Berry"};
+            std::vector<std::string> have;
+            for (const char* b : kB) if (FindItem(b)) have.push_back(b);
+            berry = have.empty() ? "Oran Berry" : have[SimRand(0, (int)have.size() - 1)];
+        }
+        BagAdd(P, berry);
+        SetFlag(g, today);
+        SaveAll(g);
+        PlaySfx(Sfx::ItemGet);
+        Say(w, std::string(special ? "Ah! What a remarkable saying! Inspirational, it is!" : "Oh! A good saying it is. You're quite remarkable.") + "|I want you to have this.|You received a " + berry +
+                   "!|Our four grandchildren should become more accomplished than my husband.|Joy never goes out of my life!");
+    }
+    else if (k == "shardman" || k == "shardtrade") {   // Route 124's Diving Treasure Hunter: a Shard for an evolution stone (Emerald)
+        static const char* kShard[4] = {"Red Shard", "Yellow Shard", "Blue Shard", "Green Shard"};
+        static const char* kStone[4] = {"Fire Stone", "Thunder Stone", "Water Stone", "Leaf Stone"};
+        Profile& P = WP(g, i);
+        if (k == "shardman") {
+            std::vector<std::pair<std::string, std::string>> ch;
+            for (int s2 = 0; s2 < 4; s2++) if (BagCount(P, kShard[s2]) > 0) ch.push_back({std::string(kShard[s2]) + " -> " + kStone[s2], "shardtrade|" + std::to_string(s2)});
+            if (ch.empty()) { Say(w, "I'm the Diving Treasure Hunter!|I'm the awesome dude who makes deep-sea dives to gather treasures resting at the bottom.|Tell me, have you seen any Shards of tools made in ancient times?|You haven't got any treasures for me...|If you see any Shards, like the Red Shard, you've got to trade it with me!"); return; }
+            ch.push_back({"Not now", "msg|No? That's a downer. Well, if you change your mind, come back."});
+            Ask(w, "Oh, hey! That... That's a Shard! I'm looking for those!|Oh, man, you've got to trade that with me! I'll give you something good!|What do you want to trade?", ch);
+            return;
+        }
+        int s2 = std::max(0, std::min(3, a.size() > 1 ? std::atoi(a[1].c_str()) : 0));
+        if (!BagTake(P, kShard[s2])) return;
+        BagAdd(P, kStone[s2]);
+        SaveAll(g);
+        PlaySfx(Sfx::ItemGet);
+        Say(w, std::string("It's a done deal! Use that wisely!|You traded your ") + kShard[s2] + " for a " + kStone[s2] + "!");
+    }
+    else if (k == "roulette") {   // Mauville's roulette tables (Emerald): roulette|0 the 1-coin table, |1 the 3-coin one
+        if (g.coop) { Say(w, "(The Game Corner's tables are for playing on your own.)"); return; }
+        int table = a.size() > 1 ? std::atoi(a[1].c_str()) : 0;
+        if (g.profile.casino < (table ? 3 : 1)) { Say(w, "It's a roulette table. You need Game Corner coins to play - buy some at the counter."); return; }
+        SaveAll(g);
+        OpenRoulette(g, table);
     }
     else if (k == "statue") {}   // (a stone statue: nothing to say)
     else if (k == "quiz3" && a.size() > 3) {   // quiz3|flag|x,y|q1~q2~q3 (each "correct^question^A^B^C"): a Mechadoll asks; wrong: back to x, y
@@ -3169,6 +3700,33 @@ bool BlackOut(Game& g, int i) {
     return true;
 }
 
+// Between steps: what's waiting to happen to this walker.
+//   "winthen|i|action" (a route battle won - screens_story.cpp sets it): the action now (the next Winstrate, Selphy's way home)
+//   a map's "auto = condition|action" lines, once the condition holds (they make it false themselves)
+//   the Fame Checker: arriving somewhere you hear about someone (World/fame.txt "enter")
+bool WorldFollowUps(Game& g, int i) {
+    OwWalker& w = g.ow.w[i];
+    if (g.screen != Screen::World || g.ow.sub[i] || !w.msg.empty() || w.map < 0) return false;
+    auto& fl = Flags(g);
+    const std::string key = "winthen|" + std::to_string(i) + "|";
+    auto it = fl.lower_bound(key);
+    if (it != fl.end() && it->rfind(key, 0) == 0) {
+        std::string act = it->substr(key.size());
+        fl.erase(it);
+        RunAction(g, i, act);
+        return true;
+    }
+    const OwMap& m = MapOf(w);
+    for (const auto& [cond, act] : m.autos)
+        if (HasFlag(g, i, cond)) { RunAction(g, i, act); return true; }
+    static int seen[2] = {-1, -1};
+    if (seen[i] != w.map) {
+        seen[i] = w.map;
+        for (const auto& note : FameNotesOnEnter(m.name)) FameNote(g, i, note);
+    }
+    return false;
+}
+
 void UpdateWalker(Game& g, int i, float dt, const WalkIn& in) {
     OwWalker& w = g.ow.w[i];
     gPlayerName = WP(g, i).name;
@@ -3237,6 +3795,7 @@ void UpdateWalker(Game& g, int i, float dt, const WalkIn& in) {
         else if (w.spin >= 0) w.spin = -1;
         return;
     }
+    if (WorldFollowUps(g, i)) return;   // a battle won that leads somewhere, a map's own events, the Fame Checker's notes
     if (in.pause) { g.ow.menu = true; g.ow.menuSel = 0; g.ow.menuWho = i; PlaySfx(Sfx::MenuOk); return; }   // the menu
     if (w.spin >= 0) {   // spin tiles: slide on until a stop tile or a wall
         TryStep(g, i, w.spin);
@@ -3278,7 +3837,11 @@ void UpdateWalker(Game& g, int i, float dt, const WalkIn& in) {
             }
         }
         for (const auto& s : m.spots)
-            if (s.x == fx && s.y == fy && CondOk(g, i, s.ifF, s.unlessF)) { RunAction(g, i, s.act); return; }
+            if (s.x == fx && s.y == fy && CondOk(g, i, s.ifF, s.unlessF)) {
+                for (const auto& note : FameNotesAt(m.name, fx, fy)) FameNote(g, i, note);   // (a sign the Fame Checker remembers)
+                RunAction(g, i, s.act);
+                return;
+            }
         if (DiveHere(g, i)) return;
         for (const auto& st : m.stands)   // a puzzle's spot (the Regis' tombs): use the move standing here
             if (st.x == w.x && st.y == w.y && !HasFlag(g, i, st.flag)) {
@@ -3586,6 +4149,7 @@ void LoadWorld(std::string& log) {
     f << f0.rdbuf() << "\n";
     if (std::ifstream f1(dir + "johto.txt"); f1) f << f1.rdbuf() << "\n";
     if (std::ifstream f2(dir + "hoenn.txt"); f2) f << f2.rdbuf() << "\n";   // Hoenn (tools/emerald_world.py)
+    if (std::ifstream f3(dir + "extras.txt"); f3) f << f3.rdbuf() << "\n";   // hand-made maps (the Goldenrod Tunnel)
     std::string line;
     OwMap* m = nullptr;
     bool grid = false, hgrid = false;
@@ -3679,6 +4243,8 @@ void LoadWorld(std::string& log) {
         else if (k == "town") m->town = v;
         else if (k == "fly") std::sscanf(v.c_str(), "%d %d", &m->flyX, &m->flyY);
         else if (k == "if" && lastIf) *lastIf = v;
+        else if (k == "won" && lastNpc) lastNpc->winThen = v;
+        else if (k == "auto") { size_t bar = v.find('|'); if (bar != std::string::npos) m->autos.push_back({v.substr(0, bar), v.substr(bar + 1)}); }
         else if (k == "need" && lastNpc) { auto p = Split(v, '|'); lastNpc->needItem = Trim(p[0]); lastNpc->needText = p.size() > 1 ? p[1] : ""; lastNpc->usedText = p.size() > 2 ? p[2] : ""; }
         else if (k == "unless" && lastUnless) *lastUnless = v;
         else if (k == "item") {   // x y Name [count] [hidden]
@@ -4143,7 +4709,22 @@ void DrawAction(const View& c, int row, int cell, bool flip, float mx, float my,
 void DrawGrassOver(const OwMap& m, const View& c, int tx, int ty) {
     if (m.At(tx, ty) != 'g' || !m.tex.id) return;
     float lift = m.Lift(tx, ty);
-    Rectangle src{(float)tx * T, (float)ty * T + 9 - m.imgOffY - lift, (float)T, 7};
+    int sx = tx, sy = ty;
+    if (!m.hts.empty()) {
+        // HeartGold's maps are rendered from 3D models: at a patch's edge the picture under a grass square can be the
+        // path or the ground beside it, so the grass over your legs comes from a square in the middle of a patch
+        if (m.grassSample == -2) {
+            m.grassSample = -1;
+            for (int y = 1; y + 1 < m.h && m.grassSample < 0; y++)
+                for (int x = 1; x + 1 < m.w && m.grassSample < 0; x++) {
+                    bool all = true;
+                    for (int dy = -1; dy <= 1 && all; dy++) for (int dx = -1; dx <= 1 && all; dx++) all = m.At(x + dx, y + dy) == 'g' && m.Lift(x + dx, y + dy) == m.Lift(x, y);
+                    if (all) m.grassSample = y * m.w + x;
+                }
+        }
+        if (m.grassSample >= 0) { sx = m.grassSample % m.w; sy = m.grassSample / m.w; }
+    }
+    Rectangle src{(float)sx * T, (float)sy * T + 9 - m.imgOffY - m.Lift(sx, sy), (float)T, 7};
     Vector2 p = Scr(c, (float)tx * T, (float)ty * T + 9 - lift);
     DrawTexturePro(m.tex, src, {p.x, p.y, T * Z, 7 * Z}, {0, 0}, 0, WHITE);
 }
@@ -5247,3 +5828,17 @@ std::string OwNpcDump(const Game& g) {   // (the autotests: where everyone on th
     return s;
 }
 void OwRunAction(Game& g, int i, const std::string& act) { RunAction(g, i, act); }   // (the autotests)
+// A person off the people sheet, standing and facing you, drawn at screen x, y (top-left) and this scale (the Fame Checker).
+void DrawPersonSprite(const std::string& name, float x, float y, float scale) {
+    if (!gChars.id) return;
+    int s = SpriteIndex(name);
+    DrawTexturePro(gChars, {32.0f, (float)s * 32, 32, 32}, {x, y, 32 * scale, 32 * scale}, {0, 0}, 0, WHITE);
+}
+// (the autotests: a Feebas tile on this map, if it has any)
+bool OwFeebasTile(const Game& g, int& x, int& y) {
+    int map = g.ow.w[0].map;
+    if (map < 0) return false;
+    const OwMap& m = gMaps[map];
+    for (y = 0; y < m.h; y++) for (x = 0; x < m.w; x++) if (FeebasTile(g, m, x, y)) return true;
+    return false;
+}

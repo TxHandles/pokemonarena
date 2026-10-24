@@ -111,6 +111,7 @@ TrainerLook ParseLook(const std::string& s) {
         else if (k == "hair") l.hair = std::atoi(v.c_str());
         else if (k == "cloth") l.cloth = std::atoi(v.c_str());
         else if (k == "skin") l.skin = std::atoi(v.c_str());
+        else if (k == "poses") l.poses = std::max(-1, std::min(2, std::atoi(v.c_str())));
     }
     // Whole trainers only now (mixed heads, outfits and colours made too many odd sprites): an old mixed look
     // becomes the trainer whose head it had, as drawn.
@@ -130,7 +131,15 @@ const std::vector<std::string>& LookPeople() {   // every trainer you can be: on
 std::string LookText(const TrainerLook& l) {
     if (l.Empty()) return "";
     return "type=" + std::to_string(l.type) + ";head=" + l.head + ";body=" + l.body + ";hair=" + std::to_string(l.hair) +
-           ";cloth=" + std::to_string(l.cloth) + ";skin=" + std::to_string(l.skin);
+           ";cloth=" + std::to_string(l.cloth) + ";skin=" + std::to_string(l.skin) + (l.poses >= 0 ? ";poses=" + std::to_string(l.poses) : "");
+}
+int LookPoses(const TrainerLook& l) {
+    if (l.poses >= 0) return l.poses;
+    return l.head.rfind("hg_", 0) == 0 ? 1 : l.head.rfind("em_", 0) == 0 ? 2 : 0;
+}
+const char* PoseBase(int poses, int type) {
+    static const char* k[3][2] = {{"player", "leaf"}, {"hg_ethan", "hg_lyra"}, {"em_brendan", "em_may"}};
+    return k[std::max(0, std::min(2, poses))][type ? 1 : 0];
 }
 
 // HeartGold / SoulSilver's people (tools/hgss_sprites.py)
@@ -142,7 +151,7 @@ std::string LookText(const TrainerLook& l) {
     "hg_blue", "hg_red", "hg_officer", "hg_monk", "hg_rocket_f", "hg_rocket_m", "hg_ariana", "hg_archer", "hg_cook", "hg_flame_man", \
     "hg_kimono_girl", "hg_lass", "hg_captain", "hg_dark_girl", "hg_spiky_punk", "hg_eusine", "hg_elder", "hg_tank_man", "hg_pink_girl", \
     "hg_green_girl", "hg_navy_girl", "hg_cap_girl", "hg_hat_girl", "hg_grandpa", "hg_giovanni", "hg_bearded_man", "hg_sage", \
-    "hg_petrel", "hg_proton", "hg_worker"
+    "hg_petrel", "hg_proton", "hg_worker", "hg_ethan", "hg_lyra"
 // Emerald's people (tools/emerald_sprites.py)
 #define EM_PEOPLE "em_brendan", "em_may", "em_prof_birch", "em_roxanne", "em_brawly", "em_wattson", "em_flannery", "em_norman", \
     "em_winona", "em_tate", "em_liza", "em_juan", "em_sidney", "em_phoebe", "em_glacia", "em_drake", "em_wallace", "em_steven", \
@@ -244,8 +253,9 @@ Texture2D LookActions(const TrainerLook& l) {
     LoadSheets();
     int w = gActs.data ? gActs.width : 32;
     Image out = GenImageColor(w, 96, BLANK);
-    const char* base = l.type ? "leaf" : "player";
-    bool ownHead = !l.head.empty() && l.head != base;   // someone else's head: put it on Red's / Leaf's poses
+    int poses = LookPoses(l);
+    const char* base = PoseBase(poses, l.type);
+    bool ownHead = !l.head.empty() && l.head != base;   // someone else's head: put it on the player's poses
     int walkNeck = NECK;
     Image walk = ownHead ? ComposeWalk(l, &walkNeck) : Image{};
     int baseRow = RowOf(base);
@@ -253,7 +263,10 @@ Texture2D LookActions(const TrainerLook& l) {
         // the poses' skin: the shades Red's / Leaf's own face uses on the walking sheet
         std::vector<unsigned> skin = SkinOf(gChars, baseRow);
         for (int row = 0; row < 3; row++) {   // bike, surf, fish: Red's (boy) or Leaf's (girl) rows, in your colours
-            int src = row * 2 + (l.type ? 1 : 0);
+            // World/actions.png (tools/player_poses.py): FireRed's rows bike / surf / fish x boy, girl; then Ethan,
+            // Lyra, Brendan and May, three rows each
+            int src = poses == 0 ? row * 2 + (l.type ? 1 : 0) : 6 + ((poses - 1) * 2 + (l.type ? 1 : 0)) * 3 + row;
+            if ((src + 1) * 32 > gActs.height) src = row * 2 + (l.type ? 1 : 0);
             for (int cx = 0; cx < w / 32; cx++) {
                 int top = 32;   // the character's top in this cell: the head is the 10 rows from there
                 for (int y = 0; y < 32 && top == 32; y++)
@@ -274,8 +287,9 @@ Texture2D LookActions(const TrainerLook& l) {
                 int wc = dir == 0 ? 1 : dir == 1 ? 4 : 7;   // the standing frame that way
                 int rt, ax0, ax1, rx0, rx1, ot, ox0, ox1;
                 float rm, am, om;
-                HeadSpan(gChars, wc * CW, baseRow * 32, CW, NECK, rt, rm, rx0, rx1);   // Red's / Leaf's head walking
-                int hh = NECK - rt;                                                   // ...its height
+                int baseNeck = NeckOf(baseRow);
+                HeadSpan(gChars, wc * CW, baseRow * 32, CW, baseNeck, rt, rm, rx0, rx1);   // the player's head walking
+                int hh = baseNeck - rt;                                                   // ...its height
                 int at;
                 HeadSpan(gActs, cx * 32, src * 32, 32, top + hh, at, am, ax0, ax1);   // ...and on this pose
                 int neck = at + hh;

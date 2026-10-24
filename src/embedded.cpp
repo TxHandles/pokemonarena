@@ -68,7 +68,7 @@ std::string RestoreEmbeddedFiles() {
     int restored = 0, failed = 0;
     // Data updates: files this game version changed are refreshed once (the old copy is kept
     // next to it as .old). Everything else is only written when it's missing, so your edits stay.
-    const int DATA_VERSION = 38;
+    const int DATA_VERSION = 39;
     struct Upd { const char* path; int version; };
     static const Upd kUpdated[] = {
         {"Pokemon/Bulbasaur/pokemon.txt", 2}, {"Pokemon/Pikachu/pokemon.txt", 2},
@@ -127,6 +127,10 @@ std::string RestoreEmbeddedFiles() {
         {"World/chars.png", 37}, {"World/chars.txt", 37},                                               // Cave's tides, Mirage Island, rotating tiles
         {"World/world.txt", 38}, {"World/johto.txt", 38}, {"World/hoenn.txt", 38},                       // in-game trades, gift Pokemon, the Pokegear
         {"World/patches.txt", 38}, {"World/patches_johto.txt", 38}, {"World/patches_hoenn.txt", 38},     // radio, lotteries, Emerald's town extras
+        {"World/world.txt", 39}, {"World/johto.txt", 39}, {"World/hoenn.txt", 39}, {"wild.txt", 39},     // the Fame Checker and Teachy TV, the Name
+        {"World/patches.txt", 39}, {"World/patches_johto.txt", 39}, {"World/patches_hoenn.txt", 39},     // Raters, vending machines, Week Siblings,
+        {"World/chars.png", 39}, {"World/chars.txt", 39}, {"World/actions.png", 39},                    // Moomoo, the Goldenrod Tunnel, Feebas, the
+        {"World/fame.txt", 39}, {"World/extras.txt", 39},                                               // roulette, Winstrates; HeartGold's and Emerald's poses
     };
     std::string verPath = base + "data_version.txt";
     int have = 1;

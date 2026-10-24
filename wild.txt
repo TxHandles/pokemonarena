@@ -3534,7 +3534,7 @@ pokemon = walk, Oddish, 25, 89-94
 pokemon = walk, Electrike, 20, 89-94
 pokemon = walk, Manectric, 10, 89-94
 pokemon = super-rod, Carvanha, 90, 89-94
-pokemon = super-rod, Feebas, 10, 89-94, rare
+# (Feebas: only on Route 119's six secret tiles - overworld.cpp's FeebasTile, picked by Dewford's trendy saying)
 # Kalos and Alola Pokemon here (Gen 6 and 7 newcomers in the same niche as the locals)
 pokemon = walk, Gumshoos, 5, 89-94, newcomer
 pokemon = walk, Drampa, 2, 89-94, badges 3, newcomer

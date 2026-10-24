@@ -2165,3 +2165,66 @@ npc = 1 6 em_boy_1 down 0 trendy
 [patch Route 113 Glass Workshop]
 drop npc 2 3
 npc = 2 3 em_man_1 down 0 glassworks
+
+# ------------------------------------------------------------------ round 6: Emerald's side activities
+[patch Slateport City]
+drop npc 4 47
+npc = 4 47 em_woman_5 down 0 effortribbon
+
+[patch Slateport City Name Rater's House]
+drop npc 7 5
+npc = 7 5 em_expert_m down 0 namerater|Hi, hi! I'm the Name Rater!
+
+[patch Lilycove City Department Store Rooftop]
+drop sign 9 1
+drop sign 10 1
+spot = 9 1 vending
+spot = 10 1 vending
+
+# The Weather Institute: Castform for driving Team Aqua off (then the abnormal weather reports)
+[patch Weather Institute 2F]
+drop npc 18 6
+npc = 18 6 em_scientist_1 down 0 castform
+
+[patch Route 123 Berry Master's House]
+drop npc 4 4
+npc = 4 4 em_expert_m down 0 berrymaster
+drop npc 7 4
+npc = 7 4 em_old_woman down 0 berrywife
+
+[patch Route 124 Diving Treasure Hunter's House]
+drop npc 5 4
+npc = 5 4 em_man_5 left 0 shardman
+
+# Mauville Game Corner: the roulette tables (the left one 1 coin a ball, the right one 3)
+[patch Mauville City Game Corner]
+drop spot 14 6
+drop spot 15 6
+drop spot 14 7
+drop spot 15 7
+drop spot 14 8
+drop spot 15 8
+drop spot 18 6
+drop spot 19 6
+drop spot 18 7
+drop spot 19 7
+drop spot 18 8
+drop spot 19 8
+spot = 14 6 roulette|0
+spot = 15 6 roulette|0
+spot = 14 7 roulette|0
+spot = 15 7 roulette|0
+spot = 14 8 roulette|0
+spot = 15 8 roulette|0
+spot = 18 6 roulette|1
+spot = 19 6 roulette|1
+spot = 18 7 roulette|1
+spot = 19 7 roulette|1
+spot = 18 8 roulette|1
+spot = 19 8 roulette|1
+
+# Route 111: the Winstrates, four in a row
+[patch Route 111]
+drop npc 13 114
+npc = 13 114 em_man_1 down 0 winstrate
+unless = winstrates:done

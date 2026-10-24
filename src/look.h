@@ -7,13 +7,16 @@
 #include "raylib.h"
 
 struct TrainerLook {
-    int type = 0;            // 0 boy (Red's bike / surf / fishing poses), 1 girl (Leaf's)
+    int type = 0;            // 0 boy (Red's / Ethan's / Brendan's bike, surf and fishing poses), 1 girl (Leaf's / Lyra's / May's)
+    int poses = -1;          // whose poses: 0 FireRed's, 1 HeartGold's, 2 Emerald's (-1: the trainer's own game)
     std::string head, body;  // people on World/chars.txt: whose head and hair, whose outfit
     int hair = 0, cloth = 0, skin = 0;   // colour presets (0 = as drawn)
     bool Empty() const { return head.empty() && body.empty(); }
 };
 
-TrainerLook ParseLook(const std::string& s);          // "type=0;head=player;body=lass;hair=2;cloth=5;skin=0"
+TrainerLook ParseLook(const std::string& s);
+int LookPoses(const TrainerLook& l);                  // 0 FireRed, 1 HeartGold, 2 Emerald (an unset one: the trainer's game)
+const char* PoseBase(int poses, int type);           // the player whose poses they are: player, leaf, hg_ethan...          // "type=0;head=player;body=lass;hair=2;cloth=5;skin=0"
 std::string LookText(const TrainerLook& l);
 const std::vector<std::string>& LookHeads();   // the heads and outfits you can pick from (on the people sheet)
 const std::vector<std::string>& LookBodies();

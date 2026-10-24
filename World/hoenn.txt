@@ -4158,13 +4158,13 @@ objects = sprites
 indoor = yes
 wild = 
 door = 13 3 warp|Lilycove City Department Store 5F|16|1|up
-sign = 9 1 Decided against buying a drink.
-sign = 10 1 Decided against buying a drink.
 npc = 4 4 em_man_2 up 0 talk|Yes! I've been waiting a long time for this clear-out sale.|They have items that you can only get here. I'm going to load up, that I am!
 npc = 7 5 em_man_3 wander 0 talk|Ohh... I'm bone-dry thirsty!
 npc = 6 1 em_rooftop_sale_woman down 0 shop|Welcome! How may I serve you?
 unless = gone:FLAG_HIDE_LILYCOVE_DEPARTMENT_STORE_ROOFTOP_SALE_WOMAN
 npc = 15 5 em_woman_3 down 0 tutor|Substitute|When I see the wide world from up here on the roof...|I think about how nice it would be if there were more than just one me so I could enjoy all sorts of lives.|Of course it's not possible. Giggle...|I know! Would you be interested in having a Pokemon learn Substitute?
+spot = 9 1 vending
+spot = 10 1 vending
 grid:
 ################..
 #........##.####..
@@ -5412,18 +5412,18 @@ spot = 7 9 slots
 spot = 8 6 slots
 spot = 8 7 slots
 spot = 8 9 slots
-spot = 14 6 slots
-spot = 15 6 slots
-spot = 14 7 slots
-spot = 15 7 slots
-spot = 14 8 slots
-spot = 15 8 slots
-spot = 18 6 slots
-spot = 19 6 slots
-spot = 18 7 slots
-spot = 19 7 slots
-spot = 18 8 slots
-spot = 19 8 slots
+spot = 14 6 roulette|0
+spot = 15 6 roulette|0
+spot = 14 7 roulette|0
+spot = 15 7 roulette|0
+spot = 14 8 roulette|0
+spot = 15 8 roulette|0
+spot = 18 6 roulette|1
+spot = 19 6 roulette|1
+spot = 18 7 roulette|1
+spot = 19 7 roulette|1
+spot = 18 8 roulette|1
+spot = 19 8 roulette|1
 grid:
 ######################
 ######################
@@ -9996,8 +9996,6 @@ sign = 7 84 Trainer Tips|One of the indicators of a Pokemon's powerfulness is Sp
 item = 19 55 Protein 1 hidden
 item = 35 66 Rare Candy 1 hidden
 sign = 24 116  Trainer Hill Entrance|"Scale the heights, you hot-blooded Trainers!"
-npc = 13 114 em_man_1 down 1 fight|Winstrate Victor|Taillow 16, Zigzagoon 16|Aiyah! You're a lot tougher than I expected!|Hey, all! I've found a pretty strong Trainer!
-unless = gone:FLAG_HIDE_ROUTE_111_VICTOR_WINSTRATE
 npc = 13 113 em_pokefan_f down 0 talk|...
 if = show:FLAG_HIDE_ROUTE_111_VICTORIA_WINSTRATE
 npc = 13 113 em_lass down 0 talk|...
@@ -10057,6 +10055,8 @@ unless = gone:FLAG_HIDE_ROUTE_111_ROCK_SMASH_TIP_GUY
 wxzone = 8 34 999 72 sand
 wxzone = 0 73 999 107 sand
 block = 29 87 regi_doors|The door is shut tight. There's braille on it, but nothing happens...
+npc = 13 114 em_man_1 down 0 winstrate
+unless = winstrates:done
 grid:
 ########################################
 ########################################
@@ -11375,7 +11375,7 @@ npc = 16 6 em_aqua_member_m left 0 talk|...
 if = show:FLAG_HIDE_WEATHER_INSTITUTE_2F_AQUA_GRUNT_M
 npc = 19 6 em_aqua_member_f left 3 fight|Team Aqua Grunt|Zubat 27, Poochyena 27|Don't tell me you're looking for that weather Pokemon, too?/That's a no-no! We were here to get it first!|Humph, so what? What we want.../What we really want isn't here... Ihihihihi...
 unless = gone:FLAG_HIDE_ROUTE_119_TEAM_AQUA
-npc = 18 6 em_scientist_1 down 0 abweather
+npc = 18 6 em_scientist_1 down 0 castform
 grid:
 ####################
 #################D##
@@ -11809,8 +11809,8 @@ wild =
 door = 3 8 warp|Route 123|22|6|down
 door = 4 8 warp|Route 123|22|6|down
 spot = 2 1 tv
-npc = 4 4 em_expert_m down 0 talk|I'm done for today. Come again another day.|Let flowers fill the world!
-npc = 7 4 em_old_woman down 0 give|Our four grandchildren should become more accomplished than my husband./Joy never goes out of my life!|Spelon Berry|1|got:FLAG_RECEIVED_SPELON_BERRY|Oh! A good saying it is. You're quite remarkable./I want you to have this.
+npc = 4 4 em_expert_m down 0 berrymaster
+npc = 7 4 em_old_woman down 0 berrywife
 grid:
 ###########
 ###########
@@ -11943,7 +11943,7 @@ wild =
 door = 3 9 warp|Route 124|70|48|down
 door = 4 9 warp|Route 124|70|48|down
 sign = 7 1 Wanted itemTrade item Red Shardfire Stone|Wanted itemTrade item Yellow Shardthunderstone|Wanted itemTrade item Blue Shardwater Stone|Wanted itemTrade item Green Shardleaf Stone
-npc = 5 4 em_man_5 left 0 talk|Tell me, have you seen any Shards of tools made in ancient times?
+npc = 5 4 em_man_5 left 0 shardman
 grid:
 ##########
 #########.
@@ -15982,7 +15982,6 @@ unless = gone:FLAG_HIDE_SLATEPORT_CITY_TEAM_AQUA
 npc = 6 38 clerk right 0 shop|Welcome! How may I serve you?
 npc = 5 51 clerk down 0 shop|Welcome! How may I serve you?
 npc = 34 51 em_man_5 down 0 talk|The light of the lighthouse reaches dozens of miles away.|I wonder if it doesn't startle Pokemon in the sea.
-npc = 4 47 em_woman_5 down 0 talk|Oh? Your ...
 npc = 11 47 clerk down 0 shop|Welcome! How may I serve you?
 if = show:FLAG_HIDE_SLATEPORT_CITY_TM_SALESMAN
 npc = 5 47 em_pokefan_m down 0 shop|Welcome! How may I serve you?
@@ -16005,6 +16004,7 @@ unless = gone:FLAG_HIDE_SLATEPORT_CITY_TEAM_AQUA
 npc = 11 37 em_pokefan_f left 0 give|I recently had machines installed at Pokemon Centers for crushing Berries./The Berry Crush machines are at the Direct Corner upstairs./Did you know?/Could you make Berry Powder for me using those machines?/I can make you all sorts of medicine if you bring me lots of Berry Powder.|Powder Jar|1|got:FLAG_RECEIVED_POWDER_JAR|Have you brought me some Berry Powder?
 npc = 10 12 em_scott down 0 talk|...
 if = show:FLAG_HIDE_SLATEPORT_CITY_SCOTT
+npc = 4 47 em_woman_5 down 0 effortribbon
 grid:
 ###############.....################wwww
 ################....################wwww
@@ -16184,7 +16184,7 @@ indoor = yes
 wild = 
 door = 3 8 warp|Slateport City|5|19|down
 door = 4 8 warp|Slateport City|5|19|down
-npc = 7 5 em_expert_m down 0 talk|Hi, hi! I'm the Name Rater! I'm the fortune-teller of names!|I shall be pleased to rate your Pokemon's nickname.
+npc = 7 5 em_expert_m down 0 namerater|Hi, hi! I'm the Name Rater!
 grid:
 ##########
 ##########

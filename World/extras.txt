@@ -1,0 +1,135 @@
+# Hand-made maps (FireRed's pictures with other regions' people): loaded after world.txt, johto.txt and hoenn.txt.
+# HeartGold's Goldenrod Tunnel under Goldenrod City: the Haircut Brothers and the herb shop (FireRed's Underground Path rooms).
+
+[map]
+name = Goldenrod Tunnel North Entrance
+region = Johto
+image = maps/UndergroundPath_NorthEntrance.png
+over = maps/UndergroundPath_NorthEntrance_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 5 8 warp|Goldenrod City|59|15|down
+door = 6 9 warp|Goldenrod City|59|15|down
+door = 7 8 warp|Goldenrod City|59|15|down
+door = 6 4 warp|Goldenrod Tunnel|4|3|up
+npc = 3 6 fat_man wander 0 talk|Coin Case? I threw it away in the Underground.|...Or was it somewhere else?
+grid:
+#############
+#############
+#...........#
+..##.##..##..
+..#..##...#..
+..#..##...#..
+..##.....##..
+.............
+#....D.D....#
+#############
+
+[map]
+name = Goldenrod Tunnel
+region = Johto
+image = maps/UndergroundPath_NorthSouthTunnel.png
+over = maps/UndergroundPath_NorthSouthTunnel_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 5 3 warp|Goldenrod Tunnel North Entrance|7|4|down
+door = 2 60 warp|Goldenrod Tunnel South Entrance|7|4|down
+sign = 3 4 Goldenrod Tunnel|The Pokemon Salon and the herb shop are on the way through.
+npc = 1 20 hg_spiky_man right 0 haircut|older
+if = weekday:2,weekday:4,weekday:6
+npc = 1 30 hg_young_man right 0 haircut|younger
+if = weekday:0,weekday:3,weekday:5
+npc = 1 22 lass up 0 talk|The Haircut Brothers take turns running the Pokemon Salon.|The older one is here on Tuesdays, Thursdays and Saturdays, the younger one on Sundays, Wednesdays and Fridays.
+npc = 6 40 old_woman left 0 buy|Hello, dear. I sell inexpensive herbal medicine.|They're good, but a trifle bitter. Your Pokemon may not like them. Hehehehe...|Heal Powder:300,Energy Powder:500,Energy Root:800,Revival Herb:2800
+grid:
+########
+########
+#....###
+#....###
+#....###
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+#......#
+###....#
+###....#
+###....#
+########
+
+[map]
+name = Goldenrod Tunnel South Entrance
+region = Johto
+image = maps/UndergroundPath_SouthEntrance.png
+over = maps/UndergroundPath_SouthEntrance_over.png
+objects = sprites
+indoor = yes
+wild = 
+door = 5 8 warp|Goldenrod City|59|55|down
+door = 6 9 warp|Goldenrod City|59|55|down
+door = 7 8 warp|Goldenrod City|59|55|down
+door = 6 4 warp|Goldenrod Tunnel|3|60|up
+npc = 9 6 woman_2 down 0 talk|People often lose things in the darkness of the Goldenrod Tunnel.
+grid:
+#############
+#############
+#...........#
+..##.##..##..
+..#..##...#..
+..#..##...#..
+..##.....##..
+.............
+#....D.D....#
+#############
+
