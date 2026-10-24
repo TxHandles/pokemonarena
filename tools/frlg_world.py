@@ -399,6 +399,8 @@ def main():
         indoor = mt in ("MAP_TYPE_INDOOR", "MAP_TYPE_UNDERGROUND", "MAP_TYPE_SECRET_BASE")
         if indoor:
             L.append("indoor = yes")
+            if j.get("allow_cycling"):
+                L.append("cycling = yes")   # (a cave you can ride a Bicycle in)
         if j.get("requires_flash"):
             L.append("dark = yes")
         wth = {"WEATHER_RAIN": "rain", "WEATHER_SNOW": "snow", "WEATHER_FOG_HORIZONTAL": "fog", "WEATHER_FOG_DIAGONAL": "fog", "WEATHER_SANDSTORM": "sand"}.get(j.get("weather", ""))

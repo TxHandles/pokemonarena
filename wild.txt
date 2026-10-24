@@ -3079,6 +3079,10 @@ pokemon = walk, Smeargle, 20, 58-63
 pokemon = walk, Unown, 40, 58-63
 pokemon = walk, Wobbuffet, 5, 60-64, rare
 
+[Ruins of Alph (Inner Chamber)]
+unlock = Violet Gym
+pokemon = walk, Unown, 100, 58-63
+
 [Union Cave]
 unlock = Union Cave
 pokemon = walk, Geodude, 30, 59-64
@@ -3143,6 +3147,20 @@ pokemon = good-rod, Clauncher, 3, 62-67, newcomer
 pokemon = good-rod, Crabrawler, 3, 62-67, newcomer
 pokemon = good-rod, Wimpod, 3, 62-67, newcomer
 pokemon = walk, Skiddo, 1, 64-68, newcomer
+
+[Bug-Catching Contest]
+unlock = Goldenrod Gym
+# HeartGold's Bug-Catching Contest in the National Park (only while you're in it: Park Balls, one bug to keep)
+pokemon = walk, Caterpie, 20, 7-18
+pokemon = walk, Weedle, 20, 7-18
+pokemon = walk, Metapod, 10, 9-18
+pokemon = walk, Kakuna, 10, 9-18
+pokemon = walk, Venonat, 10, 10-16
+pokemon = walk, Paras, 10, 10-17
+pokemon = walk, Butterfree, 5, 12-15
+pokemon = walk, Beedrill, 5, 12-15
+pokemon = walk, Scyther, 5, 13-14
+pokemon = walk, Pinsir, 5, 13-14
 
 [National Park]
 unlock = Goldenrod Gym

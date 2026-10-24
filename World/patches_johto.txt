@@ -174,3 +174,204 @@ set weather = rain
 [patch Olivine Port]
 npc = 5 2 sailor down 0 sailto|The S.S. Tidal sails for Hoenn from here. Where to?|done:Hoenn|Sorry, the S.S. Tidal only takes Trainers who've conquered Hoenn's League.|Slateport City (Hoenn);Slateport City Harbor;9;12;up|Lilycove City (Hoenn);Lilycove City Harbor;9;12;up|Battle Frontier (Hoenn);Battle Frontier West;20;67;up
 if = done:Hoenn
+
+# ------------------------------------------------------------------ the Cliff Edge Gate: Cianwood's west cliff to Route 47
+[patch Cianwood City]
+door = 10 27 warp|Route 47|94|25|left
+[patch Route 47]
+door = 95 25 warp|Cianwood City|11|27|right
+
+# Route 47's north path up to Route 48 (the two maps' edges don't meet in the made grids)
+[patch Route 47]
+door = 32 5 warp|Route 48|39|29|up
+door = 33 5 warp|Route 48|39|29|up
+door = 34 5 warp|Route 48|40|29|up
+door = 35 5 warp|Route 48|40|29|up
+[patch Route 48]
+door = 37 31 warp|Route 47|32|7|down
+door = 38 31 warp|Route 47|33|7|down
+door = 39 31 warp|Route 47|33|7|down
+door = 40 31 warp|Route 47|34|7|down
+door = 41 31 warp|Route 47|35|7|down
+
+# Johto Victory Road 1F: the made ledge on the west path would cut the cave in two (it's a step you can climb)
+[patch Johto Victory Road 1F]
+tile 19 41 .
+tile 20 41 .
+tile 21 41 .
+
+# Tohjo Falls: the waterfall up to the hidden cave (the made grid lost it)
+[patch Tohjo Falls]
+tile 26 13 W
+tile 27 13 W
+tile 28 13 W
+tile 26 14 W
+tile 27 14 W
+tile 28 14 W
+tile 26 15 W
+tile 27 15 W
+tile 28 15 W
+
+# Mt. Mortar 1F: the great waterfall up to the top lake, and the ladder to 2F on the island in it
+[patch Mt. Mortar 1F]
+tile 44 22 W
+tile 45 22 W
+tile 46 22 W
+tile 44 23 W
+tile 45 23 W
+tile 46 23 W
+tile 45 12 D
+drop door 45 2
+door = 45 8 warp|Mt. Mortar 2F|27|55|down
+[patch Mt. Mortar 2F]
+drop door 27 55
+door = 27 55 warp|Mt. Mortar 1F|45|9|down
+
+# ------------------------------------------------------------------ the Bell Tower (Pokemon Crystal's Tin Tower floors), Ho-Oh on its roof
+[patch Ecruteak City Bell Tower Barrier Station]
+drop door 3 1
+door = 3 1 warp|Bell Tower 1F|9|14|up
+[patch Bell Tower 1F]
+door = 9 15 warp|Ecruteak City Bell Tower Barrier Station|3|2|down
+door = 10 15 warp|Ecruteak City Bell Tower Barrier Station|3|2|down
+drop npc 9 1
+[patch Bell Tower Roof]
+drop npc 9 5
+npc = 9 5 mon:Ho-Oh down 0 legend|Ho-Oh|Ho-Oh: Shaoooh!
+# Lugia in its chamber under the Whirl Islands; Celebi at the Ilex Forest shrine
+[patch Lugia's Chamber]
+drop npc 9 5
+npc = 9 5 mon:Lugia down 0 legend|Lugia|Lugia: Gyaaas!
+[patch Ilex Forest]
+npc = 16 56 mon:Celebi down 0 legend|Celebi|Celebi: Biii!
+
+# ------------------------------------------------------------------ phone rematches (tools/hgss_rematches.py)
+[patch Route 27]
+at 85 24: rematch = Farfetch'd 44 / Farfetch'd 38, Farfetch'd 45 / Farfetch'd 50, Farfetch'd 52, Farfetch'd 53
+[patch Route 46]
+at 7 28: rematch = Gloom 32, Rapidash 41 / Bellossom 46, Sunflora 39, Rapidash 48 / Cherrim 42, Sunflora 46, Bellossom 49, Rapidash 53
+[patch Route 32]
+at 18 54: rematch = Weepinbell 35, Nidorina 38 / Weepinbell 39, Nidorino 38, Nidoqueen 40 / Victreebel 47, Nidoking 58, Nidoqueen 60
+[patch Route 38]
+at 11 1: rematch = Mr. Mime 29, Magnemite 30 / Mr. Mime 39, Magneton 38 / Mr. Mime 46, Magneton 56
+[patch Route 31]
+at 28 23: rematch = Metapod 18, Butterfree 29, Kakuna 22, Metapod 18 / Butterfree 28, Butterfree 40, Beedrill 37, Butterfree 28 / Butterfree 36, Butterfree 52, Beedrill 43, Butterfree 36
+[patch National Park]
+at 66 46: rematch = Gloom 29, Voltorb 17 / Vileplume 38, Electrode 31 / Electrode 43, Vileplume 52, Arcanine 52
+[patch Route 26]
+at 30 42: rematch = Victreebel 34, Kingler 34, Flareon 34 / Victreebel 38, Kingler 39, Flareon 38 / Victreebel 52, Kingler 49, Flareon 50
+[patch Route 45]
+at 22 86: rematch = Onix 27, Hitmonlee 32, Onix 27, Machoke 32 / Onix 30, Machamp 37, Onix 33, Hitmonlee 41 / Onix 41, Machamp 53, Onix 49, Hitmonlee 53
+[patch Route 45]
+at 7 51: rematch = Onix 38, Graveler 35 / Steelix 41, Graveler 37 / Steelix 56, Golem 52
+[patch Route 43]
+at 14 31: rematch = Clefairy 34 / Clefable 41 / Clefable 61
+[patch Route 33]
+at 10 19: rematch = Graveler 33, Machoke 32 / Graveler 37, Graveler 38, Machoke 40 / Graveler 41, Golem 49, Machamp 55
+[patch Route 27]
+at 170 19: rematch = Growlithe 38, Nidorina 36, Staryu 38 / Arcanine 47, Nidoqueen 43, Starmie 47 / Arcanine 54, Nidoqueen 53, Starmie 56
+[patch Route 44]
+at 51 4: rematch = Goldeen 32, Goldeen 32, Seaking 36 / Goldeen 32, Seaking 36, Seaking 40 / Seaking 42, Seaking 46, Seaking 63
+[patch Route 26]
+at 17 14: rematch = Rapidash 38, Ampharos 37 / Rapidash 42, Ampharos 40 / Rapidash 56, Ampharos 59
+[patch Route 35]
+at 12 23: rematch = Voltorb 22, Voltorb 26, Voltorb 28, Voltorb 34 / Voltorb 34, Voltorb 36, Voltorb 38, Electrode 42 / Voltorb 40, Voltorb 40, Electrode 46, Electrode 51
+[patch Route 36]
+at 49 24: rematch = Tangela 32, Yanma 30 / Xatu 32, Tangrowth 36, Quagsire 32, Yanmega 34 / Xatu 47, Tangrowth 54, Quagsire 47, Yanmega 54
+[patch Route 39]
+at 22 43: rematch = Teddiursa 24, Pikachu 30 / Pichu 13, Teddiursa 15, Pikachu 37, Teddiursa 29 / Pichu 18, Teddiursa 22, Pikachu 39, Ursaring 47
+[patch Route 42]
+at 67 15: rematch = Qwilfish 33 / Goldeen 30, Goldeen 30, Qwilfish 38 / Seaking 41, Seaking 50, Qwilfish 53
+[patch National Park]
+at 52 55: rematch = Snubbull 31 / Granbull 43 / Granbull 53
+[patch Route 44]
+at 85 13: rematch = Hoothoot 33, Pidgeotto 32 / Pidgeotto 37, Pidgeot 38, Noctowl 42 / Pidgeot 56, Pidgeot 44, Noctowl 54
+[patch Route 32]
+at 20 99: rematch = Seaking 40 / Qwilfish 45, Seaking 42 / Qwilfish 53, Seaking 56
+[patch Route 34]
+at 13 11: rematch = Geodude 17, Geodude 17, Psyduck 31 / Geodude 23, Graveler 33, Golduck 36, Slugma 32 / Graveler 36, Graveler 44, Magcargo 54, Golduck 56
+[patch Route 35]
+at 26 10: rematch = Venonat 36 / Venomoth 43 / Nincada 45, Venomoth 56
+[patch Route 38]
+at 33 2: rematch = Flaaffy 32, Psyduck 31 / Golduck 36, Ampharos 38 / Golduck 51, Ampharos 54
+[patch National Park]
+at 37 31: rematch = Oddish 21, Cubone 31 / Gloom 32, Marowak 38 / Vileplume 53, Marowak 54
+[patch Route 34]
+at 24 34: rematch = Mankey 27, Dugtrio 33 / Primeape 38, Dugtrio 40 / Primeape 47, Dugtrio 58
+[patch Olivine Lighthouse 2F]
+at 17 8: rematch = Noctowl 36 / Noctowl 42 / Noctowl 58
+
+# Mom hands over the Pokegear (its phone: the rematch calls)
+[patch Your House (New Bark) 1F]
+drop npc 8 4
+npc = 8 4 hg_mom left 0 give|Oh, {PLAYER}! Your Pokegear's back from the repair shop. Here you go!|Pokegear|1|got:pokegear|It has a phone - Trainers who give you their number will call when they want a rematch./Professor Elm has been waiting for you, dear. Please, go and help him.
+
+# ------------------------------------------------------------------ Apricorn trees (tools/hgss_apricorns.py)
+[patch Route 26]
+npc = 24 54 apricorn:Blue down 0 apricorn|4|Blue
+[patch Route 29]
+npc = 20 8 apricorn:Green down 0 apricorn|5|Green
+[patch Route 30]
+npc = 9 67 apricorn:Green down 0 apricorn|6|Green
+[patch Route 30]
+npc = 18 5 apricorn:Pink down 0 apricorn|7|Pink
+[patch Route 31]
+npc = 26 15 apricorn:Black down 0 apricorn|8|Black
+[patch Route 33]
+npc = 23 26 apricorn:Pink down 0 apricorn|9|Pink
+[patch Route 33]
+npc = 24 26 apricorn:Black down 0 apricorn|10|Black
+[patch Route 35]
+npc = 6 37 apricorn:Green down 0 apricorn|11|Green
+[patch Route 36]
+npc = 30 9 apricorn:Blue down 0 apricorn|12|Blue
+[patch Route 37]
+npc = 17 10 apricorn:Red down 0 apricorn|13|Red
+[patch Route 37]
+npc = 22 10 apricorn:Blue down 0 apricorn|14|Blue
+[patch Route 37]
+npc = 20 12 apricorn:Black down 0 apricorn|15|Black
+[patch Route 38]
+npc = 27 12 apricorn:White down 0 apricorn|16|White
+[patch Route 39]
+npc = 13 3 apricorn:Green down 0 apricorn|17|Green
+[patch Route 42]
+npc = 48 24 apricorn:Pink down 0 apricorn|18|Pink
+[patch Route 42]
+npc = 49 24 apricorn:Green down 0 apricorn|19|Green
+[patch Route 42]
+npc = 50 24 apricorn:Yellow down 0 apricorn|20|Yellow
+[patch Route 43]
+npc = 1 29 apricorn:Black down 0 apricorn|21|Black
+[patch Route 44]
+npc = 13 11 apricorn:Red down 0 apricorn|22|Red
+[patch Route 45]
+npc = 26 140 apricorn:Green down 0 apricorn|23|Green
+[patch Route 46]
+npc = 9 11 apricorn:Green down 0 apricorn|24|Green
+[patch Route 46]
+npc = 8 12 apricorn:Yellow down 0 apricorn|25|Yellow
+[patch Violet City]
+npc = 24 51 apricorn:Yellow down 0 apricorn|29|Yellow
+[patch Azalea Town]
+npc = 12 5 apricorn:White down 0 apricorn|30|White
+# Kurt makes Poke Balls out of Apricorns (after the Slowpoke Well)
+[patch Azalea Town Kurt's House]
+npc = 5 3 hg_kurt down 0 kurt|Kurt: Bring me Apricorns and I'll turn them into Poke Balls - a different kind for every colour!
+if = stage:Slowpoke Well
+
+[patch Azalea Town Kurt's House]
+at 5 2: unless = stage:Slowpoke Well
+
+# ------------------------------------------------------------------ the Bug-Catching Contest at the National Park's gates
+[patch Route 36 National Park Gate]
+npc = 5 4 hg_officer left 0 bugcontest|Today's the Bug-Catching Contest!|Catch the best Bug-type Pokemon you can in the National Park. You get 20 Park Balls and 500 steps.|Would you like to enter?
+[patch Route 35 National Park Pokeathlon Gate]
+npc = 6 3 hg_officer left 0 bugcontest|Today's the Bug-Catching Contest!|Catch the best Bug-type Pokemon you can in the National Park. You get 20 Park Balls and 500 steps.|Would you like to enter?
+
+# ------------------------------------------------------------------ HeartGold's Battle Frontier (tools/hgss_frontier.py makes its maps)
+[patch Route 40 Battle Frontier Gate]
+drop npc 7 5
+door = 4 1 warp|Frontier Access|14|33|up
+door = 5 1 warp|Frontier Access|15|33|up
+npc = 7 5 gentleman left 0 talk|The Battle Frontier is just ahead!|Trainers come from all over to test themselves against its Frontier Brains.

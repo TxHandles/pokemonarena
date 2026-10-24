@@ -13,13 +13,8 @@
 
 walked = Kanto
 
-# Story stages with no FireRed trainer where the ladder put them: they count as done on the walked map.
-story_skip = Route 1
-story_skip = Diglett's Cave
-story_skip = Celadon Park
-story_skip = Safari Zone
-story_skip = Seafoam Islands
-story_skip = Cinnabar Volcano
+# (Story stages with no FireRed trainer stand on the map too now - see the end of this file. A stage listed as
+# "story_skip = Stage" would count as done on the walked map instead.)
 
 # A save that began its journey before the world could be walked starts in the Pokemon Center of the town
 # before its next battle ("<Town> Pokemon Center", else where Fly lands in <Town>).
@@ -480,3 +475,183 @@ npc = 42 40 rocket_m left 1 fight|Rocket Grunt|Rattata 35, Raticate 35, Sandshre
 [patch Vermilion City]
 npc = 23 33 sailor up 0 sailto|The S.S. Tidal sails for Hoenn from here. Where to?|done:Hoenn|Sorry, the S.S. Tidal only takes Trainers who've conquered Hoenn's League.|Slateport City (Hoenn);Slateport City Harbor;9;12;up|Lilycove City (Hoenn);Lilycove City Harbor;9;12;up|Battle Frontier (Hoenn);Battle Frontier West;20;67;up
 if = done:Hoenn
+
+# The Elite Four's rooms: the doorway you come in by (the made grids wall it off)
+[patch Lorelei's Room]
+tile 6 11 .
+[patch Bruno's Room]
+tile 6 11 .
+[patch Agatha's Room]
+tile 6 11 .
+# Icefall Cave: the thin ice gives way under you - down to B1F (FireRed's cracked-ice holes)
+[patch Icefall Cave 1F]
+door = 8 3 warp|Icefall Cave B1F|8|3|down
+door = 10 5 warp|Icefall Cave B1F|10|5|down
+door = 15 5 warp|Icefall Cave B1F|15|5|down
+door = 8 9 warp|Icefall Cave B1F|8|9|down
+door = 9 9 warp|Icefall Cave B1F|9|9|down
+door = 8 10 warp|Icefall Cave B1F|8|10|down
+door = 9 10 warp|Icefall Cave B1F|9|10|down
+door = 16 9 warp|Icefall Cave B1F|16|9|down
+door = 8 14 warp|Icefall Cave B1F|8|14|down
+
+# ------------------------------------------------------------------ the Pokemon Mansion's secret switches
+# (made by tools/frlg_mansion.py: the barriers each statue moves, on every floor)
+[patch Pokemon Mansion 1F]
+alt = mansion_switch|maps/PokemonMansion_1F_alt.png|maps/PokemonMansion_1F_alt_over.png
+tile 22 10 .
+gate = 22 10 mansion_switch
+tile 23 10 .
+gate = 23 10 mansion_switch
+tile 24 10 .
+gate = 24 10 mansion_switch
+tile 22 11 .
+gate = 22 11 mansion_switch
+tile 23 11 .
+gate = 23 11 mansion_switch
+tile 24 11 .
+gate = 24 11 mansion_switch
+gate = 31 18 !mansion_switch
+gate = 32 18 !mansion_switch
+gate = 33 18 !mansion_switch
+gate = 31 19 !mansion_switch
+gate = 32 19 !mansion_switch
+gate = 33 19 !mansion_switch
+tile 27 25 .
+gate = 27 25 mansion_switch
+tile 28 25 .
+gate = 28 25 mansion_switch
+tile 29 25 .
+gate = 29 25 mansion_switch
+tile 32 25 .
+gate = 32 25 mansion_switch
+tile 33 25 .
+gate = 33 25 mansion_switch
+tile 34 25 .
+gate = 34 25 mansion_switch
+tile 27 26 .
+gate = 27 26 mansion_switch
+tile 28 26 .
+gate = 28 26 mansion_switch
+tile 29 26 .
+gate = 29 26 mansion_switch
+tile 32 26 .
+gate = 32 26 mansion_switch
+tile 33 26 .
+gate = 33 26 mansion_switch
+tile 34 26 .
+gate = 34 26 mansion_switch
+drop sign 5 5
+spot = 5 5 switch|mansion_switch|A secret switch!|Press it?
+[patch Pokemon Mansion 2F]
+alt = mansion_switch|maps/PokemonMansion_2F_alt.png|maps/PokemonMansion_2F_alt_over.png
+gate = 12 6 !mansion_switch
+gate = 12 7 !mansion_switch
+gate = 12 8 !mansion_switch
+tile 24 14 .
+gate = 24 14 mansion_switch
+tile 25 14 .
+gate = 25 14 mansion_switch
+tile 26 14 .
+gate = 26 14 mansion_switch
+tile 24 15 .
+gate = 24 15 mansion_switch
+tile 25 15 .
+gate = 25 15 mansion_switch
+tile 26 15 .
+gate = 26 15 mansion_switch
+tile 10 30 .
+gate = 10 30 mansion_switch
+tile 10 31 .
+gate = 10 31 mansion_switch
+tile 10 32 .
+gate = 10 32 mansion_switch
+drop sign 2 16
+spot = 2 16 switch|mansion_switch|A secret switch!|Press it?
+[patch Pokemon Mansion 3F]
+alt = mansion_switch|maps/PokemonMansion_3F_alt.png|maps/PokemonMansion_3F_alt_over.png
+gate = 21 6 !mansion_switch
+gate = 21 7 !mansion_switch
+gate = 21 8 !mansion_switch
+tile 17 11 .
+gate = 17 11 mansion_switch
+tile 18 11 .
+gate = 18 11 mansion_switch
+tile 19 11 .
+gate = 19 11 mansion_switch
+tile 17 12 .
+gate = 17 12 mansion_switch
+tile 18 12 .
+gate = 18 12 mansion_switch
+tile 19 12 .
+gate = 19 12 mansion_switch
+drop sign 12 5
+spot = 12 5 switch|mansion_switch|A secret switch!|Press it?
+[patch Pokemon Mansion B1F]
+alt = mansion_switch|maps/PokemonMansion_B1F_alt.png|maps/PokemonMansion_B1F_alt_over.png
+tile 12 10 .
+gate = 12 10 mansion_switch
+tile 12 11 .
+gate = 12 11 mansion_switch
+tile 12 12 .
+gate = 12 12 mansion_switch
+gate = 33 20 !mansion_switch
+gate = 34 20 !mansion_switch
+gate = 35 20 !mansion_switch
+gate = 33 21 !mansion_switch
+gate = 34 21 !mansion_switch
+gate = 35 21 !mansion_switch
+tile 20 22 .
+gate = 20 22 mansion_switch
+tile 21 22 .
+gate = 21 22 mansion_switch
+tile 22 22 .
+gate = 22 22 mansion_switch
+tile 20 23 .
+gate = 20 23 mansion_switch
+tile 21 23 .
+gate = 21 23 mansion_switch
+tile 22 23 .
+gate = 22 23 mansion_switch
+gate = 16 28 !mansion_switch
+gate = 16 29 !mansion_switch
+gate = 16 30 !mansion_switch
+drop sign 24 29
+spot = 24 29 switch|mansion_switch|A secret switch!|Press it?
+drop sign 27 5
+spot = 27 5 switch|mansion_switch|A secret switch!|Press it?
+
+[patch Saffron City Gates]
+set town = 
+
+# ------------------------------------------------------------------ the story battles FireRed has no trainer for: on the map now
+[patch Route 1]
+npc = 10 18 youngster down 3 trainer|Route 1|Youngster Ty: Hey! You've got a Pokemon too? Let's battle!|Youngster Ty: Aww... I'll train harder!
+[patch Diglett's Cave B1F]
+npc = 42 39 hiker left 3 trainer|Diglett's Cave|Hiker Rocco: These tunnels go on forever! Let's see what you've dug up!|Hiker Rocco: Ha! You're tougher than bedrock!
+[patch Celadon City]
+npc = 10 25 em_twin right 3 trainer|Celadon Park|Twins Jo & Zoe: We do everything together - even battling!|Twins Jo & Zoe: We lost together, too...
+[patch Safari Zone Center]
+npc = 25 22 cooltrainer_f down 3 trainer|Safari Zone|Ranger Ana: I look after the Pokemon here. Show me how well you treat yours!|Ranger Ana: Your Pokemon really trust you.
+[patch Seafoam Islands 1F]
+npc = 19 12 woman_2 down 3 trainer|Seafoam Islands|Skier Lena: Brrr! The cold keeps my Pokemon sharp!|Skier Lena: You melted my whole team!
+[patch Cinnabar Island]
+npc = 17 6 balding_man down 3 trainer|Cinnabar Volcano|Firebreather Ash: The volcano's heat burns inside me! Let's battle!|Firebreather Ash: You put out my fire...
+
+# ------------------------------------------------------------------ the Safari Zone's game: 500 coins, 30 Safari Balls, 600 steps
+[patch Fuchsia City Safari Zone Entrance]
+drop npc 7 3
+npc = 7 3 worker_m left 0 safari|Welcome to the Safari Zone!|For just 500 coins, you can catch all the Pokemon you want in the park!|Would you like to join the hunt?
+block = 4 1 safari|Please talk to the attendant first - the Safari Zone's entry is 500 coins.
+
+# ------------------------------------------------------------------ Pewter's east exit after the Boulder Badge
+[patch Pewter City]
+drop npc 46 20
+npc = 46 20 scientist left 0 dexrate|Oh, {PLAYER}! I'm one of Prof. Oak's aides. Congratulations on the Boulder Badge!|Prof. Oak asked me to check on your Pokedex whenever I see you.
+if = badge:Boulder
+npc = 41 20 boy down 0 talk|You beat Brock? Wow, you're the real deal!|Route 3 is east of here, and past it is Mt. Moon.|I heard Team Rocket is digging around in the caves there for fossils...
+if = badge:Boulder
+
+drop npc 42 20
+npc = 42 20 boy down 0 talk|You're a Trainer, right?|Brock's looking for new challengers. Go see him at the Gym first!
+unless = badge:Boulder

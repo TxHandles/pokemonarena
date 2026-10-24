@@ -80,6 +80,17 @@ struct OwState {
     int townSel = 0;
     bool hubOnly = false;         // (autotests) stepped out to the Story menu: don't send them straight back out
     float clockAcc = 0;           // the walked day: seconds toward the next clock second
+    // The Safari Zone (Kanto, Hoenn) / the Bug-Catching Contest (Johto's National Park): a game of its own, on foot
+    struct SafariRun {
+        bool on = false, contest = false;
+        int balls = 0, steps = 0;     // Safari Balls / Park Balls left, steps left
+        std::string gate;             // where it ends: the gate you came in by
+        int gateX = 0, gateY = 0;
+        int bug = -1, bugLevel = 0;   // the contest: the bug you're keeping (species), its level,
+        int bugIv[6] = {0, 0, 0, 0, 0, 0};
+        bool bugShiny = false;
+        int bugNature = -1;
+    } safari;
 };
 
 bool WorldAvailable();                    // World/world.txt loaded

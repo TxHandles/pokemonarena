@@ -68,7 +68,7 @@ std::string RestoreEmbeddedFiles() {
     int restored = 0, failed = 0;
     // Data updates: files this game version changed are refreshed once (the old copy is kept
     // next to it as .old). Everything else is only written when it's missing, so your edits stay.
-    const int DATA_VERSION = 34;
+    const int DATA_VERSION = 35;
     struct Upd { const char* path; int version; };
     static const Upd kUpdated[] = {
         {"Pokemon/Bulbasaur/pokemon.txt", 2}, {"Pokemon/Pikachu/pokemon.txt", 2},
@@ -116,6 +116,9 @@ std::string RestoreEmbeddedFiles() {
         {"World/world.txt", 33}, {"World/johto.txt", 33},     // the Day Care people; Johto's paths opened up
         {"wild.txt", 34}, {"story.txt", 34}, {"World/world.txt", 34}, {"World/johto.txt", 34}, {"World/hoenn.txt", 34},   // walked Hoenn (Emerald),
         {"World/chars.png", 34}, {"World/chars.txt", 34}, {"World/berrytrees.png", 34}, {"World/patches.txt", 34},          // the Sevii story, ferries
+        {"wild.txt", 35}, {"World/world.txt", 35}, {"World/johto.txt", 35}, {"World/hoenn.txt", 35},   // Kanto / Johto completed: the Safari
+        {"World/patches.txt", 35}, {"World/patches_johto.txt", 35}, {"World/patches_hoenn.txt", 35},     // Zone, Apricorns, the Ruins of Alph,
+        {"World/maps/em_Route131.png", 35}, {"World/maps/em_Route131_over.png", 35},                    // HeartGold's Battle Frontier
     };
     std::string verPath = base + "data_version.txt";
     int have = 1;

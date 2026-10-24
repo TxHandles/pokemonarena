@@ -16,7 +16,7 @@ enum class Screen {
     RosterPick, Select, Battle, Results,
     StoryResults, Evolve, LearnMove, Reward, Catch, Heal, Map, Shop, DoublesMenu,
     CoopSelect, CoopHub, CoopCatch, NetMenu, Pokedex, Trade, Fossil, Gift, Revive, Slots, CoopSetup, CoopStarter, BattleStats, Practice, HallOfFame, Legends, LegendCatch, Bag,
-    RegionChoose, World, Creator, Nickname, Hatch, Daycare, Contest
+    RegionChoose, World, Creator, Nickname, Hatch, Daycare, Contest, Safari, UnownPuzzle
 };
 
 // Online ready kinds (what a player picked in the co-op hub): 1 story, 2 training, 3+N a rematch
@@ -188,6 +188,26 @@ struct Game {
     int stageIdx = -1;                      // -1 = training battle (or a Battle Tower floor)
     bool tower = false;                     // this battle is a Battle Tower floor (towerFloor)
     ContestState contest;                   // a Pokemon Contest (Lilycove's Contest Hall)
+    struct SafariEnc {                      // a Safari Zone / Bug-Catching Contest encounter (screens_safari.cpp)
+        int species = -1, level = 5, nature = -1;
+        int iv[6] = {0, 0, 0, 0, 0, 0};
+        bool shiny = false;
+        float catchMul = 1, fleeMul = 1;    // bait / a rock
+        int sel = 0, phase = 0;             // 0 choosing, 1 a ball flying and shaking, 2 over (caught / fled / out of balls)
+        int shakes = 0;
+        bool caught = false;
+        float t = 0;
+        std::string msg;
+        int angry = 0, eating = 0;          // turns left (FireRed: a rock angers it, bait keeps it eating)
+    } safariEnc;
+    struct AlphPuzzle {                     // the Ruins of Alph's stone panel (screens_puzzle.cpp)
+        std::string kind;                   // kabuto, omanyte, aerodactyl, hooh
+        int board[16] = {};                 // which piece is in each square (solved: board[k] == k)
+        int cur = 0, held = -1;             // the cursor, the square picked up (-1 none)
+        bool solved = false;
+        float t = 0;
+        Texture2D tex{};
+    } alph;
     int frontier = 0;                       // ...in a Battle Frontier facility (1 Tower .. 7 Pyramid, FrontierInfo): towerFloor is the battle of the streak
     int towerFloor = 0;
     uint32_t towerSeed = 0;
@@ -428,6 +448,12 @@ void UpdateRegionChoose(Game& g);    void DrawRegionChoose(const Game& g);
 void UpdateNickname(Game& g);        void DrawNickname(const Game& g);
 void UpdateHatch(Game& g, float dt); void DrawHatch(const Game& g);
 void UpdateDaycare(Game& g);         void DrawDaycare(const Game& g);
+void UpdateSafari(Game& g);          void DrawSafari(const Game& g);
+void OpenUnownPuzzle(Game& g, const std::string& kind);   // the Ruins of Alph's panels (screens_puzzle.cpp)
+void UpdateUnownPuzzle(Game& g);     void DrawUnownPuzzle(const Game& g);
+void AlphSolved(Game& g, const std::string& kind);        // (overworld.cpp) the floor gives way   // the Safari Zone / the Bug-Catching Contest
+void OpenSafariEncounter(Game& g, int species, int level, bool shiny, int nature, const int iv[6]);
+void SafariEnded(Game& g);           // out of balls: back to the gate (overworld.cpp)
 void OpenDaycare(Game& g, int who, Screen back);
 void OpenNickname(Game& g, int who, int mon, int returnTo, bool ask);   // returnTo: 0 the story queues, 1 Party & Box, 2 the world
 bool NextNickOrHatch(Game& g);       // the story queues: a nickname to ask or an Egg hatching next? (true: on its way)
@@ -452,8 +478,15 @@ void BeginTowerFloor(Game& g, int floor, uint32_t seed);   // set up the next To
 // The Battle Frontier (Hoenn, after its League): seven facilities, each with its own streak (kept in the save's flags,
 // so co-op shares it) and its Frontier Brain at Emerald's streaks, who gives a Silver and then a Gold Symbol.
 struct FrontierInfo { const char* name; const char* brain; const char* symbol; int silver, gold, teamSize; const char* rule; const char* team[2]; };
-const FrontierInfo& Frontier(int fac);      // 1 Tower, 2 Dome, 3 Palace, 4 Arena, 5 Factory, 6 Pike, 7 Pyramid
-constexpr int FRONTIER_COUNT = 7;
+const FrontierInfo& Frontier(int fac);      // 1 Tower, 2 Dome, 3 Palace, 4 Arena, 5 Factory, 6 Pike, 7 Pyramid (Emerald);
+                                            // 8 Tower, 9 Factory, 10 Arcade, 11 Castle, 12 Hall (HeartGold's, past Route 40)
+constexpr int FRONTIER_COUNT = 12;
+inline bool FrontierRentals(int fac) { return fac == 5 || fac == 9; }   // the Factories: rental Pokemon
+int ArcadeEffect(const Game& g);            // the Battle Arcade's board: what this battle's roll landed on (0 nothing)
+const char* ArcadeEffectName(int e);
+std::string HallType(int n);
+int CastlePoints(const Game& g);            // the Battle Castle's points (a flag in the save)
+void SetCastlePoints(Game& g, int cp);                // the Battle Hall: the n-th battle's type
 int FrontierStreak(const Game& g, int fac, int* best = nullptr, int* runs = nullptr);
 void SetFrontierStreak(Game& g, int fac, int streak, int best, int runs);
 int FrontierBrainAt(int fac, int n);        // the n-th battle of a streak is the Brain's: 1 Silver, 2 Gold, 0 no

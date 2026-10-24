@@ -221,8 +221,8 @@ void UpdateBag(Game& g) {
     if (in.confirm && n > 0) {
         const auto rows = Rows(g, g.bagTab);
         const BagRow& r = rows[std::min(g.bagSel, n - 1)];
-        if (r.item && (r.item->name == "Bicycle" || r.item->name == "VS Seeker" || r.item->name == "Pokenav")) {   // get on (or off) and go; look for rematches
-            std::string why = r.item->name == "Bicycle" ? WorldToggleBike(g) : r.item->name == "Pokenav" ? WorldMatchCall(g) : WorldVsSeeker(g);
+        if (r.item && (r.item->name == "Bicycle" || r.item->name == "VS Seeker" || r.item->name == "Pokenav" || r.item->name == "Pokegear")) {   // get on (or off) and go; look for rematches
+            std::string why = r.item->name == "Bicycle" ? WorldToggleBike(g) : (r.item->name == "Pokenav" || r.item->name == "Pokegear") ? WorldMatchCall(g) : WorldVsSeeker(g);
             if (!why.empty()) { Toast(g, why); PlaySfx(Sfx::MenuBack); }
             else { PlaySfx(Sfx::MenuOk); EnterStoryHub(g); }
             return;

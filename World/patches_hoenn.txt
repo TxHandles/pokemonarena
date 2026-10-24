@@ -310,3 +310,18 @@ npc = 15 2 em_teala down 0 give|Pokeblock Case|1|got:pokeblockcase
 npc = 23 8 em_boy_1 down 0 blender|Let's get blending already! Which Berry will you put in?
 npc = 22 9 em_pokefan_f right 0 blender|Oh, dear! You look as if you're good at blending. Would you like to join us?
 npc = 24 9 em_girl_1 left 0 blender|I wonder what kind of Pokeblock I'll get? This is so exciting!
+
+# The Cable Car between Route 112 and Mt. Chimney's summit
+[patch Route 112 Cable Car]
+drop npc 6 6
+npc = 6 6 em_beauty down 0 travel|The Cable Car is ready to go up. Would you like to be on it?|Mt. Chimney Cable Car|6|11|down
+[patch Mt. Chimney Cable Car]
+drop npc 6 6
+npc = 6 6 em_beauty down 0 travel|The Cable Car is ready to go down. Would you like to be on it?|Route 112 Cable Car|6|11|down
+
+# ------------------------------------------------------------------ the Safari Zone's game: 500 coins, 30 Safari Balls, 600 steps
+[patch Route 121 Safari Zone Entrance]
+drop npc 8 2
+npc = 8 2 em_camper down 0 safari|Welcome to the Safari Zone!|For 500 coins you get 30 Safari Balls - throw Pokeblocks... er, bait, and catch what you can!|Would you like to play?
+block = 2 6 safari|Please talk to the attendant first - the Safari Zone's entry is 500 coins.
+block = 3 6 safari|Please talk to the attendant first - the Safari Zone's entry is 500 coins.

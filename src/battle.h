@@ -80,6 +80,7 @@ struct SideSetup {
     int squad = -1;              // the raid: this player's squad (0 / 1); its slots share one controller and come in in waves
 };
 
+extern bool gBallFished;           // ...hooked with a fishing rod (the Lure Ball)
 extern bool gBallWater;            // set before a battle: met on or under the water (Dive Ball x3.5)
 extern std::set<int> gBallOwned;   // set before a battle: species the trainer has caught (Repeat Ball x3.5)
 struct BattleSetup {
@@ -407,6 +408,7 @@ struct Side {
     int active = 0;
     int teamId = 0;          // 0 or 1
     int input = -1;          // human input index, -1 = CPU
+    bool autoBattle = false; // a player's side fighting on its own (Auto-Battle, wild Pokemon only): cpu, its input kept
     int target = -1;         // foe slot this one is aiming at
     std::string tag;
     float damageDealt = 0;   // for co-op catch order
@@ -510,6 +512,12 @@ public:
     void DebugCenter();   // gallery: set the gym centerpiece off
     void DebugCast(int s, const char* move);   // effect showcase (autotest builds)
     void DebugHold();
+    // Auto-Battle: player p's side fights by itself (the CPU's best play) until switched off again
+    void SetAutoBattle(int p, bool on) {
+        for (auto& sd : sides)
+            if (sd.input == p && (sd.autoBattle || !sd.cpu)) { sd.autoBattle = on; sd.cpu = on; if (on) sd.level = AILevel::Hard; }
+    }
+    bool AutoBattle(int p) const { for (const auto& sd : sides) if (sd.input == p && sd.autoBattle) return true; return false; }
     void DebugWeather(Weather w) { weather = natural = w; weatherT = w == Weather::None ? 0 : 1e6f; }  // tests only
     void DebugPuddle(int s, float r, bool ice, uint32_t seed = 12345u, Vector2 off = {0, 0}) {   // tests only: a puddle (or ice) under slot s
         Puddle pd; pd.seed = seed; pd.pos = {sides[s].Cur().pos.x + off.x, sides[s].Cur().pos.y + off.y}; pd.r = pd.maxR = r; pd.ice = ice ? 30.0f : 0.0f; field.puddles.push_back(pd);

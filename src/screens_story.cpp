@@ -376,7 +376,34 @@ const FrontierInfo kFrontier[FRONTIER_COUNT + 1] = {
      {"Seviper, Shuckle, Milotic", "Seviper, Steelix, Gyarados"}},
     {"Battle Pyramid", "Pyramid King Brandon", "Brave", 21, 70, 3, "Climb the Pyramid floor by floor against the wild Pokemon living in it - no items.",
      {"Regirock, Registeel, Regice", "Articuno, Zapdos, Moltres"}},
+    // HeartGold / SoulSilver's Battle Frontier (Johto, past Route 40)
+    {"Johto Battle Tower", "Tower Tycoon Palmer", "Tower", 21, 49, 3, "Win battle after battle, three Pokemon each.",
+     {"Rhyperior, Milotic, Dragonite", "Heatran, Cresselia, Regigigas"}},
+    {"Johto Battle Factory", "Factory Head Thorton", "Factory", 21, 49, 3, "Battle with rental Pokemon - pick three of six we lend you. Your own Pokemon rest.",
+     {"Bronzong, Swalot, Lanturn", "Shuckle, Electivire, Porygon-Z"}},
+    {"Battle Arcade", "Arcade Star Dahlia", "Arcade", 27, 49, 3, "Before every battle the game board spins: the weather, your HP, the levels... anything can happen!",
+     {"Dusknoir, Ludicolo, Togekiss", "Zapdos, Blaziken, Dusknoir"}},
+    {"Battle Castle", "Castle Valet Darach", "Castle", 28, 49, 3, "Your Pokemon aren't healed between battles here. Win to earn Castle Points, and spend them at the desk to restore your team.",
+     {"Houndoom, Staraptor, Empoleon", "Gallade, Staraptor, Empoleon"}},
+    {"Battle Hall", "Hall Matron Argenta", "Hall", 50, 170, 1, "One Pokemon against one, battle after battle - a different type of foe each time, and they get stronger.",
+     {"Milotic", "Heatran"}},
 };
+// the Battle Arcade's board (rolled from the run's seed and the battle number, so it's the same on a retry)
+int ArcadeEffect(const Game& g) {
+    uint32_t h = g.towerSeed ^ ((uint32_t)g.towerFloor * 0x9E3779B1u) ^ 0xA5C4DEu;
+    h ^= h >> 15; h *= 0x2c1b3c6du; h ^= h >> 12; h *= 0x297a2d39u; h ^= h >> 15;
+    return (int)(h % 10);
+}
+const char* ArcadeEffectName(int e) {
+    static const char* k[10] = {"No event", "Rain", "Sunshine", "Sandstorm", "Hail", "Your HP halved", "Foe's HP halved",
+                                "Your levels +3", "Foe's levels +3", "No event"};
+    return k[e < 0 || e > 9 ? 0 : e];
+}
+std::string HallType(int n) {
+    static const char* k[17] = {"Normal", "Fire", "Water", "Electric", "Grass", "Ice", "Fighting", "Poison", "Ground",
+                                "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark", "Steel"};
+    return k[(std::max(1, n) - 1) % 17];
+}
 const FrontierInfo& Frontier(int fac) { return kFrontier[fac < 1 || fac > FRONTIER_COUNT ? 0 : fac]; }
 int FrontierBrainAt(int fac, int n) {
     const FrontierInfo& f = Frontier(fac);
@@ -384,6 +411,16 @@ int FrontierBrainAt(int fac, int n) {
     if (n == f.silver) return 1;
     if (n == f.gold || (n > f.gold && (n - f.gold) % f.silver == 0)) return 2;   // (and again every so often)
     return 0;
+}
+int CastlePoints(const Game& g) {
+    for (const auto& f : g.coop ? g.coopSave.owFlags : g.profile.owFlags)
+        if (f.rfind("castlecp|", 0) == 0) return std::atoi(f.c_str() + 9);
+    return 0;
+}
+void SetCastlePoints(Game& g, int cp) {
+    auto& fl = g.coop ? g.coopSave.owFlags : g.profile.owFlags;
+    for (auto it = fl.begin(); it != fl.end();) it = it->rfind("castlecp|", 0) == 0 ? fl.erase(it) : std::next(it);
+    if (cp > 0) fl.insert("castlecp|" + std::to_string(cp));
 }
 int FrontierStreak(const Game& g, int fac, int* best, int* runs) {
     const auto& fl = g.coop ? g.coopSave.owFlags : g.profile.owFlags;
@@ -416,6 +453,12 @@ StageDef FrontierStage(const Game& g) {
     st.name = std::string(F.name) + TextFormat(" - Battle %d", n);
     if (fac == 2) st.name = std::string(F.name) + TextFormat(" - Tournament %d, %s", (n - 1) / 4 + 1, (n - 1) % 4 == 3 ? "Final" : (n - 1) % 4 == 2 ? "Semifinal" : TextFormat("Round %d", (n - 1) % 4 + 1));
     if (fac == 7) { st.trainer = "Wild Pokemon"; st.venue = "cave"; }
+    if (fac == 10) st.name += std::string(" - ") + ArcadeEffectName(ArcadeEffect(g));
+    if (fac == 12) {   // the Hall: one of a type, stronger every lap of the types
+        st.team = {"random " + HallType(n)};
+        st.name = std::string(F.name) + TextFormat(" - Battle %d (%s)", n, HallType(n).c_str());
+        st.levelOffset += (n - 1) / 17 * 2;
+    }
     if (int brain = FrontierBrainAt(fac, n)) {   // the Frontier Brain, with their Emerald team
         st.trainer = F.brain;
         st.team.clear();
@@ -2806,6 +2849,7 @@ void ProcessStoryBattleEnd(Game& g) {
         for (int k = 0; k < 6; k++) m.iv[k] = f.iv[k];   // the IVs it had in the wild
         m.hp = std::max(0.01f, std::min(1.0f, f.hp / (float)std::max(1, f.maxHp)));
         m.caught = true;
+        if (f.caughtBall == "Friend Ball") m.friendship = std::max(m.friendship, 200);   // (Kurt's Green Apricorn ball)
         m.metAt = g.ow.wildBattle ? g.ow.wildArea : TrainAreaName(g);
         bool boxed = false;
         if (OnlineMine(g, who)) {
@@ -2871,7 +2915,7 @@ void ProcessStoryBattleEnd(Game& g) {
             m.moves.clear();
             if (f.transformFrom >= 0) for (int i = 0; i < f.origN; i++) m.moves.push_back(f.origMoves[i].name);
             else for (int i = 0; i < f.nMoves; i++) m.moves.push_back(f.moves[i].name);
-            if (!g.tower) m.hp = f.hp > 0 ? std::max(0.01f, std::min(1.0f, f.hp / (float)f.maxHp)) : 0.0f;   // the Tower doesn't touch HP
+            if (!g.tower || g.frontier == 11) m.hp = f.hp > 0 ? std::max(0.01f, std::min(1.0f, f.hp / (float)f.maxHp)) : 0.0f;   // the Tower doesn't touch HP
             row.xp = f.xpGained;
             took.push_back({who, f.ownedId, f.sentOut, f.hp <= 0});
             brought[who]++;
@@ -3161,8 +3205,17 @@ void ProcessStoryBattleEnd(Game& g) {
             if (fac == 2 && streak % 4 == 0) g.resultLines.push_back(TextFormat("You won the tournament! (%d in a row)", streak / 4));
             if (streak > best) { best = streak; g.resultLines.push_back(std::string("New ") + F.name + TextFormat(" record: %d wins in a row!", best)); }
             else g.resultLines.push_back(TextFormat("%d wins in a row! Talk to the receptionist to go on.", streak));
+            if (fac == 11) {   // the Castle: Castle Points for every win
+                int cp = CastlePoints(g) + 3;
+                SetCastlePoints(g, cp);
+                g.resultLines.push_back(TextFormat("You have %d Castle Points.", cp));
+            }
         } else {
             g.resultLines.push_back(std::string("The challenge ends at ") + TextFormat("%d wins. Record: %d.", streak, best));
+            if (fac == 11) {   // the Castle sees you off with your team restored
+                for (int p = 0; p < (coop ? 2 : 1); p++) for (auto& m : Prof(g, p).mons) m.hp = 1;
+                SetCastlePoints(g, 0);
+            }
             streak = 0;
             runs++;
         }

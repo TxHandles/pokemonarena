@@ -4,7 +4,7 @@ every Hoenn map with its picture, walls, grass, water (and where you can Dive), 
 signs, people (and what they say), route trainers and their Emerald teams (rematch teams too, for Match
 Call), item balls, hidden items, Cut trees, rocks and boulders, the Pokemon met on the map and the legendaries.
 
-    emerald_world.py <pokeemerald dir> <World dir> <story.txt> [--no-images]
+    emerald_world.py <pokeemerald dir> <World dir> <story.txt> [--no-images | --images-only=Route131,...]
 
 World/patches_hoenn.txt (hand-written) is merged in: the story's own battles, gifts, gates and anything the
 Emerald scripts do that a line of hoenn.txt can't say. Same syntax as World/patches.txt."""
@@ -15,6 +15,9 @@ import emerald_render as R
 
 ROOT, WORLD, STORY = sys.argv[1], sys.argv[2], sys.argv[3]
 IMAGES = "--no-images" not in sys.argv
+ONLY = set()
+for a in sys.argv:
+    if a.startswith("--images-only="): ONLY = set(a.split("=", 1)[1].split(","))   # (just these maps' pictures)
 MAPS = os.path.join(ROOT, "data/maps")
 
 # Not walked: link rooms, Secret Bases, event islands, the Contest stage (the Contest is a screen of its own),
@@ -373,6 +376,11 @@ def load_behaviors():
         MB.setdefault(name, k)
 
 
+# Maps whose scripts swap in another layout as you arrive (setmaplayoutindex): Route 131's is the one with the
+# channel up to the Sky Pillar.
+LAYOUT_OVERRIDE = {"Route131": "LAYOUT_ROUTE131_SKY_PILLAR"}
+
+
 def grid_of(cells, W, H, land, underwater):
     b = MB
     water = {b[n] for n in ("MB_POND_WATER", "MB_INTERIOR_DEEP_WATER", "MB_DEEP_WATER", "MB_SOOTOPOLIS_DEEP_WATER", "MB_OCEAN_WATER",
@@ -528,12 +536,12 @@ def main():
     out, missing_area, trainers_n, rematch_n = [], set(), 0, 0
     for mid, j in maps.items():
         folder, name = j["folder"], names[mid]
-        lay = lays.get(j["layout"])
+        lay = lays.get(LAYOUT_OVERRIDE.get(folder, j["layout"]))
         if not lay or "NULL" in (lay.get("primary_tileset"), lay.get("secondary_tileset")):
             continue
         img, over, cells = R.render_layout(ROOT, lay, found)
         W, H = lay["width"], lay["height"]
-        if IMAGES:
+        if IMAGES and (not ONLY or folder in ONLY):
             img.save(os.path.join(WORLD, "maps", "em_" + folder + ".png"), optimize=True)
             if over.getbbox():
                 over.save(os.path.join(WORLD, "maps", "em_" + folder + "_over.png"), optimize=True)
@@ -548,6 +556,8 @@ def main():
         mt = j.get("map_type", "")
         if mt in ("MAP_TYPE_INDOOR", "MAP_TYPE_UNDERGROUND", "MAP_TYPE_SECRET_BASE"):
             L.append("indoor = yes")
+            if j.get("allow_cycling"):
+                L.append("cycling = yes")   # (a cave you can ride a Bicycle in)
         if mt == "MAP_TYPE_UNDERWATER" or underwater:
             L.append("underwater = yes")
         if j.get("requires_flash"):
@@ -577,6 +587,8 @@ def main():
                 L.append(f"connect = {dirs[c['direction']]} {names[c['map']]} {-c['offset']}")
             elif c["direction"] in ("dive", "emerge"):
                 L.append(f"{c['direction']} = {names[c['map']]}")
+        if folder == "Underwater_SealedChamber":   # its map script: surfacing under the braille's "GO UP HERE" comes up inside
+            L.append("emergeat = 12 44 %s|10|19" % names[by_folder["SealedChamber_OuterRoom"]])
         if folder in FIXED_DIVE:
             kind, tgt, tx, ty = FIXED_DIVE[folder]
             if tgt in by_folder:
@@ -605,6 +617,16 @@ def main():
                 grid[wv["y"] * W + wv["x"]] = "D" if grid[wv["y"] * W + wv["x"]] in ".#" else grid[wv["y"] * W + wv["x"]]
             face = "down" if dj.get("map_type") not in ("MAP_TYPE_INDOOR", "MAP_TYPE_UNDERGROUND") else "up"
             L.append(f"door = {x} {y} warp|{names[dest]}|{dw['x']}|{dw['y']}|{face}")
+        # holes in a cracked floor: down to the floor below, same spot (setholewarp: the Sky Pillar, Granite Cave...)
+        hw = re.search(r"setholewarp (MAP_\w+)", open(os.path.join(MAPS, folder, "scripts.inc")).read()) if os.path.exists(os.path.join(MAPS, folder, "scripts.inc")) else None
+        if hw and hw.group(1) in maps:
+            for k, (_, coll, _, beh) in enumerate(cells):
+                if beh == MB["MB_CRACKED_FLOOR_HOLE"]:
+                    grid[k] = "."
+                    L.append(f"door = {k % W} {k // W} warp|{names[hw.group(1)]}|{k % W}|{k // W}|down")
+                elif beh == MB["MB_CRACKED_FLOOR"] and not coll:   # on foot it gives way; a bike's fast enough to cross
+                    L.append(f"door = {k % W} {k // W} warp|{names[hw.group(1)]}|{k % W}|{k // W}|down")
+                    L.append("unless = biking")
         # signs, hidden items, braille
         for b in j.get("bg_events") or []:
             if b["type"] == "sign":

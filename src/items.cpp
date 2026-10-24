@@ -31,6 +31,14 @@ std::vector<ItemDef> Build() {
     add("Master Ball", ItemFx::Ball, 0.0f, 2500, 8, "Never fails.");
     add("Net Ball", ItemFx::Ball, 1.0f, 1000, 99, "Catch rate x3 on Water- and Bug-type Pokemon.");
     add("Nest Ball", ItemFx::Ball, 1.0f, 1000, 99, "Works better the lower the wild Pokemon's level (up to x3).");
+    // Kurt's Apricorn balls (HeartGold): their catch rate depends on the Pokemon (battle.cpp)
+    add("Level Ball", ItemFx::Ball, 1.0f, 0, 99, "Kurt's Red Apricorn ball: x2, x4 or x8 the higher your Pokemon's level is than the wild one's.");
+    add("Lure Ball", ItemFx::Ball, 1.0f, 0, 99, "Kurt's Blue Apricorn ball: catch rate x3 on Pokemon hooked with a fishing rod.");
+    add("Moon Ball", ItemFx::Ball, 1.0f, 0, 99, "Kurt's Yellow Apricorn ball: catch rate x4 on Pokemon that evolve with a Moon Stone.");
+    add("Friend Ball", ItemFx::Ball, 1.0f, 0, 99, "Kurt's Green Apricorn ball: the Pokemon caught in it is very friendly right away.");
+    add("Love Ball", ItemFx::Ball, 1.0f, 0, 99, "Kurt's Pink Apricorn ball: catch rate x8 when your Pokemon is the same species and the other gender.");
+    add("Fast Ball", ItemFx::Ball, 1.0f, 0, 99, "Kurt's White Apricorn ball: catch rate x4 on Pokemon with a base Speed of 100 or more.");
+    add("Heavy Ball", ItemFx::Ball, 1.0f, 0, 99, "Kurt's Black Apricorn ball: the heavier the Pokemon, the better it works.");
     add("Dive Ball", ItemFx::Ball, 1.0f, 1000, 99, "Catch rate x3.5 on Pokemon met on (or under) the water - surfing, diving or fishing.");
     add("Repeat Ball", ItemFx::Ball, 1.0f, 1000, 99, "Catch rate x3.5 on a species you've already caught.");
     add("Luxury Ball", ItemFx::Ball, 1.0f, 3000, 99, "A comfortable ball: a Pokemon caught in it grows friendly twice as fast.");
@@ -222,6 +230,8 @@ std::vector<ItemDef> Build() {
     for (const char* b : {"Razz Berry", "Bluk Berry", "Nanab Berry", "Wepear Berry", "Pinap Berry", "Cornn Berry", "Magost Berry",
                           "Rabuta Berry", "Nomel Berry", "Spelon Berry", "Pamtre Berry", "Watmel Berry", "Durin Berry", "Belue Berry", "Enigma Berry"})
         val(b, 40, "A berry for making Pokeblocks in a Berry Blender (Hoenn). Plant it in soft soil to grow more, or sell it for 20 coins.");
+    for (const char* c : {"Red", "Yellow", "Blue", "Green", "Pink", "White", "Black"})
+        val((std::string(c) + " Apricorn").c_str(), 200, "An Apricorn from a Johto tree (one a day). Kurt in Azalea Town makes Poke Balls from them - or sell it for 100.");
     // FireRed's other held items
     add("Everstone", ItemFx::Everstone, 0, 2000, 1, "A strange stone: the Pokemon holding it doesn't evolve.");
     add("Soothe Bell", ItemFx::None, 2, 3000, 2, "A bell with a comforting chime: the Pokemon holding it grows fond of you twice as fast.");
@@ -382,6 +392,7 @@ std::vector<ItemDef> Build() {
     add("Acro Bike", ItemFx::KeyItem, 0, 0, 99, "Rydel's bike for tricks: hop along the white rails of Route 119 and the Sky Pillar.");
     add("Devon Goods", ItemFx::KeyItem, 0, 0, 99, "A package of Devon parts - Mr. Stone wants it back in Rustboro.");
     add("Letter", ItemFx::KeyItem, 0, 0, 99, "Mr. Stone's letter for his son Steven, who's in Dewford's Granite Cave.");
+    add("Pokegear", ItemFx::KeyItem, 0, 0, 99, "The Pokemon Gear: its phone keeps in touch with Johto's Trainers - they call when they want a rematch. Use it from the Bag.");
     add("Pokenav", ItemFx::KeyItem, 0, 0, 99, "Devon's Pokemon Navigator: its Match Call keeps in touch with Trainers you've battled. Use it from the Bag.");
     add("Wailmer Pail", ItemFx::KeyItem, 0, 0, 99, "A watering can shaped like Wailmer - it wakes up the strange tree on Route 120.");
     add("Devon Scope", ItemFx::KeyItem, 0, 0, 99, "A Devon device that shows Pokemon that can't be seen - like the Kecleon on Route 120.");

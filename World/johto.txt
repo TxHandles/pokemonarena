@@ -159,6 +159,7 @@ npc = 32 20 woman_2 wander 0 talk|Do you see those ledges? It's scary to jump of
 npc = 84 16 mon:Marill right 0 talk|Marill: ...
 item = 78 2 Potion
 npc = 53 21 woman_2 down 0 talk|...
+npc = 20 8 apricorn:Green down 0 apricorn|5|Green
 grid:
 ##################################################..############################################
 #################################################....###########################################
@@ -345,6 +346,8 @@ npc = 8 37 youngster down 2 fight|Youngster Mikey|Pidgey 2, Rattata 4|You're a P
 item = 10 54 Antidote
 item = 20 81 Potion
 npc = 13 78 bug_catcher wander 0 talk|Oh! You're wearing the Running Shoes.|They make you feel like you are flying, don't they?|But beware of wild Pokemon and Trainers!|When you run, the noise will attract them.
+npc = 9 67 apricorn:Green down 0 apricorn|6|Green
+npc = 18 5 apricorn:Pink down 0 apricorn|7|Pink
 grid:
 ######sss#######################
 ######sss#######################
@@ -559,8 +562,10 @@ npc = 52 17 man wander 0 talk|Dark Cave...|If a Pokemon could light it up, I'd e
 npc = 28 15 fat_man down 0 talk|...Hnuurg! ...Huh?|I feel like reading some words on a piece of paper or something...|...Zzz... ...!!|{PLAYER} handed over the Pokemon holding the Mail.|Let's see...|"Thank you for your Mail. It was such an exciting adventure.|I did not like ZUBAT, though..." That's what it says.|I went to a dark cave the other day with a friend.|That cave leads to another route. By the way, I must thank you for|being so kind.|I'd like to do something good in return.
 npc = 16 12 boy wander 0 talk|I found a good Pokemon in Dark Cave. I'm going to raise it to take on|Falkner.|He's the leader of Violet City's Gym.
 npc = 28 23 bug_catcher up 2 fight|Bug Catcher Wade|Caterpie 2, Caterpie 2, Weedle 3, Caterpie 2|I caught a bunch of Pokemon. Let me battle with you!|You can catch Pokemon even if you have six with you./If you catch one, it'll go to your Box automatically.
+rematch = Metapod 18, Butterfree 29, Kakuna 22, Metapod 18 / Butterfree 28, Butterfree 40, Beedrill 37, Butterfree 28 / Butterfree 36, Butterfree 52, Beedrill 43, Butterfree 36
 item = 45 13 Potion
 item = 33 25 Poke Ball
+npc = 26 15 apricorn:Black down 0 apricorn|8|Black
 grid:
 #####################################################...########
 #####################################################...########
@@ -667,6 +672,7 @@ npc = 52 48 man down 0 talk|Shard de Berry! Shard de Berry!|Yah, yah! I trade Be
 npc = 58 44 woman_3 wander 0 talk|We care about the traditional buildings around here. That's why even the|Poke Mart and Pokemon Center are|painted a bit somberly to blend in.
 npc = 34 17 little_boy wander 0 talk|Did you know that Pokegear allows you to put marks and memos on its Map?|I'd love to have one of those Pokegears, but my mom won't let me.
 fly = 49 48
+npc = 24 51 apricorn:Yellow down 0 apricorn|29|Yellow
 grid:
 .####################################.....######################
 .####################################.....######################
@@ -822,9 +828,11 @@ npc = 23 24 fat_man right 0 talk|WROOOOAR!|PEOPLE RUN WHEN I ROAR! BUT YOU CAME 
 npc = 29 17 gentleman left 0 talk|Your experiences in Violet City should be useful for your journey.
 npc = 22 41 youngster up 3 fight|Youngster Albert|Rattata 6, Zubat 8|I haven't seen you around before. So you think you're pretty tough?|I'm going to try to be the best with my prized Pokemon. I'm not using the/same tough Pokemon as everyone else.
 npc = 18 54 picnicker left 5 fight|Picnicker Liz|Nidoran F 8|Uh-huh. Yeah, and you know.../Pardon? Pokemon battle? I'm on the phone./Oh, all right. I'll accept your challenge!|At least I can complain over the phone.
+rematch = Weepinbell 35, Nidorina 38 / Weepinbell 39, Nidorino 38, Nidoqueen 40 / Victreebel 47, Nidoking 58, Nidoqueen 60
 npc = 13 86 fisher left 1 fight|Fisherman Henry|Poliwag 8, Poliwag 8|My Pokemon? Freshly caught!|Freshly caught Pokemon are no match for properly raised ones.
 npc = 15 88 fisher down 1 fight|Fisherman Justin|Magikarp 5, Magikarp 5, Magikarp 15, Magikarp 5|Whoa!/You made me lose that fish!|Calm, collected.../The essence of fishing and Pokemon is the same.
 npc = 20 99 fisher up 4 fight|Fisherman Ralph|Goldeen 10|I'm really good at fishing, but I'm even better at Pokemon!|Fishing is a lifelong passion. Pokemon are lifelong friends!
+rematch = Seaking 40 / Qwilfish 45, Seaking 42 / Qwilfish 53, Seaking 56
 npc = 4 97 camper up 5 fight|Camper Roland|Nidoran M 9|That glance... It's intriguing.|If you don't want to battle, just avoid eye contact.
 npc = 12 115 youngster up 3 fight|Youngster Gordon|Wooper 10|I found some good Pokemon in the grass! I think they'll do it for me!|Each Pokemon has its own nature. They seem different every time I catch/one. So there must be many natures!
 npc = 14 128 fat_man wander 0 talk|How would you like to have this tasty, nutritious SlowpokeTail?|For you right now, just $1,000,000! You'll want this!|Tch! I thought kids these days were loaded...
@@ -1185,6 +1193,14 @@ item = 7 55 Nugget hidden
 npc = 6 34 man right 3 fight|Psychic Nathan|Girafarig 26|Hmmm... This is a strange place.|I like thinking here.
 item = 19 18 Potion
 item = 2 17 Hyper Potion
+
+
+door = 20 10 warp|Ruins of Alph Kabuto Chamber|3|8|up
+door = 9 33 warp|Ruins of Alph Ho-Oh Chamber|3|8|up
+door = 9 53 warp|Ruins of Alph Omanyte Chamber|3|8|up
+door = 20 53 warp|Ruins of Alph Aerodactyl Chamber|3|8|up
+door = 14 28 warp|Ruins of Alph Inner Chamber|10|12|up
+door = 15 28 warp|Ruins of Alph Inner Chamber|10|12|up
 grid:
 #############....###############
 #############....###############
@@ -1329,8 +1345,11 @@ pos = 448 448
 door = 19 13 warp|Union Cave 1F|27|93|down
 sign = 18 16 Rt. 33 West to Azalea Town
 npc = 10 19 hiker wander 5 fight|Hiker Anthony|Geodude 11, Machop 11|I came through the cave, but I still have plenty of energy left.|We Hikers are at our best in the mountains.
+rematch = Graveler 33, Machoke 32 / Graveler 37, Graveler 38, Machoke 40 / Graveler 41, Golem 49, Machamp 55
 npc = 21 25 lass wander 0 talk|Pant, pant... I finally got through that cave.|It was much bigger than I'd expected. I got too tired to explore the whole|thing, so I came outside.
 weather = rain
+npc = 23 26 apricorn:Pink down 0 apricorn|9|Pink
+npc = 24 26 apricorn:Black down 0 apricorn|10|Black
 grid:
 .....................##.########
 .....................##.########
@@ -1437,6 +1456,7 @@ npc = 23 16 gentleman wander 0 talk|We have this tough guy called Kurt in this t
 npc = 50 15 hg_rocket_m left 0 talk|Nothing is going on. It's unsafe to go in there, so I'm|standing guard to make sure|people don't wander in.|Am I not a good Samaritan?
 fly = 26 13
 npc = 22 26 hg_silver up 4 trainer|Azalea Town|... Tell me something. Is it true that Team Rocket has returned?/Hah! You're no match for me anyway!|...Humph. That was luck.
+npc = 12 5 apricorn:White down 0 apricorn|30|White
 grid:
 ######################################..####.##########.########
 ##################################################....##########
@@ -1525,8 +1545,10 @@ item = 29 33 Super Potion hidden
 npc = 23 59 youngster down 5 fight|Youngster Samuel|Rattata 7, Sandshrew 10, Spearow 8, Spearow 8|This is where I do my training!|If you fail in practice, then you have to try harder! I'm aiming to be a/Gym Leader!
 npc = 14 45 picnicker right 7 trainer|Route 34|Are you a Trainer? Let's have a practice battle.|You're too strong to be a practice partner.
 npc = 24 34 youngster down 5 fight|Youngster Ian|Mankey 10, Diglett 12|I'm the best in my class at Pokemon.|I'm trying hard so I can be the star in my class.
+rematch = Mankey 27, Dugtrio 33 / Primeape 38, Dugtrio 40 / Primeape 47, Dugtrio 58
 npc = 12 20 hg_officer left 6 fight|Policeman Keith|Growlithe 17|What's with you? What are you doing?|The group stealing other people's Pokemon seems to be growing lately./You should be careful, too.
 npc = 13 11 camper left 5 fight|Camper Todd|Psyduck 14|I'm confident in my ability to raise Pokemon. Want to see?|Hmm... Maybe I should take them to Pokemon Day Care? What should I do?
+rematch = Geodude 17, Geodude 17, Psyduck 31 / Geodude 23, Graveler 33, Golduck 36, Slugma 32 / Graveler 36, Graveler 44, Magcargo 54, Golduck 56
 npc = 23 88 woman_3 left 0 talk|Irene: I'll tell my sister about you!
 npc = 13 88 woman_3 right 0 talk|Jenn: Better not laugh yet. My sister is really strong!
 npc = 18 92 woman_3 up 0 talk|Kate: I'm sorry we jumped you.|We never expected anyone to find us here.|You sure startled us.
@@ -1944,10 +1966,13 @@ npc = 16 31 camper down 3 fight|Camper Elliot|Sandshrew 13, Marill 15|I'm gonna 
 npc = 15 31 picnicker down 3 fight|Picnicker Brooke|Pikachu 16|My boyfriend's weak, so I can't rely on him.|I can count more on my Pokemon than on my boyfriend.
 npc = 9 30 camper right 5 fight|Camper Ivan|Diglett 10, Zubat 10, Diglett 14|I've been getting Pokemon data off my radio. I think I'm good.|Music on the radio changes the moods of wild Pokemon.
 npc = 12 23 man wander 4 fight|Juggler Irwin|Voltorb 2, Voltorb 6, Voltorb 10, Voltorb 14|Behold my dexterity and grace!|I was going to dazzle you with my prize Pokemon. But your prowess/electrified me!
+rematch = Voltorb 22, Voltorb 26, Voltorb 28, Voltorb 34 / Voltorb 34, Voltorb 36, Voltorb 38, Electrode 42 / Voltorb 40, Voltorb 40, Electrode 46, Electrode 51
 npc = 26 10 bug_catcher down 3 fight|Bug Catcher Arnie|Venonat 15|I'll go anywhere if bug Pokemon appear there.|My VENONAT won me the Bug-Catching Contest at the National Park.
+rematch = Venonat 36 / Venomoth 43 / Nincada 45, Venomoth 56
 npc = 15 57 man down 3 fight|Bird Keeper Bryan|Pidgey 12, Pidgeotto 14|What kinds of Poke Balls do you use?|Some Pokemon flee right away. Try catching them with Kurt's Fast Ball./Whenever I find a Wht. Apricorn, I take it to Kurt. He turns it into a/custom Ball.
 npc = 13 11 hg_officer down 0 talk|Your Pokemon look pretty tough. You could go anywhere safely.
 item = 23 21 Parlyz Heal
+npc = 6 37 apricorn:Green down 0 apricorn|11|Green
 grid:
 ######..........##########..####
 ######..........##########..####
@@ -2103,10 +2128,12 @@ npc = 74 22 fat_man left 0 talk|Yo!|Haven't you had trouble with a boulder block
 npc = 83 21 lass wander 0 talk|An odd tree is blocking the way to Ecruteak City.|It's preventing me from shopping.|Something should be done about it.
 npc = 28 20 man right 3 fight|Psychic Mark|Abra 14, Abra 14, Kadabra 16|Let me guess what you're thinking!|If you read your opponent's mind, then you can attack more efficiently!
 npc = 49 24 boy left 6 fight|Schoolboy Alan|Tangela 17|I can properly prepare for any Pokemon adversary!|Sniffle... I study for five hours straight every day.../If you only read the textbook, I guess you miss out on a lot.
+rematch = Tangela 32, Yanma 30 / Xatu 32, Tangrowth 36, Quagsire 32, Yanmega 34 / Xatu 47, Tangrowth 54, Quagsire 47, Yanmega 54
 npc = 63 25 lass up 0 talk|I'm the Flower Shop's Floria!|Listen, listen! When I sprinkled water on that wiggly tree, it jumped right up!|It just has to be a Pokemon.|I bet it would be shocked out of disguising itself if you soaked it!
 npc = 79 20 boy up 0 talk|...
 item = 41 13 Hyper Potion
 npc = 63 22 mon:Sudowoodo left 0 trainer|Route 36|A strange tree is blocking the way.../It suddenly moved! It's a Pokemon!|The odd tree ran away!
+npc = 30 9 apricorn:Blue down 0 apricorn|12|Blue
 grid:
 ..................##################............################################################
 ..................##################............################################################
@@ -2192,6 +2219,9 @@ npc = 18 18 man down 5 fight|Psychic Greg|Drowzee 17|Pokemon can't do a thing if
 npc = 20 8 little_boy down 0 talk|...
 npc = 2 12 woman_2 right 5 fight|Beauty Callie|Clefable 16, Wigglytuff 16|Oh, you are a cute little Trainer! Why don't you battle me?|Oh, I've learned something. There are people like you out there who are very/skilled even though they're young...
 npc = 11 12 woman_2 left 5 fight|Beauty Kassandra|Wigglytuff 16, Clefable 16|Hey hey there, you young Trainer! Won't you battle with me?|You... I wonder what your future holds...
+npc = 17 10 apricorn:Red down 0 apricorn|13|Red
+npc = 22 10 apricorn:Blue down 0 apricorn|14|Blue
+npc = 20 12 apricorn:Black down 0 apricorn|15|Black
 grid:
 ######....######################
 ######....######################
@@ -2446,12 +2476,15 @@ sign = 58 5 Rt. 38 South to Olivine City
 sign = 13 19 Trainer Tips|If a Pokemon is trying to evolve, you can stop it.|Press the B Button during evolution.|That startles the Pokemon and stops its evolution.
 item = 3 15 HP Up hidden
 npc = 11 1 boy right 4 fight|Schoolboy Chad|Mr. Mime 20|Let me try something I learned today.|I have to take so many tests, I don't have much time for Pokemon./So when I do get to battle, I really concentrate.
+rematch = Mr. Mime 29, Magnemite 30 / Mr. Mime 39, Magneton 38 / Mr. Mime 46, Magneton 56
 npc = 32 13 man right 3 fight|Bird Keeper Toby|Doduo 16, Doduo 17, Doduo 18|Fly high into the sky, my beloved bird Pokemon!|I plan to train in Cianwood City to teach my Pokemon how to Fly.
 npc = 33 2 lass down 2 fight|Lass Dana|Flaaffy 19, Psyduck 19|Hey, are you good at Pokemon?/If you're really good, I want you to teach me some things.|I know something good!/Moomoo Farm's milk is famous for its taste.
+rematch = Flaaffy 32, Psyduck 31 / Golduck 36, Ampharos 38 / Golduck 51, Ampharos 54
 npc = 22 8 woman_2 down 5 fight|Beauty Valerie|Hoppip 18, Skiploom 18|Hi! Aren't you a cute Trainer! May I see your Pokemon?|When I see Pokemon, it seems to soothe my nerves.
 npc = 48 6 sailor wander 2 fight|Sailor Harry|Wooper 20|I've been overseas, so I know about all sorts of Pokemon!|All kinds of people around the world live happily with Pokemon.
 item = 41 17 Max Potion
 item = 9 26 Lax Incense
+npc = 27 12 apricorn:White down 0 apricorn|16|White
 grid:
 #########.################################################..####
 #########.........................###########################..#
@@ -2539,6 +2572,7 @@ item = 3 16 PP Up hidden
 item = 15 20 X Attack hidden
 npc = 17 40 sailor wander 4 fight|Sailor Eugene|Poliwhirl 17, Raticate 17, Krabby 19|I just got back to Olivine. So, how about a Pokemon battle?|My Pokemon were caught and raised overseas. They're my companions on/those long voyages.
 npc = 22 43 gentleman left 2 fight|Pokefan Derek|Pikachu 18|Is it OK to brag about my Pokemon?|I'm not listening to your bragging! We Pokefans have a policy of not/listening to other people brag!
+rematch = Teddiursa 24, Pikachu 30 / Pichu 13, Teddiursa 15, Pikachu 37, Teddiursa 29 / Pichu 18, Teddiursa 22, Pikachu 39, Ursaring 47
 npc = 13 46 woman_3 right 3 fight|Pokefan Ruth|Pikachu 17|Such darling Pokemon. Let's show our Pokemon together at the same time.|Do you know about baby Pokemon? I'll bet they're just adorable!
 npc = 21 17 man down 3 fight|Psychic Nelson|Slowpoke 17, Slowpoke 20|Let me see what your Pokemon are capable of.|You know how Pokemon have different abilities?/People are like that, too. Everyone has different potential.
 npc = 8 15 mon:Miltank down 0 talk|MILTANK: Mooo!
@@ -2546,6 +2580,7 @@ npc = 16 17 mon:Miltank right 0 talk|MILTANK: Mooo!
 npc = 6 21 mon:Miltank down 0 talk|MILTANK: Mooo!
 npc = 12 18 mon:Miltank down 0 talk|MILTANK: Mooo!
 npc = 7 28 hg_brock up 0 talk|Lt. Surge: Hey, you!|Don't you want a good memory of us together? How about taking a|picture with me?|Lt. Surge: OK! OK!|Show me a very good smile!|Lt. Surge: Wow! This turned out to be a really|good one!|We root for Route 39!
+npc = 13 3 apricorn:Green down 0 apricorn|17|Green
 grid:
 ##................##############
 ##.#...#...#......##############
@@ -3184,6 +3219,8 @@ npc = 21 53 woman_3 wander 0 talk|There are several islands between here and Oli
 npc = 14 10 mon:Suicune down 0 talk|Suicune: ...
 npc = 16 23 hg_eusine up 0 talk|...
 fly = 27 51
+door = 10 27 warp|Route 47|94|25|left
+door = 10 27 warp|Route 47|94|25|left
 grid:
 ...........#......#.##.wwwwwwwww
 ...........#......#.##.wwwwwwwww
@@ -3337,11 +3374,15 @@ sign = 75 12 Mt. Mortar Waterfall Cave Inside
 sign = 88 12 Rt. 42 Mahogany Town to Ecruteak City
 item = 64 22 Max Potion hidden
 npc = 67 15 fisher down 3 fight|Fisherman Tully|Qwilfish 19|Let me demonstrate the power of the Pokemon I caught!|I want to become the Trainer Champ using the Pokemon I caught./That's the best part of fishing!
+rematch = Qwilfish 33 / Goldeen 30, Goldeen 30, Qwilfish 38 / Seaking 41, Seaking 50, Qwilfish 53
 npc = 79 12 poke_maniac down 5 fight|Poke Maniac Shane|Nidorina 17, Nidorino 17|Hey!/This is my secret place! Get lost, you outsider!|You're working on a Pokedex?/Wow, you must know some pretty rare Pokemon!/May I please see it? Please?
 npc = 85 17 hiker left 5 fight|Hiker Benjamin|Diglett 15, Geodude 15, Dugtrio 17|What's the other side of Mt. Mortar like, do you know?/If you can beat me, I'll let you know.|I said a pretty boastful lie. I'm sorry!/There's this huge waterfall in the way, so I've never been on the other side of/Mt. Mortar!
 item = 56 16 Super Potion
 item = 61 6 Dubious Disc
 npc = 50 22 mon:Suicune left 0 talk|Suicune: ...
+npc = 48 24 apricorn:Pink down 0 apricorn|18|Pink
+npc = 49 24 apricorn:Green down 0 apricorn|19|Green
+npc = 50 24 apricorn:Yellow down 0 apricorn|20|Yellow
 grid:
 #################.....#####################################################.........#........#..
 #################.....###################################################.#.........#........#..
@@ -3522,11 +3563,13 @@ sign = 20 50 Trainer Tips|All Pokemon have pros and cons depending on their type
 sign = 20 3 North to Lake of Rage South to Mahogany Town
 npc = 14 53 camper left 4 fight|Camper Spencer|Sandshrew 18, Sandslash 18, Zubat 20|I can do so much with my Pokemon! It's super fun!|What is going on at Lake of Rage? We were planning to camp there.
 npc = 14 31 picnicker down 4 fight|Picnicker Tiffany|Clefairy 21|Are you going to Lake of Rage, too? Let's play for a little while!|I'm having a picnic with Pokemon. Won't you join us?
+rematch = Clefairy 34 / Clefable 41 / Clefable 61
 npc = 19 26 poke_maniac down 3 fight|Poke Maniac Brent|Nidorina 20, Nidorino 24|Hey! Do you have any rare Pokemon?|I'd be happy just to own a single rare Pokemon.
 npc = 25 15 poke_maniac wander 3 fight|Poke Maniac Beckett|Slowbro 20|I love Pokemon!/That's why I started--and why I'll keep on collecting Pokemon!|What else do I like besides Pokemon?/Mary, on the radio. I bet she's cute!
 npc = 18 8 poke_maniac wander 2 fight|Poke Maniac Ron|Nidoking 20|Would you get this?/Some red-haired kid made fun of my precious Pokemon!/Humph! My Pokemon's great!|It's OK for people to like different types of Pokemon./Pokemon isn't just about having the most powerful one.
 npc = 8 17 fisher right 7 fight|Fisherman Marvin|Magikarp 10, Gyarados 20, Magikarp 15|I'm in a slump./Maybe it's the gear I'm using. Let's battle for a change of pace!|Kurt's Lure Ball is the best for catching hooked Pokemon./It's much more effective than an Ultra Ball.
 item = 20 42 Max Ether
+npc = 1 29 apricorn:Black down 0 apricorn|21|Black
 grid:
 ##..##########.....############.
 ##..##########.....############.
@@ -3840,13 +3883,16 @@ item = 69 11 Elixir hidden
 npc = 14 17 man left 5 fight|Psychic Phil|Natu 27, Kadabra 29|I'm gonna win for sure!|It's important to have conviction on your side.
 npc = 32 24 fisher up 1 fight|Fisherman Edgar|Remoraid 28, Remoraid 28|I fish until I can't anymore. I also battle until I drop./That's my relationship with my Pokemon.|That's 100 wins to 101 losses./I won't battle again for a while.
 npc = 51 4 fisher down 1 fight|Fisherman Wilton|Goldeen 26, Goldeen 26, Seaking 28|Aack! You made me lose a POLIWAG! What are you going to do about it?|That POLIWAG that got away... It was huge./I swear it must've been 82 feet long!
+rematch = Goldeen 32, Goldeen 32, Seaking 36 / Goldeen 32, Seaking 36, Seaking 40 / Seaking 42, Seaking 46, Seaking 63
 npc = 48 26 woman_3 left 7 fight|Ace Trainer F Cybil|Mareep 29, Bellossom 29|You look strong./Good Trainers seek tough opponents instinctively.|We all get better by experiencing many battles. I battled a lot to become what/I am today--an elite.
 npc = 60 25 rocker left 7 fight|Ace Trainer M Allen|Charmeleon 29, Magnemite 29|I can tell you're a good Trainer by looking at you./I'm good at Pokemon, and I can see that you are, too.|Wow. You have a lot of Badges. No wonder you're so tough./I wonder if Ecruteak Gym's Morty is still in training?/He really hammered me.
 npc = 59 3 poke_maniac left 7 fight|Poke Maniac Zach|Rhyhorn 30|I'll do anything to get my hands on rare Pokemon!|If a Pokemon has different colors than usual, it's more valuable./What? You mean that's not true?
 npc = 85 13 man left 4 fight|Bird Keeper Vance|Hoothoot 28, Pidgeotto 28|Do you know about the legendary bird Pokemon?|ARTICUNO, ZAPDOS, and MOLTRES are the three legendary bird Pokemon./I heard there are other legendary birds, though.
+rematch = Hoothoot 33, Pidgeotto 32 / Pidgeotto 37, Pidgeot 38, Noctowl 42 / Pidgeot 56, Pidgeot 44, Noctowl 54
 item = 20 17 Max Repel
 item = 45 13 Max Revive
 item = 63 2 Ultra Ball
+npc = 13 11 apricorn:Red down 0 apricorn|22|Red
 grid:
 .................########################wwwwwwwwww#########################..#....#............
 .................########################wwwwwwwwwwwwwwwwwwwwww#############..#....#............
@@ -4098,8 +4144,10 @@ item = 0 149 Pp Max hidden
 npc = 16 30 hiker left 2 fight|Hiker Erik|Machop 24, Graveler 27, Machop 27|Be prepared for anything!/Let me see if your Pokemon have been raised properly!|I'll head back to Blackthorn's Ice Path and train some more.
 npc = 25 32 rocker right 2 fight|Ace Trainer M Ryan|Pidgeot 25, Electabuzz 27|What are your thoughts on raising Pokemon?|I see you're raising your Pokemon with care./The bond you build will save you in tough situations.
 npc = 7 51 hiker up 4 fight|Hiker Parry|Onix 30|My Pokemon are power packed!|I'm not much good at thinking, see? So I just plow ahead with power!
+rematch = Onix 38, Graveler 35 / Steelix 41, Graveler 37 / Steelix 56, Golem 52
 npc = 17 61 woman_3 wander 5 fight|Ace Trainer F Kelly|Marill 27, Wartortle 24, Wartortle 24|What is your battle strategy? It is foolish to use strong moves/indiscriminately.|I'm not for overly powerful moves./I want to win, but I also don't want to harm Pokemon.
 npc = 22 86 black_belt up 3 fight|Black Belt Kenji|Machoke 28|I was training here alone. Behold the result of my hard work!|This calls for extreme measures. I must take to the hills and train in solitude.
+rematch = Onix 27, Hitmonlee 32, Onix 27, Machoke 32 / Onix 30, Machamp 37, Onix 33, Hitmonlee 41 / Onix 41, Machamp 53, Onix 49, Hitmonlee 53
 npc = 17 108 hiker left 2 fight|Hiker Timothy|Diglett 27, Dugtrio 27|Why do I climb mountains? Because they're there./Why do I train Pokemon? Because they're there!|The best thing ever to happen to me was discovering Pokemon.
 npc = 25 109 hiker right 4 fight|Hiker Michael|Geodude 25, Graveler 25, Golem 25|Yo! You're tough! But you know what? When it comes to sheer toughness,/I'm the man!|Boy, do I love HP Up! Mmmm, yum!/I keep drinking my Pokemon's! I can't help it!
 item = 5 34 Elixir
@@ -4108,6 +4156,7 @@ item = 13 77 Full Heal
 item = 7 90 Nugget
 item = 5 110 Revive
 npc = 8 127 man wander 0 talk|Have you heard of a place called the Battle Frontier?|It's a huge place with many battle facilities, and it's located west of|Olivine City!|Let's see...|If you manage to win all the way up through the Pokemon League,|you might want to try it.
+npc = 26 140 apricorn:Green down 0 apricorn|23|Green
 grid:
 ##################ww##...#######
 ##################ww##...#######
@@ -4449,8 +4498,11 @@ sign = 22 10 Dark Cave
 npc = 20 33 hiker left 3 fight|Hiker Bailey|Geodude 13, Geodude 13, Geodude 13, Geodude 13, Geodude 13|Awright! I'll show you the power of mountain Pokemon!|It's over. I don't mind. We Hikers are like that.
 npc = 7 24 camper right 3 fight|Camper Ted|Mankey 17|I'm raising Pokemon, too! Will you battle with me?|I did my best but came up short. No excuses--I admit I lost.
 npc = 7 28 picnicker up 4 fight|Picnicker Erin|Ponyta 17, Oddish 14|I raise Pokemon, too! Will you battle with me?|If you've promised to have a rematch, your opponent's location will be marked/with an "!" on the map./You can check it on your Pokegear.
+rematch = Gloom 32, Rapidash 41 / Bellossom 46, Sunflora 39, Rapidash 48 / Cherrim 42, Sunflora 46, Bellossom 49, Rapidash 53
 item = 3 24 X Speed
 npc = 10 46 man wander 0 talk|A dead end...?|Did I take the wrong path?|I didn't know this was only one way.
+npc = 9 11 apricorn:Green down 0 apricorn|24|Green
+npc = 8 12 apricorn:Yellow down 0 apricorn|25|Yellow
 grid:
 #####.#..#######################
 #####.#..#######################
@@ -4603,9 +4655,12 @@ npc = 17 115 fisher down 3 fight|Fisherman Scott|Qwilfish 30, Qwilfish 30, Seaki
 npc = 27 86 man left 2 fight|Psychic Vernon|Espeon 36|Wow, look at all those Badges! I'm impressed./But you're not satisfied by just collecting them, right?|People and Pokemon grow from their experiences./Don't get lazy and complacent.
 npc = 21 56 woman_3 down 5 fight|Ace Trainer F Joyce|Pikachu 36, Blastoise 36|Since you've come this far, you must be good. I'm going to give this battle/everything I've got!|I've defeated eight Gym Leaders, so I was feeling confident./I'll have to try harder next time.
 npc = 30 42 rocker left 2 fight|Ace Trainer M Gaven|Victreebel 32, Kingler 32, Flareon 32|By experiencing tough battles, you gain power.|To get to the Pokemon League, you have to get through Victory Road./But Victory Road is tough. Practically nobody goes there!
+rematch = Victreebel 34, Kingler 34, Flareon 34 / Victreebel 38, Kingler 39, Flareon 38 / Victreebel 52, Kingler 49, Flareon 50
 npc = 25 34 rocker down 3 fight|Ace Trainer M Jake|Parasect 33, Golduck 35, Vaporeon 33|I'm making my final preparations for the Pokemon League.|It's going to be tough to win at the League. I need to do some more/training. I hear that the League's Elite Four are tougher than Gym Leaders.
 npc = 17 14 woman_3 down 3 fight|Ace Trainer F Jamie|Rapidash 36, Flaaffy 31|I lost to a redheaded Trainer. He was really strong, but...it was as if he/absolutely had to win at any cost./I felt sorry for his Pokemon.|Pokemon are invaluable, lifelong partners.
+rematch = Rapidash 38, Ampharos 37 / Rapidash 42, Ampharos 40 / Rapidash 56, Ampharos 59
 item = 14 26 Max Elixir
+npc = 24 54 apricorn:Blue down 0 apricorn|4|Blue
 grid:
 ################################
 ################################
@@ -4887,9 +4942,11 @@ npc = 35 19 fat_man left 0 talk|Do you know what you just did?|You've taken your
 npc = 53 12 woman_3 left 3 trainer|Route 27|It's rare to see anyone come here. Are you training on your own?|I'm checking out pre- and post-evolution Pokemon. Evolution/really does make Pokemon stronger./But evolved forms also learn moves later on.
 npc = 74 13 rocker up 3 fight|Ace Trainer M Blake|Magneton 33, Quagsire 31, Exeggcute 31|You look pretty strong. Let me battle you!|If you prevail on this harsh trek, the truth will be revealed!/Heh, sorry, I just wanted to say something cool.
 npc = 85 24 man right 5 fight|Bird Keeper Jose|Farfetch'd 40|Tweet! Tweet! Tet-weet!|Bird Keepers like me mimic bird whistles to command Pokemon.
+rematch = Farfetch'd 44 / Farfetch'd 38, Farfetch'd 45 / Farfetch'd 50, Farfetch'd 52, Farfetch'd 53
 npc = 101 15 rocker right 3 fight|Ace Trainer M Brian|Mareep 35|Hm? You're good, aren't you?|A good Trainer can recognize other good Trainers.
 npc = 150 16 man up 2 fight|Psychic Eli|Starmie 30, Exeggcute 30, Girafarig 34|Don't say a thing! Let me guess what you're thinking. Mmmmmmm.../I got it! You're on the Pokemon League challenge!|With your skills, you'll do well at the Pokemon League. That's what my/premonition says.
 npc = 170 19 woman_3 up 2 fight|Ace Trainer F Reena|Growlithe 36, Nidorina 33, Staryu 36|You came from New Bark Town? You must be exhausted.|If you're that energetic, you can definitely make it to the/Pokemon League!
+rematch = Growlithe 38, Nidorina 36, Staryu 38 / Arcanine 47, Nidoqueen 43, Starmie 47 / Arcanine 54, Nidoqueen 53, Starmie 56
 item = 79 23 Rare Candy
 item = 139 10 Destiny Knot
 grid:
@@ -4987,6 +5044,16 @@ npc = 36 12 man down 2 fight|Young Couple Duff & Eda|Onix 22, Cloyster 22|Duff: 
 npc = 37 12 woman_2 down 0 talk|...
 npc = 71 40 hiker down 2 fight|Hiker Devin|Dunsparce 19, Dunsparce 19, Dunsparce 19|Longing for others is...what it is.../But battles are battles, so let's go!|After a battle, you should always leave with a parting laugh!
 npc = 16 19 hg_chuck up 0 talk|Chuck: Ooomph! You came all this way just to see me?|Then you might as well take a picture with me, too. Yes?|Chuck: Say cheese! Don't close your eyes!|Chuck: Great picture! This wil be a good memory for you, too!
+door = 95 25 warp|Cianwood City|11|27|right
+door = 32 5 warp|Route 48|39|29|up
+door = 33 5 warp|Route 48|39|29|up
+door = 34 5 warp|Route 48|40|29|up
+door = 35 5 warp|Route 48|40|29|up
+door = 95 25 warp|Cianwood City|11|27|right
+door = 32 5 warp|Route 48|39|29|up
+door = 33 5 warp|Route 48|39|29|up
+door = 34 5 warp|Route 48|40|29|up
+door = 35 5 warp|Route 48|40|29|up
 grid:
 ##########################################################wwwwww################################
 ##########################################################wwwwww################################
@@ -5130,6 +5197,16 @@ wild =
 pos = 64 320
 sign = 39 16 Rt. 48 North to Safari Zone
 item = 11 16 Nugget
+door = 37 31 warp|Route 47|32|7|down
+door = 38 31 warp|Route 47|33|7|down
+door = 39 31 warp|Route 47|33|7|down
+door = 40 31 warp|Route 47|34|7|down
+door = 41 31 warp|Route 47|35|7|down
+door = 37 31 warp|Route 47|32|7|down
+door = 38 31 warp|Route 47|33|7|down
+door = 39 31 warp|Route 47|33|7|down
+door = 40 31 warp|Route 47|34|7|down
+door = 41 31 warp|Route 47|35|7|down
 grid:
 ################################################################
 ################################################################
@@ -5998,6 +6075,7 @@ npc = 16 52 mon:Pichu down 0 talk|Spiky-eared PICHU: Zapzap chu!|Oh, here it is!
 npc = 11 48 old_man_1 down 0 talk|...
 npc = 10 46 mon:Marill down 0 talk|Marill: ...
 npc = 13 76 bug_catcher up 3 trainer|Ilex Forest|The trees here are full of bug Pokemon!/Let's battle!|You're tough!
+npc = 16 56 mon:Celebi down 0 legend|Celebi|Celebi: Biii!
 grid:
 ################################################################
 ################################################################
@@ -6232,9 +6310,12 @@ npc = 1 19 youngster up 0 talk|...
 npc = 1 21 boy up 0 talk|...
 npc = 4 11 clerk up 0 talk|...
 npc = 52 55 woman_3 right 3 fight|Pokefan Beverly|Snubbull 16|My Pokemon is simply darling. Let me tell you how proud my/darling makes me.|I must say, your Pokemon are quite cute, too.
+rematch = Snubbull 31 / Granbull 43 / Granbull 53
 npc = 37 31 lass down 3 fight|Lass Krise|Oddish 14, Cubone 17|Hello? Why are you staring at me?/Oh, a battle?|I thought I did something wrong because you kept staring at me.
+rematch = Oddish 21, Cubone 31 / Gloom 32, Marowak 38 / Vileplume 53, Marowak 54
 npc = 50 24 gentleman up 3 fight|Pokefan William|Raichu 16|We adore our Pokemon, even if they dislike us. That's what being a/Pokefan is all about.|I lost the battle, but my Pokemon win the prize for being the most lovely.
 npc = 66 46 boy left 3 fight|Schoolboy Jack|Oddish 12, Voltorb 15|The world is deep. There are still lots of things we don't know./But I know more than you do!|There is a lot to learn./For example... There are more than 90 kinds of TMs./And traded Pokemon level up faster.
+rematch = Gloom 29, Voltorb 17 / Vileplume 38, Electrode 31 / Electrode 43, Vileplume 52, Arcanine 52
 item = 81 16 Shiny Stone
 npc = 52 82 gentleman up 0 talk|...
 npc = 58 39 hg_bugsy left 0 talk|Bugsy: Hi, {PLAYER}! We have a Bug-Catching Contest|tomorrow!|I have won the Contest many times, so I won't participate.|But you should try it.|I'm sure you can win!
@@ -6452,12 +6533,12 @@ door = 56 31 warp|Mt. Mortar 1F (Back)|57|81|down
 door = 81 31 warp|Mt. Mortar 1F (Back)|82|81|down
 door = 26 14 warp|Mt. Mortar 1F (Back)|27|65|down
 door = 69 15 warp|Mt. Mortar 1F (Back)|70|66|down
-door = 45 2 warp|Mt. Mortar 2F|27|55|down
 door = 45 44 warp|Mt. Mortar B1F|32|71|down
 item = 27 42 Hyper Potion hidden
 item = 58 46 Revive hidden
 item = 34 20 Ether
 item = 67 30 Revive
+door = 45 8 warp|Mt. Mortar 2F|27|55|down
 grid:
 ################################################################################################
 ################################################################################################
@@ -6471,7 +6552,7 @@ grid:
 #####################.###wwwwwwwwwwwwwww#.........#wwwwwwwwwwwww##########.#####################
 #####################.###wwwwwwwwwwwwwww#.........#wwwwwwwwwwwww#.......##.#####################
 #####################.##########wwwwwwww#.........#wwwwwwwwwwwww#.......##.#####################
-#####################.##.......#wwwwwwww###########wwwwwwwww#####.......##.#####################
+#####################.##.......#wwwwwwww#####D#####wwwwwwwww#####.......##.#####################
 #####################.##.#ss...#wwwwwwwwwwwwwwwwwwwwwwwwwwww#...........##.#####################
 #####################.####D##..#wwwwwwwwwwwwwwwwwwwwwwwwwwww#.......#ss.##.#####################
 #####################.##.#s#...#wwwwwwwwwwwwwwwwwwwwwwwwwwww#......##D####.#####################
@@ -6481,8 +6562,8 @@ grid:
 ####..................##.............#wwwwwwwwwwwwwww##.....####........##......################
 ####.###################.............#wwwwwwwwwwwwwww##.....##.#........#######.################
 ####.###################.............#wwwwwwwwwwwwwww###########........#######.################
-####.###############################################.###############ss#########.################
-####.###############################################################ss#########..............###
+####.#######################################WWW#####.###############ss#########.################
+####.#######################################WWW#####################ss#########..............###
 ####.#################################wwwwwwwwwwwwwww###############ss######################.###
 ####.#################################wwwwwwwwwwwwwww###############ss######################.###
 ####.#################################wwwwwwwwwwwwwww###############ss######################.###
@@ -6830,7 +6911,6 @@ region = Johto
 imgy = -48
 wild = Mt. Mortar
 indoor = yes
-door = 27 55 warp|Mt. Mortar 1F|45|2|down
 door = 9 16 warp|Mt. Mortar 1F (Back)|28|13|down
 item = 53 29 Full Restore hidden
 item = 34 38 HP Up hidden
@@ -6842,6 +6922,7 @@ item = 16 24 Elixir
 item = 27 14 Dragon Scale
 item = 45 15 Escape Rope
 npc = 19 46 scientist down 3 fight|Super Nerd Hugh|Seadra 39|Yo! Markus!|I came to explore Mt. Mortar, but I got separated from my partner.../Did you run into a Trainer who uses a SLOWPOKE? That SLOWPOKE is really good/at using Strength.
+door = 27 55 warp|Mt. Mortar 1F|45|9|down
 grid:
 ################################################################
 ################################################################
@@ -8225,9 +8306,9 @@ grid:
 .......................wwwwwww#.....#wwwww##.........#..........
 ............#############wwwww#######wwwww######################
 #########################wwwww#######wwwww######################
-################################################################
-...........########www#########.....##############www#..........
-...........########wwwwww######.....#######wwwwwwwwww#..........
+##########################WWW###################################
+...........########www####WWW##.....##############www#..........
+...........########wwwwww#WWW##.....#######wwwwwwwwww#..........
 ...........########wwwwwwwwwww#.....#wwwwwwwwwwwwwwww#..........
 ...........########wwwwwwwwwww#.....#wwwwwwwwwwwwwwww#..........
 ...........########wwwwwwwwwww#.....#wwwww...........#..........
@@ -8505,7 +8586,7 @@ grid:
 ..............#####...###...........sss.......#####.............
 ..............#####...###...........sss.......#####.............
 ..............#####...#################.......#####.............
-..............#####vvv#################.......#####.............
+..............#####...#################.......#####.............
 ..............#####...#################.......#####.............
 ..............#####...........................#####.............
 ..............#####...........................#####.............
@@ -8914,7 +8995,7 @@ door = 4 9 warp|New Bark Town|23|13|down
 door = 11 2 warp|Your House (New Bark) 2F|10|2|up
 door = 3 9 warp|New Bark Town|23|13|down
 sign = 6 1 There's a movie on TV. Four boys are walking on railroad tracks.|...I better go, too.
-npc = 8 4 hg_mom left 0 talk|Professor Elm has been waiting for you, dear. Please, go and help him.
+npc = 8 4 hg_mom left 0 give|Oh, {PLAYER}! Your Pokegear's back from the repair shop. Here you go!|Pokegear|1|got:pokegear|It has a phone - Trainers who give you their number will call when they want a rematch./Professor Elm has been waiting for you, dear. Please, go and help him.
 grid:
 #############
 #############
@@ -9548,8 +9629,11 @@ door = 3 7 warp|Azalea Town|15|7|down
 door = 4 8 warp|Azalea Town|15|7|down
 door = 5 7 warp|Azalea Town|15|7|down
 npc = 5 2 hg_kurt down 0 talk|Hm? Who are you?|{PLAYER}, eh? You want me to make some Balls?|Sorry, but that'll have to wait.|Do you know Team Rocket? Ah, don't worry. I'll tell you anyhow.|Team Rocket's an evil gang that uses Pokemon for their dirty work.|They're supposed to have disbanded three years ago.|Anyway, they're at the well, cutting off SlowpokeTails for sale!|So I'm going to go give them a lesson in pain!|Hang on, SLOWPOKE! Old Kurt is on his way!
+unless = stage:Slowpoke Well
 npc = 2 4 little_girl wander 0 talk|The SLOWPOKE are gone... Were they taken away by bad people?
 npc = 8 4 mon:Slowpoke wander 0 talk|SLOWPOKE: ... Yawn?
+npc = 5 3 hg_kurt down 0 kurt|Kurt: Bring me Apricorns and I'll turn them into Poke Balls - a different kind for every colour!
+if = stage:Slowpoke Well
 grid:
 ###########
 ###########
@@ -9872,6 +9956,7 @@ npc = 7 5 youngster wander 0 talk|I heard about the Bug-Catching Contest where B
 npc = 1 6 worker_m down 0 talk|Tap tap ding ding!|We are in a big hurry! Just a little more work before you|can come through.|I hope you are looking forward to it!
 npc = 5 5 black_belt down 0 talk|I've been waiting for this moment!|Behold my friendship with my Pokemon!
 npc = 3 6 lass wander 0 talk|I wonder if I can participate, too. It's only running with Pokemon, right?
+npc = 6 3 hg_officer left 0 bugcontest|Today's the Bug-Catching Contest!|Catch the best Bug-type Pokemon you can in the National Park. You get 20 Park Balls and 500 steps.|Would you like to enter?
 grid:
 #########
 ####DD###
@@ -9896,6 +9981,7 @@ door = 4 1 warp|National Park|74|39|left
 door = 5 1 warp|National Park|74|39|left
 door = 4 10 warp|Route 36|23|14|right
 door = 5 9 warp|Route 36|23|14|right
+npc = 5 4 hg_officer left 0 bugcontest|Today's the Bug-Catching Contest!|Catch the best Bug-type Pokemon you can in the National Park. You get 20 Park Balls and 500 steps.|Would you like to enter?
 grid:
 #########
 ####DD###
@@ -9942,10 +10028,10 @@ indoor = yes
 door = 2 9 warp|Ecruteak City|40|26|down
 door = 3 9 warp|Ecruteak City|40|26|down
 door = 4 9 warp|Ecruteak City|40|26|down
-door = 3 1 warp|Ecruteak City|40|26|down
 npc = 6 5 hg_monk right 0 talk|Past here is the Bell Tower. This tower was built as a place of rest|for HO-OH, the legendary Flying-type|Pokemon.|Since HO-OH left, many people have gone up to the tower to try to bring it back.|But none have succeeded in making HO-OH appear...|Morty, the Gym Leader, is one who has tried.|You don't seem to have the Ecruteak Gym Badge. If you can't even defeat|Morty, going up there will be|a waste of time.|Sorry, but you'll have to leave.
 npc = 2 5 hg_monk down 0 talk|The rainbow-hued Pokemon flying gracefully over the tower...|The silvery, sparkling Pokemon resting gently upon the whirling seabed...|All of this is far beyond my imagination.
 npc = 3 5 hg_monk down 0 talk|Only those who possess the Rainbow Wing are given permission to go up to|the top of the Bell Tower...|But the rainbow-hued Pokemon will not come down for just anybody who|goes up there.|There must be something else you need. I've heard the Kimono Girls know|something about it.
+door = 3 1 warp|Bell Tower 1F|9|14|up
 grid:
 ##########
 ###D######
@@ -10313,7 +10399,9 @@ objects = sprites
 indoor = yes
 door = 4 10 warp|Route 40|13|11|down
 door = 5 9 warp|Route 40|13|11|down
-npc = 7 5 gentleman left 0 talk|What? I'm the first to arrive!|There will soon be a Battle Frontier past here.|I'm in line to be the first one there. I haven't slept for days.|Get in line if you want to be the second one in!
+door = 4 1 warp|Frontier Access|14|33|up
+door = 5 1 warp|Frontier Access|15|33|up
+npc = 7 5 gentleman left 0 talk|The Battle Frontier is just ahead!|Trainers come from all over to test themselves against its Frontier Brains.
 grid:
 #########
 ####DD###
@@ -11065,7 +11153,7 @@ npc = 5 3 bug_catcher wander 2 fight|Bug Catcher Benny|Weedle 7, Kakuna 9, Beedr
 npc = 8 8 bug_catcher down 3 fight|Bug Catcher Al|Caterpie 12, Weedle 12|You've come all this way, crossing the web like a bug Pokemon!/Allow me to teach you the charms of bug Pokemon!|Just being in this Gym, I feel like I've turned into a bug Pokemon!
 npc = 0 2 bug_catcher down 3 fight|Bug Catcher Josh|Paras 13|You saved all the SLOWPOKE? Whew, you're mighty!/But my grown-up Pokemon are pretty tough, too!|If you move the web with the switch, you'll be able to figure out where/the lift is going.
 npc = 4 10 little_girl down 1 fight|Twins Amy & May|Spinarak 10, Ledyba 10|Amy: Hi! Are you challenging the Leader? No way!|Amy: You're really strong!
-npc = 5 10 little_girl down 1 fight|Twins Amy & May|Ledyba 10, Spinarak 10|May: You want to see the Leader? We come first!|May: Our bug PokeMon lost! Oh, what a shame.
+npc = 5 10 little_girl down 1 fight|Twins Amy & May|Ledyba 10, Spinarak 10|May: You want to see the Leader? We come first!|May: Our bug Pokemon lost! Oh, what a shame.
 npc = 7 13 gym_guy down 0 talk|Yo, challenger!|Bugsy's young, but his knowledge of|bug Pokemon is for real.|It's going to be tough without my advice.|Let's see... Bug Pokemon don't like fire.|Flying-type moves are super-effective too.
 grid:
 ##########
@@ -11104,21 +11192,21 @@ npc = 5 2 hg_proton down 2 trainer|Slowpoke Well|What do you want? We're Team Ro
 grid:
 ....................
 .################...
-.#......#########...
+.#......#^^^^^^##...
 .#..#...#......##...
 .#.#....#......##...
 .#.#....###.##.##...
 .#..#.......#...#...
 .##.##########..#...
-.#..##########..#...
+.#..#####^^^^#..#...
 .#.######....#..#...
-.#.#####.....#..#...
+.#.##^^^.....#..#...
 .#.##....######.###.
 .#ww#....#wwww....#.
 .#ww###.##wwww....#.
 .#wwwwww##wwww....#.
 .#wwwwww##wwww....#.
-..################..
+..^^^^^^^^^^^^^^^^..
 ....................
 
 [map]
@@ -11132,21 +11220,21 @@ npc = 5 4 gym_guy wander 0 talk|I'm waiting to see Slowpoke's moment of evolutio
 grid:
 ....................
 .##############.....
-.#######wwwwww#.....
+.##^^^^#wwwwww#.....
 .##....#wwwwww#####.
-.##....############.
+.##....##^^^^^^^^##.
 .##....##........##.
 .##....##........##.
 .####.#####.#######.
 .#wwww####wwwwwwww#.
 .#wwww####wwwwwwww#.
-.#wwww######wwwwww#.
+.#wwww#^^^^#wwwwww#.
 .#wwww#....#wwwwww#.
 .#wwww#....#wwww###.
 .#wwww###.##wwww###.
-.#wwwwwwwwwwwwww##..
+.#wwwwwwwwwwwwww#^..
 .#wwwwwwwwwwwwww#...
-..##############....
+..^^^^^^^^^^^^^^....
 ....................
 
 [map]
@@ -11159,7 +11247,7 @@ door = 2 18 warp|Goldenrod City|78|15|down
 door = 3 18 warp|Goldenrod City|78|15|down
 npc = 8 3 hg_whitney down 0 trainer|Goldenrod Gym|Hi! I'm Whitney!/Everyone was into Pokemon, so I got into it too!/Pokemon are super-cute!/You want to battle? I'm warning you--I'm good!|You're strong!
 npc = 9 13 lass right 4 fight|Lass Carrie|Snubbull 17|You shouldn't let your guard down just 'cause I don't look tough!|Who do you think are stronger-- boys or girls?
-npc = 9 6 lass left 1 fight|Lass Bridget|Jigglypuff 15, Jigglypuff 15, Jigglypuff 15|I like cute PokeMon better than strong Pokemon./But I have strong and cute Pokemon!|I'm trying to beat Whitney, but... It's depressing./I'm okay! If I lose, I'll just/try harder next time!
+npc = 9 6 lass left 1 fight|Lass Bridget|Jigglypuff 15, Jigglypuff 15, Jigglypuff 15|I like cute Pokemon better than strong Pokemon./But I have strong and cute Pokemon!|I'm trying to beat Whitney, but... It's depressing./I'm okay! If I lose, I'll just/try harder next time!
 npc = 0 2 beauty down 3 fight|Beauty Victoria|Sentret 9, Sentret 13, Sentret 16|Oh, you are a cute little Trainer! I like you, but I won't hold back!|Wow, you must be good to beat me! Keep it up!
 npc = 19 5 beauty down 3 fight|Beauty Samantha|Meowth 16, Meowth 16|Give it your best shot, or I'll take you down!|I taught MEOWTH moves for taking on any type...
 npc = 5 15 gym_guy down 0 talk|Yo! Champ in making!|This Gym is home to normal-type Pokemon trainers.|I recommend you use fighting-type Pokemon.
@@ -11292,7 +11380,7 @@ sign = 3 0 3F Personnel
 sign = 9 0 Pokemon Music with Host Dj Ben
 sign = 14 2 It's the Card Key slot.
 npc = 7 4 poke_maniac up 0 talk|We have recordings of the cries of|all Pokemon that have been found.|We must have about 200 kinds.
-npc = 3 4 gym_guy wander 0 talk|To trainers, PokeMon are their beloved partners.|It's terrible how Team Rocket is|trying to control Pokemon.
+npc = 3 4 gym_guy wander 0 talk|To trainers, Pokemon are their beloved partners.|It's terrible how Team Rocket is|trying to control Pokemon.
 npc = 11 3 cooltrainer_f wander 0 talk|The Team Rocket boss has locked himself in.|But the Director can open it.|He's up on the fifth floor.|Please save him!
 npc = 6 2 hg_rocket_m down 3 fight|Rocket Grunt|Weezing 26|It feels great ordering Pokemon to commit crimes.|I feel lousy over losing!/Darn it! I hate useless Pokemon!
 npc = 16 6 hg_rocket_m up 3 fight|Rocket Grunt|Raticate 24, Koffing 26|Why did the shutter open? Did you/have something to do with this?|What?! You made it past our men in the Underground?/How could you?
@@ -11660,7 +11748,7 @@ npc = 10 12 poke_maniac up 0 talk|Eusine: I dug a hole here, too...|I was shocke
 grid:
 ....................
 ...##############...
-...##############...
+...##^#^^^^^^#^##...
 ...##.#......#.####.
 ...##.#......#.#..#.
 ...##.#......#.#..#.
@@ -11670,11 +11758,11 @@ grid:
 .######......###..#.
 .######......###..#.
 .#########.#####.##.
-..######...##.....#.
+..^#####...##.....#.
 ...###..........###.
-....##......######..
+....^#......#^^^^^..
 .....#..##.##.......
-......######........
+......^^^^^^........
 ....................
 
 [map]
@@ -11690,7 +11778,7 @@ npc = 7 13 gym_guy down 0 talk|Jasmine uses the newly discovered steel-type.|I d
 grid:
 ##########
 ##########
-##########
+###^^^^###
 ###....###
 ###....###
 ####..####
@@ -11717,7 +11805,7 @@ door = 3 11 warp|Olivine Lighthouse 2F|3|11|down
 door = 16 13 warp|Olivine Lighthouse 2F|16|13|down
 door = 17 13 warp|Olivine Lighthouse 2F|17|13|down
 npc = 8 2 sailor down 0 talk|People train at this Lighthouse.|It's not easy to climb because of all the trainers.
-npc = 16 9 woman_2 up 0 talk|In the past, PokeMon used to light|the sea around Olivine at night.|The Lighthouse was made in honor of those Pokemon.
+npc = 16 9 woman_2 up 0 talk|In the past, Pokemon used to light|the sea around Olivine at night.|The Lighthouse was made in honor of those Pokemon.
 grid:
 ####################
 ####################
@@ -11751,6 +11839,7 @@ door = 17 13 warp|Olivine Lighthouse 1F|17|13|down
 door = 16 11 warp|Olivine Lighthouse 3F|16|11|down
 door = 17 11 warp|Olivine Lighthouse 3F|17|11|down
 npc = 17 8 gentleman left 3 fight|Gentleman Alfred|Noctowl 22|Eh? This is no place for playing.|Up top is a Pokemon that keeps the Lighthouse lit./Pokemon glow when they are healthy, just like people.
+rematch = Noctowl 36 / Noctowl 42 / Noctowl 58
 npc = 9 3 sailor right 3 trainer|Olivine Lighthouse|Men of the sea are always spoiling for a good fight!|Argh! I lost!
 grid:
 ####################
@@ -11969,9 +12058,9 @@ grid:
 .##.....#.
 .###..###.
 .###..###.
-..##..##..
+..^#..#^..
 ...#..#...
-....##....
+....^#....
 ..........
 ..........
 ..........
@@ -11979,7 +12068,7 @@ grid:
 .########.
 .#......#.
 .#......#.
-..######..
+..^^^^^^..
 ..........
 
 [map]
@@ -12001,15 +12090,15 @@ grid:
 .####..######..##.#.
 .####..######..#..#.
 .#########..####..#.
-.#..>#......>#...##.
-.##.>#......>#..###.
-.#..>#....#########.
-.#..>#....#......##.
-.#..####..#......##.
+.#...>.......>...##.
+.##..>.......>..###.
+.#...>....#^^^^^^##.
+.#...>....#......##.
+.#..#^^#..#......##.
 .#..#..#..#####.###.
-..##...#....>#..##..
-.......##...>#..#...
-........########....
+..^#...#.....>..#^..
+.......##....>..#...
+........^^^^^^^^....
 ....................
 
 [map]
@@ -12031,9 +12120,9 @@ grid:
 .#...#####wwww##..#.
 .#......wwwwwwww..#.
 .##.....wwwwwwww..#.
-..##..############..
+..^#..#^^^^^^^^^^^..
 ...#..#.............
-....##..............
+....^#..............
 ....................
 ....................
 ....................
@@ -12041,7 +12130,7 @@ grid:
 .##################.
 .#....wwwwwwww....#.
 .#....wwwwwwww....#.
-..################..
+..^^^^^^^^^^^^^^^^..
 ....................
 
 [map]
@@ -12055,7 +12144,7 @@ door = 5 3 warp|Whirl Islands B1F|31|29|down
 grid:
 ww######ww
 ww######ww
-ww######ww
+ww#^^^^#ww
 ww#....#ww
 ww#....#ww
 ww###.##ww
@@ -12063,11 +12152,11 @@ ww##..##ww
 ww##..##ww
 ww##..##ww
 ww##..##ww
-####..####
+#^^#..#^^#
 #..#..#..#
 #..#..#..#
 #..#..#..#
-#...##...#
+#...^#...#
 #........#
 #........#
 #........#
@@ -12087,7 +12176,7 @@ grid:
 .#####..#.
 .##.....#.
 .##.....#.
-.#..####..
+.#..#^^#..
 .#..#.....
 .#..#.....
 .#..#.....
@@ -12095,7 +12184,7 @@ grid:
 .#..#.....
 .#..#.....
 .#..#.....
-..##......
+..^^......
 ..........
 ..........
 ..........
@@ -12126,39 +12215,39 @@ item = 19 26 Escape Rope
 grid:
 .................##.....................
 ...######........##............########.
-...######........##............########.
+...##^^##........##............##^^^^##.
 .####..##..######################....##.
-.###...##..#################...##....##.
+.##^...##..##^^^^^^^^^^##^^#...##....##.
 .##....######..........##..#..#####..##.
-.##....###.##..........##..#..#####..##.
+.##....###.##..........##..#..#^^##..##.
 .##..#.###.##..######.######..#..##..##.
-.##..#......#..##.....>#>#....#..##..##.
-.##..#...#..#..###....>#>#....#..##..##.
-.##..#..##..#...####vv######..#..##..##.
-.##..#...#..#......####....#..#####..##.
-.##..###>#..#......#vv#....#....###..##.
-.##..##.>#..###.############....###..##.
-.##...####................#<...###...##.
-.##....###................#<.####....##.
-.##....#......##..##..##########.....##.
+.##..#......#..##......>.>....#..##..##.
+.##..#...#..#..###.....>.>....#..##..##.
+.##..#..##..#...^^^#..#^^^^#..#..##..##.
+.##..#...#..#......#vv#....#..#####..##.
+.##..###.>..#......#..#....#....###..##.
+.##..##..>..###.####vv######....###..##.
+.##...^#.>................<....##^...##.
+.##....#v#................<..####....##.
+.##....#......##..##..###^^^^^^^.....##.
 .####..###...#######..###..........####.
-.#..#..#############vv##...........#.##.
-.#..#..########....####....#########.##.
-.#..#..########....#..#....###........#.
+.#..#..########^^^^#..#^...........#.##.
+.#..#..########....#vv#....#########.##.
+.#..#..##^^^^##....#..#....###........#.
 .#..##.##....####.##.##....###........#.
-.#......#.....##vv##..#....##...####..#.
-.##.....###.#..#####..###..#....#..#..#.
-..#####.....#..#........#..#...##..#..#.
+.#......#.....^#...>..#....##...#^^#..#.
+.##.....###.#..#vvv#..###..#....#..#..#.
+..^^^##.....#..#........#..#...##..#..#.
 .....#####..#..#........####....#..#..#.
-......######...##...###.#.....###..#.##.
+......^^^##^...##...###.#.....###..#.##.
 .........##....##..##...#....####..#.##.
-.........##....#..####.#....####...#.##.
+.........##....#..#^^#.#....#^^^...#.##.
 .......#########..#..#......#....#.#..#.
 .......#..........#..#.....##....#....#.
 .......#.........##..#.....##..###....#.
-........####....##....##..###..##....##.
+........^###....#^....^#..###..##....##.
 .........###..###......##########...###.
-..........######........##############..
+..........^^^^^^........^^^^^^^^^^^^^^..
 ........................................
 
 [map]
@@ -12185,7 +12274,7 @@ grid:
 ####wwwwwwwwww######
 wwww##wwwwwwww##wwww
 wwww##wwwwwwww##wwww
-############ww######
+^^^##^^^^^^#ww#^^^^^
 ...##......#ww#.....
 ...##......#ww#.....
 ############ww######
@@ -12201,13 +12290,13 @@ wwww##wwwwwwww##wwww
 ############WW######
 ############WW######
 #######.####WW######
-ww##ww....wwww######
+ww##ww....wwww###^^#
 ww##ww....wwww###..#
-####wwwwwwwwww###..#
+#^^#wwwwwwwwww###..#
 #..#wwwwwwwwww######
-#..#wwwwww....####ww
+#..#wwwwww....#^^#ww
 ####wwwwww....#..#ww
-wwww##########...#ww
+wwww#####^^^^^...#ww
 wwww#####......###ww
 wwwwwwww#......#wwww
 wwwwwwww########wwww
@@ -12219,7 +12308,7 @@ image = maps/cr_WhirlIslandLugiaChamber.png
 objects = sprites
 indoor = yes
 door = 9 14 warp|Whirl Islands B2F|7|25|down
-npc = 9 5 mon:Lugia down 0 talk|Gyaaas!
+npc = 9 5 mon:Lugia down 0 legend|Lugia|Lugia: Gyaaas!
 grid:
 ####################
 ####################
@@ -12231,13 +12320,13 @@ ww####wwwwwwww####ww
 ww####wwwwwwww####ww
 wwww##wwwwwwww##wwww
 wwww##wwwwwwww##wwww
-ww####wwwwwwww####ww
+ww#^^#wwwwwwww#^^#ww
 ww#..#wwwwwwww#..#ww
 ww#..###....###..#ww
 ww######....######ww
-wwww############wwww
+wwww#^^^^#^^^^^#wwww
 wwww#..........#wwww
-####............####
+^^^^............^^^^
 ....................
 
 [map]
@@ -12574,8 +12663,8 @@ grid:
 ############
 ............
 ............
+............
 vvvvvvvvvvvv
-#.########.#
 ............
 .....##.....
 ............
@@ -12774,3 +12863,1189 @@ grid:
 #........#
 ####..####
 
+[map]
+name = Bell Tower 1F
+region = Johto
+image = maps/cr_TinTower1F.png
+objects = sprites
+indoor = yes
+door = 10 2 warp|Bell Tower 2F|10|2|down
+npc = 8 3 poke_maniac wander 0 talk|I knew it.|I knew you'd get to see the Pokemon|of rainbow colors, {PLAYER}.|It happened just as I envisioned.|My research isn't bad, I might say.|I'm going to keep studying Pokemon|to become a famous Pokemaniac!
+npc = 5 9 hg_monk wander 0 talk|According to legend...|When the souls of Pokemon and humans|commune, from the heavens descends a|Pokemon of rainbow colors...|Could it mean the legendary Pokemon|are testing us humans?
+npc = 11 11 hg_monk wander 0 talk|When the Burned Tower burned down,|three nameless Pokemon were said|to have perished. It was tragic.|However...|A rainbow-colored Pokemon...|In other words...|Ho-Oh descended from the sky and|gave new life to the three Pokemon.|They are...|Suicune, Entei and Raikou.|That is what they say.
+npc = 14 6 hg_monk wander 0 talk|The two Towers are said to have been|built to foster friendship and|hope between Pokemon and people.|That was 700 years ago, but the ideal|still remains important today.
+npc = 4 2 hg_monk up 0 talk|Ho-Oh appears to have descended|upon this, the Bell Tower!
+npc = 14 2 hg_monk left 0 talk|I believe you are being tested.|Free your mind from uncertainty, and advance.
+door = 9 15 warp|Ecruteak City Bell Tower Barrier Station|3|2|down
+door = 10 15 warp|Ecruteak City Bell Tower Barrier Station|3|2|down
+grid:
+####################
+###....#....#....###
+###..............###
+###..............###
+###...########...###
+###...#......#...###
+####..#..##..#..####
+##.#..#..##..#..#.##
+####..#..##..#..####
+###...#......#...###
+####..########..####
+##.#............#.##
+####............####
+###..............###
+########....########
+##.....#....#.....##
+####################
+####################
+
+[map]
+name = Bell Tower 2F
+region = Johto
+image = maps/cr_TinTower2F.png
+objects = sprites
+indoor = yes
+door = 10 14 warp|Bell Tower 3F|10|14|down
+door = 10 2 warp|Bell Tower 1F|10|2|down
+grid:
+####################
+#####..#....#..#####
+#####..........#####
+######........######
+########....########
+#######......#######
+#######..##..#######
+#######..##..#######
+#######..##..#######
+#######......#######
+#######......#######
+#######......#######
+########....########
+#####..........#####
+#####..........#####
+#####..........#####
+####################
+####################
+
+[map]
+name = Bell Tower 3F
+region = Johto
+image = maps/cr_TinTower3F.png
+objects = sprites
+indoor = yes
+door = 10 14 warp|Bell Tower 2F|10|14|down
+door = 16 2 warp|Bell Tower 4F|16|2|down
+item = 3 14 Full Heal
+grid:
+####################
+###.##########...###
+##..<.<.<.<.<.....##
+##..##########....##
+##...>.>.>.>.>....##
+##..##########....##
+##..####.##.####.###
+##..####.##.####v###
+##..<.<..##.<.<...##
+##..####....####..##
+##.#############..##
+##v#############..##
+##.....>.....>....##
+##....##....##....##
+##....<.....<.....##
+##....##....##....##
+####################
+####################
+
+[map]
+name = Bell Tower 4F
+region = Johto
+image = maps/cr_TinTower4F.png
+objects = sprites
+indoor = yes
+door = 2 4 warp|Bell Tower 5F|2|4|down
+door = 16 2 warp|Bell Tower 3F|16|2|down
+door = 2 14 warp|Bell Tower 5F|2|14|down
+door = 17 15 warp|Bell Tower 5F|17|15|down
+item = 11 6 Max Potion hidden
+item = 14 10 Ultra Ball
+item = 17 14 PP Up
+item = 2 12 Escape Rope
+grid:
+####################
+###....######....###
+##.......>.>......##
+##....########....##
+##..#######.<.<..###
+##..#######v####v###
+##..<.<..##.#.<..###
+##..####.##.#v##v###
+##..####.##.#.##.###
+########....#v##v###
+##...>.>..###..>.###
+##..#########v##v###
+##..#####.<.<.##.###
+##..#####v######v###
+##..<.<.<.<.<.<...##
+##..############..##
+####################
+####################
+
+[map]
+name = Bell Tower 5F
+region = Johto
+image = maps/cr_TinTower5F.png
+objects = sprites
+indoor = yes
+door = 11 15 warp|Bell Tower 6F|11|15|down
+door = 2 4 warp|Bell Tower 4F|2|4|down
+door = 2 14 warp|Bell Tower 4F|2|14|down
+door = 17 15 warp|Bell Tower 4F|17|15|down
+item = 16 14 Full Restore hidden
+item = 3 15 Carbos hidden
+item = 9 9 Rare Candy
+grid:
+##.....>.>.>.>.>..##
+##..######v#####..##
+##..<.<.<...#.<.<.##
+##..#v#######v###v##
+##..#..>.##.<.###.##
+##..#v##v##v#####v##
+##..#.##.##.#####.##
+#####v##.##.#####v##
+###.<..#.##...<.<.##
+###v##v#....########
+###.<..>...>.>.>.###
+###v##v#########v###
+###.##.>.>.#####.###
+###v######v#####v###
+##..<.<.<...####..##
+##..######..####..##
+####################
+####################
+
+[map]
+name = Bell Tower 6F
+region = Johto
+image = maps/cr_TinTower6F.png
+objects = sprites
+indoor = yes
+door = 3 9 warp|Bell Tower 7F|3|9|down
+door = 11 15 warp|Bell Tower 5F|11|15|down
+item = 8 8 Max Potion
+grid:
+####################
+##................##
+##..############..##
+##..############..##
+##.#############..##
+##v#############..##
+##.#####.##.####..##
+##v#####.##.####..##
+##..####.##.......##
+##..####....########
+##..######..########
+##..######..########
+##.>.>.>.>..########
+##########..########
+##########..########
+##########..########
+####################
+####################
+
+[map]
+name = Bell Tower 7F
+region = Johto
+image = maps/cr_TinTower7F.png
+objects = sprites
+indoor = yes
+door = 3 9 warp|Bell Tower 6F|3|9|down
+door = 10 15 warp|Bell Tower 8F|2|5|down
+door = 12 7 warp|Bell Tower 7F|8|3|down
+door = 8 3 warp|Bell Tower 7F|12|7|down
+door = 6 9 warp|Bell Tower 9F|16|7|down
+item = 16 1 Max Revive
+grid:
+########..<.<.....##
+###.......####....##
+##.........>.>....##
+##........####....##
+##..###########..###
+##..###########vv###
+##..##...##...#..###
+##..##...##...#vv###
+##..##...##...#..###
+##..##........#vv###
+##..###########..###
+##..###########vv###
+##..<.<.<.........##
+##########..########
+##########..########
+##########..########
+####################
+####################
+
+[map]
+name = Bell Tower 8F
+region = Johto
+image = maps/cr_TinTower8F.png
+objects = sprites
+indoor = yes
+door = 2 5 warp|Bell Tower 7F|10|15|down
+door = 2 11 warp|Bell Tower 9F|12|3|down
+door = 16 7 warp|Bell Tower 9F|2|5|down
+door = 10 3 warp|Bell Tower 9F|12|7|down
+door = 14 15 warp|Bell Tower 9F|6|13|down
+door = 6 9 warp|Bell Tower 9F|8|13|down
+item = 7 13 Nugget
+item = 11 6 Max Elixer
+item = 3 1 Full Restore
+grid:
+####################
+###..............###
+########..........##
+########..........##
+##..############..##
+##..############..##
+##..####.##.####..##
+##..####.##.####..##
+##..##...##.####..##
+##..##......########
+##..################
+##..################
+##..####..<.....####
+#######...##....####
+########...>....####
+######....##....####
+####################
+####################
+
+[map]
+name = Bell Tower 9F
+region = Johto
+image = maps/cr_TinTower9F.png
+objects = sprites
+indoor = yes
+door = 12 3 warp|Bell Tower 8F|2|11|down
+door = 2 5 warp|Bell Tower 8F|16|7|down
+door = 12 7 warp|Bell Tower 8F|10|3|down
+door = 7 9 warp|Bell Tower Roof|9|13|down
+door = 16 7 warp|Bell Tower 7F|6|9|down
+door = 6 13 warp|Bell Tower 8F|14|15|down
+door = 8 13 warp|Bell Tower 8F|6|9|down
+item = 9 1 HP Up
+grid:
+####################
+#####...#..#...#####
+####............####
+####............####
+##....##############
+##..################
+##..####.##...##..##
+########.##...##..##
+######...##.####..##
+######......####..##
+################..##
+################..##
+######....<.<.<...##
+######....######..##
+######.....>.>.>..##
+####################
+####################
+####################
+
+[map]
+name = Bell Tower Roof
+region = Johto
+image = maps/cr_TinTowerRoof.png
+objects = sprites
+door = 9 13 warp|Bell Tower 9F|7|9|down
+npc = 9 5 mon:Ho-Oh down 0 legend|Ho-Oh|Ho-Oh: Shaoooh!
+grid:
+####################
+####################
+####################
+####################
+####################
+########..##########
+########..##########
+########..##########
+########..##########
+########..##########
+########..##########
+########..##########
+########..##########
+########..##########
+####################
+####################
+####################
+####################
+
+[map]
+name = Battle Frontier (Johto)
+image = maps/hg_D32.png
+over = maps/hg_D32_over.png
+objects = sprites
+region = Johto
+imgy = -48
+wild = 
+door = 48 17 warp|Johto Battle Tower|12|9|up
+door = 49 17 warp|Johto Battle Tower|12|9|up
+door = 77 34 warp|Johto Battle Factory|9|11|up
+door = 77 35 warp|Johto Battle Factory|9|11|up
+door = 19 34 warp|Battle Hall|12|11|up
+door = 19 35 warp|Battle Hall|12|11|up
+door = 33 63 warp|Battle Castle|11|16|up
+door = 33 63 warp|Battle Castle|11|16|up
+door = 64 62 warp|Battle Arcade|7|12|up
+door = 64 63 warp|Battle Arcade|7|12|up
+door = 48 52 warp|Frontier Access|14|8|down
+door = 49 52 warp|Frontier Access|14|8|down
+sign = 47 19 Battle Tower|Prove your skill, battle after battle!
+sign = 72 32 Battle Factory|Rental Pokemon - your knowledge is your weapon!
+sign = 25 32 Battle Hall|One Pokemon against one, every type in turn!
+sign = 35 57 Battle Castle|Win with what you have left - and spend your Castle Points well!
+sign = 62 57 Battle Arcade|Spin the board - luck is part of battling too!
+npc = 50 19 youngster down 0 talk|The Battle Tower's Tycoon is Palmer. They say he's tougher than any Champion!
+npc = 38 23 black_belt wander 0 talk|My Pokemon and I came all the way from Sinnoh for the Battle Castle!
+npc = 60 29 gentleman wander 0 talk|The Battle Hall's Matron, Argenta, has raised Pokemon of every type.
+npc = 66 50 lass wander 0 talk|In the Arcade, the board decides the weather, your HP, even the levels... I love it!
+npc = 44 61 woman_1 wander 0 talk|Thorton at the Factory remembers every rental Pokemon there is.
+npc = 49 64 old_woman down 0 talk|Such young Trainers... it does my heart good to watch them battle.
+npc = 48 64 old_man down 0 talk|We come here every Sunday to cheer on the challengers.
+grid:
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+##########################################..............########################################
+##########################################..............########################################
+##########################################..............########################################
+##########################################..............########################################
+##########################################..............########################################
+##########################################..............########################################
+##########################################..............########################################
+##########################################..............########################################
+##########################################..............########################################
+######################################.#...................#####################################
+#####################################.###....#......#....###.###################################
+####################################.#......#www##www#......#.##################################
+###################################.#..##...##......##...##..#.#################################
+##################################.##..#######.#....##.####..##.################################
+#################################.##.........#......#.........##################################
+################################.#...........#......#...........#.##############################
+###############################.###......#############.##......###.#############################
+##############################.#............#ww#..#ww#............#.############################
+#############################.#..............ww....ww..............#.###########################
+############################.#...............ww....ww..............##.##########################
+###########################.##..##...........ww....ww...........##..##.#########################
+##########################.#....##...........ww....ww...........##....##########################
+############..............###................ww....ww................###..............##########
+############.............#...................ww....ww...................#...#.........##########
+###########.............#.....wwwww..........ww#..#ww..........wwwww.....#..#...........########
+###########............#......wwwww..##.wwwwwww#..#wwwwwww.##..wwwww......#.#...........########
+###########...........#..#..wwwwwww#.##.wwwwwww#..#wwwwwww.##.#wwwwwww..#..##...........########
+##########.................################....#..#....###.############.................########
+##########.........D...............#....#................#....#..............D..........########
+###########........D...#...........#....#................#....#..............D..........########
+############..........##...################..##....##..###.############.................########
+############.....#....#.....wwwwwww#....ww..#.....####..ww....#wwwwwww......#...#.....##########
+#############.....#..#..................ww..#.....####..ww..................#...#.....##########
+################..####..................ww........####..ww..................#..#..##############
+####################...##..........#..#.ww..............ww.#..#..........##.####.###############
+#####################..##........ww#..#www..............www#..#ww........##...#...##############
+#####################............ww#..#www..###....###..www#..#ww............#....##############
+####################.####.......#ww#..#www..#........#..www#..#ww#.......#######################
+####################...........###.#..#####.#........#.##.##..#####...........##################
+#######################.....##..##..............................##..##.....#####################
+######################.###..##..##..............................##..##..##.#####################
+########################.......###.#..#####............##.##..#####.......######################
+#########################.......#ww....www....##..##....www....ww#.......#######################
+########################.####....ww#...www....##..##....www...#ww....####.######################
+########################..#........#...www#............#www...#.........#.######################
+###########################............www..............www............#########################
+##########################.###.........www......##......www.........###.########################
+#############################.....##...www.....#..#.....www...##......##########################
+#############################.....##...www.....#..##....www...##.....###########################
+############################.####......www....#....#....www......###############################
+############################..#.....................................#.##########################
+############################..#....#..........................#....#..##########################
+##########################.....###............##..##..............##....########################
+##########################.#....##.#..........######..........#.........########################
+##########################.#.......#..........##..##..........#...........######################
+########################...#.....###..........##..##..........##..........######################
+########################...#.....###..........######..........##D.........######################
+########################...#.....###...........####...........##D.........######################
+########################...#.......#..........................#...........######################
+############################.......#..........#....#..........#...........######################
+##########################.##########..wwwwwww#....#wwwwwww...#...........######################
+##########################.##...#####..w#####w#....#w#####w...#.#####.##########################
+##########################......##.....wwwwwww#....#wwwwwww.............########################
+##################################.....wwwwwww#....#wwwwwww.....################################
+##################################.....wwwwwww#....#wwwwwww.....################################
+######################################.wwwwwww##..##wwwwwww.####################################
+######################################.wwwwwww.#..#.wwwwwww.####################################
+######################################.wwwwwww......wwwwwww.####################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+################################################################################################
+heights:
+555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
+888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
+888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
+888888888888888888888888888888888888888888222222222222228888888888888888888888888888888888888888
+555555555555555555555555555555555555555555000000000000005555555555555555555555555555555555555555
+888888888888888888888888888888888888888888000000000000008888888888888888888888888888888888888888
+555555555555555555555555555555555555555555000000000000005555555555555555555555555555555555555555
+888888888888888888888888888888888888888888000000000000008888888888888888888888888888888888888888
+555555555555555555555555555555555555555555000000000000005555555555555555555555555555555555555555
+888888888888888888888888888888888888888888000000000000008888888888888888888888888888888888888888
+555555555555555555555555555555555555555555000000000000005555555555555555555555555555555555555555
+888888888888888888888888888888888888888888000000000000008888888888888888888888888888888888888888
+555555555555555555555555555555555555555555000000000000005555555555555555555555555555555555555555
+88888888888888888888888888888888888888GGGGG000000000000GGGGG888888888888888888888888888888888888
+5555555555555555555555555555555555555GGFFFG000000000000GFFFGG55555555555555555555555555555555555
+888888888888888888888888888888888888GGFDDDG00........00GDDDFGG8888888888888888888888888888888888
+55555555555555555555555555555555555GGFDDDDG00PPPPPPPP00GDDDDFGG555555555555555555555555555555555
+8888888888888888888888888888888888GGFFDDDDHLPPPPPPPPPPLHDDDDFFGG88888888888888888888888888888888
+555555555555555555555555555555555GGFDDDDDDFJNPPPPPPPPNJFDDDDDDFGG5555555555555555555555555555555
+88888888888888888888888888888888GGFFDDDDDDFJNPPPPPPPPNJFDDDDDDFFGG888888888888888888888888888888
+5555555555555555555555555555555GGFDDDDDDDDHLPPPPPPPPPPLHDDDDDDDDFGG55555555555555555555555555555
+888888888888888888888888888888GGFFDDDDDDDDG00..PNNP..00GDDDDDDDDFFGG8888888888888888888888888888
+55555555555555555555555555555GGFDDDDDDDDDDG00..LJJL..00GDDDDDDDDDDFGG555555555555555555555555555
+8888888888888888888888888888GGFDDDDDDDDDDDG00..HFFH..00GDDDDDDDDDDDFGG88888888888888888888888888
+555555555555555555555555555GGFFDDDDDDDDDDDG20..DBBD..02GDDDDDDDDDDDFFGG5555555555555555555555555
+88888888888822222222222222GGFFDDDDDDDDDDDDG00..@>>@..00GDDDDDDDDDDDDFFGG222222222222228888888888
+5555555555550000000000000GGFDDDDDDDDDDDDDDG20..<::<..02GDDDDDDDDDDDDDDFGG00000000000005555555555
+888888888822000000000000GGFFDDDDDDDDDDDDDDG00..8668..00GDDDDDDDDDDDDDDFFGG0000000000002288888888
+55555555550000000000000GGFDDDDBBBBBGGGGGGGG20..4224..02GGGGGGGGBBBBBDDDDFGG000000000000055555555
+8888888888000000000000GGFFDDDDBBBBBG2<<2.......2002.......2<<2GBBBBBDDDDFFGG00000000000088888888
+5555555555000000000000GFFDDDBBBBBBBG0000.......4004.......0000GBBBBBBBDDDFDG00000000000055555555
+8888888888000000000000DDDDDDHFFFFFHG@>><840000200002000048<>>@GHFFFFFHDDDDDD00000000000088888888
+5555555555000000000000DDDDDDDDDDDDDB><<:620000000000000026:<<>BDDDDDDDDDDDDD00000000000055555555
+8888888888000000000000DDDDDDDDDDDDDB><<:620000000000000026:<<>BDDDDDDDDDDDDD00000000000088888888
+5555555555000000000000DDDDDDHFFFFFHG@>><84000=400007700048<>>@GHFFFFFHDDDDDD00000000000055555555
+8888888888880000000000DDDDDDBBBBBBBG0002..007=4000666600..2000GBBBBBBBDDDDDD00000000008888888888
+555555555555000000GDDDDDDDDDDDDDGGGG0000..004=4000044000..0000GGGGDDDDDDDDDDDDDG0000005555555555
+888888888888888800GGFFFDDDDDDDDDG2220002..00000000000000..2000222GDDDDDDDDDDDDGG0088888888888888
+5555555555555555000GGFFDDDDDDDDDG0000000..00000000000000..0000000GDDDDDDDDDDDGG00055555555555555
+88888888888888888888GDFDDDDDDDDDG..4//4...00000000000000...4//4..GDDDDDDDDDFDG000088888888888888
+55555555555555555555GGFFFDDDDDDDG..////...000=400004=500...////..GDDDDDDDFFFGG000055555555555555
+888888888888888888880GGFFDDDDDDDG..:88:...004=400004=500...:88:..GDDDDDDDFFGG0888888888888888888
+5555555555555555555500GDFDDDDDDDG@<:88::84004=400004=40048::88:<@GDDDDDDDFDG00555555555555555555
+8888888888888888888888GGFFFDDDDDB>:8888862000000000000002688888:>BDDDDDFFFGG88888888888888888888
+55555555555555555555550GGFFDDDDDB>:88888620000<<00<<00002688888:>BDDDDDFFGG055555555555555555555
+888888888888888888888888GDFDDDDDG@<:88::840000990099000048::88:<@GDDDDDFDG8888888888888888888888
+555555555555555555555555GGFDDDDDG..////...00006600660000...////..GDDDDDFGG5555555555555555555555
+8888888888888888888888880GGFFDDDG..////...00000000000000...////..GDDDFFGG08888888888888888888888
+55555555555555555555555500GDFDDDGGGG///...80000000000008...///GGGGDDDFDG005555555555555555555555
+88888888888888888888888888GGFFDDDDDDDDG...00000000000000...GDDDDDDDDFFGG888888888888888888888888
+555555555555555555555555550GGFDDDDDDDDG...00000000000000...GDDDDDDDDFGG0555555555555555555555555
+8888888888888888888888888888GDFDDDDDDDG...00000:;;:00000...GDDDDDDDFDG88888888888888888888888888
+5555555555555555555555555555GGFDDDDDDDG...00000<>><00000...GDDDDDDDFGG55555555555555555555555555
+88888888888888888888888888880GGFFDDDDDG...00000<>><00000...GDDDDDFFGG088888888888888888888888888
+555555555555555555555555555500GDFDDDDDGGGGGGGGGGGGGGGGGGGGGGDDDDDFDG0055555555555555555555555555
+888888888888888888888888882200GGFDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDFGG0022888888888888888888888888
+5555555555555555555555555500000GGDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDGG00000555555555555555555555555
+88888888888888888888888822000000DDDDDDDDDDDDDDDETTEDDDDDDDDDDDDDDD000000228888888888888888888888
+555555555555555555555555000000000DDDDDDDDDDDDDDTUUTEDDDDDDDDDDDDD0000000005555555555555555555555
+88888888888888888888888800000000000DDDDDDDDDDDDTVVTEDDDDDDDDDDD000000000008888888888888888888888
+55555555555555555555555500000000000DDDDDDDDDDDDEUUEEDDDDDDDDDDD000000000005555555555555555555555
+88888888888888888888888800000000000DDDDDDDDDDDDDEEEDDDDDDDDDDDD000000000008888888888888888888888
+55555555555555555555555500000000000DDDDDDDDDDDDDDDDDDDDDDDDDDDD000000000005555555555555555555555
+88888888888888888888888800000000000GGGGGGGGGGGGGGGGGGGGGGGGGGGG000000000008888888888888888888888
+555555555555555555555555000000000000002.......0>@@>0.......2000000000000005555555555555555555555
+888888888888888888888888880000000000002.......0>@@>0.......2000000000000888888888888888888888888
+555555555555555555555555550000000000000.......0>@@>0.......0000000000000555555555555555555555555
+888888888888888888888888888888888800000.......0>??>0.......0000088888888888888888888888888888888
+555555555555555555555555555555555500000.......0>??>0.......0000055555555555555555555555555555555
+888888888888888888888888888888888888880.......0<>><0.......0888888888888888888888888888888888888
+555555555555555555555555555555555555552.......0:;;:0.......2555555555555555555555555555555555555
+222222222222222222222222222222222222222.......000000.......2222222222222222222222222222222222222
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+[map]
+name = Frontier Access
+image = maps/hg_D32R0102.png
+over = maps/hg_D32R0102_over.png
+objects = sprites
+region = Johto
+imgy = -48
+wild = 
+town = Battle Frontier
+door = 14 34 warp|Route 40 Battle Frontier Gate|4|2|down
+door = 15 34 warp|Route 40 Battle Frontier Gate|4|2|down
+door = 14 7 warp|Battle Frontier (Johto)|48|51|up
+door = 15 7 warp|Battle Frontier (Johto)|48|51|up
+door = 8 15 warp|Frontier Access Pokemon Center|7|8|up
+fly = 8 16
+door = 19 14 warp|Frontier Access Poke Mart|4|7|up
+item = 24 21 Rare Candy hidden
+sign = 12 10 Frontier Access|The Battle Frontier is straight ahead!
+npc = 13 16 gentleman wander 0 talk|Up ahead is the Battle Frontier! Only Trainers who've beaten Johto's League may challenge it.
+npc = 9 22 lass wander 0 talk|Go west along the beach and the cliffs go on and on...
+npc = 2 20 fisher left 0 talk|The fish here have seen so many battles, they're not scared of anything.
+grid:
+####.ww###ww#....#ww###ww.######
+####.ww###ww#....#ww###ww.######
+####.ww###ww#....#ww###ww.######
+####.ww###ww#....#ww###ww.######
+####.wwwwwww#....#wwwwwww.######
+####.wwwwwww#....#wwwwwww.######
+##########..##...#..############
+##########..##DD##..############
+###########........#############
+###########........#############
+####........##..........########
+####.###.##.......#...#.########
+####.#.#.##.......#...#.########
+####.#.####.......#####.########
+###########.......#####.########
+#####..##...............########
+####....................########
+####....................########
+####...................#########
+####...................######...
+##........................######
+##.#...#..................######
+######.#.................#######
+########.................#######
+##....................##########
+##....................#......###
+##........##......##############
+##........##......#....#########
+#############.....##############
+#############.....##############
+############......##############
+############......##############
+############......##############
+############......##########....
+........####################....
+........####################....
+############################....
+.......#################........
+.......#################........
+.......###########......###.....
+.......###########..............
+.......###########..............
+.....########################...
+.....#..##########..............
+#....#..####....................
+#....#######....................
+#....#######....................
+#..####..###....................
+#..#..######....................
+#..#.###..##....................
+#..#.#.#####................wwww
+####.#.##.##................wwww
+######.##.#.................wwww
+#.#######.#.................wwww
+###...###.#.............wwwwwwww
+#..####.###.............wwwwwwww
+####....#ww.............wwwwwwww
+#########wwwwwwwwwwwwwwwwwwwwwww
+#........wwwwwwwwwwwwwwwwwwwwwww
+#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+heights:
+99990.......1?AA?1.......0999999
+66770.......1?AA?1.......0776666
+99990.......1?AA?1.......0999999
+66770.......1?AA?1.......0776666
+99990.......1?AA?1.......0999999
+66770.......1>@@>1.......0776666
+9999999999001=>>=10099999::::999
+6666666677221=>>=122776668888666
+9::::99::::001;;100::::999999999
+68888668888000110008888766666666
+99990000000000000000000099999999
+66770000000000000000000077666666
+99990000000000000000000099999999
+66770000000000000000000077666666
+9::::00000000000000000009::::999
+68888000000000000000000078888666
+99990000000000000000000099999999
+66770000000000000000000077666666
+99990000000000000000000::::90000
+66770000000000000000000888870444
+99000000002200000022000000990444
+77000002000000000000000000770444
+:::0000200220000002200000::::444
+88800002000000000000000008888444
+99000000000000000000000000000444
+77000000000000000000000444444444
+99000000009900000000000444444444
+77000000007700000004444444444444
+999999999::::0000004444444444444
+66666666788880000004444444444444
+00000000000000000004444444444444
+00000000000000000004444444444444
+00000000000000000004444444400000
+00000000000000000004444444402222
+@@@@@@@@000000000004444444402000
+@@@@@@@@000000000004444444402000
+00000000000000000004444000002000
+DDDDDDD0000000000004444000002000
+DDDDDDD0000000000000000055002000
+DDDDDDD0000000000000000011002000
+DDDDDDD0000000000000000000002000
+DDDDDDD0000000000000000000002000
+DDDDD000000000000000000000000000
+DDDDD0@@000000000000000000000000
+0DDDD0EE000000000000000000000000
+0DDDD0AA000000000000000000000000
+0DDDD00000000000000000000000000/
+0DD0000<<0000000000000000000000/
+0DD0@@0000000000000000000000000/
+0DD0@0008800000000000000000/////
+0DD0@0<00000000000000000000/....
+0000@0<00400000000000000000/....
+000000<00400000000000000000/....
+0<000000040000000000000/////....
+00088800040000000000000/.......3
+08800004000000000000000/......./
+00004444055/////////////......33
+00000000011...................//
+0////////33...................33
+0........//...................//
+0........33....................3
+0........//..................../
+0........33....................3
+0........//..................../
+
+[map]
+name = Frontier Access Pokemon Center
+region = Johto
+image = maps/ViridianCity_PokemonCenter_1F.png
+over = maps/ViridianCity_PokemonCenter_1F_over.png
+objects = sprites
+indoor = yes
+door = 6 8 warp|Frontier Access|8|16|down
+door = 7 9 warp|Frontier Access|8|16|down
+door = 8 8 warp|Frontier Access|8|16|down
+npc = 7 2 nurse down 0 heal|Welcome to our Pokemon Center!
+npc = 12 5 gentleman wander 0 talk|The Frontier's challenges wear your Pokemon out. Rest here as often as you like!
+grid:
+#.#############
+###############
+....###..##....
+....#######....
+...............
+...............
+#..........##..
+...........##..
+......D.D......
+###############
+
+[map]
+name = Frontier Access Poke Mart
+region = Johto
+image = maps/ViridianCity_Mart.png
+over = maps/ViridianCity_Mart_over.png
+objects = sprites
+indoor = yes
+door = 3 7 warp|Frontier Access|19|15|down
+door = 4 8 warp|Frontier Access|19|15|down
+door = 5 7 warp|Frontier Access|19|15|down
+npc = 2 3 clerk right 0 shop|Welcome! How may I help you?
+grid:
+###########
+###########
+##.#......#
+...#.......
+####...##.#
+.......##.#
+.##....##.#
+...D.D.....
+###########
+
+[map]
+name = Johto Battle Tower
+region = Johto
+image = maps/em_BattleFrontier_BattleTowerLobby.png
+over = maps/em_BattleFrontier_BattleTowerLobby_over.png
+objects = sprites
+indoor = yes
+door = 12 10 warp|Battle Frontier (Johto)|48|18|down
+door = 13 10 warp|Battle Frontier (Johto)|48|18|down
+npc = 6 5 em_teala down 0 frontier|8
+npc = 10 5 em_teala down 0 frontier|8
+grid:
+#########################
+#########################
+....#...#...#...#...#....
+....#...#...#...#...#....
+....#...#...#...#...#....
+....##.###.###.###.##....
+.........................
+.........................
+.........................
+##.....................##
+
+[map]
+name = Johto Battle Factory
+region = Johto
+image = maps/em_BattleFrontier_BattleFactoryLobby.png
+over = maps/em_BattleFrontier_BattleFactoryLobby_over.png
+objects = sprites
+indoor = yes
+door = 9 12 warp|Battle Frontier (Johto)|73|34|left
+door = 10 12 warp|Battle Frontier (Johto)|73|34|left
+npc = 4 7 em_scientist_1 down 0 frontier|9
+npc = 14 7 em_scientist_1 down 0 frontier|9
+grid:
+###################
+###################
+#######.....#######
+#######.....#######
+####.#########.####
+###....#...#....###
+..##..##...##...#..
+..##.####.####.##..
+...................
+...................
+...................
+...............#.#.
+
+[map]
+name = Battle Arcade
+region = Johto
+image = maps/em_BattleFrontier_BattleArenaLobby.png
+over = maps/em_BattleFrontier_BattleArenaLobby_over.png
+objects = sprites
+indoor = yes
+door = 7 13 warp|Battle Frontier (Johto)|60|62|left
+npc = 7 7 em_black_belt down 0 frontier|10
+grid:
+################
+################
+################
+#######.########
+################
+################
+###.#######.####
+###.#######.#.##
+.....#.........#
+.....#.........#
+#..............#
+#..............#
+...............#
+
+[map]
+name = Battle Castle
+region = Johto
+image = maps/em_BattleFrontier_BattleDomeLobby.png
+over = maps/em_BattleFrontier_BattleDomeLobby_over.png
+objects = sprites
+indoor = yes
+door = 11 17 warp|Battle Frontier (Johto)|36|62|right
+door = 12 17 warp|Battle Frontier (Johto)|36|62|right
+npc = 5 10 em_teala down 0 frontier|11
+npc = 17 10 em_teala down 0 frontier|11
+grid:
+#######################
+#######################
+#######################
+#######################
+#######################
+.......................
+.......................
+..##...............##..
+..##.....#####.....##..
+..###.###..#..###.###..
+#####.#####.#####.#####
+.......................
+.......................
+.......................
+#####..............####
+.......................
+###..............######
+
+[map]
+name = Battle Hall
+region = Johto
+image = maps/em_BattleFrontier_BattlePalaceLobby.png
+over = maps/em_BattleFrontier_BattlePalaceLobby_over.png
+objects = sprites
+indoor = yes
+door = 12 12 warp|Battle Frontier (Johto)|23|34|right
+door = 13 12 warp|Battle Frontier (Johto)|23|34|right
+npc = 5 6 em_expert_m down 0 frontier|12
+npc = 19 6 em_expert_m down 0 frontier|12
+grid:
+.........................
+#..#...#....#....#...#..#
+#..#...#....####.#...#..#
+#..##.##.#######.##.##..#
+#####.#############.#####
+..##...##.......##...##..
+..###.###.......###.###..
+..#.............#........
+.........................
+.........................
+.........................
+.........................
+
+[map]
+name = Ruins of Alph Kabuto Chamber
+region = Johto
+image = maps/cr_RuinsOfAlphKabutoChamber.png
+objects = sprites
+indoor = yes
+alt = alph:kabuto|maps/cr_RuinsOfAlphKabutoChamber_alt.png|
+door = 3 9 warp|Ruins of Alph|20|11|down
+door = 4 9 warp|Ruins of Alph|20|11|down
+door = 3 3 warp|Ruins of Alph Inner Chamber|15|4|down
+if = alph:kabuto
+door = 4 3 warp|Ruins of Alph Inner Chamber|16|4|down
+if = alph:kabuto
+door = 4 0 warp|Ruins of Alph Kabuto Item Room|3|8|up
+if = alph:kabuto
+spot = 3 2 alphpuzzle|kabuto
+sign = 4 2 A Pokemon that hid on the sea floor.|Eyes on its back scanned the area.
+sign = 2 3 It's a replica of an ancient Pokemon.
+sign = 5 3 It's a replica of an ancient Pokemon.
+npc = 3 1 scientist up 0 talk|Recently, strange, cryptic patterns have appeared.|It's odd. They weren't here a little while ago...|You should take a look at the walls.
+unless = alph:kabuto
+npc = 3 1 scientist up 0 talk|Whoa! That tremor... The wall at the back opened up! There's a room past it!
+if = alph:kabuto
+grid:
+########
+#......#
+#.####.#
+#.#..#.#
+#......#
+#......#
+#......#
+#......#
+#......#
+###..###
+
+[map]
+name = Ruins of Alph Kabuto Item Room
+region = Johto
+image = maps/cr_RuinsOfAlphKabutoItemRoom.png
+objects = sprites
+indoor = yes
+door = 3 9 warp|Ruins of Alph Kabuto Chamber|4|1|down
+door = 4 9 warp|Ruins of Alph Kabuto Chamber|4|1|down
+item = 2 6 Oran Berry
+item = 5 6 Pecha Berry
+item = 2 4 Heal Powder
+item = 5 4 Energy Powder
+grid:
+########
+#.#..#.#
+#......#
+#......#
+#.#..#.#
+#......#
+#.#..#.#
+#......#
+#......#
+###..###
+
+[map]
+name = Ruins of Alph Ho-Oh Chamber
+region = Johto
+image = maps/cr_RuinsOfAlphHoOhChamber.png
+objects = sprites
+indoor = yes
+alt = alph:hooh|maps/cr_RuinsOfAlphHoOhChamber_alt.png|
+door = 3 9 warp|Ruins of Alph|9|34|down
+door = 4 9 warp|Ruins of Alph|9|34|down
+door = 3 3 warp|Ruins of Alph Inner Chamber|3|16|down
+if = alph:hooh
+door = 4 3 warp|Ruins of Alph Inner Chamber|4|16|down
+if = alph:hooh
+door = 4 0 warp|Ruins of Alph Ho-Oh Item Room|3|8|up
+if = alph:hooh
+spot = 3 2 alphpuzzle|hooh
+sign = 4 2 A Pokemon that flew gracefully on|rainbow-colored wings.
+sign = 2 3 It's a replica of an ancient Pokemon.
+sign = 5 3 It's a replica of an ancient Pokemon.
+npc = 3 1 scientist up 0 talk|These panels... Arrange the stones to form the picture, and something might happen.
+unless = alph:hooh
+npc = 3 1 scientist up 0 talk|Whoa! That tremor... The wall at the back opened up! There's a room past it!
+if = alph:hooh
+grid:
+########
+#......#
+#.####.#
+#.#..#.#
+#......#
+#......#
+#......#
+#......#
+#......#
+###..###
+
+[map]
+name = Ruins of Alph Ho-Oh Item Room
+region = Johto
+image = maps/cr_RuinsOfAlphHoOhItemRoom.png
+objects = sprites
+indoor = yes
+door = 3 9 warp|Ruins of Alph Ho-Oh Chamber|4|1|down
+door = 4 9 warp|Ruins of Alph Ho-Oh Chamber|4|1|down
+item = 2 6 Sitrus Berry
+item = 5 6 Leppa Berry
+item = 2 4 Revival Herb
+item = 5 4 Charcoal
+grid:
+########
+#.#..#.#
+#......#
+#......#
+#.#..#.#
+#......#
+#.#..#.#
+#......#
+#......#
+###..###
+
+[map]
+name = Ruins of Alph Omanyte Chamber
+region = Johto
+image = maps/cr_RuinsOfAlphOmanyteChamber.png
+objects = sprites
+indoor = yes
+alt = alph:omanyte|maps/cr_RuinsOfAlphOmanyteChamber_alt.png|
+door = 3 9 warp|Ruins of Alph|9|54|down
+door = 4 9 warp|Ruins of Alph|9|54|down
+door = 3 3 warp|Ruins of Alph Inner Chamber|3|22|down
+if = alph:omanyte
+door = 4 3 warp|Ruins of Alph Inner Chamber|4|22|down
+if = alph:omanyte
+door = 4 0 warp|Ruins of Alph Omanyte Item Room|3|8|up
+if = alph:omanyte
+spot = 3 2 alphpuzzle|omanyte
+sign = 4 2 This Pokemon drifted in the|sea by twisting its ten tentacles.
+sign = 2 3 It's a replica of an ancient Pokemon.
+sign = 5 3 It's a replica of an ancient Pokemon.
+npc = 3 1 scientist up 0 talk|These panels... Arrange the stones to form the picture, and something might happen.
+unless = alph:omanyte
+npc = 3 1 scientist up 0 talk|Whoa! That tremor... The wall at the back opened up! There's a room past it!
+if = alph:omanyte
+grid:
+########
+#......#
+#.####.#
+#.#..#.#
+#......#
+#......#
+#......#
+#......#
+#......#
+###..###
+
+[map]
+name = Ruins of Alph Omanyte Item Room
+region = Johto
+image = maps/cr_RuinsOfAlphOmanyteItemRoom.png
+objects = sprites
+indoor = yes
+door = 3 9 warp|Ruins of Alph Omanyte Chamber|4|1|down
+door = 4 9 warp|Ruins of Alph Omanyte Chamber|4|1|down
+item = 2 6 Leppa Berry
+item = 5 6 Mystic Water
+item = 2 4 Stardust
+item = 5 4 Star Piece
+grid:
+########
+#.#..#.#
+#......#
+#......#
+#.#..#.#
+#......#
+#.#..#.#
+#......#
+#......#
+###..###
+
+[map]
+name = Ruins of Alph Aerodactyl Chamber
+region = Johto
+image = maps/cr_RuinsOfAlphAerodactylChamber.png
+objects = sprites
+indoor = yes
+alt = alph:aerodactyl|maps/cr_RuinsOfAlphAerodactylChamber_alt.png|
+door = 3 9 warp|Ruins of Alph|20|54|down
+door = 4 9 warp|Ruins of Alph|20|54|down
+door = 3 3 warp|Ruins of Alph Inner Chamber|15|25|down
+if = alph:aerodactyl
+door = 4 3 warp|Ruins of Alph Inner Chamber|16|25|down
+if = alph:aerodactyl
+door = 4 0 warp|Ruins of Alph Aerodactyl Item Room|3|8|up
+if = alph:aerodactyl
+spot = 3 2 alphpuzzle|aerodactyl
+sign = 4 2 This flying Pokemon attacked its|prey with saw-like fangs.
+sign = 2 3 It's a replica of an ancient Pokemon.
+sign = 5 3 It's a replica of an ancient Pokemon.
+npc = 3 1 scientist up 0 talk|These panels... Arrange the stones to form the picture, and something might happen.
+unless = alph:aerodactyl
+npc = 3 1 scientist up 0 talk|Whoa! That tremor... The wall at the back opened up! There's a room past it!
+if = alph:aerodactyl
+grid:
+########
+#......#
+#.####.#
+#.#..#.#
+#......#
+#......#
+#......#
+#......#
+#......#
+###..###
+
+[map]
+name = Ruins of Alph Aerodactyl Item Room
+region = Johto
+image = maps/cr_RuinsOfAlphAerodactylItemRoom.png
+objects = sprites
+indoor = yes
+door = 3 9 warp|Ruins of Alph Aerodactyl Chamber|4|1|down
+door = 4 9 warp|Ruins of Alph Aerodactyl Chamber|4|1|down
+item = 2 6 Sitrus Berry
+item = 5 6 Moon Stone
+item = 2 4 Heal Powder
+item = 5 4 Energy Root
+grid:
+########
+#.#..#.#
+#......#
+#......#
+#.#..#.#
+#......#
+#.#..#.#
+#......#
+#......#
+###..###
+
+[map]
+name = Ruins of Alph Inner Chamber
+region = Johto
+image = maps/cr_RuinsOfAlphInnerChamber.png
+objects = sprites
+indoor = yes
+wild = Ruins of Alph (Inner Chamber)
+wildif = alph:any
+door = 10 13 warp|Ruins of Alph|15|29|down
+door = 3 15 warp|Ruins of Alph Ho-Oh Chamber|3|4|down
+if = alph:hooh
+door = 4 15 warp|Ruins of Alph Ho-Oh Chamber|4|4|down
+if = alph:hooh
+door = 15 3 warp|Ruins of Alph Kabuto Chamber|3|4|down
+if = alph:kabuto
+door = 16 3 warp|Ruins of Alph Kabuto Chamber|4|4|down
+if = alph:kabuto
+door = 3 21 warp|Ruins of Alph Omanyte Chamber|3|4|down
+if = alph:omanyte
+door = 4 21 warp|Ruins of Alph Omanyte Chamber|4|4|down
+if = alph:omanyte
+door = 15 24 warp|Ruins of Alph Aerodactyl Chamber|3|4|down
+if = alph:aerodactyl
+door = 16 24 warp|Ruins of Alph Aerodactyl Chamber|4|4|down
+if = alph:aerodactyl
+sign = 2 3 It's a replica of an ancient Pokemon.
+sign = 5 3 It's a replica of an ancient Pokemon.
+sign = 8 3 It's a replica of an ancient Pokemon.
+sign = 11 3 It's a replica of an ancient Pokemon.
+sign = 14 3 It's a replica of an ancient Pokemon.
+sign = 17 3 It's a replica of an ancient Pokemon.
+sign = 2 8 It's a replica of an ancient Pokemon.
+sign = 5 8 It's a replica of an ancient Pokemon.
+sign = 8 8 It's a replica of an ancient Pokemon.
+sign = 11 8 It's a replica of an ancient Pokemon.
+sign = 14 8 It's a replica of an ancient Pokemon.
+sign = 17 8 It's a replica of an ancient Pokemon.
+sign = 2 13 It's a replica of an ancient Pokemon.
+sign = 17 13 It's a replica of an ancient Pokemon.
+sign = 2 18 It's a replica of an ancient Pokemon.
+sign = 5 18 It's a replica of an ancient Pokemon.
+sign = 8 18 It's a replica of an ancient Pokemon.
+sign = 11 18 It's a replica of an ancient Pokemon.
+sign = 14 18 It's a replica of an ancient Pokemon.
+sign = 17 18 It's a replica of an ancient Pokemon.
+sign = 2 24 It's a replica of an ancient Pokemon.
+sign = 5 24 It's a replica of an ancient Pokemon.
+sign = 8 24 It's a replica of an ancient Pokemon.
+sign = 11 24 It's a replica of an ancient Pokemon.
+sign = 14 24 It's a replica of an ancient Pokemon.
+sign = 17 24 It's a replica of an ancient Pokemon.
+npc = 10 17 scientist wander 0 talk|The Unown... they appeared when the puzzle was solved! There are so many kinds - like letters!
+if = alph:any
+grid:
+####################
+#cccccccccccccccccc#
+#c#cc#cc#cc#cc#cc#c#
+#c#cc#cc#cc#cc#cc#c#
+#cccccccccccccccccc#
+###cc###############
+#cccccccccccccccccc#
+#c#cc#cc#cc#cc#cc#c#
+#c#cc#cc#cc#cc#cc#c#
+#cccccccccccccccccc#
+###############cc###
+#cccccccccccccccccc#
+#c#cccccccccccccc#c#
+#c#cccccccccccccc#c#
+#cccccccccccccccccc#
+###cc###############
+#cccccccccccccccccc#
+#c#cc#cc#cc#cc#cc#c#
+#c#cc#cc#cc#cc#cc#c#
+#cccccccccccccccccc#
+###############cc###
+#cccccccccccccccccc#
+#cccccccccccccccccc#
+#c#cc#cc#cc#cc#cc#c#
+#c#cc#cc#cc#cc#cc#c#
+#cccccccccccccccccc#
+####################
+####################

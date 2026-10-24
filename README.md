@@ -315,6 +315,9 @@ goes back to the menu (your place is saved).
   Youngster on Route 1, Blue at Viridian's west exit when the story is there).
 - Tall grass: wild Pokemon from that route (one at a time), straight into battle with your party (a
   flash-and-wipe, no team screen). Wild Pokemon are never more than 1 level above your strongest.
+- **Auto-Battle** (wild Pokemon only): press Select on the gamepad (Backspace on the keyboard) in a wild battle and
+  your side fights on its own with the CPU's best play; press it again to take over. It stays on for the next wild
+  battles until you switch it off (it won't throw Poke Balls - switch it off to catch).
 - The Pokemon Center Nurse heals, the Mart clerk sells; your lead Pokemon follows you; black out and
   you're back home with Mom.
 - Local co-op: split screen (Red and Leaf). Each player's wild battle, Healing Center and Mart run in
@@ -340,6 +343,22 @@ Department Store, Team Rocket's HQ, the Lighthouse, the Whirl Islands and the Jo
   Elite Four, Lance, Red) stand where the story puts them. Field moves use Johto's badges there (Cut: Hive Badge).
 - To Kanto and back, once you've beaten a Pokemon League: the S.S. Aqua (Olivine Port / Vermilion City), the
   Magnet Train (Goldenrod / Saffron) and the Pokemon League Reception Gate (Route 26 / Route 22).
+- The **Pokegear** (Mom has it back from the repair shop): Johto's route trainers who give you their number ring
+  for a rematch now and then, like Hoenn's Pokenav.
+- **Apricorn trees** on Johto's routes (one Apricorn a tree a day); **Kurt** in Azalea Town, once the Slowpoke Well
+  is cleared, turns them into Level, Lure, Moon, Friend, Love, Fast and Heavy Balls, each with its HeartGold effect.
+- The **Bug-Catching Contest** at the National Park (Route 35 / 36 gates, after Goldenrod's gym): 20 Park Balls,
+  one bug kept at a time, judged at the end for a Sun Stone, Everstone or berry - and the bug joins your party.
+- **Lugia, Ho-Oh and Celebi** wait on the map: Lugia in the Whirl Islands' chamber, Ho-Oh on the Bell Tower's roof
+  (its floors are Crystal's Tin Tower), Celebi at the Ilex Forest shrine.
+- The **Ruins of Alph**: the Kabuto, Omanyte, Aerodactyl and Ho-Oh chambers have Crystal's stone puzzles (swap the
+  sixteen stones back into the picture, `tools/hgss_alph.py`). Solve one and the floor gives way into the Inner
+  Chamber, where the Unown start appearing, and the chamber's back wall opens on its item room.
+- HeartGold's **Battle Frontier** past Route 40 (after Johto's League): Frontier Access and the Frontier rendered
+  from the HeartGold models (`tools/hgss_frontier.py`). The Tower (Palmer), Factory (rentals, Thorton), Arcade (a
+  roulette before each battle: weather, halved HP, levels up), Castle (no healing between battles - spend Castle
+  Points at the desk) and Hall (one Pokemon against one, a new type each battle, Argenta at 50 and 170). No
+  Pokeathlon.
 
 ### Hoenn (Emerald)
 
@@ -371,6 +390,15 @@ night, the weather and every system from Kanto and Johto work the same here.
   Pokemon), Pike (three doors per room) and Pyramid, each with its Frontier Brain and silver / gold Symbols at
   Emerald's streaks.
 - Ferries between regions after a League: the S.S. Tidal joins Vermilion, Olivine and Hoenn.
+
+### Kanto extras
+
+- The **Safari Zone** (Fuchsia City; Hoenn's is past Route 121): 500 coins for 30 Safari Balls and 600 steps. Wild
+  Pokemon meet you without a battle - throw a ball, bait (it stays longer, harder to catch) or a rock (easier to
+  catch, quicker to run). Played on your own; in co-op the gate says so.
+- The **Pokemon Mansion**'s secret switches swap which barriers stand, on every floor (`tools/frlg_mansion.py`).
+- Every story trainer stands on the map now (Route 1's Youngster, Diglett's Cave, Celadon, the Safari Zone,
+  Seafoam, Cinnabar).
 
 ### The Sevii Islands
 
@@ -676,6 +704,7 @@ reacts fast and aims perfectly: Easy wins ~9%, Normal ~31%, Hard ~57%.
   (DeviantArt); the sheet's Vivillon patterns are by **LunarDusk6**.
 - Alola (Gen 7) Pokemon: "Gen 7 (Alola) Overworld Sprites" by **Princess-Phoenix, Larryturbo, Kidkatt, Zender1752
   and SageDeoxys** (DeviantArt, posted by Larryturbo).
+- The Ruins of Alph's puzzle pictures and chambers: **pret/pokecrystal** (`gfx/unown_puzzle`).
 - Johto's walked maps: the "Pokemon HeartGold / SoulSilver - Locations" models from **The Models Resource** (rendered
   top-down by `tools/hgss_render.py`); the gyms, towers and other special rooms are drawn from **pret/pokecrystal**,
   and the doors, people, lines and trainers come from **pret/pokeheartgold** (`tools/hgss_world.py`).

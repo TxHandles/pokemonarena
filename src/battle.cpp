@@ -421,6 +421,7 @@ std::string Battle::TeamLabel(int team) const {
 
 // ---------------------------------------------------------------- Setup
 
+bool gBallFished = false;         // this battle was hooked with a rod (the Lure Ball)
 bool gBallWater = false;          // this battle was met on or under the water (the Dive Ball)
 std::set<int> gBallOwned;          // species the thrower has caught before (the Repeat Ball)
 void Battle::Start(const BattleSetup& su) {
@@ -2588,6 +2589,15 @@ bool Battle::ThrowBall(int s, int k) {
     if (d->name == "Nest Ball") ballMul = std::max(1.0f, std::min(3.0f, (40 - f.level) / 10.0f));
     if (d->name == "Dive Ball" && gBallWater) ballMul = 3.5f;   // met surfing, diving or fishing
     if (d->name == "Repeat Ball" && gBallOwned.count(f.RealSpecies())) ballMul = 3.5f;
+    {   // Kurt's Apricorn balls
+        const SpeciesDef& sp = *f.sp;
+        if (d->name == "Level Ball") { int mine = me.level, theirs = std::max(1, f.level); ballMul = mine >= 4 * theirs ? 8 : mine >= 2 * theirs ? 4 : mine > theirs ? 2 : 1; }
+        if (d->name == "Lure Ball" && gBallFished) ballMul = 3;
+        if (d->name == "Moon Ball") for (const auto& e : sp.evoAlts) if (e.item == "Moon Stone") ballMul = 4;
+        if (d->name == "Love Ball" && me.RealSpecies() == f.RealSpecies()) ballMul = 8;
+        if (d->name == "Fast Ball" && sp.spd >= 100) ballMul = 4;
+        if (d->name == "Heavy Ball") ballMul = sp.weightHg >= 3000 ? 4 : sp.weightHg >= 2000 ? 2.5f : sp.weightHg >= 1000 ? 1.5f : 0.75f;
+    }
     if (d->name == "Timer Ball") ballMul = std::min(4.0f, 1.0f + time / 30.0f);   // (Emerald: +0.3 a turn; here +1 every 30 s)
     float st = (f.st.major == Status::Sleep || f.st.major == Status::Freeze) ? 2.0f : f.st.major != Status::None ? 1.5f : 1.0f;
     float a = (3 * mhp - 2 * hp) * CatchRateOf(*f.sp) * ballMul / (3 * mhp) * st;

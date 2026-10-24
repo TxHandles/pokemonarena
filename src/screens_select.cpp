@@ -185,7 +185,7 @@ void BeginTeamSelect(Game& g) {
     if (TwoHumans(g) && g.shared) g.cursor[1] = std::min(GRID_COLS - 1, (int)g.roster[0].size() - 1);
     g.teamSize = IsStoryMode(g.mode) ? MAX_TEAM_SIZE : Cfg().teamSize;
     if (g.mode == Mode::Doubles) g.teamSize = std::min(3, g.teamSize);
-    if (g.tower && g.frontier == 5) {   // the Battle Factory: six rental Pokemon each to pick from (your own rest)
+    if (g.tower && FrontierRentals(g.frontier)) {   // the Battle Factory: six rental Pokemon each to pick from (your own rest)
         for (int p = 0; p < (IsCoop(g.mode) ? 2 : 1); p++) {
             const Profile& P = IsCoop(g.mode) ? g.coopP[p] : g.profile;
             int sum = 0, n = 0;
@@ -209,11 +209,12 @@ void BeginTeamSelect(Game& g) {
             for (auto& e : g.roster[p]) e.ownedId = -1;   // (not yours: the results leave your Pokemon alone)
         }
     }
-    if (g.tower)   // the Battle Tower heals everyone: anyone in the party can fight
+    if (g.tower && g.frontier != 11)   // the Battle Tower heals everyone: anyone in the party can fight (not the Castle)
         for (int p = 0; p < 2; p++) for (auto& e : g.roster[p]) e.hpFrac = 1;
     if (IsCoop(g.mode)) g.teamSize = g.raid ? MAX_TEAM_SIZE : 3;  // each player brings up to 3 of their party (a raid: 6)
     else if (g.tower) g.teamSize = g.frontier ? Frontier(g.frontier).teamSize : TowerTeamSize(g.towerFloor);
     else if (IsStoryMode(g.mode)) g.teamSize = std::min(g.teamSize, HealthyCount(g.profile));
+    if (g.tower && g.frontier == 11 && !IsCoop(g.mode)) g.teamSize = std::max(1, std::min(g.teamSize, HealthyCount(g.profile)));   // (the Castle: who's still standing)
     if (!IsCoop(g.mode))  // co-op: each player locks in early if they have fewer
         for (int p = 0; p < HumanPickers(g); p++) g.teamSize = std::min(g.teamSize, (int)g.roster[p].size());
     g.teamSize = std::max(1, g.teamSize);
@@ -386,10 +387,10 @@ void UpdateSelBox(Game& g, int p, const PlayerInput& in, bool boxKey) {
     P.mons[a].boxed = false;
     P.mons[b].boxed = true;
     ros = ProfileRoster(P, true);
-    if (g.tower) for (auto& e : ros) e.hpFrac = 1;
+    if (g.tower && g.frontier != 11) for (auto& e : ros) e.hpFrac = 1;
     auto& pk = g.picks[p];
     bool unpicked = false;
-    if (IsStoryMode(g.mode) && !g.tower && cur < (int)ros.size() && ros[cur].hpFrac <= 0) {   // a fainted one can't be picked
+    if (IsStoryMode(g.mode) && (!g.tower || g.frontier == 11) && cur < (int)ros.size() && ros[cur].hpFrac <= 0) {   // a fainted one can't be picked
         auto it = std::find(pk.begin(), pk.end(), cur);
         if (it != pk.end()) { pk.erase(it); unpicked = true; }
     }
@@ -953,7 +954,7 @@ void StartBattleFromSelect(Game& g) {
         for (auto& c : g.cpuTeam)
             if (c.level > top + 1 && c.boss <= 0 && c.flee <= 0) { c.level = std::max(2, top + 1); c.moves = MovesAtLevel(AllSpecies()[c.species], c.level); }
     }
-    if (g.tower)   // the Battle Tower: everyone fights at full health (and the profile's HP isn't touched)
+    if (g.tower && g.frontier != 11)   // the Battle Tower: everyone fights at full health (and the profile's HP isn't touched)
         for (auto& sd : su.side)
             if (sd.team_ == 0 || &sd == &su.side[0]) for (auto& c : sd.team) c.hpFrac = 1;
     if (IsStoryMode(g.mode)) {   // Story: where it happens, day or night, and the season's weather
@@ -1029,11 +1030,24 @@ void StartBattleFromSelect(Game& g) {
             if (g.frontier == 7) for (int h = 0; h < 4; h++) sd.hotN[h] = 0;    // the Pyramid: no items
         }
         if (g.frontier == 4) su.judgeTime = 93;   // the Arena: 90 seconds (after the intro), then the judges
+        if (g.frontier == 10) {   // the Arcade: what the board landed on
+            int e = ArcadeEffect(g);
+            if (e >= 1 && e <= 4) su.weather = e == 1 ? Weather::Rain : e == 2 ? Weather::Sun : e == 3 ? Weather::Sand : Weather::Snow;
+            for (int k = 0; k < (int)su.side.size(); k++) {
+                SideSetup& sd = su.side[k];
+                int team = sd.team_ >= 0 ? sd.team_ : k;
+                for (auto& c : sd.team) {
+                    if ((e == 5 && team == 0) || (e == 6 && team != 0)) c.hpFrac = 0.5f;
+                    if ((e == 7 && team == 0) || (e == 8 && team != 0)) { c.level = std::min(100, c.level + 3); c.moves = MovesAtLevel(AllSpecies()[c.species], c.level); }
+                }
+            }
+        }
     }
     gBallOwned.clear();   // (the Repeat Ball: species you've caught; the Dive Ball: met on or under the water)
     for (int k = 0; k < (g.coop ? 2 : 1); k++)
         for (const auto& m : Prof(g, k).mons) if (MonSpecies(m) >= 0) gBallOwned.insert(MonSpecies(m));
     gBallWater = WorldBattleOnWater(g);
+    gBallFished = g.ow.wildBattle && g.ow.wildMethod.find("rod") != std::string::npos;
     g.battle.Start(su);
     g.paused = false;
     g.pauseSel = 0;
@@ -1382,10 +1396,23 @@ bool UpdateWheel(Game& g, PlayerInput& p, float dt) {
 
 void (*gBattleStepHook)(const Battle&, float, const PlayerInput*) = nullptr;
 
+// Auto-Battle (wild Pokemon only): Select on the gamepad (Backspace on the keyboard) hands your side to the CPU's
+// best play and back. It stays on for the next wild battles until you switch it off.
+bool gAutoWild[2] = {false, false};
+static bool AutoBattleAllowed(const Game& g) { return g.ow.wildBattle && !g.on.active; }
+
 void UpdateBattleScreen(Game& g, float dt) {
     if (OnlineBattleUpdate(g, dt)) return;
     bool tp = TwoHumans(g);
     PlayerInput in[2] = {ReadInput(0, tp), ReadInput(1, tp)};
+    if (AutoBattleAllowed(g) && !g.paused) {
+        for (int p = 0; p < 2; p++) {
+            bool press = IsGamepadAvailable(p) && IsGamepadButtonPressed(p, GAMEPAD_BUTTON_MIDDLE_LEFT);
+            if (p == 0 && IsKeyPressed(KEY_BACKSPACE)) press = true;
+            if (press) { gAutoWild[p] = !gAutoWild[p]; PlaySfx(gAutoWild[p] ? Sfx::MenuOk : Sfx::MenuBack); }
+            if (g.battle.AutoBattle(p) != gAutoWild[p]) g.battle.SetAutoBattle(p, gAutoWild[p]);
+        }
+    }
     if (WheelMode(g) && !g.paused) {
         if (UpdateWheel(g, in[0], dt)) return;
         // A chosen swap (wheel or keys 1-6) waits for the cooldown instead of being lost.
@@ -1430,6 +1457,16 @@ void UpdateBattleScreen(Game& g, float dt) {
 
 void DrawBattleScreen(const Game& g) {
     g.battle.Draw();
+    if (AutoBattleAllowed(g) && !g.on.active) {   // Auto-Battle's label (wild battles)
+        bool on = gAutoWild[0] || gAutoWild[1];
+        if (on) {
+            float a = 0.75f + 0.25f * std::sin((float)GetTime() * 4);
+            DrawRectangle(VW / 2 - 92, 66, 184, 16, Fade(UI_INK, 0.7f));
+            DrawTextCentered(TextFormat("AUTO-BATTLE  (%s to stop)", IsGamepadAvailable(0) ? "Select" : "Backspace"), VW / 2, 69, 10, Fade(UI_GOLD, a), false);
+        } else {
+            GDrawText(TextFormat("%s  Auto-Battle", IsGamepadAvailable(0) ? "Select" : "Bksp"), 8, VH - 98, 10, Fade(UI_DIM, 0.8f));
+        }
+    }
     if (g.on.active) {
         GDrawText(TextFormat("%dms", net::PingMs()), VW - 34, VH - 12, 10, Fade(UI_DIM, 0.7f));
         if (g.on.stallT > 0.5f) DrawTextCentered("Waiting for your partner's connection...", VW / 2, 150, 10, UI_GOLD, false);

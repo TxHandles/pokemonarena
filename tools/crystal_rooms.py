@@ -17,8 +17,12 @@ COLL = {   # Crystal's collision -> our grid
     "STAIRCASE": ".", "LADDER": ".", "CAVE": ".", "WARP_PANEL": ".", "WARP_CARPET_DOWN": ".", "WARP_CARPET_UP": ".",
     "WARP_CARPET_LEFT": ".", "WARP_CARPET_RIGHT": ".", "LEDGE_DOWN": "v", "LEDGE_LEFT": "<", "LEDGE_RIGHT": ">",
     "HOP_DOWN": "v", "HOP_LEFT": "<", "HOP_RIGHT": ">", "HOP_UP": "#", "WARP_PANEL_2": ".", "STAIRCASE_2": ".",
-    "BRIDGE": ".", "PIT_ICE": ".", "SPINNER": ".",
+    "BRIDGE": ".", "PIT_ICE": ".", "SPINNER": ".", "UP_WALL": "^",   # ^: floor with a wall along its top edge
 }
+
+
+HOPS = {"HOP_DOWN": [(0, 1, "v")], "HOP_LEFT": [(-1, 0, "<")], "HOP_RIGHT": [(1, 0, ">")],
+        "HOP_DOWN_RIGHT": [(0, 1, "v"), (1, 0, ">")], "HOP_DOWN_LEFT": [(0, 1, "v"), (-1, 0, "<")]}
 
 
 def snake(n):
@@ -138,6 +142,21 @@ class CrystalRooms:
                 if b < len(coll):
                     for q in range(4):
                         grid[by * 2 + q // 2][bx * 2 + q % 2] = COLL.get(coll[b][q], "#")
+        # Gen 2 ledges: you stand ON the ledge square and jump two squares on, over the next one (whatever it is).
+        # Ours: the ledge is the square you jump over - so the hop square becomes floor, the next one our ledge.
+        hops = []
+        for by in range(h):
+            for bx in range(w):
+                b = blk[by * w + bx] if by * w + bx < len(blk) else 0
+                if b < len(coll):
+                    for q in range(4):
+                        for d in HOPS.get(coll[b][q], ()):
+                            hops.append((bx * 2 + q % 2, by * 2 + q // 2, d))
+        for x, y, (dx, dy, ch) in hops:
+            grid[y][x] = "."
+        for x, y, (dx, dy, ch) in hops:
+            if 0 <= y + dy < h * 2 and 0 <= x + dx < w * 2 and (x + dx, y + dy) not in [(hx, hy) for hx, hy, _ in hops]:
+                grid[y + dy][x + dx] = ch
         room = Room()
         room.name, room.image, room.grid, room.w, room.h = name, img, ["".join(r) for r in grid], w * 2, h * 2
         room.coll = [[None] * (w * 2) for _ in range(h * 2)]
@@ -243,7 +262,7 @@ def clean_crystal(s):
     s = re.sub(r"\b[A-Z][A-Z']+\b", cap, s)
     s = re.sub(r"\s+", " ", s).strip()
     s = re.sub(r"(\w)- (\w)", r"\1\2", s).replace("GoldenRod", "Goldenrod").replace("@P@", "{PLAYER}")
-    return s.replace("/", "-").replace("|", "-")
+    return s.replace("/", "-").replace("|", "-").replace("PokeMon", "Pokemon")
 
 
 CLASS_NAME = {"GRUNTM": "Rocket Grunt", "GRUNTF": "Rocket Grunt", "EXECUTIVEM": "Rocket Executive", "EXECUTIVEF": "Rocket Executive",
